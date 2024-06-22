@@ -1,0 +1,146 @@
+name: Expo Publish
+on: push
+
+# Publishes a PWA and reports any failures
+# Note: We disable pipefail (shell: bash {0}) for most of this process so we can
+# handle reporting those failures in a later step.
+
+jobs:
+  publish:
+    name: Install and publish
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - name: Checkout
+        if: ${{ env.BUILD_STATUS == 0 }}
+        uses: actions/checkout@v3
+
+      - name: Cache Node Modules
+        id: cache-nodemodules
+        uses: actions/cache@v2
+        if: ${{ env.BUILD_STATUS == 0 }}
+        env: 
+          cache-name: cache-node-modules
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-yarn-${{ env.cache-name }}-${{ hashFiles('**/package.json') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-${{ env.cache-name }}-
+
+      # FAIL FAST if these three are missing
+      - name: Has SECRET
+        shell: bash {0}
+        run: |
+          [ -n "${{ secrets.PUBLICATION_WEBHOOK_SECRET }}" ]
+          echo "BUILD_STATUS=$?" >> $GITHUB_ENV
+
+      - name: Has EXPO_TOKEN
+        shell: bash {0}
+        run: |
+          [ -n "${{ secrets.EXPO_TOKEN }}" ]
+          echo "BUILD_STATUS=$?" >> $GITHUB_ENV
+
+      - name: Has API
+        if: ${{ env.BUILD_STATUS == 0 }}
+        shell: bash {0}
+        run: |
+          [ -n "${{ secrets.DRAFTBIT_API_URL }}" ]
+          echo "BUILD_STATUS=$?" >> $GITHUB_ENV
+
+      - name: Setup Node
+        if: ${{ env.BUILD_STATUS == 0 }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+
+      - name: Install Dependencies
+        if: steps.cache-nodemodules.outputs.cache-hit != 'true'
+        shell: bash {0}
+        run: |
+          yarn install --non-interactive
+          echo "BUILD_STATUS=$?" >> $GITHUB_ENV
+
+      - name: Install Dependencies (automatic retry)
+        if: ${{ env.BUILD_STATUS == 1 }}
+        shell: bash {0}
+        run: |
+          yarn install --non-interactive
+          echo "BUILD_STATUS=$?" >> $GITHUB_ENV
+
+      - name: Build Project
+        if: ${{ env.BUILD_STATUS == 0 }}
+        shell: bash {0}
+        env:
+          REPO: ${{ github.repository }}
+          FLAG_PWA: ${{ secrets.FLAG_PWA }}
+        run: |
+          export WEB_PUBLIC_URL=https://$(basename $REPO).draftbit.app/
+          npx expo export:web
+          echo "BUILD_STATUS=$?" >> $GITHUB_ENV
+
+      - name: Build Project (automatic retry)
+        if: ${{ env.BUILD_STATUS == 1 }}
+        shell: bash {0}
+        env:
+          REPO: ${{ github.repository }}
+          FLAG_PWA: ${{ secrets.FLAG_PWA }}
+        run: |
+          export WEB_PUBLIC_URL=https://$(basename $REPO).draftbit.app/
+          npx expo export:web
+          echo "BUILD_STATUS=$?" >> $GITHUB_ENV
+
+      # See bash file for details
+      - name: Safari Service Worker Hack
+        if: ${{ env.BUILD_STATUS == 0 }}
+        shell: bash {0}
+        env:
+          REPO: ${{ github.repository }}
+          FLAG_PWA: ${{ secrets.FLAG_PWA }}
+        run: |
+          test "$FLAG_PWA" == "true" && echo "FLAG_PWA enabled"
+          bash ./safarifix.bash
+          echo "BUILD_STATUS=$?" >> $GITHUB_ENV
+
+      - name: Deploy
+        if: ${{ env.BUILD_STATUS == 0 }}
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GH_AUTH_TOKEN }}
+          publish_dir: ./web-build
+
+      # If a user has unpublished an App, pages will have been disabled.
+      # Because enabling is idempotent, force enable them every run.
+      # We enable it here so we can guarantee there is a "gh-pages" branch
+      # because it is created in the step above, or in the case there is
+      # a failure above, this step won't run and we're still fine.
+      - name: Force Enable Pages
+        continue-on-error: true
+        run: |
+          # We seem to randomly be seeing races where the API is unaware of the
+          # `gh-pages` branch we're targeting and so the process fails here.
+          # Sleep for now TODO(pckilgore) exponentially back-off here if there
+          # are still races.
+          sleep 5
+          curl --request POST \
+          --url https://api.github.com/repos/${{ github.repository }}/pages \
+          --header 'Authorization: Bearer ${{ secrets.GH_AUTH_TOKEN }}' \
+          --header 'Accept: application/vnd.github+json' \
+          --header 'Content-Type: application/json' \
+          --data '{"source": { "branch": "gh-pages", "path": "/" }}'
+
+      - name: Check for expo setup failure
+        if: ${{ failure() }}
+        shell: bash {0}
+        run: echo "BUILD_STATUS=1" >> $GITHUB_ENV
+
+      - name: Report Build Status to Draftbit
+        if: ${{ always() }}
+        shell: bash {0}
+        env:
+          PUBLICATION_UUID: ${{ secrets.PUBLICATION_UUID }}
+          DRAFTBIT_API_URL: ${{ secrets.DRAFTBIT_API_URL }}
+          PUBLICATION_WEBHOOK_SECRET: ${{ secrets.PUBLICATION_WEBHOOK_SECRET }}
+        run: |
+          export REPORT_ACTION=$([ "$BUILD_STATUS" -eq "0" ] && echo "ReportSuccess" || echo "ReportFailure");
+          export REPORT_TARGET_UUID=$(basename $PUBLICATION_UUID);
+          bash ./report-script.bash

@@ -1,0 +1,576 @@
+import React from 'react';
+import * as GlobalStyles from '../GlobalStyles.js';
+import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
+import * as GlobalVariables from '../config/GlobalVariableContext';
+import Images from '../config/Images';
+import Breakpoints from '../utils/Breakpoints';
+import * as StyleSheet from '../utils/StyleSheet';
+import showAlertUtil from '../utils/showAlert';
+import useWindowDimensions from '../utils/useWindowDimensions';
+import {
+  Button,
+  KeyboardAvoidingView,
+  Link,
+  ScreenContainer,
+  Surface,
+  TextInput,
+  withTheme,
+} from '@draftbit/ui';
+import { Image, Keyboard, Text, View } from 'react-native';
+
+const RequestDemoScreen = props => {
+  const { theme, navigation } = props;
+  const dimensions = useWindowDimensions();
+  const Constants = GlobalVariables.useValues();
+  const Variables = Constants;
+  const [companyVar, setCompanyVar] = React.useState('');
+  const [demoPressed, setDemoPressed] = React.useState(false);
+  const [emailVar, setEmailVar] = React.useState('');
+  const [errorMessage, setErrorMessage] = React.useState('');
+  const [messageVar, setMessageVar] = React.useState('');
+  const [mobileVar, setMobileVar] = React.useState('');
+  const [nameVar, setNameVar] = React.useState('');
+  const validationForm = () => {
+    var emailPattern = /\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b/;
+    // var passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
+
+    if (!emailVar.match(emailPattern)) {
+      setErrorMessage('*Invalid email address!');
+      return false;
+    }
+
+    // if (!passwordValue.match(passwordPattern)) {
+    //     setErrorMessage('*Password must be at least 8 characters, and contain at least one lowercase letter, one uppercase letter, and one digit.');
+    //     return false;
+    // }
+
+    console.log('Inputs are valid!'); // All checks passed
+    setErrorMessage(''); // Clear any previous error message
+    return true;
+  };
+  const xanoCollectionRequestDemoPOST = XanoCollectionApi.useRequestDemoPOST();
+  const fullName7AwDaCGdRef = React.useRef();
+  const companyNameZZjKNDmJRef = React.useRef();
+  const mobileBYuqOWrYRef = React.useRef();
+  const messageMJ6KCxrqRef = React.useRef();
+
+  return (
+    <ScreenContainer
+      hasSafeArea={false}
+      hasLeftSafeArea={true}
+      hasRightSafeArea={true}
+      hasTopSafeArea={false}
+      scrollable={false}
+      style={StyleSheet.applyWidth(
+        { backgroundColor: 'rgb(0, 0, 0)', justifyContent: 'center' },
+        dimensions.width
+      )}
+    >
+      <View
+        style={StyleSheet.applyWidth(
+          { alignContent: 'center', alignItems: 'center', alignSelf: 'center' },
+          dimensions.width
+        )}
+      >
+        {/* NKP Logo */}
+        <Image
+          {...GlobalStyles.ImageStyles(theme)['Image'].props}
+          resizeMode={'contain'}
+          source={Images.LogoMobileApp}
+          style={StyleSheet.applyWidth(
+            StyleSheet.compose(GlobalStyles.ImageStyles(theme)['Image'].style, {
+              width: 300,
+            }),
+            dimensions.width
+          )}
+        />
+        <Text
+          accessible={true}
+          {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+          style={StyleSheet.applyWidth(
+            StyleSheet.compose(
+              GlobalStyles.TextStyles(theme)['screen_title'].style,
+              {
+                alignSelf: 'center',
+                color: theme.colors['Surface'],
+                fontFamily: 'Quicksand_400Regular',
+                marginTop: 15,
+                textAlign: 'center',
+              }
+            ),
+            dimensions.width
+          )}
+        >
+          {
+            'You are about to log in to the M&A Insights mobile application available on the App Store and Play Store, respectively.'
+          }
+        </Text>
+        {/* Title */}
+        <Text
+          accessible={true}
+          {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+          style={StyleSheet.applyWidth(
+            StyleSheet.compose(
+              GlobalStyles.TextStyles(theme)['screen_title'].style,
+              {
+                alignSelf: 'center',
+                color: 'rgb(255, 255, 255)',
+                fontFamily: 'Quicksand_700Bold',
+                fontSize: 25,
+                margin: 10,
+                padding: 10,
+              }
+            ),
+            dimensions.width
+          )}
+        >
+          {'Request Demo'}
+        </Text>
+      </View>
+
+      <KeyboardAvoidingView
+        behavior={'padding'}
+        enabled={true}
+        keyboardVerticalOffset={0}
+      >
+        {/* Demo Window */}
+        <View>
+          <Surface
+            {...GlobalStyles.SurfaceStyles(theme)['Surface'].props}
+            elevation={2}
+            style={StyleSheet.applyWidth(
+              StyleSheet.compose(
+                GlobalStyles.SurfaceStyles(theme)['Surface'].style,
+                { padding: 10 }
+              ),
+              dimensions.width
+            )}
+          >
+            {/* Emailt */}
+            <Text
+              accessible={true}
+              {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+              style={StyleSheet.applyWidth(
+                StyleSheet.compose(
+                  GlobalStyles.TextStyles(theme)['screen_title'].style,
+                  { fontFamily: 'Quicksand_400Regular', marginLeft: 10 }
+                ),
+                dimensions.width
+              )}
+            >
+              {'Email'}
+            </Text>
+            {/* Email */}
+            <TextInput
+              autoCapitalize={'none'}
+              changeTextDelay={500}
+              onChangeText={newEmailValue => {
+                try {
+                  setEmailVar(newEmailValue);
+                } catch (err) {
+                  console.error(err);
+                }
+              }}
+              onSubmitEditing={() => {
+                try {
+                  fullName7AwDaCGdRef.current.focus();
+                } catch (err) {
+                  console.error(err);
+                }
+              }}
+              webShowOutline={true}
+              {...GlobalStyles.TextInputStyles(theme)['Login Text Style'].props}
+              autoComplete={'email'}
+              autoCorrect={false}
+              autoFocus={false}
+              clearButtonMode={'while-editing'}
+              keyboardType={'email-address'}
+              numberOfLines={1}
+              placeholder={'Enter email...'}
+              placeholderTextColor={theme.colors['Medium']}
+              selectionColor={theme.colors['Strong']}
+              spellcheck={true}
+              style={StyleSheet.applyWidth(
+                StyleSheet.compose(
+                  GlobalStyles.TextInputStyles(theme)['Login Text Style'].style,
+                  {
+                    borderColor: theme.colors['Strong'],
+                    borderStyle: 'solid',
+                    fontFamily: 'Quicksand_400Regular',
+                    margin: 10,
+                    padding: 10,
+                  }
+                ),
+                dimensions.width
+              )}
+              value={emailVar}
+            />
+            {/* Full Namet */}
+            <Text
+              accessible={true}
+              {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+              style={StyleSheet.applyWidth(
+                StyleSheet.compose(
+                  GlobalStyles.TextStyles(theme)['screen_title'].style,
+                  { fontFamily: 'Quicksand_400Regular', marginLeft: 10 }
+                ),
+                dimensions.width
+              )}
+            >
+              {'Full Name'}
+            </Text>
+            {/* Full Name */}
+            <TextInput
+              changeTextDelay={500}
+              onChangeText={newFullNameValue => {
+                try {
+                  setNameVar(newFullNameValue);
+                } catch (err) {
+                  console.error(err);
+                }
+              }}
+              onSubmitEditing={() => {
+                try {
+                  companyNameZZjKNDmJRef.current.focus();
+                } catch (err) {
+                  console.error(err);
+                }
+              }}
+              webShowOutline={true}
+              {...GlobalStyles.TextInputStyles(theme)['Login Text Style'].props}
+              autoCapitalize={'words'}
+              autoComplete={'name'}
+              autoCorrect={false}
+              autoFocus={false}
+              clearButtonMode={'while-editing'}
+              keyboardType={'default'}
+              numberOfLines={1}
+              placeholder={'Enter full name...'}
+              placeholderTextColor={theme.colors['Medium']}
+              ref={fullName7AwDaCGdRef}
+              returnKeyType={'next'}
+              selectionColor={theme.colors['Strong']}
+              spellcheck={true}
+              style={StyleSheet.applyWidth(
+                StyleSheet.compose(
+                  GlobalStyles.TextInputStyles(theme)['Login Text Style'].style,
+                  {
+                    borderColor: theme.colors['Strong'],
+                    borderStyle: 'solid',
+                    fontFamily: 'Quicksand_400Regular',
+                    margin: 10,
+                    padding: 10,
+                  }
+                ),
+                dimensions.width
+              )}
+              value={nameVar}
+            />
+            {/* Company Namet */}
+            <Text
+              accessible={true}
+              {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+              style={StyleSheet.applyWidth(
+                StyleSheet.compose(
+                  GlobalStyles.TextStyles(theme)['screen_title'].style,
+                  { fontFamily: 'Quicksand_400Regular', marginLeft: 10 }
+                ),
+                dimensions.width
+              )}
+            >
+              {'Company Name'}
+            </Text>
+            {/* Company Name */}
+            <TextInput
+              autoCapitalize={'none'}
+              changeTextDelay={500}
+              onChangeText={newCompanyNameValue => {
+                try {
+                  setCompanyVar(newCompanyNameValue);
+                } catch (err) {
+                  console.error(err);
+                }
+              }}
+              onSubmitEditing={() => {
+                try {
+                  mobileBYuqOWrYRef.current.focus();
+                } catch (err) {
+                  console.error(err);
+                }
+              }}
+              webShowOutline={true}
+              {...GlobalStyles.TextInputStyles(theme)['Login Text Style'].props}
+              autoCorrect={false}
+              autoFocus={false}
+              clearButtonMode={'while-editing'}
+              numberOfLines={1}
+              placeholder={'Enter company name...'}
+              placeholderTextColor={theme.colors['Medium']}
+              ref={companyNameZZjKNDmJRef}
+              returnKeyType={'next'}
+              selectionColor={theme.colors['Strong']}
+              spellcheck={true}
+              style={StyleSheet.applyWidth(
+                StyleSheet.compose(
+                  GlobalStyles.TextInputStyles(theme)['Login Text Style'].style,
+                  {
+                    borderColor: theme.colors['Strong'],
+                    borderStyle: 'solid',
+                    fontFamily: 'Quicksand_400Regular',
+                    margin: 10,
+                    padding: 10,
+                  }
+                ),
+                dimensions.width
+              )}
+              value={companyVar}
+            />
+            {/* Mobilet */}
+            <Text
+              accessible={true}
+              {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+              style={StyleSheet.applyWidth(
+                StyleSheet.compose(
+                  GlobalStyles.TextStyles(theme)['screen_title'].style,
+                  { fontFamily: 'Quicksand_400Regular', marginLeft: 10 }
+                ),
+                dimensions.width
+              )}
+            >
+              {'Mobile'}
+            </Text>
+            {/* Mobile */}
+            <TextInput
+              autoCapitalize={'none'}
+              changeTextDelay={500}
+              onChangeText={newMobileValue => {
+                try {
+                  setMobileVar(newMobileValue);
+                } catch (err) {
+                  console.error(err);
+                }
+              }}
+              onSubmitEditing={() => {
+                try {
+                  messageMJ6KCxrqRef.current.focus();
+                } catch (err) {
+                  console.error(err);
+                }
+              }}
+              webShowOutline={true}
+              {...GlobalStyles.TextInputStyles(theme)['Login Text Style'].props}
+              autoComplete={'tel'}
+              autoCorrect={false}
+              autoFocus={false}
+              clearButtonMode={'while-editing'}
+              keyboardType={'phone-pad'}
+              numberOfLines={1}
+              placeholder={'Enter mobile...'}
+              placeholderTextColor={theme.colors['Medium']}
+              ref={mobileBYuqOWrYRef}
+              returnKeyType={'next'}
+              selectionColor={theme.colors['Strong']}
+              spellcheck={true}
+              style={StyleSheet.applyWidth(
+                StyleSheet.compose(
+                  GlobalStyles.TextInputStyles(theme)['Login Text Style'].style,
+                  {
+                    borderColor: theme.colors['Strong'],
+                    borderStyle: 'solid',
+                    fontFamily: 'Quicksand_400Regular',
+                    margin: 10,
+                    padding: 10,
+                  }
+                ),
+                dimensions.width
+              )}
+              value={mobileVar}
+            />
+            {/* Messaget */}
+            <Text
+              accessible={true}
+              {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+              style={StyleSheet.applyWidth(
+                StyleSheet.compose(
+                  GlobalStyles.TextStyles(theme)['screen_title'].style,
+                  { fontFamily: 'Quicksand_400Regular', marginLeft: 10 }
+                ),
+                dimensions.width
+              )}
+            >
+              {'Message'}
+            </Text>
+            {/* Message */}
+            <TextInput
+              autoCapitalize={'none'}
+              changeTextDelay={500}
+              onChangeText={newMessageValue => {
+                try {
+                  setMessageVar(newMessageValue);
+                } catch (err) {
+                  console.error(err);
+                }
+              }}
+              webShowOutline={true}
+              {...GlobalStyles.TextInputStyles(theme)['Login Text Style'].props}
+              autoCorrect={false}
+              autoFocus={false}
+              clearButtonMode={'while-editing'}
+              keyboardType={'default'}
+              numberOfLines={1}
+              placeholder={'Enter message...'}
+              placeholderTextColor={theme.colors['Medium']}
+              ref={messageMJ6KCxrqRef}
+              returnKeyType={'done'}
+              selectionColor={theme.colors['Strong']}
+              spellcheck={true}
+              style={StyleSheet.applyWidth(
+                StyleSheet.compose(
+                  GlobalStyles.TextInputStyles(theme)['Login Text Style'].style,
+                  {
+                    borderColor: theme.colors['Strong'],
+                    borderStyle: 'solid',
+                    fontFamily: 'Quicksand_400Regular',
+                    margin: 10,
+                    padding: 10,
+                  }
+                ),
+                dimensions.width
+              )}
+              value={messageVar}
+            />
+            <>
+              {!errorMessage ? null : (
+                <Text
+                  accessible={true}
+                  {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                  style={StyleSheet.applyWidth(
+                    StyleSheet.compose(
+                      GlobalStyles.TextStyles(theme)['screen_title'].style,
+                      {
+                        color: theme.colors['Error'],
+                        fontFamily: 'Quicksand_700Bold',
+                        marginLeft: 10,
+                      }
+                    ),
+                    dimensions.width
+                  )}
+                >
+                  {errorMessage}
+                </Text>
+              )}
+            </>
+            {/* Demo */}
+            <Button
+              iconPosition={'left'}
+              onPress={() => {
+                const handler = async () => {
+                  console.log('Demo ON_PRESS Start');
+                  let error = null;
+                  try {
+                    console.log('Start ON_PRESS:0 CONDITIONAL_STOP');
+                    if (!validationForm()) {
+                      return console.log(
+                        'Complete ON_PRESS:0 CONDITIONAL_STOP'
+                      );
+                    } else {
+                      console.log(
+                        'Skipped ON_PRESS:0 CONDITIONAL_STOP: condition not met'
+                      );
+                    }
+                    console.log('Start ON_PRESS:1 SET_VARIABLE');
+                    setDemoPressed(true);
+                    console.log('Complete ON_PRESS:1 SET_VARIABLE');
+                    console.log('Start ON_PRESS:2 DISMISS_KEYBOARD');
+                    Keyboard.dismiss();
+                    console.log('Complete ON_PRESS:2 DISMISS_KEYBOARD');
+                    console.log('Start ON_PRESS:3 FETCH_REQUEST');
+                    const Xano_Auth = (
+                      await xanoCollectionRequestDemoPOST.mutateAsync({
+                        company: companyVar,
+                        email: emailVar,
+                        message: messageVar,
+                        mobile: mobileVar,
+                        name: nameVar,
+                      })
+                    )?.json;
+                    console.log('Complete ON_PRESS:3 FETCH_REQUEST', {
+                      Xano_Auth,
+                    });
+                    console.log('Start ON_PRESS:4 SHOW_ALERT');
+                    showAlertUtil({
+                      title: 'Request Received!',
+                      message:
+                        'Thanks for reaching out. Someone from our team will be in touch with you shortly.',
+                      buttonText: undefined,
+                    });
+                    console.log('Complete ON_PRESS:4 SHOW_ALERT');
+                    console.log('Start ON_PRESS:5 NAVIGATE');
+                    navigation.push('LogInScreen');
+                    console.log('Complete ON_PRESS:5 NAVIGATE');
+                  } catch (err) {
+                    console.error(err);
+                    error = err.message ?? err;
+                  }
+                  console.log(
+                    'Demo ON_PRESS Complete',
+                    error ? { error } : 'no error'
+                  );
+                };
+                handler();
+              }}
+              {...GlobalStyles.ButtonStyles(theme)['Button'].props}
+              disabled={
+                emailVar === '' ||
+                nameVar === '' ||
+                companyVar === '' ||
+                mobileVar === '' ||
+                messageVar === ''
+              }
+              style={StyleSheet.applyWidth(
+                StyleSheet.compose(
+                  GlobalStyles.ButtonStyles(theme)['Button'].style,
+                  {
+                    fontFamily: 'Quicksand_600SemiBold',
+                    marginLeft: 10,
+                    marginRight: 10,
+                    marginTop: 10,
+                  }
+                ),
+                dimensions.width
+              )}
+              title={'Request Demo'}
+            />
+            <Link
+              accessible={true}
+              onPress={() => {
+                try {
+                  navigation.push('LogInScreen');
+                } catch (err) {
+                  console.error(err);
+                }
+              }}
+              {...GlobalStyles.LinkStyles(theme)['Link'].props}
+              style={StyleSheet.applyWidth(
+                StyleSheet.compose(
+                  GlobalStyles.LinkStyles(theme)['Link'].style,
+                  {
+                    fontFamily: 'Quicksand_400Regular',
+                    fontSize: 12,
+                    marginRight: 10,
+                    marginTop: 5,
+                    textAlign: 'center',
+                  }
+                ),
+                dimensions.width
+              )}
+              title={'Go back'}
+            />
+          </Surface>
+        </View>
+      </KeyboardAvoidingView>
+    </ScreenContainer>
+  );
+};
+
+export default withTheme(RequestDemoScreen);
