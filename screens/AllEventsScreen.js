@@ -39,6 +39,7 @@ const AllEventsScreen = props => {
       if (!isFocused) {
         return;
       }
+      console.log(Constants['AUTH_HEADER']);
       if (assessAccess(Variables, setGlobalVariableValue) === true) {
         return;
       }

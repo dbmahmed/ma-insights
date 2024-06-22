@@ -46,7 +46,10 @@ const SplashScreen = props => {
         /* hidden 'Conditional Stop' action */ console.log(
           'Complete ON_SCREEN_FOCUS:3 CONDITIONAL_STOP'
         );
-        console.log('Start ON_SCREEN_FOCUS:4 IF');
+        console.log('Start ON_SCREEN_FOCUS:4 CONSOLE_LOG');
+        console.log(Constants['ME']?.email);
+        console.log('Complete ON_SCREEN_FOCUS:4 CONSOLE_LOG');
+        console.log('Start ON_SCREEN_FOCUS:5 IF');
         if (Constants['ME']?.email !== '') {
           if (navigation.canGoBack()) {
             navigation.popToTop();
@@ -58,7 +61,7 @@ const SplashScreen = props => {
           }
           navigation.replace('LogInScreen', { message: get_me?.message });
         }
-        console.log('Complete ON_SCREEN_FOCUS:4 IF');
+        console.log('Complete ON_SCREEN_FOCUS:5 IF');
       } catch (err) {
         console.error(err);
         error = err.message ?? err;
