@@ -319,45 +319,48 @@ const LogInScreen = props => {
                   console.log('Complete ON_PRESS:2 FETCH_REQUEST', {
                     Xano_Auth,
                   });
-                  console.log('Start ON_PRESS:3 CUSTOM_FUNCTION');
+                  console.log('Start ON_PRESS:3 CONSOLE_LOG');
+                  console.log(Xano_Auth);
+                  console.log('Complete ON_PRESS:3 CONSOLE_LOG');
+                  console.log('Start ON_PRESS:4 CUSTOM_FUNCTION');
                   /* hidden 'Run a Custom Function' action */ console.log(
-                    'Complete ON_PRESS:3 CUSTOM_FUNCTION'
+                    'Complete ON_PRESS:4 CUSTOM_FUNCTION'
                   );
-                  console.log('Start ON_PRESS:4 EXTRACT_KEY');
+                  console.log('Start ON_PRESS:5 EXTRACT_KEY');
                   const savedToken = Xano_Auth?.authToken;
-                  console.log('Complete ON_PRESS:4 EXTRACT_KEY', {
+                  console.log('Complete ON_PRESS:5 EXTRACT_KEY', {
                     savedToken,
                   });
-                  console.log('Start ON_PRESS:5 EXTRACT_KEY');
+                  console.log('Start ON_PRESS:6 EXTRACT_KEY');
                   const message = Xano_Auth?.message;
-                  console.log('Complete ON_PRESS:5 EXTRACT_KEY', { message });
-                  console.log('Start ON_PRESS:6 SET_VARIABLE');
-                  setErrorMessage(message);
-                  console.log('Complete ON_PRESS:6 SET_VARIABLE');
+                  console.log('Complete ON_PRESS:6 EXTRACT_KEY', { message });
                   console.log('Start ON_PRESS:7 SET_VARIABLE');
-                  setLogInPressed(false);
+                  setErrorMessage(message);
                   console.log('Complete ON_PRESS:7 SET_VARIABLE');
-                  console.log('Start ON_PRESS:8 CONDITIONAL_STOP');
+                  console.log('Start ON_PRESS:8 SET_VARIABLE');
+                  setLogInPressed(false);
+                  console.log('Complete ON_PRESS:8 SET_VARIABLE');
+                  console.log('Start ON_PRESS:9 CONDITIONAL_STOP');
                   if (!savedToken) {
-                    return console.log('Complete ON_PRESS:8 CONDITIONAL_STOP');
+                    return console.log('Complete ON_PRESS:9 CONDITIONAL_STOP');
                   } else {
                     console.log(
-                      'Skipped ON_PRESS:8 CONDITIONAL_STOP: condition not met'
+                      'Skipped ON_PRESS:9 CONDITIONAL_STOP: condition not met'
                     );
                   }
-                  console.log('Start ON_PRESS:9 SET_VARIABLE');
+                  console.log('Start ON_PRESS:10 SET_VARIABLE');
                   setGlobalVariableValue({
                     key: 'AUTH_HEADER',
-                    value: savedToken,
+                    value: 'Bearer ' + savedToken,
                   });
-                  console.log('Complete ON_PRESS:9 SET_VARIABLE');
-                  console.log('Start ON_PRESS:10 FETCH_REQUEST');
+                  console.log('Complete ON_PRESS:10 SET_VARIABLE');
+                  console.log('Start ON_PRESS:11 FETCH_REQUEST');
                   /* hidden 'API Request' action */ console.log(
-                    'Complete ON_PRESS:10 FETCH_REQUEST'
+                    'Complete ON_PRESS:11 FETCH_REQUEST'
                   );
-                  console.log('Start ON_PRESS:11 NAVIGATE');
+                  console.log('Start ON_PRESS:12 NAVIGATE');
                   navigation.navigate('SplashScreen');
-                  console.log('Complete ON_PRESS:11 NAVIGATE');
+                  console.log('Complete ON_PRESS:12 NAVIGATE');
                 } catch (err) {
                   console.error(err);
                   error = err.message ?? err;

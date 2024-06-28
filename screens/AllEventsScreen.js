@@ -40,6 +40,7 @@ const AllEventsScreen = props => {
         return;
       }
       console.log(Constants['AUTH_HEADER']);
+      console.log(Constants['ME']);
       if (assessAccess(Variables, setGlobalVariableValue) === true) {
         return;
       }
@@ -65,7 +66,7 @@ const AllEventsScreen = props => {
         <Modal
           supportedOrientations={['portrait', 'landscape']}
           transparent={false}
-          animationType={'slide'}
+          animationType={'fade'}
           presentationStyle={'pageSheet'}
           visible={filterPressed}
         >

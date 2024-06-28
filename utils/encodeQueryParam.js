@@ -19,8 +19,20 @@ if (Platform.OS === 'ios') {
   }
 }
 
+const isUrlEncoded = s => {
+  if (typeof s !== 'string' || !s.match(/%[0-9A-F][0-9A-F]/)) {
+    return false;
+  }
+  try {
+    const decoded = decodeURIComponent(s);
+    return decoded !== s;
+  } catch (_e) {
+    return false;
+  }
+};
+
 export const encodeQueryParam = param => {
-  if (isIos17OrNewer) {
+  if (isIos17OrNewer || isUrlEncoded(param)) {
     return param;
   } else {
     return encodeURIComponent(param);

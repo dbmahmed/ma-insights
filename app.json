@@ -1,27 +1,44 @@
 {
   "expo": {
+    "ios": {
+      "config": {
+        "usesNonExemptEncryption": false
+      },
+      "infoPlist": {},
+      "buildNumber": "1.5.0",
+      "isTabletOnly": false,
+      "supportsTablet": true,
+      "bundleIdentifier": "com.draftbit.untitledapp",
+      "requireFullScreen": true,
+      "usesIcloudStorage": false,
+      "userInterfaceStyle": "light"
+    },
+    "web": {
+      "display": "browser",
+      "themeColor": "#000000",
+      "orientation": "natural"
+    },
+    "icon": "./assets/app/icon.png",
     "name": "MA Insights app 2.0",
     "slug": "mainsights-app",
+    "extra": {
+      "eas": {
+        "projectId": ""
+      }
+    },
     "scheme": "mainsights.co",
-    "description": "Leading intelligence provider for mergers and acquisition teams.",
-    "privacy": "unlisted",
-    "platforms": [
-      "ios",
-      "android",
-      "web"
-    ],
-    "version": "1.4.0",
-    "orientation": "portrait",
-    "icon": "./assets/app/icon.png",
-    "backgroundColor": "#000000ff",
     "splash": {
       "image": "./assets/app/splash.png",
       "resizeMode": "cover",
       "backgroundColor": "#FFFFFF"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "android": {
+      "package": "com.draftbit.untitledapp",
+      "permissions": [],
+      "versionCode": 5,
+      "adaptiveIcon": {},
+      "userInterfaceStyle": "light"
+    },
     "plugins": [
       [
         "expo-screen-orientation",
@@ -69,35 +86,28 @@
         }
       ]
     ],
-    "ios": {
-      "bundleIdentifier": "com.draftbit.untitledapp",
-      "supportsTablet": true,
-      "buildNumber": "1.4.0",
-      "infoPlist": {},
-      "usesIcloudStorage": false,
-      "config": {
-        "usesNonExemptEncryption": false
-      }
-    },
-    "android": {
-      "versionCode": 4,
-      "package": "com.draftbit.untitledapp",
-      "permissions": [],
-      "adaptiveIcon": {}
-    },
-    "androidNavigationBar": {},
-    "web": {
-      "display": "browser",
-      "themeColor": "#000000",
-      "orientation": "natural"
-    },
+    "privacy": "unlisted",
+    "version": "1.5.0",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "description": "Leading intelligence provider for mergers and acquisition teams.",
+    "orientation": "portrait",
+    "iosStatusBar": {},
     "notification": {
       "androidMode": "default"
     },
-    "extra": {
-      "eas": {
-        "projectId": ""
-      }
-    }
+    "backgroundColor": "#000000ff",
+    "allowFontScaling": true,
+    "androidStatusBar": {
+      "barStyle": "light-content"
+    },
+    "userInterfaceStyle": "light",
+    "androidNavigationBar": {},
+    "assetBundlePatterns": [
+      "**/*"
+    ]
   }
 }
