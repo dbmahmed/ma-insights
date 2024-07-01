@@ -17,6 +17,7 @@ import AdvisorsScreen from './screens/AdvisorsScreen';
 import AllEventsScreen from './screens/AllEventsScreen';
 import CFSScreen from './screens/CFSScreen';
 import DACHNewsletterDetailsScreen from './screens/DACHNewsletterDetailsScreen';
+import EventDetailsScreen from './screens/EventDetailsScreen';
 import ForgotPasswordScreen from './screens/ForgotPasswordScreen';
 import LogInScreen from './screens/LogInScreen';
 import NewslewttersScreen from './screens/NewslewttersScreen';
@@ -430,6 +431,44 @@ export default function RootAppNavigator() {
           component={PeerGrroupsScreen}
           options={({ navigation }) => ({
             title: 'Peer Grroups',
+          })}
+        />
+        <Stack.Screen
+          name="EventDetailsScreen"
+          component={EventDetailsScreen}
+          options={({ navigation }) => ({
+            headerLeft: ({ tintColor, canGoBack }) =>
+              canGoBack ? (
+                <Touchable
+                  style={[styles.headerContainer, styles.headerContainerLeft]}
+                  onPress={() => {
+                    try {
+                      navigation.goBack();
+                    } catch (err) {
+                      console.error(err);
+                    }
+                  }}
+                >
+                  <Icon
+                    name="MaterialIcons/arrow-back-ios"
+                    size={Platform.OS === 'ios' ? 21 : 24}
+                    color={tintColor}
+                    style={[styles.headerIcon, styles.headerIconLeft]}
+                  />
+                </Touchable>
+              ) : (
+                <View
+                  style={[styles.headerContainer, styles.headerContainerLeft]}
+                >
+                  <Icon
+                    name="MaterialIcons/menu"
+                    size={Platform.OS === 'ios' ? 21 : 24}
+                    color={tintColor}
+                    style={[styles.headerIcon, styles.headerIconLeft]}
+                  />
+                </View>
+              ),
+            title: 'Event Details',
           })}
         />
         <Stack.Screen name="MAInsights" component={MAInsights} />

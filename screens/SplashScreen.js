@@ -31,8 +31,9 @@ const SplashScreen = props => {
           return;
         }
         console.log('Start ON_SCREEN_FOCUS:0 CONSOLE_LOG');
-        console.log(Constants['AUTH_HEADER']);
-        console.log('Complete ON_SCREEN_FOCUS:0 CONSOLE_LOG');
+        /* hidden 'Log to Console' action */ console.log(
+          'Complete ON_SCREEN_FOCUS:0 CONSOLE_LOG'
+        );
         console.log('Start ON_SCREEN_FOCUS:1 FETCH_REQUEST');
         const get_me = (await XanoCollectionApi.authMeGET(Constants))?.json;
         console.log('Complete ON_SCREEN_FOCUS:1 FETCH_REQUEST', { get_me });
@@ -47,14 +48,11 @@ const SplashScreen = props => {
           'Complete ON_SCREEN_FOCUS:3 CONDITIONAL_STOP'
         );
         console.log('Start ON_SCREEN_FOCUS:4 CONSOLE_LOG');
-        console.log(Constants['ME']?.email);
+        console.log(get_me?.email, 'GET ME: ');
         console.log('Complete ON_SCREEN_FOCUS:4 CONSOLE_LOG');
         console.log('Start ON_SCREEN_FOCUS:5 IF');
-        if (Constants['ME']?.email !== '') {
-          if (navigation.canGoBack()) {
-            navigation.popToTop();
-          }
-          navigation.replace('MAInsights', { screen: 'NewslewttersScreen' });
+        if (get_me?.email) {
+          navigation.navigate('MAInsights', { screen: 'NewslewttersScreen' });
         } else {
           if (navigation.canGoBack()) {
             navigation.popToTop();

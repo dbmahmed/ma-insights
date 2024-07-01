@@ -13,7 +13,9 @@ import {
   IconButton,
   ScreenContainer,
   SimpleStyleFlashList,
+  Spacer,
   TextInput,
+  Touchable,
   withTheme,
 } from '@draftbit/ui';
 import { H3, H6 } from '@expo/html-elements';
@@ -35,28 +37,28 @@ const AllEventsScreen = props => {
   const [keywordSearch, setKeywordSearch] = React.useState('');
   const isFocused = useIsFocused();
   React.useEffect(() => {
-    try {
-      if (!isFocused) {
-        return;
+    const handler = async () => {
+      try {
+        if (!isFocused) {
+          return;
+        }
+        console.log(Constants['AUTH_HEADER'], 'AUTH HEADER:', 'ALL EVENTS');
+        const getEvent = (await XanoCollectionApi.getAllEventsGET(Constants))
+          ?.json;
+        console.log(Constants['ME'], getEvent, 'ALLEVENTS:');
+        /* hidden 'Conditional Stop' action */
+        /* hidden 'Navigate' action */
+      } catch (err) {
+        console.error(err);
       }
-      console.log(Constants['AUTH_HEADER']);
-      console.log(Constants['ME']);
-      if (assessAccess(Variables, setGlobalVariableValue) === true) {
-        return;
-      }
-      if (navigation.canGoBack()) {
-        navigation.popToTop();
-      }
-      navigation.replace('LogInScreen');
-    } catch (err) {
-      console.error(err);
-    }
+    };
+    handler();
   }, [isFocused]);
 
   return (
     <ScreenContainer
       hasSafeArea={false}
-      hasLeftSafeArea={false}
+      hasLeftSafeArea={true}
       hasRightSafeArea={false}
       scrollable={true}
     >
@@ -107,6 +109,7 @@ const AllEventsScreen = props => {
           style={StyleSheet.applyWidth(
             StyleSheet.compose(GlobalStyles.H3Styles(theme)['H3'].style, {
               fontFamily: 'Quicksand_400Regular',
+              marginLeft: 8,
             }),
             dimensions.width
           )}
@@ -119,7 +122,7 @@ const AllEventsScreen = props => {
           style={StyleSheet.applyWidth(
             StyleSheet.compose(
               GlobalStyles.HStackStyles(theme)['H Stack'].style,
-              { justifyContent: 'space-between' }
+              { justifyContent: 'space-between', marginLeft: 8 }
             ),
             dimensions.width
           )}
@@ -162,8 +165,18 @@ const AllEventsScreen = props => {
             icon={'MaterialIcons/filter-alt'}
           />
         </HStack>
-
-        <XanoCollectionApi.FetchGetAllEventsGET>
+        <Spacer left={8} right={8} bottom={2.5} top={2.5} />
+        <XanoCollectionApi.FetchGetAllEventsGET
+          handlers={{
+            onData: fetchData => {
+              try {
+                console.log(fetchData, 'FETCHDATA ONSCREEN');
+              } catch (err) {
+                console.error(err);
+              }
+            },
+          }}
+        >
           {({ loading, error, data, refetchGetAllEvents }) => {
             const fetchData = data?.json;
             if (loading) {
@@ -186,32 +199,70 @@ const AllEventsScreen = props => {
                 renderItem={({ item, index }) => {
                   const flashListData = item;
                   return (
-                    <View>
-                      <H6
-                        selectable={false}
-                        {...GlobalStyles.H6Styles(theme)['H6'].props}
+                    <Touchable
+                      onPress={() => {
+                        try {
+                          navigation.navigate('EventDetailsScreen', {
+                            event_id: flashListData?.id,
+                          });
+                        } catch (err) {
+                          console.error(err);
+                        }
+                      }}
+                    >
+                      <View
                         style={StyleSheet.applyWidth(
-                          GlobalStyles.H6Styles(theme)['H6'].style,
+                          {
+                            borderBottomWidth: 0.5,
+                            borderColor: theme.colors['Light'],
+                            marginLeft: 8,
+                            paddingBottom: 5,
+                            paddingTop: 5,
+                          },
                           dimensions.width
                         )}
                       >
-                        {flashListData?.headline}
-                      </H6>
+                        <H6
+                          selectable={false}
+                          {...GlobalStyles.H6Styles(theme)['H6'].props}
+                          style={StyleSheet.applyWidth(
+                            StyleSheet.compose(
+                              GlobalStyles.H6Styles(theme)['H6'].style,
+                              {
+                                fontFamily: 'Quicksand_700Bold',
+                                fontSize: 12,
+                                margin: 0,
+                              }
+                            ),
+                            dimensions.width
+                          )}
+                        >
+                          {flashListData?.headline}
+                        </H6>
 
-                      <Text
-                        accessible={true}
-                        {...GlobalStyles.TextStyles(theme)['screen_title']
-                          .props}
-                        style={StyleSheet.applyWidth(
-                          GlobalStyles.TextStyles(theme)['screen_title'].style,
-                          dimensions.width
-                        )}
-                      >
-                        {flashListData?.published}
-                        {' | Source: '}
-                        {flashListData?.source}
-                      </Text>
-                    </View>
+                        <Text
+                          accessible={true}
+                          {...GlobalStyles.TextStyles(theme)['screen_title']
+                            .props}
+                          style={StyleSheet.applyWidth(
+                            StyleSheet.compose(
+                              GlobalStyles.TextStyles(theme)['screen_title']
+                                .style,
+                              {
+                                fontFamily: 'Quicksand_400Regular',
+                                fontSize: 10,
+                                marginTop: 4,
+                              }
+                            ),
+                            dimensions.width
+                          )}
+                        >
+                          {flashListData?.published}
+                          {' | Source: '}
+                          {flashListData?.source}
+                        </Text>
+                      </View>
+                    </Touchable>
                   );
                 }}
                 showsHorizontalScrollIndicator={true}

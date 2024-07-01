@@ -323,6 +323,16 @@ const AccModalBlock = props => {
             size={32}
             icon={'AntDesign/closecircle'}
           />
+          <Text
+            accessible={true}
+            {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+            style={StyleSheet.applyWidth(
+              GlobalStyles.TextStyles(theme)['screen_title'].style,
+              dimensions.width
+            )}
+          >
+            {Constants['AUTH_HEADER']}
+          </Text>
         </View>
       </View>
     </Modal>

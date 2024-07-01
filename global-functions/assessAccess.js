@@ -8,7 +8,7 @@ const assessAccess = (Variables, setGlobalVariableValue) => {
   /* String line breaks are accomplished with backticks ( example: `line one
 line two` ) and will not work with special characters inside of quotes ( example: "line one line two" ) */
   let me = Variables.ME;
-  console.log(Variables.AUTH_HEADER);
+  console.log(Variables.AUTH_HEADER, 'AUTH');
   if (me.email !== undefined && me.email !== '') {
     console.log('email exists');
     return true;

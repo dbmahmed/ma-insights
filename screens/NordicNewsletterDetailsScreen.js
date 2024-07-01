@@ -16,7 +16,7 @@ const NordicNewsletterDetailsScreen = props => {
   return (
     <ScreenContainer hasSafeArea={false} scrollable={false}>
       <XanoCollectionApi.FetchNewsletterEachGET
-        newsletter_id={props.route?.params?.news_id ?? null}
+        newsletter_id={props.route?.params?.news_id ?? 'id'}
       >
         {({ loading, error, data, refetchNewsletterEach }) => {
           const fetchData = data?.json;

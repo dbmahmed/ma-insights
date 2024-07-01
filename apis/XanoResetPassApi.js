@@ -377,3 +377,73 @@ export const FetchTempLoginPOST = ({
   }, [error]);
   return children({ loading, data, error, refetchTempLogin: refetch });
 };
+
+export const initialLoginGET = async (Constants, { email }, handlers = {}) => {
+  const paramsDict = {};
+  if (email !== undefined) {
+    paramsDict['email'] = renderParam(email);
+  }
+  const url = `https://xne3-pdiu-8ysm.f2.xano.io/api:Ax6hPdKr/auth/first_signin${renderQueryString(
+    paramsDict
+  )}`;
+  const options = {
+    headers: cleanHeaders({
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    }),
+  };
+  const res = await fetch(url, options);
+  return handleResponse(res, handlers);
+};
+
+export const useInitialLoginGET = (
+  args = {},
+  { refetchInterval, handlers = {} } = {}
+) => {
+  const Constants = GlobalVariables.useValues();
+  const queryClient = useQueryClient();
+  return useQuery(
+    ['Reset Pass', args],
+    () => initialLoginGET(Constants, args, handlers),
+    {
+      refetchInterval,
+      onSuccess: () => queryClient.invalidateQueries(['Reset Passes']),
+    }
+  );
+};
+
+export const FetchInitialLoginGET = ({
+  children,
+  onData = () => {},
+  handlers = {},
+  refetchInterval,
+  email,
+}) => {
+  const Constants = GlobalVariables.useValues();
+  const isFocused = useIsFocused();
+  const prevIsFocused = usePrevious(isFocused);
+
+  const {
+    isLoading: loading,
+    data,
+    error,
+    refetch,
+  } = useInitialLoginGET(
+    { email },
+    { refetchInterval, handlers: { onData, ...handlers } }
+  );
+
+  React.useEffect(() => {
+    if (!prevIsFocused && isFocused) {
+      refetch();
+    }
+  }, [isFocused, prevIsFocused]);
+
+  React.useEffect(() => {
+    if (error) {
+      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error(error);
+    }
+  }, [error]);
+  return children({ loading, data, error, refetchInitialLogin: refetch });
+};

@@ -640,6 +640,7 @@ export const getOneEventGET = async (
   const options = {
     headers: cleanHeaders({
       Accept: 'application/json',
+      Authorization: Constants['AUTH_HEADER'],
       'Content-Type': 'application/json',
     }),
   };

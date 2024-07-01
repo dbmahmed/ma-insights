@@ -40,11 +40,13 @@ const NewslewttersScreen = props => {
         return;
       }
       console.log('Start ON_SCREEN_FOCUS:0 CONSOLE_LOG');
-      console.log(Constants['AUTH_HEADER']);
-      console.log('Complete ON_SCREEN_FOCUS:0 CONSOLE_LOG');
+      /* hidden 'Log to Console' action */ console.log(
+        'Complete ON_SCREEN_FOCUS:0 CONSOLE_LOG'
+      );
       console.log('Start ON_SCREEN_FOCUS:1 CONSOLE_LOG');
-      console.log(Constants['ME']);
-      console.log('Complete ON_SCREEN_FOCUS:1 CONSOLE_LOG');
+      /* hidden 'Log to Console' action */ console.log(
+        'Complete ON_SCREEN_FOCUS:1 CONSOLE_LOG'
+      );
       console.log('Start ON_SCREEN_FOCUS:2 CONDITIONAL_STOP');
       if (assessAccess(Variables, setGlobalVariableValue) === true) {
         return console.log('Complete ON_SCREEN_FOCUS:2 CONDITIONAL_STOP');
@@ -247,89 +249,7 @@ const NewslewttersScreen = props => {
         }}
       </XanoCollectionApi.FetchNewslettersGET>
       <>{!Constants['acc_pressed'] ? null : <AccModalBlock />}</>
-      <>
-        {!Constants['top_nav_pressed'] ? null : (
-          <View
-            style={StyleSheet.applyWidth(
-              {
-                backgroundColor: theme.colors['Background'],
-                borderBottomWidth: 0.5,
-                borderLeftWidth: 0.5,
-                borderRightWidth: 0.5,
-                borderTopWidth: 0.5,
-                height: '100%',
-                position: 'absolute',
-                width: '65%',
-              },
-              dimensions.width
-            )}
-          >
-            <Table
-              borderColor={theme.colors.divider}
-              borderStyle={'solid'}
-              borderWidth={1}
-              cellHorizontalPadding={10}
-              cellVerticalPadding={10}
-              drawBottomBorder={false}
-              drawEndBorder={false}
-              drawStartBorder={false}
-              drawTopBorder={true}
-              showsVerticalScrollIndicator={true}
-              {...GlobalStyles.TableStyles(theme)['Table'].props}
-              style={StyleSheet.applyWidth(
-                GlobalStyles.TableStyles(theme)['Table'].style,
-                dimensions.width
-              )}
-            >
-              <TableRow
-                drawBottomBorder={true}
-                drawStartBorder={true}
-                isTableHeader={false}
-                borderColor={theme.colors['Divider']}
-                borderStyle={'solid'}
-                borderWidth={1}
-                cellHorizontalPadding={10}
-                cellVerticalPadding={10}
-                drawEndBorder={true}
-                drawTopBorder={true}
-              >
-                <TableCell
-                  drawBottomBorder={false}
-                  drawEndBorder={true}
-                  drawStartBorder={false}
-                  drawTopBorder={false}
-                  {...GlobalStyles.TableCellStyles(theme)['Table Cell'].props}
-                  style={StyleSheet.applyWidth(
-                    GlobalStyles.TableCellStyles(theme)['Table Cell'].style,
-                    dimensions.width
-                  )}
-                >
-                  {/* Link 3 */}
-                  <Link
-                    accessible={true}
-                    onPress={() => {
-                      try {
-                        setGlobalVariableValue({
-                          key: 'top_nav_pressed',
-                          value: false,
-                        });
-                      } catch (err) {
-                        console.error(err);
-                      }
-                    }}
-                    title={'Get Started'}
-                    {...GlobalStyles.LinkStyles(theme)['Link'].props}
-                    style={StyleSheet.applyWidth(
-                      GlobalStyles.LinkStyles(theme)['Link'].style,
-                      dimensions.width
-                    )}
-                  />
-                </TableCell>
-              </TableRow>
-            </Table>
-          </View>
-        )}
-      </>
+      <>{!Constants['top_nav_pressed'] ? null : <TopNavBlock />}</>
     </ScreenContainer>
   );
 };
