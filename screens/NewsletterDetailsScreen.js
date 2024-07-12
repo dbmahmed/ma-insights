@@ -1,0 +1,1871 @@
+import React from 'react';
+import * as GlobalStyles from '../GlobalStyles.js';
+import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
+import Breakpoints from '../utils/Breakpoints';
+import * as StyleSheet from '../utils/StyleSheet';
+import useWindowDimensions from '../utils/useWindowDimensions';
+import {
+  Button,
+  LinearGradient,
+  ScreenContainer,
+  Shadow,
+  SimpleStyleFlatList,
+  withTheme,
+} from '@draftbit/ui';
+import { H1, H3 } from '@expo/html-elements';
+import { useIsFocused } from '@react-navigation/native';
+import { ActivityIndicator, Text, View } from 'react-native';
+import { Fetch } from 'react-request';
+
+const NewsletterDetailsScreen = props => {
+  const { theme, navigation } = props;
+  const dimensions = useWindowDimensions();
+  const [nordic_nl_section_1, setNordic_nl_section_1] = React.useState(
+    'nordic_nl_section_1'
+  );
+  const [nordic_nl_section_2, setNordic_nl_section_2] = React.useState(
+    'nordic_nl_section_2'
+  );
+  const [nordic_nl_section_3, setNordic_nl_section_3] = React.useState(
+    'nordic_nl_section_3'
+  );
+  const [nordic_nl_section_4, setNordic_nl_section_4] = React.useState(
+    'nordic_nl_section_4'
+  );
+
+  return (
+    <ScreenContainer hasSafeArea={false} scrollable={true}>
+      <XanoCollectionApi.FetchNewsletterEachGET
+        handlers={{
+          onData: fetchData => {
+            try {
+              console.log(fetchData);
+            } catch (err) {
+              console.error(err);
+            }
+          },
+        }}
+        newsletter_id={props.route?.params?.news_id ?? 'id'}
+      >
+        {({ loading, error, data, refetchNewsletterEach }) => {
+          const fetchData = data?.json;
+          if (loading) {
+            return <ActivityIndicator />;
+          }
+
+          if (error || data?.status < 200 || data?.status >= 300) {
+            return (
+              <>
+                {/* Error */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    {
+                      alignContent: 'center',
+                      alignItems: 'center',
+                      alignSelf: 'center',
+                      height: '100%',
+                      justifyContent: [
+                        { minWidth: Breakpoints.BigScreen, value: 'center' },
+                        { minWidth: Breakpoints.Tablet, value: 'center' },
+                        { minWidth: Breakpoints.Mobile, value: 'center' },
+                      ],
+                      padding: 10,
+                      width: [
+                        { minWidth: Breakpoints.Tablet, value: '100%' },
+                        { minWidth: Breakpoints.Mobile, value: '100%' },
+                      ],
+                    },
+                    dimensions.width
+                  )}
+                >
+                  <View
+                    style={StyleSheet.applyWidth(
+                      {
+                        alignContent: 'center',
+                        alignItems: 'center',
+                        alignSelf: 'center',
+                        gap: 10,
+                        maxWidth: 380,
+                      },
+                      dimensions.width
+                    )}
+                  >
+                    <LinearGradient
+                      endX={100}
+                      endY={100}
+                      startX={0}
+                      startY={0}
+                      {...GlobalStyles.LinearGradientStyles(theme)[
+                        'Linear Gradient'
+                      ].props}
+                      color1={theme.colors['Strong']}
+                      color2={theme.colors['Primary']}
+                      color3={null}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.LinearGradientStyles(theme)[
+                            'Linear Gradient'
+                          ].style,
+                          {
+                            alignContent: 'center',
+                            alignItems: 'center',
+                            alignSelf: 'center',
+                            flexDirection: 'column',
+                            gap: 10,
+                            margin: 0,
+                            maxWidth: 380,
+                            padding: 20,
+                            width: '100%',
+                          }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      <H3
+                        selectable={false}
+                        {...GlobalStyles.H3Styles(theme)['H3'].props}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.H3Styles(theme)['H3'].style,
+                            {
+                              color: theme.colors['Strong Inverse'],
+                              fontFamily: 'Quicksand_700Bold',
+                              fontSize: 16,
+                              textAlign: 'center',
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {"You don't have access to newsletter details"}
+                      </H3>
+
+                      <Text
+                        accessible={true}
+                        style={StyleSheet.applyWidth(
+                          {
+                            color: theme.colors['Strong Inverse'],
+                            marginBottom: 10,
+                            textAlign: 'center',
+                          },
+                          dimensions.width
+                        )}
+                      >
+                        {
+                          'The newsletter you are trying to access is not included in your current subscription. If you would like to enquire about options for expanding your subscription ma@nordicknowledgepartners.com or if you believe this is a mistake please contact us at '
+                        }
+                      </Text>
+                      <Button
+                        iconPosition={'left'}
+                        onPress={() => {
+                          try {
+                            navigation.navigate('MAInsights', {
+                              screen: 'NewslewttersScreen',
+                            });
+                          } catch (err) {
+                            console.error(err);
+                          }
+                        }}
+                        {...GlobalStyles.ButtonStyles(theme)['Button'].props}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.ButtonStyles(theme)['Button'].style,
+                            {
+                              backgroundColor: theme.colors['Strong Inverse'],
+                              color: theme.colors['Strong'],
+                              fontFamily: 'Quicksand_600SemiBold',
+                              textTransform: 'uppercase',
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                        title={'Newsletters'}
+                      />
+                    </LinearGradient>
+                  </View>
+                </View>
+              </>
+            );
+          }
+
+          return (
+            <View>
+              <View
+                style={StyleSheet.applyWidth(
+                  { marginBottom: 10, padding: 10 },
+                  dimensions.width
+                )}
+              >
+                {/* title */}
+                <H1
+                  selectable={false}
+                  {...GlobalStyles.H1Styles(theme)['H1'].props}
+                  style={StyleSheet.applyWidth(
+                    StyleSheet.compose(
+                      GlobalStyles.H1Styles(theme)['H1'].style,
+                      { fontSize: 16, marginBottom: 0 }
+                    ),
+                    dimensions.width
+                  )}
+                >
+                  {fetchData?.title}
+                </H1>
+                {/* date */}
+                <Text
+                  accessible={true}
+                  {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                  style={StyleSheet.applyWidth(
+                    GlobalStyles.TextStyles(theme)['screen_title'].style,
+                    dimensions.width
+                  )}
+                >
+                  {fetchData?.date}
+                </Text>
+              </View>
+              {/* Section Name */}
+              <View
+                style={StyleSheet.applyWidth(
+                  { marginBottom: 10 },
+                  dimensions.width
+                )}
+              >
+                <LinearGradient
+                  color1={theme.colors.primary}
+                  color2={theme.colors.secondary}
+                  endX={100}
+                  endY={100}
+                  startX={0}
+                  startY={0}
+                  {...GlobalStyles.LinearGradientStyles(theme)['SectionName']
+                    .props}
+                  style={StyleSheet.applyWidth(
+                    StyleSheet.compose(
+                      GlobalStyles.LinearGradientStyles(theme)['SectionName']
+                        .style,
+                      { margin: null }
+                    ),
+                    dimensions.width
+                  )}
+                >
+                  <Text
+                    accessible={true}
+                    {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.TextStyles(theme)['screen_title'].style,
+                        {
+                          color: theme.colors['Strong Inverse'],
+                          fontFamily: 'Quicksand_700Bold',
+                          fontSize: 16,
+                          textTransform: 'uppercase',
+                        }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    {'PITCH OF THE DAY'}
+                  </Text>
+                </LinearGradient>
+              </View>
+              {/* potd settings */}
+              <View
+                style={StyleSheet.applyWidth(
+                  { gap: 4, marginBottom: 20, maxWidth: 450, padding: 10 },
+                  dimensions.width
+                )}
+              >
+                <H3
+                  selectable={false}
+                  {...GlobalStyles.H3Styles(theme)['H3'].props}
+                  style={StyleSheet.applyWidth(
+                    StyleSheet.compose(
+                      GlobalStyles.H3Styles(theme)['H3'].style,
+                      { fontSize: 16, marginBottom: 10, marginTop: 0 }
+                    ),
+                    dimensions.width
+                  )}
+                >
+                  {fetchData?._potd?.headline}
+                </H3>
+
+                <View
+                  style={StyleSheet.applyWidth(
+                    { flexDirection: 'row', gap: 8 },
+                    dimensions.width
+                  )}
+                >
+                  <View
+                    style={StyleSheet.applyWidth(
+                      { width: 80 },
+                      dimensions.width
+                    )}
+                  >
+                    {/* Lable */}
+                    <Text
+                      accessible={true}
+                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.TextStyles(theme)['screen_title'].style,
+                          { fontFamily: 'Quicksand_700Bold' }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      {'Target:'}
+                    </Text>
+                  </View>
+                  {/* Value */}
+                  <Text
+                    accessible={true}
+                    {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.TextStyles(theme)['screen_title'].style,
+                        { fontFamily: 'Quicksand_400Regular' }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    {fetchData?._potd?.target}
+                  </Text>
+                </View>
+                {/* View 2 */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    { flexDirection: 'row', gap: 8 },
+                    dimensions.width
+                  )}
+                >
+                  <View
+                    style={StyleSheet.applyWidth(
+                      { width: 80 },
+                      dimensions.width
+                    )}
+                  >
+                    {/* Lable */}
+                    <Text
+                      accessible={true}
+                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.TextStyles(theme)['screen_title'].style,
+                          { fontFamily: 'Quicksand_700Bold' }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      {'Advisor:'}
+                    </Text>
+                  </View>
+                  {/* Value */}
+                  <Text
+                    accessible={true}
+                    {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.TextStyles(theme)['screen_title'].style,
+                        { fontFamily: 'Quicksand_400Regular' }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    {fetchData?._potd?.advisor}
+                  </Text>
+                </View>
+                {/* View 3 */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    { flexDirection: 'row', gap: 8 },
+                    dimensions.width
+                  )}
+                >
+                  <View
+                    style={StyleSheet.applyWidth(
+                      { width: 80 },
+                      dimensions.width
+                    )}
+                  >
+                    {/* Lable */}
+                    <Text
+                      accessible={true}
+                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.TextStyles(theme)['screen_title'].style,
+                          { fontFamily: 'Quicksand_700Bold' }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      {'Stage:'}
+                    </Text>
+                  </View>
+                  {/* Value */}
+                  <Text
+                    accessible={true}
+                    {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.TextStyles(theme)['screen_title'].style,
+                        { fontFamily: 'Quicksand_400Regular' }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    {fetchData?._potd?.stage}
+                  </Text>
+                </View>
+                {/* View 4 */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    { flexDirection: 'row', gap: 8 },
+                    dimensions.width
+                  )}
+                >
+                  <View
+                    style={StyleSheet.applyWidth(
+                      { width: 80 },
+                      dimensions.width
+                    )}
+                  >
+                    {/* Lable */}
+                    <Text
+                      accessible={true}
+                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.TextStyles(theme)['screen_title'].style,
+                          { fontFamily: 'Quicksand_700Bold' }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      {'Financials:'}
+                    </Text>
+                  </View>
+                  {/* Value */}
+                  <Text
+                    accessible={true}
+                    {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.TextStyles(theme)['screen_title'].style,
+                        { fontFamily: 'Quicksand_400Regular' }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    {fetchData?._potd?.financials}
+                  </Text>
+                </View>
+                {/* View 5 */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    { flexDirection: 'row', gap: 8 },
+                    dimensions.width
+                  )}
+                >
+                  <View
+                    style={StyleSheet.applyWidth(
+                      { width: 80 },
+                      dimensions.width
+                    )}
+                  >
+                    {/* Lable */}
+                    <Text
+                      accessible={true}
+                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.TextStyles(theme)['screen_title'].style,
+                          { fontFamily: 'Quicksand_700Bold' }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      {'GICS:'}
+                    </Text>
+                  </View>
+                  {/* Value */}
+                  <Text
+                    accessible={true}
+                    {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.TextStyles(theme)['screen_title'].style,
+                        { fontFamily: 'Quicksand_400Regular' }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    {fetchData?._potd?.gics}
+                  </Text>
+                </View>
+                {/* View 6 */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    { flexDirection: 'row', gap: 8 },
+                    dimensions.width
+                  )}
+                >
+                  <View
+                    style={StyleSheet.applyWidth(
+                      { width: 80 },
+                      dimensions.width
+                    )}
+                  >
+                    {/* Lable */}
+                    <Text
+                      accessible={true}
+                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.TextStyles(theme)['screen_title'].style,
+                          { fontFamily: 'Quicksand_700Bold' }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      {'HQ:'}
+                    </Text>
+                  </View>
+                  {/* Value */}
+                  <Text
+                    accessible={true}
+                    {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.TextStyles(theme)['screen_title'].style,
+                        { fontFamily: 'Quicksand_400Regular' }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    {fetchData?._potd?.hq}
+                  </Text>
+                </View>
+              </View>
+              {/* container */}
+              <View
+                style={StyleSheet.applyWidth(
+                  { gap: 20, marginBottom: 20, padding: 10 },
+                  dimensions.width
+                )}
+              >
+                {/* Content */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    {
+                      alignItems: 'flex-start',
+                      flexDirection: 'column',
+                      gap: 8,
+                    },
+                    dimensions.width
+                  )}
+                >
+                  {/* Lable */}
+                  <Text
+                    accessible={true}
+                    style={StyleSheet.applyWidth(
+                      {
+                        color: theme.colors['Light'],
+                        fontFamily: 'Quicksand_500Medium',
+                        fontSize: 16,
+                      },
+                      dimensions.width
+                    )}
+                  >
+                    {'Company profile:'}
+                  </Text>
+                  {/* Value */}
+                  <Text
+                    accessible={true}
+                    {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.TextStyles(theme)['screen_title'].style,
+                        { fontFamily: 'Quicksand_500Medium', fontSize: 16 }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    {fetchData?._potd?.story_company_profile}
+                  </Text>
+                </View>
+                {/* Content */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    {
+                      alignItems: 'flex-start',
+                      flexDirection: 'column',
+                      gap: 8,
+                    },
+                    dimensions.width
+                  )}
+                >
+                  {/* Lable */}
+                  <Text
+                    accessible={true}
+                    {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.TextStyles(theme)['screen_title'].style,
+                        {
+                          color: theme.colors['Light'],
+                          fontFamily: 'Quicksand_500Medium',
+                          fontSize: 16,
+                        }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    {'The opportunity:'}
+                  </Text>
+                  {/* Value */}
+                  <Text
+                    accessible={true}
+                    {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.TextStyles(theme)['screen_title'].style,
+                        { fontFamily: 'Quicksand_500Medium', fontSize: 16 }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    {fetchData?._potd?.story_opportunity}
+                  </Text>
+                </View>
+                {/* Content */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    {
+                      alignItems: 'flex-start',
+                      flexDirection: 'column',
+                      gap: 8,
+                    },
+                    dimensions.width
+                  )}
+                >
+                  {/* Lable */}
+                  <Text
+                    accessible={true}
+                    {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.TextStyles(theme)['screen_title'].style,
+                        {
+                          color: theme.colors['Light'],
+                          fontFamily: 'Quicksand_500Medium',
+                          fontSize: 16,
+                        }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    {'Comps & precedents:'}
+                  </Text>
+                  {/* Value */}
+                  <Text
+                    accessible={true}
+                    {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.TextStyles(theme)['screen_title'].style,
+                        { fontFamily: 'Quicksand_500Medium', fontSize: 16 }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    {fetchData?._potd?.story_comps}
+                  </Text>
+                </View>
+              </View>
+              {/* Listed comparable */}
+              <View
+                style={StyleSheet.applyWidth(
+                  {
+                    maxWidth: 450,
+                    padding: 10,
+                    width: { minWidth: Breakpoints.BigScreen, value: 450 },
+                  },
+                  dimensions.width
+                )}
+              >
+                {/* header */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    {
+                      flexDirection: 'row',
+                      gap: 8,
+                      justifyContent: 'space-between',
+                    },
+                    dimensions.width
+                  )}
+                >
+                  <Text
+                    accessible={true}
+                    {...GlobalStyles.TextStyles(theme)['listed_header_title']
+                      .props}
+                    style={StyleSheet.applyWidth(
+                      GlobalStyles.TextStyles(theme)['listed_header_title']
+                        .style,
+                      dimensions.width
+                    )}
+                  >
+                    {'Listed comparable'}
+                  </Text>
+
+                  <View
+                    style={StyleSheet.applyWidth(
+                      {
+                        flexDirection: 'row',
+                        gap: [
+                          { minWidth: Breakpoints.Mobile, value: 8 },
+                          { minWidth: Breakpoints.BigScreen, value: 8 },
+                        ],
+                        justifyContent: {
+                          minWidth: Breakpoints.BigScreen,
+                          value: 'flex-end',
+                        },
+                      },
+                      dimensions.width
+                    )}
+                  >
+                    <View
+                      style={StyleSheet.applyWidth(
+                        {
+                          alignItems: 'flex-end',
+                          width: [
+                            { minWidth: Breakpoints.BigScreen, value: 100 },
+                            { minWidth: Breakpoints.Mobile, value: 100 },
+                          ],
+                        },
+                        dimensions.width
+                      )}
+                    >
+                      {/* Text 2 */}
+                      <Text
+                        accessible={true}
+                        {...GlobalStyles.TextStyles(theme)[
+                          'listed_header_title'
+                        ].props}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.TextStyles(theme)[
+                              'listed_header_title'
+                            ].style,
+                            {
+                              alignSelf: {
+                                minWidth: Breakpoints.BigScreen,
+                                value: 'flex-end',
+                              },
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {'EV/Sales (FY0)'}
+                      </Text>
+                    </View>
+                    {/* View 2 */}
+                    <View
+                      style={StyleSheet.applyWidth(
+                        {
+                          alignSelf: 'flex-end',
+                          width: {
+                            minWidth: Breakpoints.BigScreen,
+                            value: 100,
+                          },
+                        },
+                        dimensions.width
+                      )}
+                    >
+                      {/* Text 3 */}
+                      <Text
+                        accessible={true}
+                        {...GlobalStyles.TextStyles(theme)[
+                          'listed_header_title'
+                        ].props}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.TextStyles(theme)[
+                              'listed_header_title'
+                            ].style,
+                            {
+                              alignSelf: {
+                                minWidth: Breakpoints.BigScreen,
+                                value: 'flex-start',
+                              },
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {'EV/EBITDA (FY0)'}
+                      </Text>
+                    </View>
+                  </View>
+                </View>
+                <SimpleStyleFlatList
+                  data={fetchData?._potd?._peer_group?.stocks}
+                  horizontal={false}
+                  inverted={false}
+                  keyExtractor={(listData, index) => listData?.id}
+                  keyboardShouldPersistTaps={'never'}
+                  listKey={'gAHpjOpB'}
+                  nestedScrollEnabled={false}
+                  numColumns={1}
+                  onEndReachedThreshold={0.5}
+                  renderItem={({ item, index }) => {
+                    const listData = item;
+                    return (
+                      <View
+                        style={StyleSheet.applyWidth(
+                          {
+                            flexDirection: 'row',
+                            gap: 8,
+                            justifyContent: 'space-between',
+                          },
+                          dimensions.width
+                        )}
+                      >
+                        <Text
+                          accessible={true}
+                          {...GlobalStyles.TextStyles(theme)['screen_title']
+                            .props}
+                          style={StyleSheet.applyWidth(
+                            GlobalStyles.TextStyles(theme)['screen_title']
+                              .style,
+                            dimensions.width
+                          )}
+                        >
+                          {listData?.company_name}
+                        </Text>
+
+                        <View
+                          style={StyleSheet.applyWidth(
+                            { flexDirection: 'row', gap: 8 },
+                            dimensions.width
+                          )}
+                        >
+                          <View
+                            style={StyleSheet.applyWidth(
+                              {
+                                alignContent: 'flex-end',
+                                alignSelf: 'flex-end',
+                                width: 100,
+                              },
+                              dimensions.width
+                            )}
+                          >
+                            {/* Text 2 */}
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)['screen_title']
+                                .props}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.TextStyles(theme)['screen_title']
+                                    .style,
+                                  { alignSelf: 'flex-end', textAlign: 'right' }
+                                ),
+                                dimensions.width
+                              )}
+                            >
+                              {listData?.ev_sales_fy0}
+                            </Text>
+                          </View>
+                          {/* View 2 */}
+                          <View
+                            style={StyleSheet.applyWidth(
+                              { width: 100 },
+                              dimensions.width
+                            )}
+                          >
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)['screen_title']
+                                .props}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.TextStyles(theme)['screen_title']
+                                    .style,
+                                  { textAlign: 'right' }
+                                ),
+                                dimensions.width
+                              )}
+                            >
+                              {listData?.ev_ebitda_fy0}
+                            </Text>
+                          </View>
+                        </View>
+                      </View>
+                    );
+                  }}
+                  showsHorizontalScrollIndicator={true}
+                  showsVerticalScrollIndicator={true}
+                />
+              </View>
+              {/* Section Name */}
+              <View
+                style={StyleSheet.applyWidth(
+                  { backgroundColor: theme.colors['Strong'], marginBottom: 10 },
+                  dimensions.width
+                )}
+              >
+                <LinearGradient
+                  color1={theme.colors.primary}
+                  color2={theme.colors.secondary}
+                  endX={100}
+                  endY={100}
+                  startX={0}
+                  startY={0}
+                  {...GlobalStyles.LinearGradientStyles(theme)['SectionName']
+                    .props}
+                  style={StyleSheet.applyWidth(
+                    StyleSheet.compose(
+                      GlobalStyles.LinearGradientStyles(theme)['SectionName']
+                        .style,
+                      { margin: null }
+                    ),
+                    dimensions.width
+                  )}
+                >
+                  <Text
+                    accessible={true}
+                    {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.TextStyles(theme)['screen_title'].style,
+                        {
+                          color: theme.colors['Strong Inverse'],
+                          fontFamily: 'Quicksand_700Bold',
+                          fontSize: 16,
+                          textTransform: 'uppercase',
+                        }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    {'NEWSFLOW'}
+                  </Text>
+                </LinearGradient>
+              </View>
+              {/* Nordic Newsflow */}
+              <>
+                {!(fetchData?.version === 'Nordic') ? null : (
+                  <View>
+                    {/* DK */}
+                    <View
+                      style={StyleSheet.applyWidth(
+                        { padding: 10 },
+                        dimensions.width
+                      )}
+                    >
+                      <H3
+                        selectable={false}
+                        {...GlobalStyles.H3Styles(theme)['H3'].props}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.H3Styles(theme)['H3'].style,
+                            {
+                              marginBottom: 10,
+                              marginTop: 0,
+                              paddingLeft: 2,
+                              paddingRight: 2,
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {nordic_nl_section_1}
+                      </H3>
+                      <SimpleStyleFlatList
+                        data={fetchData?.events_dk}
+                        inverted={false}
+                        keyExtractor={(listData, index) =>
+                          listData?.id ?? listData?.uuid ?? index.toString()
+                        }
+                        keyboardShouldPersistTaps={'never'}
+                        listKey={'BkWHiVbG'}
+                        nestedScrollEnabled={false}
+                        numColumns={1}
+                        onEndReachedThreshold={0.5}
+                        renderItem={({ item, index }) => {
+                          const listData = item;
+                          return (
+                            <Shadow
+                              showShadowCornerBottomEnd={true}
+                              showShadowCornerBottomStart={true}
+                              showShadowCornerTopEnd={true}
+                              showShadowCornerTopStart={true}
+                              showShadowSideBottom={true}
+                              showShadowSideEnd={true}
+                              showShadowSideStart={true}
+                              showShadowSideTop={true}
+                              distance={4}
+                              offsetX={0}
+                              offsetY={0}
+                              paintInside={true}
+                              style={StyleSheet.applyWidth(
+                                {
+                                  borderRadius: 12,
+                                  width: {
+                                    minWidth: Breakpoints.Laptop,
+                                    value: '100%',
+                                  },
+                                },
+                                dimensions.width
+                              )}
+                            >
+                              <View
+                                style={StyleSheet.applyWidth(
+                                  {
+                                    backgroundColor:
+                                      theme.colors['Strong Inverse'],
+                                    borderColor: theme.colors['Light Inverse'],
+                                    borderRadius: 8,
+                                    borderWidth: 1,
+                                    padding: 10,
+                                  },
+                                  dimensions.width
+                                )}
+                              >
+                                <View>
+                                  <Text
+                                    accessible={true}
+                                    style={StyleSheet.applyWidth(
+                                      {
+                                        fontFamily: 'Quicksand_600SemiBold',
+                                        fontSize: 16,
+                                      },
+                                      dimensions.width
+                                    )}
+                                  >
+                                    {listData?.headline}
+                                    {' ('}
+                                    {listData?.source}
+                                    {')'}
+                                  </Text>
+                                </View>
+                                {/* View 2 */}
+                                <View>
+                                  <Text
+                                    accessible={true}
+                                    style={StyleSheet.applyWidth(
+                                      {
+                                        color: theme.colors['green'],
+                                        fontFamily: 'Quicksand_400Regular',
+                                      },
+                                      dimensions.width
+                                    )}
+                                  >
+                                    {
+                                      listData?._gics_sub_industry
+                                        ?.GICS_Sub_Industry
+                                    }
+                                  </Text>
+                                </View>
+                              </View>
+                            </Shadow>
+                          );
+                        }}
+                        horizontal={false}
+                        showsHorizontalScrollIndicator={false}
+                        showsVerticalScrollIndicator={false}
+                        style={StyleSheet.applyWidth(
+                          {
+                            alignSelf: {
+                              minWidth: Breakpoints.Laptop,
+                              value: 'stretch',
+                            },
+                            gap: 8,
+                            padding: 2,
+                          },
+                          dimensions.width
+                        )}
+                      />
+                    </View>
+                    {/* SE */}
+                    <View
+                      style={StyleSheet.applyWidth(
+                        { padding: 10 },
+                        dimensions.width
+                      )}
+                    >
+                      <H3
+                        selectable={false}
+                        {...GlobalStyles.H3Styles(theme)['H3'].props}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.H3Styles(theme)['H3'].style,
+                            {
+                              marginBottom: 10,
+                              marginTop: 0,
+                              paddingLeft: 2,
+                              paddingRight: 2,
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {nordic_nl_section_2}
+                      </H3>
+                      <SimpleStyleFlatList
+                        data={fetchData?.events_se}
+                        inverted={false}
+                        keyExtractor={(listData, index) =>
+                          listData?.id ?? listData?.uuid ?? index.toString()
+                        }
+                        keyboardShouldPersistTaps={'never'}
+                        listKey={'kqofNM7m'}
+                        nestedScrollEnabled={false}
+                        numColumns={1}
+                        onEndReachedThreshold={0.5}
+                        renderItem={({ item, index }) => {
+                          const listData = item;
+                          return (
+                            <Shadow
+                              showShadowCornerBottomEnd={true}
+                              showShadowCornerBottomStart={true}
+                              showShadowCornerTopEnd={true}
+                              showShadowCornerTopStart={true}
+                              showShadowSideBottom={true}
+                              showShadowSideEnd={true}
+                              showShadowSideStart={true}
+                              showShadowSideTop={true}
+                              distance={4}
+                              offsetX={0}
+                              offsetY={0}
+                              paintInside={true}
+                              style={StyleSheet.applyWidth(
+                                {
+                                  borderRadius: 12,
+                                  width: {
+                                    minWidth: Breakpoints.Laptop,
+                                    value: '100%',
+                                  },
+                                },
+                                dimensions.width
+                              )}
+                            >
+                              <View
+                                style={StyleSheet.applyWidth(
+                                  {
+                                    backgroundColor:
+                                      theme.colors['Strong Inverse'],
+                                    borderColor: theme.colors['Light Inverse'],
+                                    borderRadius: 8,
+                                    borderWidth: 1,
+                                    padding: 10,
+                                  },
+                                  dimensions.width
+                                )}
+                              >
+                                <View>
+                                  <Text
+                                    accessible={true}
+                                    style={StyleSheet.applyWidth(
+                                      {
+                                        fontFamily: 'Quicksand_600SemiBold',
+                                        fontSize: 16,
+                                      },
+                                      dimensions.width
+                                    )}
+                                  >
+                                    {listData?.headline}
+                                    {' ('}
+                                    {listData?.source}
+                                    {')'}
+                                  </Text>
+                                </View>
+                                {/* View 2 */}
+                                <View>
+                                  <Text
+                                    accessible={true}
+                                    style={StyleSheet.applyWidth(
+                                      {
+                                        color: theme.colors['green'],
+                                        fontFamily: 'Quicksand_400Regular',
+                                      },
+                                      dimensions.width
+                                    )}
+                                  >
+                                    {
+                                      listData?._gics_sub_industry
+                                        ?.GICS_Sub_Industry
+                                    }
+                                  </Text>
+                                </View>
+                              </View>
+                            </Shadow>
+                          );
+                        }}
+                        horizontal={false}
+                        showsHorizontalScrollIndicator={false}
+                        showsVerticalScrollIndicator={false}
+                        style={StyleSheet.applyWidth(
+                          { gap: 8, padding: 2 },
+                          dimensions.width
+                        )}
+                      />
+                    </View>
+                    {/* NO */}
+                    <View
+                      style={StyleSheet.applyWidth(
+                        { padding: 10 },
+                        dimensions.width
+                      )}
+                    >
+                      <H3
+                        selectable={false}
+                        {...GlobalStyles.H3Styles(theme)['H3'].props}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.H3Styles(theme)['H3'].style,
+                            {
+                              marginBottom: 10,
+                              marginTop: 0,
+                              paddingLeft: 2,
+                              paddingRight: 2,
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {nordic_nl_section_3}
+                      </H3>
+                      <SimpleStyleFlatList
+                        data={fetchData?.events_no}
+                        inverted={false}
+                        keyExtractor={(listData, index) =>
+                          listData?.id ?? listData?.uuid ?? index.toString()
+                        }
+                        keyboardShouldPersistTaps={'never'}
+                        listKey={'y01Zzgwh'}
+                        nestedScrollEnabled={false}
+                        numColumns={1}
+                        onEndReachedThreshold={0.5}
+                        renderItem={({ item, index }) => {
+                          const listData = item;
+                          return (
+                            <Shadow
+                              showShadowCornerBottomEnd={true}
+                              showShadowCornerBottomStart={true}
+                              showShadowCornerTopEnd={true}
+                              showShadowCornerTopStart={true}
+                              showShadowSideBottom={true}
+                              showShadowSideEnd={true}
+                              showShadowSideStart={true}
+                              showShadowSideTop={true}
+                              distance={4}
+                              offsetX={0}
+                              offsetY={0}
+                              paintInside={true}
+                              style={StyleSheet.applyWidth(
+                                {
+                                  borderRadius: 12,
+                                  width: {
+                                    minWidth: Breakpoints.Laptop,
+                                    value: '100%',
+                                  },
+                                },
+                                dimensions.width
+                              )}
+                            >
+                              <View
+                                style={StyleSheet.applyWidth(
+                                  {
+                                    backgroundColor:
+                                      theme.colors['Strong Inverse'],
+                                    borderColor: theme.colors['Light Inverse'],
+                                    borderRadius: 8,
+                                    borderWidth: 1,
+                                    padding: 10,
+                                  },
+                                  dimensions.width
+                                )}
+                              >
+                                <View>
+                                  <Text
+                                    accessible={true}
+                                    style={StyleSheet.applyWidth(
+                                      {
+                                        fontFamily: 'Quicksand_600SemiBold',
+                                        fontSize: 16,
+                                      },
+                                      dimensions.width
+                                    )}
+                                  >
+                                    {listData?.headline}
+                                    {' ('}
+                                    {listData?.source}
+                                    {')'}
+                                  </Text>
+                                </View>
+                                {/* View 2 */}
+                                <View>
+                                  <Text
+                                    accessible={true}
+                                    style={StyleSheet.applyWidth(
+                                      {
+                                        color: theme.colors['green'],
+                                        fontFamily: 'Quicksand_400Regular',
+                                      },
+                                      dimensions.width
+                                    )}
+                                  >
+                                    {
+                                      listData?._gics_sub_industry
+                                        ?.GICS_Sub_Industry
+                                    }
+                                  </Text>
+                                </View>
+                              </View>
+                            </Shadow>
+                          );
+                        }}
+                        horizontal={false}
+                        showsHorizontalScrollIndicator={false}
+                        showsVerticalScrollIndicator={false}
+                        style={StyleSheet.applyWidth(
+                          { gap: 8, padding: 2 },
+                          dimensions.width
+                        )}
+                      />
+                    </View>
+                    {/* FI */}
+                    <View
+                      style={StyleSheet.applyWidth(
+                        { padding: 10 },
+                        dimensions.width
+                      )}
+                    >
+                      <H3
+                        selectable={false}
+                        {...GlobalStyles.H3Styles(theme)['H3'].props}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.H3Styles(theme)['H3'].style,
+                            {
+                              marginBottom: 10,
+                              marginTop: 0,
+                              paddingLeft: 2,
+                              paddingRight: 2,
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {nordic_nl_section_4}
+                      </H3>
+                      <SimpleStyleFlatList
+                        data={fetchData?.events_fi}
+                        inverted={false}
+                        keyExtractor={(listData, index) =>
+                          listData?.id ?? listData?.uuid ?? index.toString()
+                        }
+                        keyboardShouldPersistTaps={'never'}
+                        listKey={'MXVhR479'}
+                        nestedScrollEnabled={false}
+                        numColumns={1}
+                        onEndReachedThreshold={0.5}
+                        renderItem={({ item, index }) => {
+                          const listData = item;
+                          return (
+                            <Shadow
+                              showShadowCornerBottomEnd={true}
+                              showShadowCornerBottomStart={true}
+                              showShadowCornerTopEnd={true}
+                              showShadowCornerTopStart={true}
+                              showShadowSideBottom={true}
+                              showShadowSideEnd={true}
+                              showShadowSideStart={true}
+                              showShadowSideTop={true}
+                              distance={4}
+                              offsetX={0}
+                              offsetY={0}
+                              paintInside={true}
+                              style={StyleSheet.applyWidth(
+                                {
+                                  borderRadius: 12,
+                                  width: {
+                                    minWidth: Breakpoints.Laptop,
+                                    value: '100%',
+                                  },
+                                },
+                                dimensions.width
+                              )}
+                            >
+                              <View
+                                style={StyleSheet.applyWidth(
+                                  {
+                                    backgroundColor:
+                                      theme.colors['Strong Inverse'],
+                                    borderColor: theme.colors['Light Inverse'],
+                                    borderRadius: 8,
+                                    borderWidth: 1,
+                                    padding: 10,
+                                  },
+                                  dimensions.width
+                                )}
+                              >
+                                <View>
+                                  <Text
+                                    accessible={true}
+                                    style={StyleSheet.applyWidth(
+                                      {
+                                        fontFamily: 'Quicksand_600SemiBold',
+                                        fontSize: 16,
+                                      },
+                                      dimensions.width
+                                    )}
+                                  >
+                                    {listData?.headline}
+                                    {' ('}
+                                    {listData?.source}
+                                    {')'}
+                                  </Text>
+                                </View>
+                                {/* View 2 */}
+                                <View>
+                                  <Text
+                                    accessible={true}
+                                    style={StyleSheet.applyWidth(
+                                      {
+                                        color: theme.colors['green'],
+                                        fontFamily: 'Quicksand_400Regular',
+                                      },
+                                      dimensions.width
+                                    )}
+                                  >
+                                    {
+                                      listData?._gics_sub_industry
+                                        ?.GICS_Sub_Industry
+                                    }
+                                  </Text>
+                                </View>
+                              </View>
+                            </Shadow>
+                          );
+                        }}
+                        horizontal={false}
+                        showsHorizontalScrollIndicator={false}
+                        showsVerticalScrollIndicator={false}
+                        style={StyleSheet.applyWidth(
+                          { gap: 8, padding: 2 },
+                          dimensions.width
+                        )}
+                      />
+                    </View>
+                  </View>
+                )}
+              </>
+              {/* DACH newsflow */}
+              <>
+                {!(fetchData?.version === 'DACH') ? null : (
+                  <View>
+                    {/* Large Cap */}
+                    <View
+                      style={StyleSheet.applyWidth(
+                        { padding: 10 },
+                        dimensions.width
+                      )}
+                    >
+                      <H3
+                        selectable={false}
+                        {...GlobalStyles.H3Styles(theme)['H3'].props}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.H3Styles(theme)['H3'].style,
+                            {
+                              marginBottom: 10,
+                              marginTop: 0,
+                              paddingLeft: 2,
+                              paddingRight: 2,
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {'Large Cap:'}
+                      </H3>
+                      <SimpleStyleFlatList
+                        data={fetchData?.events_dach_large_cap}
+                        inverted={false}
+                        keyExtractor={(listData, index) =>
+                          listData?.id ?? listData?.uuid ?? index.toString()
+                        }
+                        keyboardShouldPersistTaps={'never'}
+                        listKey={'cEbiegfV'}
+                        nestedScrollEnabled={false}
+                        numColumns={1}
+                        onEndReachedThreshold={0.5}
+                        renderItem={({ item, index }) => {
+                          const listData = item;
+                          return (
+                            <Shadow
+                              showShadowCornerBottomEnd={true}
+                              showShadowCornerBottomStart={true}
+                              showShadowCornerTopEnd={true}
+                              showShadowCornerTopStart={true}
+                              showShadowSideBottom={true}
+                              showShadowSideEnd={true}
+                              showShadowSideStart={true}
+                              showShadowSideTop={true}
+                              distance={4}
+                              offsetX={0}
+                              offsetY={0}
+                              paintInside={true}
+                              style={StyleSheet.applyWidth(
+                                {
+                                  borderRadius: 12,
+                                  width: {
+                                    minWidth: Breakpoints.Laptop,
+                                    value: '100%',
+                                  },
+                                },
+                                dimensions.width
+                              )}
+                            >
+                              <View
+                                style={StyleSheet.applyWidth(
+                                  {
+                                    backgroundColor:
+                                      theme.colors['Strong Inverse'],
+                                    borderColor: theme.colors['Light Inverse'],
+                                    borderRadius: 8,
+                                    borderWidth: 1,
+                                    padding: 10,
+                                  },
+                                  dimensions.width
+                                )}
+                              >
+                                <View>
+                                  <Text
+                                    accessible={true}
+                                    style={StyleSheet.applyWidth(
+                                      {
+                                        fontFamily: 'Quicksand_600SemiBold',
+                                        fontSize: 16,
+                                      },
+                                      dimensions.width
+                                    )}
+                                  >
+                                    {listData?.headline}
+                                    {' ('}
+                                    {listData?.source}
+                                    {')'}
+                                  </Text>
+                                </View>
+                                {/* View 2 */}
+                                <View>
+                                  <Text
+                                    accessible={true}
+                                    style={StyleSheet.applyWidth(
+                                      {
+                                        color: theme.colors['green'],
+                                        fontFamily: 'Quicksand_400Regular',
+                                      },
+                                      dimensions.width
+                                    )}
+                                  >
+                                    {listData?.country}
+                                    {' - '}
+                                    {listData?.gics}
+                                  </Text>
+                                </View>
+                              </View>
+                            </Shadow>
+                          );
+                        }}
+                        horizontal={false}
+                        showsHorizontalScrollIndicator={false}
+                        showsVerticalScrollIndicator={false}
+                        style={StyleSheet.applyWidth(
+                          {
+                            alignSelf: {
+                              minWidth: Breakpoints.Laptop,
+                              value: 'stretch',
+                            },
+                            gap: 8,
+                            padding: 2,
+                          },
+                          dimensions.width
+                        )}
+                      />
+                    </View>
+                    {/* Mid Cap */}
+                    <View
+                      style={StyleSheet.applyWidth(
+                        { padding: 10 },
+                        dimensions.width
+                      )}
+                    >
+                      <H3
+                        selectable={false}
+                        {...GlobalStyles.H3Styles(theme)['H3'].props}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.H3Styles(theme)['H3'].style,
+                            {
+                              marginBottom: 10,
+                              marginTop: 0,
+                              paddingLeft: 2,
+                              paddingRight: 2,
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {'Mid Cap:'}
+                      </H3>
+                      <SimpleStyleFlatList
+                        data={fetchData?.events_dach_mid}
+                        inverted={false}
+                        keyExtractor={(listData, index) =>
+                          listData?.id ?? listData?.uuid ?? index.toString()
+                        }
+                        keyboardShouldPersistTaps={'never'}
+                        listKey={'VSaJ4R1g'}
+                        nestedScrollEnabled={false}
+                        numColumns={1}
+                        onEndReachedThreshold={0.5}
+                        renderItem={({ item, index }) => {
+                          const listData = item;
+                          return (
+                            <Shadow
+                              showShadowCornerBottomEnd={true}
+                              showShadowCornerBottomStart={true}
+                              showShadowCornerTopEnd={true}
+                              showShadowCornerTopStart={true}
+                              showShadowSideBottom={true}
+                              showShadowSideEnd={true}
+                              showShadowSideStart={true}
+                              showShadowSideTop={true}
+                              distance={4}
+                              offsetX={0}
+                              offsetY={0}
+                              paintInside={true}
+                              style={StyleSheet.applyWidth(
+                                {
+                                  borderRadius: 12,
+                                  width: {
+                                    minWidth: Breakpoints.Laptop,
+                                    value: '100%',
+                                  },
+                                },
+                                dimensions.width
+                              )}
+                            >
+                              <View
+                                style={StyleSheet.applyWidth(
+                                  {
+                                    backgroundColor:
+                                      theme.colors['Strong Inverse'],
+                                    borderColor: theme.colors['Light Inverse'],
+                                    borderRadius: 8,
+                                    borderWidth: 1,
+                                    padding: 10,
+                                  },
+                                  dimensions.width
+                                )}
+                              >
+                                <View>
+                                  <Text
+                                    accessible={true}
+                                    style={StyleSheet.applyWidth(
+                                      {
+                                        fontFamily: 'Quicksand_600SemiBold',
+                                        fontSize: 16,
+                                      },
+                                      dimensions.width
+                                    )}
+                                  >
+                                    {listData?.headline}
+                                    {' ('}
+                                    {listData?.source}
+                                    {')'}
+                                  </Text>
+                                </View>
+                                {/* View 2 */}
+                                <View>
+                                  <Text
+                                    accessible={true}
+                                    style={StyleSheet.applyWidth(
+                                      {
+                                        color: theme.colors['green'],
+                                        fontFamily: 'Quicksand_400Regular',
+                                      },
+                                      dimensions.width
+                                    )}
+                                  >
+                                    {listData?.country}
+                                    {' - '}
+                                    {listData?.gics}
+                                  </Text>
+                                </View>
+                              </View>
+                            </Shadow>
+                          );
+                        }}
+                        horizontal={false}
+                        showsHorizontalScrollIndicator={false}
+                        showsVerticalScrollIndicator={false}
+                        style={StyleSheet.applyWidth(
+                          {
+                            alignSelf: {
+                              minWidth: Breakpoints.Laptop,
+                              value: 'stretch',
+                            },
+                            gap: 8,
+                            padding: 2,
+                          },
+                          dimensions.width
+                        )}
+                      />
+                    </View>
+                    {/* Small Cap */}
+                    <View
+                      style={StyleSheet.applyWidth(
+                        { padding: 10 },
+                        dimensions.width
+                      )}
+                    >
+                      <H3
+                        selectable={false}
+                        {...GlobalStyles.H3Styles(theme)['H3'].props}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.H3Styles(theme)['H3'].style,
+                            {
+                              marginBottom: 10,
+                              marginTop: 0,
+                              paddingLeft: 2,
+                              paddingRight: 2,
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {'Small Cap & Growth Equity:'}
+                      </H3>
+                      <SimpleStyleFlatList
+                        data={fetchData?.events_dach_small}
+                        inverted={false}
+                        keyExtractor={(listData, index) =>
+                          listData?.id ?? listData?.uuid ?? index.toString()
+                        }
+                        keyboardShouldPersistTaps={'never'}
+                        listKey={'eZ4x76dS'}
+                        nestedScrollEnabled={false}
+                        numColumns={1}
+                        onEndReachedThreshold={0.5}
+                        renderItem={({ item, index }) => {
+                          const listData = item;
+                          return (
+                            <Shadow
+                              showShadowCornerBottomEnd={true}
+                              showShadowCornerBottomStart={true}
+                              showShadowCornerTopEnd={true}
+                              showShadowCornerTopStart={true}
+                              showShadowSideBottom={true}
+                              showShadowSideEnd={true}
+                              showShadowSideStart={true}
+                              showShadowSideTop={true}
+                              distance={4}
+                              offsetX={0}
+                              offsetY={0}
+                              paintInside={true}
+                              style={StyleSheet.applyWidth(
+                                {
+                                  borderRadius: 12,
+                                  width: {
+                                    minWidth: Breakpoints.Laptop,
+                                    value: '100%',
+                                  },
+                                },
+                                dimensions.width
+                              )}
+                            >
+                              <View
+                                style={StyleSheet.applyWidth(
+                                  {
+                                    backgroundColor:
+                                      theme.colors['Strong Inverse'],
+                                    borderColor: theme.colors['Light Inverse'],
+                                    borderRadius: 8,
+                                    borderWidth: 1,
+                                    padding: 10,
+                                  },
+                                  dimensions.width
+                                )}
+                              >
+                                <View>
+                                  <Text
+                                    accessible={true}
+                                    style={StyleSheet.applyWidth(
+                                      {
+                                        fontFamily: 'Quicksand_600SemiBold',
+                                        fontSize: 16,
+                                      },
+                                      dimensions.width
+                                    )}
+                                  >
+                                    {listData?.headline}
+                                    {' ('}
+                                    {listData?.source}
+                                    {')'}
+                                  </Text>
+                                </View>
+                                {/* View 2 */}
+                                <View>
+                                  <Text
+                                    accessible={true}
+                                    style={StyleSheet.applyWidth(
+                                      {
+                                        color: theme.colors['green'],
+                                        fontFamily: 'Quicksand_400Regular',
+                                      },
+                                      dimensions.width
+                                    )}
+                                  >
+                                    {listData?.country}
+                                    {' - '}
+                                    {listData?.gics}
+                                  </Text>
+                                </View>
+                              </View>
+                            </Shadow>
+                          );
+                        }}
+                        horizontal={false}
+                        showsHorizontalScrollIndicator={false}
+                        showsVerticalScrollIndicator={false}
+                        style={StyleSheet.applyWidth(
+                          {
+                            alignSelf: {
+                              minWidth: Breakpoints.Laptop,
+                              value: 'stretch',
+                            },
+                            gap: 8,
+                            padding: 2,
+                          },
+                          dimensions.width
+                        )}
+                      />
+                    </View>
+                  </View>
+                )}
+              </>
+            </View>
+          );
+        }}
+      </XanoCollectionApi.FetchNewsletterEachGET>
+    </ScreenContainer>
+  );
+};
+
+export default withTheme(NewsletterDetailsScreen);

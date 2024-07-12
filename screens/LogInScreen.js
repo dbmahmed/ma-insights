@@ -1,6 +1,7 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
+import * as XanoResetPassApi from '../apis/XanoResetPassApi.js';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import Images from '../config/Images';
 import assessAccess from '../global-functions/assessAccess';
@@ -11,6 +12,7 @@ import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import {
   Button,
+  HStack,
   KeyboardAvoidingView,
   Link,
   ScreenContainer,
@@ -19,7 +21,7 @@ import {
   withTheme,
 } from '@draftbit/ui';
 import { useIsFocused } from '@react-navigation/native';
-import { Image, Keyboard, Text, View } from 'react-native';
+import { Image, Keyboard, Modal, Text, View } from 'react-native';
 
 const LogInScreen = props => {
   const { theme, navigation } = props;
@@ -32,6 +34,7 @@ const LogInScreen = props => {
   const [emailVarl, setEmailVarl] = React.useState('');
   const [enterPressed, setEnterPressed] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState('');
+  const [firstLogin, setFirstLogin] = React.useState(false);
   const [passwordVarl, setPasswordVarl] = React.useState('');
   const loginFormValidator = () => {
     var emailPattern = /\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b/;
@@ -108,9 +111,10 @@ const LogInScreen = props => {
             alignContent: 'center',
             alignItems: 'center',
             alignSelf: 'center',
+            maxWidth: { minWidth: Breakpoints.Tablet, value: 380 },
             width: [
               { minWidth: Breakpoints.Laptop, value: '50%' },
-              { minWidth: Breakpoints.Tablet, value: '50%' },
+              { minWidth: Breakpoints.Tablet, value: '100%' },
             ],
           },
           dimensions.width
@@ -120,7 +124,7 @@ const LogInScreen = props => {
         <Image
           {...GlobalStyles.ImageStyles(theme)['Image'].props}
           resizeMode={'contain'}
-          source={Images.LogoMobileApp}
+          source={Images.nccbwem0cxji6jiufhxlz}
           style={StyleSheet.applyWidth(
             StyleSheet.compose(GlobalStyles.ImageStyles(theme)['Image'].style, {
               width: 300,
@@ -128,6 +132,32 @@ const LogInScreen = props => {
             dimensions.width
           )}
         />
+        {/* Text 2 */}
+        <Text
+          accessible={true}
+          {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+          style={StyleSheet.applyWidth(
+            StyleSheet.compose(
+              GlobalStyles.TextStyles(theme)['screen_title'].style,
+              {
+                color: {
+                  minWidth: Breakpoints.Desktop,
+                  value: theme.colors['Orange'],
+                },
+                fontFamily: {
+                  minWidth: Breakpoints.Desktop,
+                  value: 'Poppins_900Black',
+                },
+                lineHeight: { minWidth: Breakpoints.Desktop, value: 14 },
+                paddingBottom: { minWidth: Breakpoints.Desktop, value: 0 },
+              }
+            ),
+            dimensions.width
+          )}
+        >
+          {'M&A INSIGHTS'}
+        </Text>
+
         <Text
           accessible={true}
           {...GlobalStyles.TextStyles(theme)['screen_title'].props}
@@ -150,153 +180,49 @@ const LogInScreen = props => {
           }
         </Text>
       </View>
-
-      <KeyboardAvoidingView
-        behavior={'padding'}
-        enabled={true}
-        keyboardVerticalOffset={0}
-      >
-        {/* Login Window */}
-        <View
-          style={StyleSheet.applyWidth(
-            {
-              alignSelf: [
-                { minWidth: Breakpoints.Laptop, value: 'center' },
-                { minWidth: Breakpoints.Tablet, value: 'center' },
-              ],
-              width: [
-                { minWidth: Breakpoints.Laptop, value: '50%' },
-                { minWidth: Breakpoints.Tablet, value: '50%' },
-              ],
-            },
-            dimensions.width
-          )}
-        >
-          <Surface
-            {...GlobalStyles.SurfaceStyles(theme)['Surface'].props}
-            elevation={2}
-            style={StyleSheet.applyWidth(
-              GlobalStyles.SurfaceStyles(theme)['Surface'].style,
-              dimensions.width
-            )}
+      <>
+        {firstLogin ? null : (
+          <KeyboardAvoidingView
+            behavior={'padding'}
+            enabled={true}
+            keyboardVerticalOffset={0}
           >
-            <Text
-              accessible={true}
-              {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+            {/* Login Window */}
+            <View
               style={StyleSheet.applyWidth(
-                StyleSheet.compose(
-                  GlobalStyles.TextStyles(theme)['screen_title'].style,
-                  {
-                    alignSelf: 'center',
-                    fontFamily: 'Quicksand_700Bold',
-                    fontSize: 25,
-                    margin: 10,
-                    padding: 10,
-                  }
-                ),
+                {
+                  alignContent: {
+                    minWidth: Breakpoints.Laptop,
+                    value: 'center',
+                  },
+                  alignItems: { minWidth: Breakpoints.Laptop, value: 'center' },
+                  alignSelf: [
+                    { minWidth: Breakpoints.Laptop, value: 'center' },
+                    { minWidth: Breakpoints.Tablet, value: 'center' },
+                  ],
+                  width: [
+                    { minWidth: Breakpoints.Laptop, value: '50%' },
+                    { minWidth: Breakpoints.Tablet, value: '50%' },
+                  ],
+                },
                 dimensions.width
               )}
             >
-              {'Login'}
-            </Text>
-            {/* Email */}
-            <TextInput
-              autoCapitalize={'none'}
-              changeTextDelay={500}
-              onChangeText={newEmailValue => {
-                try {
-                  setEmailVarl(newEmailValue);
-                } catch (err) {
-                  console.error(err);
-                }
-              }}
-              onSubmitEditing={() => {
-                try {
-                  passwordyUSI8C8SRef.current.focus();
-                } catch (err) {
-                  console.error(err);
-                }
-              }}
-              webShowOutline={true}
-              {...GlobalStyles.TextInputStyles(theme)['Login Text Style'].props}
-              autoComplete={'email'}
-              autoCorrect={false}
-              autoFocus={false}
-              clearButtonMode={'while-editing'}
-              keyboardType={'email-address'}
-              numberOfLines={1}
-              placeholder={'Enter email...'}
-              placeholderTextColor={theme.colors['Medium']}
-              returnKeyType={'next'}
-              selectionColor={theme.colors['Strong']}
-              spellcheck={true}
-              style={StyleSheet.applyWidth(
-                StyleSheet.compose(
-                  GlobalStyles.TextInputStyles(theme)['Login Text Style'].style,
-                  {
-                    borderColor: theme.colors['Strong'],
-                    borderStyle: 'solid',
-                    fontFamily: 'Quicksand_400Regular',
-                    margin: 10,
-                    padding: 10,
-                  }
-                ),
-                dimensions.width
-              )}
-              value={emailVarl}
-            />
-            {/* Password */}
-            <TextInput
-              autoCapitalize={'none'}
-              changeTextDelay={500}
-              onBlur={() => {
-                try {
-                  Keyboard.dismiss();
-                } catch (err) {
-                  console.error(err);
-                }
-              }}
-              onChangeText={newPasswordValue => {
-                try {
-                  setPasswordVarl(newPasswordValue);
-                } catch (err) {
-                  console.error(err);
-                }
-              }}
-              onSubmitEditing={() => {
-                try {
-                  Keyboard.dismiss();
-                } catch (err) {
-                  console.error(err);
-                }
-              }}
-              webShowOutline={true}
-              {...GlobalStyles.TextInputStyles(theme)['Text Input'].props}
-              autoCorrect={false}
-              placeholder={'Enter password...'}
-              placeholderTextColor={theme.colors['Medium']}
-              ref={passwordyUSI8C8SRef}
-              returnKeyLabel={'Login'}
-              returnKeyType={'go'}
-              secureTextEntry={true}
-              spellcheck={true}
-              style={StyleSheet.applyWidth(
-                StyleSheet.compose(
-                  GlobalStyles.TextInputStyles(theme)['Text Input'].style,
-                  {
-                    borderColor: theme.colors['Strong'],
-                    fontFamily: 'Quicksand_400Regular',
-                    margin: 10,
-                    padding: 10,
-                  }
-                ),
-                dimensions.width
-              )}
-              value={passwordVarl}
-            />
-            {/* err message */}
-            <>
-              {!errorMessage ? null : (
+              <Surface
+                {...GlobalStyles.SurfaceStyles(theme)['Surface'].props}
+                elevation={2}
+                style={StyleSheet.applyWidth(
+                  StyleSheet.compose(
+                    GlobalStyles.SurfaceStyles(theme)['Surface'].style,
+                    {
+                      margin: { minWidth: Breakpoints.Laptop, value: null },
+                      maxWidth: { minWidth: Breakpoints.Tablet, value: 380 },
+                      width: { minWidth: Breakpoints.Laptop, value: '100%' },
+                    }
+                  ),
+                  dimensions.width
+                )}
+              >
                 <Text
                   accessible={true}
                   {...GlobalStyles.TextStyles(theme)['screen_title'].props}
@@ -304,216 +230,499 @@ const LogInScreen = props => {
                     StyleSheet.compose(
                       GlobalStyles.TextStyles(theme)['screen_title'].style,
                       {
-                        color: theme.colors['Error'],
+                        alignSelf: 'center',
                         fontFamily: 'Quicksand_700Bold',
-                        marginLeft: 10,
+                        fontSize: 25,
+                        margin: 10,
+                        padding: 10,
                       }
                     ),
                     dimensions.width
                   )}
                 >
-                  {errorMessage}
+                  {'Login'}
                 </Text>
-              )}
-            </>
-            {/* Enter Email */}
-            <>
-              {!emailEntered ? null : (
-                <Button
-                  iconPosition={'left'}
-                  onPress={() => {
-                    console.log('Enter Email ON_PRESS Start');
-                    let error = null;
+                {/* Email */}
+                <TextInput
+                  autoCapitalize={'none'}
+                  changeTextDelay={500}
+                  onChangeText={newEmailValue => {
                     try {
-                      console.log('Start ON_PRESS:0 CUSTOM_FUNCTION');
-                      loginFormValidator();
-                      console.log('Complete ON_PRESS:0 CUSTOM_FUNCTION');
+                      setEmailVarl(newEmailValue);
                     } catch (err) {
                       console.error(err);
-                      error = err.message ?? err;
                     }
-                    console.log(
-                      'Enter Email ON_PRESS Complete',
-                      error ? { error } : 'no error'
-                    );
                   }}
-                  {...GlobalStyles.ButtonStyles(theme)['Button'].props}
-                  disabled={emailVarl === ''}
+                  onSubmitEditing={() => {
+                    const handler = async () => {
+                      try {
+                        /* hidden 'Focus Text Input' action */
+                        Keyboard.dismiss();
+                        setEnterPressed(true);
+                        const signIn = (
+                          await XanoResetPassApi.initialLoginGET(Constants, {
+                            email: emailVarl,
+                          })
+                        )?.json;
+                        if (signIn?.message === null) {
+                          setEmailEntered(true);
+                        } else {
+                          setErrorMessage(signIn?.message);
+                        }
+                      } catch (err) {
+                        console.error(err);
+                      }
+                    };
+                    handler();
+                  }}
+                  webShowOutline={true}
+                  {...GlobalStyles.TextInputStyles(theme)['Login Text Style']
+                    .props}
+                  autoComplete={'email'}
+                  autoCorrect={false}
+                  autoFocus={false}
+                  clearButtonMode={'while-editing'}
+                  keyboardType={'email-address'}
+                  numberOfLines={1}
+                  placeholder={'Enter email...'}
+                  placeholderTextColor={theme.colors['Medium']}
+                  returnKeyType={'next'}
+                  selectionColor={theme.colors['Strong']}
+                  spellcheck={true}
                   style={StyleSheet.applyWidth(
                     StyleSheet.compose(
-                      GlobalStyles.ButtonStyles(theme)['Button'].style,
+                      GlobalStyles.TextInputStyles(theme)['Login Text Style']
+                        .style,
                       {
-                        fontFamily: 'Quicksand_600SemiBold',
-                        marginLeft: 10,
-                        marginRight: 10,
-                        marginTop: 10,
+                        borderColor: theme.colors['Strong'],
+                        borderStyle: 'solid',
+                        fontFamily: 'Quicksand_400Regular',
+                        margin: 10,
+                        padding: 10,
                       }
                     ),
                     dimensions.width
                   )}
-                  title={'Enter'}
+                  value={emailVarl}
                 />
-              )}
-            </>
-            {/* Login */}
+                {/* Password */}
+                <>
+                  {!emailEntered ? null : (
+                    <TextInput
+                      autoCapitalize={'none'}
+                      changeTextDelay={500}
+                      onBlur={() => {
+                        try {
+                          Keyboard.dismiss();
+                        } catch (err) {
+                          console.error(err);
+                        }
+                      }}
+                      onChangeText={newPasswordValue => {
+                        try {
+                          setPasswordVarl(newPasswordValue);
+                        } catch (err) {
+                          console.error(err);
+                        }
+                      }}
+                      onSubmitEditing={() => {
+                        try {
+                          Keyboard.dismiss();
+                          /* hidden 'API Request' action */
+                          /* hidden 'If/Else' action */
+                        } catch (err) {
+                          console.error(err);
+                        }
+                      }}
+                      webShowOutline={true}
+                      {...GlobalStyles.TextInputStyles(theme)['Text Input']
+                        .props}
+                      autoCorrect={false}
+                      placeholder={'Enter password...'}
+                      placeholderTextColor={theme.colors['Medium']}
+                      ref={passwordyUSI8C8SRef}
+                      returnKeyLabel={'Login'}
+                      returnKeyType={'go'}
+                      secureTextEntry={true}
+                      spellcheck={true}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.TextInputStyles(theme)['Text Input']
+                            .style,
+                          {
+                            borderColor: theme.colors['Strong'],
+                            fontFamily: 'Quicksand_400Regular',
+                            margin: 10,
+                            padding: 10,
+                          }
+                        ),
+                        dimensions.width
+                      )}
+                      value={passwordVarl}
+                    />
+                  )}
+                </>
+                {/* err message */}
+                <>
+                  {!errorMessage ? null : (
+                    <Text
+                      accessible={true}
+                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.TextStyles(theme)['screen_title'].style,
+                          {
+                            color: theme.colors['Error'],
+                            fontFamily: 'Quicksand_700Bold',
+                            marginLeft: 10,
+                          }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      {errorMessage}
+                    </Text>
+                  )}
+                </>
+                {/* Enter Email */}
+                <>
+                  {!(emailEntered === false) ? null : (
+                    <Button
+                      iconPosition={'left'}
+                      onPress={() => {
+                        const handler = async () => {
+                          console.log('Enter Email ON_PRESS Start');
+                          let error = null;
+                          try {
+                            console.log('Start ON_PRESS:0 CUSTOM_FUNCTION');
+                            /* hidden 'Run a Custom Function' action */ console.log(
+                              'Complete ON_PRESS:0 CUSTOM_FUNCTION'
+                            );
+                            console.log('Start ON_PRESS:1 SET_VARIABLE');
+                            setEnterPressed(true);
+                            console.log('Complete ON_PRESS:1 SET_VARIABLE');
+                            console.log('Start ON_PRESS:2 FETCH_REQUEST');
+                            const signIn = (
+                              await XanoResetPassApi.initialLoginGET(
+                                Constants,
+                                { email: emailVarl }
+                              )
+                            )?.json;
+                            console.log('Complete ON_PRESS:2 FETCH_REQUEST', {
+                              signIn,
+                            });
+                            console.log('Start ON_PRESS:3 IF');
+                            if (signIn?.email !== null) {
+                              setErrorMessage('');
+                              if (signIn?.Initial_Login_Complete === true) {
+                              } else {
+                                setEmailEntered(true);
+                              }
+                            } else {
+                              setErrorMessage(signIn?.message);
+                            }
+                            console.log('Complete ON_PRESS:3 IF');
+                          } catch (err) {
+                            console.error(err);
+                            error = err.message ?? err;
+                          }
+                          console.log(
+                            'Enter Email ON_PRESS Complete',
+                            error ? { error } : 'no error'
+                          );
+                        };
+                        handler();
+                      }}
+                      {...GlobalStyles.ButtonStyles(theme)['Button'].props}
+                      disabled={emailVarl === ''}
+                      loading={emailEntered}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.ButtonStyles(theme)['Button'].style,
+                          {
+                            fontFamily: 'Quicksand_600SemiBold',
+                            marginLeft: 10,
+                            marginRight: 10,
+                            marginTop: 10,
+                          }
+                        ),
+                        dimensions.width
+                      )}
+                      title={'Enter'}
+                    />
+                  )}
+                </>
+                {/* Login */}
+                <>
+                  {!emailEntered ? null : (
+                    <Button
+                      iconPosition={'left'}
+                      onPress={() => {
+                        const handler = async () => {
+                          console.log('Login ON_PRESS Start');
+                          let error = null;
+                          try {
+                            console.log('Start ON_PRESS:0 SET_VARIABLE');
+                            setLogInPressed(true);
+                            console.log('Complete ON_PRESS:0 SET_VARIABLE');
+                            console.log('Start ON_PRESS:1 CONDITIONAL_STOP');
+                            if (!loginFormValidator()) {
+                              return console.log(
+                                'Complete ON_PRESS:1 CONDITIONAL_STOP'
+                              );
+                            } else {
+                              console.log(
+                                'Skipped ON_PRESS:1 CONDITIONAL_STOP: condition not met'
+                              );
+                            }
+                            console.log('Start ON_PRESS:2 FETCH_REQUEST');
+                            const Xano_Auth = (
+                              await XanoCollectionApi.loginPOST(Constants, {
+                                email: emailVarl,
+                                password: passwordVarl,
+                              })
+                            )?.json;
+                            console.log('Complete ON_PRESS:2 FETCH_REQUEST', {
+                              Xano_Auth,
+                            });
+                            console.log('Start ON_PRESS:3 CONSOLE_LOG');
+                            console.log('XANO_AUTH', Xano_Auth);
+                            console.log('Complete ON_PRESS:3 CONSOLE_LOG');
+                            console.log('Start ON_PRESS:4 CUSTOM_FUNCTION');
+                            /* hidden 'Run a Custom Function' action */ console.log(
+                              'Complete ON_PRESS:4 CUSTOM_FUNCTION'
+                            );
+                            console.log('Start ON_PRESS:5 EXTRACT_KEY');
+                            const savedToken = Xano_Auth?.authToken;
+                            console.log('Complete ON_PRESS:5 EXTRACT_KEY', {
+                              savedToken,
+                            });
+                            console.log('Start ON_PRESS:6 EXTRACT_KEY');
+                            const message = Xano_Auth?.message;
+                            console.log('Complete ON_PRESS:6 EXTRACT_KEY', {
+                              message,
+                            });
+                            console.log('Start ON_PRESS:7 SET_VARIABLE');
+                            setErrorMessage(message);
+                            console.log('Complete ON_PRESS:7 SET_VARIABLE');
+                            console.log('Start ON_PRESS:8 SET_VARIABLE');
+                            setLogInPressed(false);
+                            console.log('Complete ON_PRESS:8 SET_VARIABLE');
+                            console.log('Start ON_PRESS:9 CONDITIONAL_STOP');
+                            if (!savedToken) {
+                              return console.log(
+                                'Complete ON_PRESS:9 CONDITIONAL_STOP'
+                              );
+                            } else {
+                              console.log(
+                                'Skipped ON_PRESS:9 CONDITIONAL_STOP: condition not met'
+                              );
+                            }
+                            console.log('Start ON_PRESS:10 SET_VARIABLE');
+                            setGlobalVariableValue({
+                              key: 'AUTH_HEADER',
+                              value: 'Bearer ' + savedToken,
+                            });
+                            console.log('Complete ON_PRESS:10 SET_VARIABLE');
+                            console.log('Start ON_PRESS:11 FETCH_REQUEST');
+                            /* hidden 'API Request' action */ console.log(
+                              'Complete ON_PRESS:11 FETCH_REQUEST'
+                            );
+                            console.log('Start ON_PRESS:12 NAVIGATE');
+                            navigation.navigate('SplashScreen');
+                            console.log('Complete ON_PRESS:12 NAVIGATE');
+                          } catch (err) {
+                            console.error(err);
+                            error = err.message ?? err;
+                          }
+                          console.log(
+                            'Login ON_PRESS Complete',
+                            error ? { error } : 'no error'
+                          );
+                        };
+                        handler();
+                      }}
+                      {...GlobalStyles.ButtonStyles(theme)['Button'].props}
+                      disabled={emailVarl === '' || passwordVarl === ''}
+                      loading={parseBoolean(LogInPressed)}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.ButtonStyles(theme)['Button'].style,
+                          {
+                            fontFamily: 'Quicksand_600SemiBold',
+                            marginLeft: 10,
+                            marginRight: 10,
+                            marginTop: 10,
+                          }
+                        ),
+                        dimensions.width
+                      )}
+                      title={'Log In'}
+                    />
+                  )}
+                </>
+                <Link
+                  accessible={true}
+                  onPress={() => {
+                    try {
+                      navigation.push('ForgotPasswordScreen');
+                    } catch (err) {
+                      console.error(err);
+                    }
+                  }}
+                  {...GlobalStyles.LinkStyles(theme)['Link'].props}
+                  style={StyleSheet.applyWidth(
+                    StyleSheet.compose(
+                      GlobalStyles.LinkStyles(theme)['Link'].style,
+                      {
+                        fontFamily: 'Quicksand_400Regular',
+                        fontSize: 12,
+                        marginRight: 10,
+                        marginTop: 5,
+                        textAlign: 'right',
+                      }
+                    ),
+                    dimensions.width
+                  )}
+                  title={'Reset Password'}
+                />
+                {/* Request Demo */}
+                <Button
+                  iconPosition={'left'}
+                  onPress={() => {
+                    try {
+                      navigation.navigate('RequestDemoScreen');
+                    } catch (err) {
+                      console.error(err);
+                    }
+                  }}
+                  {...GlobalStyles.ButtonStyles(theme)['Button'].props}
+                  style={StyleSheet.applyWidth(
+                    StyleSheet.compose(
+                      GlobalStyles.ButtonStyles(theme)['Button'].style,
+                      {
+                        backgroundColor: theme.colors['Secondary'],
+                        borderColor: theme.colors['Strong'],
+                        borderWidth: 2,
+                        color: theme.colors['Strong'],
+                        fontFamily: 'Quicksand_600SemiBold',
+                        margin: 10,
+                        marginBottom: 20,
+                      }
+                    ),
+                    dimensions.width
+                  )}
+                  title={'Request Demo'}
+                />
+              </Surface>
+            </View>
+          </KeyboardAvoidingView>
+        )}
+      </>
+      <Modal
+        animationType={'none'}
+        supportedOrientations={['portrait', 'landscape']}
+        presentationStyle={'fullScreen'}
+        transparent={true}
+        visible={firstLogin}
+      >
+        <View
+          style={StyleSheet.applyWidth(
+            {
+              alignItems: { minWidth: Breakpoints.Desktop, value: 'center' },
+              alignSelf: { minWidth: Breakpoints.Desktop, value: 'center' },
+              backgroundColor: {
+                minWidth: Breakpoints.Desktop,
+                value: theme.colors['Surface'],
+              },
+              borderRadius: { minWidth: Breakpoints.Desktop, value: 10 },
+              borderWidth: { minWidth: Breakpoints.Desktop, value: 1 },
+              bottom: { minWidth: Breakpoints.Desktop, value: 0 },
+              height: { minWidth: Breakpoints.Desktop, value: '15%' },
+              justifyContent: {
+                minWidth: Breakpoints.Desktop,
+                value: 'center',
+              },
+              position: { minWidth: Breakpoints.Desktop, value: 'absolute' },
+              top: { minWidth: Breakpoints.Desktop, value: 0 },
+              width: { minWidth: Breakpoints.Desktop, value: '35%' },
+            },
+            dimensions.width
+          )}
+        >
+          <Text
+            accessible={true}
+            {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+            style={StyleSheet.applyWidth(
+              StyleSheet.compose(
+                GlobalStyles.TextStyles(theme)['screen_title'].style,
+                {
+                  alignSelf: { minWidth: Breakpoints.Desktop, value: 'center' },
+                  fontFamily: {
+                    minWidth: Breakpoints.Desktop,
+                    value: 'Quicksand_400Regular',
+                  },
+                  marginBottom: { minWidth: Breakpoints.Desktop, value: 5 },
+                  textAlign: { minWidth: Breakpoints.Desktop, value: 'center' },
+                }
+              ),
+              dimensions.width
+            )}
+          >
+            {
+              "It looks like you're logging in for the first time. Please set your password to continue."
+            }
+          </Text>
+
+          <HStack
+            {...GlobalStyles.HStackStyles(theme)['H Stack'].props}
+            style={StyleSheet.applyWidth(
+              StyleSheet.compose(
+                GlobalStyles.HStackStyles(theme)['H Stack'].style,
+                { gap: { minWidth: Breakpoints.Desktop, value: 5 } }
+              ),
+              dimensions.width
+            )}
+          >
             <Button
               iconPosition={'left'}
-              onPress={() => {
-                const handler = async () => {
-                  console.log('Login ON_PRESS Start');
-                  let error = null;
-                  try {
-                    console.log('Start ON_PRESS:0 SET_VARIABLE');
-                    setLogInPressed(true);
-                    console.log('Complete ON_PRESS:0 SET_VARIABLE');
-                    console.log('Start ON_PRESS:1 CONDITIONAL_STOP');
-                    if (!loginFormValidator()) {
-                      return console.log(
-                        'Complete ON_PRESS:1 CONDITIONAL_STOP'
-                      );
-                    } else {
-                      console.log(
-                        'Skipped ON_PRESS:1 CONDITIONAL_STOP: condition not met'
-                      );
-                    }
-                    console.log('Start ON_PRESS:2 FETCH_REQUEST');
-                    const Xano_Auth = (
-                      await XanoCollectionApi.loginPOST(Constants, {
-                        email: emailVarl,
-                        password: passwordVarl,
-                      })
-                    )?.json;
-                    console.log('Complete ON_PRESS:2 FETCH_REQUEST', {
-                      Xano_Auth,
-                    });
-                    console.log('Start ON_PRESS:3 CONSOLE_LOG');
-                    console.log('XANO_AUTH', Xano_Auth);
-                    console.log('Complete ON_PRESS:3 CONSOLE_LOG');
-                    console.log('Start ON_PRESS:4 CUSTOM_FUNCTION');
-                    /* hidden 'Run a Custom Function' action */ console.log(
-                      'Complete ON_PRESS:4 CUSTOM_FUNCTION'
-                    );
-                    console.log('Start ON_PRESS:5 EXTRACT_KEY');
-                    const savedToken = Xano_Auth?.authToken;
-                    console.log('Complete ON_PRESS:5 EXTRACT_KEY', {
-                      savedToken,
-                    });
-                    console.log('Start ON_PRESS:6 EXTRACT_KEY');
-                    const message = Xano_Auth?.message;
-                    console.log('Complete ON_PRESS:6 EXTRACT_KEY', { message });
-                    console.log('Start ON_PRESS:7 SET_VARIABLE');
-                    setErrorMessage(message);
-                    console.log('Complete ON_PRESS:7 SET_VARIABLE');
-                    console.log('Start ON_PRESS:8 SET_VARIABLE');
-                    setLogInPressed(false);
-                    console.log('Complete ON_PRESS:8 SET_VARIABLE');
-                    console.log('Start ON_PRESS:9 CONDITIONAL_STOP');
-                    if (!savedToken) {
-                      return console.log(
-                        'Complete ON_PRESS:9 CONDITIONAL_STOP'
-                      );
-                    } else {
-                      console.log(
-                        'Skipped ON_PRESS:9 CONDITIONAL_STOP: condition not met'
-                      );
-                    }
-                    console.log('Start ON_PRESS:10 SET_VARIABLE');
-                    setGlobalVariableValue({
-                      key: 'AUTH_HEADER',
-                      value: 'Bearer ' + savedToken,
-                    });
-                    console.log('Complete ON_PRESS:10 SET_VARIABLE');
-                    console.log('Start ON_PRESS:11 FETCH_REQUEST');
-                    /* hidden 'API Request' action */ console.log(
-                      'Complete ON_PRESS:11 FETCH_REQUEST'
-                    );
-                    console.log('Start ON_PRESS:12 NAVIGATE');
-                    navigation.navigate('SplashScreen');
-                    console.log('Complete ON_PRESS:12 NAVIGATE');
-                  } catch (err) {
-                    console.error(err);
-                    error = err.message ?? err;
-                  }
-                  console.log(
-                    'Login ON_PRESS Complete',
-                    error ? { error } : 'no error'
-                  );
-                };
-                handler();
-              }}
               {...GlobalStyles.ButtonStyles(theme)['Button'].props}
-              disabled={emailVarl === '' || passwordVarl === ''}
-              loading={parseBoolean(LogInPressed)}
+              style={StyleSheet.applyWidth(
+                GlobalStyles.ButtonStyles(theme)['Button'].style,
+                dimensions.width
+              )}
+              title={'Continue'}
+            />
+            {/* Button 2 */}
+            <Button
+              iconPosition={'left'}
+              {...GlobalStyles.ButtonStyles(theme)['Button'].props}
               style={StyleSheet.applyWidth(
                 StyleSheet.compose(
                   GlobalStyles.ButtonStyles(theme)['Button'].style,
                   {
-                    fontFamily: 'Quicksand_600SemiBold',
-                    marginLeft: 10,
-                    marginRight: 10,
-                    marginTop: 10,
+                    backgroundColor: {
+                      minWidth: Breakpoints.Desktop,
+                      value: theme.colors['Secondary'],
+                    },
+                    borderWidth: { minWidth: Breakpoints.Desktop, value: 1 },
+                    color: {
+                      minWidth: Breakpoints.Desktop,
+                      value: theme.colors['Strong'],
+                    },
+                    fontFamily: {
+                      minWidth: Breakpoints.Desktop,
+                      value: 'Quicksand_700Bold',
+                    },
                   }
                 ),
                 dimensions.width
               )}
-              title={'Log In'}
+              title={'Go Back'}
             />
-            <Link
-              accessible={true}
-              onPress={() => {
-                try {
-                  navigation.push('ForgotPasswordScreen');
-                } catch (err) {
-                  console.error(err);
-                }
-              }}
-              {...GlobalStyles.LinkStyles(theme)['Link'].props}
-              style={StyleSheet.applyWidth(
-                StyleSheet.compose(
-                  GlobalStyles.LinkStyles(theme)['Link'].style,
-                  {
-                    fontFamily: 'Quicksand_400Regular',
-                    fontSize: 12,
-                    marginRight: 10,
-                    marginTop: 5,
-                    textAlign: 'right',
-                  }
-                ),
-                dimensions.width
-              )}
-              title={'Reset Password'}
-            />
-            {/* Request Demo */}
-            <Button
-              iconPosition={'left'}
-              onPress={() => {
-                try {
-                  navigation.navigate('RequestDemoScreen');
-                } catch (err) {
-                  console.error(err);
-                }
-              }}
-              {...GlobalStyles.ButtonStyles(theme)['Button'].props}
-              style={StyleSheet.applyWidth(
-                StyleSheet.compose(
-                  GlobalStyles.ButtonStyles(theme)['Button'].style,
-                  {
-                    backgroundColor: theme.colors['Secondary'],
-                    borderColor: theme.colors['Strong'],
-                    borderWidth: 2,
-                    color: theme.colors['Strong'],
-                    fontFamily: 'Quicksand_600SemiBold',
-                    margin: 10,
-                    marginBottom: 20,
-                  }
-                ),
-                dimensions.width
-              )}
-              title={'Request Demo'}
-            />
-          </Surface>
+          </HStack>
         </View>
-      </KeyboardAvoidingView>
+      </Modal>
     </ScreenContainer>
   );
 };

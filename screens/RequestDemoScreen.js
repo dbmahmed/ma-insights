@@ -68,7 +68,13 @@ const RequestDemoScreen = props => {
     >
       <View
         style={StyleSheet.applyWidth(
-          { alignContent: 'center', alignItems: 'center', alignSelf: 'center' },
+          {
+            alignContent: 'center',
+            alignItems: 'center',
+            alignSelf: 'center',
+            maxWidth: 380,
+            width: '100%',
+          },
           dimensions.width
         )}
       >
@@ -134,14 +140,24 @@ const RequestDemoScreen = props => {
         keyboardVerticalOffset={0}
       >
         {/* Demo Window */}
-        <View>
+        <View
+          style={StyleSheet.applyWidth(
+            {
+              alignContent: 'center',
+              alignSelf: 'center',
+              maxWidth: 380,
+              width: '100%',
+            },
+            dimensions.width
+          )}
+        >
           <Surface
             {...GlobalStyles.SurfaceStyles(theme)['Surface'].props}
             elevation={2}
             style={StyleSheet.applyWidth(
               StyleSheet.compose(
                 GlobalStyles.SurfaceStyles(theme)['Surface'].style,
-                { padding: 10 }
+                { alignItems: 'stretch', padding: 10 }
               ),
               dimensions.width
             )}

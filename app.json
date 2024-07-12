@@ -5,7 +5,7 @@
         "usesNonExemptEncryption": false
       },
       "infoPlist": {},
-      "buildNumber": "1.6.0",
+      "buildNumber": "1.7.0",
       "isTabletOnly": false,
       "supportsTablet": true,
       "bundleIdentifier": "com.draftbit.untitledapp",
@@ -35,7 +35,7 @@
     "android": {
       "package": "com.draftbit.untitledapp",
       "permissions": [],
-      "versionCode": 6,
+      "versionCode": 7,
       "adaptiveIcon": {},
       "userInterfaceStyle": "light"
     },
@@ -87,13 +87,13 @@
       ]
     ],
     "privacy": "unlisted",
-    "version": "1.6.0",
+    "version": "1.7.0",
     "platforms": [
       "ios",
       "android",
       "web"
     ],
-    "description": "Leading intelligence provider for mergers and acquisition teams.",
+    "description": "The one intelligence hub to expand and structure your M&A pipeline.",
     "orientation": "portrait",
     "iosStatusBar": {},
     "notification": {

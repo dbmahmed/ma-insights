@@ -4,6 +4,10 @@ import Breakpoints from './utils/Breakpoints';
 
 export const TextStyles = theme =>
   StyleSheet.create({
+    listed_header_title: {
+      style: { fontFamily: 'Quicksand_700Bold', fontSize: 12 },
+      props: {},
+    },
     screen_title: { style: { color: theme.colors.strong }, props: {} },
     selected: {
       style: {
@@ -14,7 +18,31 @@ export const TextStyles = theme =>
   });
 
 export const LinearGradientStyles = theme =>
-  StyleSheet.create({ 'Linear Gradient': { style: { flex: 1 }, props: {} } });
+  StyleSheet.create({
+    'Linear Gradient': {
+      style: {
+        alignContent: 'flex-start',
+        borderColor: theme.colors['Light'],
+        borderRadius: 10,
+        borderWidth: 1,
+        flex: 1,
+        margin: 5,
+        opacity: 1,
+      },
+      props: {
+        color1: theme.colors['Surface'],
+        color3: theme.colors['Surface'],
+      },
+    },
+    SectionName: {
+      style: { borderRadius: 0, borderWidth: 0, padding: 10 },
+      props: {
+        color3: null,
+        color1: theme.colors['Strong'],
+        color2: theme.colors['Primary'],
+      },
+    },
+  });
 
 export const ImageStyles = theme =>
   StyleSheet.create({
@@ -202,6 +230,14 @@ export const IconStyles = theme =>
     },
   });
 
+export const CheckboxRowStyles = theme =>
+  StyleSheet.create({
+    'Checkbox Row': {
+      style: { minHeight: 50, paddingLeft: 20, paddingRight: 20 },
+      props: {},
+    },
+  });
+
 export const H6Styles = theme =>
   StyleSheet.create({
     H6: {
@@ -213,3 +249,17 @@ export const H6Styles = theme =>
       props: {},
     },
   });
+
+export const WebViewStyles = theme =>
+  StyleSheet.create({ 'HTML View': { style: { flex: 1 }, props: {} } });
+
+export const H1Styles = theme =>
+  StyleSheet.create({
+    H1: {
+      style: { color: theme.colors.strong, fontSize: 32, fontWeight: 'bold' },
+      props: {},
+    },
+  });
+
+export const ScreenContainerStyles = theme =>
+  StyleSheet.create({ main: { style: {}, props: {} } });

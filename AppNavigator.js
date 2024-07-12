@@ -15,13 +15,12 @@ import useWindowDimensions from './utils/useWindowDimensions';
 
 import AdvisorsScreen from './screens/AdvisorsScreen';
 import AllEventsScreen from './screens/AllEventsScreen';
-import CFSScreen from './screens/CFSScreen';
-import DACHNewsletterDetailsScreen from './screens/DACHNewsletterDetailsScreen';
+import CompanyForSaleScreen from './screens/CompanyForSaleScreen';
 import EventDetailsScreen from './screens/EventDetailsScreen';
 import ForgotPasswordScreen from './screens/ForgotPasswordScreen';
 import LogInScreen from './screens/LogInScreen';
+import NewsletterDetailsScreen from './screens/NewsletterDetailsScreen';
 import NewslewttersScreen from './screens/NewslewttersScreen';
-import NordicNewsletterDetailsScreen from './screens/NordicNewsletterDetailsScreen';
 import PEPFScreen from './screens/PEPFScreen';
 import PeerGrroupsScreen from './screens/PeerGrroupsScreen';
 import RequestDemoScreen from './screens/RequestDemoScreen';
@@ -47,11 +46,12 @@ function DefaultAndroidBackIcon({ tintColor }) {
 function MAInsights() {
   const Constants = GlobalVariables.useValues();
   const setGlobalVariableValue = GlobalVariables.useSetValue();
+  const dimensions = useWindowDimensions();
 
   const tabBarIcons = {
     NewslewttersScreen: 'Ionicons/newspaper-outline',
     AllEventsScreen: 'MaterialIcons/search',
-    CFSScreen: 'MaterialIcons/business',
+    CompanyForSaleScreen: 'MaterialIcons/business',
     PEPFScreen: 'MaterialIcons/waterfall-chart',
   };
 
@@ -145,8 +145,8 @@ function MAInsights() {
         })}
       />
       <Tab.Screen
-        name="CFSScreen"
-        component={CFSScreen}
+        name="CompanyForSaleScreen"
+        component={CompanyForSaleScreen}
         options={({ navigation }) => ({
           tabBarIcon: ({ focused, color }) => (
             <Icon
@@ -156,7 +156,7 @@ function MAInsights() {
             />
           ),
           tabBarLabel: 'CFS',
-          title: 'CFS',
+          title: 'Company for Sale',
         })}
       />
       <Tab.Screen
@@ -350,8 +350,8 @@ export default function RootAppNavigator() {
           })}
         />
         <Stack.Screen
-          name="NordicNewsletterDetailsScreen"
-          component={NordicNewsletterDetailsScreen}
+          name="NewsletterDetailsScreen"
+          component={NewsletterDetailsScreen}
           options={({ navigation }) => ({
             headerLeft: ({ tintColor, canGoBack }) =>
               canGoBack ? (
@@ -373,34 +373,7 @@ export default function RootAppNavigator() {
                   />
                 </Touchable>
               ) : null,
-            title: 'Nordic Newsletter Details',
-          })}
-        />
-        <Stack.Screen
-          name="DACHNewsletterDetailsScreen"
-          component={DACHNewsletterDetailsScreen}
-          options={({ navigation }) => ({
-            headerLeft: ({ tintColor, canGoBack }) =>
-              canGoBack ? (
-                <Touchable
-                  style={[styles.headerContainer, styles.headerContainerLeft]}
-                  onPress={() => {
-                    try {
-                      navigation.push('MAInsights');
-                    } catch (err) {
-                      console.error(err);
-                    }
-                  }}
-                >
-                  <Icon
-                    name="MaterialIcons/arrow-back-ios"
-                    size={Platform.OS === 'ios' ? 21 : 24}
-                    color={tintColor}
-                    style={[styles.headerIcon, styles.headerIconLeft]}
-                  />
-                </Touchable>
-              ) : null,
-            title: 'DACH Newsletter Details',
+            title: 'Newsletter Details',
           })}
         />
         <Stack.Screen

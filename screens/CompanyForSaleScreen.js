@@ -1,10 +1,7 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
-import AccModalBlock from '../components/AccModalBlock';
-import TopNavBlock from '../components/TopNavBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
-import assessAccess from '../global-functions/assessAccess';
 import modifyArrays from '../global-functions/modifyArrays';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
@@ -14,6 +11,7 @@ import {
   Checkbox,
   HStack,
   IconButton,
+  LinearGradient,
   Pressable,
   ScreenContainer,
   Shadow,
@@ -21,30 +19,20 @@ import {
   SimpleStyleScrollView,
   Spacer,
   TextInput,
-  Touchable,
   withTheme,
 } from '@draftbit/ui';
-import { H3, H5, H6 } from '@expo/html-elements';
+import { H3, H4, H5 } from '@expo/html-elements';
 import { useIsFocused } from '@react-navigation/native';
 import { ActivityIndicator, Modal, Text, View } from 'react-native';
 import { Fetch } from 'react-request';
 
-const AllEventsScreen = props => {
+const CompanyForSaleScreen = props => {
   const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
   const Constants = GlobalVariables.useValues();
   const Variables = Constants;
-  const setGlobalVariableValue = GlobalVariables.useSetValue();
-  const [Country, setCountry] = React.useState([]);
-  const [Sector, setSector] = React.useState([]);
   const [acq_agenda, setAcq_agenda] = React.useState(false);
   const [austria, setAustria] = React.useState(false);
-  const [checkboxRow2Value, setCheckboxRow2Value] = React.useState('');
-  const [checkboxRowValue, setCheckboxRowValue] = React.useState('');
-  const [checkboxRowValue2, setCheckboxRowValue2] = React.useState('');
-  const [checkboxValue, setCheckboxValue] = React.useState(false);
-  const [checkboxValue2, setCheckboxValue2] = React.useState(false);
-  const [checkboxValue3, setCheckboxValue3] = React.useState(false);
   const [communication_services, setCommunication_services] =
     React.useState(false);
   const [consumer_discretionary, setConsumer_discretionary] =
@@ -52,7 +40,6 @@ const AllEventsScreen = props => {
   const [consumer_staples, setConsumer_staples] = React.useState(false);
   const [denmark, setDenmark] = React.useState(false);
   const [energy, setEnergy] = React.useState(false);
-  const [eventSearch, setEventSearch] = React.useState('');
   const [eventType, setEventType] = React.useState([]);
   const [filterPressed, setFilterPressed] = React.useState(false);
   const [financials, setFinancials] = React.useState(false);
@@ -70,44 +57,10 @@ const AllEventsScreen = props => {
   const [switzerland, setSwitzerland] = React.useState(false);
   const [transaction, setTransaction] = React.useState(false);
   const [utilities, setUtilities] = React.useState(false);
-  const isFocused = useIsFocused();
-  React.useEffect(() => {
-    const handler = async () => {
-      try {
-        if (!isFocused) {
-          return;
-        }
-        console.log(Constants['AUTH_HEADER'], 'AUTH HEADER:', 'ALL EVENTS');
-        const getEvent = (
-          await XanoCollectionApi.getAllEventsGET(Constants, {
-            keyword: 'Update',
-          })
-        )?.json;
-        console.log(Constants['ME'], getEvent, 'ALLEVENTS:');
-        /* hidden 'Conditional Stop' action */
-        /* hidden 'Navigate' action */
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    handler();
-  }, [isFocused]);
 
   return (
-    <ScreenContainer
-      hasSafeArea={false}
-      hasLeftSafeArea={true}
-      hasRightSafeArea={false}
-      scrollable={false}
-    >
-      <AccModalBlock />
-      <>{!Constants['top_nav_pressed'] ? null : <TopNavBlock />}</>
-      <View
-        style={StyleSheet.applyWidth(
-          { margin: 0, padding: 10 },
-          dimensions.width
-        )}
-      >
+    <ScreenContainer hasSafeArea={false} scrollable={false}>
+      <View style={StyleSheet.applyWidth({ padding: 10 }, dimensions.width)}>
         <Modal
           supportedOrientations={['portrait', 'landscape']}
           animationType={'fade'}
@@ -272,13 +225,13 @@ const AllEventsScreen = props => {
                     <Checkbox
                       onCheck={() => {
                         try {
-                          const valueZgoC3Fpd = modifyArrays(
+                          const valueMjYyQyei = modifyArrays(
                             eventType,
                             'Future Opportunity',
                             'push'
                           );
-                          setEventType(valueZgoC3Fpd);
-                          const event = valueZgoC3Fpd;
+                          setEventType(valueMjYyQyei);
+                          const event = valueMjYyQyei;
                         } catch (err) {
                           console.error(err);
                         }
@@ -1712,7 +1665,7 @@ const AllEventsScreen = props => {
             dimensions.width
           )}
         >
-          {'All events'}
+          {'Companies for Sale (CFS)'}
         </H3>
 
         <HStack
@@ -1775,7 +1728,7 @@ const AllEventsScreen = props => {
               style={StyleSheet.applyWidth(
                 {
                   alignItems: 'center',
-                  backgroundColor: theme.colors['Background'],
+                  backgroundColor: theme.colors['green'],
                   borderRadius: 50,
                   height: 36,
                   justifyContent: 'center',
@@ -1799,128 +1752,197 @@ const AllEventsScreen = props => {
             </View>
           </Shadow>
         </HStack>
-        <Spacer left={8} right={8} bottom={2.5} top={2.5} />
+
+        <View
+          style={StyleSheet.applyWidth(
+            {
+              alignItems: 'stretch',
+              alignSelf: 'auto',
+              flexDirection: 'column',
+              paddingLeft: 8,
+            },
+            dimensions.width
+          )}
+        >
+          <Text
+            accessible={true}
+            {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+            style={StyleSheet.applyWidth(
+              StyleSheet.compose(
+                GlobalStyles.TextStyles(theme)['screen_title'].style,
+                {
+                  color: theme.colors['green'],
+                  fontFamily: 'Quicksand_400Regular',
+                  fontSize: 12,
+                }
+              ),
+              dimensions.width
+            )}
+          >
+            {'OBS: filters are applied'}
+          </Text>
+        </View>
       </View>
 
-      <SimpleStyleScrollView
-        bounces={true}
-        horizontal={false}
-        keyboardShouldPersistTaps={'never'}
-        nestedScrollEnabled={false}
-        showsHorizontalScrollIndicator={true}
-        showsVerticalScrollIndicator={true}
-      >
-        <XanoCollectionApi.FetchGetAllEventsGET
-          handlers={{
-            onData: fetchData => {
-              try {
-                console.log(fetchData, 'FETCHDATA ONSCREEN');
-              } catch (err) {
-                console.error(err);
-              }
-            },
-          }}
-          keyword={keywordSearch}
-        >
-          {({ loading, error, data, refetchGetAllEvents }) => {
-            const fetchData = data?.json;
-            if (loading) {
-              return <ActivityIndicator />;
-            }
+      <XanoCollectionApi.FetchGetCFSGET>
+        {({ loading, error, data, refetchGetCFS }) => {
+          const fetchData = data?.json;
+          if (loading) {
+            return <ActivityIndicator />;
+          }
 
-            if (error || data?.status < 200 || data?.status >= 300) {
-              return <ActivityIndicator />;
-            }
+          if (error || data?.status < 200 || data?.status >= 300) {
+            return <ActivityIndicator />;
+          }
 
-            return (
+          return (
+            <SimpleStyleScrollView
+              bounces={true}
+              horizontal={false}
+              keyboardShouldPersistTaps={'never'}
+              nestedScrollEnabled={false}
+              showsHorizontalScrollIndicator={true}
+              showsVerticalScrollIndicator={true}
+            >
               <SimpleStyleFlashList
                 data={fetchData}
                 estimatedItemSize={50}
-                horizontal={false}
                 inverted={false}
                 keyExtractor={(flashListData, index) => flashListData?.id}
-                listKey={'4bid5IFF'}
+                listKey={'uyII1tlG'}
                 onEndReachedThreshold={0.5}
                 renderItem={({ item, index }) => {
                   const flashListData = item;
                   return (
-                    <Touchable
-                      onPress={() => {
-                        try {
-                          navigation.navigate('EventDetailsScreen', {
-                            event_id: flashListData?.id,
-                          });
-                        } catch (err) {
-                          console.error(err);
-                        }
-                      }}
-                    >
-                      <View
-                        style={StyleSheet.applyWidth(
+                    <LinearGradient
+                      endX={100}
+                      endY={100}
+                      startX={0}
+                      startY={0}
+                      {...GlobalStyles.LinearGradientStyles(theme)[
+                        'Linear Gradient'
+                      ].props}
+                      color1={theme.colors['Strong']}
+                      color2={theme.colors['Primary']}
+                      color3={null}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.LinearGradientStyles(theme)[
+                            'Linear Gradient'
+                          ].style,
                           {
-                            borderBottomWidth: 0.5,
-                            borderColor: theme.colors['Light'],
-                            marginLeft: 8,
-                            paddingBottom: 5,
-                            paddingTop: 5,
-                          },
-                          dimensions.width
-                        )}
+                            borderColor: theme.colors['Primary'],
+                            borderRadius: 5,
+                            flexDirection: 'column',
+                            flexWrap: 'nowrap',
+                          }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      <Pressable
+                        onPress={() => {
+                          try {
+                            navigation.navigate('NewsletterDetailsScreen', {
+                              news_id: flashListData?.id,
+                            });
+                            /* hidden 'Log to Console' action */
+                            /* hidden 'If/Else' action */
+                          } catch (err) {
+                            console.error(err);
+                          }
+                        }}
                       >
-                        <H6
-                          selectable={false}
-                          {...GlobalStyles.H6Styles(theme)['H6'].props}
+                        <View
                           style={StyleSheet.applyWidth(
-                            StyleSheet.compose(
-                              GlobalStyles.H6Styles(theme)['H6'].style,
-                              {
-                                fontFamily: 'Quicksand_700Bold',
-                                fontSize: 12,
-                                margin: 0,
-                              }
-                            ),
+                            {
+                              flexDirection: 'column',
+                              gap: 10,
+                              justifyContent: 'space-between',
+                              padding: 10,
+                            },
                             dimensions.width
                           )}
                         >
-                          {flashListData?.headline}
-                        </H6>
-
-                        <Text
-                          accessible={true}
-                          {...GlobalStyles.TextStyles(theme)['screen_title']
-                            .props}
-                          style={StyleSheet.applyWidth(
-                            StyleSheet.compose(
-                              GlobalStyles.TextStyles(theme)['screen_title']
-                                .style,
-                              {
-                                fontFamily: 'Quicksand_400Regular',
-                                fontSize: 10,
-                                marginTop: 4,
-                              }
-                            ),
-                            dimensions.width
-                          )}
-                        >
-                          {flashListData?.published}
-                          {' | Source: '}
-                          {flashListData?.source}
-                        </Text>
-                      </View>
-                    </Touchable>
+                          <View>
+                            <H4
+                              selectable={false}
+                              {...GlobalStyles.H4Styles(theme)['H4'].props}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.H4Styles(theme)['H4'].style,
+                                  {
+                                    color: theme.colors['Strong Inverse'],
+                                    marginBottom: 0,
+                                    marginTop: 0,
+                                  }
+                                ),
+                                dimensions.width
+                              )}
+                            >
+                              {flashListData?.company}
+                            </H4>
+                            {/* Subtitle */}
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)['screen_title']
+                                .props}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.TextStyles(theme)['screen_title']
+                                    .style,
+                                  {
+                                    color: theme.colors['green'],
+                                    marginBottom: 20,
+                                  }
+                                ),
+                                dimensions.width
+                              )}
+                            >
+                              {flashListData?.country}
+                            </Text>
+                          </View>
+                          {/* View 2 */}
+                          <View>
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)['screen_title']
+                                .props}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.TextStyles(theme)['screen_title']
+                                    .style,
+                                  { color: theme.colors['Strong Inverse'] }
+                                ),
+                                dimensions.width
+                              )}
+                            >
+                              {'Sector: '}
+                              {flashListData?.gics}
+                            </Text>
+                          </View>
+                        </View>
+                      </Pressable>
+                    </LinearGradient>
                   );
                 }}
                 showsHorizontalScrollIndicator={true}
                 showsVerticalScrollIndicator={true}
-                extraData={keywordSearch !== ''}
-                numColumns={1}
+                horizontal={false}
+                numColumns={
+                  (dimensions.width >= Breakpoints.Tablet ? 3 : 2) ?? 2
+                }
+                style={StyleSheet.applyWidth(
+                  { paddingLeft: 10, paddingRight: 10 },
+                  dimensions.width
+                )}
               />
-            );
-          }}
-        </XanoCollectionApi.FetchGetAllEventsGET>
-      </SimpleStyleScrollView>
+            </SimpleStyleScrollView>
+          );
+        }}
+      </XanoCollectionApi.FetchGetCFSGET>
     </ScreenContainer>
   );
 };
 
-export default withTheme(AllEventsScreen);
+export default withTheme(CompanyForSaleScreen);

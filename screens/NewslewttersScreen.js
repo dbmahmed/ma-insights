@@ -14,7 +14,6 @@ import {
   Pressable,
   ScreenContainer,
   SimpleStyleFlashList,
-  SimpleStyleMasonryFlashList,
   Table,
   TableCell,
   TableRow,
@@ -31,6 +30,7 @@ const NewslewttersScreen = props => {
   const Constants = GlobalVariables.useValues();
   const Variables = Constants;
   const setGlobalVariableValue = GlobalVariables.useSetValue();
+  const [keywordSearch, setKeywordSearch] = React.useState('');
   const isFocused = useIsFocused();
   React.useEffect(() => {
     console.log('Screen ON_SCREEN_FOCUS Start');
@@ -48,16 +48,13 @@ const NewslewttersScreen = props => {
         'Complete ON_SCREEN_FOCUS:1 CONSOLE_LOG'
       );
       console.log('Start ON_SCREEN_FOCUS:2 CONDITIONAL_STOP');
-      if (assessAccess(Variables, setGlobalVariableValue) === true) {
-        return console.log('Complete ON_SCREEN_FOCUS:2 CONDITIONAL_STOP');
-      } else {
-        console.log(
-          'Skipped ON_SCREEN_FOCUS:2 CONDITIONAL_STOP: condition not met'
-        );
-      }
+      /* hidden 'Conditional Stop' action */ console.log(
+        'Complete ON_SCREEN_FOCUS:2 CONDITIONAL_STOP'
+      );
       console.log('Start ON_SCREEN_FOCUS:3 NAVIGATE');
-      navigation.navigate('LogInScreen');
-      console.log('Complete ON_SCREEN_FOCUS:3 NAVIGATE');
+      /* hidden 'Navigate' action */ console.log(
+        'Complete ON_SCREEN_FOCUS:3 NAVIGATE'
+      );
     } catch (err) {
       console.error(err);
       error = err.message ?? err;
@@ -82,7 +79,9 @@ const NewslewttersScreen = props => {
           StyleSheet.compose(GlobalStyles.H5Styles(theme)['H5'].style, {
             fontFamily: 'Quicksand_600SemiBold',
             fontSize: 25,
+            marginBottom: 20,
             marginLeft: 20,
+            textDecorationLine: 'none',
           }),
           dimensions.width
         )}
@@ -98,6 +97,7 @@ const NewslewttersScreen = props => {
             GlobalStyles.TextStyles(theme)['screen_title'].style,
             {
               fontFamily: 'Quicksand_400Regular',
+              marginBottom: 20,
               marginLeft: 20,
               marginRight: 20,
             }
@@ -122,9 +122,7 @@ const NewslewttersScreen = props => {
           }
 
           return (
-            <View
-              style={StyleSheet.applyWidth({ margin: 10 }, dimensions.width)}
-            >
+            <View>
               <SimpleStyleFlashList
                 data={fetchData}
                 estimatedItemSize={50}
@@ -136,7 +134,6 @@ const NewslewttersScreen = props => {
                   const flashListData = item;
                   return (
                     <LinearGradient
-                      color2={theme.colors.secondary}
                       endX={100}
                       endY={100}
                       startX={0}
@@ -144,19 +141,19 @@ const NewslewttersScreen = props => {
                       {...GlobalStyles.LinearGradientStyles(theme)[
                         'Linear Gradient'
                       ].props}
-                      color1={theme.colors['Surface']}
-                      color3={theme.colors['Surface']}
+                      color1={theme.colors['Strong']}
+                      color2={theme.colors['Primary']}
+                      color3={null}
                       style={StyleSheet.applyWidth(
                         StyleSheet.compose(
                           GlobalStyles.LinearGradientStyles(theme)[
                             'Linear Gradient'
                           ].style,
                           {
-                            borderColor: theme.colors['Light'],
-                            borderRadius: 10,
-                            borderWidth: 1,
-                            margin: 5,
-                            opacity: 1,
+                            borderColor: theme.colors['Strong'],
+                            borderRadius: 5,
+                            flexDirection: 'column',
+                            flexWrap: 'nowrap',
                           }
                         ),
                         dimensions.width
@@ -165,17 +162,11 @@ const NewslewttersScreen = props => {
                       <Pressable
                         onPress={() => {
                           try {
+                            navigation.navigate('NewsletterDetailsScreen', {
+                              news_id: flashListData?.id,
+                            });
                             /* hidden 'Log to Console' action */
-                            if ((flashListData?.title).includes('Nordic')) {
-                              navigation.push('NordicNewsletterDetailsScreen', {
-                                news_id: flashListData?.id,
-                              });
-                            } else {
-                              navigation.navigate(
-                                'DACHNewsletterDetailsScreen',
-                                { news_id: flashListData?.id }
-                              );
-                            }
+                            /* hidden 'If/Else' action */
                           } catch (err) {
                             console.error(err);
                           }
@@ -183,7 +174,12 @@ const NewslewttersScreen = props => {
                       >
                         <View
                           style={StyleSheet.applyWidth(
-                            { padding: 5 },
+                            {
+                              flexDirection: 'column',
+                              height: 154,
+                              justifyContent: 'space-between',
+                              padding: 5,
+                            },
                             dimensions.width
                           )}
                         >
@@ -193,36 +189,52 @@ const NewslewttersScreen = props => {
                             style={StyleSheet.applyWidth(
                               StyleSheet.compose(
                                 GlobalStyles.H4Styles(theme)['H4'].style,
-                                { marginBottom: 0, marginTop: 0 }
+                                {
+                                  color: theme.colors['Strong Inverse'],
+                                  fontSize: 14,
+                                  marginBottom: 0,
+                                  marginTop: 0,
+                                }
                               ),
                               dimensions.width
                             )}
                           >
                             {flashListData?.title}
                           </H4>
-
-                          <H5
-                            selectable={false}
-                            {...GlobalStyles.H5Styles(theme)['H5'].props}
+                          {/* Subtitle */}
+                          <Text
+                            accessible={true}
+                            {...GlobalStyles.TextStyles(theme)['screen_title']
+                              .props}
                             style={StyleSheet.applyWidth(
                               StyleSheet.compose(
-                                GlobalStyles.H5Styles(theme)['H5'].style,
-                                { marginTop: 0 }
+                                GlobalStyles.TextStyles(theme)['screen_title']
+                                  .style,
+                                {
+                                  color: theme.colors['Strong Inverse'],
+                                  marginBottom: 20,
+                                }
                               ),
                               dimensions.width
                             )}
                           >
                             {'PoTD: '}
                             {flashListData?._potd?.target}
-                          </H5>
+                          </Text>
 
                           <Text
                             accessible={true}
                             {...GlobalStyles.TextStyles(theme)['screen_title']
                               .props}
                             style={StyleSheet.applyWidth(
-                              GlobalStyles.TextStyles(theme)['screen_title']
-                                .style,
+                              StyleSheet.compose(
+                                GlobalStyles.TextStyles(theme)['screen_title']
+                                  .style,
+                                {
+                                  color: theme.colors['Strong Inverse'],
+                                  fontSize: 12,
+                                }
+                              ),
                               dimensions.width
                             )}
                           >
@@ -241,8 +253,13 @@ const NewslewttersScreen = props => {
                 showsHorizontalScrollIndicator={true}
                 showsVerticalScrollIndicator={true}
                 horizontal={false}
-                numColumns={2}
-                style={StyleSheet.applyWidth({ margin: 10 }, dimensions.width)}
+                numColumns={
+                  (dimensions.width >= Breakpoints.Tablet ? 3 : 2) ?? 2
+                }
+                style={StyleSheet.applyWidth(
+                  { paddingLeft: 10, paddingRight: 10 },
+                  dimensions.width
+                )}
               />
             </View>
           );

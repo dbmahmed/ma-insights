@@ -14,8 +14,7 @@ export const DeviceVariables = {
     advisors: false,
     newsletter: true,
   },
-  AUTH_HEADER:
-    'eyJhbGciOiJBMjU2S1ciLCJlbmMiOiJBMjU2Q0JDLUhTNTEyIiwiemlwIjoiREVGIn0.KAVIb9ffhQvARRoysCsKZ8q-ZFaJAfBpLpRzUHYJroZucbTj2sOv1AiS5z2DmMn7RG2orlK0mXO1z_yzPxTSOoJFh8YSu3Ur.AryitHG2sBuKDzCxZbQcIQ.iQOLzQ2-jzt1-99Hb28TgLcfP48kp0O9sRFHy89OQ67MesmLxu97KbTfPhSDENSTlEjv3-I0mwGXfGe4bqYu0gd_0o4I0ODpd81lnbr317_0e_Rtym1NFYll9a6tkQeq8W4AFX-xNRZvqtg02eXI9g.E5g21LV50ZXjsKFx3vREY7wdRcc9mu7WYPuU6pPkKhk',
+  AUTH_HEADER: null,
   ME: {
     id: 0,
     name: '',
@@ -30,7 +29,7 @@ export const DeviceVariables = {
   },
   RESET_AUTH_HEADER: '',
   top_nav_pressed: false,
-  __env__: 'Development',
+  __env__: 'Production',
 };
 export const AppVariables = {};
 const GlobalVariableContext = React.createContext();
