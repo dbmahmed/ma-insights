@@ -489,7 +489,7 @@ const PeerGroupDetailsScreen = props => {
                 {/* View 2 */}
                 <View
                   style={StyleSheet.applyWidth(
-                    { maxWidth: 400, width: '100%' },
+                    { width: '100%' },
                     dimensions.width
                   )}
                 >
@@ -1268,7 +1268,7 @@ const PeerGroupDetailsScreen = props => {
                 {/* View 2 2 */}
                 <View
                   style={StyleSheet.applyWidth(
-                    { maxWidth: 400, width: '100%' },
+                    { width: '100%' },
                     dimensions.width
                   )}
                 >
