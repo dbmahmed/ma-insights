@@ -48,6 +48,7 @@ const CFSScreen = props => {
   const [energy, setEnergy] = React.useState(false);
   const [eventType, setEventType] = React.useState([]);
   const [filterPressed, setFilterPressed] = React.useState(false);
+  const [filtersApplied, setFiltersApplied] = React.useState(false);
   const [financials, setFinancials] = React.useState(false);
   const [finland, setFinland] = React.useState(false);
   const [future_opportunity, setFuture_opportunity] = React.useState(false);
@@ -1782,27 +1783,31 @@ const CFSScreen = props => {
             dimensions.width
           )}
         >
-          <Text
-            accessible={true}
-            {...GlobalStyles.TextStyles(theme)['screen_title'].props}
-            style={StyleSheet.applyWidth(
-              StyleSheet.compose(
-                GlobalStyles.TextStyles(theme)['screen_title'].style,
-                {
-                  color: palettes.App.green,
-                  fontFamily: 'Quicksand_400Regular',
-                  fontSize: 12,
-                }
-              ),
-              dimensions.width
+          <>
+            {!filtersApplied ? null : (
+              <Text
+                accessible={true}
+                {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                style={StyleSheet.applyWidth(
+                  StyleSheet.compose(
+                    GlobalStyles.TextStyles(theme)['screen_title'].style,
+                    {
+                      color: palettes.App.green,
+                      fontFamily: 'Quicksand_400Regular',
+                      fontSize: 12,
+                    }
+                  ),
+                  dimensions.width
+                )}
+              >
+                {'OBS: filters are applied'}
+              </Text>
             )}
-          >
-            {'OBS: filters are applied'}
-          </Text>
+          </>
         </View>
       </View>
 
-      <XanoCollectionApi.FetchGetCFSGET>
+      <XanoCollectionApi.FetchGetCFSGET refetchInterval={10000}>
         {({ loading, error, data, refetchGetCFS }) => {
           const fetchData = data?.json;
           if (loading) {
@@ -1916,7 +1921,12 @@ const CFSScreen = props => {
                             </Text>
                           </View>
                           {/* View 2 */}
-                          <View>
+                          <View
+                            style={StyleSheet.applyWidth(
+                              { gap: 8 },
+                              dimensions.width
+                            )}
+                          >
                             <Text
                               accessible={true}
                               {...GlobalStyles.TextStyles(theme)['screen_title']
@@ -1949,6 +1959,7 @@ const CFSScreen = props => {
                             >
                               {'EBITDA: €'}
                               {flashListData?.ebitda_eur}
+                              {'m'}
                             </Text>
                             {/* Text 3 */}
                             <Text

@@ -21,6 +21,7 @@ import EventDetailsScreen from './screens/EventDetailsScreen';
 import ForgotPasswordScreen from './screens/ForgotPasswordScreen';
 import LogInScreen from './screens/LogInScreen';
 import NewsletterDetailsScreen from './screens/NewsletterDetailsScreen';
+import NewslettersDraftbitSupportScreen from './screens/NewslettersDraftbitSupportScreen';
 import NewslettersScreen from './screens/NewslettersScreen';
 import PEPFDetailsScreen from './screens/PEPFDetailsScreen';
 import PEPFScreen from './screens/PEPFScreen';
@@ -488,6 +489,13 @@ export default function RootAppNavigator() {
           component={StockDetailsScreen}
           options={({ navigation }) => ({
             title: 'Stock Details',
+          })}
+        />
+        <Stack.Screen
+          name="NewslettersDraftbitSupportScreen"
+          component={NewslettersDraftbitSupportScreen}
+          options={({ navigation }) => ({
+            title: 'Newsletters- Draftbit Support',
           })}
         />
         <Stack.Screen name="MAInsights" component={MAInsights} />

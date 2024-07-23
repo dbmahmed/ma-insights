@@ -1,8 +1,6 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
-import AccModalBlock from '../components/AccModalBlock';
-import TopNavBlock from '../components/TopNavBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import assessAccess from '../global-functions/assessAccess';
 import palettes from '../themes/palettes';
@@ -25,7 +23,7 @@ import { useIsFocused } from '@react-navigation/native';
 import { ActivityIndicator, Modal, Text, View } from 'react-native';
 import { Fetch } from 'react-request';
 
-const NewslettersScreen = props => {
+const NewslettersDraftbitSupportScreen = props => {
   const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
   const Constants = GlobalVariables.useValues();
@@ -76,44 +74,6 @@ const NewslettersScreen = props => {
       hasRightSafeArea={true}
       scrollable={true}
     >
-      <H5
-        selectable={false}
-        {...GlobalStyles.H5Styles(theme)['H5'].props}
-        style={StyleSheet.applyWidth(
-          StyleSheet.compose(GlobalStyles.H5Styles(theme)['H5'].style, {
-            fontFamily: 'Quicksand_600SemiBold',
-            fontSize: 25,
-            marginBottom: 20,
-            marginLeft: 20,
-            textDecorationLine: 'none',
-          }),
-          dimensions.width
-        )}
-      >
-        {'Newsletters'}
-      </H5>
-
-      <Text
-        accessible={true}
-        {...GlobalStyles.TextStyles(theme)['screen_title'].props}
-        style={StyleSheet.applyWidth(
-          StyleSheet.compose(
-            GlobalStyles.TextStyles(theme)['screen_title'].style,
-            {
-              fontFamily: 'Quicksand_400Regular',
-              marginBottom: 20,
-              marginLeft: 20,
-              marginRight: 20,
-            }
-          ),
-          dimensions.width
-        )}
-      >
-        {
-          'Released weekdays at 8.30 AM - enable notifications to get notified on release.'
-        }
-      </Text>
-
       <XanoCollectionApi.FetchNewslettersGET refetchInterval={300000}>
         {({ loading, error, data, refetchNewsletters }) => {
           const fetchData = data?.json;
@@ -132,7 +92,7 @@ const NewslettersScreen = props => {
                 estimatedItemSize={50}
                 inverted={false}
                 keyExtractor={(flashListData, index) => flashListData?.id}
-                listKey={'JLhKN5ob'}
+                listKey={'HEXECyrh'}
                 onEndReachedThreshold={0.5}
                 renderItem={({ item, index }) => {
                   const flashListData = item;
@@ -157,7 +117,7 @@ const NewslettersScreen = props => {
                             borderColor: theme.colors.text.strong,
                             borderRadius: 5,
                             flexDirection: 'column',
-                            flexWrap: 'wrap',
+                            padding: 0,
                           }
                         ),
                         dimensions.width
@@ -189,7 +149,8 @@ const NewslettersScreen = props => {
                           style={StyleSheet.applyWidth(
                             {
                               flexDirection: 'column',
-                              flexWrap: 'nowrap',
+                              flexWrap: 'wrap',
+                              justifyContent: 'space-between',
                               minHeight: 154,
                               padding: 5,
                             },
@@ -224,6 +185,7 @@ const NewslettersScreen = props => {
                                 GlobalStyles.TextStyles(theme)['screen_title']
                                   .style,
                                 {
+                                  alignSelf: 'flex-start',
                                   color: palettes.Brand['Strong Inverse'],
                                   fontFamily: 'Quicksand_400Regular',
                                   marginBottom: 20,
@@ -247,6 +209,7 @@ const NewslettersScreen = props => {
                                   .style,
                                 {
                                   color: palettes.Brand['Strong Inverse'],
+                                  flex: 1,
                                   fontSize: 12,
                                 }
                               ),
@@ -280,10 +243,8 @@ const NewslettersScreen = props => {
           );
         }}
       </XanoCollectionApi.FetchNewslettersGET>
-      <>{!Constants['acc_pressed'] ? null : <AccModalBlock />}</>
-      <>{!Constants['top_nav_pressed'] ? null : <TopNavBlock />}</>
     </ScreenContainer>
   );
 };
 
-export default withTheme(NewslettersScreen);
+export default withTheme(NewslettersDraftbitSupportScreen);

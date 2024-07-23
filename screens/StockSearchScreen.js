@@ -2428,7 +2428,7 @@ const StockSearchScreen = props => {
                         <Pressable
                           onPress={() => {
                             try {
-                              /* 'Navigate' action requires configuration: choose a navigation destination */
+                              navigation.push('StockDetailsScreen');
                             } catch (err) {
                               console.error(err);
                             }
@@ -2462,11 +2462,15 @@ const StockSearchScreen = props => {
                             <View
                               style={StyleSheet.applyWidth(
                                 {
+                                  alignContent: 'stretch',
                                   backgroundColor:
                                     palettes.Brand['Strong Inverse'],
                                   borderColor: palettes.Brand['Light Inverse'],
                                   borderRadius: 8,
                                   borderWidth: 1,
+                                  flexDirection: 'row',
+                                  gap: 0,
+                                  justifyContent: 'space-between',
                                   padding: 10,
                                 },
                                 dimensions.width

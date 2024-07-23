@@ -7,6 +7,7 @@ import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import {
   IconButton,
+  Link,
   ScreenContainer,
   Shadow,
   SimpleStyleFlatList,
@@ -52,7 +53,10 @@ const PeerGroupDetailsScreen = props => {
           return (
             <>
               <View
-                style={StyleSheet.applyWidth({ padding: 10 }, dimensions.width)}
+                style={StyleSheet.applyWidth(
+                  { padding: 10, paddingBottom: 5 },
+                  dimensions.width
+                )}
               >
                 <View
                   style={StyleSheet.applyWidth(
@@ -95,15 +99,19 @@ const PeerGroupDetailsScreen = props => {
                     dimensions.width
                   )}
                 >
-                  <Text
-                    accessible={true}
-                    style={StyleSheet.applyWidth(
-                      { fontFamily: 'Quicksand_400Regular' },
-                      dimensions.width
+                  <>
+                    {!(NKP_Comp === false) ? null : (
+                      <Text
+                        accessible={true}
+                        style={StyleSheet.applyWidth(
+                          { fontFamily: 'Quicksand_400Regular' },
+                          dimensions.width
+                        )}
+                      >
+                        {'Private (only visible to you)'}
+                      </Text>
                     )}
-                  >
-                    {'Private (only visible to you)\n'}
-                  </Text>
+                  </>
                   {/* Text 2 */}
                   <Text
                     accessible={true}
@@ -116,6 +124,21 @@ const PeerGroupDetailsScreen = props => {
                     {fetchData?.created_at}
                     {'\n'}
                   </Text>
+                  {/* Text 3 */}
+                  <>
+                    {!NKP_Comp ? null : (
+                      <Text
+                        accessible={true}
+                        style={StyleSheet.applyWidth(
+                          { fontFamily: 'Quicksand_400Regular' },
+                          dimensions.width
+                        )}
+                      >
+                        {fetchData?.description}
+                        {'\n'}
+                      </Text>
+                    )}
+                  </>
                 </View>
 
                 <H3
@@ -132,139 +155,6 @@ const PeerGroupDetailsScreen = props => {
                 >
                   {'Constituents'}
                 </H3>
-                <SimpleStyleFlatList
-                  data={fetchData?.stocks}
-                  inverted={false}
-                  keyExtractor={(listData, index) =>
-                    listData?.id ?? listData?.uuid ?? index.toString()
-                  }
-                  keyboardShouldPersistTaps={'never'}
-                  listKey={'maeDGMNb'}
-                  nestedScrollEnabled={false}
-                  numColumns={1}
-                  onEndReachedThreshold={0.5}
-                  renderItem={({ item, index }) => {
-                    const listData = item;
-                    return (
-                      <Shadow
-                        showShadowCornerBottomEnd={true}
-                        showShadowCornerBottomStart={true}
-                        showShadowCornerTopEnd={true}
-                        showShadowCornerTopStart={true}
-                        showShadowSideBottom={true}
-                        showShadowSideEnd={true}
-                        showShadowSideStart={true}
-                        showShadowSideTop={true}
-                        distance={4}
-                        offsetX={0}
-                        offsetY={0}
-                        paintInside={true}
-                        style={StyleSheet.applyWidth(
-                          {
-                            borderRadius: 12,
-                            width: [
-                              { minWidth: Breakpoints.Laptop, value: '100%' },
-                              { minWidth: Breakpoints.Mobile, value: '100%' },
-                            ],
-                          },
-                          dimensions.width
-                        )}
-                      >
-                        <View
-                          style={StyleSheet.applyWidth(
-                            {
-                              backgroundColor: palettes.Brand['Strong Inverse'],
-                              borderColor: palettes.Brand['Light Inverse'],
-                              borderRadius: 4,
-                              borderWidth: 1,
-                              flexDirection: 'row',
-                              justifyContent: 'space-between',
-                              padding: 10,
-                            },
-                            dimensions.width
-                          )}
-                        >
-                          <View
-                            style={StyleSheet.applyWidth(
-                              { gap: 4 },
-                              dimensions.width
-                            )}
-                          >
-                            <Text
-                              accessible={true}
-                              style={StyleSheet.applyWidth(
-                                {
-                                  fontFamily: 'Quicksand_600SemiBold',
-                                  fontSize: 14,
-                                  marginBottom: 5,
-                                },
-                                dimensions.width
-                              )}
-                            >
-                              {listData?.company_name}
-                            </Text>
-
-                            <Text
-                              accessible={true}
-                              style={StyleSheet.applyWidth(
-                                {
-                                  color: theme.colors.text.medium,
-                                  fontFamily: 'Quicksand_400Regular',
-                                  fontSize: 12,
-                                },
-                                dimensions.width
-                              )}
-                            >
-                              {listData?.country}
-                            </Text>
-
-                            <Text
-                              accessible={true}
-                              style={StyleSheet.applyWidth(
-                                {
-                                  color: theme.colors.text.medium,
-                                  fontFamily: 'Quicksand_400Regular',
-                                  fontSize: 12,
-                                },
-                                dimensions.width
-                              )}
-                            >
-                              {'EV: '}
-                              {listData?.ev_eur}
-                            </Text>
-                          </View>
-                          {/* View 4 */}
-                          <View>
-                            <>
-                              {!(NKP_Comp === false) ? null : (
-                                <IconButton
-                                  size={32}
-                                  color={palettes.App.Orange}
-                                  icon={'AntDesign/close'}
-                                />
-                              )}
-                            </>
-                          </View>
-                        </View>
-                      </Shadow>
-                    );
-                  }}
-                  horizontal={false}
-                  showsHorizontalScrollIndicator={false}
-                  showsVerticalScrollIndicator={false}
-                  style={StyleSheet.applyWidth(
-                    {
-                      alignSelf: {
-                        minWidth: Breakpoints.Laptop,
-                        value: 'stretch',
-                      },
-                      gap: 8,
-                      marginBottom: 20,
-                      padding: 2,
-                    },
-                    dimensions.width
-                  )}
-                />
               </View>
               {/* View 3 */}
               <View
@@ -282,6 +172,320 @@ const PeerGroupDetailsScreen = props => {
                   dimensions.width
                 )}
               >
+                {/* View 2 */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    { width: '100%' },
+                    dimensions.width
+                  )}
+                >
+                  {/* table */}
+                  <View
+                    style={StyleSheet.applyWidth(
+                      { backgroundColor: theme.colors.text.light, padding: 10 },
+                      dimensions.width
+                    )}
+                  >
+                    <View
+                      style={StyleSheet.applyWidth(
+                        {
+                          alignItems: 'center',
+                          borderBottomWidth: 1,
+                          borderColor: palettes.App.green,
+                          flexDirection: 'row',
+                          gap: 5,
+                          justifyContent: 'space-between',
+                          padding: 5,
+                        },
+                        dimensions.width
+                      )}
+                    >
+                      <View
+                        style={StyleSheet.applyWidth(
+                          { flexDirection: 'row', gap: 5, width: '100%' },
+                          dimensions.width
+                        )}
+                      >
+                        {/* View 5 */}
+                        <View
+                          style={StyleSheet.applyWidth(
+                            { width: '40%' },
+                            dimensions.width
+                          )}
+                        >
+                          <Text
+                            accessible={true}
+                            {...GlobalStyles.TextStyles(theme)['screen_title']
+                              .props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TextStyles(theme)['screen_title']
+                                  .style,
+                                {
+                                  fontFamily: 'Quicksand_400Regular',
+                                  fontSize: 12,
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            {' Company'}
+                          </Text>
+                        </View>
+
+                        <View
+                          style={StyleSheet.applyWidth(
+                            { width: '25%' },
+                            dimensions.width
+                          )}
+                        >
+                          <Text
+                            accessible={true}
+                            {...GlobalStyles.TextStyles(theme)['screen_title']
+                              .props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TextStyles(theme)['screen_title']
+                                  .style,
+                                {
+                                  fontFamily: 'Quicksand_400Regular',
+                                  fontSize: 12,
+                                  textAlign: 'center',
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            {'Country'}
+                          </Text>
+                        </View>
+                        {/* View 2 */}
+                        <View
+                          style={StyleSheet.applyWidth(
+                            { width: '25%' },
+                            dimensions.width
+                          )}
+                        >
+                          <Text
+                            accessible={true}
+                            {...GlobalStyles.TextStyles(theme)['screen_title']
+                              .props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TextStyles(theme)['screen_title']
+                                  .style,
+                                {
+                                  fontFamily: 'Quicksand_400Regular',
+                                  fontSize: 12,
+                                  textAlign: 'center',
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            {'EV'}
+                          </Text>
+                        </View>
+                        {/* View 3 */}
+                        <>
+                          {!NKP_Comp ? null : (
+                            <View
+                              style={StyleSheet.applyWidth(
+                                { width: '10%' },
+                                dimensions.width
+                              )}
+                            >
+                              <Text
+                                accessible={true}
+                                {...GlobalStyles.TextStyles(theme)[
+                                  'screen_title'
+                                ].props}
+                                style={StyleSheet.applyWidth(
+                                  StyleSheet.compose(
+                                    GlobalStyles.TextStyles(theme)[
+                                      'screen_title'
+                                    ].style,
+                                    {
+                                      fontFamily: 'Quicksand_400Regular',
+                                      fontSize: 12,
+                                      textAlign: 'center',
+                                    }
+                                  ),
+                                  dimensions.width
+                                )}
+                              >
+                                {null}
+                              </Text>
+                            </View>
+                          )}
+                        </>
+                      </View>
+                    </View>
+                    <SimpleStyleFlatList
+                      data={fetchData?.stocks}
+                      horizontal={false}
+                      inverted={false}
+                      keyExtractor={(listData, index) =>
+                        listData?.id ?? listData?.uuid ?? index.toString()
+                      }
+                      keyboardShouldPersistTaps={'never'}
+                      listKey={'G9LJvh3r'}
+                      nestedScrollEnabled={false}
+                      numColumns={1}
+                      onEndReachedThreshold={0.5}
+                      renderItem={({ item, index }) => {
+                        const listData = item;
+                        return (
+                          <>
+                            {/* View 2 */}
+                            <View
+                              style={StyleSheet.applyWidth(
+                                {
+                                  alignItems: 'center',
+                                  borderBottomWidth: 1,
+                                  borderColor: palettes.App.green,
+                                  flexDirection: 'row',
+                                  gap: 5,
+                                  justifyContent: 'space-between',
+                                  padding: 5,
+                                  width: '100%',
+                                },
+                                dimensions.width
+                              )}
+                            >
+                              <View
+                                style={StyleSheet.applyWidth(
+                                  {
+                                    flexDirection: 'row',
+                                    gap: 5,
+                                    width: '100%',
+                                  },
+                                  dimensions.width
+                                )}
+                              >
+                                {/* View 5 */}
+                                <View
+                                  style={StyleSheet.applyWidth(
+                                    { width: '40%' },
+                                    dimensions.width
+                                  )}
+                                >
+                                  <Text
+                                    accessible={true}
+                                    {...GlobalStyles.TextStyles(theme)[
+                                      'screen_title'
+                                    ].props}
+                                    style={StyleSheet.applyWidth(
+                                      StyleSheet.compose(
+                                        GlobalStyles.TextStyles(theme)[
+                                          'screen_title'
+                                        ].style,
+                                        {
+                                          fontFamily: 'Quicksand_500Medium',
+                                          fontSize: 12,
+                                        }
+                                      ),
+                                      dimensions.width
+                                    )}
+                                  >
+                                    {listData?.company_name}
+                                  </Text>
+                                </View>
+
+                                <View
+                                  style={StyleSheet.applyWidth(
+                                    { width: '25%' },
+                                    dimensions.width
+                                  )}
+                                >
+                                  <Text
+                                    accessible={true}
+                                    {...GlobalStyles.TextStyles(theme)[
+                                      'screen_title'
+                                    ].props}
+                                    style={StyleSheet.applyWidth(
+                                      StyleSheet.compose(
+                                        GlobalStyles.TextStyles(theme)[
+                                          'screen_title'
+                                        ].style,
+                                        {
+                                          fontFamily: 'Quicksand_400Regular',
+                                          fontSize: 12,
+                                          textAlign: 'center',
+                                        }
+                                      ),
+                                      dimensions.width
+                                    )}
+                                  >
+                                    {listData?.country}
+                                  </Text>
+                                </View>
+                                {/* View 2 */}
+                                <View
+                                  style={StyleSheet.applyWidth(
+                                    { width: '25%' },
+                                    dimensions.width
+                                  )}
+                                >
+                                  <Text
+                                    accessible={true}
+                                    {...GlobalStyles.TextStyles(theme)[
+                                      'screen_title'
+                                    ].props}
+                                    style={StyleSheet.applyWidth(
+                                      StyleSheet.compose(
+                                        GlobalStyles.TextStyles(theme)[
+                                          'screen_title'
+                                        ].style,
+                                        {
+                                          fontFamily: 'Quicksand_400Regular',
+                                          fontSize: 12,
+                                          textAlign: 'center',
+                                        }
+                                      ),
+                                      dimensions.width
+                                    )}
+                                  >
+                                    {'€'}
+                                    {listData?.ev_eur}
+                                    {'m'}
+                                  </Text>
+                                </View>
+                                {/* View 3 */}
+                                <View
+                                  style={StyleSheet.applyWidth(
+                                    { width: '10%' },
+                                    dimensions.width
+                                  )}
+                                >
+                                  <Link
+                                    accessible={true}
+                                    {...GlobalStyles.LinkStyles(theme)['Link']
+                                      .props}
+                                    style={StyleSheet.applyWidth(
+                                      StyleSheet.compose(
+                                        GlobalStyles.LinkStyles(theme)['Link']
+                                          .style,
+                                        {
+                                          color: theme.colors.background.danger,
+                                          textDecorationLine: 'underline',
+                                        }
+                                      ),
+                                      dimensions.width
+                                    )}
+                                    title={'x'}
+                                  />
+                                </View>
+                              </View>
+                            </View>
+                          </>
+                        );
+                      }}
+                      showsHorizontalScrollIndicator={true}
+                      showsVerticalScrollIndicator={true}
+                    />
+                  </View>
+                </View>
                 {/* View 2 */}
                 <View
                   style={StyleSheet.applyWidth(
