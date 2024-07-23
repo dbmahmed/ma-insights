@@ -4,9 +4,10 @@ import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
 import * as XanoResetPassApi from '../apis/XanoResetPassApi.js';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import Images from '../config/Images';
-import { parseBoolean } from '../utils';
+import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
+import parseBoolean from '../utils/parseBoolean';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import {
   Button,
@@ -46,7 +47,7 @@ const ForgotPasswordScreen = props => {
           alignContent: 'center',
           alignItems: 'center',
           alignSelf: 'center',
-          backgroundColor: theme.colors['Strong'],
+          backgroundColor: theme.colors.text.strong,
           justifyContent: 'center',
           margin: 20,
         },
@@ -93,7 +94,7 @@ const ForgotPasswordScreen = props => {
                     GlobalStyles.TextStyles(theme)['screen_title'].style,
                     {
                       alignSelf: 'center',
-                      color: theme.colors['Surface'],
+                      color: palettes.Brand.Surface,
                       fontFamily: 'Quicksand_400Regular',
                       marginTop: 15,
                       textAlign: 'center',
@@ -166,16 +167,16 @@ const ForgotPasswordScreen = props => {
                   keyboardType={'email-address'}
                   numberOfLines={1}
                   placeholder={'Enter email...'}
-                  placeholderTextColor={theme.colors['Medium']}
+                  placeholderTextColor={theme.colors.text.medium}
                   returnKeyType={'next'}
-                  selectionColor={theme.colors['Strong']}
+                  selectionColor={theme.colors.text.strong}
                   spellcheck={true}
                   style={StyleSheet.applyWidth(
                     StyleSheet.compose(
                       GlobalStyles.TextInputStyles(theme)['Login Text Style']
                         .style,
                       {
-                        borderColor: theme.colors['Strong'],
+                        borderColor: theme.colors.text.strong,
                         borderStyle: 'solid',
                         fontFamily: 'Quicksand_400Regular',
                         margin: 10,
@@ -195,7 +196,7 @@ const ForgotPasswordScreen = props => {
                         StyleSheet.compose(
                           GlobalStyles.TextStyles(theme)['screen_title'].style,
                           {
-                            color: theme.colors['Error'],
+                            color: theme.colors.background.danger,
                             fontFamily: 'Quicksand_700Bold',
                             marginLeft: 10,
                           }
@@ -376,7 +377,7 @@ const ForgotPasswordScreen = props => {
                     GlobalStyles.TextStyles(theme)['screen_title'].style,
                     {
                       alignSelf: 'center',
-                      color: theme.colors['Surface'],
+                      color: palettes.Brand.Surface,
                       fontFamily: 'Quicksand_400Regular',
                       marginTop: 15,
                       textAlign: 'center',
@@ -449,17 +450,17 @@ const ForgotPasswordScreen = props => {
                   keyboardType={'default'}
                   numberOfLines={1}
                   placeholder={'Enter password...'}
-                  placeholderTextColor={theme.colors['Medium']}
+                  placeholderTextColor={theme.colors.text.medium}
                   returnKeyType={'next'}
                   secureTextEntry={true}
-                  selectionColor={theme.colors['Strong']}
+                  selectionColor={theme.colors.text.strong}
                   spellcheck={true}
                   style={StyleSheet.applyWidth(
                     StyleSheet.compose(
                       GlobalStyles.TextInputStyles(theme)['Login Text Style']
                         .style,
                       {
-                        borderColor: theme.colors['Strong'],
+                        borderColor: theme.colors.text.strong,
                         borderStyle: 'solid',
                         fontFamily: 'Quicksand_400Regular',
                         margin: 10,
@@ -479,7 +480,7 @@ const ForgotPasswordScreen = props => {
                         StyleSheet.compose(
                           GlobalStyles.TextStyles(theme)['screen_title'].style,
                           {
-                            color: theme.colors['Error'],
+                            color: theme.colors.background.danger,
                             fontFamily: 'Quicksand_700Bold',
                             marginLeft: 10,
                           }
@@ -687,7 +688,7 @@ const ForgotPasswordScreen = props => {
                     GlobalStyles.TextStyles(theme)['screen_title'].style,
                     {
                       alignSelf: 'center',
-                      color: theme.colors['Surface'],
+                      color: palettes.Brand.Surface,
                       fontFamily: 'Quicksand_400Regular',
                       marginTop: 15,
                       textAlign: 'center',
@@ -758,17 +759,17 @@ const ForgotPasswordScreen = props => {
                   keyboardType={'default'}
                   numberOfLines={1}
                   placeholder={'Enter new password'}
-                  placeholderTextColor={theme.colors['Medium']}
+                  placeholderTextColor={theme.colors.text.medium}
                   returnKeyType={'next'}
                   secureTextEntry={true}
-                  selectionColor={theme.colors['Strong']}
+                  selectionColor={theme.colors.text.strong}
                   spellcheck={true}
                   style={StyleSheet.applyWidth(
                     StyleSheet.compose(
                       GlobalStyles.TextInputStyles(theme)['Login Text Style']
                         .style,
                       {
-                        borderColor: theme.colors['Strong'],
+                        borderColor: theme.colors.text.strong,
                         borderStyle: 'solid',
                         fontFamily: 'Quicksand_400Regular',
                         margin: 10,
@@ -798,17 +799,17 @@ const ForgotPasswordScreen = props => {
                   keyboardType={'default'}
                   numberOfLines={1}
                   placeholder={'Confirm new password'}
-                  placeholderTextColor={theme.colors['Medium']}
+                  placeholderTextColor={theme.colors.text.medium}
                   returnKeyType={'next'}
                   secureTextEntry={true}
-                  selectionColor={theme.colors['Strong']}
+                  selectionColor={theme.colors.text.strong}
                   spellcheck={true}
                   style={StyleSheet.applyWidth(
                     StyleSheet.compose(
                       GlobalStyles.TextInputStyles(theme)['Login Text Style']
                         .style,
                       {
-                        borderColor: theme.colors['Strong'],
+                        borderColor: theme.colors.text.strong,
                         borderStyle: 'solid',
                         fontFamily: 'Quicksand_400Regular',
                         margin: 10,
@@ -828,7 +829,7 @@ const ForgotPasswordScreen = props => {
                         StyleSheet.compose(
                           GlobalStyles.TextStyles(theme)['screen_title'].style,
                           {
-                            color: theme.colors['Error'],
+                            color: theme.colors.background.danger,
                             fontFamily: 'Quicksand_700Bold',
                             marginLeft: 10,
                           }

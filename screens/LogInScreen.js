@@ -6,9 +6,10 @@ import * as GlobalVariables from '../config/GlobalVariableContext';
 import Images from '../config/Images';
 import assessAccess from '../global-functions/assessAccess';
 import setAccessToken from '../global-functions/setAccessToken';
-import { parseBoolean } from '../utils';
+import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
+import parseBoolean from '../utils/parseBoolean';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import {
   Button,
@@ -65,23 +66,27 @@ const LogInScreen = props => {
         return;
       }
       console.log('Start ON_SCREEN_FOCUS:0 SET_VARIABLE');
-      setGlobalVariableValue({
-        key: 'AUTH_HEADER',
-        value: '',
-      });
-      console.log('Complete ON_SCREEN_FOCUS:0 SET_VARIABLE');
+      /* hidden 'Set Variable' action */ console.log(
+        'Complete ON_SCREEN_FOCUS:0 SET_VARIABLE'
+      );
       console.log('Start ON_SCREEN_FOCUS:1 CONSOLE_LOG');
       /* hidden 'Log to Console' action */ console.log(
         'Complete ON_SCREEN_FOCUS:1 CONSOLE_LOG'
       );
       console.log('Start ON_SCREEN_FOCUS:2 CONDITIONAL_STOP');
-      /* hidden 'Conditional Stop' action */ console.log(
-        'Complete ON_SCREEN_FOCUS:2 CONDITIONAL_STOP'
-      );
+      if (assessAccess(Variables, setGlobalVariableValue) === false) {
+        return console.log('Complete ON_SCREEN_FOCUS:2 CONDITIONAL_STOP');
+      } else {
+        console.log(
+          'Skipped ON_SCREEN_FOCUS:2 CONDITIONAL_STOP: condition not met'
+        );
+      }
       console.log('Start ON_SCREEN_FOCUS:3 NAVIGATE');
-      /* hidden 'Navigate' action */ console.log(
-        'Complete ON_SCREEN_FOCUS:3 NAVIGATE'
-      );
+      if (navigation.canGoBack()) {
+        navigation.popToTop();
+      }
+      navigation.replace('MAInsights');
+      console.log('Complete ON_SCREEN_FOCUS:3 NAVIGATE');
     } catch (err) {
       console.error(err);
       error = err.message ?? err;
@@ -101,7 +106,7 @@ const LogInScreen = props => {
       hasTopSafeArea={true}
       scrollable={true}
       style={StyleSheet.applyWidth(
-        { backgroundColor: 'rgb(0, 0, 0)', justifyContent: 'center' },
+        { backgroundColor: '"rgb(0, 0, 0)"', justifyContent: 'center' },
         dimensions.width
       )}
     >
@@ -124,7 +129,7 @@ const LogInScreen = props => {
         <Image
           {...GlobalStyles.ImageStyles(theme)['Image'].props}
           resizeMode={'contain'}
-          source={Images.nccbwem0cxji6jiufhxlz}
+          source={Images.mainsightsfaviconlogo1024new}
           style={StyleSheet.applyWidth(
             StyleSheet.compose(GlobalStyles.ImageStyles(theme)['Image'].style, {
               width: 300,
@@ -140,22 +145,24 @@ const LogInScreen = props => {
             StyleSheet.compose(
               GlobalStyles.TextStyles(theme)['screen_title'].style,
               {
-                color: {
-                  minWidth: Breakpoints.Desktop,
-                  value: theme.colors['Orange'],
-                },
-                fontFamily: {
-                  minWidth: Breakpoints.Desktop,
-                  value: 'Poppins_900Black',
-                },
+                color: [
+                  { minWidth: Breakpoints.Desktop, value: palettes.App.Orange },
+                  { minWidth: Breakpoints.Mobile, value: palettes.App.Orange },
+                ],
+                fontFamily: [
+                  { minWidth: Breakpoints.Desktop, value: 'Poppins_900Black' },
+                  { minWidth: Breakpoints.Mobile, value: 'Poppins_900Black' },
+                ],
+                fontSize: 30,
                 lineHeight: { minWidth: Breakpoints.Desktop, value: 14 },
                 paddingBottom: { minWidth: Breakpoints.Desktop, value: 0 },
+                textAlign: 'center',
               }
             ),
             dimensions.width
           )}
         >
-          {'M&A INSIGHTS'}
+          {'M&A\nINSIGHTS'}
         </Text>
 
         <Text
@@ -166,7 +173,27 @@ const LogInScreen = props => {
               GlobalStyles.TextStyles(theme)['screen_title'].style,
               {
                 alignSelf: 'center',
-                color: theme.colors['Surface'],
+                color: palettes.Brand.Surface,
+                fontFamily: 'Poppins_400Regular',
+                marginTop: 15,
+                textAlign: 'center',
+              }
+            ),
+            dimensions.width
+          )}
+        >
+          {'Creating visibility in unlisted markets'}
+        </Text>
+        {/* Text 3 */}
+        <Text
+          accessible={true}
+          {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+          style={StyleSheet.applyWidth(
+            StyleSheet.compose(
+              GlobalStyles.TextStyles(theme)['screen_title'].style,
+              {
+                alignSelf: 'center',
+                color: palettes.Brand.Surface,
                 fontFamily: 'Quicksand_400Regular',
                 marginTop: 15,
                 textAlign: 'center',
@@ -285,16 +312,16 @@ const LogInScreen = props => {
                   keyboardType={'email-address'}
                   numberOfLines={1}
                   placeholder={'Enter email...'}
-                  placeholderTextColor={theme.colors['Medium']}
+                  placeholderTextColor={theme.colors.text.medium}
                   returnKeyType={'next'}
-                  selectionColor={theme.colors['Strong']}
+                  selectionColor={theme.colors.text.strong}
                   spellcheck={true}
                   style={StyleSheet.applyWidth(
                     StyleSheet.compose(
                       GlobalStyles.TextInputStyles(theme)['Login Text Style']
                         .style,
                       {
-                        borderColor: theme.colors['Strong'],
+                        borderColor: theme.colors.text.strong,
                         borderStyle: 'solid',
                         fontFamily: 'Quicksand_400Regular',
                         margin: 10,
@@ -339,7 +366,7 @@ const LogInScreen = props => {
                         .props}
                       autoCorrect={false}
                       placeholder={'Enter password...'}
-                      placeholderTextColor={theme.colors['Medium']}
+                      placeholderTextColor={theme.colors.text.medium}
                       ref={passwordyUSI8C8SRef}
                       returnKeyLabel={'Login'}
                       returnKeyType={'go'}
@@ -350,7 +377,7 @@ const LogInScreen = props => {
                           GlobalStyles.TextInputStyles(theme)['Text Input']
                             .style,
                           {
-                            borderColor: theme.colors['Strong'],
+                            borderColor: theme.colors.text.strong,
                             fontFamily: 'Quicksand_400Regular',
                             margin: 10,
                             padding: 10,
@@ -372,7 +399,7 @@ const LogInScreen = props => {
                         StyleSheet.compose(
                           GlobalStyles.TextStyles(theme)['screen_title'].style,
                           {
-                            color: theme.colors['Error'],
+                            color: theme.colors.background.danger,
                             fontFamily: 'Quicksand_700Bold',
                             marginLeft: 10,
                           }
@@ -601,10 +628,10 @@ const LogInScreen = props => {
                     StyleSheet.compose(
                       GlobalStyles.ButtonStyles(theme)['Button'].style,
                       {
-                        backgroundColor: theme.colors['Secondary'],
-                        borderColor: theme.colors['Strong'],
+                        backgroundColor: theme.colors.branding.secondary,
+                        borderColor: theme.colors.text.strong,
                         borderWidth: 2,
-                        color: theme.colors['Strong'],
+                        color: theme.colors.text.strong,
                         fontFamily: 'Quicksand_600SemiBold',
                         margin: 10,
                         marginBottom: 20,
@@ -633,7 +660,7 @@ const LogInScreen = props => {
               alignSelf: { minWidth: Breakpoints.Desktop, value: 'center' },
               backgroundColor: {
                 minWidth: Breakpoints.Desktop,
-                value: theme.colors['Surface'],
+                value: palettes.Brand.Surface,
               },
               borderRadius: { minWidth: Breakpoints.Desktop, value: 10 },
               borderWidth: { minWidth: Breakpoints.Desktop, value: 1 },
@@ -703,12 +730,12 @@ const LogInScreen = props => {
                   {
                     backgroundColor: {
                       minWidth: Breakpoints.Desktop,
-                      value: theme.colors['Secondary'],
+                      value: theme.colors.branding.secondary,
                     },
                     borderWidth: { minWidth: Breakpoints.Desktop, value: 1 },
                     color: {
                       minWidth: Breakpoints.Desktop,
-                      value: theme.colors['Strong'],
+                      value: theme.colors.text.strong,
                     },
                     fontFamily: {
                       minWidth: Breakpoints.Desktop,

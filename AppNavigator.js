@@ -1,10 +1,10 @@
 import { I18nManager, Platform, StyleSheet, Text, View } from 'react-native';
 import { systemWeights } from 'react-native-typography';
-import { Icon, Touchable } from '@draftbit/ui';
+import { Icon, Touchable, useTheme } from '@draftbit/ui';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import theme from './themes/Draftbit.js';
+import palettes from './themes/palettes.js';
 import LinkingConfiguration from './LinkingConfiguration.js';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import React from 'react';
@@ -15,17 +15,22 @@ import useWindowDimensions from './utils/useWindowDimensions';
 
 import AdvisorsScreen from './screens/AdvisorsScreen';
 import AllEventsScreen from './screens/AllEventsScreen';
-import CompanyForSaleScreen from './screens/CompanyForSaleScreen';
+import CFSDetailsScreen from './screens/CFSDetailsScreen';
+import CFSScreen from './screens/CFSScreen';
 import EventDetailsScreen from './screens/EventDetailsScreen';
 import ForgotPasswordScreen from './screens/ForgotPasswordScreen';
 import LogInScreen from './screens/LogInScreen';
 import NewsletterDetailsScreen from './screens/NewsletterDetailsScreen';
-import NewslewttersScreen from './screens/NewslewttersScreen';
+import NewslettersScreen from './screens/NewslettersScreen';
+import PEPFDetailsScreen from './screens/PEPFDetailsScreen';
 import PEPFScreen from './screens/PEPFScreen';
-import PeerGrroupsScreen from './screens/PeerGrroupsScreen';
+import PeerGroupDetailsScreen from './screens/PeerGroupDetailsScreen';
+import PeerGroupsScreen from './screens/PeerGroupsScreen';
 import RequestDemoScreen from './screens/RequestDemoScreen';
 import SplashScreen from './screens/SplashScreen';
+import StockDetailsScreen from './screens/StockDetailsScreen';
 import StockSearchScreen from './screens/StockSearchScreen';
+import WeeklyReportScreen from './screens/WeeklyReportScreen';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -44,15 +49,17 @@ function DefaultAndroidBackIcon({ tintColor }) {
 }
 
 function MAInsights() {
+  const theme = useTheme();
   const Constants = GlobalVariables.useValues();
   const setGlobalVariableValue = GlobalVariables.useSetValue();
   const dimensions = useWindowDimensions();
 
   const tabBarIcons = {
-    NewslewttersScreen: 'Ionicons/newspaper-outline',
+    NewslettersScreen: 'Ionicons/newspaper-outline',
     AllEventsScreen: 'MaterialIcons/search',
-    CompanyForSaleScreen: 'MaterialIcons/business',
+    CFSScreen: 'MaterialIcons/business',
     PEPFScreen: 'MaterialIcons/waterfall-chart',
+    PeerGroupDetailsScreen: '',
   };
 
   return (
@@ -65,14 +72,14 @@ function MAInsights() {
               <Icon
                 name="MaterialIcons/menu-open"
                 size={Platform.OS === 'ios' ? 21 : 24}
-                color={theme.colors['Strong']}
+                color={theme.colors.text.strong}
                 style={[styles.headerIcon, styles.headerIconLeft]}
               />
               <View style={styles.headerLabelWrapper}>
                 <Text
                   style={[
                     styles.headerLabel,
-                    { color: theme.colors['Strong'] },
+                    { color: theme.colors.text.strong },
                   ]}
                 >
                   menu
@@ -85,10 +92,8 @@ function MAInsights() {
             style={[styles.headerContainer, styles.headerContainerRight]}
             onPress={() => {
               try {
-                setGlobalVariableValue({
-                  key: 'acc_pressed',
-                  value: true,
-                });
+                /* hidden 'Set Variable' action */
+                navigation.push('MAInsights');
               } catch (err) {
                 console.error(err);
               }
@@ -106,16 +111,16 @@ function MAInsights() {
         headerTitle: 'News',
         headerTitleStyle: { fontFamily: 'Quicksand_600SemiBold', fontSize: 20 },
         tabBarActiveBackgroundColor: 'rgba(0, 0, 0, 0)',
-        tabBarActiveTintColor: theme.colors['Primary'],
+        tabBarActiveTintColor: theme.colors.branding.primary,
         tabBarHideOnKeyboard: true,
-        tabBarInactiveTintColor: theme.colors['Light'],
+        tabBarInactiveTintColor: theme.colors.text.light,
         tabBarLabelStyle: { fontFamily: 'Quicksand_600SemiBold' },
-        tabBarStyle: { borderTopColor: theme.colors['Divider'] },
+        tabBarStyle: { borderTopColor: theme.colors.border.brand },
       })}
     >
       <Tab.Screen
-        name="NewslewttersScreen"
-        component={NewslewttersScreen}
+        name="NewslettersScreen"
+        component={NewslettersScreen}
         options={({ navigation }) => ({
           tabBarIcon: ({ focused, color }) => (
             <Icon
@@ -125,7 +130,7 @@ function MAInsights() {
             />
           ),
           tabBarLabel: 'Newsletters',
-          title: 'Newslewtters',
+          title: 'Newsletters',
         })}
       />
       <Tab.Screen
@@ -145,8 +150,8 @@ function MAInsights() {
         })}
       />
       <Tab.Screen
-        name="CompanyForSaleScreen"
-        component={CompanyForSaleScreen}
+        name="CFSScreen"
+        component={CFSScreen}
         options={({ navigation }) => ({
           tabBarIcon: ({ focused, color }) => (
             <Icon
@@ -156,7 +161,7 @@ function MAInsights() {
             />
           ),
           tabBarLabel: 'CFS',
-          title: 'Company for Sale',
+          title: 'CFS',
         })}
       />
       <Tab.Screen
@@ -174,13 +179,25 @@ function MAInsights() {
           title: 'PEPF',
         })}
       />
+      <Tab.Screen
+        name="PeerGroupDetailsScreen"
+        component={PeerGroupDetailsScreen}
+        options={({ navigation }) => ({
+          tabBarIcon: ({ focused, color }) => (
+            <Icon name="" size={25} color={focused ? color : color} />
+          ),
+          title: 'Peer Group Details',
+        })}
+      />
     </Tab.Navigator>
   );
 }
 
 export default function RootAppNavigator() {
+  const theme = useTheme();
   const Constants = GlobalVariables.useValues();
   const setGlobalVariableValue = GlobalVariables.useSetValue();
+  const dimensions = useWindowDimensions();
 
   return (
     <NavigationContainer
@@ -188,7 +205,7 @@ export default function RootAppNavigator() {
         ...DefaultTheme,
         colors: {
           ...DefaultTheme.colors,
-          background: '#000000ff',
+          background: '#ffffffff',
         },
       }}
       linking={LinkingConfiguration}
@@ -221,7 +238,7 @@ export default function RootAppNavigator() {
                 <Icon
                   name="MaterialCommunityIcons/menu"
                   size={Platform.OS === 'ios' ? 21 : 24}
-                  color={theme.colors['Strong']}
+                  color={theme.colors.text.strong}
                   style={[styles.headerIcon, styles.headerIconLeft]}
                 />
               </Touchable>
@@ -254,18 +271,18 @@ export default function RootAppNavigator() {
               }}
             >
               <Icon
-                name="MaterialCommunityIcons/account"
+                name=""
                 size={Platform.OS === 'ios' ? 21 : 24}
-                color={theme.colors['Strong']}
+                color={theme.colors.text.strong}
                 style={[styles.headerIcon, styles.headerIconRight]}
               />
             </Touchable>
           ),
           headerStyle: {
-            backgroundColor: theme.colors['Background'],
-            borderBottomColor: theme.colors['Divider'],
+            backgroundColor: theme.colors.background.brand,
+            borderBottomColor: theme.colors.border.brand,
           },
-          headerTintColor: theme.colors['Strong'],
+          headerTintColor: theme.colors.text.strong,
           headerTitleStyle: { fontFamily: 'Quicksand_600SemiBold' },
         })}
       >
@@ -311,7 +328,7 @@ export default function RootAppNavigator() {
                 <Icon
                   name="MaterialCommunityIcons/border-none-variant"
                   size={Platform.OS === 'ios' ? 21 : 24}
-                  color={theme.colors['Background']}
+                  color={theme.colors.background.brand}
                   style={[styles.headerIcon, styles.headerIconRight]}
                 />
               </View>
@@ -373,6 +390,7 @@ export default function RootAppNavigator() {
                   />
                 </Touchable>
               ) : null,
+            headerTitleAllowFontScaling: false,
             title: 'Newsletter Details',
           })}
         />
@@ -393,17 +411,10 @@ export default function RootAppNavigator() {
           })}
         />
         <Stack.Screen
-          name="StockSearchScreen"
-          component={StockSearchScreen}
+          name="PeerGroupsScreen"
+          component={PeerGroupsScreen}
           options={({ navigation }) => ({
-            title: 'Stock Search',
-          })}
-        />
-        <Stack.Screen
-          name="PeerGrroupsScreen"
-          component={PeerGrroupsScreen}
-          options={({ navigation }) => ({
-            title: 'Peer Grroups',
+            title: 'Peer Groups',
           })}
         />
         <Stack.Screen
@@ -442,6 +453,41 @@ export default function RootAppNavigator() {
                 </View>
               ),
             title: 'Event Details',
+          })}
+        />
+        <Stack.Screen
+          name="CFSDetailsScreen"
+          component={CFSDetailsScreen}
+          options={({ navigation }) => ({
+            title: 'CFS Details',
+          })}
+        />
+        <Stack.Screen
+          name="WeeklyReportScreen"
+          component={WeeklyReportScreen}
+          options={({ navigation }) => ({
+            title: 'Weekly report',
+          })}
+        />
+        <Stack.Screen
+          name="PEPFDetailsScreen"
+          component={PEPFDetailsScreen}
+          options={({ navigation }) => ({
+            title: 'PEPF Details',
+          })}
+        />
+        <Stack.Screen
+          name="StockSearchScreen"
+          component={StockSearchScreen}
+          options={({ navigation }) => ({
+            title: 'Stock Search',
+          })}
+        />
+        <Stack.Screen
+          name="StockDetailsScreen"
+          component={StockDetailsScreen}
+          options={({ navigation }) => ({
+            title: 'Stock Details',
           })}
         />
         <Stack.Screen name="MAInsights" component={MAInsights} />

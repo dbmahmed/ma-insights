@@ -22,6 +22,14 @@ const linking = {
   prefixes: [prefix],
   config: {
     screens: {
+      NewsletterDetailsScreen: {
+        screens: {
+          NewsletterDetailsScreen: {
+            path: 'NewsletterDetailsScreen/:news_id?',
+          },
+        },
+      },
+
       MAInsights: { screens: {} },
     },
   },

@@ -3,6 +3,7 @@ import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import Images from '../config/Images';
+import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import showAlertUtil from '../utils/showAlert';
@@ -62,7 +63,7 @@ const RequestDemoScreen = props => {
       hasTopSafeArea={false}
       scrollable={false}
       style={StyleSheet.applyWidth(
-        { backgroundColor: 'rgb(0, 0, 0)', justifyContent: 'center' },
+        { backgroundColor: '"rgb(0, 0, 0)"', justifyContent: 'center' },
         dimensions.width
       )}
     >
@@ -98,7 +99,7 @@ const RequestDemoScreen = props => {
               GlobalStyles.TextStyles(theme)['screen_title'].style,
               {
                 alignSelf: 'center',
-                color: theme.colors['Surface'],
+                color: palettes.Brand.Surface,
                 fontFamily: 'Quicksand_400Regular',
                 marginTop: 15,
                 textAlign: 'center',
@@ -120,7 +121,7 @@ const RequestDemoScreen = props => {
               GlobalStyles.TextStyles(theme)['screen_title'].style,
               {
                 alignSelf: 'center',
-                color: 'rgb(255, 255, 255)',
+                color: '"rgb(255, 255, 255)"',
                 fontFamily: 'Quicksand_700Bold',
                 fontSize: 25,
                 margin: 10,
@@ -203,14 +204,14 @@ const RequestDemoScreen = props => {
               keyboardType={'email-address'}
               numberOfLines={1}
               placeholder={'Enter email...'}
-              placeholderTextColor={theme.colors['Medium']}
-              selectionColor={theme.colors['Strong']}
+              placeholderTextColor={theme.colors.text.medium}
+              selectionColor={theme.colors.text.strong}
               spellcheck={true}
               style={StyleSheet.applyWidth(
                 StyleSheet.compose(
                   GlobalStyles.TextInputStyles(theme)['Login Text Style'].style,
                   {
-                    borderColor: theme.colors['Strong'],
+                    borderColor: theme.colors.text.strong,
                     borderStyle: 'solid',
                     fontFamily: 'Quicksand_400Regular',
                     margin: 10,
@@ -262,16 +263,16 @@ const RequestDemoScreen = props => {
               keyboardType={'default'}
               numberOfLines={1}
               placeholder={'Enter full name...'}
-              placeholderTextColor={theme.colors['Medium']}
+              placeholderTextColor={theme.colors.text.medium}
               ref={fullName7AwDaCGdRef}
               returnKeyType={'next'}
-              selectionColor={theme.colors['Strong']}
+              selectionColor={theme.colors.text.strong}
               spellcheck={true}
               style={StyleSheet.applyWidth(
                 StyleSheet.compose(
                   GlobalStyles.TextInputStyles(theme)['Login Text Style'].style,
                   {
-                    borderColor: theme.colors['Strong'],
+                    borderColor: theme.colors.text.strong,
                     borderStyle: 'solid',
                     fontFamily: 'Quicksand_400Regular',
                     margin: 10,
@@ -321,16 +322,16 @@ const RequestDemoScreen = props => {
               clearButtonMode={'while-editing'}
               numberOfLines={1}
               placeholder={'Enter company name...'}
-              placeholderTextColor={theme.colors['Medium']}
+              placeholderTextColor={theme.colors.text.medium}
               ref={companyNameZZjKNDmJRef}
               returnKeyType={'next'}
-              selectionColor={theme.colors['Strong']}
+              selectionColor={theme.colors.text.strong}
               spellcheck={true}
               style={StyleSheet.applyWidth(
                 StyleSheet.compose(
                   GlobalStyles.TextInputStyles(theme)['Login Text Style'].style,
                   {
-                    borderColor: theme.colors['Strong'],
+                    borderColor: theme.colors.text.strong,
                     borderStyle: 'solid',
                     fontFamily: 'Quicksand_400Regular',
                     margin: 10,
@@ -382,16 +383,16 @@ const RequestDemoScreen = props => {
               keyboardType={'phone-pad'}
               numberOfLines={1}
               placeholder={'Enter mobile...'}
-              placeholderTextColor={theme.colors['Medium']}
+              placeholderTextColor={theme.colors.text.medium}
               ref={mobileBYuqOWrYRef}
               returnKeyType={'next'}
-              selectionColor={theme.colors['Strong']}
+              selectionColor={theme.colors.text.strong}
               spellcheck={true}
               style={StyleSheet.applyWidth(
                 StyleSheet.compose(
                   GlobalStyles.TextInputStyles(theme)['Login Text Style'].style,
                   {
-                    borderColor: theme.colors['Strong'],
+                    borderColor: theme.colors.text.strong,
                     borderStyle: 'solid',
                     fontFamily: 'Quicksand_400Regular',
                     margin: 10,
@@ -435,16 +436,16 @@ const RequestDemoScreen = props => {
               keyboardType={'default'}
               numberOfLines={1}
               placeholder={'Enter message...'}
-              placeholderTextColor={theme.colors['Medium']}
+              placeholderTextColor={theme.colors.text.medium}
               ref={messageMJ6KCxrqRef}
               returnKeyType={'done'}
-              selectionColor={theme.colors['Strong']}
+              selectionColor={theme.colors.text.strong}
               spellcheck={true}
               style={StyleSheet.applyWidth(
                 StyleSheet.compose(
                   GlobalStyles.TextInputStyles(theme)['Login Text Style'].style,
                   {
-                    borderColor: theme.colors['Strong'],
+                    borderColor: theme.colors.text.strong,
                     borderStyle: 'solid',
                     fontFamily: 'Quicksand_400Regular',
                     margin: 10,
@@ -464,7 +465,7 @@ const RequestDemoScreen = props => {
                     StyleSheet.compose(
                       GlobalStyles.TextStyles(theme)['screen_title'].style,
                       {
-                        color: theme.colors['Error'],
+                        color: theme.colors.background.danger,
                         fontFamily: 'Quicksand_700Bold',
                         marginLeft: 10,
                       }

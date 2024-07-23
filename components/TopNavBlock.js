@@ -1,6 +1,7 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as GlobalVariables from '../config/GlobalVariableContext';
+import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
@@ -25,10 +26,10 @@ const TopNavBlock = props => {
             { minWidth: Breakpoints.Mobile, value: 'flex-start' },
             { minWidth: Breakpoints.Laptop, value: 'flex-start' },
           ],
-          backgroundColor: theme.colors['Background'],
+          backgroundColor: theme.colors.background.brand,
           borderColor: [
-            { minWidth: Breakpoints.Mobile, value: theme.colors['Medium'] },
-            { minWidth: Breakpoints.Laptop, value: theme.colors['Divider'] },
+            { minWidth: Breakpoints.Mobile, value: theme.colors.text.medium },
+            { minWidth: Breakpoints.Laptop, value: theme.colors.border.brand },
           ],
           borderWidth: [
             { minWidth: Breakpoints.Mobile, value: 0.5 },
@@ -63,7 +64,7 @@ const TopNavBlock = props => {
                 borderBottomWidth: { minWidth: Breakpoints.Laptop, value: 0.5 },
                 borderColor: {
                   minWidth: Breakpoints.Laptop,
-                  value: theme.colors['Light'],
+                  value: theme.colors.text.light,
                 },
                 borderTopWidth: { minWidth: Breakpoints.Laptop, value: 0.5 },
                 width: { minWidth: Breakpoints.Laptop, value: '100%' },
@@ -120,7 +121,7 @@ const TopNavBlock = props => {
                 borderBottomWidth: { minWidth: Breakpoints.Laptop, value: 0.5 },
                 borderColor: {
                   minWidth: Breakpoints.Laptop,
-                  value: theme.colors['Light'],
+                  value: theme.colors.text.light,
                 },
               }
             ),
@@ -175,7 +176,7 @@ const TopNavBlock = props => {
                 borderBottomWidth: { minWidth: Breakpoints.Laptop, value: 0.5 },
                 borderColor: {
                   minWidth: Breakpoints.Laptop,
-                  value: theme.colors['Light'],
+                  value: theme.colors.text.light,
                 },
               }
             ),
@@ -228,7 +229,7 @@ const TopNavBlock = props => {
                 borderBottomWidth: { minWidth: Breakpoints.Laptop, value: 0.5 },
                 borderColor: {
                   minWidth: Breakpoints.Laptop,
-                  value: theme.colors['Light'],
+                  value: theme.colors.text.light,
                 },
               }
             ),
@@ -281,7 +282,7 @@ const TopNavBlock = props => {
                 borderBottomWidth: { minWidth: Breakpoints.Laptop, value: 0.5 },
                 borderColor: {
                   minWidth: Breakpoints.Laptop,
-                  value: theme.colors['Light'],
+                  value: theme.colors.text.light,
                 },
               }
             ),
@@ -334,7 +335,7 @@ const TopNavBlock = props => {
                 borderBottomWidth: { minWidth: Breakpoints.Laptop, value: 0.5 },
                 borderColor: {
                   minWidth: Breakpoints.Laptop,
-                  value: theme.colors['Light'],
+                  value: theme.colors.text.light,
                 },
               }
             ),
@@ -387,7 +388,7 @@ const TopNavBlock = props => {
                 borderBottomWidth: { minWidth: Breakpoints.Laptop, value: 0.5 },
                 borderColor: {
                   minWidth: Breakpoints.Laptop,
-                  value: theme.colors['Light'],
+                  value: theme.colors.text.light,
                 },
               }
             ),
@@ -438,7 +439,7 @@ const TopNavBlock = props => {
             alignItems: { minWidth: Breakpoints.Laptop, value: 'center' },
             borderColor: {
               minWidth: Breakpoints.Laptop,
-              value: theme.colors['Light'],
+              value: theme.colors.text.light,
             },
             borderTopWidth: { minWidth: Breakpoints.Laptop, value: 0.5 },
             justifyContent: { minWidth: Breakpoints.Laptop, value: 'flex-end' },

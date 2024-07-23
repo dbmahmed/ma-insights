@@ -1331,6 +1331,7 @@ export const newsletterEachGET = async (
   const options = {
     headers: cleanHeaders({
       Accept: 'application/json',
+      Authorization: Constants['AUTH_HEADER'],
       'Content-Type': 'application/json',
     }),
   };
@@ -1395,6 +1396,7 @@ export const newslettersGET = async (Constants, _args, handlers = {}) => {
   const options = {
     headers: cleanHeaders({
       Accept: 'application/json',
+      Authorization: Constants['AUTH_HEADER'],
       'Content-Type': 'application/json',
     }),
   };

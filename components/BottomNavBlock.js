@@ -1,5 +1,6 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
+import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
@@ -14,7 +15,7 @@ const BottomNavBlock = props => {
     <View
       style={StyleSheet.applyWidth(
         {
-          backgroundColor: theme.colors['Surface'],
+          backgroundColor: palettes.Brand.Surface,
           flexDirection: 'column',
           justifyContent: 'flex-end',
         },
@@ -27,7 +28,7 @@ const BottomNavBlock = props => {
           StyleSheet.compose(
             GlobalStyles.HStackStyles(theme)['H Stack'].style,
             {
-              backgroundColor: theme.colors['Surface'],
+              backgroundColor: palettes.Brand.Surface,
               justifyContent: 'center',
             }
           ),
@@ -46,7 +47,7 @@ const BottomNavBlock = props => {
         >
           <IconButton
             size={32}
-            color={theme.colors['Strong']}
+            color={theme.colors.text.strong}
             icon={'Ionicons/newspaper'}
           />
           <Text
@@ -55,7 +56,7 @@ const BottomNavBlock = props => {
             style={StyleSheet.applyWidth(
               StyleSheet.compose(
                 GlobalStyles.TextStyles(theme)['screen_title'].style,
-                { color: theme.colors['Strong'] }
+                { color: theme.colors.text.strong }
               ),
               dimensions.width
             )}
@@ -76,7 +77,7 @@ const BottomNavBlock = props => {
         >
           <IconButton
             size={32}
-            color={theme.colors['Strong']}
+            color={theme.colors.text.strong}
             icon={'FontAwesome/search'}
           />
           <Text
@@ -85,7 +86,7 @@ const BottomNavBlock = props => {
             style={StyleSheet.applyWidth(
               StyleSheet.compose(
                 GlobalStyles.TextStyles(theme)['screen_title'].style,
-                { color: theme.colors['Strong'] }
+                { color: theme.colors.text.strong }
               ),
               dimensions.width
             )}
@@ -106,7 +107,7 @@ const BottomNavBlock = props => {
         >
           <IconButton
             size={32}
-            color={theme.colors['Strong']}
+            color={theme.colors.text.strong}
             icon={'FontAwesome/building'}
           />
           <Text
@@ -115,7 +116,7 @@ const BottomNavBlock = props => {
             style={StyleSheet.applyWidth(
               StyleSheet.compose(
                 GlobalStyles.TextStyles(theme)['screen_title'].style,
-                { color: theme.colors['Strong'] }
+                { color: theme.colors.text.strong }
               ),
               dimensions.width
             )}
@@ -136,7 +137,7 @@ const BottomNavBlock = props => {
         >
           <IconButton
             size={32}
-            color={theme.colors['Strong']}
+            color={theme.colors.text.strong}
             icon={'MaterialIcons/waterfall-chart'}
           />
           <Text
@@ -145,7 +146,7 @@ const BottomNavBlock = props => {
             style={StyleSheet.applyWidth(
               StyleSheet.compose(
                 GlobalStyles.TextStyles(theme)['screen_title'].style,
-                { color: theme.colors['Strong'] }
+                { color: theme.colors.text.strong }
               ),
               dimensions.width
             )}

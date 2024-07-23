@@ -3,6 +3,7 @@ import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import Images from '../config/Images';
+import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
@@ -52,7 +53,7 @@ const SplashScreen = props => {
         console.log('Complete ON_SCREEN_FOCUS:4 CONSOLE_LOG');
         console.log('Start ON_SCREEN_FOCUS:5 IF');
         if (get_me?.email) {
-          navigation.navigate('MAInsights', { screen: 'NewslewttersScreen' });
+          navigation.navigate('MAInsights', { screen: 'NewslettersScreen' });
         } else {
           if (navigation.canGoBack()) {
             navigation.popToTop();
@@ -78,7 +79,10 @@ const SplashScreen = props => {
       scrollable={false}
       hasTopSafeArea={true}
       style={StyleSheet.applyWidth(
-        { backgroundColor: theme.colors['Strong'], justifyContent: 'center' },
+        {
+          backgroundColor: theme.colors.background.brand,
+          justifyContent: 'center',
+        },
         dimensions.width
       )}
     >
@@ -96,14 +100,54 @@ const SplashScreen = props => {
         <Image
           {...GlobalStyles.ImageStyles(theme)['Image'].props}
           resizeMode={'contain'}
-          source={Images.LogoMobileApp}
+          source={Images.mainsightsfaviconlogo1024new}
           style={StyleSheet.applyWidth(
             StyleSheet.compose(GlobalStyles.ImageStyles(theme)['Image'].style, {
-              width: 300,
+              height: 256,
+              width: 256,
             }),
             dimensions.width
           )}
         />
+        <Text
+          accessible={true}
+          {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+          style={StyleSheet.applyWidth(
+            StyleSheet.compose(
+              GlobalStyles.TextStyles(theme)['screen_title'].style,
+              {
+                color: palettes.App.Orange,
+                fontFamily: 'Poppins_900Black',
+                fontSize: 45,
+                lineHeight: 45,
+                textAlign: 'center',
+              }
+            ),
+            dimensions.width
+          )}
+        >
+          {'M&A\nINSIGHTS'}
+        </Text>
+        {/* Text 2 */}
+        <Text
+          accessible={true}
+          {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+          style={StyleSheet.applyWidth(
+            StyleSheet.compose(
+              GlobalStyles.TextStyles(theme)['screen_title'].style,
+              {
+                color: theme.colors.text.strong,
+                fontFamily: 'Poppins_400Regular',
+                marginTop: 10,
+                textAlign: 'center',
+              }
+            ),
+            dimensions.width
+          )}
+        >
+          {'Creating visibility in unlisted markets'}
+        </Text>
+
         <HStack
           {...GlobalStyles.HStackStyles(theme)['H Stack'].props}
           style={StyleSheet.applyWidth(
@@ -112,12 +156,12 @@ const SplashScreen = props => {
           )}
         >
           <CircularProgress
-            color={theme.colors.primary}
+            color={theme.colors.branding.primary}
             isAnimated={true}
             lineCap={'round'}
             showTrack={true}
             startPosition={'top'}
-            trackColor={theme.colors.divider}
+            trackColor={theme.colors.border.brand}
             trackLineCap={'round'}
             animationDuration={750}
             indeterminate={true}
@@ -137,7 +181,7 @@ const SplashScreen = props => {
               StyleSheet.compose(
                 GlobalStyles.TextStyles(theme)['screen_title'].style,
                 {
-                  color: theme.colors['Background'],
+                  color: theme.colors.text.strong,
                   fontFamily: 'Quicksand_400Regular',
                   marginLeft: 5,
                 }

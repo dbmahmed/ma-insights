@@ -1,6 +1,7 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as GlobalVariables from '../config/GlobalVariableContext';
+import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
@@ -18,13 +19,13 @@ const AccountNavBlock = props => {
 
   return (
     <BottomSheet
-      borderColor={theme.colors.divider}
+      borderColor={theme.colors.border.brand}
       borderWidth={1}
       bottomSnapPosition={'80%'}
       bounces={true}
       enableOverScroll={false}
       friction={0.95}
-      handleColor={theme.colors.divider}
+      handleColor={theme.colors.border.brand}
       initialSnapPosition={'bottom'}
       middleSnapPosition={'50%'}
       showHandle={true}

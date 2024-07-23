@@ -1,6 +1,7 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as GlobalVariables from '../config/GlobalVariableContext';
+import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
@@ -147,7 +148,7 @@ const AccModalBlock = props => {
             {...GlobalStyles.LinkStyles(theme)['Link'].props}
             style={StyleSheet.applyWidth(
               StyleSheet.compose(GlobalStyles.LinkStyles(theme)['Link'].style, {
-                color: theme.colors['Error'],
+                color: theme.colors.background.danger,
                 marginBottom: 2,
                 marginTop: 2,
                 textAlign: 'center',

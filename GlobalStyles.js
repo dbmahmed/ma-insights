@@ -2,16 +2,21 @@ import * as StyleSheet from './utils/StyleSheet';
 
 import Breakpoints from './utils/Breakpoints';
 
+import palettes from './themes/palettes';
+
 export const TextStyles = theme =>
   StyleSheet.create({
     listed_header_title: {
       style: { fontFamily: 'Quicksand_700Bold', fontSize: 12 },
       props: {},
     },
-    screen_title: { style: { color: theme.colors.strong }, props: {} },
+    screen_title: { style: { color: theme.colors.text.strong }, props: {} },
     selected: {
       style: {
-        color: { minWidth: Breakpoints.Laptop, value: theme.colors['Primary'] },
+        color: {
+          minWidth: Breakpoints.Laptop,
+          value: theme.colors.branding.primary,
+        },
       },
       props: {},
     },
@@ -22,7 +27,7 @@ export const LinearGradientStyles = theme =>
     'Linear Gradient': {
       style: {
         alignContent: 'flex-start',
-        borderColor: theme.colors['Light'],
+        borderColor: theme.colors.text.light,
         borderRadius: 10,
         borderWidth: 1,
         flex: 1,
@@ -30,16 +35,16 @@ export const LinearGradientStyles = theme =>
         opacity: 1,
       },
       props: {
-        color1: theme.colors['Surface'],
-        color3: theme.colors['Surface'],
+        color1: palettes.Brand.Surface,
+        color3: palettes.Brand.Surface,
       },
     },
     SectionName: {
       style: { borderRadius: 0, borderWidth: 0, padding: 10 },
       props: {
         color3: null,
-        color1: theme.colors['Strong'],
-        color2: theme.colors['Primary'],
+        color2: theme.colors.branding.primary,
+        color1: theme.colors.text.strong,
       },
     },
   });
@@ -55,7 +60,7 @@ export const SurfaceStyles = theme =>
       style: {
         alignContent: 'center',
         alignSelf: 'auto',
-        backgroundColor: theme.colors['Surface'],
+        backgroundColor: palettes.Brand.Surface,
         borderRadius: 10,
         borderStyle: 'solid',
         margin: 15,
@@ -70,7 +75,7 @@ export const TextInputStyles = theme =>
     'Login Text Style': {
       style: {
         borderBottomWidth: 1,
-        borderColor: theme.colors.divider,
+        borderColor: theme.colors.border.brand,
         borderLeftWidth: 1,
         borderRadius: 8,
         borderRightWidth: 1,
@@ -85,7 +90,7 @@ export const TextInputStyles = theme =>
     'Text Input': {
       style: {
         borderBottomWidth: 1,
-        borderColor: theme.colors.divider,
+        borderColor: theme.colors.border.brand,
         borderLeftWidth: 1,
         borderRadius: 8,
         borderRightWidth: 1,
@@ -103,7 +108,7 @@ export const ButtonStyles = theme =>
   StyleSheet.create({
     Button: {
       style: {
-        backgroundColor: theme.colors.primary,
+        backgroundColor: theme.colors.branding.primary,
         borderRadius: 8,
         fontFamily: 'System',
         fontWeight: '700',
@@ -115,7 +120,7 @@ export const ButtonStyles = theme =>
 
 export const LinkStyles = theme =>
   StyleSheet.create({
-    Link: { style: { color: theme.colors.primary }, props: {} },
+    Link: { style: { color: theme.colors.branding.primary }, props: {} },
   });
 
 export const HStackStyles = theme =>
@@ -152,7 +157,7 @@ export const SquareStyles = theme =>
     Square: {
       style: {
         alignItems: 'center',
-        backgroundColor: theme.colors.primary,
+        backgroundColor: theme.colors.branding.primary,
         justifyContent: 'center',
       },
       props: {},
@@ -165,7 +170,11 @@ export const TabViewItemStyles = theme =>
 export const H2Styles = theme =>
   StyleSheet.create({
     H2: {
-      style: { color: theme.colors.strong, fontSize: 24, fontWeight: 'bold' },
+      style: {
+        color: theme.colors.text.strong,
+        fontSize: 24,
+        fontWeight: 'bold',
+      },
       props: {},
     },
   });
@@ -179,7 +188,7 @@ export const H3Styles = theme =>
   StyleSheet.create({
     H3: {
       style: {
-        color: theme.colors.strong,
+        color: theme.colors.text.strong,
         fontSize: 18.72,
         fontWeight: 'bold',
       },
@@ -190,7 +199,11 @@ export const H3Styles = theme =>
 export const H4Styles = theme =>
   StyleSheet.create({
     H4: {
-      style: { color: theme.colors.strong, fontSize: 16, fontWeight: 'bold' },
+      style: {
+        color: theme.colors.text.strong,
+        fontSize: 16,
+        fontWeight: 'bold',
+      },
       props: {},
     },
   });
@@ -199,7 +212,7 @@ export const H5Styles = theme =>
   StyleSheet.create({
     H5: {
       style: {
-        color: theme.colors.strong,
+        color: theme.colors.text.strong,
         fontSize: 13.28,
         fontWeight: 'bold',
       },
@@ -225,7 +238,7 @@ export const IconStyles = theme =>
     Selected: {
       style: {},
       props: {
-        color: theme.colors['Primary'],
+        color: theme.colors.branding.primary,
       },
     },
   });
@@ -242,7 +255,7 @@ export const H6Styles = theme =>
   StyleSheet.create({
     H6: {
       style: {
-        color: theme.colors.strong,
+        color: theme.colors.text.strong,
         fontSize: 10.72,
         fontWeight: 'bold',
       },
@@ -256,7 +269,11 @@ export const WebViewStyles = theme =>
 export const H1Styles = theme =>
   StyleSheet.create({
     H1: {
-      style: { color: theme.colors.strong, fontSize: 32, fontWeight: 'bold' },
+      style: {
+        color: theme.colors.text.strong,
+        fontSize: 32,
+        fontWeight: 'bold',
+      },
       props: {},
     },
   });
