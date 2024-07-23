@@ -5,7 +5,7 @@
         "usesNonExemptEncryption": false
       },
       "infoPlist": {},
-      "buildNumber": "1.9.0",
+      "buildNumber": "1.10.0",
       "isTabletOnly": false,
       "supportsTablet": true,
       "bundleIdentifier": "com.draftbit.untitledapp",
@@ -54,7 +54,7 @@
         "projectId": ""
       }
     },
-    "scheme": "mainsights.co",
+    "scheme": "mainsights.io",
     "splash": {
       "image": "./assets/app/splash.png",
       "resizeMode": "cover",
@@ -63,7 +63,7 @@
     "android": {
       "package": "com.draftbit.untitledapp",
       "permissions": [],
-      "versionCode": 9,
+      "versionCode": 10,
       "adaptiveIcon": {},
       "userInterfaceStyle": "light"
     },
@@ -76,7 +76,7 @@
       ]
     ],
     "privacy": "unlisted",
-    "version": "1.9.0",
+    "version": "1.10.0",
     "platforms": [
       "ios",
       "android",
