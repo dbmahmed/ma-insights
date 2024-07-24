@@ -50,17 +50,27 @@ const NewslettersScreen = props => {
       /* hidden 'Log to Console' action */ console.log(
         'Complete ON_SCREEN_FOCUS:1 CONSOLE_LOG'
       );
-      console.log('Start ON_SCREEN_FOCUS:2 CONDITIONAL_STOP');
+      console.log('Start ON_SCREEN_FOCUS:2 SET_VARIABLE');
+      setGlobalVariableValue({
+        key: 'pageName',
+        value: '',
+      });
+      console.log('Complete ON_SCREEN_FOCUS:2 SET_VARIABLE');
+      console.log('Start ON_SCREEN_FOCUS:3 CONDITIONAL_STOP');
       if (assessAccess(Variables, setGlobalVariableValue) === true) {
-        return console.log('Complete ON_SCREEN_FOCUS:2 CONDITIONAL_STOP');
+        return console.log('Complete ON_SCREEN_FOCUS:3 CONDITIONAL_STOP');
       } else {
         console.log(
-          'Skipped ON_SCREEN_FOCUS:2 CONDITIONAL_STOP: condition not met'
+          'Skipped ON_SCREEN_FOCUS:3 CONDITIONAL_STOP: condition not met'
         );
       }
-      console.log('Start ON_SCREEN_FOCUS:3 NAVIGATE');
+      console.log('Start ON_SCREEN_FOCUS:4 NAVIGATE');
       navigation.navigate('LogInScreen');
-      console.log('Complete ON_SCREEN_FOCUS:3 NAVIGATE');
+      console.log('Complete ON_SCREEN_FOCUS:4 NAVIGATE');
+      console.log('Start ON_SCREEN_FOCUS:5 SET_VARIABLE');
+      /* hidden 'Set Variable' action */ console.log(
+        'Complete ON_SCREEN_FOCUS:5 SET_VARIABLE'
+      );
     } catch (err) {
       console.error(err);
       error = err.message ?? err;

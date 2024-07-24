@@ -2,7 +2,6 @@ import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import Images from '../config/Images';
-import navigationPage from '../global-functions/navigationPage';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
@@ -86,6 +85,31 @@ const CustomHeaderBlock = props => {
               color={theme.colors.text.strong}
               icon={'Feather/menu'}
             />
+          </View>
+          {/* View 2 */}
+          <View
+            style={StyleSheet.applyWidth(
+              {
+                minHeight: 35,
+                minWidth: 35,
+                width: { minWidth: Breakpoints.Tablet, value: '85%' },
+              },
+              dimensions.width
+            )}
+          >
+            <Text
+              accessible={true}
+              {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+              style={StyleSheet.applyWidth(
+                StyleSheet.compose(
+                  GlobalStyles.TextStyles(theme)['screen_title'].style,
+                  { flex: 1, fontFamily: 'Poppins_400Regular' }
+                ),
+                dimensions.width
+              )}
+            >
+              {Constants['pageName']}
+            </Text>
           </View>
           {/* View 3 */}
           <View

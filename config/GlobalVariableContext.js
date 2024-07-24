@@ -28,6 +28,7 @@ export const DeviceVariables = {
     user_status: '',
     subscription_type: '',
   },
+  pageName: '',
   RESET_AUTH_HEADER: '',
   top_nav_pressed: false,
   __env__: 'Development',
