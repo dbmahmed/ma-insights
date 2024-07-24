@@ -31,6 +31,7 @@ import RequestDemoScreen from './screens/RequestDemoScreen';
 import SplashScreen from './screens/SplashScreen';
 import StockDetailsScreen from './screens/StockDetailsScreen';
 import StockSearchScreen from './screens/StockSearchScreen';
+import TransactionsScreen from './screens/TransactionsScreen';
 import WeeklyReportScreen from './screens/WeeklyReportScreen';
 
 const Stack = createStackNavigator();
@@ -60,7 +61,6 @@ function MAInsights() {
     AllEventsScreen: 'MaterialIcons/search',
     CFSScreen: 'MaterialIcons/business',
     PEPFScreen: 'MaterialIcons/waterfall-chart',
-    PeerGroupDetailsScreen: '',
   };
 
   return (
@@ -180,16 +180,6 @@ function MAInsights() {
           title: 'PEPF',
         })}
       />
-      <Tab.Screen
-        name="PeerGroupDetailsScreen"
-        component={PeerGroupDetailsScreen}
-        options={({ navigation }) => ({
-          tabBarIcon: ({ focused, color }) => (
-            <Icon name="" size={25} color={focused ? color : color} />
-          ),
-          title: 'Peer Group Details',
-        })}
-      />
     </Tab.Navigator>
   );
 }
@@ -279,6 +269,7 @@ export default function RootAppNavigator() {
               />
             </Touchable>
           ),
+          headerShown: false,
           headerStyle: {
             backgroundColor: theme.colors.background.brand,
             borderBottomColor: theme.colors.border.brand,
@@ -464,6 +455,13 @@ export default function RootAppNavigator() {
           })}
         />
         <Stack.Screen
+          name="PeerGroupDetailsScreen"
+          component={PeerGroupDetailsScreen}
+          options={({ navigation }) => ({
+            title: 'Peer Group Details',
+          })}
+        />
+        <Stack.Screen
           name="WeeklyReportScreen"
           component={WeeklyReportScreen}
           options={({ navigation }) => ({
@@ -478,6 +476,13 @@ export default function RootAppNavigator() {
           })}
         />
         <Stack.Screen
+          name="NewslettersDraftbitSupportScreen"
+          component={NewslettersDraftbitSupportScreen}
+          options={({ navigation }) => ({
+            title: 'Newsletters- Draftbit Support',
+          })}
+        />
+        <Stack.Screen
           name="StockSearchScreen"
           component={StockSearchScreen}
           options={({ navigation }) => ({
@@ -485,17 +490,17 @@ export default function RootAppNavigator() {
           })}
         />
         <Stack.Screen
+          name="TransactionsScreen"
+          component={TransactionsScreen}
+          options={({ navigation }) => ({
+            title: 'Transactions',
+          })}
+        />
+        <Stack.Screen
           name="StockDetailsScreen"
           component={StockDetailsScreen}
           options={({ navigation }) => ({
             title: 'Stock Details',
-          })}
-        />
-        <Stack.Screen
-          name="NewslettersDraftbitSupportScreen"
-          component={NewslettersDraftbitSupportScreen}
-          options={({ navigation }) => ({
-            title: 'Newsletters- Draftbit Support',
           })}
         />
         <Stack.Screen name="MAInsights" component={MAInsights} />

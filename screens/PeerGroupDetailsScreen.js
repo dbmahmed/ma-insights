@@ -1,6 +1,7 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
+import CustomHeaderBlock from '../components/CustomHeaderBlock';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
@@ -25,6 +26,7 @@ const PeerGroupDetailsScreen = props => {
 
   return (
     <ScreenContainer hasSafeArea={false} scrollable={true}>
+      <CustomHeaderBlock />
       <XanoCollectionApi.FetchGetOnePeerGET
         handlers={{
           onData: fetchData => {
@@ -83,7 +85,7 @@ const PeerGroupDetailsScreen = props => {
                     {fetchData?.title}
                   </H3>
                   <>
-                    {!(NKP_Comp === false) ? null : (
+                    {NKP_Comp ? null : (
                       <IconButton
                         color={theme.colors.text.strong}
                         icon={'Entypo/edit'}
@@ -168,6 +170,7 @@ const PeerGroupDetailsScreen = props => {
                       { minWidth: Breakpoints.Tablet, value: 10 },
                     ],
                     marginBottom: 20,
+                    width: '100%',
                   },
                   dimensions.width
                 )}
@@ -222,7 +225,7 @@ const PeerGroupDetailsScreen = props => {
                                 GlobalStyles.TextStyles(theme)['screen_title']
                                   .style,
                                 {
-                                  fontFamily: 'Quicksand_400Regular',
+                                  fontFamily: 'Quicksand_700Bold',
                                   fontSize: 12,
                                 }
                               ),
@@ -235,7 +238,7 @@ const PeerGroupDetailsScreen = props => {
 
                         <View
                           style={StyleSheet.applyWidth(
-                            { width: '25%' },
+                            { width: '30%' },
                             dimensions.width
                           )}
                         >
@@ -248,7 +251,7 @@ const PeerGroupDetailsScreen = props => {
                                 GlobalStyles.TextStyles(theme)['screen_title']
                                   .style,
                                 {
-                                  fontFamily: 'Quicksand_400Regular',
+                                  fontFamily: 'Quicksand_700Bold',
                                   fontSize: 12,
                                   textAlign: 'center',
                                 }
@@ -262,7 +265,7 @@ const PeerGroupDetailsScreen = props => {
                         {/* View 2 */}
                         <View
                           style={StyleSheet.applyWidth(
-                            { width: '25%' },
+                            { width: '30%' },
                             dimensions.width
                           )}
                         >
@@ -275,7 +278,7 @@ const PeerGroupDetailsScreen = props => {
                                 GlobalStyles.TextStyles(theme)['screen_title']
                                   .style,
                                 {
-                                  fontFamily: 'Quicksand_400Regular',
+                                  fontFamily: 'Quicksand_700Bold',
                                   fontSize: 12,
                                   textAlign: 'center',
                                 }
@@ -288,10 +291,10 @@ const PeerGroupDetailsScreen = props => {
                         </View>
                         {/* View 3 */}
                         <>
-                          {!NKP_Comp ? null : (
+                          {NKP_Comp ? null : (
                             <View
                               style={StyleSheet.applyWidth(
-                                { width: '10%' },
+                                { width: '0%' },
                                 dimensions.width
                               )}
                             >
@@ -394,7 +397,7 @@ const PeerGroupDetailsScreen = props => {
 
                                 <View
                                   style={StyleSheet.applyWidth(
-                                    { width: '25%' },
+                                    { width: '30%' },
                                     dimensions.width
                                   )}
                                 >
@@ -411,7 +414,7 @@ const PeerGroupDetailsScreen = props => {
                                         {
                                           fontFamily: 'Quicksand_400Regular',
                                           fontSize: 12,
-                                          textAlign: 'center',
+                                          textAlign: 'left',
                                         }
                                       ),
                                       dimensions.width
@@ -423,7 +426,7 @@ const PeerGroupDetailsScreen = props => {
                                 {/* View 2 */}
                                 <View
                                   style={StyleSheet.applyWidth(
-                                    { width: '25%' },
+                                    { width: '30%' },
                                     dimensions.width
                                   )}
                                 >
@@ -440,7 +443,7 @@ const PeerGroupDetailsScreen = props => {
                                         {
                                           fontFamily: 'Quicksand_400Regular',
                                           fontSize: 12,
-                                          textAlign: 'center',
+                                          textAlign: 'right',
                                         }
                                       ),
                                       dimensions.width
@@ -452,30 +455,38 @@ const PeerGroupDetailsScreen = props => {
                                   </Text>
                                 </View>
                                 {/* View 3 */}
-                                <View
-                                  style={StyleSheet.applyWidth(
-                                    { width: '10%' },
-                                    dimensions.width
+                                <>
+                                  {NKP_Comp ? null : (
+                                    <View
+                                      style={StyleSheet.applyWidth(
+                                        { width: '0%' },
+                                        dimensions.width
+                                      )}
+                                    >
+                                      <Link
+                                        accessible={true}
+                                        {...GlobalStyles.LinkStyles(theme)[
+                                          'Link'
+                                        ].props}
+                                        style={StyleSheet.applyWidth(
+                                          StyleSheet.compose(
+                                            GlobalStyles.LinkStyles(theme)[
+                                              'Link'
+                                            ].style,
+                                            {
+                                              color:
+                                                theme.colors.background.danger,
+                                              textAlign: 'center',
+                                              textDecorationLine: 'underline',
+                                            }
+                                          ),
+                                          dimensions.width
+                                        )}
+                                        title={'x'}
+                                      />
+                                    </View>
                                   )}
-                                >
-                                  <Link
-                                    accessible={true}
-                                    {...GlobalStyles.LinkStyles(theme)['Link']
-                                      .props}
-                                    style={StyleSheet.applyWidth(
-                                      StyleSheet.compose(
-                                        GlobalStyles.LinkStyles(theme)['Link']
-                                          .style,
-                                        {
-                                          color: theme.colors.background.danger,
-                                          textDecorationLine: 'underline',
-                                        }
-                                      ),
-                                      dimensions.width
-                                    )}
-                                    title={'x'}
-                                  />
-                                </View>
+                                </>
                               </View>
                             </View>
                           </>
@@ -709,6 +720,7 @@ const PeerGroupDetailsScreen = props => {
                                 GlobalStyles.TextStyles(theme)['screen_title']
                                   .style,
                                 {
+                                  alignSelf: 'flex-end',
                                   fontFamily: 'Quicksand_400Regular',
                                   fontSize: 12,
                                   textAlign: 'center',
@@ -743,7 +755,7 @@ const PeerGroupDetailsScreen = props => {
                                     {
                                       fontFamily: 'Quicksand_400Regular',
                                       fontSize: 12,
-                                      textAlign: 'center',
+                                      textAlign: 'right',
                                     }
                                   ),
                                   dimensions.width
@@ -773,7 +785,7 @@ const PeerGroupDetailsScreen = props => {
                                 {
                                   fontFamily: 'Quicksand_400Regular',
                                   fontSize: 12,
-                                  textAlign: 'center',
+                                  textAlign: 'right',
                                 }
                               ),
                               dimensions.width
@@ -801,7 +813,7 @@ const PeerGroupDetailsScreen = props => {
                                 {
                                   fontFamily: 'Quicksand_400Regular',
                                   fontSize: 12,
-                                  textAlign: 'center',
+                                  textAlign: 'right',
                                 }
                               ),
                               dimensions.width
@@ -867,7 +879,7 @@ const PeerGroupDetailsScreen = props => {
                                 {
                                   fontFamily: 'Quicksand_400Regular',
                                   fontSize: 12,
-                                  textAlign: 'center',
+                                  textAlign: 'right',
                                 }
                               ),
                               dimensions.width
@@ -895,7 +907,7 @@ const PeerGroupDetailsScreen = props => {
                                 {
                                   fontFamily: 'Quicksand_400Regular',
                                   fontSize: 12,
-                                  textAlign: 'center',
+                                  textAlign: 'right',
                                 }
                               ),
                               dimensions.width
@@ -923,7 +935,7 @@ const PeerGroupDetailsScreen = props => {
                                 {
                                   fontFamily: 'Quicksand_400Regular',
                                   fontSize: 12,
-                                  textAlign: 'center',
+                                  textAlign: 'right',
                                 }
                               ),
                               dimensions.width
@@ -951,7 +963,7 @@ const PeerGroupDetailsScreen = props => {
                                 {
                                   fontFamily: 'Quicksand_400Regular',
                                   fontSize: 12,
-                                  textAlign: 'center',
+                                  textAlign: 'right',
                                 }
                               ),
                               dimensions.width
@@ -1017,7 +1029,7 @@ const PeerGroupDetailsScreen = props => {
                                 {
                                   fontFamily: 'Quicksand_400Regular',
                                   fontSize: 12,
-                                  textAlign: 'center',
+                                  textAlign: 'right',
                                 }
                               ),
                               dimensions.width
@@ -1045,7 +1057,7 @@ const PeerGroupDetailsScreen = props => {
                                 {
                                   fontFamily: 'Quicksand_400Regular',
                                   fontSize: 12,
-                                  textAlign: 'center',
+                                  textAlign: 'right',
                                 }
                               ),
                               dimensions.width
@@ -1073,7 +1085,7 @@ const PeerGroupDetailsScreen = props => {
                                 {
                                   fontFamily: 'Quicksand_400Regular',
                                   fontSize: 12,
-                                  textAlign: 'center',
+                                  textAlign: 'right',
                                 }
                               ),
                               dimensions.width
@@ -1101,7 +1113,7 @@ const PeerGroupDetailsScreen = props => {
                                 {
                                   fontFamily: 'Quicksand_400Regular',
                                   fontSize: 12,
-                                  textAlign: 'center',
+                                  textAlign: 'right',
                                 }
                               ),
                               dimensions.width
@@ -1167,7 +1179,7 @@ const PeerGroupDetailsScreen = props => {
                                 {
                                   fontFamily: 'Quicksand_400Regular',
                                   fontSize: 12,
-                                  textAlign: 'center',
+                                  textAlign: 'right',
                                 }
                               ),
                               dimensions.width
@@ -1195,7 +1207,7 @@ const PeerGroupDetailsScreen = props => {
                                 {
                                   fontFamily: 'Quicksand_400Regular',
                                   fontSize: 12,
-                                  textAlign: 'center',
+                                  textAlign: 'right',
                                 }
                               ),
                               dimensions.width
@@ -1223,7 +1235,7 @@ const PeerGroupDetailsScreen = props => {
                                 {
                                   fontFamily: 'Quicksand_400Regular',
                                   fontSize: 12,
-                                  textAlign: 'center',
+                                  textAlign: 'right',
                                 }
                               ),
                               dimensions.width
@@ -1251,7 +1263,7 @@ const PeerGroupDetailsScreen = props => {
                                 {
                                   fontFamily: 'Quicksand_400Regular',
                                   fontSize: 12,
-                                  textAlign: 'center',
+                                  textAlign: 'right',
                                 }
                               ),
                               dimensions.width
@@ -1490,7 +1502,7 @@ const PeerGroupDetailsScreen = props => {
                                 {
                                   fontFamily: 'Quicksand_400Regular',
                                   fontSize: 12,
-                                  textAlign: 'center',
+                                  textAlign: 'right',
                                 }
                               ),
                               dimensions.width
@@ -1518,7 +1530,7 @@ const PeerGroupDetailsScreen = props => {
                                 {
                                   fontFamily: 'Quicksand_400Regular',
                                   fontSize: 12,
-                                  textAlign: 'center',
+                                  textAlign: 'right',
                                 }
                               ),
                               dimensions.width
@@ -1546,7 +1558,7 @@ const PeerGroupDetailsScreen = props => {
                                 {
                                   fontFamily: 'Quicksand_400Regular',
                                   fontSize: 12,
-                                  textAlign: 'center',
+                                  textAlign: 'right',
                                 }
                               ),
                               dimensions.width
@@ -1574,7 +1586,7 @@ const PeerGroupDetailsScreen = props => {
                                 {
                                   fontFamily: 'Quicksand_400Regular',
                                   fontSize: 12,
-                                  textAlign: 'center',
+                                  textAlign: 'right',
                                 }
                               ),
                               dimensions.width
@@ -1721,7 +1733,7 @@ const PeerGroupDetailsScreen = props => {
                                 {
                                   fontFamily: 'Quicksand_400Regular',
                                   fontSize: 12,
-                                  textAlign: 'center',
+                                  textAlign: 'right',
                                 }
                               ),
                               dimensions.width
@@ -1787,7 +1799,7 @@ const PeerGroupDetailsScreen = props => {
                                 {
                                   fontFamily: 'Quicksand_400Regular',
                                   fontSize: 12,
-                                  textAlign: 'center',
+                                  textAlign: 'right',
                                 }
                               ),
                               dimensions.width
@@ -1815,7 +1827,7 @@ const PeerGroupDetailsScreen = props => {
                                 {
                                   fontFamily: 'Quicksand_400Regular',
                                   fontSize: 12,
-                                  textAlign: 'center',
+                                  textAlign: 'right',
                                 }
                               ),
                               dimensions.width
@@ -1843,7 +1855,7 @@ const PeerGroupDetailsScreen = props => {
                                 {
                                   fontFamily: 'Quicksand_400Regular',
                                   fontSize: 12,
-                                  textAlign: 'center',
+                                  textAlign: 'right',
                                 }
                               ),
                               dimensions.width
@@ -1871,7 +1883,7 @@ const PeerGroupDetailsScreen = props => {
                                 {
                                   fontFamily: 'Quicksand_400Regular',
                                   fontSize: 12,
-                                  textAlign: 'center',
+                                  textAlign: 'right',
                                 }
                               ),
                               dimensions.width
@@ -1937,7 +1949,7 @@ const PeerGroupDetailsScreen = props => {
                                 {
                                   fontFamily: 'Quicksand_400Regular',
                                   fontSize: 12,
-                                  textAlign: 'center',
+                                  textAlign: 'right',
                                 }
                               ),
                               dimensions.width
@@ -1965,7 +1977,7 @@ const PeerGroupDetailsScreen = props => {
                                 {
                                   fontFamily: 'Quicksand_400Regular',
                                   fontSize: 12,
-                                  textAlign: 'center',
+                                  textAlign: 'right',
                                 }
                               ),
                               dimensions.width
@@ -1993,7 +2005,7 @@ const PeerGroupDetailsScreen = props => {
                                 {
                                   fontFamily: 'Quicksand_400Regular',
                                   fontSize: 12,
-                                  textAlign: 'center',
+                                  textAlign: 'right',
                                 }
                               ),
                               dimensions.width
@@ -2021,7 +2033,7 @@ const PeerGroupDetailsScreen = props => {
                                 {
                                   fontFamily: 'Quicksand_400Regular',
                                   fontSize: 12,
-                                  textAlign: 'center',
+                                  textAlign: 'right',
                                 }
                               ),
                               dimensions.width

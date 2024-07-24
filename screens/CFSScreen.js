@@ -1,6 +1,7 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
+import CustomHeaderBlock from '../components/CustomHeaderBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import modifyArrays from '../global-functions/modifyArrays';
 import palettes from '../themes/palettes';
@@ -67,6 +68,7 @@ const CFSScreen = props => {
 
   return (
     <ScreenContainer hasSafeArea={false} scrollable={false}>
+      <CustomHeaderBlock />
       <View style={StyleSheet.applyWidth({ padding: 10 }, dimensions.width)}>
         <Modal
           supportedOrientations={['portrait', 'landscape']}
@@ -1828,7 +1830,7 @@ const CFSScreen = props => {
               showsVerticalScrollIndicator={true}
             >
               <SimpleStyleFlashList
-                data={fetchData}
+                data={fetchData?.items}
                 estimatedItemSize={50}
                 inverted={false}
                 keyExtractor={(flashListData, index) => flashListData?.id}

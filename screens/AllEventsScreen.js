@@ -1853,6 +1853,7 @@ const AllEventsScreen = props => {
             },
           }}
           keyword={keywordSearch}
+          refetchInterval={10000}
         >
           {({ loading, error, data, refetchGetAllEvents }) => {
             const fetchData = data?.json;
@@ -1866,7 +1867,7 @@ const AllEventsScreen = props => {
 
             return (
               <SimpleStyleFlashList
-                data={fetchData}
+                data={fetchData?.items}
                 estimatedItemSize={50}
                 horizontal={false}
                 inverted={false}

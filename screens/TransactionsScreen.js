@@ -25,7 +25,7 @@ import { useIsFocused } from '@react-navigation/native';
 import { ActivityIndicator, Modal, Text, View } from 'react-native';
 import { Fetch } from 'react-request';
 
-const StockSearchScreen = props => {
+const TransactionsScreen = props => {
   const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
   const Constants = GlobalVariables.useValues();
@@ -1086,276 +1086,6 @@ const StockSearchScreen = props => {
                     </View>
                   </View>
                 </View>
-                {/* Minimum enterprise value */}
-                <View
-                  style={StyleSheet.applyWidth(
-                    {
-                      alignItems: 'stretch',
-                      flexDirection: 'column',
-                      gap: 8,
-                      padding: 10,
-                    },
-                    dimensions.width
-                  )}
-                >
-                  <H5
-                    selectable={false}
-                    {...GlobalStyles.H5Styles(theme)['H5'].props}
-                    style={StyleSheet.applyWidth(
-                      StyleSheet.compose(
-                        GlobalStyles.H5Styles(theme)['H5'].style,
-                        {
-                          color: palettes.Brand['Strong Inverse'],
-                          fontSize: 16,
-                          marginBottom: 0,
-                          marginTop: 0,
-                        }
-                      ),
-                      dimensions.width
-                    )}
-                  >
-                    {'Minimum enterprise value'}
-                  </H5>
-
-                  <View
-                    style={StyleSheet.applyWidth(
-                      {
-                        alignItems: 'flex-start',
-                        flex: 0,
-                        flexDirection: 'row',
-                        flexWrap: 'wrap',
-                        gap: 8,
-                        justifyContent: 'flex-start',
-                      },
-                      dimensions.width
-                    )}
-                  >
-                    {/* EV_less_100 */}
-                    <View
-                      style={StyleSheet.applyWidth(
-                        {
-                          alignContent: 'center',
-                          alignItems: 'center',
-                          flexDirection: 'row',
-                          gap: 4,
-                          width: '47%',
-                        },
-                        dimensions.width
-                      )}
-                    >
-                      <Checkbox
-                        onPress={newCheckboxValue => {
-                          try {
-                            setEv_less_100(newCheckboxValue);
-                          } catch (err) {
-                            console.error(err);
-                          }
-                        }}
-                        color={palettes.Brand['Strong Inverse']}
-                        size={24}
-                        status={ev_less_100}
-                        uncheckedColor={palettes.Brand['Strong Inverse']}
-                      />
-                      <Pressable
-                        onPress={() => {
-                          try {
-                            setEv_less_100(ev_less_100 ? false : true);
-                          } catch (err) {
-                            console.error(err);
-                          }
-                        }}
-                      >
-                        <Text
-                          accessible={true}
-                          {...GlobalStyles.TextStyles(theme)['screen_title']
-                            .props}
-                          style={StyleSheet.applyWidth(
-                            StyleSheet.compose(
-                              GlobalStyles.TextStyles(theme)['screen_title']
-                                .style,
-                              {
-                                color: palettes.Brand['Strong Inverse'],
-                                fontFamily: 'Quicksand_400Regular',
-                                fontSize: 12,
-                              }
-                            ),
-                            dimensions.width
-                          )}
-                        >
-                          {'EV ≤ €100m'}
-                        </Text>
-                      </Pressable>
-                    </View>
-                    {/* EV_100_to_500 */}
-                    <View
-                      style={StyleSheet.applyWidth(
-                        {
-                          alignContent: 'center',
-                          alignItems: 'center',
-                          flexDirection: 'row',
-                          gap: 4,
-                          width: '47%',
-                        },
-                        dimensions.width
-                      )}
-                    >
-                      <Checkbox
-                        onPress={newCheckboxValue => {
-                          try {
-                            setEv_100_to_500(newCheckboxValue);
-                          } catch (err) {
-                            console.error(err);
-                          }
-                        }}
-                        color={palettes.Brand['Strong Inverse']}
-                        size={24}
-                        status={ev_100_to_500}
-                        uncheckedColor={palettes.Brand['Strong Inverse']}
-                      />
-                      <Pressable
-                        onPress={() => {
-                          try {
-                            setEv_100_to_500(ev_100_to_500 ? false : true);
-                          } catch (err) {
-                            console.error(err);
-                          }
-                        }}
-                      >
-                        <Text
-                          accessible={true}
-                          {...GlobalStyles.TextStyles(theme)['screen_title']
-                            .props}
-                          style={StyleSheet.applyWidth(
-                            StyleSheet.compose(
-                              GlobalStyles.TextStyles(theme)['screen_title']
-                                .style,
-                              {
-                                color: palettes.Brand['Strong Inverse'],
-                                fontFamily: 'Quicksand_400Regular',
-                                fontSize: 12,
-                              }
-                            ),
-                            dimensions.width
-                          )}
-                        >
-                          {'€100m < EV ≤ €500m'}
-                        </Text>
-                      </Pressable>
-                    </View>
-                    {/* EV_500_to_1000 */}
-                    <View
-                      style={StyleSheet.applyWidth(
-                        {
-                          alignContent: 'center',
-                          alignItems: 'center',
-                          flexDirection: 'row',
-                          gap: 4,
-                          width: '47%',
-                        },
-                        dimensions.width
-                      )}
-                    >
-                      <Checkbox
-                        onPress={newCheckboxValue => {
-                          try {
-                            setEv_500_to_1000(newCheckboxValue);
-                          } catch (err) {
-                            console.error(err);
-                          }
-                        }}
-                        color={palettes.Brand['Strong Inverse']}
-                        size={24}
-                        status={ev_500_to_1000}
-                        uncheckedColor={palettes.Brand['Strong Inverse']}
-                      />
-                      <Pressable
-                        onPress={() => {
-                          try {
-                            setEv_500_to_1000(ev_500_to_1000 ? false : true);
-                          } catch (err) {
-                            console.error(err);
-                          }
-                        }}
-                      >
-                        <Text
-                          accessible={true}
-                          {...GlobalStyles.TextStyles(theme)['screen_title']
-                            .props}
-                          style={StyleSheet.applyWidth(
-                            StyleSheet.compose(
-                              GlobalStyles.TextStyles(theme)['screen_title']
-                                .style,
-                              {
-                                color: palettes.Brand['Strong Inverse'],
-                                fontFamily: 'Quicksand_400Regular',
-                                fontSize: 12,
-                              }
-                            ),
-                            dimensions.width
-                          )}
-                        >
-                          {'€500m < EV ≤ €1,000m'}
-                        </Text>
-                      </Pressable>
-                    </View>
-                    {/* EV_more_1000 */}
-                    <View
-                      style={StyleSheet.applyWidth(
-                        {
-                          alignContent: 'center',
-                          alignItems: 'center',
-                          flexDirection: 'row',
-                          gap: 4,
-                          width: '47%',
-                        },
-                        dimensions.width
-                      )}
-                    >
-                      <Checkbox
-                        onPress={newCheckboxValue => {
-                          try {
-                            setEv_more_1000(newCheckboxValue);
-                          } catch (err) {
-                            console.error(err);
-                          }
-                        }}
-                        color={palettes.Brand['Strong Inverse']}
-                        size={24}
-                        status={ev_more_1000}
-                        uncheckedColor={palettes.Brand['Strong Inverse']}
-                      />
-                      <Pressable
-                        onPress={() => {
-                          try {
-                            setEv_more_1000(ev_more_1000 ? false : true);
-                          } catch (err) {
-                            console.error(err);
-                          }
-                        }}
-                      >
-                        <Text
-                          accessible={true}
-                          {...GlobalStyles.TextStyles(theme)['screen_title']
-                            .props}
-                          style={StyleSheet.applyWidth(
-                            StyleSheet.compose(
-                              GlobalStyles.TextStyles(theme)['screen_title']
-                                .style,
-                              {
-                                color: palettes.Brand['Strong Inverse'],
-                                fontFamily: 'Quicksand_400Regular',
-                                fontSize: 12,
-                              }
-                            ),
-                            dimensions.width
-                          )}
-                        >
-                          {'EV > €1,000m'}
-                        </Text>
-                      </Pressable>
-                    </View>
-                  </View>
-                </View>
                 <Spacer bottom={10} left={0} right={0} top={10} />
                 {/* Buttons */}
                 <View
@@ -1390,10 +1120,6 @@ const StockSearchScreen = props => {
                         setNordic(true);
                         setRoW(true);
                         setDach(true);
-                        setEv_less_100(true);
-                        setEv_100_to_500(true);
-                        setEv_500_to_1000(true);
-                        setEv_more_1000(true);
                         setUtilities(true);
                       } catch (err) {
                         console.error(err);
@@ -1453,21 +1179,61 @@ const StockSearchScreen = props => {
             </View>
           </View>
         </Modal>
-
-        <H3
-          selectable={false}
-          {...GlobalStyles.H3Styles(theme)['H3'].props}
+        {/* View 2 */}
+        <View
           style={StyleSheet.applyWidth(
-            StyleSheet.compose(GlobalStyles.H3Styles(theme)['H3'].style, {
-              fontFamily: 'Quicksand_500Medium',
-              fontSize: 16,
-              marginLeft: 8,
-            }),
+            {
+              flexDirection: 'row',
+              gap: 8,
+              justifyContent: 'space-between',
+              marginBottom: 10,
+            },
             dimensions.width
           )}
         >
-          {'Stock search'}
-        </H3>
+          <H3
+            selectable={false}
+            {...GlobalStyles.H3Styles(theme)['H3'].props}
+            style={StyleSheet.applyWidth(
+              StyleSheet.compose(GlobalStyles.H3Styles(theme)['H3'].style, {
+                fontFamily: 'Quicksand_500Medium',
+                fontSize: 16,
+                marginLeft: 8,
+              }),
+              dimensions.width
+            )}
+          >
+            {'Multiples database'}
+          </H3>
+          <Button
+            iconPosition={'left'}
+            onPress={() => {
+              try {
+                navigation.push('MAInsights', { screen: 'AllEventsScreen' });
+              } catch (err) {
+                console.error(err);
+              }
+            }}
+            {...GlobalStyles.ButtonStyles(theme)['Button'].props}
+            icon={'AntDesign/left'}
+            style={StyleSheet.applyWidth(
+              StyleSheet.compose(
+                GlobalStyles.ButtonStyles(theme)['Button'].style,
+                {
+                  backgroundColor: theme.colors.text.strong,
+                  fontFamily: 'Quicksand_500Medium',
+                  height: 30,
+                  paddingBottom: 4,
+                  paddingTop: 4,
+                  textTransform: 'uppercase',
+                  width: 150,
+                }
+              ),
+              dimensions.width
+            )}
+            title={'All events'}
+          />
+        </View>
 
         <HStack
           {...GlobalStyles.HStackStyles(theme)['H Stack'].props}
@@ -1585,8 +1351,8 @@ const StockSearchScreen = props => {
         </View>
       </View>
 
-      <XanoCollectionApi.FetchGetAllStocksGET>
-        {({ loading, error, data, refetchGetAllStocks }) => {
+      <XanoCollectionApi.FetchGetAllEventsGET keyword={'Update'}>
+        {({ loading, error, data, refetchGetAllEvents }) => {
           const fetchData = data?.json;
           if (loading) {
             return <ActivityIndicator />;
@@ -1625,7 +1391,7 @@ const StockSearchScreen = props => {
                   listData?.id ?? listData?.uuid ?? index.toString()
                 }
                 keyboardShouldPersistTaps={'never'}
-                listKey={'g1gXcvVu'}
+                listKey={'SfOccPiT'}
                 nestedScrollEnabled={false}
                 numColumns={1}
                 onEndReachedThreshold={0.5}
@@ -1635,7 +1401,9 @@ const StockSearchScreen = props => {
                     <Pressable
                       onPress={() => {
                         try {
-                          navigation.push('StockDetailsScreen');
+                          navigation.push('EventDetailsScreen', {
+                            event_id: listData?.id,
+                          });
                         } catch (err) {
                           console.error(err);
                         }
@@ -1708,7 +1476,7 @@ const StockSearchScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {listData?.company_name}
+                              {listData?.target}
                             </Text>
                             {/* Text 2 */}
                             <Text
@@ -1727,7 +1495,7 @@ const StockSearchScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {listData?.country}
+                              {listData?.published}
                             </Text>
                             {/* Text 2 2 */}
                             <Text
@@ -1746,8 +1514,8 @@ const StockSearchScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {'EV: '}
-                              {listData?.ev_eur}
+                              {'Acquiror: '}
+                              {listData?.buyer}
                             </Text>
                             {/* Text 2 3 */}
                             <Text
@@ -1837,7 +1605,10 @@ const StockSearchScreen = props => {
                                   dimensions.width
                                 )}
                               >
-                                {listData?.ev_sales_ttm}
+                                {listData?.ev_sales}
+                                {' ('}
+                                {listData?.fy_end}
+                                {')'}
                               </Text>
                             </View>
                             {/* View 2 */}
@@ -1893,7 +1664,10 @@ const StockSearchScreen = props => {
                                   dimensions.width
                                 )}
                               >
-                                {listData?.ev_ebitda_ttm}
+                                {listData?.ebitda_local}
+                                {' ('}
+                                {listData?.fy_end}
+                                {')'}
                               </Text>
                             </View>
                             {/* View 3 */}
@@ -1949,7 +1723,10 @@ const StockSearchScreen = props => {
                                   dimensions.width
                                 )}
                               >
-                                {listData?.ev_ebit_ttm}
+                                {listData?.ev_ebit}
+                                {' ('}
+                                {listData?.fy_end}
+                                {')'}
                               </Text>
                             </View>
                           </View>
@@ -1968,9 +1745,9 @@ const StockSearchScreen = props => {
             </>
           );
         }}
-      </XanoCollectionApi.FetchGetAllStocksGET>
+      </XanoCollectionApi.FetchGetAllEventsGET>
     </ScreenContainer>
   );
 };
 
-export default withTheme(StockSearchScreen);
+export default withTheme(TransactionsScreen);
