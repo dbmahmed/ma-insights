@@ -6,7 +6,17 @@ import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
-import { Button, ScreenContainer, TextInput, withTheme } from '@draftbit/ui';
+import {
+  Button,
+  Picker,
+  PickerItem,
+  Pressable,
+  ScreenContainer,
+  Shadow,
+  SimpleStyleFlatList,
+  TextInput,
+  withTheme,
+} from '@draftbit/ui';
 import { H3 } from '@expo/html-elements';
 import { useIsFocused } from '@react-navigation/native';
 import { ActivityIndicator, Text, View } from 'react-native';
@@ -18,6 +28,8 @@ const AdvisorsScreen = props => {
   const Constants = GlobalVariables.useValues();
   const Variables = Constants;
   const [keywordSearch, setKeywordSearch] = React.useState('');
+  const [pickerValue, setPickerValue] = React.useState('');
+  const [typeAdvisor, setTypeAdvisor] = React.useState('dk');
 
   return (
     <ScreenContainer hasSafeArea={false} scrollable={false}>
@@ -113,26 +125,242 @@ const AdvisorsScreen = props => {
             )}
             value={keywordSearch}
           />
-          <View>
+          <View
+            style={StyleSheet.applyWidth(
+              {
+                alignContent: 'center',
+                alignItems: 'center',
+                alignSelf: 'auto',
+                flex: 1,
+                flexDirection: 'row',
+                flexGrow: 1,
+                flexShrink: 0,
+                gap: 8,
+                justifyContent: 'space-between',
+              },
+              dimensions.width
+            )}
+          >
+            {/* DK */}
             <Button
               iconPosition={'left'}
-              title={'Get Started'}
+              onPress={() => {
+                try {
+                  setTypeAdvisor('dk');
+                } catch (err) {
+                  console.error(err);
+                }
+              }}
               {...GlobalStyles.ButtonStyles(theme)['Button'].props}
               style={StyleSheet.applyWidth(
                 StyleSheet.compose(
                   GlobalStyles.ButtonStyles(theme)['Button'].style,
                   {
-                    backgroundColor: theme.colors.text.strong,
+                    backgroundColor: [
+                      { minWidth: Breakpoints.Mobile, value: null },
+                      {
+                        minWidth: Breakpoints.Mobile,
+                        value:
+                          typeAdvisor === 'dk'
+                            ? palettes.App.green
+                            : palettes.Brand.Strong,
+                      },
+                    ],
+                    color:
+                      typeAdvisor === 'dk'
+                        ? palettes.Brand.Strong
+                        : palettes.Brand['Strong Inverse'],
                     fontFamily: 'Quicksand_700Bold',
+                    minWidth: 60,
                   }
                 ),
                 dimensions.width
               )}
+              title={'DK'}
+            />
+            {/* SE */}
+            <Button
+              iconPosition={'left'}
+              onPress={() => {
+                try {
+                  setTypeAdvisor('se');
+                } catch (err) {
+                  console.error(err);
+                }
+              }}
+              {...GlobalStyles.ButtonStyles(theme)['Button'].props}
+              style={StyleSheet.applyWidth(
+                StyleSheet.compose(
+                  GlobalStyles.ButtonStyles(theme)['Button'].style,
+                  {
+                    backgroundColor: [
+                      { minWidth: Breakpoints.Mobile, value: null },
+                      {
+                        minWidth: Breakpoints.Mobile,
+                        value:
+                          typeAdvisor === 'se'
+                            ? palettes.App.green
+                            : palettes.Brand.Strong,
+                      },
+                    ],
+                    color:
+                      typeAdvisor === 'se'
+                        ? palettes.Brand.Strong
+                        : palettes.Brand['Strong Inverse'],
+                    fontFamily: 'Quicksand_700Bold',
+                    minWidth: 60,
+                  }
+                ),
+                dimensions.width
+              )}
+              title={'SE'}
+            />
+            {/* NO */}
+            <Button
+              iconPosition={'left'}
+              onPress={() => {
+                try {
+                  setTypeAdvisor('no');
+                } catch (err) {
+                  console.error(err);
+                }
+              }}
+              {...GlobalStyles.ButtonStyles(theme)['Button'].props}
+              style={StyleSheet.applyWidth(
+                StyleSheet.compose(
+                  GlobalStyles.ButtonStyles(theme)['Button'].style,
+                  {
+                    backgroundColor: [
+                      { minWidth: Breakpoints.Mobile, value: null },
+                      {
+                        minWidth: Breakpoints.Mobile,
+                        value:
+                          typeAdvisor === 'no'
+                            ? palettes.App.green
+                            : palettes.Brand.Strong,
+                      },
+                    ],
+                    color:
+                      typeAdvisor === 'no'
+                        ? palettes.Brand.Strong
+                        : palettes.Brand['Strong Inverse'],
+                    fontFamily: 'Quicksand_700Bold',
+                    minWidth: 60,
+                  }
+                ),
+                dimensions.width
+              )}
+              title={'NO'}
+            />
+            {/* FI */}
+            <Button
+              iconPosition={'left'}
+              onPress={() => {
+                try {
+                  setTypeAdvisor('fi');
+                } catch (err) {
+                  console.error(err);
+                }
+              }}
+              {...GlobalStyles.ButtonStyles(theme)['Button'].props}
+              style={StyleSheet.applyWidth(
+                StyleSheet.compose(
+                  GlobalStyles.ButtonStyles(theme)['Button'].style,
+                  {
+                    backgroundColor: [
+                      { minWidth: Breakpoints.Mobile, value: null },
+                      {
+                        minWidth: Breakpoints.Mobile,
+                        value:
+                          typeAdvisor === 'fi'
+                            ? palettes.App.green
+                            : palettes.Brand.Strong,
+                      },
+                    ],
+                    color:
+                      typeAdvisor === 'fi'
+                        ? palettes.Brand.Strong
+                        : palettes.Brand['Strong Inverse'],
+                    fontFamily: 'Quicksand_700Bold',
+                    minWidth: 60,
+                  }
+                ),
+                dimensions.width
+              )}
+              title={'FI'}
+            />
+            {/* DE */}
+            <Button
+              iconPosition={'left'}
+              onPress={() => {
+                try {
+                  setTypeAdvisor('de');
+                } catch (err) {
+                  console.error(err);
+                }
+              }}
+              {...GlobalStyles.ButtonStyles(theme)['Button'].props}
+              style={StyleSheet.applyWidth(
+                StyleSheet.compose(
+                  GlobalStyles.ButtonStyles(theme)['Button'].style,
+                  {
+                    backgroundColor: [
+                      { minWidth: Breakpoints.Mobile, value: null },
+                      {
+                        minWidth: Breakpoints.Mobile,
+                        value:
+                          typeAdvisor === 'de'
+                            ? palettes.App.green
+                            : palettes.Brand.Strong,
+                      },
+                    ],
+                    color:
+                      typeAdvisor === 'de'
+                        ? palettes.Brand.Strong
+                        : palettes.Brand['Strong Inverse'],
+                    fontFamily: 'Quicksand_700Bold',
+                    minWidth: 60,
+                  }
+                ),
+                dimensions.width
+              )}
+              title={'DE'}
             />
           </View>
+          </* Fetch component: no endpoint configured */>
+            {(fetchData => (
+              <Picker
+                autoDismissKeyboard={true}
+                dropDownBackgroundColor={theme.colors.background.brand}
+                dropDownBorderColor={theme.colors.border.brand}
+                dropDownBorderRadius={8}
+                dropDownBorderWidth={1}
+                dropDownTextColor={theme.colors.text.strong}
+                iconSize={24}
+                leftIconMode={'inset'}
+                mode={'native'}
+                onValueChange={newPickerValue => {
+                  const pickerValue = newPickerValue;
+                  try {
+                    setPickerValue(newPickerValue);
+                  } catch (err) {
+                    console.error(err);
+                  }
+                }}
+                placeholder={'Select an option'}
+                selectedIconColor={theme.colors.text.strong}
+                selectedIconName={'Feather/check'}
+                selectedIconSize={20}
+                type={'solid'}
+                value={pickerValue}
+              >
+                <PickerItem />
+              </Picker>
+            ))()}
+          </>
         </View>
       </View>
-
+      {/* Fetch  */}
       <XanoCollectionApi.FetchGetAdvisorsGET>
         {({ loading, error, data, refetchGetAdvisors }) => {
           const fetchData = data?.json;
@@ -144,7 +372,141 @@ const AdvisorsScreen = props => {
             return <ActivityIndicator />;
           }
 
-          return null;
+          return (
+            <SimpleStyleFlatList
+              data={fetchData}
+              horizontal={false}
+              inverted={false}
+              keyExtractor={(listData, index) =>
+                listData?.id ?? listData?.uuid ?? index.toString()
+              }
+              keyboardShouldPersistTaps={'never'}
+              listKey={'2cY8Myag'}
+              nestedScrollEnabled={false}
+              numColumns={1}
+              onEndReachedThreshold={0.5}
+              renderItem={({ item, index }) => {
+                const listData = item;
+                return (
+                  <Pressable
+                    onPress={() => {
+                      try {
+                        navigation.push('EventDetailsScreen', {
+                          event_id: listData?.id,
+                        });
+                      } catch (err) {
+                        console.error(err);
+                      }
+                    }}
+                  >
+                    <Shadow
+                      showShadowCornerBottomEnd={true}
+                      showShadowCornerBottomStart={true}
+                      showShadowCornerTopEnd={true}
+                      showShadowCornerTopStart={true}
+                      showShadowSideBottom={true}
+                      showShadowSideEnd={true}
+                      showShadowSideStart={true}
+                      showShadowSideTop={true}
+                      distance={4}
+                      offsetX={0}
+                      offsetY={0}
+                      paintInside={true}
+                      stretch={true}
+                      style={StyleSheet.applyWidth(
+                        {
+                          borderRadius: 12,
+                          width: {
+                            minWidth: Breakpoints.Laptop,
+                            value: '100%',
+                          },
+                        },
+                        dimensions.width
+                      )}
+                    >
+                      <View
+                        style={StyleSheet.applyWidth(
+                          {
+                            alignContent: 'stretch',
+                            backgroundColor: palettes.Brand['Strong Inverse'],
+                            borderColor: palettes.Brand['Light Inverse'],
+                            borderRadius: 8,
+                            borderWidth: 0,
+                            flexDirection: 'column',
+                            gap: 8,
+                            justifyContent: 'flex-start',
+                            padding: 10,
+                          },
+                          dimensions.width
+                        )}
+                      >
+                        <Text
+                          accessible={true}
+                          {...GlobalStyles.TextStyles(theme)['screen_title']
+                            .props}
+                          style={StyleSheet.applyWidth(
+                            StyleSheet.compose(
+                              GlobalStyles.TextStyles(theme)['screen_title']
+                                .style,
+                              { fontFamily: 'Quicksand_500Medium' }
+                            ),
+                            dimensions.width
+                          )}
+                        >
+                          {listData?.name}
+                        </Text>
+                        {/* Text 2 */}
+                        <Text
+                          accessible={true}
+                          {...GlobalStyles.TextStyles(theme)['screen_title']
+                            .props}
+                          style={StyleSheet.applyWidth(
+                            StyleSheet.compose(
+                              GlobalStyles.TextStyles(theme)['screen_title']
+                                .style,
+                              {
+                                color: palettes.App.Orange,
+                                fontFamily: 'Quicksand_400Regular',
+                                fontSize: 12,
+                              }
+                            ),
+                            dimensions.width
+                          )}
+                        >
+                          {listData?.type}
+                        </Text>
+                        {/* Text 2 2 */}
+                        <Text
+                          accessible={true}
+                          {...GlobalStyles.TextStyles(theme)['screen_title']
+                            .props}
+                          style={StyleSheet.applyWidth(
+                            StyleSheet.compose(
+                              GlobalStyles.TextStyles(theme)['screen_title']
+                                .style,
+                              {
+                                fontFamily: 'Quicksand_400Regular',
+                                fontSize: 12,
+                              }
+                            ),
+                            dimensions.width
+                          )}
+                        >
+                          {null}
+                        </Text>
+                      </View>
+                    </Shadow>
+                  </Pressable>
+                );
+              }}
+              showsHorizontalScrollIndicator={true}
+              showsVerticalScrollIndicator={true}
+              style={StyleSheet.applyWidth(
+                { gap: 8, padding: 10 },
+                dimensions.width
+              )}
+            />
+          );
         }}
       </XanoCollectionApi.FetchGetAdvisorsGET>
     </ScreenContainer>
