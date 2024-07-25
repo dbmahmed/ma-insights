@@ -1842,6 +1842,43 @@ const CFSScreen = props => {
             )}
           </>
         </View>
+        {/* View 2 */}
+        <View
+          style={StyleSheet.applyWidth(
+            {
+              alignItems: 'stretch',
+              alignSelf: 'auto',
+              flexDirection: 'column',
+              marginTop: { minWidth: Breakpoints.Tablet, value: 5 },
+              paddingLeft: 8,
+            },
+            dimensions.width
+          )}
+        >
+          <Text
+            accessible={true}
+            {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+            style={StyleSheet.applyWidth(
+              StyleSheet.compose(
+                GlobalStyles.TextStyles(theme)['screen_title'].style,
+                {
+                  color: [
+                    { minWidth: Breakpoints.Mobile, value: palettes.App.green },
+                    {
+                      minWidth: Breakpoints.Tablet,
+                      value: theme.colors.text.strong,
+                    },
+                  ],
+                  fontFamily: 'Quicksand_400Regular',
+                  fontSize: 12,
+                }
+              ),
+              dimensions.width
+            )}
+          >
+            {'874 companies for sale matching filter'}
+          </Text>
+        </View>
       </View>
 
       <XanoCollectionApi.FetchGetCFSGET refetchInterval={10000}>
