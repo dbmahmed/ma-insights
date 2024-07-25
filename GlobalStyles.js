@@ -280,3 +280,18 @@ export const H1Styles = theme =>
 
 export const ScreenContainerStyles = theme =>
   StyleSheet.create({ main: { style: {}, props: {} } });
+
+export const ViewStyles = theme =>
+  StyleSheet.create({
+    split_options: {
+      style: {
+        alignItems: 'flex-start',
+        flex: 0,
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        gap: 8,
+        justifyContent: 'flex-start',
+      },
+      props: {},
+    },
+  });
