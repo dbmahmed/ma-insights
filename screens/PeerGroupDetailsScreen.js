@@ -311,7 +311,7 @@ const PeerGroupDetailsScreen = props => {
                             {
                               width: [
                                 { minWidth: Breakpoints.Mobile, value: '30%' },
-                                { minWidth: Breakpoints.Tablet, value: '20%' },
+                                { minWidth: Breakpoints.Tablet, value: '15%' },
                               ],
                             },
                             dimensions.width
@@ -347,109 +347,130 @@ const PeerGroupDetailsScreen = props => {
                           </Text>
                         </View>
                         {/* View 3 */}
-                        <View
-                          style={StyleSheet.applyWidth(
-                            {
-                              width: [
-                                { minWidth: Breakpoints.Mobile, value: '0%' },
-                                { minWidth: Breakpoints.Tablet, value: '10%' },
-                              ],
-                            },
-                            dimensions.width
-                          )}
-                        >
-                          <Text
-                            accessible={true}
-                            {...GlobalStyles.TextStyles(theme)['screen_title']
-                              .props}
-                            style={StyleSheet.applyWidth(
-                              StyleSheet.compose(
-                                GlobalStyles.TextStyles(theme)['screen_title']
-                                  .style,
+                        <>
+                          {!(dimensions.width >= Breakpoints.Tablet) ? null : (
+                            <View
+                              style={StyleSheet.applyWidth(
                                 {
-                                  fontFamily: [
+                                  width: [
                                     {
                                       minWidth: Breakpoints.Mobile,
-                                      value: 'Quicksand_400Regular',
+                                      value: '0%',
                                     },
                                     {
                                       minWidth: Breakpoints.Tablet,
-                                      value: 'Quicksand_700Bold',
+                                      value: '10%',
                                     },
                                   ],
-                                  fontSize: 12,
-                                  textAlign: [
+                                },
+                                dimensions.width
+                              )}
+                            >
+                              <Text
+                                accessible={true}
+                                {...GlobalStyles.TextStyles(theme)[
+                                  'screen_title'
+                                ].props}
+                                style={StyleSheet.applyWidth(
+                                  StyleSheet.compose(
+                                    GlobalStyles.TextStyles(theme)[
+                                      'screen_title'
+                                    ].style,
                                     {
-                                      minWidth: Breakpoints.Mobile,
-                                      value: 'center',
-                                    },
-                                    {
-                                      minWidth: Breakpoints.Tablet,
-                                      value: 'right',
-                                    },
-                                  ],
-                                }
-                              ),
-                              dimensions.width
-                            )}
-                          >
-                            {'FY0'}
-                          </Text>
-                        </View>
+                                      fontFamily: [
+                                        {
+                                          minWidth: Breakpoints.Mobile,
+                                          value: 'Quicksand_400Regular',
+                                        },
+                                        {
+                                          minWidth: Breakpoints.Tablet,
+                                          value: 'Quicksand_700Bold',
+                                        },
+                                      ],
+                                      fontSize: 12,
+                                      textAlign: [
+                                        {
+                                          minWidth: Breakpoints.Mobile,
+                                          value: 'center',
+                                        },
+                                        {
+                                          minWidth: Breakpoints.Tablet,
+                                          value: 'right',
+                                        },
+                                      ],
+                                    }
+                                  ),
+                                  dimensions.width
+                                )}
+                              >
+                                {'FY0'}
+                              </Text>
+                            </View>
+                          )}
+                        </>
                         {/* View 4 */}
-                        <View
-                          style={StyleSheet.applyWidth(
-                            {
-                              width: [
-                                { minWidth: Breakpoints.Mobile, value: 50 },
-                                { minWidth: Breakpoints.Tablet, value: '10%' },
-                              ],
-                            },
-                            dimensions.width
-                          )}
-                        >
-                          <Text
-                            accessible={true}
-                            {...GlobalStyles.TextStyles(theme)['screen_title']
-                              .props}
-                            style={StyleSheet.applyWidth(
-                              StyleSheet.compose(
-                                GlobalStyles.TextStyles(theme)['screen_title']
-                                  .style,
+                        <>
+                          {!(dimensions.width >= Breakpoints.Tablet) ? null : (
+                            <View
+                              style={StyleSheet.applyWidth(
                                 {
-                                  fontFamily: [
-                                    {
-                                      minWidth: Breakpoints.Mobile,
-                                      value: 'Quicksand_400Regular',
-                                    },
+                                  width: [
+                                    { minWidth: Breakpoints.Mobile, value: 50 },
                                     {
                                       minWidth: Breakpoints.Tablet,
-                                      value: 'Quicksand_700Bold',
+                                      value: '15%',
                                     },
                                   ],
-                                  fontSize: 12,
-                                  paddingRight: {
-                                    minWidth: Breakpoints.Tablet,
-                                    value: 15,
-                                  },
-                                  textAlign: [
+                                },
+                                dimensions.width
+                              )}
+                            >
+                              <Text
+                                accessible={true}
+                                {...GlobalStyles.TextStyles(theme)[
+                                  'screen_title'
+                                ].props}
+                                style={StyleSheet.applyWidth(
+                                  StyleSheet.compose(
+                                    GlobalStyles.TextStyles(theme)[
+                                      'screen_title'
+                                    ].style,
                                     {
-                                      minWidth: Breakpoints.Mobile,
-                                      value: 'center',
-                                    },
-                                    {
-                                      minWidth: Breakpoints.Tablet,
-                                      value: 'right',
-                                    },
-                                  ],
-                                }
-                              ),
-                              dimensions.width
-                            )}
-                          >
-                            {'52w price change'}
-                          </Text>
-                        </View>
+                                      fontFamily: [
+                                        {
+                                          minWidth: Breakpoints.Mobile,
+                                          value: 'Quicksand_400Regular',
+                                        },
+                                        {
+                                          minWidth: Breakpoints.Tablet,
+                                          value: 'Quicksand_700Bold',
+                                        },
+                                      ],
+                                      fontSize: 12,
+                                      paddingRight: {
+                                        minWidth: Breakpoints.Tablet,
+                                        value: 15,
+                                      },
+                                      textAlign: [
+                                        {
+                                          minWidth: Breakpoints.Mobile,
+                                          value: 'center',
+                                        },
+                                        {
+                                          minWidth: Breakpoints.Tablet,
+                                          value: 'right',
+                                        },
+                                      ],
+                                    }
+                                  ),
+                                  dimensions.width
+                                )}
+                              >
+                                {'52w price change'}
+                              </Text>
+                            </View>
+                          )}
+                        </>
                         {/* View 6 */}
                         <View
                           style={StyleSheet.applyWidth(
@@ -620,7 +641,7 @@ const PeerGroupDetailsScreen = props => {
                                         },
                                         {
                                           minWidth: Breakpoints.Tablet,
-                                          value: '20%',
+                                          value: '15%',
                                         },
                                       ],
                                     },
@@ -652,90 +673,104 @@ const PeerGroupDetailsScreen = props => {
                                   </Text>
                                 </View>
                                 {/* View 6 */}
-                                <View
-                                  style={StyleSheet.applyWidth(
-                                    {
-                                      width: [
+                                <>
+                                  {!(
+                                    dimensions.width >= Breakpoints.Tablet
+                                  ) ? null : (
+                                    <View
+                                      style={StyleSheet.applyWidth(
                                         {
-                                          minWidth: Breakpoints.Mobile,
-                                          value: '30%',
+                                          width: [
+                                            {
+                                              minWidth: Breakpoints.Mobile,
+                                              value: '30%',
+                                            },
+                                            {
+                                              minWidth: Breakpoints.Tablet,
+                                              value: '10%',
+                                            },
+                                          ],
                                         },
-                                        {
-                                          minWidth: Breakpoints.Tablet,
-                                          value: '10%',
-                                        },
-                                      ],
-                                    },
-                                    dimensions.width
-                                  )}
-                                >
-                                  <Text
-                                    accessible={true}
-                                    {...GlobalStyles.TextStyles(theme)[
-                                      'screen_title'
-                                    ].props}
-                                    style={StyleSheet.applyWidth(
-                                      StyleSheet.compose(
-                                        GlobalStyles.TextStyles(theme)[
+                                        dimensions.width
+                                      )}
+                                    >
+                                      <Text
+                                        accessible={true}
+                                        {...GlobalStyles.TextStyles(theme)[
                                           'screen_title'
-                                        ].style,
-                                        {
-                                          fontFamily: 'Quicksand_400Regular',
-                                          fontSize: 12,
-                                          textAlign: 'right',
-                                        }
-                                      ),
-                                      dimensions.width
-                                    )}
-                                  >
-                                    {listData?.fy0_end_date}
-                                  </Text>
-                                </View>
+                                        ].props}
+                                        style={StyleSheet.applyWidth(
+                                          StyleSheet.compose(
+                                            GlobalStyles.TextStyles(theme)[
+                                              'screen_title'
+                                            ].style,
+                                            {
+                                              fontFamily:
+                                                'Quicksand_400Regular',
+                                              fontSize: 12,
+                                              textAlign: 'right',
+                                            }
+                                          ),
+                                          dimensions.width
+                                        )}
+                                      >
+                                        {listData?.fy0_end_date}
+                                      </Text>
+                                    </View>
+                                  )}
+                                </>
                                 {/* View 7 */}
-                                <View
-                                  style={StyleSheet.applyWidth(
-                                    {
-                                      width: [
+                                <>
+                                  {!(
+                                    dimensions.width >= Breakpoints.Tablet
+                                  ) ? null : (
+                                    <View
+                                      style={StyleSheet.applyWidth(
                                         {
-                                          minWidth: Breakpoints.Mobile,
-                                          value: '30%',
+                                          width: [
+                                            {
+                                              minWidth: Breakpoints.Mobile,
+                                              value: '30%',
+                                            },
+                                            {
+                                              minWidth: Breakpoints.Tablet,
+                                              value: '15%',
+                                            },
+                                          ],
                                         },
-                                        {
-                                          minWidth: Breakpoints.Tablet,
-                                          value: '10%',
-                                        },
-                                      ],
-                                    },
-                                    dimensions.width
-                                  )}
-                                >
-                                  <Text
-                                    accessible={true}
-                                    {...GlobalStyles.TextStyles(theme)[
-                                      'screen_title'
-                                    ].props}
-                                    style={StyleSheet.applyWidth(
-                                      StyleSheet.compose(
-                                        GlobalStyles.TextStyles(theme)[
+                                        dimensions.width
+                                      )}
+                                    >
+                                      <Text
+                                        accessible={true}
+                                        {...GlobalStyles.TextStyles(theme)[
                                           'screen_title'
-                                        ].style,
-                                        {
-                                          fontFamily: 'Quicksand_400Regular',
-                                          fontSize: 12,
-                                          paddingRight: {
-                                            minWidth: Breakpoints.Tablet,
-                                            value: 15,
-                                          },
-                                          textAlign: 'right',
-                                        }
-                                      ),
-                                      dimensions.width
-                                    )}
-                                  >
-                                    {listData?.change_52_weeks}
-                                    {'%'}
-                                  </Text>
-                                </View>
+                                        ].props}
+                                        style={StyleSheet.applyWidth(
+                                          StyleSheet.compose(
+                                            GlobalStyles.TextStyles(theme)[
+                                              'screen_title'
+                                            ].style,
+                                            {
+                                              fontFamily:
+                                                'Quicksand_400Regular',
+                                              fontSize: 12,
+                                              paddingRight: {
+                                                minWidth: Breakpoints.Tablet,
+                                                value: 15,
+                                              },
+                                              textAlign: 'right',
+                                            }
+                                          ),
+                                          dimensions.width
+                                        )}
+                                      >
+                                        {listData?.change_52_weeks}
+                                        {'%'}
+                                      </Text>
+                                    </View>
+                                  )}
+                                </>
                                 {/* View 3 */}
                                 <>
                                   {NKP_Comp ? null : (
@@ -1448,8 +1483,7 @@ const PeerGroupDetailsScreen = props => {
                               dimensions.width
                             )}
                           >
-                            {fetchData?.ebit_margin_fy2_median}
-                            {'x'}
+                            {'-'}
                           </Text>
                         </View>
                       </View>
