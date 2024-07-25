@@ -63,6 +63,7 @@ const CFSScreen = props => {
   const [real_estate, setReal_estate] = React.useState(false);
   const [sweden, setSweden] = React.useState(false);
   const [switzerland, setSwitzerland] = React.useState(false);
+  const [totalCFS, setTotalCFS] = React.useState(0);
   const [transaction, setTransaction] = React.useState(false);
   const [utilities, setUtilities] = React.useState(false);
 
@@ -1842,46 +1843,20 @@ const CFSScreen = props => {
             )}
           </>
         </View>
-        {/* View 2 */}
-        <View
-          style={StyleSheet.applyWidth(
-            {
-              alignItems: 'stretch',
-              alignSelf: 'auto',
-              flexDirection: 'column',
-              marginTop: { minWidth: Breakpoints.Tablet, value: 5 },
-              paddingLeft: 8,
-            },
-            dimensions.width
-          )}
-        >
-          <Text
-            accessible={true}
-            {...GlobalStyles.TextStyles(theme)['screen_title'].props}
-            style={StyleSheet.applyWidth(
-              StyleSheet.compose(
-                GlobalStyles.TextStyles(theme)['screen_title'].style,
-                {
-                  color: [
-                    { minWidth: Breakpoints.Mobile, value: palettes.App.green },
-                    {
-                      minWidth: Breakpoints.Tablet,
-                      value: theme.colors.text.strong,
-                    },
-                  ],
-                  fontFamily: 'Quicksand_400Regular',
-                  fontSize: 12,
-                }
-              ),
-              dimensions.width
-            )}
-          >
-            {'874 companies for sale matching filter'}
-          </Text>
-        </View>
       </View>
 
-      <XanoCollectionApi.FetchGetCFSGET refetchInterval={10000}>
+      <XanoCollectionApi.FetchGetCFSGET
+        handlers={{
+          onData: fetchData => {
+            try {
+              setTotalCFS(fetchData?.itemsTotal?.setCFS);
+            } catch (err) {
+              console.error(err);
+            }
+          },
+        }}
+        refetchInterval={10000}
+      >
         {({ loading, error, data, refetchGetCFS }) => {
           const fetchData = data?.json;
           if (loading) {
@@ -1893,244 +1868,304 @@ const CFSScreen = props => {
           }
 
           return (
-            <SimpleStyleScrollView
-              bounces={true}
-              horizontal={false}
-              keyboardShouldPersistTaps={'never'}
-              nestedScrollEnabled={false}
-              showsHorizontalScrollIndicator={true}
-              showsVerticalScrollIndicator={true}
-            >
-              <SimpleStyleFlashList
-                data={fetchData?.items}
-                estimatedItemSize={50}
-                inverted={false}
-                keyExtractor={(flashListData, index) => flashListData?.id}
-                listKey={'uyII1tlG'}
-                onEndReachedThreshold={0.5}
-                renderItem={({ item, index }) => {
-                  const flashListData = item;
-                  return (
-                    <LinearGradient
-                      endX={100}
-                      endY={100}
-                      startX={0}
-                      startY={0}
-                      {...GlobalStyles.LinearGradientStyles(theme)[
-                        'Linear Gradient'
-                      ].props}
-                      color1={theme.colors.text.strong}
-                      color2={theme.colors.branding.primary}
-                      color3={null}
-                      style={StyleSheet.applyWidth(
-                        StyleSheet.compose(
-                          GlobalStyles.LinearGradientStyles(theme)[
-                            'Linear Gradient'
-                          ].style,
+            <>
+              {/* View 2 */}
+              <View
+                style={StyleSheet.applyWidth(
+                  {
+                    alignItems: 'stretch',
+                    alignSelf: 'auto',
+                    flexDirection: 'column',
+                    marginTop: { minWidth: Breakpoints.Tablet, value: 5 },
+                    paddingLeft: [
+                      { minWidth: Breakpoints.Tablet, value: 15 },
+                      { minWidth: Breakpoints.Mobile, value: 8 },
+                    ],
+                  },
+                  dimensions.width
+                )}
+              >
+                <Text
+                  accessible={true}
+                  {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                  style={StyleSheet.applyWidth(
+                    StyleSheet.compose(
+                      GlobalStyles.TextStyles(theme)['screen_title'].style,
+                      {
+                        color: [
                           {
-                            borderColor: theme.colors.branding.primary,
-                            borderRadius: 5,
-                            flexDirection: 'column',
-                            flexWrap: 'nowrap',
-                          }
-                        ),
-                        dimensions.width
-                      )}
-                    >
-                      <Pressable
-                        onPress={() => {
-                          try {
-                            navigation.navigate('CFSDetailsScreen', {
-                              cfs_id: flashListData?.id,
-                            });
-                          } catch (err) {
-                            console.error(err);
-                          }
-                        }}
-                      >
-                        <View
-                          style={StyleSheet.applyWidth(
+                            minWidth: Breakpoints.Mobile,
+                            value: palettes.App.green,
+                          },
+                          {
+                            minWidth: Breakpoints.Tablet,
+                            value: theme.colors.text.strong,
+                          },
+                        ],
+                        fontFamily: 'Quicksand_400Regular',
+                        fontSize: 12,
+                      }
+                    ),
+                    dimensions.width
+                  )}
+                >
+                  {fetchData?.itemsTotal}
+                  {' companies for sale matching filter'}
+                </Text>
+              </View>
+
+              <SimpleStyleScrollView
+                bounces={true}
+                horizontal={false}
+                keyboardShouldPersistTaps={'never'}
+                nestedScrollEnabled={false}
+                showsHorizontalScrollIndicator={true}
+                showsVerticalScrollIndicator={true}
+              >
+                <SimpleStyleFlashList
+                  data={fetchData?.items}
+                  estimatedItemSize={50}
+                  inverted={false}
+                  keyExtractor={(flashListData, index) => flashListData?.id}
+                  listKey={'uyII1tlG'}
+                  onEndReachedThreshold={0.5}
+                  renderItem={({ item, index }) => {
+                    const flashListData = item;
+                    return (
+                      <LinearGradient
+                        endX={100}
+                        endY={100}
+                        startX={0}
+                        startY={0}
+                        {...GlobalStyles.LinearGradientStyles(theme)[
+                          'Linear Gradient'
+                        ].props}
+                        color1={theme.colors.text.strong}
+                        color2={theme.colors.branding.primary}
+                        color3={null}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.LinearGradientStyles(theme)[
+                              'Linear Gradient'
+                            ].style,
                             {
+                              borderColor: theme.colors.branding.primary,
+                              borderRadius: 5,
                               flexDirection: 'column',
-                              gap: 10,
-                              justifyContent: 'space-between',
-                              padding: 10,
-                            },
-                            dimensions.width
-                          )}
+                              flexWrap: 'nowrap',
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        <Pressable
+                          onPress={() => {
+                            try {
+                              navigation.navigate('CFSDetailsScreen', {
+                                cfs_id: flashListData?.id,
+                              });
+                            } catch (err) {
+                              console.error(err);
+                            }
+                          }}
                         >
-                          <View>
-                            <H4
-                              selectable={false}
-                              {...GlobalStyles.H4Styles(theme)['H4'].props}
-                              style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.H4Styles(theme)['H4'].style,
-                                  {
-                                    color: palettes.Brand['Strong Inverse'],
-                                    marginBottom: 0,
-                                    marginTop: 0,
-                                  }
-                                ),
-                                dimensions.width
-                              )}
-                            >
-                              {flashListData?.company}
-                            </H4>
-                            {/* Subtitle */}
-                            <Text
-                              accessible={true}
-                              {...GlobalStyles.TextStyles(theme)['screen_title']
-                                .props}
-                              style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.TextStyles(theme)['screen_title']
-                                    .style,
-                                  { color: palettes.App.green }
-                                ),
-                                dimensions.width
-                              )}
-                            >
-                              {flashListData?.country}
-                            </Text>
-                          </View>
-                          {/* View 2 */}
                           <View
                             style={StyleSheet.applyWidth(
-                              { gap: 8 },
+                              {
+                                flexDirection: 'column',
+                                gap: 10,
+                                justifyContent: 'space-between',
+                                padding: 10,
+                              },
                               dimensions.width
                             )}
                           >
-                            <Text
-                              accessible={true}
-                              {...GlobalStyles.TextStyles(theme)['screen_title']
-                                .props}
+                            <View>
+                              <H4
+                                selectable={false}
+                                {...GlobalStyles.H4Styles(theme)['H4'].props}
+                                style={StyleSheet.applyWidth(
+                                  StyleSheet.compose(
+                                    GlobalStyles.H4Styles(theme)['H4'].style,
+                                    {
+                                      color: palettes.Brand['Strong Inverse'],
+                                      marginBottom: 0,
+                                      marginTop: 0,
+                                    }
+                                  ),
+                                  dimensions.width
+                                )}
+                              >
+                                {flashListData?.company}
+                              </H4>
+                              {/* Subtitle */}
+                              <Text
+                                accessible={true}
+                                {...GlobalStyles.TextStyles(theme)[
+                                  'screen_title'
+                                ].props}
+                                style={StyleSheet.applyWidth(
+                                  StyleSheet.compose(
+                                    GlobalStyles.TextStyles(theme)[
+                                      'screen_title'
+                                    ].style,
+                                    { color: palettes.App.green }
+                                  ),
+                                  dimensions.width
+                                )}
+                              >
+                                {flashListData?.country}
+                              </Text>
+                            </View>
+                            {/* View 2 */}
+                            <View
                               style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.TextStyles(theme)['screen_title']
-                                    .style,
-                                  { color: palettes.Brand['Strong Inverse'] }
-                                ),
+                                { gap: 8 },
                                 dimensions.width
                               )}
                             >
-                              {'Sector: '}
-                              {flashListData?._gics_sub_industry?.GICS_Sector}
-                            </Text>
-                            {/* Text 2 */}
-                            <Text
-                              accessible={true}
-                              {...GlobalStyles.TextStyles(theme)['screen_title']
-                                .props}
-                              style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.TextStyles(theme)['screen_title']
-                                    .style,
-                                  { color: palettes.Brand['Strong Inverse'] }
-                                ),
-                                dimensions.width
-                              )}
-                            >
-                              {'EBITDA: €'}
-                              {flashListData?.ebitda_eur}
-                              {'m'}
-                            </Text>
-                            {/* Text 3 */}
-                            <Text
-                              accessible={true}
-                              {...GlobalStyles.TextStyles(theme)['screen_title']
-                                .props}
-                              style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.TextStyles(theme)['screen_title']
-                                    .style,
-                                  { color: palettes.Brand['Strong Inverse'] }
-                                ),
-                                dimensions.width
-                              )}
-                            >
-                              {'Owner: '}
-                              {flashListData?._owners}
-                            </Text>
-                            {/* Text 4 */}
-                            <Text
-                              accessible={true}
-                              {...GlobalStyles.TextStyles(theme)['screen_title']
-                                .props}
-                              style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.TextStyles(theme)['screen_title']
-                                    .style,
-                                  { color: palettes.Brand['Strong Inverse'] }
-                                ),
-                                dimensions.width
-                              )}
-                            >
-                              {'Advisor: '}
-                              {flashListData?._advisors}
-                            </Text>
-                            {/* Text 5 */}
-                            <Text
-                              accessible={true}
-                              {...GlobalStyles.TextStyles(theme)['screen_title']
-                                .props}
-                              style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.TextStyles(theme)['screen_title']
-                                    .style,
-                                  { color: palettes.Brand['Strong Inverse'] }
-                                ),
-                                dimensions.width
-                              )}
-                            >
-                              {'Stage: '}
-                              {flashListData?.stage}
-                            </Text>
-                            {/* Text 6 */}
-                            <>
-                              {!parseBoolean(
-                                flashListData?.last_update
-                              ) ? null : (
-                                <Text
-                                  accessible={true}
-                                  {...GlobalStyles.TextStyles(theme)[
-                                    'screen_title'
-                                  ].props}
-                                  style={StyleSheet.applyWidth(
-                                    StyleSheet.compose(
-                                      GlobalStyles.TextStyles(theme)[
-                                        'screen_title'
-                                      ].style,
-                                      {
-                                        color: palettes.Brand['Strong Inverse'],
-                                      }
-                                    ),
-                                    dimensions.width
-                                  )}
-                                >
-                                  {'Update: '}
-                                  {flashListData?.last_update}
-                                </Text>
-                              )}
-                            </>
+                              <Text
+                                accessible={true}
+                                {...GlobalStyles.TextStyles(theme)[
+                                  'screen_title'
+                                ].props}
+                                style={StyleSheet.applyWidth(
+                                  StyleSheet.compose(
+                                    GlobalStyles.TextStyles(theme)[
+                                      'screen_title'
+                                    ].style,
+                                    { color: palettes.Brand['Strong Inverse'] }
+                                  ),
+                                  dimensions.width
+                                )}
+                              >
+                                {'Sector: '}
+                                {flashListData?._gics_sub_industry?.GICS_Sector}
+                              </Text>
+                              {/* Text 2 */}
+                              <Text
+                                accessible={true}
+                                {...GlobalStyles.TextStyles(theme)[
+                                  'screen_title'
+                                ].props}
+                                style={StyleSheet.applyWidth(
+                                  StyleSheet.compose(
+                                    GlobalStyles.TextStyles(theme)[
+                                      'screen_title'
+                                    ].style,
+                                    { color: palettes.Brand['Strong Inverse'] }
+                                  ),
+                                  dimensions.width
+                                )}
+                              >
+                                {'EBITDA: €'}
+                                {flashListData?.ebitda_eur}
+                                {'m'}
+                              </Text>
+                              {/* Text 3 */}
+                              <Text
+                                accessible={true}
+                                {...GlobalStyles.TextStyles(theme)[
+                                  'screen_title'
+                                ].props}
+                                style={StyleSheet.applyWidth(
+                                  StyleSheet.compose(
+                                    GlobalStyles.TextStyles(theme)[
+                                      'screen_title'
+                                    ].style,
+                                    { color: palettes.Brand['Strong Inverse'] }
+                                  ),
+                                  dimensions.width
+                                )}
+                              >
+                                {'Owner: '}
+                                {flashListData?._owners}
+                              </Text>
+                              {/* Text 4 */}
+                              <Text
+                                accessible={true}
+                                {...GlobalStyles.TextStyles(theme)[
+                                  'screen_title'
+                                ].props}
+                                style={StyleSheet.applyWidth(
+                                  StyleSheet.compose(
+                                    GlobalStyles.TextStyles(theme)[
+                                      'screen_title'
+                                    ].style,
+                                    { color: palettes.Brand['Strong Inverse'] }
+                                  ),
+                                  dimensions.width
+                                )}
+                              >
+                                {'Advisor: '}
+                                {flashListData?._advisors}
+                              </Text>
+                              {/* Text 5 */}
+                              <Text
+                                accessible={true}
+                                {...GlobalStyles.TextStyles(theme)[
+                                  'screen_title'
+                                ].props}
+                                style={StyleSheet.applyWidth(
+                                  StyleSheet.compose(
+                                    GlobalStyles.TextStyles(theme)[
+                                      'screen_title'
+                                    ].style,
+                                    { color: palettes.Brand['Strong Inverse'] }
+                                  ),
+                                  dimensions.width
+                                )}
+                              >
+                                {'Stage: '}
+                                {flashListData?.stage}
+                              </Text>
+                              {/* Text 6 */}
+                              <>
+                                {!parseBoolean(
+                                  flashListData?.last_update
+                                ) ? null : (
+                                  <Text
+                                    accessible={true}
+                                    {...GlobalStyles.TextStyles(theme)[
+                                      'screen_title'
+                                    ].props}
+                                    style={StyleSheet.applyWidth(
+                                      StyleSheet.compose(
+                                        GlobalStyles.TextStyles(theme)[
+                                          'screen_title'
+                                        ].style,
+                                        {
+                                          color:
+                                            palettes.Brand['Strong Inverse'],
+                                        }
+                                      ),
+                                      dimensions.width
+                                    )}
+                                  >
+                                    {'Update: '}
+                                    {flashListData?.last_update}
+                                  </Text>
+                                )}
+                              </>
+                            </View>
                           </View>
-                        </View>
-                      </Pressable>
-                    </LinearGradient>
-                  );
-                }}
-                showsHorizontalScrollIndicator={true}
-                showsVerticalScrollIndicator={true}
-                horizontal={false}
-                numColumns={
-                  (dimensions.width >= Breakpoints.Tablet ? 3 : 2) ?? 2
-                }
-                style={StyleSheet.applyWidth(
-                  { paddingLeft: 10, paddingRight: 10 },
-                  dimensions.width
-                )}
-              />
-            </SimpleStyleScrollView>
+                        </Pressable>
+                      </LinearGradient>
+                    );
+                  }}
+                  showsHorizontalScrollIndicator={true}
+                  showsVerticalScrollIndicator={true}
+                  horizontal={false}
+                  numColumns={
+                    (dimensions.width >= Breakpoints.Tablet ? 3 : 2) ?? 2
+                  }
+                  style={StyleSheet.applyWidth(
+                    { paddingLeft: 10, paddingRight: 10 },
+                    dimensions.width
+                  )}
+                />
+              </SimpleStyleScrollView>
+            </>
           );
         }}
       </XanoCollectionApi.FetchGetCFSGET>

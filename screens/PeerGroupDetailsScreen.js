@@ -198,7 +198,18 @@ const PeerGroupDetailsScreen = props => {
                   {/* table */}
                   <View
                     style={StyleSheet.applyWidth(
-                      { backgroundColor: theme.colors.text.light, padding: 10 },
+                      {
+                        backgroundColor: theme.colors.text.light,
+                        padding: 10,
+                        paddingLeft: {
+                          minWidth: Breakpoints.Tablet,
+                          value: 15,
+                        },
+                        paddingRight: {
+                          minWidth: Breakpoints.Tablet,
+                          value: 15,
+                        },
+                      },
                       dimensions.width
                     )}
                   >
@@ -225,7 +236,12 @@ const PeerGroupDetailsScreen = props => {
                         {/* View 5 */}
                         <View
                           style={StyleSheet.applyWidth(
-                            { width: '40%' },
+                            {
+                              width: [
+                                { minWidth: Breakpoints.Mobile, value: '40%' },
+                                { minWidth: Breakpoints.Tablet, value: '40%' },
+                              ],
+                            },
                             dimensions.width
                           )}
                         >
@@ -251,7 +267,12 @@ const PeerGroupDetailsScreen = props => {
 
                         <View
                           style={StyleSheet.applyWidth(
-                            { width: '30%' },
+                            {
+                              width: [
+                                { minWidth: Breakpoints.Mobile, value: '30%' },
+                                { minWidth: Breakpoints.Tablet, value: '20%' },
+                              ],
+                            },
                             dimensions.width
                           )}
                         >
@@ -287,7 +308,12 @@ const PeerGroupDetailsScreen = props => {
                         {/* View 2 */}
                         <View
                           style={StyleSheet.applyWidth(
-                            { width: '30%' },
+                            {
+                              width: [
+                                { minWidth: Breakpoints.Mobile, value: '30%' },
+                                { minWidth: Breakpoints.Tablet, value: '20%' },
+                              ],
+                            },
                             dimensions.width
                           )}
                         >
@@ -302,10 +328,6 @@ const PeerGroupDetailsScreen = props => {
                                 {
                                   fontFamily: 'Quicksand_700Bold',
                                   fontSize: 12,
-                                  paddingRight: {
-                                    minWidth: Breakpoints.Tablet,
-                                    value: 10,
-                                  },
                                   textAlign: [
                                     {
                                       minWidth: Breakpoints.Mobile,
@@ -325,14 +347,123 @@ const PeerGroupDetailsScreen = props => {
                           </Text>
                         </View>
                         {/* View 3 */}
-                        <>
-                          {NKP_Comp ? null : (
-                            <View
-                              style={StyleSheet.applyWidth(
-                                { width: '0%' },
-                                dimensions.width
-                              )}
-                            >
+                        <View
+                          style={StyleSheet.applyWidth(
+                            {
+                              width: [
+                                { minWidth: Breakpoints.Mobile, value: '0%' },
+                                { minWidth: Breakpoints.Tablet, value: '10%' },
+                              ],
+                            },
+                            dimensions.width
+                          )}
+                        >
+                          <Text
+                            accessible={true}
+                            {...GlobalStyles.TextStyles(theme)['screen_title']
+                              .props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TextStyles(theme)['screen_title']
+                                  .style,
+                                {
+                                  fontFamily: [
+                                    {
+                                      minWidth: Breakpoints.Mobile,
+                                      value: 'Quicksand_400Regular',
+                                    },
+                                    {
+                                      minWidth: Breakpoints.Tablet,
+                                      value: 'Quicksand_700Bold',
+                                    },
+                                  ],
+                                  fontSize: 12,
+                                  textAlign: [
+                                    {
+                                      minWidth: Breakpoints.Mobile,
+                                      value: 'center',
+                                    },
+                                    {
+                                      minWidth: Breakpoints.Tablet,
+                                      value: 'right',
+                                    },
+                                  ],
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            {'FY0'}
+                          </Text>
+                        </View>
+                        {/* View 4 */}
+                        <View
+                          style={StyleSheet.applyWidth(
+                            {
+                              width: [
+                                { minWidth: Breakpoints.Mobile, value: 50 },
+                                { minWidth: Breakpoints.Tablet, value: '10%' },
+                              ],
+                            },
+                            dimensions.width
+                          )}
+                        >
+                          <Text
+                            accessible={true}
+                            {...GlobalStyles.TextStyles(theme)['screen_title']
+                              .props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TextStyles(theme)['screen_title']
+                                  .style,
+                                {
+                                  fontFamily: [
+                                    {
+                                      minWidth: Breakpoints.Mobile,
+                                      value: 'Quicksand_400Regular',
+                                    },
+                                    {
+                                      minWidth: Breakpoints.Tablet,
+                                      value: 'Quicksand_700Bold',
+                                    },
+                                  ],
+                                  fontSize: 12,
+                                  paddingRight: {
+                                    minWidth: Breakpoints.Tablet,
+                                    value: 15,
+                                  },
+                                  textAlign: [
+                                    {
+                                      minWidth: Breakpoints.Mobile,
+                                      value: 'center',
+                                    },
+                                    {
+                                      minWidth: Breakpoints.Tablet,
+                                      value: 'right',
+                                    },
+                                  ],
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            {'52w price change'}
+                          </Text>
+                        </View>
+                        {/* View 6 */}
+                        <View
+                          style={StyleSheet.applyWidth(
+                            {
+                              width: [
+                                { minWidth: Breakpoints.Mobile, value: 50 },
+                                { minWidth: Breakpoints.Tablet, value: 0 },
+                              ],
+                            },
+                            dimensions.width
+                          )}
+                        >
+                          <>
+                            {NKP_Comp ? null : (
                               <Text
                                 accessible={true}
                                 {...GlobalStyles.TextStyles(theme)[
@@ -354,9 +485,9 @@ const PeerGroupDetailsScreen = props => {
                               >
                                 {null}
                               </Text>
-                            </View>
-                          )}
-                        </>
+                            )}
+                          </>
+                        </View>
                       </View>
                     </View>
                     <SimpleStyleFlatList
@@ -432,7 +563,18 @@ const PeerGroupDetailsScreen = props => {
 
                                 <View
                                   style={StyleSheet.applyWidth(
-                                    { width: '30%' },
+                                    {
+                                      width: [
+                                        {
+                                          minWidth: Breakpoints.Mobile,
+                                          value: '30%',
+                                        },
+                                        {
+                                          minWidth: Breakpoints.Tablet,
+                                          value: '20%',
+                                        },
+                                      ],
+                                    },
                                     dimensions.width
                                   )}
                                 >
@@ -470,7 +612,100 @@ const PeerGroupDetailsScreen = props => {
                                 {/* View 2 */}
                                 <View
                                   style={StyleSheet.applyWidth(
-                                    { width: '30%' },
+                                    {
+                                      width: [
+                                        {
+                                          minWidth: Breakpoints.Mobile,
+                                          value: '30%',
+                                        },
+                                        {
+                                          minWidth: Breakpoints.Tablet,
+                                          value: '20%',
+                                        },
+                                      ],
+                                    },
+                                    dimensions.width
+                                  )}
+                                >
+                                  <Text
+                                    accessible={true}
+                                    {...GlobalStyles.TextStyles(theme)[
+                                      'screen_title'
+                                    ].props}
+                                    style={StyleSheet.applyWidth(
+                                      StyleSheet.compose(
+                                        GlobalStyles.TextStyles(theme)[
+                                          'screen_title'
+                                        ].style,
+                                        {
+                                          fontFamily: 'Quicksand_400Regular',
+                                          fontSize: 12,
+                                          textAlign: 'right',
+                                        }
+                                      ),
+                                      dimensions.width
+                                    )}
+                                  >
+                                    {'€'}
+                                    {listData?.ev_eur}
+                                    {'m'}
+                                  </Text>
+                                </View>
+                                {/* View 6 */}
+                                <View
+                                  style={StyleSheet.applyWidth(
+                                    {
+                                      width: [
+                                        {
+                                          minWidth: Breakpoints.Mobile,
+                                          value: '30%',
+                                        },
+                                        {
+                                          minWidth: Breakpoints.Tablet,
+                                          value: '10%',
+                                        },
+                                      ],
+                                    },
+                                    dimensions.width
+                                  )}
+                                >
+                                  <Text
+                                    accessible={true}
+                                    {...GlobalStyles.TextStyles(theme)[
+                                      'screen_title'
+                                    ].props}
+                                    style={StyleSheet.applyWidth(
+                                      StyleSheet.compose(
+                                        GlobalStyles.TextStyles(theme)[
+                                          'screen_title'
+                                        ].style,
+                                        {
+                                          fontFamily: 'Quicksand_400Regular',
+                                          fontSize: 12,
+                                          textAlign: 'right',
+                                        }
+                                      ),
+                                      dimensions.width
+                                    )}
+                                  >
+                                    {listData?.fy0_end_date}
+                                  </Text>
+                                </View>
+                                {/* View 7 */}
+                                <View
+                                  style={StyleSheet.applyWidth(
+                                    {
+                                      width: [
+                                        {
+                                          minWidth: Breakpoints.Mobile,
+                                          value: '30%',
+                                        },
+                                        {
+                                          minWidth: Breakpoints.Tablet,
+                                          value: '10%',
+                                        },
+                                      ],
+                                    },
                                     dimensions.width
                                   )}
                                 >
@@ -489,7 +724,7 @@ const PeerGroupDetailsScreen = props => {
                                           fontSize: 12,
                                           paddingRight: {
                                             minWidth: Breakpoints.Tablet,
-                                            value: 5,
+                                            value: 15,
                                           },
                                           textAlign: 'right',
                                         }
@@ -497,9 +732,8 @@ const PeerGroupDetailsScreen = props => {
                                       dimensions.width
                                     )}
                                   >
-                                    {'€'}
-                                    {listData?.ev_eur}
-                                    {'m'}
+                                    {listData?.change_52_weeks}
+                                    {'%'}
                                   </Text>
                                 </View>
                                 {/* View 3 */}
@@ -571,7 +805,18 @@ const PeerGroupDetailsScreen = props => {
                   {/* table */}
                   <View
                     style={StyleSheet.applyWidth(
-                      { backgroundColor: theme.colors.text.light, padding: 10 },
+                      {
+                        backgroundColor: theme.colors.text.light,
+                        padding: 10,
+                        paddingLeft: {
+                          minWidth: Breakpoints.Tablet,
+                          value: 15,
+                        },
+                        paddingRight: {
+                          minWidth: Breakpoints.Tablet,
+                          value: 15,
+                        },
+                      },
                       dimensions.width
                     )}
                   >
@@ -1387,7 +1632,18 @@ const PeerGroupDetailsScreen = props => {
                   {/* table */}
                   <View
                     style={StyleSheet.applyWidth(
-                      { backgroundColor: theme.colors.text.light, padding: 10 },
+                      {
+                        backgroundColor: theme.colors.text.light,
+                        padding: 10,
+                        paddingLeft: {
+                          minWidth: Breakpoints.Tablet,
+                          value: 15,
+                        },
+                        paddingRight: {
+                          minWidth: Breakpoints.Tablet,
+                          value: 15,
+                        },
+                      },
                       dimensions.width
                     )}
                   >
