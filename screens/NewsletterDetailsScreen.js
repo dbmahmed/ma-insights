@@ -47,6 +47,14 @@ const NewsletterDetailsScreen = props => {
       if (!isFocused) {
         return;
       }
+      setGlobalVariableValue({
+        key: 'pageName',
+        value: 'Newsletter Details',
+      });
+      setGlobalVariableValue({
+        key: 'subPage',
+        value: true,
+      });
       if (assessAccess(Variables, setGlobalVariableValue) === true) {
         return;
       }
@@ -126,6 +134,7 @@ const NewsletterDetailsScreen = props => {
                       marginTop: 65,
                       paddingBottom: 65,
                       position: 'absolute',
+                      width: '100%',
                     },
                     dimensions.width
                   )}
@@ -213,6 +222,25 @@ const NewsletterDetailsScreen = props => {
                         </Text>
                       </LinearGradient>
                     </View>
+
+                    <H3
+                      selectable={false}
+                      {...GlobalStyles.H3Styles(theme)['H3'].props}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.H3Styles(theme)['H3'].style,
+                          {
+                            fontSize: 16,
+                            marginBottom: 10,
+                            marginTop: 0,
+                            padding: 10,
+                          }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      {fetchData?._potd?.headline}
+                    </H3>
                     {/* potd settings */}
                     <View
                       style={StyleSheet.applyWidth(
@@ -225,20 +253,6 @@ const NewsletterDetailsScreen = props => {
                         dimensions.width
                       )}
                     >
-                      <H3
-                        selectable={false}
-                        {...GlobalStyles.H3Styles(theme)['H3'].props}
-                        style={StyleSheet.applyWidth(
-                          StyleSheet.compose(
-                            GlobalStyles.H3Styles(theme)['H3'].style,
-                            { fontSize: 16, marginBottom: 10, marginTop: 0 }
-                          ),
-                          dimensions.width
-                        )}
-                      >
-                        {fetchData?._potd?.headline}
-                      </H3>
-
                       <View
                         style={StyleSheet.applyWidth(
                           { flexDirection: 'row', gap: 8 },
@@ -682,6 +696,7 @@ const NewsletterDetailsScreen = props => {
                         <View
                           style={StyleSheet.applyWidth(
                             {
+                              marginBottom: 20,
                               maxWidth: 450,
                               padding: 10,
                               width: {
@@ -1198,7 +1213,7 @@ const NewsletterDetailsScreen = props => {
                                           accessible={true}
                                           style={StyleSheet.applyWidth(
                                             {
-                                              color: palettes.App.green,
+                                              color: palettes.App.Orange,
                                               fontFamily:
                                                 'Quicksand_400Regular',
                                             },
@@ -1248,9 +1263,10 @@ const NewsletterDetailsScreen = props => {
                                     },
                                   ],
                                   gap: 8,
-                                  padding: 2,
+                                  marginLeft: -10,
+                                  marginRight: -10,
+                                  padding: 10,
                                   position: 'relative',
-                                  width: '100%',
                                 },
                                 dimensions.width
                               )}
@@ -1360,7 +1376,7 @@ const NewsletterDetailsScreen = props => {
                                           accessible={true}
                                           style={StyleSheet.applyWidth(
                                             {
-                                              color: palettes.App.green,
+                                              color: palettes.App.Orange,
                                               fontFamily:
                                                 'Quicksand_400Regular',
                                             },
@@ -1397,7 +1413,12 @@ const NewsletterDetailsScreen = props => {
                               showsHorizontalScrollIndicator={false}
                               showsVerticalScrollIndicator={false}
                               style={StyleSheet.applyWidth(
-                                { gap: 8, padding: 2 },
+                                {
+                                  gap: 8,
+                                  marginLeft: -10,
+                                  marginRight: -10,
+                                  padding: 10,
+                                },
                                 dimensions.width
                               )}
                             />
@@ -1506,7 +1527,7 @@ const NewsletterDetailsScreen = props => {
                                           accessible={true}
                                           style={StyleSheet.applyWidth(
                                             {
-                                              color: palettes.App.green,
+                                              color: palettes.App.Orange,
                                               fontFamily:
                                                 'Quicksand_400Regular',
                                             },
@@ -1543,7 +1564,12 @@ const NewsletterDetailsScreen = props => {
                               showsHorizontalScrollIndicator={false}
                               showsVerticalScrollIndicator={false}
                               style={StyleSheet.applyWidth(
-                                { gap: 8, padding: 2 },
+                                {
+                                  gap: 8,
+                                  marginLeft: -10,
+                                  marginRight: -10,
+                                  padding: 10,
+                                },
                                 dimensions.width
                               )}
                             />
@@ -1652,7 +1678,16 @@ const NewsletterDetailsScreen = props => {
                                           accessible={true}
                                           style={StyleSheet.applyWidth(
                                             {
-                                              color: palettes.App.green,
+                                              color: [
+                                                {
+                                                  minWidth: Breakpoints.Desktop,
+                                                  value: palettes.App.Orange,
+                                                },
+                                                {
+                                                  minWidth: Breakpoints.Mobile,
+                                                  value: palettes.App.Orange,
+                                                },
+                                              ],
                                               fontFamily:
                                                 'Quicksand_400Regular',
                                             },
@@ -1689,7 +1724,12 @@ const NewsletterDetailsScreen = props => {
                               showsHorizontalScrollIndicator={false}
                               showsVerticalScrollIndicator={false}
                               style={StyleSheet.applyWidth(
-                                { gap: 8, padding: 2 },
+                                {
+                                  gap: 8,
+                                  marginLeft: -10,
+                                  marginRight: -10,
+                                  padding: 10,
+                                },
                                 dimensions.width
                               )}
                             />
@@ -1805,7 +1845,7 @@ const NewsletterDetailsScreen = props => {
                                           accessible={true}
                                           style={StyleSheet.applyWidth(
                                             {
-                                              color: palettes.App.green,
+                                              color: palettes.App.Orange,
                                               fontFamily:
                                                 'Quicksand_400Regular',
                                             },
@@ -1856,7 +1896,173 @@ const NewsletterDetailsScreen = props => {
                                     },
                                   ],
                                   gap: 8,
-                                  padding: 2,
+                                  marginLeft: -10,
+                                  marginRight: -10,
+                                  padding: 10,
+                                },
+                                dimensions.width
+                              )}
+                            />
+                          </View>
+                          {/* Large Cap-Arjun Testing */}
+                          <View
+                            style={StyleSheet.applyWidth(
+                              { padding: 10 },
+                              dimensions.width
+                            )}
+                          >
+                            <H3
+                              selectable={false}
+                              {...GlobalStyles.H3Styles(theme)['H3'].props}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.H3Styles(theme)['H3'].style,
+                                  {
+                                    marginBottom: 10,
+                                    marginTop: 0,
+                                    paddingLeft: 2,
+                                    paddingRight: 2,
+                                  }
+                                ),
+                                dimensions.width
+                              )}
+                            >
+                              {'Large Cap:'}
+                            </H3>
+                            <SimpleStyleFlatList
+                              data={fetchData?.events_list?.first}
+                              inverted={false}
+                              keyExtractor={(listData, index) =>
+                                listData?.id ??
+                                listData?.uuid ??
+                                index.toString()
+                              }
+                              keyboardShouldPersistTaps={'never'}
+                              listKey={'4JdufbR7'}
+                              nestedScrollEnabled={false}
+                              numColumns={1}
+                              onEndReachedThreshold={0.5}
+                              renderItem={({ item, index }) => {
+                                const listData = item;
+                                return (
+                                  <>
+                                    <View
+                                      style={StyleSheet.applyWidth(
+                                        {
+                                          backgroundColor:
+                                            palettes.Brand['Strong Inverse'],
+                                          borderColor:
+                                            palettes.Brand['Light Inverse'],
+                                          borderRadius: 8,
+                                          borderWidth: 1,
+                                          padding: 10,
+                                        },
+                                        dimensions.width
+                                      )}
+                                    >
+                                      <View>
+                                        <Text
+                                          accessible={true}
+                                          style={StyleSheet.applyWidth(
+                                            {
+                                              fontFamily:
+                                                'Quicksand_600SemiBold',
+                                              fontSize: 16,
+                                            },
+                                            dimensions.width
+                                          )}
+                                        >
+                                          {listData?.headline}
+                                          {' ('}
+                                          {listData?.source}
+                                          {')'}
+                                        </Text>
+                                      </View>
+                                      {/* View 2 */}
+                                      <View>
+                                        <Text
+                                          accessible={true}
+                                          style={StyleSheet.applyWidth(
+                                            {
+                                              color: palettes.App.Orange,
+                                              fontFamily:
+                                                'Quicksand_400Regular',
+                                            },
+                                            dimensions.width
+                                          )}
+                                        >
+                                          {listData?.country}
+                                          {' - '}
+                                          {
+                                            listData?._gics_sub_industry
+                                              ?.GICS_Sector
+                                          }
+                                        </Text>
+                                      </View>
+                                      {/* View 3 */}
+                                      <View>
+                                        <Text
+                                          accessible={true}
+                                          style={StyleSheet.applyWidth(
+                                            {
+                                              color: theme.colors.text.strong,
+                                              fontFamily:
+                                                'Quicksand_400Regular',
+                                            },
+                                            dimensions.width
+                                          )}
+                                        >
+                                          {listData?.description}
+                                        </Text>
+                                      </View>
+                                    </View>
+                                    <Shadow
+                                      showShadowCornerBottomEnd={true}
+                                      showShadowCornerBottomStart={true}
+                                      showShadowCornerTopEnd={true}
+                                      showShadowCornerTopStart={true}
+                                      showShadowSideBottom={true}
+                                      showShadowSideEnd={true}
+                                      showShadowSideStart={true}
+                                      showShadowSideTop={true}
+                                      distance={4}
+                                      offsetX={0}
+                                      offsetY={0}
+                                      paintInside={true}
+                                      stretch={true}
+                                      style={StyleSheet.applyWidth(
+                                        {
+                                          borderRadius: 12,
+                                          width: {
+                                            minWidth: Breakpoints.Laptop,
+                                            value: '100%',
+                                          },
+                                        },
+                                        dimensions.width
+                                      )}
+                                    />
+                                  </>
+                                );
+                              }}
+                              horizontal={false}
+                              showsHorizontalScrollIndicator={false}
+                              showsVerticalScrollIndicator={false}
+                              style={StyleSheet.applyWidth(
+                                {
+                                  alignSelf: [
+                                    {
+                                      minWidth: Breakpoints.Laptop,
+                                      value: 'stretch',
+                                    },
+                                    {
+                                      minWidth: Breakpoints.Mobile,
+                                      value: 'stretch',
+                                    },
+                                  ],
+                                  gap: 8,
+                                  marginLeft: -10,
+                                  marginRight: -10,
+                                  padding: 10,
                                 },
                                 dimensions.width
                               )}
@@ -1966,7 +2172,7 @@ const NewsletterDetailsScreen = props => {
                                           accessible={true}
                                           style={StyleSheet.applyWidth(
                                             {
-                                              color: palettes.App.green,
+                                              color: palettes.App.Orange,
                                               fontFamily:
                                                 'Quicksand_400Regular',
                                             },
@@ -2011,7 +2217,9 @@ const NewsletterDetailsScreen = props => {
                                     value: 'stretch',
                                   },
                                   gap: 8,
-                                  padding: 2,
+                                  marginLeft: -10,
+                                  marginRight: -10,
+                                  padding: 10,
                                 },
                                 dimensions.width
                               )}
@@ -2117,7 +2325,7 @@ const NewsletterDetailsScreen = props => {
                                           accessible={true}
                                           style={StyleSheet.applyWidth(
                                             {
-                                              color: palettes.App.green,
+                                              color: palettes.App.Orange,
                                               fontFamily:
                                                 'Quicksand_400Regular',
                                             },
@@ -2163,7 +2371,9 @@ const NewsletterDetailsScreen = props => {
                                     value: 'stretch',
                                   },
                                   gap: 8,
-                                  padding: 2,
+                                  marginLeft: -10,
+                                  marginRight: -10,
+                                  padding: 10,
                                 },
                                 dimensions.width
                               )}

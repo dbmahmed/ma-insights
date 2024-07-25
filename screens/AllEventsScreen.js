@@ -125,13 +125,22 @@ const AllEventsScreen = props => {
                   minWidth: Breakpoints.BigScreen,
                   value: 'flex-start',
                 },
-                alignItems: { minWidth: Breakpoints.Laptop, value: 'center' },
-                height: { minWidth: Breakpoints.BigScreen, value: '100%' },
-                justifyContent: {
-                  minWidth: Breakpoints.Laptop,
-                  value: 'center',
-                },
-                width: { minWidth: Breakpoints.BigScreen, value: '100%' },
+                alignItems: [
+                  { minWidth: Breakpoints.Laptop, value: 'center' },
+                  { minWidth: Breakpoints.Mobile, value: 'center' },
+                ],
+                height: [
+                  { minWidth: Breakpoints.BigScreen, value: '100%' },
+                  { minWidth: Breakpoints.Mobile, value: '100%' },
+                ],
+                justifyContent: [
+                  { minWidth: Breakpoints.Laptop, value: 'center' },
+                  { minWidth: Breakpoints.Mobile, value: 'center' },
+                ],
+                width: [
+                  { minWidth: Breakpoints.BigScreen, value: '100%' },
+                  { minWidth: Breakpoints.Mobile, value: '100%' },
+                ],
               },
               dimensions.width
             )}
@@ -140,11 +149,11 @@ const AllEventsScreen = props => {
               style={StyleSheet.applyWidth(
                 {
                   alignItems: [
-                    { minWidth: Breakpoints.Mobile, value: 'stretch' },
+                    { minWidth: Breakpoints.Mobile, value: 'center' },
                     { minWidth: Breakpoints.Laptop, value: 'stretch' },
                   ],
                   borderRadius: 8,
-                  justifyContent: 'flex-start',
+                  justifyContent: 'center',
                   width: 380,
                 },
                 dimensions.width
@@ -1943,10 +1952,10 @@ const AllEventsScreen = props => {
                     </Touchable>
                   );
                 }}
-                showsHorizontalScrollIndicator={true}
-                showsVerticalScrollIndicator={true}
                 extraData={keywordSearch !== ''}
                 numColumns={1}
+                showsHorizontalScrollIndicator={false}
+                showsVerticalScrollIndicator={false}
               />
             );
           }}

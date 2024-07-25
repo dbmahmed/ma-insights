@@ -6,7 +6,14 @@ import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
-import { HStack, IconButton, Pressable, Shadow, withTheme } from '@draftbit/ui';
+import {
+  Button,
+  HStack,
+  IconButton,
+  Pressable,
+  Shadow,
+  withTheme,
+} from '@draftbit/ui';
 import { useNavigation } from '@react-navigation/native';
 import { Image, Text, View } from 'react-native';
 
@@ -67,11 +74,27 @@ const CustomHeaderBlock = props => {
                 alignItems: 'center',
                 alignSelf: 'center',
                 flexDirection: 'row',
-                width: { minWidth: Breakpoints.Tablet, value: '5%' },
               },
               dimensions.width
             )}
           >
+            {/* Back */}
+            <>
+              {!Constants['subPage'] ? null : (
+                <IconButton
+                  onPress={() => {
+                    try {
+                      navigation.goBack();
+                    } catch (err) {
+                      console.error(err);
+                    }
+                  }}
+                  size={32}
+                  color={theme.colors.text.strong}
+                  icon={'Entypo/chevron-thin-left'}
+                />
+              )}
+            </>
             {/* MENU */}
             <IconButton
               onPress={() => {
@@ -85,25 +108,18 @@ const CustomHeaderBlock = props => {
               color={theme.colors.text.strong}
               icon={'Feather/menu'}
             />
-          </View>
-          {/* View 2 */}
-          <View
-            style={StyleSheet.applyWidth(
-              {
-                minHeight: 35,
-                minWidth: 35,
-                width: { minWidth: Breakpoints.Tablet, value: '85%' },
-              },
-              dimensions.width
-            )}
-          >
             <Text
               accessible={true}
               {...GlobalStyles.TextStyles(theme)['screen_title'].props}
               style={StyleSheet.applyWidth(
                 StyleSheet.compose(
                   GlobalStyles.TextStyles(theme)['screen_title'].style,
-                  { flex: 1, fontFamily: 'Poppins_400Regular' }
+                  {
+                    flex: 1,
+                    fontFamily: 'Poppins_400Regular',
+                    fontSize: { minWidth: Breakpoints.Laptop, value: 16 },
+                    paddingLeft: 5,
+                  }
                 ),
                 dimensions.width
               )}
@@ -111,6 +127,68 @@ const CustomHeaderBlock = props => {
               {Constants['pageName']}
             </Text>
           </View>
+          {/* View 2 */}
+          <>
+            {!(dimensions.width >= Breakpoints.Laptop) ? null : (
+              <View
+                style={StyleSheet.applyWidth(
+                  {
+                    flexDirection: {
+                      minWidth: Breakpoints.Tablet,
+                      value: 'row',
+                    },
+                    gap: { minWidth: Breakpoints.Laptop, value: 10 },
+                    position: {
+                      minWidth: Breakpoints.Laptop,
+                      value: 'absolute',
+                    },
+                    right: { minWidth: Breakpoints.Laptop, value: 100 },
+                  },
+                  dimensions.width
+                )}
+              >
+                <Button
+                  iconPosition={'left'}
+                  {...GlobalStyles.ButtonStyles(theme)['Header menu'].props}
+                  style={StyleSheet.applyWidth(
+                    GlobalStyles.ButtonStyles(theme)['Header menu'].style,
+                    dimensions.width
+                  )}
+                  title={'Newsletters'}
+                />
+                {/* Button 2 */}
+                <Button
+                  iconPosition={'left'}
+                  {...GlobalStyles.ButtonStyles(theme)['Header menu'].props}
+                  style={StyleSheet.applyWidth(
+                    GlobalStyles.ButtonStyles(theme)['Header menu'].style,
+                    dimensions.width
+                  )}
+                  title={'All events'}
+                />
+                {/* Button 3 */}
+                <Button
+                  iconPosition={'left'}
+                  {...GlobalStyles.ButtonStyles(theme)['Header menu'].props}
+                  style={StyleSheet.applyWidth(
+                    GlobalStyles.ButtonStyles(theme)['Header menu'].style,
+                    dimensions.width
+                  )}
+                  title={'CFS'}
+                />
+                {/* Button 4 */}
+                <Button
+                  iconPosition={'left'}
+                  {...GlobalStyles.ButtonStyles(theme)['Header menu'].props}
+                  style={StyleSheet.applyWidth(
+                    GlobalStyles.ButtonStyles(theme)['Header menu'].style,
+                    dimensions.width
+                  )}
+                  title={'PEPF'}
+                />
+              </View>
+            )}
+          </>
           {/* View 3 */}
           <View
             style={StyleSheet.applyWidth(

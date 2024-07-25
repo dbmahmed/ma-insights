@@ -104,20 +104,6 @@ export const TextInputStyles = theme =>
     },
   });
 
-export const ButtonStyles = theme =>
-  StyleSheet.create({
-    Button: {
-      style: {
-        backgroundColor: theme.colors.branding.primary,
-        borderRadius: 8,
-        fontFamily: 'System',
-        fontWeight: '700',
-        textAlign: 'center',
-      },
-      props: {},
-    },
-  });
-
 export const LinkStyles = theme =>
   StyleSheet.create({
     Link: { style: { color: theme.colors.branding.primary }, props: {} },
@@ -291,6 +277,49 @@ export const ViewStyles = theme =>
         flexWrap: 'wrap',
         gap: 8,
         justifyContent: 'flex-start',
+      },
+      props: {},
+    },
+  });
+
+export const ButtonStyles = theme =>
+  StyleSheet.create({
+    Button: {
+      style: {
+        backgroundColor: theme.colors.branding.primary,
+        borderRadius: 8,
+        fontFamily: 'System',
+        fontWeight: '700',
+        textAlign: 'center',
+      },
+      props: {},
+    },
+    'Header menu': {
+      style: {
+        backgroundColor: [
+          {
+            minWidth: Breakpoints.Mobile,
+            value: theme.colors.branding.primary,
+          },
+          { minWidth: Breakpoints.Laptop, value: 'rgba(0, 0, 0, 0)' },
+        ],
+        borderColor: {
+          minWidth: Breakpoints.Laptop,
+          value: theme.colors.branding.primary,
+        },
+        borderRadius: 8,
+        borderWidth: { minWidth: Breakpoints.Laptop, value: 1 },
+        color: {
+          minWidth: Breakpoints.Laptop,
+          value: theme.colors.branding.primary,
+        },
+        fontFamily: [
+          { minWidth: Breakpoints.Mobile, value: 'System' },
+          { minWidth: Breakpoints.Laptop, value: 'Quicksand_400Regular' },
+        ],
+        fontWeight: { minWidth: Breakpoints.Mobile, value: '700' },
+        textAlign: 'center',
+        textTransform: { minWidth: Breakpoints.Laptop, value: 'uppercase' },
       },
       props: {},
     },

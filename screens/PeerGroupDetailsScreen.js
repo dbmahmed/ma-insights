@@ -290,7 +290,7 @@ const PeerGroupDetailsScreen = props => {
                                   textAlign: [
                                     {
                                       minWidth: Breakpoints.Mobile,
-                                      value: 'center',
+                                      value: 'left',
                                     },
                                     {
                                       minWidth: Breakpoints.Tablet,
@@ -328,10 +328,11 @@ const PeerGroupDetailsScreen = props => {
                                 {
                                   fontFamily: 'Quicksand_700Bold',
                                   fontSize: 12,
+                                  paddingRight: 5,
                                   textAlign: [
                                     {
                                       minWidth: Breakpoints.Mobile,
-                                      value: 'center',
+                                      value: 'right',
                                     },
                                     {
                                       minWidth: Breakpoints.Tablet,
@@ -661,6 +662,7 @@ const PeerGroupDetailsScreen = props => {
                                         {
                                           fontFamily: 'Quicksand_400Regular',
                                           fontSize: 12,
+                                          paddingRight: 5,
                                           textAlign: 'right',
                                         }
                                       ),
@@ -907,7 +909,7 @@ const PeerGroupDetailsScreen = props => {
                                   textAlign: [
                                     {
                                       minWidth: Breakpoints.Mobile,
-                                      value: 'center',
+                                      value: 'right',
                                     },
                                     {
                                       minWidth: Breakpoints.Tablet,
@@ -943,7 +945,7 @@ const PeerGroupDetailsScreen = props => {
                                   textAlign: [
                                     {
                                       minWidth: Breakpoints.Mobile,
-                                      value: 'center',
+                                      value: 'right',
                                     },
                                     {
                                       minWidth: Breakpoints.Tablet,
@@ -979,7 +981,7 @@ const PeerGroupDetailsScreen = props => {
                                   textAlign: [
                                     {
                                       minWidth: Breakpoints.Mobile,
-                                      value: 'center',
+                                      value: 'right',
                                     },
                                     {
                                       minWidth: Breakpoints.Tablet,
@@ -1015,7 +1017,7 @@ const PeerGroupDetailsScreen = props => {
                                   textAlign: [
                                     {
                                       minWidth: Breakpoints.Mobile,
-                                      value: 'center',
+                                      value: 'right',
                                     },
                                     {
                                       minWidth: Breakpoints.Tablet,
@@ -1733,7 +1735,7 @@ const PeerGroupDetailsScreen = props => {
                                   textAlign: [
                                     {
                                       minWidth: Breakpoints.Mobile,
-                                      value: 'center',
+                                      value: 'right',
                                     },
                                     {
                                       minWidth: Breakpoints.Tablet,
@@ -1769,7 +1771,7 @@ const PeerGroupDetailsScreen = props => {
                                   textAlign: [
                                     {
                                       minWidth: Breakpoints.Mobile,
-                                      value: 'center',
+                                      value: 'right',
                                     },
                                     {
                                       minWidth: Breakpoints.Tablet,
@@ -1805,7 +1807,7 @@ const PeerGroupDetailsScreen = props => {
                                   textAlign: [
                                     {
                                       minWidth: Breakpoints.Mobile,
-                                      value: 'center',
+                                      value: 'right',
                                     },
                                     {
                                       minWidth: Breakpoints.Tablet,
@@ -1841,7 +1843,7 @@ const PeerGroupDetailsScreen = props => {
                                   textAlign: [
                                     {
                                       minWidth: Breakpoints.Mobile,
-                                      value: 'center',
+                                      value: 'right',
                                     },
                                     {
                                       minWidth: Breakpoints.Tablet,

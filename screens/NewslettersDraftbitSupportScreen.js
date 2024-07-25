@@ -91,7 +91,9 @@ const NewslettersDraftbitSupportScreen = props => {
                 data={fetchData}
                 estimatedItemSize={50}
                 inverted={false}
-                keyExtractor={(flashListData, index) => flashListData?.id}
+                keyExtractor={(flashListData, index) =>
+                  flashListData?.id ?? flashListData?.uuid ?? index.toString()
+                }
                 listKey={'HEXECyrh'}
                 onEndReachedThreshold={0.5}
                 renderItem={({ item, index }) => {
@@ -232,7 +234,11 @@ const NewslettersDraftbitSupportScreen = props => {
                 showsVerticalScrollIndicator={true}
                 horizontal={false}
                 numColumns={
-                  (dimensions.width >= Breakpoints.Tablet ? 3 : 2) ?? 2
+                  (dimensions.width >= Breakpoints.Desktop
+                    ? 6
+                    : dimensions.width >= Breakpoints.Tablet
+                    ? 4
+                    : 2) ?? 2
                 }
                 style={StyleSheet.applyWidth(
                   { paddingLeft: 10, paddingRight: 10 },

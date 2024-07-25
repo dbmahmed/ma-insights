@@ -9,6 +9,7 @@ import assessAccess from '../global-functions/assessAccess';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
+import showAlertUtil from '../utils/showAlert';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import {
   LinearGradient,
@@ -16,6 +17,7 @@ import {
   Pressable,
   ScreenContainer,
   SimpleStyleFlashList,
+  SimpleStyleFlatList,
   SimpleStyleScrollView,
   Table,
   TableCell,
@@ -53,23 +55,29 @@ const NewslettersScreen = props => {
       console.log('Start ON_SCREEN_FOCUS:2 SET_VARIABLE');
       setGlobalVariableValue({
         key: 'pageName',
-        value: '',
+        value: 'Newsletters',
       });
       console.log('Complete ON_SCREEN_FOCUS:2 SET_VARIABLE');
-      console.log('Start ON_SCREEN_FOCUS:3 CONDITIONAL_STOP');
+      console.log('Start ON_SCREEN_FOCUS:3 SET_VARIABLE');
+      setGlobalVariableValue({
+        key: 'subPage',
+        value: false,
+      });
+      console.log('Complete ON_SCREEN_FOCUS:3 SET_VARIABLE');
+      console.log('Start ON_SCREEN_FOCUS:4 CONDITIONAL_STOP');
       if (assessAccess(Variables, setGlobalVariableValue) === true) {
-        return console.log('Complete ON_SCREEN_FOCUS:3 CONDITIONAL_STOP');
+        return console.log('Complete ON_SCREEN_FOCUS:4 CONDITIONAL_STOP');
       } else {
         console.log(
-          'Skipped ON_SCREEN_FOCUS:3 CONDITIONAL_STOP: condition not met'
+          'Skipped ON_SCREEN_FOCUS:4 CONDITIONAL_STOP: condition not met'
         );
       }
-      console.log('Start ON_SCREEN_FOCUS:4 NAVIGATE');
+      console.log('Start ON_SCREEN_FOCUS:5 NAVIGATE');
       navigation.navigate('LogInScreen');
-      console.log('Complete ON_SCREEN_FOCUS:4 NAVIGATE');
-      console.log('Start ON_SCREEN_FOCUS:5 SET_VARIABLE');
+      console.log('Complete ON_SCREEN_FOCUS:5 NAVIGATE');
+      console.log('Start ON_SCREEN_FOCUS:6 SET_VARIABLE');
       /* hidden 'Set Variable' action */ console.log(
-        'Complete ON_SCREEN_FOCUS:5 SET_VARIABLE'
+        'Complete ON_SCREEN_FOCUS:6 SET_VARIABLE'
       );
     } catch (err) {
       console.error(err);
@@ -127,7 +135,27 @@ const NewslettersScreen = props => {
         }
       </Text>
 
-      <XanoCollectionApi.FetchNewslettersGET refetchInterval={300000}>
+      <XanoCollectionApi.FetchNewslettersGET
+        handlers={{
+          on401: fetchData => {
+            try {
+              showAlertUtil({
+                title: undefined,
+                message: 'You have been logged out',
+                buttonText: undefined,
+              });
+
+              if (navigation.canGoBack()) {
+                navigation.popToTop();
+              }
+              navigation.replace('LogInScreen');
+            } catch (err) {
+              console.error(err);
+            }
+          },
+        }}
+        refetchInterval={300000}
+      >
         {({ loading, error, data, refetchNewsletters }) => {
           const fetchData = data?.json;
           if (loading) {
@@ -146,17 +174,25 @@ const NewslettersScreen = props => {
               nestedScrollEnabled={false}
               showsHorizontalScrollIndicator={true}
               showsVerticalScrollIndicator={true}
+              style={StyleSheet.applyWidth(
+                { width: { minWidth: Breakpoints.BigScreen, value: '100%' } },
+                dimensions.width
+              )}
             >
               <View>
-                <SimpleStyleFlashList
+                <SimpleStyleFlatList
                   data={fetchData}
-                  estimatedItemSize={50}
+                  horizontal={false}
                   inverted={false}
-                  keyExtractor={(flashListData, index) => flashListData?.id}
-                  listKey={'JLhKN5ob'}
+                  keyExtractor={(listData, index) =>
+                    listData?.id ?? listData?.uuid ?? index.toString()
+                  }
+                  keyboardShouldPersistTaps={'never'}
+                  listKey={'fwWzIP91'}
+                  nestedScrollEnabled={false}
                   onEndReachedThreshold={0.5}
                   renderItem={({ item, index }) => {
-                    const flashListData = item;
+                    const listData = item;
                     return (
                       <LinearGradient
                         endX={100}
@@ -188,7 +224,7 @@ const NewslettersScreen = props => {
                           onPress={() => {
                             try {
                               navigation.navigate('NewsletterDetailsScreen', {
-                                news_id: flashListData?.id,
+                                news_id: listData?.id,
                               });
                               /* hidden 'Log to Console' action */
                               /* hidden 'If/Else' action */
@@ -196,67 +232,63 @@ const NewslettersScreen = props => {
                               console.error(err);
                             }
                           }}
-                          style={StyleSheet.applyWidth(
-                            {
-                              width: {
-                                minWidth: Breakpoints.Laptop,
-                                value: '100%',
-                              },
-                            },
-                            dimensions.width
-                          )}
                         >
                           <View
                             style={StyleSheet.applyWidth(
                               {
                                 flexDirection: 'column',
                                 flexWrap: 'nowrap',
-                                minHeight: 154,
+                                gap: 10,
+                                justifyContent: 'space-between',
+                                minHeight: 160,
                                 padding: 5,
                               },
                               dimensions.width
                             )}
                           >
-                            <H4
-                              selectable={false}
-                              {...GlobalStyles.H4Styles(theme)['H4'].props}
-                              style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.H4Styles(theme)['H4'].style,
-                                  {
-                                    color: palettes.Brand['Strong Inverse'],
-                                    fontSize: 14,
-                                    marginBottom: 0,
-                                    marginTop: 0,
-                                  }
-                                ),
-                                dimensions.width
-                              )}
-                            >
-                              {flashListData?.title}
-                            </H4>
-                            {/* Subtitle */}
-                            <Text
-                              accessible={true}
-                              {...GlobalStyles.TextStyles(theme)['screen_title']
-                                .props}
-                              style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.TextStyles(theme)['screen_title']
-                                    .style,
-                                  {
-                                    color: palettes.Brand['Strong Inverse'],
-                                    fontFamily: 'Quicksand_400Regular',
-                                    marginBottom: 20,
-                                  }
-                                ),
-                                dimensions.width
-                              )}
-                              textBreakStrategy={'highQuality'}
-                            >
-                              {'PoTD: '}
-                              {flashListData?._potd?.target}
-                            </Text>
+                            <View>
+                              <H4
+                                selectable={false}
+                                {...GlobalStyles.H4Styles(theme)['H4'].props}
+                                style={StyleSheet.applyWidth(
+                                  StyleSheet.compose(
+                                    GlobalStyles.H4Styles(theme)['H4'].style,
+                                    {
+                                      color: palettes.Brand['Strong Inverse'],
+                                      fontSize: 14,
+                                      marginBottom: 4,
+                                      marginTop: 0,
+                                    }
+                                  ),
+                                  dimensions.width
+                                )}
+                              >
+                                {listData?.title}
+                              </H4>
+                              {/* Subtitle */}
+                              <Text
+                                accessible={true}
+                                {...GlobalStyles.TextStyles(theme)[
+                                  'screen_title'
+                                ].props}
+                                style={StyleSheet.applyWidth(
+                                  StyleSheet.compose(
+                                    GlobalStyles.TextStyles(theme)[
+                                      'screen_title'
+                                    ].style,
+                                    {
+                                      color: palettes.Brand['Strong Inverse'],
+                                      fontFamily: 'Quicksand_400Regular',
+                                    }
+                                  ),
+                                  dimensions.width
+                                )}
+                                textBreakStrategy={'highQuality'}
+                              >
+                                {'PoTD: '}
+                                {listData?._potd?.target}
+                              </Text>
+                            </View>
 
                             <Text
                               accessible={true}
@@ -275,11 +307,11 @@ const NewslettersScreen = props => {
                               )}
                             >
                               {'Stories: '}
-                              {flashListData?.total_stories}
+                              {listData?.total_stories}
                               {'\nOpportunities: '}
-                              {flashListData?.opportunities}
+                              {listData?.opportunities}
                               {'\nTransactional: '}
-                              {flashListData?.transactional}
+                              {listData?.transactional}
                             </Text>
                           </View>
                         </Pressable>
@@ -288,14 +320,13 @@ const NewslettersScreen = props => {
                   }}
                   showsHorizontalScrollIndicator={true}
                   showsVerticalScrollIndicator={true}
-                  horizontal={false}
                   numColumns={
-                    (dimensions.width >= Breakpoints.Tablet ? 3 : 2) ?? 2
+                    dimensions.width >= Breakpoints.Laptop
+                      ? 4
+                      : dimensions.width >= Breakpoints.Tablet
+                      ? 3
+                      : 2
                   }
-                  style={StyleSheet.applyWidth(
-                    { paddingLeft: 10, paddingRight: 10 },
-                    dimensions.width
-                  )}
                 />
               </View>
             </SimpleStyleScrollView>

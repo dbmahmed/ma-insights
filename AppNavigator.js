@@ -32,7 +32,6 @@ import SplashScreen from './screens/SplashScreen';
 import StockDetailsScreen from './screens/StockDetailsScreen';
 import StockSearchScreen from './screens/StockSearchScreen';
 import TransactionsScreen from './screens/TransactionsScreen';
-import WeeklyReportScreen from './screens/WeeklyReportScreen';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -459,13 +458,6 @@ export default function RootAppNavigator() {
           component={PeerGroupDetailsScreen}
           options={({ navigation }) => ({
             title: 'Peer Group Details',
-          })}
-        />
-        <Stack.Screen
-          name="WeeklyReportScreen"
-          component={WeeklyReportScreen}
-          options={({ navigation }) => ({
-            title: 'Weekly report',
           })}
         />
         <Stack.Screen
