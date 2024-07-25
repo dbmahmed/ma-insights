@@ -1207,7 +1207,7 @@ const NewsletterDetailsScreen = props => {
                                         >
                                           {
                                             listData?._gics_sub_industry
-                                              ?.GICS_Sub_Industry
+                                              ?.GICS_Sector
                                           }
                                         </Text>
                                       </View>
@@ -1369,7 +1369,7 @@ const NewsletterDetailsScreen = props => {
                                         >
                                           {
                                             listData?._gics_sub_industry
-                                              ?.GICS_Sub_Industry
+                                              ?.GICS_Sector
                                           }
                                         </Text>
                                       </View>
@@ -1515,7 +1515,7 @@ const NewsletterDetailsScreen = props => {
                                         >
                                           {
                                             listData?._gics_sub_industry
-                                              ?.GICS_Sub_Industry
+                                              ?.GICS_Sector
                                           }
                                         </Text>
                                       </View>
@@ -1661,7 +1661,7 @@ const NewsletterDetailsScreen = props => {
                                         >
                                           {
                                             listData?._gics_sub_industry
-                                              ?.GICS_Sub_Industry
+                                              ?.GICS_Sector
                                           }
                                         </Text>
                                       </View>
@@ -1816,7 +1816,7 @@ const NewsletterDetailsScreen = props => {
                                           {' - '}
                                           {
                                             listData?._gics_sub_industry
-                                              ?.GICS_Sub_Industry
+                                              ?.GICS_Sector
                                           }
                                         </Text>
                                       </View>
@@ -1977,7 +1977,7 @@ const NewsletterDetailsScreen = props => {
                                           {' - '}
                                           {
                                             listData?._gics_sub_industry
-                                              ?.GICS_Sub_Industry
+                                              ?.GICS_Sector
                                           }
                                         </Text>
                                       </View>
@@ -2128,9 +2128,8 @@ const NewsletterDetailsScreen = props => {
                                           {' - '}
                                           {
                                             listData?._gics_sub_industry
-                                              ?.GICS_Sub_Industry
+                                              ?.GICS_Sector
                                           }
-                                          {'\n\n'}
                                         </Text>
                                       </View>
                                       {/* View 3 */}

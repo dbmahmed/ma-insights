@@ -686,8 +686,6 @@ const StockDetailsScreen = props => {
                       style={StyleSheet.applyWidth(
                         {
                           alignItems: 'center',
-                          borderBottomWidth: 1,
-                          borderColor: palettes.App.green,
                           flexDirection: 'row',
                           gap: 5,
                           justifyContent: 'space-between',
@@ -856,8 +854,6 @@ const StockDetailsScreen = props => {
                       style={StyleSheet.applyWidth(
                         {
                           alignItems: 'center',
-                          borderBottomWidth: 1,
-                          borderColor: palettes.App.green,
                           flexDirection: 'row',
                           gap: 5,
                           justifyContent: 'space-between',
@@ -1045,7 +1041,6 @@ const StockDetailsScreen = props => {
                       style={StyleSheet.applyWidth(
                         {
                           alignItems: 'center',
-                          borderBottomWidth: 1,
                           borderColor: palettes.App.green,
                           flexDirection: 'row',
                           gap: 5,
@@ -1228,7 +1223,6 @@ const StockDetailsScreen = props => {
                       style={StyleSheet.applyWidth(
                         {
                           alignItems: 'center',
-                          borderBottomWidth: 1,
                           borderColor: palettes.App.green,
                           flexDirection: 'row',
                           gap: 5,
@@ -1411,7 +1405,6 @@ const StockDetailsScreen = props => {
                       style={StyleSheet.applyWidth(
                         {
                           alignItems: 'center',
-                          borderBottomWidth: 1,
                           borderColor: palettes.App.green,
                           flexDirection: 'row',
                           gap: 5,
@@ -1637,7 +1630,6 @@ const StockDetailsScreen = props => {
                       style={StyleSheet.applyWidth(
                         {
                           alignItems: 'center',
-                          borderBottomWidth: 1,
                           borderColor: palettes.App.green,
                           flexDirection: 'row',
                           gap: 5,
@@ -1780,7 +1772,6 @@ const StockDetailsScreen = props => {
                       style={StyleSheet.applyWidth(
                         {
                           alignItems: 'center',
-                          borderBottomWidth: 1,
                           borderColor: palettes.App.green,
                           flexDirection: 'row',
                           gap: 5,
@@ -1926,7 +1917,6 @@ const StockDetailsScreen = props => {
                       style={StyleSheet.applyWidth(
                         {
                           alignItems: 'center',
-                          borderBottomWidth: 1,
                           borderColor: palettes.App.green,
                           flexDirection: 'row',
                           gap: 5,
@@ -2072,7 +2062,6 @@ const StockDetailsScreen = props => {
                       style={StyleSheet.applyWidth(
                         {
                           alignItems: 'center',
-                          borderBottomWidth: 1,
                           borderColor: palettes.App.green,
                           flexDirection: 'row',
                           gap: 5,
@@ -2218,7 +2207,6 @@ const StockDetailsScreen = props => {
                       style={StyleSheet.applyWidth(
                         {
                           alignItems: 'center',
-                          borderBottomWidth: 1,
                           borderColor: palettes.App.green,
                           flexDirection: 'row',
                           gap: 5,
