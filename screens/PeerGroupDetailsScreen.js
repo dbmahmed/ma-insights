@@ -253,7 +253,16 @@ const PeerGroupDetailsScreen = props => {
                                 {
                                   fontFamily: 'Quicksand_700Bold',
                                   fontSize: 12,
-                                  textAlign: 'center',
+                                  textAlign: [
+                                    {
+                                      minWidth: Breakpoints.Mobile,
+                                      value: 'center',
+                                    },
+                                    {
+                                      minWidth: Breakpoints.Tablet,
+                                      value: 'left',
+                                    },
+                                  ],
                                 }
                               ),
                               dimensions.width
@@ -280,7 +289,20 @@ const PeerGroupDetailsScreen = props => {
                                 {
                                   fontFamily: 'Quicksand_700Bold',
                                   fontSize: 12,
-                                  textAlign: 'center',
+                                  paddingRight: {
+                                    minWidth: Breakpoints.Tablet,
+                                    value: 10,
+                                  },
+                                  textAlign: [
+                                    {
+                                      minWidth: Breakpoints.Mobile,
+                                      value: 'center',
+                                    },
+                                    {
+                                      minWidth: Breakpoints.Tablet,
+                                      value: 'right',
+                                    },
+                                  ],
                                 }
                               ),
                               dimensions.width
@@ -414,7 +436,16 @@ const PeerGroupDetailsScreen = props => {
                                         {
                                           fontFamily: 'Quicksand_400Regular',
                                           fontSize: 12,
-                                          textAlign: 'left',
+                                          textAlign: [
+                                            {
+                                              minWidth: Breakpoints.Mobile,
+                                              value: 'left',
+                                            },
+                                            {
+                                              minWidth: Breakpoints.Tablet,
+                                              value: 'left',
+                                            },
+                                          ],
                                         }
                                       ),
                                       dimensions.width
@@ -443,6 +474,10 @@ const PeerGroupDetailsScreen = props => {
                                         {
                                           fontFamily: 'Quicksand_400Regular',
                                           fontSize: 12,
+                                          paddingRight: {
+                                            minWidth: Breakpoints.Tablet,
+                                            value: 5,
+                                          },
                                           textAlign: 'right',
                                         }
                                       ),
@@ -576,7 +611,16 @@ const PeerGroupDetailsScreen = props => {
                                 {
                                   fontFamily: 'Quicksand_400Regular',
                                   fontSize: 12,
-                                  textAlign: 'center',
+                                  textAlign: [
+                                    {
+                                      minWidth: Breakpoints.Mobile,
+                                      value: 'center',
+                                    },
+                                    {
+                                      minWidth: Breakpoints.Tablet,
+                                      value: 'right',
+                                    },
+                                  ],
                                 }
                               ),
                               dimensions.width
@@ -603,7 +647,16 @@ const PeerGroupDetailsScreen = props => {
                                 {
                                   fontFamily: 'Quicksand_400Regular',
                                   fontSize: 12,
-                                  textAlign: 'center',
+                                  textAlign: [
+                                    {
+                                      minWidth: Breakpoints.Mobile,
+                                      value: 'center',
+                                    },
+                                    {
+                                      minWidth: Breakpoints.Tablet,
+                                      value: 'right',
+                                    },
+                                  ],
                                 }
                               ),
                               dimensions.width
@@ -630,7 +683,16 @@ const PeerGroupDetailsScreen = props => {
                                 {
                                   fontFamily: 'Quicksand_400Regular',
                                   fontSize: 12,
-                                  textAlign: 'center',
+                                  textAlign: [
+                                    {
+                                      minWidth: Breakpoints.Mobile,
+                                      value: 'center',
+                                    },
+                                    {
+                                      minWidth: Breakpoints.Tablet,
+                                      value: 'right',
+                                    },
+                                  ],
                                 }
                               ),
                               dimensions.width
@@ -657,7 +719,16 @@ const PeerGroupDetailsScreen = props => {
                                 {
                                   fontFamily: 'Quicksand_400Regular',
                                   fontSize: 12,
-                                  textAlign: 'center',
+                                  textAlign: [
+                                    {
+                                      minWidth: Breakpoints.Mobile,
+                                      value: 'center',
+                                    },
+                                    {
+                                      minWidth: Breakpoints.Tablet,
+                                      value: 'right',
+                                    },
+                                  ],
                                 }
                               ),
                               dimensions.width
@@ -1298,7 +1369,7 @@ const PeerGroupDetailsScreen = props => {
                       dimensions.width
                     )}
                   >
-                    {'Median multiples'}
+                    {'Median KPIs'}
                   </H3>
                   {/* table */}
                   <View
@@ -1356,7 +1427,16 @@ const PeerGroupDetailsScreen = props => {
                                 {
                                   fontFamily: 'Quicksand_400Regular',
                                   fontSize: 12,
-                                  textAlign: 'center',
+                                  textAlign: [
+                                    {
+                                      minWidth: Breakpoints.Mobile,
+                                      value: 'center',
+                                    },
+                                    {
+                                      minWidth: Breakpoints.Tablet,
+                                      value: 'right',
+                                    },
+                                  ],
                                 }
                               ),
                               dimensions.width
@@ -1383,7 +1463,16 @@ const PeerGroupDetailsScreen = props => {
                                 {
                                   fontFamily: 'Quicksand_400Regular',
                                   fontSize: 12,
-                                  textAlign: 'center',
+                                  textAlign: [
+                                    {
+                                      minWidth: Breakpoints.Mobile,
+                                      value: 'center',
+                                    },
+                                    {
+                                      minWidth: Breakpoints.Tablet,
+                                      value: 'right',
+                                    },
+                                  ],
                                 }
                               ),
                               dimensions.width
@@ -1410,7 +1499,16 @@ const PeerGroupDetailsScreen = props => {
                                 {
                                   fontFamily: 'Quicksand_400Regular',
                                   fontSize: 12,
-                                  textAlign: 'center',
+                                  textAlign: [
+                                    {
+                                      minWidth: Breakpoints.Mobile,
+                                      value: 'center',
+                                    },
+                                    {
+                                      minWidth: Breakpoints.Tablet,
+                                      value: 'right',
+                                    },
+                                  ],
                                 }
                               ),
                               dimensions.width
@@ -1437,7 +1535,16 @@ const PeerGroupDetailsScreen = props => {
                                 {
                                   fontFamily: 'Quicksand_400Regular',
                                   fontSize: 12,
-                                  textAlign: 'center',
+                                  textAlign: [
+                                    {
+                                      minWidth: Breakpoints.Mobile,
+                                      value: 'center',
+                                    },
+                                    {
+                                      minWidth: Breakpoints.Tablet,
+                                      value: 'right',
+                                    },
+                                  ],
                                 }
                               ),
                               dimensions.width
