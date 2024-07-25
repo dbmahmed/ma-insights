@@ -66,7 +66,10 @@ const PeerGroupDetailsScreen = props => {
                       alignItems: 'center',
                       flexDirection: 'row',
                       justifyContent: 'space-between',
-                      marginBottom: 10,
+                      marginBottom: [
+                        { minWidth: Breakpoints.Mobile, value: 10 },
+                        { minWidth: Breakpoints.Tablet, value: 5 },
+                      ],
                     },
                     dimensions.width
                   )}
@@ -118,7 +121,17 @@ const PeerGroupDetailsScreen = props => {
                   <Text
                     accessible={true}
                     style={StyleSheet.applyWidth(
-                      { fontFamily: 'Quicksand_400Regular' },
+                      {
+                        color: {
+                          minWidth: Breakpoints.Tablet,
+                          value: theme.colors.foreground.brand,
+                        },
+                        fontFamily: 'Quicksand_400Regular',
+                        marginBottom: {
+                          minWidth: Breakpoints.Tablet,
+                          value: 2.5,
+                        },
+                      },
                       dimensions.width
                     )}
                   >
