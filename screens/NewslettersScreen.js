@@ -162,12 +162,15 @@ const NewslettersScreen = props => {
         handlers={{
           on401: fetchData => {
             try {
-              showAlertUtil({
-                title: undefined,
-                message: 'You have been logged out',
-                buttonText: undefined,
+              /* hidden 'Show Alert' action */
+              setGlobalVariableValue({
+                key: 'AUTH_HEADER',
+                value: '',
               });
-
+              setGlobalVariableValue({
+                key: 'ME',
+                value: {},
+              });
               if (navigation.canGoBack()) {
                 navigation.popToTop();
               }

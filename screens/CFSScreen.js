@@ -2347,28 +2347,13 @@ const CFSScreen = props => {
                               iconPosition={'left'}
                               onPress={() => {
                                 try {
-                                  setEbitda_small(true);
-                                  setEbitda_medium(true);
-                                  setEbitda_large(true);
-                                  setEbitda_giant(true);
-                                  setSweden(true);
-                                  setGermany(true);
-                                  setDenmark(true);
-                                  setSwitzerland(true);
-                                  setNorway(true);
-                                  setAustria(true);
-                                  setFinland(true);
-                                  setCommunication_services(true);
-                                  setIndustrials(true);
-                                  setConsumer_discretionary(true);
-                                  setIt_and_software(true);
-                                  setConsumer_staples(true);
-                                  setMaterials(true);
-                                  setEnergy(true);
-                                  setReal_estate(true);
-                                  setFinancials(true);
-                                  setHealth_care(true);
-                                  setUtilities(true);
+                                  if (SelectButton === 'All') {
+                                    toggleAllFilters(true);
+                                    setSelectButton('None');
+                                  } else {
+                                    toggleAllFilters(false);
+                                    setSelectButton('All');
+                                  }
                                 } catch (err) {
                                   console.error(err);
                                 }
