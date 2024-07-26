@@ -97,43 +97,66 @@ const NewslettersScreen = props => {
       scrollable={false}
     >
       <CustomHeaderBlock />
-      <H5
-        selectable={false}
-        {...GlobalStyles.H5Styles(theme)['H5'].props}
+      {/* box */}
+      <View
         style={StyleSheet.applyWidth(
-          StyleSheet.compose(GlobalStyles.H5Styles(theme)['H5'].style, {
-            fontFamily: 'Quicksand_600SemiBold',
-            fontSize: 25,
-            marginBottom: 20,
-            marginLeft: 20,
-            textDecorationLine: 'none',
-          }),
+          { alignItems: 'center' },
           dimensions.width
         )}
       >
-        {'Newsletters'}
-      </H5>
-
-      <Text
-        accessible={true}
-        {...GlobalStyles.TextStyles(theme)['screen_title'].props}
-        style={StyleSheet.applyWidth(
-          StyleSheet.compose(
-            GlobalStyles.TextStyles(theme)['screen_title'].style,
+        {/* container */}
+        <View
+          style={StyleSheet.applyWidth(
+            { maxWidth: 1200, width: '100%' },
+            dimensions.width
+          )}
+        >
+          <>
+            {!(dimensions.width >= Breakpoints.Laptop) ? null : (
+              <H5
+                selectable={false}
+                {...GlobalStyles.H5Styles(theme)['H5'].props}
+                style={StyleSheet.applyWidth(
+                  StyleSheet.compose(GlobalStyles.H5Styles(theme)['H5'].style, {
+                    fontFamily: 'Quicksand_600SemiBold',
+                    fontSize: 25,
+                    marginBottom: 20,
+                    marginLeft: 20,
+                    textDecorationLine: 'none',
+                  }),
+                  dimensions.width
+                )}
+              >
+                {'Newsletters'}
+              </H5>
+            )}
+          </>
+          <Text
+            accessible={true}
+            {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+            style={StyleSheet.applyWidth(
+              StyleSheet.compose(
+                GlobalStyles.TextStyles(theme)['screen_title'].style,
+                {
+                  fontFamily: 'Quicksand_400Regular',
+                  marginBottom: 20,
+                  marginLeft: 20,
+                  marginRight: 20,
+                  paddingTop: [
+                    { minWidth: Breakpoints.Mobile, value: 20 },
+                    { minWidth: Breakpoints.Laptop, value: 0 },
+                  ],
+                }
+              ),
+              dimensions.width
+            )}
+          >
             {
-              fontFamily: 'Quicksand_400Regular',
-              marginBottom: 20,
-              marginLeft: 20,
-              marginRight: 20,
+              'Released weekdays at 8.30 AM - enable notifications to get notified on release.'
             }
-          ),
-          dimensions.width
-        )}
-      >
-        {
-          'Released weekdays at 8.30 AM - enable notifications to get notified on release.'
-        }
-      </Text>
+          </Text>
+        </View>
+      </View>
 
       <XanoCollectionApi.FetchNewslettersGET
         handlers={{
@@ -175,18 +198,32 @@ const NewslettersScreen = props => {
               showsHorizontalScrollIndicator={true}
               showsVerticalScrollIndicator={true}
               style={StyleSheet.applyWidth(
-                { width: { minWidth: Breakpoints.BigScreen, value: '100%' } },
+                {
+                  alignItems: { minWidth: Breakpoints.Tablet, value: 'center' },
+                  width: { minWidth: Breakpoints.BigScreen, value: '100%' },
+                },
                 dimensions.width
               )}
             >
-              <View>
+              {/* container */}
+              <View
+                style={StyleSheet.applyWidth(
+                  {
+                    maxWidth: { minWidth: Breakpoints.Tablet, value: 1200 },
+                    paddingLeft: 10,
+                    paddingRight: 10,
+                    width: { minWidth: Breakpoints.Tablet, value: '100%' },
+                  },
+                  dimensions.width
+                )}
+              >
                 <SimpleStyleFlatList
                   data={fetchData}
                   horizontal={false}
                   inverted={false}
                   keyExtractor={(listData, index) => listData?.id}
                   keyboardShouldPersistTaps={'never'}
-                  listKey={'fwWzIP91'}
+                  listKey={'sXtzWjLu'}
                   nestedScrollEnabled={false}
                   onEndReachedThreshold={0.5}
                   renderItem={({ item, index }) => {
@@ -212,7 +249,11 @@ const NewslettersScreen = props => {
                               borderColor: theme.colors.text.strong,
                               borderRadius: 5,
                               flexDirection: 'column',
-                              flexWrap: 'wrap',
+                              maxWidth: [
+                                { minWidth: Breakpoints.Mobile, value: 260 },
+                                { minWidth: Breakpoints.Desktop, value: 230 },
+                                { minWidth: Breakpoints.Laptop, value: 183 },
+                              ],
                             }
                           ),
                           dimensions.width
@@ -221,9 +262,7 @@ const NewslettersScreen = props => {
                         <Pressable
                           onPress={() => {
                             try {
-                              navigation.navigate('NewsletterDetailsScreen', {
-                                news_id: listData?.id,
-                              });
+                              navigation.navigate('NewsletterDetailsScreen');
                               /* hidden 'Log to Console' action */
                               /* hidden 'If/Else' action */
                             } catch (err) {
@@ -319,10 +358,8 @@ const NewslettersScreen = props => {
                   showsHorizontalScrollIndicator={true}
                   showsVerticalScrollIndicator={true}
                   numColumns={
-                    dimensions.width >= Breakpoints.Desktop
-                      ? 6
-                      : dimensions.width >= Breakpoints.Laptop
-                      ? 4
+                    dimensions.width >= Breakpoints.Laptop
+                      ? 5
                       : dimensions.width >= Breakpoints.Tablet
                       ? 3
                       : 2

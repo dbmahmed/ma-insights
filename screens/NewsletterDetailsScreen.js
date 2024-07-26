@@ -130,6 +130,7 @@ const NewsletterDetailsScreen = props => {
                   showsVerticalScrollIndicator={true}
                   style={StyleSheet.applyWidth(
                     {
+                      alignItems: 'center',
                       height: '100%',
                       marginTop: 65,
                       paddingBottom: 65,
@@ -139,7 +140,12 @@ const NewsletterDetailsScreen = props => {
                     dimensions.width
                   )}
                 >
-                  <View>
+                  <View
+                    style={StyleSheet.applyWidth(
+                      { maxWidth: 1200 },
+                      dimensions.width
+                    )}
+                  >
                     <View
                       style={StyleSheet.applyWidth(
                         { marginBottom: 10, padding: 10 },
@@ -1878,170 +1884,6 @@ const NewsletterDetailsScreen = props => {
                                       </View>
                                     </View>
                                   </Shadow>
-                                );
-                              }}
-                              horizontal={false}
-                              showsHorizontalScrollIndicator={false}
-                              showsVerticalScrollIndicator={false}
-                              style={StyleSheet.applyWidth(
-                                {
-                                  alignSelf: [
-                                    {
-                                      minWidth: Breakpoints.Laptop,
-                                      value: 'stretch',
-                                    },
-                                    {
-                                      minWidth: Breakpoints.Mobile,
-                                      value: 'stretch',
-                                    },
-                                  ],
-                                  gap: 8,
-                                  marginLeft: -10,
-                                  marginRight: -10,
-                                  padding: 10,
-                                },
-                                dimensions.width
-                              )}
-                            />
-                          </View>
-                          {/* Large Cap-Arjun Testing */}
-                          <View
-                            style={StyleSheet.applyWidth(
-                              { padding: 10 },
-                              dimensions.width
-                            )}
-                          >
-                            <H3
-                              selectable={false}
-                              {...GlobalStyles.H3Styles(theme)['H3'].props}
-                              style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.H3Styles(theme)['H3'].style,
-                                  {
-                                    marginBottom: 10,
-                                    marginTop: 0,
-                                    paddingLeft: 2,
-                                    paddingRight: 2,
-                                  }
-                                ),
-                                dimensions.width
-                              )}
-                            >
-                              {'Large Cap:'}
-                            </H3>
-                            <SimpleStyleFlatList
-                              data={fetchData?.events_list?.first}
-                              inverted={false}
-                              keyExtractor={(listData, index) =>
-                                listData?.id ??
-                                listData?.uuid ??
-                                index.toString()
-                              }
-                              keyboardShouldPersistTaps={'never'}
-                              listKey={'4JdufbR7'}
-                              nestedScrollEnabled={false}
-                              numColumns={1}
-                              onEndReachedThreshold={0.5}
-                              renderItem={({ item, index }) => {
-                                const listData = item;
-                                return (
-                                  <>
-                                    <View
-                                      style={StyleSheet.applyWidth(
-                                        {
-                                          backgroundColor:
-                                            palettes.Brand['Strong Inverse'],
-                                          borderColor:
-                                            palettes.Brand['Light Inverse'],
-                                          borderRadius: 8,
-                                          borderWidth: 1,
-                                          padding: 10,
-                                        },
-                                        dimensions.width
-                                      )}
-                                    >
-                                      <View>
-                                        <Text
-                                          accessible={true}
-                                          style={StyleSheet.applyWidth(
-                                            {
-                                              fontFamily:
-                                                'Quicksand_600SemiBold',
-                                              fontSize: 16,
-                                            },
-                                            dimensions.width
-                                          )}
-                                        >
-                                          {listData?.headline}
-                                          {' ('}
-                                          {listData?.source}
-                                          {')'}
-                                        </Text>
-                                      </View>
-                                      {/* View 2 */}
-                                      <View>
-                                        <Text
-                                          accessible={true}
-                                          style={StyleSheet.applyWidth(
-                                            {
-                                              color: palettes.App.Orange,
-                                              fontFamily:
-                                                'Quicksand_400Regular',
-                                            },
-                                            dimensions.width
-                                          )}
-                                        >
-                                          {listData?.country}
-                                          {' - '}
-                                          {
-                                            listData?._gics_sub_industry
-                                              ?.GICS_Sector
-                                          }
-                                        </Text>
-                                      </View>
-                                      {/* View 3 */}
-                                      <View>
-                                        <Text
-                                          accessible={true}
-                                          style={StyleSheet.applyWidth(
-                                            {
-                                              color: theme.colors.text.strong,
-                                              fontFamily:
-                                                'Quicksand_400Regular',
-                                            },
-                                            dimensions.width
-                                          )}
-                                        >
-                                          {listData?.description}
-                                        </Text>
-                                      </View>
-                                    </View>
-                                    <Shadow
-                                      showShadowCornerBottomEnd={true}
-                                      showShadowCornerBottomStart={true}
-                                      showShadowCornerTopEnd={true}
-                                      showShadowCornerTopStart={true}
-                                      showShadowSideBottom={true}
-                                      showShadowSideEnd={true}
-                                      showShadowSideStart={true}
-                                      showShadowSideTop={true}
-                                      distance={4}
-                                      offsetX={0}
-                                      offsetY={0}
-                                      paintInside={true}
-                                      stretch={true}
-                                      style={StyleSheet.applyWidth(
-                                        {
-                                          borderRadius: 12,
-                                          width: {
-                                            minWidth: Breakpoints.Laptop,
-                                            value: '100%',
-                                          },
-                                        },
-                                        dimensions.width
-                                      )}
-                                    />
-                                  </>
                                 );
                               }}
                               horizontal={false}

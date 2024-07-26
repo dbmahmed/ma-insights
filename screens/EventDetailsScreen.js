@@ -11,7 +11,6 @@ import {
   LinearGradient,
   ScreenContainer,
   SimpleStyleScrollView,
-  WebView,
   withTheme,
 } from '@draftbit/ui';
 import { H3 } from '@expo/html-elements';
@@ -109,36 +108,20 @@ const EventDetailsScreen = props => {
 
                 <View
                   style={StyleSheet.applyWidth(
-                    { height: 300, marginBottom: 20 },
+                    { marginBottom: 20 },
                     dimensions.width
                   )}
                 >
-                  <WebView
-                    allowFileAccessFromFileURLs={false}
-                    allowUniversalAccessFromFileURLs={false}
-                    cacheEnabled={true}
-                    incognito={false}
-                    javaScriptCanOpenWindowsAutomatically={false}
-                    javaScriptEnabled={true}
-                    mediaPlaybackRequiresUserAction={false}
-                    showsHorizontalScrollIndicator={true}
-                    showsVerticalScrollIndicator={true}
-                    startInLoadingState={false}
-                    {...GlobalStyles.WebViewStyles(theme)['HTML View'].props}
-                    source={{ html: `${fetchData?.description}` }}
+                  <Text
+                    accessible={true}
+                    {...GlobalStyles.TextStyles(theme)['screen_title'].props}
                     style={StyleSheet.applyWidth(
-                      StyleSheet.compose(
-                        GlobalStyles.WebViewStyles(theme)['HTML View'].style,
-                        {
-                          maxHeight: {
-                            minWidth: Breakpoints.BigScreen,
-                            value: 500,
-                          },
-                        }
-                      ),
+                      GlobalStyles.TextStyles(theme)['screen_title'].style,
                       dimensions.width
                     )}
-                  />
+                  >
+                    {fetchData?.description}
+                  </Text>
                 </View>
                 {/* View 2 */}
                 <View

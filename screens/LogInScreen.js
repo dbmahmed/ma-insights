@@ -172,10 +172,7 @@ const LogInScreen = props => {
                     { minWidth: Breakpoints.Mobile, value: 'Poppins_900Black' },
                   ],
                   fontSize: 30,
-                  lineHeight: [
-                    { minWidth: Breakpoints.Desktop, value: 14 },
-                    { minWidth: Breakpoints.Mobile, value: 30 },
-                  ],
+                  lineHeight: 30,
                   paddingBottom: { minWidth: Breakpoints.Desktop, value: 0 },
                   textAlign: 'center',
                 }

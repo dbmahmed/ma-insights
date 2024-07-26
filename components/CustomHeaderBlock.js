@@ -13,10 +13,11 @@ import {
   Link,
   Pressable,
   Shadow,
+  VStack,
   withTheme,
 } from '@draftbit/ui';
 import { useNavigation } from '@react-navigation/native';
-import { Image, Text, View } from 'react-native';
+import { Image, Modal, Text, View } from 'react-native';
 
 const CustomHeaderBlock = props => {
   const { theme } = props;
@@ -24,6 +25,7 @@ const CustomHeaderBlock = props => {
   const navigation = useNavigation();
   const Constants = GlobalVariables.useValues();
   const Variables = Constants;
+  const setGlobalVariableValue = GlobalVariables.useSetValue();
 
   return (
     <View
@@ -101,6 +103,7 @@ const CustomHeaderBlock = props => {
               onPress={() => {
                 try {
                   navigation.navigate('PeerGroupDetailsScreen');
+                  /* hidden 'Set Variable' action */
                 } catch (err) {
                   console.error(err);
                 }
