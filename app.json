@@ -5,7 +5,7 @@
         "usesNonExemptEncryption": false
       },
       "infoPlist": {},
-      "buildNumber": "1.24.0",
+      "buildNumber": "1.25.0",
       "isTabletOnly": false,
       "supportsTablet": true,
       "bundleIdentifier": "com.draftbit.untitledapp",
@@ -63,7 +63,7 @@
     "android": {
       "package": "com.draftbit.untitledapp",
       "permissions": [],
-      "versionCode": 24,
+      "versionCode": 25,
       "adaptiveIcon": {},
       "userInterfaceStyle": "light"
     },
@@ -76,7 +76,7 @@
       ]
     ],
     "privacy": "unlisted",
-    "version": "1.24.0",
+    "version": "1.25.0",
     "platforms": [
       "ios",
       "android",

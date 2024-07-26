@@ -45,6 +45,7 @@ const App = () => {
     Quicksand_500Medium: Fonts.Quicksand_500Medium,
     Quicksand_700Bold: Fonts.Quicksand_700Bold,
     Quicksand_600SemiBold: Fonts.Quicksand_600SemiBold,
+    Quicksand_300Light: Fonts.Quicksand_300Light,
   });
 
   React.useEffect(() => {

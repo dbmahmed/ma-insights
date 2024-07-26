@@ -5,4 +5,5 @@ export default {
   Quicksand_500Medium: require('../assets/fonts/Quicksand_500Medium.ttf'),
   Quicksand_700Bold: require('../assets/fonts/Quicksand_700Bold.ttf'),
   Quicksand_600SemiBold: require('../assets/fonts/Quicksand_600SemiBold.ttf'),
+  Quicksand_300Light: require('../assets/fonts/Quicksand_300Light.ttf'),
 };

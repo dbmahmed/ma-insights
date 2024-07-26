@@ -2,6 +2,7 @@ import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
 import AccModalBlock from '../components/AccModalBlock';
+import CustomHeaderBlock from '../components/CustomHeaderBlock';
 import TopNavBlock from '../components/TopNavBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import assessAccess from '../global-functions/assessAccess';
@@ -37,8 +38,6 @@ const AllEventsScreen = props => {
   const Constants = GlobalVariables.useValues();
   const Variables = Constants;
   const setGlobalVariableValue = GlobalVariables.useSetValue();
-  const [Country, setCountry] = React.useState([]);
-  const [Sector, setSector] = React.useState([]);
   const [acq_agenda, setAcq_agenda] = React.useState(false);
   const [austria, setAustria] = React.useState(false);
   const [checkboxRow2Value, setCheckboxRow2Value] = React.useState('');
@@ -52,6 +51,7 @@ const AllEventsScreen = props => {
   const [consumer_discretionary, setConsumer_discretionary] =
     React.useState(false);
   const [consumer_staples, setConsumer_staples] = React.useState(false);
+  const [country, setCountry] = React.useState([]);
   const [denmark, setDenmark] = React.useState(false);
   const [energy, setEnergy] = React.useState(false);
   const [eventSearch, setEventSearch] = React.useState('');
@@ -68,10 +68,103 @@ const AllEventsScreen = props => {
   const [materials, setMaterials] = React.useState(false);
   const [norway, setNorway] = React.useState(false);
   const [real_estate, setReal_estate] = React.useState(false);
+  const [sector, setSector] = React.useState([]);
   const [sweden, setSweden] = React.useState(false);
   const [switzerland, setSwitzerland] = React.useState(false);
   const [transaction, setTransaction] = React.useState(false);
   const [utilities, setUtilities] = React.useState(false);
+  const selectAllFilters = () => {
+    setFuture_opportunity(true);
+    setAcq_agenda(true);
+    setTransaction(true);
+    setSweden(true);
+    setGermany(true);
+    setDenmark(true);
+    setSwitzerland(true);
+    setNorway(true);
+    setAustria(true);
+    setFinland(true);
+    setCommunication_services(true);
+    setIndustrials(true);
+    setConsumer_discretionary(true);
+    setIt_and_software(true);
+    setConsumer_staples(true);
+    setMaterials(true);
+    setEnergy(true);
+    setReal_estate(true);
+    setFinancials(true);
+    setUtilities(true);
+    setHealth_care(true);
+  };
+
+  const applyFilter = () => {
+    //Event type
+    const eventType = [];
+
+    future_opportunity && eventType.push('future_opportunity');
+    acq_agenda && eventType.push('acq_agenda');
+    transaction && eventType.push('transaction');
+
+    setEventType(() => eventType);
+
+    //country
+    const countries = [];
+
+    sweden && countries.push('sweden');
+    germany && countries.push('germany');
+    denmark && countries.push('denmark');
+    switzerland && countries.push('switzerland');
+    norway && countries.push('norway');
+    austria && countries.push('austria');
+    finland && countries.push('finland');
+
+    setCountry(() => countries);
+
+    //sector
+    const sectors = [];
+
+    communication_services && sectors.push('communication_services');
+    industrials && sectors.push('industrials');
+    consumer_discretionary && sectors.push('consumer_discretionary');
+    it_and_software && sectors.push('it_and_software');
+    consumer_staples && sectors.push('consumer_staples');
+    materials && sectors.push('materials');
+    energy && sectors.push('energy');
+    real_estate && sectors.push('real_estate');
+    financials && sectors.push('financials');
+    utilities && sectors.push('utilities');
+    health_care && sectors.push('health_care');
+
+    setSector(() => sectors);
+  };
+
+  const matchingFilters = () => {
+    setFuture_opportunity((eventType || []).includes('future_opportunity'));
+    setAcq_agenda((eventType || []).includes('acq_agenda'));
+    setTransaction((eventType || []).includes('transaction'));
+
+    setSweden((country || []).includes('sweden'));
+    setGermany((country || []).includes('germany'));
+    setDenmark((country || []).includes('denmark'));
+    setSwitzerland((country || []).includes('switzerland'));
+    setNorway((country || []).includes('norway'));
+    setAustria((country || []).includes('austria'));
+    setFinland((country || []).includes('finland'));
+
+    setCommunication_services((sector || []).includes('finland'));
+    setIndustrials((sector || []).includes('industrials'));
+    setConsumer_discretionary(
+      (sector || []).includes('consumer_discretionary')
+    );
+    setIt_and_software((sector || []).includes('it_and_software'));
+    setConsumer_staples((sector || []).includes('consumer_staples'));
+    setMaterials((sector || []).includes('materials'));
+    setEnergy((sector || []).includes('energy'));
+    setReal_estate((sector || []).includes('real_estate'));
+    setFinancials((sector || []).includes('financials'));
+    setUtilities((sector || []).includes('utilities'));
+    setHealth_care((sector || []).includes('health_care'));
+  };
   const isFocused = useIsFocused();
   React.useEffect(() => {
     const handler = async () => {
@@ -79,15 +172,28 @@ const AllEventsScreen = props => {
         if (!isFocused) {
           return;
         }
-        console.log(Constants['AUTH_HEADER'], 'AUTH HEADER:', 'ALL EVENTS');
+        setGlobalVariableValue({
+          key: 'pageName',
+          value: 'All events',
+        });
+        setGlobalVariableValue({
+          key: 'subPage',
+          value: false,
+        });
+        /* hidden 'Log to Console' action */
         const getEvent = (
           await XanoCollectionApi.getAllEventsGET(Constants, {
             keyword: 'Update',
           })
         )?.json;
-        console.log(Constants['ME'], getEvent, 'ALLEVENTS:');
-        /* hidden 'Conditional Stop' action */
-        /* hidden 'Navigate' action */
+        /* hidden 'Log to Console' action */
+        if (assessAccess(Variables, setGlobalVariableValue) === true) {
+          return;
+        }
+        if (navigation.canGoBack()) {
+          navigation.popToTop();
+        }
+        navigation.replace('LogInScreen');
       } catch (err) {
         console.error(err);
       }
@@ -99,11 +205,10 @@ const AllEventsScreen = props => {
     <ScreenContainer
       hasSafeArea={false}
       hasLeftSafeArea={true}
-      hasRightSafeArea={false}
+      hasRightSafeArea={true}
       scrollable={false}
     >
-      <AccModalBlock />
-      <>{!Constants['top_nav_pressed'] ? null : <TopNavBlock />}</>
+      <CustomHeaderBlock />
       <View
         style={StyleSheet.applyWidth(
           { margin: 0, padding: 10 },
@@ -117,30 +222,23 @@ const AllEventsScreen = props => {
           transparent={true}
           visible={filterPressed}
         >
-          {/* View  */}
-          <View
+          <SimpleStyleScrollView
+            bounces={true}
+            horizontal={false}
+            keyboardShouldPersistTaps={'never'}
+            nestedScrollEnabled={false}
+            showsHorizontalScrollIndicator={true}
+            showsVerticalScrollIndicator={true}
             style={StyleSheet.applyWidth(
               {
-                alignContent: {
-                  minWidth: Breakpoints.BigScreen,
-                  value: 'flex-start',
-                },
-                alignItems: [
-                  { minWidth: Breakpoints.Laptop, value: 'center' },
-                  { minWidth: Breakpoints.Mobile, value: 'center' },
-                ],
-                height: [
-                  { minWidth: Breakpoints.BigScreen, value: '100%' },
-                  { minWidth: Breakpoints.Mobile, value: '100%' },
-                ],
+                alignItems: 'center',
+                height: '100%',
                 justifyContent: [
-                  { minWidth: Breakpoints.Laptop, value: 'center' },
                   { minWidth: Breakpoints.Mobile, value: 'center' },
+                  { minWidth: Breakpoints.Tablet, value: 'flex-start' },
                 ],
-                width: [
-                  { minWidth: Breakpoints.BigScreen, value: '100%' },
-                  { minWidth: Breakpoints.Mobile, value: '100%' },
-                ],
+                paddingTop: { minWidth: Breakpoints.Tablet, value: 100 },
+                width: '100%',
               },
               dimensions.width
             )}
@@ -154,7 +252,11 @@ const AllEventsScreen = props => {
                   ],
                   borderRadius: 8,
                   justifyContent: 'center',
-                  width: 380,
+                  maxWidth: [
+                    { minWidth: Breakpoints.Mobile, value: 380 },
+                    { minWidth: Breakpoints.Tablet, value: 600 },
+                  ],
+                  width: '100%',
                 },
                 dimensions.width
               )}
@@ -302,7 +404,10 @@ const AllEventsScreen = props => {
                           alignItems: 'center',
                           flexDirection: 'row',
                           gap: 4,
-                          width: '47%',
+                          width: [
+                            { minWidth: Breakpoints.Mobile, value: '47%' },
+                            { minWidth: Breakpoints.Tablet, value: '30%' },
+                          ],
                         },
                         dimensions.width
                       )}
@@ -373,7 +478,10 @@ const AllEventsScreen = props => {
                           alignItems: 'center',
                           flexDirection: 'row',
                           gap: 4,
-                          width: '47%',
+                          width: [
+                            { minWidth: Breakpoints.Mobile, value: '47%' },
+                            { minWidth: Breakpoints.Tablet, value: '30%' },
+                          ],
                         },
                         dimensions.width
                       )}
@@ -429,7 +537,10 @@ const AllEventsScreen = props => {
                           alignItems: 'center',
                           flexDirection: 'row',
                           gap: 4,
-                          width: '47%',
+                          width: [
+                            { minWidth: Breakpoints.Mobile, value: '47%' },
+                            { minWidth: Breakpoints.Tablet, value: '30%' },
+                          ],
                         },
                         dimensions.width
                       )}
@@ -531,7 +642,10 @@ const AllEventsScreen = props => {
                           alignItems: 'center',
                           flexDirection: 'row',
                           gap: 4,
-                          width: '47%',
+                          width: [
+                            { minWidth: Breakpoints.Mobile, value: '47%' },
+                            { minWidth: Breakpoints.Tablet, value: '30%' },
+                          ],
                         },
                         dimensions.width
                       )}
@@ -587,7 +701,10 @@ const AllEventsScreen = props => {
                           alignItems: 'center',
                           flexDirection: 'row',
                           gap: 4,
-                          width: '47%',
+                          width: [
+                            { minWidth: Breakpoints.Mobile, value: '47%' },
+                            { minWidth: Breakpoints.Tablet, value: '30%' },
+                          ],
                         },
                         dimensions.width
                       )}
@@ -643,7 +760,10 @@ const AllEventsScreen = props => {
                           alignItems: 'center',
                           flexDirection: 'row',
                           gap: 4,
-                          width: '47%',
+                          width: [
+                            { minWidth: Breakpoints.Mobile, value: '47%' },
+                            { minWidth: Breakpoints.Tablet, value: '30%' },
+                          ],
                         },
                         dimensions.width
                       )}
@@ -699,7 +819,10 @@ const AllEventsScreen = props => {
                           alignItems: 'center',
                           flexDirection: 'row',
                           gap: 4,
-                          width: '47%',
+                          width: [
+                            { minWidth: Breakpoints.Mobile, value: '47%' },
+                            { minWidth: Breakpoints.Tablet, value: '30%' },
+                          ],
                         },
                         dimensions.width
                       )}
@@ -755,7 +878,10 @@ const AllEventsScreen = props => {
                           alignItems: 'center',
                           flexDirection: 'row',
                           gap: 4,
-                          width: '47%',
+                          width: [
+                            { minWidth: Breakpoints.Mobile, value: '47%' },
+                            { minWidth: Breakpoints.Tablet, value: '30%' },
+                          ],
                         },
                         dimensions.width
                       )}
@@ -811,7 +937,10 @@ const AllEventsScreen = props => {
                           alignItems: 'center',
                           flexDirection: 'row',
                           gap: 4,
-                          width: '47%',
+                          width: [
+                            { minWidth: Breakpoints.Mobile, value: '47%' },
+                            { minWidth: Breakpoints.Tablet, value: '30%' },
+                          ],
                         },
                         dimensions.width
                       )}
@@ -867,7 +996,10 @@ const AllEventsScreen = props => {
                           alignItems: 'center',
                           flexDirection: 'row',
                           gap: 4,
-                          width: '47%',
+                          width: [
+                            { minWidth: Breakpoints.Mobile, value: '47%' },
+                            { minWidth: Breakpoints.Tablet, value: '30%' },
+                          ],
                         },
                         dimensions.width
                       )}
@@ -1023,7 +1155,10 @@ const AllEventsScreen = props => {
                           alignItems: 'center',
                           flexDirection: 'row',
                           gap: 4,
-                          width: '47%',
+                          width: [
+                            { minWidth: Breakpoints.Mobile, value: '47%' },
+                            { minWidth: Breakpoints.Tablet, value: '30%' },
+                          ],
                         },
                         dimensions.width
                       )}
@@ -1081,7 +1216,10 @@ const AllEventsScreen = props => {
                           alignItems: 'center',
                           flexDirection: 'row',
                           gap: 4,
-                          width: '47%',
+                          width: [
+                            { minWidth: Breakpoints.Mobile, value: '47%' },
+                            { minWidth: Breakpoints.Tablet, value: '30%' },
+                          ],
                         },
                         dimensions.width
                       )}
@@ -1137,7 +1275,10 @@ const AllEventsScreen = props => {
                           alignItems: 'center',
                           flexDirection: 'row',
                           gap: 4,
-                          width: '47%',
+                          width: [
+                            { minWidth: Breakpoints.Mobile, value: '47%' },
+                            { minWidth: Breakpoints.Tablet, value: '30%' },
+                          ],
                         },
                         dimensions.width
                       )}
@@ -1195,7 +1336,10 @@ const AllEventsScreen = props => {
                           alignItems: 'center',
                           flexDirection: 'row',
                           gap: 4,
-                          width: '47%',
+                          width: [
+                            { minWidth: Breakpoints.Mobile, value: '47%' },
+                            { minWidth: Breakpoints.Tablet, value: '30%' },
+                          ],
                         },
                         dimensions.width
                       )}
@@ -1251,7 +1395,10 @@ const AllEventsScreen = props => {
                           alignItems: 'center',
                           flexDirection: 'row',
                           gap: 4,
-                          width: '47%',
+                          width: [
+                            { minWidth: Breakpoints.Mobile, value: '47%' },
+                            { minWidth: Breakpoints.Tablet, value: '30%' },
+                          ],
                         },
                         dimensions.width
                       )}
@@ -1309,7 +1456,10 @@ const AllEventsScreen = props => {
                           alignItems: 'center',
                           flexDirection: 'row',
                           gap: 4,
-                          width: '47%',
+                          width: [
+                            { minWidth: Breakpoints.Mobile, value: '47%' },
+                            { minWidth: Breakpoints.Tablet, value: '30%' },
+                          ],
                         },
                         dimensions.width
                       )}
@@ -1365,7 +1515,10 @@ const AllEventsScreen = props => {
                           alignItems: 'center',
                           flexDirection: 'row',
                           gap: 4,
-                          width: '47%',
+                          width: [
+                            { minWidth: Breakpoints.Mobile, value: '47%' },
+                            { minWidth: Breakpoints.Tablet, value: '30%' },
+                          ],
                         },
                         dimensions.width
                       )}
@@ -1421,7 +1574,10 @@ const AllEventsScreen = props => {
                           alignItems: 'center',
                           flexDirection: 'row',
                           gap: 4,
-                          width: '47%',
+                          width: [
+                            { minWidth: Breakpoints.Mobile, value: '47%' },
+                            { minWidth: Breakpoints.Tablet, value: '30%' },
+                          ],
                         },
                         dimensions.width
                       )}
@@ -1477,7 +1633,10 @@ const AllEventsScreen = props => {
                           alignItems: 'center',
                           flexDirection: 'row',
                           gap: 4,
-                          width: '47%',
+                          width: [
+                            { minWidth: Breakpoints.Mobile, value: '47%' },
+                            { minWidth: Breakpoints.Tablet, value: '30%' },
+                          ],
                         },
                         dimensions.width
                       )}
@@ -1533,7 +1692,10 @@ const AllEventsScreen = props => {
                           alignItems: 'center',
                           flexDirection: 'row',
                           gap: 4,
-                          width: '47%',
+                          width: [
+                            { minWidth: Breakpoints.Mobile, value: '47%' },
+                            { minWidth: Breakpoints.Tablet, value: '30%' },
+                          ],
                         },
                         dimensions.width
                       )}
@@ -1589,7 +1751,10 @@ const AllEventsScreen = props => {
                           alignItems: 'center',
                           flexDirection: 'row',
                           gap: 4,
-                          width: '47%',
+                          width: [
+                            { minWidth: Breakpoints.Mobile, value: '47%' },
+                            { minWidth: Breakpoints.Tablet, value: '30%' },
+                          ],
                         },
                         dimensions.width
                       )}
@@ -1660,28 +1825,7 @@ const AllEventsScreen = props => {
                     iconPosition={'left'}
                     onPress={() => {
                       try {
-                        setFuture_opportunity(true);
-                        setAcq_agenda(true);
-                        setTransaction(true);
-                        setSweden(true);
-                        setGermany(true);
-                        setDenmark(true);
-                        setDenmark(true);
-                        setSwitzerland(true);
-                        setNorway(true);
-                        setAustria(true);
-                        setFinland(true);
-                        setCommunication_services(true);
-                        setIndustrials(true);
-                        setConsumer_discretionary(true);
-                        setIt_and_software(true);
-                        setConsumer_staples(true);
-                        setMaterials(true);
-                        setEnergy(true);
-                        setReal_estate(true);
-                        setFinancials(true);
-                        setUtilities(true);
-                        setHealth_care(true);
+                        selectAllFilters();
                       } catch (err) {
                         console.error(err);
                       }
@@ -1709,11 +1853,16 @@ const AllEventsScreen = props => {
                     onPress={() => {
                       const handler = async () => {
                         try {
+                          applyFilter();
                           (
                             await XanoCollectionApi.getAllEventsGET(Constants, {
+                              country: country,
+                              eventType: eventType,
                               keyword: 'Update',
+                              sector: sector,
                             })
                           )?.json;
+                          setFilterPressed(false);
                         } catch (err) {
                           console.error(err);
                         }
@@ -1725,7 +1874,7 @@ const AllEventsScreen = props => {
                       StyleSheet.compose(
                         GlobalStyles.ButtonStyles(theme)['Button'].style,
                         {
-                          backgroundColor: palettes.App.green,
+                          backgroundColor: palettes.App.Orange,
                           fontFamily: 'Quicksand_600SemiBold',
                           textTransform: 'uppercase',
                           width: '47%',
@@ -1738,7 +1887,7 @@ const AllEventsScreen = props => {
                 </View>
               </LinearGradient>
             </View>
-          </View>
+          </SimpleStyleScrollView>
         </Modal>
 
         <H3
@@ -1816,7 +1965,10 @@ const AllEventsScreen = props => {
               style={StyleSheet.applyWidth(
                 {
                   alignItems: 'center',
-                  backgroundColor: theme.colors.background.brand,
+                  backgroundColor:
+                    eventType?.length || country?.length || sector?.length
+                      ? palettes.App.Orange
+                      : palettes.Brand.Background,
                   borderRadius: 50,
                   height: 36,
                   justifyContent: 'center',
@@ -1828,12 +1980,17 @@ const AllEventsScreen = props => {
               <IconButton
                 onPress={() => {
                   try {
+                    matchingFilters();
                     setFilterPressed(true);
                   } catch (err) {
                     console.error(err);
                   }
                 }}
-                color={palettes.App.Strong2}
+                color={
+                  (eventType[0] || country[0] || sector[0]
+                    ? palettes.Brand['Strong Inverse']
+                    : palettes.App.Strong2) ?? palettes.App.Strong2
+                }
                 icon={'MaterialIcons/filter-alt'}
                 size={24}
               />
@@ -1842,7 +1999,70 @@ const AllEventsScreen = props => {
         </HStack>
         <Spacer left={8} right={8} bottom={2.5} top={2.5} />
       </View>
+      <>
+        {!(dimensions.width >= Breakpoints.Laptop ? true : undefined) ? null : (
+          <View
+            style={StyleSheet.applyWidth(
+              {
+                borderBottomWidth: 1,
+                borderColor: theme.colors.text.strong,
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                paddingBottom: 5,
+                paddingLeft: 10,
+                paddingRight: 10,
+              },
+              dimensions.width
+            )}
+          >
+            <H6
+              selectable={false}
+              {...GlobalStyles.H6Styles(theme)['H6'].props}
+              style={StyleSheet.applyWidth(
+                StyleSheet.compose(GlobalStyles.H6Styles(theme)['H6'].style, {
+                  fontFamily: 'Quicksand_700Bold',
+                  fontSize: 12,
+                  margin: 0,
+                }),
+                dimensions.width
+              )}
+            >
+              {'Event Title'}
+            </H6>
 
+            <View
+              style={StyleSheet.applyWidth(
+                {
+                  alignContent: {
+                    minWidth: Breakpoints.Laptop,
+                    value: 'flex-start',
+                  },
+                  paddingRight: { minWidth: Breakpoints.Laptop, value: 15 },
+                  width: { minWidth: Breakpoints.Laptop, value: 200 },
+                },
+                dimensions.width
+              )}
+            >
+              {/* H6 2 */}
+              <H6
+                selectable={false}
+                {...GlobalStyles.H6Styles(theme)['H6'].props}
+                style={StyleSheet.applyWidth(
+                  StyleSheet.compose(GlobalStyles.H6Styles(theme)['H6'].style, {
+                    fontFamily: 'Quicksand_700Bold',
+                    fontSize: 12,
+                    margin: 0,
+                    textAlign: 'right',
+                  }),
+                  dimensions.width
+                )}
+              >
+                {'Date published | Source'}
+              </H6>
+            </View>
+          </View>
+        )}
+      </>
       <SimpleStyleScrollView
         bounces={true}
         horizontal={false}
@@ -1850,6 +2070,10 @@ const AllEventsScreen = props => {
         nestedScrollEnabled={false}
         showsHorizontalScrollIndicator={true}
         showsVerticalScrollIndicator={true}
+        style={StyleSheet.applyWidth(
+          { paddingLeft: 10, paddingRight: 10 },
+          dimensions.width
+        )}
       >
         <XanoCollectionApi.FetchGetAllEventsGET
           handlers={{
@@ -1862,7 +2086,7 @@ const AllEventsScreen = props => {
             },
           }}
           keyword={keywordSearch}
-          refetchInterval={10000}
+          refetchInterval={100000}
         >
           {({ loading, error, data, refetchGetAllEvents }) => {
             const fetchData = data?.json;
@@ -1900,9 +2124,29 @@ const AllEventsScreen = props => {
                       <View
                         style={StyleSheet.applyWidth(
                           {
+                            alignItems: {
+                              minWidth: Breakpoints.Laptop,
+                              value:
+                                dimensions.width >= Breakpoints.Laptop
+                                  ? 'flex-start'
+                                  : undefined,
+                            },
                             borderBottomWidth: 0.5,
                             borderColor: theme.colors.text.light,
-                            marginLeft: 8,
+                            flexDirection: {
+                              minWidth: Breakpoints.Laptop,
+                              value:
+                                dimensions.width >= Breakpoints.Laptop
+                                  ? 'row'
+                                  : undefined,
+                            },
+                            justifyContent: {
+                              minWidth: Breakpoints.Laptop,
+                              value:
+                                dimensions.width >= Breakpoints.Laptop
+                                  ? 'space-between'
+                                  : undefined,
+                            },
                             paddingBottom: 5,
                             paddingTop: 5,
                           },
@@ -1927,27 +2171,43 @@ const AllEventsScreen = props => {
                           {flashListData?.headline}
                         </H6>
 
-                        <Text
-                          accessible={true}
-                          {...GlobalStyles.TextStyles(theme)['screen_title']
-                            .props}
+                        <View
                           style={StyleSheet.applyWidth(
-                            StyleSheet.compose(
-                              GlobalStyles.TextStyles(theme)['screen_title']
-                                .style,
-                              {
-                                fontFamily: 'Quicksand_400Regular',
-                                fontSize: 10,
-                                marginTop: 4,
-                              }
-                            ),
+                            {
+                              alignItems: {
+                                minWidth: Breakpoints.Laptop,
+                                value: 'flex-end',
+                              },
+                              width: {
+                                minWidth: Breakpoints.Laptop,
+                                value: 200,
+                              },
+                            },
                             dimensions.width
                           )}
                         >
-                          {flashListData?.published}
-                          {' | Source: '}
-                          {flashListData?.source}
-                        </Text>
+                          <Text
+                            accessible={true}
+                            {...GlobalStyles.TextStyles(theme)['screen_title']
+                              .props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TextStyles(theme)['screen_title']
+                                  .style,
+                                {
+                                  fontFamily: 'Quicksand_400Regular',
+                                  fontSize: 10,
+                                  marginTop: 4,
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            {flashListData?.published}
+                            {' | Source: '}
+                            {flashListData?.source}
+                          </Text>
+                        </View>
                       </View>
                     </Touchable>
                   );
@@ -1961,6 +2221,8 @@ const AllEventsScreen = props => {
           }}
         </XanoCollectionApi.FetchGetAllEventsGET>
       </SimpleStyleScrollView>
+      <>{!Constants['top_nav_pressed'] ? null : <TopNavBlock />}</>
+      <AccModalBlock />
     </ScreenContainer>
   );
 };

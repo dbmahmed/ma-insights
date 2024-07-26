@@ -34,6 +34,7 @@ const CFSScreen = props => {
   const dimensions = useWindowDimensions();
   const Constants = GlobalVariables.useValues();
   const Variables = Constants;
+  const setGlobalVariableValue = GlobalVariables.useSetValue();
   const [acq_agenda, setAcq_agenda] = React.useState(false);
   const [austria, setAustria] = React.useState(false);
   const [communication_services, setCommunication_services] =
@@ -66,6 +67,24 @@ const CFSScreen = props => {
   const [totalCFS, setTotalCFS] = React.useState(0);
   const [transaction, setTransaction] = React.useState(false);
   const [utilities, setUtilities] = React.useState(false);
+  const isFocused = useIsFocused();
+  React.useEffect(() => {
+    try {
+      if (!isFocused) {
+        return;
+      }
+      setGlobalVariableValue({
+        key: 'pageName',
+        value: 'Companies For Sale',
+      });
+      setGlobalVariableValue({
+        key: 'subPage',
+        value: false,
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  }, [isFocused]);
 
   return (
     <ScreenContainer hasSafeArea={false} scrollable={false}>

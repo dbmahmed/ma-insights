@@ -184,9 +184,7 @@ const NewslettersScreen = props => {
                   data={fetchData}
                   horizontal={false}
                   inverted={false}
-                  keyExtractor={(listData, index) =>
-                    listData?.id ?? listData?.uuid ?? index.toString()
-                  }
+                  keyExtractor={(listData, index) => listData?.id}
                   keyboardShouldPersistTaps={'never'}
                   listKey={'fwWzIP91'}
                   nestedScrollEnabled={false}
@@ -321,7 +319,9 @@ const NewslettersScreen = props => {
                   showsHorizontalScrollIndicator={true}
                   showsVerticalScrollIndicator={true}
                   numColumns={
-                    dimensions.width >= Breakpoints.Laptop
+                    dimensions.width >= Breakpoints.Desktop
+                      ? 6
+                      : dimensions.width >= Breakpoints.Laptop
                       ? 4
                       : dimensions.width >= Breakpoints.Tablet
                       ? 3

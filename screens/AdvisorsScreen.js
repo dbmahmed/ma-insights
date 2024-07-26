@@ -1,6 +1,7 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
+import CustomHeaderBlock from '../components/CustomHeaderBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
@@ -27,6 +28,7 @@ const AdvisorsScreen = props => {
   const dimensions = useWindowDimensions();
   const Constants = GlobalVariables.useValues();
   const Variables = Constants;
+  const setGlobalVariableValue = GlobalVariables.useSetValue();
   const [consumer_discretionary, setConsumer_discretionary] =
     React.useState(false);
   const [consumer_staples, setConsumer_staples] = React.useState(false);
@@ -45,9 +47,28 @@ const AdvisorsScreen = props => {
   const [type, setType] = React.useState('corporate_finance');
   const [typeAdvisor, setTypeAdvisor] = React.useState('dk');
   const [utilities, setUtilities] = React.useState(false);
+  const isFocused = useIsFocused();
+  React.useEffect(() => {
+    try {
+      if (!isFocused) {
+        return;
+      }
+      setGlobalVariableValue({
+        key: 'pageName',
+        value: 'Advisors',
+      });
+      setGlobalVariableValue({
+        key: 'subPage',
+        value: false,
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  }, [isFocused]);
 
   return (
     <ScreenContainer hasSafeArea={false} scrollable={false}>
+      <CustomHeaderBlock />
       <View style={StyleSheet.applyWidth({ padding: 10 }, dimensions.width)}>
         <Modal
           supportedOrientations={['portrait', 'landscape']}

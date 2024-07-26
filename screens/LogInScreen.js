@@ -19,6 +19,7 @@ import {
   ScreenContainer,
   Surface,
   TextInput,
+  VStack,
   withTheme,
 } from '@draftbit/ui';
 import { useIsFocused } from '@react-navigation/native';
@@ -125,87 +126,89 @@ const LogInScreen = props => {
           dimensions.width
         )}
       >
-        {/* NKP Logo */}
-        <Image
-          {...GlobalStyles.ImageStyles(theme)['Image'].props}
-          resizeMode={'contain'}
-          source={Images.mainsightsfaviconlogo1024new}
+        <VStack
+          {...GlobalStyles.VStackStyles(theme)['V Stack'].props}
           style={StyleSheet.applyWidth(
-            StyleSheet.compose(GlobalStyles.ImageStyles(theme)['Image'].style, {
-              width: 300,
-            }),
-            dimensions.width
-          )}
-        />
-        {/* Text 2 */}
-        <Text
-          accessible={true}
-          {...GlobalStyles.TextStyles(theme)['screen_title'].props}
-          style={StyleSheet.applyWidth(
-            StyleSheet.compose(
-              GlobalStyles.TextStyles(theme)['screen_title'].style,
-              {
-                color: [
-                  { minWidth: Breakpoints.Desktop, value: palettes.App.Orange },
-                  { minWidth: Breakpoints.Mobile, value: palettes.App.Orange },
-                ],
-                fontFamily: [
-                  { minWidth: Breakpoints.Desktop, value: 'Poppins_900Black' },
-                  { minWidth: Breakpoints.Mobile, value: 'Poppins_900Black' },
-                ],
-                fontSize: 30,
-                lineHeight: { minWidth: Breakpoints.Desktop, value: 14 },
-                paddingBottom: { minWidth: Breakpoints.Desktop, value: 0 },
-                textAlign: 'center',
-              }
-            ),
+            GlobalStyles.VStackStyles(theme)['V Stack'].style,
             dimensions.width
           )}
         >
-          {'M&A\nINSIGHTS'}
-        </Text>
+          {/* NKP Logo */}
+          <Image
+            {...GlobalStyles.ImageStyles(theme)['Image'].props}
+            resizeMode={'contain'}
+            source={Images.mainsightsfaviconlogo1024new}
+            style={StyleSheet.applyWidth(
+              StyleSheet.compose(
+                GlobalStyles.ImageStyles(theme)['Image'].style,
+                { width: 300 }
+              ),
+              dimensions.width
+            )}
+          />
+          {/* Text 2 */}
+          <Text
+            accessible={true}
+            {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+            style={StyleSheet.applyWidth(
+              StyleSheet.compose(
+                GlobalStyles.TextStyles(theme)['screen_title'].style,
+                {
+                  color: [
+                    {
+                      minWidth: Breakpoints.Desktop,
+                      value: palettes.App.Orange,
+                    },
+                    {
+                      minWidth: Breakpoints.Mobile,
+                      value: palettes.App.Orange,
+                    },
+                  ],
+                  fontFamily: [
+                    {
+                      minWidth: Breakpoints.Desktop,
+                      value: 'Poppins_900Black',
+                    },
+                    { minWidth: Breakpoints.Mobile, value: 'Poppins_900Black' },
+                  ],
+                  fontSize: 30,
+                  lineHeight: [
+                    { minWidth: Breakpoints.Desktop, value: 14 },
+                    { minWidth: Breakpoints.Mobile, value: 30 },
+                  ],
+                  paddingBottom: { minWidth: Breakpoints.Desktop, value: 0 },
+                  textAlign: 'center',
+                }
+              ),
+              dimensions.width
+            )}
+          >
+            {dimensions.width >= Breakpoints.Laptop
+              ? 'M&A INSIGHTS'
+              : 'M&A\nINSIGHTS'}
+          </Text>
 
-        <Text
-          accessible={true}
-          {...GlobalStyles.TextStyles(theme)['screen_title'].props}
-          style={StyleSheet.applyWidth(
-            StyleSheet.compose(
-              GlobalStyles.TextStyles(theme)['screen_title'].style,
-              {
-                alignSelf: 'center',
-                color: palettes.Brand.Surface,
-                fontFamily: 'Poppins_400Regular',
-                marginTop: 15,
-                textAlign: 'center',
-              }
-            ),
-            dimensions.width
-          )}
-        >
-          {'Creating visibility in unlisted markets'}
-        </Text>
-        {/* Text 3 */}
-        <Text
-          accessible={true}
-          {...GlobalStyles.TextStyles(theme)['screen_title'].props}
-          style={StyleSheet.applyWidth(
-            StyleSheet.compose(
-              GlobalStyles.TextStyles(theme)['screen_title'].style,
-              {
-                alignSelf: 'center',
-                color: palettes.Brand.Surface,
-                fontFamily: 'Quicksand_400Regular',
-                marginTop: 15,
-                textAlign: 'center',
-              }
-            ),
-            dimensions.width
-          )}
-        >
-          {
-            'You are about to log in to the M&A Insights mobile application available on the App Store and Play Store, respectively.'
-          }
-        </Text>
+          <Text
+            accessible={true}
+            {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+            style={StyleSheet.applyWidth(
+              StyleSheet.compose(
+                GlobalStyles.TextStyles(theme)['screen_title'].style,
+                {
+                  alignSelf: 'center',
+                  color: palettes.Brand.Surface,
+                  fontFamily: 'Poppins_400Regular',
+                  fontSize: 15,
+                  marginTop: 15,
+                  textAlign: 'center',
+                }
+              ),
+              dimensions.width
+            )}
+          >
+            {'Creating visibility in unlisted markets'}
+          </Text>
+        </VStack>
       </View>
       <>
         {firstLogin ? null : (

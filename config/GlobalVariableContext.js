@@ -28,7 +28,7 @@ export const DeviceVariables = {
     user_status: '',
     subscription_type: '',
   },
-  pageName: 'Header Text',
+  pageName: 'M&A Insights',
   RESET_AUTH_HEADER: '',
   subPage: false,
   top_nav_pressed: false,

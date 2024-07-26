@@ -1,6 +1,8 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
+import CustomHeaderBlock from '../components/CustomHeaderBlock';
+import * as GlobalVariables from '../config/GlobalVariableContext';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
@@ -20,10 +22,32 @@ import { Fetch } from 'react-request';
 const StockDetailsScreen = props => {
   const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
+  const Constants = GlobalVariables.useValues();
+  const Variables = Constants;
+  const setGlobalVariableValue = GlobalVariables.useSetValue();
   const [NKP_Comp, setNKP_Comp] = React.useState(false);
+  const isFocused = useIsFocused();
+  React.useEffect(() => {
+    try {
+      if (!isFocused) {
+        return;
+      }
+      setGlobalVariableValue({
+        key: 'pageName',
+        value: 'Stock Details',
+      });
+      setGlobalVariableValue({
+        key: 'subPage',
+        value: true,
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  }, [isFocused]);
 
   return (
     <ScreenContainer hasSafeArea={false} scrollable={true}>
+      <CustomHeaderBlock />
       <XanoCollectionApi.FetchGetOneStockGET
         handlers={{
           onData: fetchData => {

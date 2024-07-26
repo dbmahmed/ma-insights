@@ -10,6 +10,7 @@ import {
   Button,
   HStack,
   IconButton,
+  Link,
   Pressable,
   Shadow,
   withTheme,
@@ -133,6 +134,18 @@ const CustomHeaderBlock = props => {
               <View
                 style={StyleSheet.applyWidth(
                   {
+                    alignContent: {
+                      minWidth: Breakpoints.Laptop,
+                      value: 'stretch',
+                    },
+                    alignItems: {
+                      minWidth: Breakpoints.Laptop,
+                      value: 'center',
+                    },
+                    alignSelf: {
+                      minWidth: Breakpoints.Laptop,
+                      value: 'center',
+                    },
                     flexDirection: {
                       minWidth: Breakpoints.Tablet,
                       value: 'row',
@@ -147,45 +160,184 @@ const CustomHeaderBlock = props => {
                   dimensions.width
                 )}
               >
-                <Button
-                  iconPosition={'left'}
-                  {...GlobalStyles.ButtonStyles(theme)['Header menu'].props}
+                <Link
+                  accessible={true}
+                  onPress={() => {
+                    try {
+                      navigation.navigate('MAInsights', {
+                        screen: 'NewslettersScreen',
+                      });
+                    } catch (err) {
+                      console.error(err);
+                    }
+                  }}
+                  {...GlobalStyles.LinkStyles(theme)['Link'].props}
                   style={StyleSheet.applyWidth(
-                    GlobalStyles.ButtonStyles(theme)['Header menu'].style,
+                    StyleSheet.compose(
+                      GlobalStyles.LinkStyles(theme)['Link'].style,
+                      {
+                        fontFamily: {
+                          minWidth: Breakpoints.Laptop,
+                          value: 'Quicksand_500Medium',
+                        },
+                      }
+                    ),
                     dimensions.width
                   )}
-                  title={'Newsletters'}
+                  title={'NEWSLETTERS'}
                 />
-                {/* Button 2 */}
-                <Button
-                  iconPosition={'left'}
-                  {...GlobalStyles.ButtonStyles(theme)['Header menu'].props}
+                <Text
+                  accessible={true}
+                  {...GlobalStyles.TextStyles(theme)['screen_title'].props}
                   style={StyleSheet.applyWidth(
-                    GlobalStyles.ButtonStyles(theme)['Header menu'].style,
+                    StyleSheet.compose(
+                      GlobalStyles.TextStyles(theme)['screen_title'].style,
+                      {
+                        alignSelf: {
+                          minWidth: Breakpoints.Laptop,
+                          value: 'center',
+                        },
+                        fontFamily: {
+                          minWidth: Breakpoints.Laptop,
+                          value: 'Quicksand_300Light',
+                        },
+                        fontSize: { minWidth: Breakpoints.Laptop, value: 35 },
+                      }
+                    ),
                     dimensions.width
                   )}
-                  title={'All events'}
-                />
-                {/* Button 3 */}
-                <Button
-                  iconPosition={'left'}
-                  {...GlobalStyles.ButtonStyles(theme)['Header menu'].props}
+                >
+                  {'|'}
+                </Text>
+                {/* Link 2 */}
+                <Link
+                  accessible={true}
+                  onPress={() => {
+                    try {
+                      navigation.navigate('MAInsights', {
+                        screen: 'AllEventsScreen',
+                      });
+                    } catch (err) {
+                      console.error(err);
+                    }
+                  }}
+                  {...GlobalStyles.LinkStyles(theme)['Link'].props}
                   style={StyleSheet.applyWidth(
-                    GlobalStyles.ButtonStyles(theme)['Header menu'].style,
+                    GlobalStyles.LinkStyles(theme)['Link'].style,
+                    dimensions.width
+                  )}
+                  title={'ALL EVENTS'}
+                />
+                {/* Text 2 */}
+                <Text
+                  accessible={true}
+                  {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                  style={StyleSheet.applyWidth(
+                    StyleSheet.compose(
+                      GlobalStyles.TextStyles(theme)['screen_title'].style,
+                      {
+                        alignSelf: {
+                          minWidth: Breakpoints.Laptop,
+                          value: 'center',
+                        },
+                        fontFamily: {
+                          minWidth: Breakpoints.Laptop,
+                          value: 'Quicksand_300Light',
+                        },
+                        fontSize: { minWidth: Breakpoints.Laptop, value: 35 },
+                      }
+                    ),
+                    dimensions.width
+                  )}
+                >
+                  {'|'}
+                </Text>
+                {/* Link 3 */}
+                <Link
+                  accessible={true}
+                  onPress={() => {
+                    try {
+                      navigation.navigate('MAInsights', {
+                        screen: 'CFSScreen',
+                      });
+                    } catch (err) {
+                      console.error(err);
+                    }
+                  }}
+                  {...GlobalStyles.LinkStyles(theme)['Link'].props}
+                  style={StyleSheet.applyWidth(
+                    GlobalStyles.LinkStyles(theme)['Link'].style,
                     dimensions.width
                   )}
                   title={'CFS'}
                 />
-                {/* Button 4 */}
-                <Button
-                  iconPosition={'left'}
-                  {...GlobalStyles.ButtonStyles(theme)['Header menu'].props}
+                {/* Text 3 */}
+                <Text
+                  accessible={true}
+                  {...GlobalStyles.TextStyles(theme)['screen_title'].props}
                   style={StyleSheet.applyWidth(
-                    GlobalStyles.ButtonStyles(theme)['Header menu'].style,
+                    StyleSheet.compose(
+                      GlobalStyles.TextStyles(theme)['screen_title'].style,
+                      {
+                        alignSelf: {
+                          minWidth: Breakpoints.Laptop,
+                          value: 'center',
+                        },
+                        fontFamily: {
+                          minWidth: Breakpoints.Laptop,
+                          value: 'Quicksand_300Light',
+                        },
+                        fontSize: { minWidth: Breakpoints.Laptop, value: 35 },
+                      }
+                    ),
+                    dimensions.width
+                  )}
+                >
+                  {'|'}
+                </Text>
+                {/* Link 4 */}
+                <Link
+                  accessible={true}
+                  onPress={() => {
+                    try {
+                      navigation.navigate('MAInsights', {
+                        screen: 'PEPFScreen',
+                      });
+                    } catch (err) {
+                      console.error(err);
+                    }
+                  }}
+                  {...GlobalStyles.LinkStyles(theme)['Link'].props}
+                  style={StyleSheet.applyWidth(
+                    GlobalStyles.LinkStyles(theme)['Link'].style,
                     dimensions.width
                   )}
                   title={'PEPF'}
                 />
+                {/* Text 4 */}
+                <Text
+                  accessible={true}
+                  {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                  style={StyleSheet.applyWidth(
+                    StyleSheet.compose(
+                      GlobalStyles.TextStyles(theme)['screen_title'].style,
+                      {
+                        alignSelf: {
+                          minWidth: Breakpoints.Laptop,
+                          value: 'center',
+                        },
+                        fontFamily: {
+                          minWidth: Breakpoints.Laptop,
+                          value: 'Quicksand_300Light',
+                        },
+                        fontSize: { minWidth: Breakpoints.Laptop, value: 35 },
+                      }
+                    ),
+                    dimensions.width
+                  )}
+                >
+                  {'|'}
+                </Text>
               </View>
             )}
           </>
