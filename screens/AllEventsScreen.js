@@ -520,10 +520,10 @@ const AllEventsScreen = props => {
             return (
               <>
                 <SimpleStyleFlatList
-                  data={fetchData?.items}
+                  data={eventItems}
                   horizontal={false}
                   inverted={false}
-                  keyExtractor={(listData, index) => listData?.items?.id}
+                  keyExtractor={(listData, index) => listData?.id}
                   keyboardShouldPersistTaps={'never'}
                   listKey={'AwqPzJqX'}
                   nestedScrollEnabled={false}
@@ -559,15 +559,15 @@ const AllEventsScreen = props => {
                         setEventItems(eventItems.concat(newData?.items));
                         console.log('Complete ON_END_REACHED:2 SET_VARIABLE');
                         console.log('Start ON_END_REACHED:3 CONSOLE_LOG');
-                        console.log(newData);
-                        console.log('Complete ON_END_REACHED:3 CONSOLE_LOG');
+                        /* hidden 'Log to Console' action */ console.log(
+                          'Complete ON_END_REACHED:3 CONSOLE_LOG'
+                        );
                         console.log('Start ON_END_REACHED:4 SET_VARIABLE');
-                        undefined;
+                        setNextPage(newData?.nextPage);
                         console.log('Complete ON_END_REACHED:4 SET_VARIABLE');
                         console.log('Start ON_END_REACHED:5 SET_VARIABLE');
-                        /* 'Set Variable' action requires configuration: choose a variable */ console.log(
-                          'Complete ON_END_REACHED:5 SET_VARIABLE'
-                        );
+                        setLastPage(newData?.pageTotal);
+                        console.log('Complete ON_END_REACHED:5 SET_VARIABLE');
                       } catch (err) {
                         console.error(err);
                         error = err.message ?? err;
