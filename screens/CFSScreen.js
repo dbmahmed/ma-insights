@@ -326,6 +326,9 @@ const CFSScreen = props => {
       </View>
 
       <XanoCollectionApi.FetchGetCFSGET
+        cfsSearchQuery={keywordSearch}
+        countryIn={country}
+        ebitdaIn={ebitdaRange}
         handlers={{
           onData: fetchData => {
             try {
@@ -335,7 +338,9 @@ const CFSScreen = props => {
             }
           },
         }}
+        page={1}
         refetchInterval={10000}
+        sectorIn={sector}
       >
         {({ loading, error, data, refetchGetCFS }) => {
           const fetchData = data?.json;

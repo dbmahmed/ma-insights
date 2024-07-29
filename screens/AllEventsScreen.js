@@ -67,9 +67,9 @@ const AllEventsScreen = props => {
   const [industrials, setIndustrials] = React.useState(false);
   const [it_and_software, setIt_and_software] = React.useState(false);
   const [keywordSearch, setKeywordSearch] = React.useState('');
-  const [lastPage, setLastPage] = React.useState(0);
+  const [lastPage, setLastPage] = React.useState(2);
   const [materials, setMaterials] = React.useState(false);
-  const [nextPage, setNextPage] = React.useState(0);
+  const [nextPage, setNextPage] = React.useState(2);
   const [norway, setNorway] = React.useState(false);
   const [real_estate, setReal_estate] = React.useState(false);
   const [sector, setSector] = React.useState([]);
@@ -470,6 +470,7 @@ const AllEventsScreen = props => {
                 setEventItems(fetchData?.json?.items);
                 setNextPage(fetchData?.json?.nextPage);
                 setLastPage(fetchData?.json?.pageTotal);
+                console.log(nextPage, lastPage);
               } catch (err) {
                 console.error(err);
               }
@@ -528,58 +529,48 @@ const AllEventsScreen = props => {
                   listKey={'AwqPzJqX'}
                   nestedScrollEnabled={false}
                   onEndReached={() => {
-                    const handler = async () => {
-                      console.log('List ON_END_REACHED Start');
-                      let error = null;
-                      try {
-                        console.log('Start ON_END_REACHED:0 CONDITIONAL_STOP');
-                        if (fetchData?.nextPage !== null) {
-                          return console.log(
-                            'Complete ON_END_REACHED:0 CONDITIONAL_STOP'
-                          );
-                        } else {
-                          console.log(
-                            'Skipped ON_END_REACHED:0 CONDITIONAL_STOP: condition not met'
-                          );
-                        }
-                        console.log('Start ON_END_REACHED:1 FETCH_REQUEST');
-                        const newData = (
-                          await XanoCollectionApi.getAllEventsGET(Constants, {
-                            countryIn: country,
-                            eventTypeIn: eventType,
-                            keyword: keywordSearch,
-                            page: 1,
-                            sectorIn: sector,
-                          })
-                        )?.json;
-                        console.log('Complete ON_END_REACHED:1 FETCH_REQUEST', {
-                          newData,
-                        });
-                        console.log('Start ON_END_REACHED:2 SET_VARIABLE');
-                        setEventItems(eventItems.concat(newData?.items));
-                        console.log('Complete ON_END_REACHED:2 SET_VARIABLE');
-                        console.log('Start ON_END_REACHED:3 CONSOLE_LOG');
-                        /* hidden 'Log to Console' action */ console.log(
-                          'Complete ON_END_REACHED:3 CONSOLE_LOG'
+                    console.log('List ON_END_REACHED Start');
+                    let error = null;
+                    try {
+                      console.log('Start ON_END_REACHED:0 CONDITIONAL_STOP');
+                      if (nextPage === lastPage) {
+                        return console.log(
+                          'Complete ON_END_REACHED:0 CONDITIONAL_STOP'
                         );
-                        console.log('Start ON_END_REACHED:4 SET_VARIABLE');
-                        setNextPage(newData?.nextPage);
-                        console.log('Complete ON_END_REACHED:4 SET_VARIABLE');
-                        console.log('Start ON_END_REACHED:5 SET_VARIABLE');
-                        setLastPage(newData?.pageTotal);
-                        console.log('Complete ON_END_REACHED:5 SET_VARIABLE');
-                      } catch (err) {
-                        console.error(err);
-                        error = err.message ?? err;
+                      } else {
+                        console.log(
+                          'Skipped ON_END_REACHED:0 CONDITIONAL_STOP: condition not met'
+                        );
                       }
-                      console.log(
-                        'List ON_END_REACHED Complete',
-                        error ? { error } : 'no error'
+                      console.log('Start ON_END_REACHED:1 FETCH_REQUEST');
+                      /* hidden 'API Request' action */ console.log(
+                        'Complete ON_END_REACHED:1 FETCH_REQUEST'
                       );
-                    };
-                    handler();
+                      console.log('Start ON_END_REACHED:2 SET_VARIABLE');
+                      /* hidden 'Set Variable' action */ console.log(
+                        'Complete ON_END_REACHED:2 SET_VARIABLE'
+                      );
+                      console.log('Start ON_END_REACHED:3 CONSOLE_LOG');
+                      /* hidden 'Log to Console' action */ console.log(
+                        'Complete ON_END_REACHED:3 CONSOLE_LOG'
+                      );
+                      console.log('Start ON_END_REACHED:4 SET_VARIABLE');
+                      /* hidden 'Set Variable' action */ console.log(
+                        'Complete ON_END_REACHED:4 SET_VARIABLE'
+                      );
+                      console.log('Start ON_END_REACHED:5 SET_VARIABLE');
+                      /* hidden 'Set Variable' action */ console.log(
+                        'Complete ON_END_REACHED:5 SET_VARIABLE'
+                      );
+                    } catch (err) {
+                      console.error(err);
+                      error = err.message ?? err;
+                    }
+                    console.log(
+                      'List ON_END_REACHED Complete',
+                      error ? { error } : 'no error'
+                    );
                   }}
-                  onEndReachedThreshold={0.5}
                   renderItem={({ item, index }) => {
                     const listData = item;
                     return (
@@ -667,8 +658,9 @@ const AllEventsScreen = props => {
                   showsHorizontalScrollIndicator={true}
                   showsVerticalScrollIndicator={true}
                   numColumns={dimensions.width >= Breakpoints.Laptop ? 2 : 1}
+                  onEndReachedThreshold={0.8}
                   style={StyleSheet.applyWidth(
-                    { maxWidth: 1200 },
+                    { maxWidth: 1200, minHeight: dimensions.height },
                     dimensions.width
                   )}
                 />

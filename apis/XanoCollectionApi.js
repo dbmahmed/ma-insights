@@ -662,8 +662,30 @@ export const FetchGetAllStocksGET = ({
   return children({ loading, data, error, refetchGetAllStocks: refetch });
 };
 
-export const getCFSGET = async (Constants, _args, handlers = {}) => {
-  const url = `https://xne3-pdiu-8ysm.f2.xano.io/api:abjrBkC8/cfs`;
+export const getCFSGET = async (
+  Constants,
+  { cfsSearchQuery, countryIn, ebitdaIn, page, sectorIn },
+  handlers = {}
+) => {
+  const paramsDict = {};
+  if (countryIn !== undefined) {
+    paramsDict['country_in'] = renderParam(countryIn);
+  }
+  if (page !== undefined) {
+    paramsDict['external'] = `{page: ${renderParam(page)}`;
+  }
+  if (ebitdaIn !== undefined) {
+    paramsDict['ebitda_in'] = renderParam(ebitdaIn);
+  }
+  if (sectorIn !== undefined) {
+    paramsDict['sector_in'] = renderParam(sectorIn);
+  }
+  if (cfsSearchQuery !== undefined) {
+    paramsDict['cfs_search_query'] = renderParam(cfsSearchQuery);
+  }
+  const url = `https://xne3-pdiu-8ysm.f2.xano.io/api:abjrBkC8/cfs${renderQueryString(
+    paramsDict
+  )}`;
   const options = {
     headers: cleanHeaders({
       Accept: 'application/json',
@@ -690,6 +712,11 @@ export const FetchGetCFSGET = ({
   onData = () => {},
   handlers = {},
   refetchInterval,
+  cfsSearchQuery,
+  countryIn,
+  ebitdaIn,
+  page,
+  sectorIn,
 }) => {
   const Constants = GlobalVariables.useValues();
   const isFocused = useIsFocused();
@@ -700,7 +727,10 @@ export const FetchGetCFSGET = ({
     data,
     error,
     refetch,
-  } = useGetCFSGET({}, { refetchInterval, handlers: { onData, ...handlers } });
+  } = useGetCFSGET(
+    { cfsSearchQuery, countryIn, ebitdaIn, page, sectorIn },
+    { refetchInterval, handlers: { onData, ...handlers } }
+  );
 
   React.useEffect(() => {
     if (!prevIsFocused && isFocused) {

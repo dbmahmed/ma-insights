@@ -41,7 +41,7 @@ const PEPFDetailsScreen = props => {
   return (
     <ScreenContainer hasSafeArea={false} scrollable={false}>
       <CustomHeaderBlock />
-      <XanoCollectionApi.FetchGetOnePEPFGET pepf_id={1}>
+      <XanoCollectionApi.FetchGetOnePEPFGET pepf_id={2}>
         {({ loading, error, data, refetchGetOnePEPF }) => {
           const fetchData = data?.json;
           if (loading) {
@@ -196,7 +196,7 @@ const PEPFDetailsScreen = props => {
                       dimensions.width
                     )}
                   >
-                    {fetchData?.gics}
+                    {fetchData?._gics_sub_industry?.GICS_Sector}
                   </Text>
                 </View>
                 {/* View 3 */}
@@ -295,7 +295,7 @@ const PEPFDetailsScreen = props => {
                       dimensions.width
                     )}
                   >
-                    {fetchData?.revenue_eur}
+                    {fetchData?.ebitda_eur}
                     {' ('}
                     {fetchData?.financial_year}
                     {')'}
@@ -395,6 +395,7 @@ const PEPFDetailsScreen = props => {
                     )}
                   >
                     {fetchData?.current_holding_years}
+                    {' Years'}
                   </Text>
                 </View>
                 {/* View 7 */}
@@ -442,7 +443,7 @@ const PEPFDetailsScreen = props => {
                       dimensions.width
                     )}
                   >
-                    {fetchData?.pe_firm}
+                    {fetchData?._investor?.name}
                   </Text>
                 </View>
                 {/* View 8 */}
@@ -490,9 +491,9 @@ const PEPFDetailsScreen = props => {
                       dimensions.width
                     )}
                   >
-                    {fetchData?.fund_entity}
+                    {fetchData?._fund?.name}
                     {' ('}
-                    {fetchData?.fund_entity}
+                    {fetchData?._fund?.age_years}
                     {')'}
                   </Text>
                 </View>

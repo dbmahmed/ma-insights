@@ -646,7 +646,9 @@ const EventDetailsScreen = props => {
                           dimensions.width
                         )}
                       >
+                        {'€ '}
                         {fetchData?.revenue_eur}
+                        {'m'}
                       </Text>
                     </View>
                     {/* View 10 */}
@@ -698,7 +700,9 @@ const EventDetailsScreen = props => {
                           dimensions.width
                         )}
                       >
+                        {'€ '}
                         {fetchData?.ebitda_eur}
+                        {'m'}
                       </Text>
                     </View>
                     {/* View 11 */}
@@ -750,7 +754,9 @@ const EventDetailsScreen = props => {
                           dimensions.width
                         )}
                       >
+                        {'€ '}
                         {fetchData?.ev_eur}
+                        {'m'}
                       </Text>
                     </View>
                     {/* View 12 */}
@@ -891,7 +897,7 @@ const EventDetailsScreen = props => {
                           )}
                         >
                           {'EV/EBIT ('}
-                          {fetchData?.ev_ebit}
+                          {fetchData?.fy_end}
                           {'):'}
                         </Text>
                       </View>
