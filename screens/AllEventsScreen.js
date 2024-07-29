@@ -586,7 +586,9 @@ const AllEventsScreen = props => {
                         <Touchable
                           onPress={() => {
                             try {
-                              navigation.navigate('EventDetailsScreen');
+                              navigation.navigate('EventDetailsScreen', {
+                                event_id: listData?.id,
+                              });
                             } catch (err) {
                               console.error(err);
                             }

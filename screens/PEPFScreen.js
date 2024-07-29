@@ -138,6 +138,80 @@ const PEPFScreen = props => {
 
     setSector(() => sectors);
   };
+
+  const toggleAllFilters = flag => {
+    setEbitda_giant(flag);
+    setEbitda_large(flag);
+    setEbitda_medium(flag);
+    setEbitda_small(flag);
+    setH_less_3(flag);
+    setH_3_to_5(flag);
+    setH_5_to_7(flag);
+    setH_more_7(flag);
+    setLast_3(flag);
+    setFrom_3_to_5(flag);
+    setFrom_5_to_7(flag);
+    setMore_7(flag);
+    setSweden(flag);
+    setGermany(flag);
+    setDenmark(flag);
+    setSwitzerland(flag);
+    setNorway(flag);
+    setAustria(flag);
+    setFinland(flag);
+    setCommunication_services(flag);
+    setIndustrials(flag);
+    setConsumer_discretionary(flag);
+    setIt_and_software(flag);
+    setConsumer_staples(flag);
+    setMaterials(flag);
+    setEnergy(flag);
+    setReal_estate(flag);
+    setFinancials(flag);
+    setUtilities(flag);
+    setHealth_care(flag);
+  };
+
+  const matchingFilters = () => {
+    setEbitda_giant((ebitdaRange || []).includes('EBITDA >  €50m'));
+    setEbitda_large((ebitdaRange || []).includes('€20m < EBITDA ≤ €50m'));
+    setEbitda_medium((ebitdaRange || []).includes('€5m < EBITDA ≤ €20m'));
+    setEbitda_small((ebitdaRange || []).includes('EBTDA ≤ €5m'));
+
+    setH_less_3((holdingPreriod || []).includes('Holding ≤ 3 years'));
+    setH_3_to_5((holdingPreriod || []).includes('3 ys < holding ≤ 5 ys'));
+    setH_5_to_7((holdingPreriod || []).includes('5 ys < holding ≤ 7 ys'));
+    setH_more_7((holdingPreriod || []).includes('Holding > 7 years'));
+
+    setLast_3((fundVintage || []).includes('Within the last 3 years'));
+    setFrom_3_to_5((fundVintage || []).includes('3 to 5 years ago'));
+    setFrom_5_to_7((fundVintage || []).includes('5 to 7 years ago'));
+    setMore_7((fundVintage || []).includes('More than 7 years ago'));
+
+    setSweden((country || []).includes('Sweden'));
+    setGermany((country || []).includes('Germany'));
+    setDenmark((country || []).includes('Denmark'));
+    setSwitzerland((country || []).includes('Switzerland'));
+    setNorway((country || []).includes('Norway'));
+    setAustria((country || []).includes('Austria'));
+    setFinland((country || []).includes('Finland'));
+
+    setCommunication_services(
+      (sector || []).includes('Communication Services')
+    );
+    setIndustrials((sector || []).includes('Industrials'));
+    setConsumer_discretionary(
+      (sector || []).includes('Consumer Discretionary')
+    );
+    setIt_and_software((sector || []).includes('IT & Software'));
+    setConsumer_staples((sector || []).includes('Consumer Staples'));
+    setMaterials((sector || []).includes('Materials'));
+    setEnergy((sector || []).includes('Energy'));
+    setReal_estate((sector || []).includes('Real Estate'));
+    setFinancials((sector || []).includes('Financials'));
+    setUtilities((sector || []).includes('Utilities'));
+    setHealth_care((sector || []).includes('Health Care'));
+  };
   const isFocused = useIsFocused();
   React.useEffect(() => {
     try {
@@ -152,6 +226,7 @@ const PEPFScreen = props => {
         key: 'subPage',
         value: false,
       });
+      matchingFilters();
     } catch (err) {
       console.error(err);
     }
@@ -3077,8 +3152,10 @@ const PEPFScreen = props => {
                                 try {
                                   if (SelectButton === 'All') {
                                     setSelectButton('None');
+                                    toggleAllFilters(true);
                                   } else {
                                     setSelectButton('All');
+                                    toggleAllFilters(false);
                                   }
                                 } catch (err) {
                                   console.error(err);
@@ -3110,7 +3187,8 @@ const PEPFScreen = props => {
                               onPress={() => {
                                 const handler = async () => {
                                   try {
-                                    await refetchGetCFS();
+                                    /* 'Run a Custom Function' action requires configuration: choose a custom function */
+                                    await refetchGetAllPEPF();
                                     setFilterPressed(false);
                                   } catch (err) {
                                     console.error(err);
