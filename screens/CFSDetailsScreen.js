@@ -74,7 +74,7 @@ const CFSDetailsScreen = props => {
                   marginTop: 65,
                   paddingBottom: 65,
                   position: 'absolute',
-                  width: '100%',
+                  width: '99.9%',
                 },
                 dimensions.width
               )}

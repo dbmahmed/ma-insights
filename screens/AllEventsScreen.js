@@ -55,6 +55,7 @@ const AllEventsScreen = props => {
   const [country, setCountry] = React.useState([]);
   const [denmark, setDenmark] = React.useState(false);
   const [energy, setEnergy] = React.useState(false);
+  const [eventItems, setEventItems] = React.useState([]);
   const [eventSearch, setEventSearch] = React.useState('');
   const [eventType, setEventType] = React.useState([]);
   const [filterPressed, setFilterPressed] = React.useState(false);
@@ -66,7 +67,9 @@ const AllEventsScreen = props => {
   const [industrials, setIndustrials] = React.useState(false);
   const [it_and_software, setIt_and_software] = React.useState(false);
   const [keywordSearch, setKeywordSearch] = React.useState('');
+  const [lastPage, setLastPage] = React.useState(0);
   const [materials, setMaterials] = React.useState(false);
+  const [nextPage, setNextPage] = React.useState(0);
   const [norway, setNorway] = React.useState(false);
   const [real_estate, setReal_estate] = React.useState(false);
   const [sector, setSector] = React.useState([]);
@@ -462,6 +465,15 @@ const AllEventsScreen = props => {
           countryIn={country}
           eventTypeIn={eventType}
           handlers={{
+            on2xx: fetchData => {
+              try {
+                setEventItems(fetchData?.json?.items);
+                setNextPage(fetchData?.json?.nextPage);
+                setLastPage(fetchData?.json?.pageTotal);
+              } catch (err) {
+                console.error(err);
+              }
+            },
             on401: fetchData => {
               try {
                 setGlobalVariableValue({
@@ -483,6 +495,9 @@ const AllEventsScreen = props => {
             onData: fetchData => {
               try {
                 console.log(fetchData, 'FETCHDATA ONSCREEN');
+                /* hidden 'Set Variable' action */
+                /* hidden 'Set Variable' action */
+                /* hidden 'Set Variable' action */
               } catch (err) {
                 console.error(err);
               }
@@ -541,12 +556,18 @@ const AllEventsScreen = props => {
                           newData,
                         });
                         console.log('Start ON_END_REACHED:2 SET_VARIABLE');
-                        /* hidden 'Set Variable' action */ console.log(
-                          'Complete ON_END_REACHED:2 SET_VARIABLE'
-                        );
+                        setEventItems(eventItems.concat(newData?.items));
+                        console.log('Complete ON_END_REACHED:2 SET_VARIABLE');
                         console.log('Start ON_END_REACHED:3 CONSOLE_LOG');
                         console.log(newData);
                         console.log('Complete ON_END_REACHED:3 CONSOLE_LOG');
+                        console.log('Start ON_END_REACHED:4 SET_VARIABLE');
+                        undefined;
+                        console.log('Complete ON_END_REACHED:4 SET_VARIABLE');
+                        console.log('Start ON_END_REACHED:5 SET_VARIABLE');
+                        /* 'Set Variable' action requires configuration: choose a variable */ console.log(
+                          'Complete ON_END_REACHED:5 SET_VARIABLE'
+                        );
                       } catch (err) {
                         console.error(err);
                         error = err.message ?? err;
