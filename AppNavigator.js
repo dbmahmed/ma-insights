@@ -20,6 +20,7 @@ import CFSScreen from './screens/CFSScreen';
 import EventDetailsScreen from './screens/EventDetailsScreen';
 import ForgotPasswordScreen from './screens/ForgotPasswordScreen';
 import LogInScreen from './screens/LogInScreen';
+import NewsletterDetails2DraftbitSupportScreen from './screens/NewsletterDetails2DraftbitSupportScreen';
 import NewsletterDetailsScreen from './screens/NewsletterDetailsScreen';
 import NewslettersDraftbitSupportScreen from './screens/NewslettersDraftbitSupportScreen';
 import NewslettersScreen from './screens/NewslettersScreen';
@@ -493,6 +494,13 @@ export default function RootAppNavigator() {
           component={StockDetailsScreen}
           options={({ navigation }) => ({
             title: 'Stock Details',
+          })}
+        />
+        <Stack.Screen
+          name="NewsletterDetails2DraftbitSupportScreen"
+          component={NewsletterDetails2DraftbitSupportScreen}
+          options={({ navigation }) => ({
+            title: 'Newsletter Details 2 - Draftbit Support',
           })}
         />
         <Stack.Screen name="MAInsights" component={MAInsights} />

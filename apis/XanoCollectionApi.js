@@ -209,23 +209,26 @@ export const FetchGetAdvisorsGET = ({
 
 export const getAllEventsGET = async (
   Constants,
-  { country, eventType, keyword, sector },
+  { countryIn, eventTypeIn, keyword, page, sectorIn },
   handlers = {}
 ) => {
   const paramsDict = {};
+  if (eventTypeIn !== undefined) {
+    paramsDict['eventType_in'] = renderParam(eventTypeIn);
+  }
+  if (sectorIn !== undefined) {
+    paramsDict['sector_in'] = renderParam(sectorIn);
+  }
+  if (page !== undefined) {
+    paramsDict['external'] = `{"page": ${renderParam(page)}}`;
+  }
   if (keyword !== undefined) {
     paramsDict['keyword'] = renderParam(keyword);
   }
-  if (eventType !== undefined) {
-    paramsDict['event_type'] = renderParam(eventType);
+  if (countryIn !== undefined) {
+    paramsDict['country_in'] = renderParam(countryIn);
   }
-  if (country !== undefined) {
-    paramsDict['country'] = renderParam(country);
-  }
-  if (sector !== undefined) {
-    paramsDict['sector'] = renderParam(sector);
-  }
-  const url = `https://xne3-pdiu-8ysm.f2.xano.io/api:abjrBkC8/event${renderQueryString(
+  const url = `https://xne3-pdiu-8ysm.f2.xano.io/api:abjrBkC8/event_test${renderQueryString(
     paramsDict
   )}`;
   const options = {
@@ -258,10 +261,11 @@ export const FetchGetAllEventsGET = ({
   onData = () => {},
   handlers = {},
   refetchInterval,
-  country,
-  eventType,
+  countryIn,
+  eventTypeIn,
   keyword,
-  sector,
+  page,
+  sectorIn,
 }) => {
   const Constants = GlobalVariables.useValues();
   const isFocused = useIsFocused();
@@ -273,7 +277,7 @@ export const FetchGetAllEventsGET = ({
     error,
     refetch,
   } = useGetAllEventsGET(
-    { country, eventType, keyword, sector },
+    { countryIn, eventTypeIn, keyword, page, sectorIn },
     { refetchInterval, handlers: { onData, ...handlers } }
   );
 

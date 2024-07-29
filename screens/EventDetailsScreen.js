@@ -77,6 +77,7 @@ const EventDetailsScreen = props => {
               showsVerticalScrollIndicator={true}
               style={StyleSheet.applyWidth(
                 {
+                  alignItems: 'center',
                   height: '100%',
                   marginTop: 65,
                   paddingBottom: 65,
@@ -88,7 +89,7 @@ const EventDetailsScreen = props => {
             >
               <View
                 style={StyleSheet.applyWidth(
-                  { height: '100%', padding: 10, width: '100%' },
+                  { maxWidth: 1200, padding: 10, width: '100%' },
                   dimensions.width
                 )}
               >

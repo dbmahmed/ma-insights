@@ -43,8 +43,8 @@ const App = () => {
     Poppins_900Black: Fonts.Poppins_900Black,
     Quicksand_400Regular: Fonts.Quicksand_400Regular,
     Quicksand_500Medium: Fonts.Quicksand_500Medium,
-    Quicksand_700Bold: Fonts.Quicksand_700Bold,
     Quicksand_600SemiBold: Fonts.Quicksand_600SemiBold,
+    Quicksand_700Bold: Fonts.Quicksand_700Bold,
     Quicksand_300Light: Fonts.Quicksand_300Light,
   });
 

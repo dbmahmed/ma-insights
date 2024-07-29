@@ -43,6 +43,7 @@ const CFSScreen = props => {
   const [consumer_staples, setConsumer_staples] = React.useState(false);
   const [country, setCountry] = React.useState([]);
   const [denmark, setDenmark] = React.useState(false);
+  const [ebitdaRange, setEbitdaRange] = React.useState([]);
   const [ebitda_giant, setEbitda_giant] = React.useState(false);
   const [ebitda_large, setEbitda_large] = React.useState(false);
   const [ebitda_medium, setEbitda_medium] = React.useState(false);
@@ -65,16 +66,18 @@ const CFSScreen = props => {
   const [sweden, setSweden] = React.useState(false);
   const [switzerland, setSwitzerland] = React.useState(false);
   const [totalCFS, setTotalCFS] = React.useState(0);
+  const [transaction, setTransaction] = React.useState(false);
   const [utilities, setUtilities] = React.useState(false);
   const applayFilter = () => {
-    //Event type
-    //const eventType = [];
+    //EBITDA Range
+    const ebitdaRange = [];
 
-    //future_opportunity && eventType.push('Future Opportunity');
-    //acq_agenda && eventType.push('Acq. agenda & other');
-    //transaction && eventType.push('Transaction');
+    ebitda_giant && ebitdaRange.push('EBITDA >  €50m');
+    ebitda_large && ebitdaRange.push('€20m < EBITDA ≤ €50m');
+    ebitda_medium && ebitdaRange.push('€5m < EBITDA ≤ €20m');
+    ebitda_small && ebitdaRange.push('EBTDA ≤ €5m');
 
-    //setEventType(() => eventType);
+    setEbitdaRange(() => ebitdaRange);
 
     //country
     const countries = [];
@@ -107,10 +110,36 @@ const CFSScreen = props => {
     setSector(() => sectors);
   };
 
+  const toggleAllFilters = flag => {
+    setEbitda_giant(flag);
+    setEbitda_large(flag);
+    setEbitda_medium(flag);
+    setEbitda_small(flag);
+    setSweden(flag);
+    setGermany(flag);
+    setDenmark(flag);
+    setSwitzerland(flag);
+    setNorway(flag);
+    setAustria(flag);
+    setFinland(flag);
+    setCommunication_services(flag);
+    setIndustrials(flag);
+    setConsumer_discretionary(flag);
+    setIt_and_software(flag);
+    setConsumer_staples(flag);
+    setMaterials(flag);
+    setEnergy(flag);
+    setReal_estate(flag);
+    setFinancials(flag);
+    setUtilities(flag);
+    setHealth_care(flag);
+  };
+
   const matchingFilters = () => {
-    //setFuture_opportunity((eventType || []).includes('Future Opportunity'));
-    //setAcq_agenda((eventType || []).includes('Acq. agenda & other'));
-    //setTransaction((eventType || []).includes('Transaction'));
+    setEbitda_giant((ebitdaRange || []).includes('EBITDA >  €50m'));
+    setEbitda_large((ebitdaRange || []).includes('€20m < EBITDA ≤ €50m'));
+    setEbitda_medium((ebitdaRange || []).includes('€5m < EBITDA ≤ €20m'));
+    setEbitda_small((ebitdaRange || []).includes('EBTDA ≤ €5m'));
 
     setSweden((country || []).includes('Sweden'));
     setGermany((country || []).includes('Germany'));
@@ -135,30 +164,6 @@ const CFSScreen = props => {
     setFinancials((sector || []).includes('Financials'));
     setUtilities((sector || []).includes('Utilities'));
     setHealth_care((sector || []).includes('Health Care'));
-  };
-
-  const toggleAllFilters = flag => {
-    //setFuture_opportunity(flag);
-    //setAcq_agenda(flag);
-    //setTransaction(flag);
-    setSweden(flag);
-    setGermany(flag);
-    setDenmark(flag);
-    setSwitzerland(flag);
-    setNorway(flag);
-    setAustria(flag);
-    setFinland(flag);
-    setCommunication_services(flag);
-    setIndustrials(flag);
-    setConsumer_discretionary(flag);
-    setIt_and_software(flag);
-    setConsumer_staples(flag);
-    setMaterials(flag);
-    setEnergy(flag);
-    setReal_estate(flag);
-    setFinancials(flag);
-    setUtilities(flag);
-    setHealth_care(flag);
   };
   const isFocused = useIsFocused();
   React.useEffect(() => {
@@ -192,6 +197,7 @@ const CFSScreen = props => {
         <View
           style={StyleSheet.applyWidth(
             {
+              alignItems: 'stretch',
               maxWidth: { minWidth: Breakpoints.Desktop, value: 1200 },
               padding: 10,
               width: { minWidth: Breakpoints.Desktop, value: '100%' },
@@ -209,7 +215,6 @@ const CFSScreen = props => {
                     fontFamily: 'Quicksand_600SemiBold',
                     fontSize: 25,
                     marginBottom: 20,
-                    marginLeft: 20,
                     marginTop: [
                       { minWidth: Breakpoints.Mobile, value: 0 },
                       { minWidth: Breakpoints.Laptop, value: 20 },
@@ -223,13 +228,12 @@ const CFSScreen = props => {
               </H5>
             )}
           </>
-          {/* H Stack 2 */}
           <HStack
             {...GlobalStyles.HStackStyles(theme)['H Stack'].props}
             style={StyleSheet.applyWidth(
               StyleSheet.compose(
                 GlobalStyles.HStackStyles(theme)['H Stack'].style,
-                { gap: 10, justifyContent: 'space-between', marginLeft: 8 }
+                { gap: 10, justifyContent: 'space-between' }
               ),
               dimensions.width
             )}
@@ -286,9 +290,10 @@ const CFSScreen = props => {
                 style={StyleSheet.applyWidth(
                   {
                     alignItems: 'center',
-                    backgroundColor: undefined
-                      ? palettes.App.Orange
-                      : palettes.Brand.Background,
+                    backgroundColor:
+                      ebitdaRange[0] || country[0] || sector[0]
+                        ? palettes.App.Orange
+                        : palettes.Brand.Background,
                     borderRadius: 50,
                     height: 36,
                     justifyContent: 'center',
@@ -300,13 +305,14 @@ const CFSScreen = props => {
                 <IconButton
                   onPress={() => {
                     try {
+                      matchingFilters();
                       setFilterPressed(true);
                     } catch (err) {
                       console.error(err);
                     }
                   }}
                   color={
-                    (undefined
+                    (ebitdaRange[0] || country[0] || sector[0]
                       ? palettes.Brand['Strong Inverse']
                       : palettes.App.Strong2) ?? palettes.App.Strong2
                   }
@@ -410,7 +416,7 @@ const CFSScreen = props => {
                   data={fetchData?.items}
                   horizontal={false}
                   inverted={false}
-                  keyExtractor={(listData, index) => '.id'}
+                  keyExtractor={(listData, index) => listData?.id}
                   keyboardShouldPersistTaps={'never'}
                   listKey={'yCaR0jC6'}
                   nestedScrollEnabled={false}
@@ -451,7 +457,9 @@ const CFSScreen = props => {
                         <Pressable
                           onPress={() => {
                             try {
-                              navigation.navigate('CFSDetailsScreen');
+                              navigation.navigate('CFSDetailsScreen', {
+                                cfs_id: listData?.id,
+                              });
                             } catch (err) {
                               console.error(err);
                             }
@@ -641,7 +649,12 @@ const CFSScreen = props => {
                   showsVerticalScrollIndicator={true}
                   numColumns={dimensions.width >= Breakpoints.Laptop ? 3 : 2}
                   style={StyleSheet.applyWidth(
-                    { maxWidth: 1200, width: '100%' },
+                    {
+                      maxWidth: 1200,
+                      paddingLeft: 5,
+                      paddingRight: 5,
+                      width: '100%',
+                    },
                     dimensions.width
                   )}
                 />
@@ -654,12 +667,31 @@ const CFSScreen = props => {
                     presentationStyle={'pageSheet'}
                     transparent={true}
                   >
-                    <View
+                    <SimpleStyleScrollView
+                      bounces={true}
+                      horizontal={false}
+                      keyboardShouldPersistTaps={'never'}
+                      nestedScrollEnabled={false}
+                      showsHorizontalScrollIndicator={true}
+                      showsVerticalScrollIndicator={true}
                       style={StyleSheet.applyWidth(
                         {
                           alignItems: 'center',
+                          backgroundColor: 'rgba(0, 0, 0, 0.6)',
                           height: '100%',
-                          justifyContent: 'center',
+                          justifyContent: [
+                            { minWidth: Breakpoints.Mobile, value: 'center' },
+                            {
+                              minWidth: Breakpoints.Tablet,
+                              value: 'flex-start',
+                            },
+                          ],
+                          padding: 2,
+                          paddingTop: {
+                            minWidth: Breakpoints.Tablet,
+                            value: 100,
+                          },
+                          width: '100%',
                         },
                         dimensions.width
                       )}
@@ -669,7 +701,11 @@ const CFSScreen = props => {
                           {
                             alignItems: 'stretch',
                             justifyContent: 'flex-start',
-                            width: 380,
+                            maxWidth: [
+                              { minWidth: Breakpoints.Mobile, value: 390 },
+                              { minWidth: Breakpoints.Tablet, value: 600 },
+                            ],
+                            width: '100%',
                           },
                           dimensions.width
                         )}
@@ -690,12 +726,7 @@ const CFSScreen = props => {
                               GlobalStyles.LinearGradientStyles(theme)[
                                 'Linear Gradient'
                               ].style,
-                              {
-                                borderColor: null,
-                                borderWidth: null,
-                                margin: null,
-                                padding: 10,
-                              }
+                              { borderColor: null, borderWidth: null }
                             ),
                             dimensions.width
                           )}
@@ -782,7 +813,7 @@ const CFSScreen = props => {
                           <View
                             style={StyleSheet.applyWidth(
                               {
-                                alignItems: 'stretch',
+                                alignItems: 'flex-start',
                                 flexDirection: [
                                   {
                                     minWidth: Breakpoints.Mobile,
@@ -1122,12 +1153,15 @@ const CFSScreen = props => {
                             </H5>
 
                             <View
-                              {...GlobalStyles.ViewStyles(theme)[
-                                'split_options'
-                              ].props}
                               style={StyleSheet.applyWidth(
-                                GlobalStyles.ViewStyles(theme)['split_options']
-                                  .style,
+                                {
+                                  alignItems: 'flex-start',
+                                  flex: 0,
+                                  flexDirection: 'row',
+                                  flexWrap: 'wrap',
+                                  gap: 8,
+                                  justifyContent: 'flex-start',
+                                },
                                 dimensions.width
                               )}
                             >
@@ -1139,7 +1173,16 @@ const CFSScreen = props => {
                                     alignItems: 'center',
                                     flexDirection: 'row',
                                     gap: 4,
-                                    width: '47%',
+                                    width: [
+                                      {
+                                        minWidth: Breakpoints.Mobile,
+                                        value: '47%',
+                                      },
+                                      {
+                                        minWidth: Breakpoints.Tablet,
+                                        value: '30%',
+                                      },
+                                    ],
                                   },
                                   dimensions.width
                                 )}
@@ -1153,6 +1196,9 @@ const CFSScreen = props => {
                                     }
                                   }}
                                   color={palettes.Brand['Strong Inverse']}
+                                  disabled={
+                                    Constants['ME']?.access_regions === 'DACH'
+                                  }
                                   size={24}
                                   status={sweden}
                                   uncheckedColor={
@@ -1167,6 +1213,9 @@ const CFSScreen = props => {
                                       console.error(err);
                                     }
                                   }}
+                                  disabled={
+                                    Constants['ME']?.access_regions === 'DACH'
+                                  }
                                 >
                                   <Text
                                     accessible={true}
@@ -1200,11 +1249,16 @@ const CFSScreen = props => {
                                     alignItems: 'center',
                                     flexDirection: 'row',
                                     gap: 4,
-                                    marginLeft: {
-                                      minWidth: Breakpoints.Tablet,
-                                      value: 10,
-                                    },
-                                    width: '47%',
+                                    width: [
+                                      {
+                                        minWidth: Breakpoints.Mobile,
+                                        value: '47%',
+                                      },
+                                      {
+                                        minWidth: Breakpoints.Tablet,
+                                        value: '30%',
+                                      },
+                                    ],
                                   },
                                   dimensions.width
                                 )}
@@ -1218,6 +1272,9 @@ const CFSScreen = props => {
                                     }
                                   }}
                                   color={palettes.Brand['Strong Inverse']}
+                                  disabled={
+                                    Constants['ME']?.access_regions === 'Nordic'
+                                  }
                                   size={24}
                                   status={germany}
                                   uncheckedColor={
@@ -1232,6 +1289,9 @@ const CFSScreen = props => {
                                       console.error(err);
                                     }
                                   }}
+                                  disabled={
+                                    Constants['ME']?.access_regions === 'Nordic'
+                                  }
                                 >
                                   <Text
                                     accessible={true}
@@ -1265,7 +1325,16 @@ const CFSScreen = props => {
                                     alignItems: 'center',
                                     flexDirection: 'row',
                                     gap: 4,
-                                    width: '47%',
+                                    width: [
+                                      {
+                                        minWidth: Breakpoints.Mobile,
+                                        value: '47%',
+                                      },
+                                      {
+                                        minWidth: Breakpoints.Tablet,
+                                        value: '30%',
+                                      },
+                                    ],
                                   },
                                   dimensions.width
                                 )}
@@ -1279,6 +1348,9 @@ const CFSScreen = props => {
                                     }
                                   }}
                                   color={palettes.Brand['Strong Inverse']}
+                                  disabled={
+                                    Constants['ME']?.access_regions === 'DACH'
+                                  }
                                   size={24}
                                   status={denmark}
                                   uncheckedColor={
@@ -1293,6 +1365,9 @@ const CFSScreen = props => {
                                       console.error(err);
                                     }
                                   }}
+                                  disabled={
+                                    Constants['ME']?.access_regions === 'DACH'
+                                  }
                                 >
                                   <Text
                                     accessible={true}
@@ -1326,11 +1401,16 @@ const CFSScreen = props => {
                                     alignItems: 'center',
                                     flexDirection: 'row',
                                     gap: 4,
-                                    marginLeft: {
-                                      minWidth: Breakpoints.Tablet,
-                                      value: 10,
-                                    },
-                                    width: '47%',
+                                    width: [
+                                      {
+                                        minWidth: Breakpoints.Mobile,
+                                        value: '47%',
+                                      },
+                                      {
+                                        minWidth: Breakpoints.Tablet,
+                                        value: '30%',
+                                      },
+                                    ],
                                   },
                                   dimensions.width
                                 )}
@@ -1344,6 +1424,9 @@ const CFSScreen = props => {
                                     }
                                   }}
                                   color={palettes.Brand['Strong Inverse']}
+                                  disabled={
+                                    Constants['ME']?.access_regions === 'Nordic'
+                                  }
                                   size={24}
                                   status={switzerland}
                                   uncheckedColor={
@@ -1360,6 +1443,9 @@ const CFSScreen = props => {
                                       console.error(err);
                                     }
                                   }}
+                                  disabled={
+                                    Constants['ME']?.access_regions === 'Nordic'
+                                  }
                                 >
                                   <Text
                                     accessible={true}
@@ -1393,7 +1479,16 @@ const CFSScreen = props => {
                                     alignItems: 'center',
                                     flexDirection: 'row',
                                     gap: 4,
-                                    width: '47%',
+                                    width: [
+                                      {
+                                        minWidth: Breakpoints.Mobile,
+                                        value: '47%',
+                                      },
+                                      {
+                                        minWidth: Breakpoints.Tablet,
+                                        value: '30%',
+                                      },
+                                    ],
                                   },
                                   dimensions.width
                                 )}
@@ -1407,6 +1502,9 @@ const CFSScreen = props => {
                                     }
                                   }}
                                   color={palettes.Brand['Strong Inverse']}
+                                  disabled={
+                                    Constants['ME']?.access_regions === 'DACH'
+                                  }
                                   size={24}
                                   status={norway}
                                   uncheckedColor={
@@ -1421,6 +1519,9 @@ const CFSScreen = props => {
                                       console.error(err);
                                     }
                                   }}
+                                  disabled={
+                                    Constants['ME']?.access_regions === 'DACH'
+                                  }
                                 >
                                   <Text
                                     accessible={true}
@@ -1454,11 +1555,16 @@ const CFSScreen = props => {
                                     alignItems: 'center',
                                     flexDirection: 'row',
                                     gap: 4,
-                                    marginLeft: {
-                                      minWidth: Breakpoints.Tablet,
-                                      value: 10,
-                                    },
-                                    width: '47%',
+                                    width: [
+                                      {
+                                        minWidth: Breakpoints.Mobile,
+                                        value: '47%',
+                                      },
+                                      {
+                                        minWidth: Breakpoints.Tablet,
+                                        value: '30%',
+                                      },
+                                    ],
                                   },
                                   dimensions.width
                                 )}
@@ -1472,6 +1578,9 @@ const CFSScreen = props => {
                                     }
                                   }}
                                   color={palettes.Brand['Strong Inverse']}
+                                  disabled={
+                                    Constants['ME']?.access_regions === 'Nordic'
+                                  }
                                   size={24}
                                   status={austria}
                                   uncheckedColor={
@@ -1486,6 +1595,9 @@ const CFSScreen = props => {
                                       console.error(err);
                                     }
                                   }}
+                                  disabled={
+                                    Constants['ME']?.access_regions === 'Nordic'
+                                  }
                                 >
                                   <Text
                                     accessible={true}
@@ -1519,7 +1631,16 @@ const CFSScreen = props => {
                                     alignItems: 'center',
                                     flexDirection: 'row',
                                     gap: 4,
-                                    width: '47%',
+                                    width: [
+                                      {
+                                        minWidth: Breakpoints.Mobile,
+                                        value: '47%',
+                                      },
+                                      {
+                                        minWidth: Breakpoints.Tablet,
+                                        value: '30%',
+                                      },
+                                    ],
                                   },
                                   dimensions.width
                                 )}
@@ -1533,6 +1654,9 @@ const CFSScreen = props => {
                                     }
                                   }}
                                   color={palettes.Brand['Strong Inverse']}
+                                  disabled={
+                                    Constants['ME']?.access_regions === 'DACH'
+                                  }
                                   size={24}
                                   status={finland}
                                   uncheckedColor={
@@ -1547,6 +1671,9 @@ const CFSScreen = props => {
                                       console.error(err);
                                     }
                                   }}
+                                  disabled={
+                                    Constants['ME']?.access_regions === 'DACH'
+                                  }
                                 >
                                   <Text
                                     accessible={true}
@@ -1606,12 +1733,15 @@ const CFSScreen = props => {
                             </H5>
 
                             <View
-                              {...GlobalStyles.ViewStyles(theme)[
-                                'split_options'
-                              ].props}
                               style={StyleSheet.applyWidth(
-                                GlobalStyles.ViewStyles(theme)['split_options']
-                                  .style,
+                                {
+                                  alignItems: 'flex-start',
+                                  flex: 0,
+                                  flexDirection: 'row',
+                                  flexWrap: 'wrap',
+                                  gap: 8,
+                                  justifyContent: 'flex-start',
+                                },
                                 dimensions.width
                               )}
                             >
@@ -1623,7 +1753,16 @@ const CFSScreen = props => {
                                     alignItems: 'center',
                                     flexDirection: 'row',
                                     gap: 4,
-                                    width: '47%',
+                                    width: [
+                                      {
+                                        minWidth: Breakpoints.Mobile,
+                                        value: '47%',
+                                      },
+                                      {
+                                        minWidth: Breakpoints.Tablet,
+                                        value: '30%',
+                                      },
+                                    ],
                                   },
                                   dimensions.width
                                 )}
@@ -1688,11 +1827,16 @@ const CFSScreen = props => {
                                     alignItems: 'center',
                                     flexDirection: 'row',
                                     gap: 4,
-                                    marginLeft: {
-                                      minWidth: Breakpoints.Tablet,
-                                      value: 10,
-                                    },
-                                    width: '47%',
+                                    width: [
+                                      {
+                                        minWidth: Breakpoints.Mobile,
+                                        value: '47%',
+                                      },
+                                      {
+                                        minWidth: Breakpoints.Tablet,
+                                        value: '30%',
+                                      },
+                                    ],
                                   },
                                   dimensions.width
                                 )}
@@ -1755,7 +1899,16 @@ const CFSScreen = props => {
                                     alignItems: 'center',
                                     flexDirection: 'row',
                                     gap: 4,
-                                    width: '47%',
+                                    width: [
+                                      {
+                                        minWidth: Breakpoints.Mobile,
+                                        value: '47%',
+                                      },
+                                      {
+                                        minWidth: Breakpoints.Tablet,
+                                        value: '30%',
+                                      },
+                                    ],
                                   },
                                   dimensions.width
                                 )}
@@ -1820,11 +1973,16 @@ const CFSScreen = props => {
                                     alignItems: 'center',
                                     flexDirection: 'row',
                                     gap: 4,
-                                    marginLeft: {
-                                      minWidth: Breakpoints.Tablet,
-                                      value: 10,
-                                    },
-                                    width: '47%',
+                                    width: [
+                                      {
+                                        minWidth: Breakpoints.Mobile,
+                                        value: '47%',
+                                      },
+                                      {
+                                        minWidth: Breakpoints.Tablet,
+                                        value: '30%',
+                                      },
+                                    ],
                                   },
                                   dimensions.width
                                 )}
@@ -1887,7 +2045,16 @@ const CFSScreen = props => {
                                     alignItems: 'center',
                                     flexDirection: 'row',
                                     gap: 4,
-                                    width: '47%',
+                                    width: [
+                                      {
+                                        minWidth: Breakpoints.Mobile,
+                                        value: '47%',
+                                      },
+                                      {
+                                        minWidth: Breakpoints.Tablet,
+                                        value: '30%',
+                                      },
+                                    ],
                                   },
                                   dimensions.width
                                 )}
@@ -1950,11 +2117,16 @@ const CFSScreen = props => {
                                     alignItems: 'center',
                                     flexDirection: 'row',
                                     gap: 4,
-                                    marginLeft: {
-                                      minWidth: Breakpoints.Tablet,
-                                      value: 10,
-                                    },
-                                    width: '47%',
+                                    width: [
+                                      {
+                                        minWidth: Breakpoints.Mobile,
+                                        value: '47%',
+                                      },
+                                      {
+                                        minWidth: Breakpoints.Tablet,
+                                        value: '30%',
+                                      },
+                                    ],
                                   },
                                   dimensions.width
                                 )}
@@ -2015,7 +2187,16 @@ const CFSScreen = props => {
                                     alignItems: 'center',
                                     flexDirection: 'row',
                                     gap: 4,
-                                    width: '47%',
+                                    width: [
+                                      {
+                                        minWidth: Breakpoints.Mobile,
+                                        value: '47%',
+                                      },
+                                      {
+                                        minWidth: Breakpoints.Tablet,
+                                        value: '30%',
+                                      },
+                                    ],
                                   },
                                   dimensions.width
                                 )}
@@ -2076,11 +2257,16 @@ const CFSScreen = props => {
                                     alignItems: 'center',
                                     flexDirection: 'row',
                                     gap: 4,
-                                    marginLeft: {
-                                      minWidth: Breakpoints.Tablet,
-                                      value: 10,
-                                    },
-                                    width: '47%',
+                                    width: [
+                                      {
+                                        minWidth: Breakpoints.Mobile,
+                                        value: '47%',
+                                      },
+                                      {
+                                        minWidth: Breakpoints.Tablet,
+                                        value: '30%',
+                                      },
+                                    ],
                                   },
                                   dimensions.width
                                 )}
@@ -2143,7 +2329,16 @@ const CFSScreen = props => {
                                     alignItems: 'center',
                                     flexDirection: 'row',
                                     gap: 4,
-                                    width: '47%',
+                                    width: [
+                                      {
+                                        minWidth: Breakpoints.Mobile,
+                                        value: '47%',
+                                      },
+                                      {
+                                        minWidth: Breakpoints.Tablet,
+                                        value: '30%',
+                                      },
+                                    ],
                                   },
                                   dimensions.width
                                 )}
@@ -2204,11 +2399,16 @@ const CFSScreen = props => {
                                     alignItems: 'center',
                                     flexDirection: 'row',
                                     gap: 4,
-                                    marginLeft: {
-                                      minWidth: Breakpoints.Tablet,
-                                      value: 10,
-                                    },
-                                    width: '47%',
+                                    width: [
+                                      {
+                                        minWidth: Breakpoints.Mobile,
+                                        value: '47%',
+                                      },
+                                      {
+                                        minWidth: Breakpoints.Tablet,
+                                        value: '30%',
+                                      },
+                                    ],
                                   },
                                   dimensions.width
                                 )}
@@ -2269,7 +2469,16 @@ const CFSScreen = props => {
                                     alignItems: 'center',
                                     flexDirection: 'row',
                                     gap: 4,
-                                    width: '47%',
+                                    width: [
+                                      {
+                                        minWidth: Breakpoints.Mobile,
+                                        value: '47%',
+                                      },
+                                      {
+                                        minWidth: Breakpoints.Tablet,
+                                        value: '30%',
+                                      },
+                                    ],
                                   },
                                   dimensions.width
                                 )}
@@ -2293,7 +2502,7 @@ const CFSScreen = props => {
                                   onPress={() => {
                                     try {
                                       setHealth_care(
-                                        health_care ? false : true
+                                        transaction ? false : true
                                       );
                                     } catch (err) {
                                       console.error(err);
@@ -2384,12 +2593,9 @@ const CFSScreen = props => {
                               onPress={() => {
                                 const handler = async () => {
                                   try {
-                                    (
-                                      await XanoCollectionApi.getOneCFSGET(
-                                        Constants,
-                                        { cfs_id: 1 }
-                                      )
-                                    )?.json;
+                                    applayFilter();
+                                    await refetchGetCFS();
+                                    setFilterPressed(false);
                                   } catch (err) {
                                     console.error(err);
                                   }
@@ -2403,7 +2609,7 @@ const CFSScreen = props => {
                                   GlobalStyles.ButtonStyles(theme)['Button']
                                     .style,
                                   {
-                                    backgroundColor: palettes.App.green,
+                                    backgroundColor: palettes.App.Orange,
                                     fontFamily: 'Quicksand_600SemiBold',
                                     textTransform: 'uppercase',
                                     width: '47%',
@@ -2416,7 +2622,7 @@ const CFSScreen = props => {
                           </View>
                         </LinearGradient>
                       </View>
-                    </View>
+                    </SimpleStyleScrollView>
                   </Modal>
                 )}
               </>

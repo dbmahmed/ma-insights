@@ -1171,7 +1171,7 @@ const TransactionsScreen = props => {
                         try {
                           (
                             await XanoCollectionApi.getOneCFSGET(Constants, {
-                              cfs_id: 1,
+                              cfs_id: 1094,
                             })
                           )?.json;
                         } catch (err) {
@@ -1372,7 +1372,7 @@ const TransactionsScreen = props => {
         </View>
       </View>
 
-      <XanoCollectionApi.FetchGetAllEventsGET keyword={'Update'}>
+      <XanoCollectionApi.FetchGetAllEventsGET keyword={'Update'} page={2}>
         {({ loading, error, data, refetchGetAllEvents }) => {
           const fetchData = data?.json;
           if (loading) {

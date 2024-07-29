@@ -95,6 +95,10 @@ const NewslettersScreen = props => {
       hasLeftSafeArea={true}
       hasRightSafeArea={true}
       scrollable={false}
+      style={StyleSheet.applyWidth(
+        { height: '99%', width: '99%' },
+        dimensions.width
+      )}
     >
       <CustomHeaderBlock />
       {/* box */}
