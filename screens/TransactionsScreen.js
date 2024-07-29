@@ -1372,7 +1372,7 @@ const TransactionsScreen = props => {
         </View>
       </View>
 
-      <XanoCollectionApi.FetchGetAllEventsGET keyword={'Update'} page={2}>
+      <XanoCollectionApi.FetchGetAllEventsGET keyword={'Update'} page={1}>
         {({ loading, error, data, refetchGetAllEvents }) => {
           const fetchData = data?.json;
           if (loading) {

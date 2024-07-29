@@ -191,7 +191,7 @@ const AllEventsScreen = props => {
         const getEvent = (
           await XanoCollectionApi.getAllEventsGET(Constants, {
             keyword: 'Update',
-            page: 2,
+            page: 1,
           })
         )?.json;
         /* hidden 'Log to Console' action */
@@ -239,30 +239,107 @@ const AllEventsScreen = props => {
             dimensions.width
           )}
         >
-          <>
-            {!(dimensions.width >= Breakpoints.Laptop) ? null : (
-              <H5
-                selectable={false}
-                {...GlobalStyles.H5Styles(theme)['H5'].props}
-                style={StyleSheet.applyWidth(
-                  StyleSheet.compose(GlobalStyles.H5Styles(theme)['H5'].style, {
-                    fontFamily: 'Quicksand_600SemiBold',
-                    fontSize: 25,
-                    marginBottom: 20,
-                    marginLeft: 20,
-                    marginTop: [
-                      { minWidth: Breakpoints.Mobile, value: 0 },
-                      { minWidth: Breakpoints.Laptop, value: 20 },
-                    ],
-                    textDecorationLine: 'none',
-                  }),
-                  dimensions.width
-                )}
-              >
-                {'All events'}
-              </H5>
+          <View
+            style={StyleSheet.applyWidth(
+              {
+                alignContent: 'space-between',
+                alignItems: { minWidth: Breakpoints.Laptop, value: 'center' },
+                flexDirection: { minWidth: Breakpoints.Laptop, value: 'row' },
+                gap: { minWidth: Breakpoints.Laptop, value: 10 },
+                justifyContent: {
+                  minWidth: Breakpoints.Laptop,
+                  value: 'space-between',
+                },
+                marginBottom: 10,
+              },
+              dimensions.width
             )}
-          </>
+          >
+            <>
+              {!(dimensions.width >= Breakpoints.Laptop) ? null : (
+                <H5
+                  selectable={false}
+                  {...GlobalStyles.H5Styles(theme)['H5'].props}
+                  style={StyleSheet.applyWidth(
+                    StyleSheet.compose(
+                      GlobalStyles.H5Styles(theme)['H5'].style,
+                      {
+                        fontFamily: 'Quicksand_600SemiBold',
+                        fontSize: 25,
+                        marginBottom: 20,
+                        marginLeft: 20,
+                        marginTop: [
+                          { minWidth: Breakpoints.Mobile, value: 0 },
+                          { minWidth: Breakpoints.Laptop, value: 20 },
+                        ],
+                        textDecorationLine: 'none',
+                      }
+                    ),
+                    dimensions.width
+                  )}
+                >
+                  {'All events'}
+                </H5>
+              )}
+            </>
+            <Button
+              iconPosition={'left'}
+              onPress={() => {
+                try {
+                  navigation.push('TransactionsScreen');
+                } catch (err) {
+                  console.error(err);
+                }
+              }}
+              {...GlobalStyles.ButtonStyles(theme)['Header menu'].props}
+              icon={'AntDesign/arrowright'}
+              style={StyleSheet.applyWidth(
+                StyleSheet.compose(
+                  GlobalStyles.ButtonStyles(theme)['Header menu'].style,
+                  {
+                    backgroundColor: [
+                      {
+                        minWidth: Breakpoints.Mobile,
+                        value: theme.colors.text.strong,
+                      },
+                      {
+                        minWidth: Breakpoints.Laptop,
+                        value: theme.colors.text.strong,
+                      },
+                    ],
+                    borderColor: {
+                      minWidth: Breakpoints.Laptop,
+                      value: theme.colors.text.strong,
+                    },
+                    color: [
+                      {
+                        minWidth: Breakpoints.Mobile,
+                        value: palettes.Brand['Strong Inverse'],
+                      },
+                      {
+                        minWidth: Breakpoints.Laptop,
+                        value: palettes.Brand['Strong Inverse'],
+                      },
+                    ],
+                    fontFamily: [
+                      {
+                        minWidth: Breakpoints.Mobile,
+                        value: 'Quicksand_500Medium',
+                      },
+                      {
+                        minWidth: Breakpoints.Laptop,
+                        value: 'Quicksand_500Medium',
+                      },
+                    ],
+                    maxWidth: { minWidth: Breakpoints.Tablet, value: 200 },
+                  }
+                ),
+                dimensions.width
+              )}
+              title={'MULTIPLES'}
+            />
+          </View>
+
           <HStack
             {...GlobalStyles.HStackStyles(theme)['H Stack'].props}
             style={StyleSheet.applyWidth(
@@ -412,7 +489,7 @@ const AllEventsScreen = props => {
             },
           }}
           keyword={keywordSearch}
-          page={2}
+          page={1}
           sectorIn={sector}
         >
           {({ loading, error, data, refetchGetAllEvents }) => {
@@ -427,6 +504,153 @@ const AllEventsScreen = props => {
 
             return (
               <>
+                <SimpleStyleFlatList
+                  data={fetchData?.items}
+                  horizontal={false}
+                  inverted={false}
+                  keyExtractor={(listData, index) => listData?.items?.id}
+                  keyboardShouldPersistTaps={'never'}
+                  listKey={'AwqPzJqX'}
+                  nestedScrollEnabled={false}
+                  onEndReached={() => {
+                    const handler = async () => {
+                      console.log('List ON_END_REACHED Start');
+                      let error = null;
+                      try {
+                        console.log('Start ON_END_REACHED:0 CONDITIONAL_STOP');
+                        if (fetchData?.nextPage !== null) {
+                          return console.log(
+                            'Complete ON_END_REACHED:0 CONDITIONAL_STOP'
+                          );
+                        } else {
+                          console.log(
+                            'Skipped ON_END_REACHED:0 CONDITIONAL_STOP: condition not met'
+                          );
+                        }
+                        console.log('Start ON_END_REACHED:1 FETCH_REQUEST');
+                        const newData = (
+                          await XanoCollectionApi.getAllEventsGET(Constants, {
+                            countryIn: country,
+                            eventTypeIn: eventType,
+                            keyword: keywordSearch,
+                            page: 1,
+                            sectorIn: sector,
+                          })
+                        )?.json;
+                        console.log('Complete ON_END_REACHED:1 FETCH_REQUEST', {
+                          newData,
+                        });
+                        console.log('Start ON_END_REACHED:2 SET_VARIABLE');
+                        /* hidden 'Set Variable' action */ console.log(
+                          'Complete ON_END_REACHED:2 SET_VARIABLE'
+                        );
+                        console.log('Start ON_END_REACHED:3 CONSOLE_LOG');
+                        console.log(newData);
+                        console.log('Complete ON_END_REACHED:3 CONSOLE_LOG');
+                      } catch (err) {
+                        console.error(err);
+                        error = err.message ?? err;
+                      }
+                      console.log(
+                        'List ON_END_REACHED Complete',
+                        error ? { error } : 'no error'
+                      );
+                    };
+                    handler();
+                  }}
+                  onEndReachedThreshold={0.5}
+                  renderItem={({ item, index }) => {
+                    const listData = item;
+                    return (
+                      <View
+                        style={StyleSheet.applyWidth(
+                          {
+                            flex: { minWidth: Breakpoints.Laptop, value: 1 },
+                            padding: { minWidth: Breakpoints.Laptop, value: 5 },
+                          },
+                          dimensions.width
+                        )}
+                      >
+                        <Touchable
+                          onPress={() => {
+                            try {
+                              navigation.navigate('EventDetailsScreen');
+                            } catch (err) {
+                              console.error(err);
+                            }
+                          }}
+                        >
+                          <View
+                            style={StyleSheet.applyWidth(
+                              {
+                                borderBottomWidth: 0.5,
+                                borderColor: theme.colors.text.light,
+                                flexWrap: {
+                                  minWidth: Breakpoints.Laptop,
+                                  value: 'nowrap',
+                                },
+                                height: {
+                                  minWidth: Breakpoints.Laptop,
+                                  value: 85,
+                                },
+                                paddingBottom: 5,
+                                paddingTop: 5,
+                              },
+                              dimensions.width
+                            )}
+                          >
+                            <H6
+                              selectable={false}
+                              {...GlobalStyles.H6Styles(theme)['H6'].props}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.H6Styles(theme)['H6'].style,
+                                  {
+                                    fontFamily: 'Quicksand_700Bold',
+                                    fontSize: 12,
+                                    margin: 0,
+                                  }
+                                ),
+                                dimensions.width
+                              )}
+                            >
+                              {listData?.headline}
+                            </H6>
+
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)['screen_title']
+                                .props}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.TextStyles(theme)['screen_title']
+                                    .style,
+                                  {
+                                    fontFamily: 'Quicksand_400Regular',
+                                    fontSize: 10,
+                                    marginTop: 4,
+                                  }
+                                ),
+                                dimensions.width
+                              )}
+                            >
+                              {listData?.published}
+                              {' | Source: '}
+                              {listData?.source}
+                            </Text>
+                          </View>
+                        </Touchable>
+                      </View>
+                    );
+                  }}
+                  showsHorizontalScrollIndicator={true}
+                  showsVerticalScrollIndicator={true}
+                  numColumns={dimensions.width >= Breakpoints.Laptop ? 2 : 1}
+                  style={StyleSheet.applyWidth(
+                    { maxWidth: 1200 },
+                    dimensions.width
+                  )}
+                />
                 {/* Modal 2 */}
                 <Modal
                   supportedOrientations={['portrait', 'landscape']}
@@ -2391,131 +2615,6 @@ const AllEventsScreen = props => {
                     </View>
                   </SimpleStyleScrollView>
                 </Modal>
-                <SimpleStyleFlatList
-                  data={fetchData?.items}
-                  horizontal={false}
-                  inverted={false}
-                  keyExtractor={(listData, index) =>
-                    listData?.id ?? listData?.uuid ?? index.toString()
-                  }
-                  keyboardShouldPersistTaps={'never'}
-                  listKey={'AwqPzJqX'}
-                  nestedScrollEnabled={false}
-                  onEndReached={() => {
-                    const handler = async () => {
-                      try {
-                        if (fetchData?.nextPage !== null) {
-                          return;
-                        }
-                        const newData = (
-                          await XanoCollectionApi.getAllEventsGET(Constants, {
-                            countryIn: country,
-                            eventTypeIn: eventType,
-                            keyword: keywordSearch,
-                            page: fetchData,
-                            sectorIn: sector,
-                          })
-                        )?.json;
-                        /* 'Set Variable' action requires configuration: choose a variable */
-                      } catch (err) {
-                        console.error(err);
-                      }
-                    };
-                    handler();
-                  }}
-                  renderItem={({ item, index }) => {
-                    const listData = item;
-                    return (
-                      <View
-                        style={StyleSheet.applyWidth(
-                          {
-                            flex: { minWidth: Breakpoints.Laptop, value: 1 },
-                            padding: { minWidth: Breakpoints.Laptop, value: 5 },
-                          },
-                          dimensions.width
-                        )}
-                      >
-                        <Touchable
-                          onPress={() => {
-                            try {
-                              navigation.navigate('EventDetailsScreen');
-                            } catch (err) {
-                              console.error(err);
-                            }
-                          }}
-                        >
-                          <View
-                            style={StyleSheet.applyWidth(
-                              {
-                                borderBottomWidth: 0.5,
-                                borderColor: theme.colors.text.light,
-                                flexWrap: {
-                                  minWidth: Breakpoints.Laptop,
-                                  value: 'nowrap',
-                                },
-                                height: {
-                                  minWidth: Breakpoints.Laptop,
-                                  value: 85,
-                                },
-                                paddingBottom: 5,
-                                paddingTop: 5,
-                              },
-                              dimensions.width
-                            )}
-                          >
-                            <H6
-                              selectable={false}
-                              {...GlobalStyles.H6Styles(theme)['H6'].props}
-                              style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.H6Styles(theme)['H6'].style,
-                                  {
-                                    fontFamily: 'Quicksand_700Bold',
-                                    fontSize: 12,
-                                    margin: 0,
-                                  }
-                                ),
-                                dimensions.width
-                              )}
-                            >
-                              {listData?.headline}
-                            </H6>
-
-                            <Text
-                              accessible={true}
-                              {...GlobalStyles.TextStyles(theme)['screen_title']
-                                .props}
-                              style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.TextStyles(theme)['screen_title']
-                                    .style,
-                                  {
-                                    fontFamily: 'Quicksand_400Regular',
-                                    fontSize: 10,
-                                    marginTop: 4,
-                                  }
-                                ),
-                                dimensions.width
-                              )}
-                            >
-                              {listData?.published}
-                              {' | Source: '}
-                              {listData?.source}
-                            </Text>
-                          </View>
-                        </Touchable>
-                      </View>
-                    );
-                  }}
-                  showsHorizontalScrollIndicator={true}
-                  showsVerticalScrollIndicator={true}
-                  numColumns={dimensions.width >= Breakpoints.Laptop ? 2 : 1}
-                  onEndReachedThreshold={0.2}
-                  style={StyleSheet.applyWidth(
-                    { maxWidth: 1200 },
-                    dimensions.width
-                  )}
-                />
               </>
             );
           }}
