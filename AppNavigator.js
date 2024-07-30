@@ -65,7 +65,7 @@ function MAInsights() {
 
   return (
     <Tab.Navigator
-      initialRouteName="NewslewttersScreen"
+      initialRouteName="NewslettersScreen"
       screenOptions={({ navigation }) => ({
         headerLeft: ({ tintColor, canGoBack }) =>
           canGoBack ? null : (

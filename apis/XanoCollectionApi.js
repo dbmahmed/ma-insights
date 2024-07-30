@@ -672,7 +672,7 @@ export const getCFSGET = async (
     paramsDict['country_in'] = renderParam(countryIn);
   }
   if (page !== undefined) {
-    paramsDict['external'] = `{page: ${renderParam(page)}`;
+    paramsDict['page'] = renderParam(page);
   }
   if (ebitdaIn !== undefined) {
     paramsDict['ebitda_in'] = renderParam(ebitdaIn);

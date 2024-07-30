@@ -47,7 +47,7 @@ const CFSDetailsScreen = props => {
     <ScreenContainer hasSafeArea={false} scrollable={false}>
       <CustomHeaderBlock />
       <XanoCollectionApi.FetchGetOneCFSGET
-        cfs_id={props.route?.params?.cfs_id ?? 1094}
+        cfs_id={props.route?.params?.cfs_id ?? 892}
       >
         {({ loading, error, data, refetchGetOneCFS }) => {
           const fetchData = data?.json;
@@ -79,55 +79,13 @@ const CFSDetailsScreen = props => {
                 dimensions.width
               )}
             >
+              {/* View 2 */}
               <View
                 style={StyleSheet.applyWidth(
-                  { maxWidth: 1200, padding: 10, width: '100%' },
+                  { maxWidth: 1200, width: '100%' },
                   dimensions.width
                 )}
               >
-                <H3
-                  selectable={false}
-                  {...GlobalStyles.H3Styles(theme)['H3'].props}
-                  style={StyleSheet.applyWidth(
-                    StyleSheet.compose(
-                      GlobalStyles.H3Styles(theme)['H3'].style,
-                      {
-                        fontFamily: 'Quicksand_700Bold',
-                        fontSize: 20,
-                        marginBottom: 10,
-                        marginTop: 0,
-                      }
-                    ),
-                    dimensions.width
-                  )}
-                >
-                  {fetchData?._event?.headline}
-                </H3>
-                <>
-                  {!(fetchData?.event !== 0) ? null : (
-                    <Text
-                      accessible={true}
-                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
-                      style={StyleSheet.applyWidth(
-                        StyleSheet.compose(
-                          GlobalStyles.TextStyles(theme)['screen_title'].style,
-                          {
-                            color: palettes.App.Orange,
-                            fontFamily: 'Quicksand_400Regular',
-                            fontSize: 12,
-                            marginBottom: 20,
-                          }
-                        ),
-                        dimensions.width
-                      )}
-                    >
-                      {fetchData?._event?.published}
-                      {' ('}
-                      {fetchData?._event?.source}
-                      {')'}
-                    </Text>
-                  )}
-                </>
                 <LinearGradient
                   endX={100}
                   endY={100}
@@ -146,12 +104,11 @@ const CFSDetailsScreen = props => {
                       ].style,
                       {
                         borderColor: null,
-                        borderRadius: 8,
+                        borderRadius: null,
                         borderWidth: null,
                         gap: 8,
                         margin: null,
                         marginBottom: 20,
-                        maxWidth: 400,
                         padding: 10,
                         width: '100%',
                       }
@@ -563,7 +520,57 @@ const CFSDetailsScreen = props => {
                     </Text>
                   </View>
                 </LinearGradient>
+              </View>
 
+              <View
+                style={StyleSheet.applyWidth(
+                  { maxWidth: 1200, padding: 10, width: '100%' },
+                  dimensions.width
+                )}
+              >
+                <H3
+                  selectable={false}
+                  {...GlobalStyles.H3Styles(theme)['H3'].props}
+                  style={StyleSheet.applyWidth(
+                    StyleSheet.compose(
+                      GlobalStyles.H3Styles(theme)['H3'].style,
+                      {
+                        fontFamily: 'Quicksand_700Bold',
+                        fontSize: 20,
+                        marginBottom: 10,
+                        marginTop: 0,
+                      }
+                    ),
+                    dimensions.width
+                  )}
+                >
+                  {fetchData?._event?.headline}
+                </H3>
+                <>
+                  {!(fetchData?.event !== 0) ? null : (
+                    <Text
+                      accessible={true}
+                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.TextStyles(theme)['screen_title'].style,
+                          {
+                            color: palettes.App.Orange,
+                            fontFamily: 'Quicksand_500Medium',
+                            fontSize: 13,
+                            marginBottom: 20,
+                          }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      {fetchData?._event?.published}
+                      {' ('}
+                      {fetchData?._event?.source}
+                      {')'}
+                    </Text>
+                  )}
+                </>
                 <View>
                   {/* Text 2 */}
                   <Text

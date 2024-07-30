@@ -121,7 +121,7 @@ const PEPFDetailsScreen = props => {
                       {
                         alignItems: 'stretch',
                         borderColor: null,
-                        borderRadius: 8,
+                        borderRadius: null,
                         borderWidth: null,
                         gap: 8,
                         margin: null,
@@ -630,6 +630,7 @@ const PEPFDetailsScreen = props => {
                   keyboardShouldPersistTaps={'never'}
                   listKey={'PDqyS97A'}
                   nestedScrollEnabled={false}
+                  numColumns={1}
                   onEndReached={() => {
                     console.log('List ON_END_REACHED Start');
                     let error = null;
@@ -751,7 +752,6 @@ const PEPFDetailsScreen = props => {
                   }}
                   showsHorizontalScrollIndicator={true}
                   showsVerticalScrollIndicator={true}
-                  numColumns={dimensions.width >= Breakpoints.Laptop ? 2 : 1}
                   onEndReachedThreshold={0.8}
                 />
               </View>

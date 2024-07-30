@@ -923,7 +923,7 @@ const CFSScreen = props => {
                                       dimensions.width
                                     )}
                                   >
-                                    {'EBTDA ≤ €5m'}
+                                    {'EBITDA ≤ €5m'}
                                   </Text>
                                 </Pressable>
                               </View>

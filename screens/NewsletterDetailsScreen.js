@@ -119,7 +119,147 @@ const NewsletterDetailsScreen = props => {
           }
 
           if (error || data?.status < 200 || data?.status >= 300) {
-            return <ActivityIndicator />;
+            return (
+              <>
+                {/* Error */}
+                <>
+                  {has_access === false ? null : (
+                    <View
+                      style={StyleSheet.applyWidth(
+                        {
+                          alignContent: 'center',
+                          alignItems: 'center',
+                          alignSelf: 'center',
+                          justifyContent: [
+                            {
+                              minWidth: Breakpoints.BigScreen,
+                              value: 'center',
+                            },
+                            { minWidth: Breakpoints.Tablet, value: 'center' },
+                            { minWidth: Breakpoints.Mobile, value: 'center' },
+                          ],
+                          padding: 10,
+                          width: {
+                            minWidth: Breakpoints.Tablet,
+                            value: '100%',
+                          },
+                        },
+                        dimensions.width
+                      )}
+                    >
+                      <View
+                        style={StyleSheet.applyWidth(
+                          {
+                            alignContent: 'center',
+                            alignItems: 'center',
+                            alignSelf: 'center',
+                            gap: 10,
+                            maxWidth: 380,
+                          },
+                          dimensions.width
+                        )}
+                      >
+                        <LinearGradient
+                          endX={100}
+                          endY={100}
+                          startX={0}
+                          startY={0}
+                          {...GlobalStyles.LinearGradientStyles(theme)[
+                            'Linear Gradient'
+                          ].props}
+                          color1={theme.colors.text.strong}
+                          color2={theme.colors.branding.primary}
+                          color3={null}
+                          style={StyleSheet.applyWidth(
+                            StyleSheet.compose(
+                              GlobalStyles.LinearGradientStyles(theme)[
+                                'Linear Gradient'
+                              ].style,
+                              {
+                                alignContent: 'center',
+                                alignItems: 'center',
+                                alignSelf: 'center',
+                                flexDirection: 'column',
+                                gap: 10,
+                                margin: 0,
+                                maxWidth: 380,
+                                padding: 20,
+                                width: '100%',
+                              }
+                            ),
+                            dimensions.width
+                          )}
+                        >
+                          <H3
+                            selectable={false}
+                            {...GlobalStyles.H3Styles(theme)['H3'].props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.H3Styles(theme)['H3'].style,
+                                {
+                                  color: palettes.Brand['Strong Inverse'],
+                                  fontFamily: 'Quicksand_700Bold',
+                                  fontSize: 16,
+                                  textAlign: 'center',
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            {"You don't have access to newsletter details"}
+                          </H3>
+
+                          <Text
+                            accessible={true}
+                            style={StyleSheet.applyWidth(
+                              {
+                                color: palettes.Brand['Strong Inverse'],
+                                marginBottom: 10,
+                                textAlign: 'center',
+                              },
+                              dimensions.width
+                            )}
+                          >
+                            {
+                              'The newsletter you are trying to access is not included in your current subscription. If you would like to enquire about options for expanding your subscription ma@nordicknowledgepartners.com or if you believe this is a mistake please contact us at '
+                            }
+                          </Text>
+                          <Button
+                            iconPosition={'left'}
+                            onPress={() => {
+                              try {
+                                navigation.navigate('MAInsights', {
+                                  screen: 'NewslettersScreen',
+                                });
+                              } catch (err) {
+                                console.error(err);
+                              }
+                            }}
+                            {...GlobalStyles.ButtonStyles(theme)['Button']
+                              .props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.ButtonStyles(theme)['Button']
+                                  .style,
+                                {
+                                  backgroundColor:
+                                    palettes.Brand['Strong Inverse'],
+                                  color: theme.colors.text.strong,
+                                  fontFamily: 'Quicksand_600SemiBold',
+                                  textTransform: 'uppercase',
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                            title={'Newsletters'}
+                          />
+                        </LinearGradient>
+                      </View>
+                    </View>
+                  )}
+                </>
+              </>
+            );
           }
 
           return (

@@ -9,12 +9,14 @@ import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import {
   LinearGradient,
+  Link,
   ScreenContainer,
   SimpleStyleScrollView,
   withTheme,
 } from '@draftbit/ui';
 import { H3 } from '@expo/html-elements';
 import { useIsFocused } from '@react-navigation/native';
+import * as WebBrowser from 'expo-web-browser';
 import { ActivityIndicator, Text, View } from 'react-native';
 import { Fetch } from 'react-request';
 
@@ -55,7 +57,7 @@ const EventDetailsScreen = props => {
     >
       <CustomHeaderBlock />
       <XanoCollectionApi.FetchGetOneEventGET
-        event_id={props.route?.params?.event_id ?? 1}
+        event_id={props.route?.params?.event_id ?? 36980}
       >
         {({ loading, error, data, refetchGetOneEvent }) => {
           const fetchData = data?.json;
@@ -317,25 +319,27 @@ const EventDetailsScreen = props => {
                           {'Source link:'}
                         </Text>
                       </View>
-
-                      <Text
+                      <Link
                         accessible={true}
-                        {...GlobalStyles.TextStyles(theme)['screen_title']
-                          .props}
-                        style={StyleSheet.applyWidth(
-                          StyleSheet.compose(
-                            GlobalStyles.TextStyles(theme)['screen_title']
-                              .style,
-                            {
-                              color: palettes.Brand['Strong Inverse'],
-                              fontFamily: 'Quicksand_500Medium',
+                        onPress={() => {
+                          const handler = async () => {
+                            try {
+                              await WebBrowser.openBrowserAsync(
+                                `${fetchData?.source_link}`
+                              );
+                            } catch (err) {
+                              console.error(err);
                             }
-                          ),
+                          };
+                          handler();
+                        }}
+                        {...GlobalStyles.LinkStyles(theme)['Link'].props}
+                        style={StyleSheet.applyWidth(
+                          GlobalStyles.LinkStyles(theme)['Link'].style,
                           dimensions.width
                         )}
-                      >
-                        {fetchData?.source_link}
-                      </Text>
+                        title={`${fetchData?.source_link_short}`}
+                      />
                     </View>
                     {/* View 4 */}
                     <View
