@@ -265,7 +265,9 @@ const NewslettersScreen = props => {
                         <Pressable
                           onPress={() => {
                             try {
-                              navigation.navigate('NewsletterDetailsScreen');
+                              navigation.navigate('NewsletterDetailsScreen', {
+                                news_id: listData?.id,
+                              });
                               /* hidden 'Log to Console' action */
                               /* hidden 'If/Else' action */
                             } catch (err) {
