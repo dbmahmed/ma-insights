@@ -138,8 +138,8 @@ const EventDetailsScreen = props => {
                         { minWidth: Breakpoints.Laptop, value: 'flex-start' },
                       ],
                       flexDirection: [
-                        { minWidth: Breakpoints.BigScreen, value: 'row' },
-                        { minWidth: Breakpoints.Laptop, value: 'row' },
+                        { minWidth: Breakpoints.BigScreen, value: 'column' },
+                        { minWidth: Breakpoints.Laptop, value: 'column' },
                       ],
                       flexWrap: {
                         minWidth: Breakpoints.BigScreen,
@@ -176,7 +176,6 @@ const EventDetailsScreen = props => {
                           gap: 8,
                           margin: null,
                           marginBottom: 20,
-                          maxWidth: 400,
                           padding: 10,
                           width: '100%',
                         }
@@ -335,7 +334,10 @@ const EventDetailsScreen = props => {
                         }}
                         {...GlobalStyles.LinkStyles(theme)['Link'].props}
                         style={StyleSheet.applyWidth(
-                          GlobalStyles.LinkStyles(theme)['Link'].style,
+                          StyleSheet.compose(
+                            GlobalStyles.LinkStyles(theme)['Link'].style,
+                            { color: palettes.App.Orange }
+                          ),
                           dimensions.width
                         )}
                         title={`${fetchData?.source_link_short}`}

@@ -492,6 +492,10 @@ const PEPFScreen = props => {
                               borderWidth: null,
                               flexDirection: 'column',
                               flexWrap: 'nowrap',
+                              maxWidth: {
+                                minWidth: Breakpoints.Tablet,
+                                value: '32.3%',
+                              },
                             }
                           ),
                           dimensions.width
@@ -664,7 +668,7 @@ const PEPFScreen = props => {
                   }}
                   numColumns={
                     dimensions.width >= Breakpoints.Laptop
-                      ? 5
+                      ? 3
                       : dimensions.width >= Breakpoints.Tablet
                       ? 3
                       : 2
