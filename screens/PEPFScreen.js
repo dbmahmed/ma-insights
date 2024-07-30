@@ -339,7 +339,11 @@ const PEPFScreen = props => {
                   {
                     alignItems: 'center',
                     backgroundColor:
-                      ebitdaRange[0] || country[0] || sector[0]
+                      ebitdaRange[0] ||
+                      holdingPreriod[0] ||
+                      fundVintage[0] ||
+                      country[0] ||
+                      sector[0]
                         ? palettes.App.Orange
                         : palettes.Brand.Background,
                     borderRadius: 50,
@@ -359,7 +363,11 @@ const PEPFScreen = props => {
                     }
                   }}
                   color={
-                    (ebitdaRange[0] || country[0] || sector[0]
+                    (ebitdaRange[0] ||
+                    holdingPreriod[0] ||
+                    fundVintage[0] ||
+                    country[0] ||
+                    sector[0]
                       ? palettes.Brand['Strong Inverse']
                       : palettes.App.Strong2) ?? palettes.App.Strong2
                   }
@@ -479,8 +487,9 @@ const PEPFScreen = props => {
                               'Linear Gradient'
                             ].style,
                             {
-                              borderColor: theme.colors.branding.primary,
+                              borderColor: null,
                               borderRadius: 5,
+                              borderWidth: null,
                               flexDirection: 'column',
                               flexWrap: 'nowrap',
                             }
@@ -568,7 +577,7 @@ const PEPFScreen = props => {
                                 )}
                               >
                                 {'PE firm: '}
-                                {listData?.pe_firm}
+                                {listData?._investor?.name}
                               </Text>
                               {/* Text 2 */}
                               <Text
@@ -587,7 +596,7 @@ const PEPFScreen = props => {
                                 )}
                               >
                                 {'Fund: '}
-                                {listData?.fund_entity}
+                                {listData?._fund?.name}
                               </Text>
                               {/* Text 3 */}
                               <Text
@@ -606,7 +615,7 @@ const PEPFScreen = props => {
                                 )}
                               >
                                 {'Fund vintage: '}
-                                {listData?.fund_entity}
+                                {listData?._fund?.age_years}
                               </Text>
                               {/* Text 4 */}
                               <Text
@@ -643,8 +652,9 @@ const PEPFScreen = props => {
                                   dimensions.width
                                 )}
                               >
-                                {'EBITDA: '}
+                                {'EBITDA: €'}
                                 {listData?.ebitda_eur}
+                                {'m'}
                               </Text>
                             </View>
                           </View>
@@ -3187,7 +3197,7 @@ const PEPFScreen = props => {
                               onPress={() => {
                                 const handler = async () => {
                                   try {
-                                    /* 'Run a Custom Function' action requires configuration: choose a custom function */
+                                    apllayFilters();
                                     await refetchGetAllPEPF();
                                     setFilterPressed(false);
                                   } catch (err) {

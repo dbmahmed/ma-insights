@@ -462,8 +462,8 @@ const AllEventsScreen = props => {
         )}
       >
         <XanoCollectionApi.FetchGetAllEventsGET
-          countryIn={country}
-          eventTypeIn={eventType}
+          countryIn={[]}
+          eventTypeIn={[]}
           handlers={{
             on2xx: fetchData => {
               try {
@@ -506,7 +506,7 @@ const AllEventsScreen = props => {
           }}
           keyword={keywordSearch}
           page={1}
-          sectorIn={sector}
+          sectorIn={[]}
         >
           {({ loading, error, data, refetchGetAllEvents }) => {
             const fetchData = data?.json;
@@ -603,7 +603,7 @@ const AllEventsScreen = props => {
                                   minWidth: Breakpoints.Laptop,
                                   value: 'nowrap',
                                 },
-                                height: {
+                                minHeight: {
                                   minWidth: Breakpoints.Laptop,
                                   value: 85,
                                 },
@@ -652,6 +652,26 @@ const AllEventsScreen = props => {
                               {' | Source: '}
                               {listData?.source}
                             </Text>
+                            {/* Text 2 */}
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)['screen_title']
+                                .props}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.TextStyles(theme)['screen_title']
+                                    .style,
+                                  {
+                                    fontFamily: 'Quicksand_400Regular',
+                                    fontSize: 10,
+                                    marginTop: 4,
+                                  }
+                                ),
+                                dimensions.width
+                              )}
+                            >
+                              {listData?.description}
+                            </Text>
                           </View>
                         </Touchable>
                       </View>
@@ -659,7 +679,7 @@ const AllEventsScreen = props => {
                   }}
                   showsHorizontalScrollIndicator={true}
                   showsVerticalScrollIndicator={true}
-                  numColumns={dimensions.width >= Breakpoints.Laptop ? 2 : 1}
+                  numColumns={dimensions.width >= Breakpoints.Laptop ? 1 : 1}
                   onEndReachedThreshold={0.8}
                   style={StyleSheet.applyWidth(
                     { maxWidth: 1200, minHeight: dimensions.height },

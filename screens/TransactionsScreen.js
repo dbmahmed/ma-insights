@@ -1372,7 +1372,13 @@ const TransactionsScreen = props => {
         </View>
       </View>
 
-      <XanoCollectionApi.FetchGetAllEventsGET keyword={'Update'} page={1}>
+      <XanoCollectionApi.FetchGetAllEventsGET
+        countryIn={JSON.stringify(['Denmark'])}
+        eventTypeIn={JSON.stringify(['Transaction'])}
+        keyword={'Update'}
+        page={1}
+        sectorIn={JSON.stringify(['Industrials'])}
+      >
         {({ loading, error, data, refetchGetAllEvents }) => {
           const fetchData = data?.json;
           if (loading) {

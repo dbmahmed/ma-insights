@@ -220,7 +220,7 @@ export const getAllEventsGET = async (
     paramsDict['sector_in'] = renderParam(sectorIn);
   }
   if (page !== undefined) {
-    paramsDict['external'] = `{"page": ${renderParam(page)}}`;
+    paramsDict['page'] = renderParam(page);
   }
   if (keyword !== undefined) {
     paramsDict['keyword'] = renderParam(keyword);

@@ -15,7 +15,7 @@ export const DeviceVariables = {
     newsletter: true,
   },
   AUTH_HEADER:
-    'eyJhbGciOiJBMjU2S1ciLCJlbmMiOiJBMjU2Q0JDLUhTNTEyIiwiemlwIjoiREVGIn0.9Pg4lBoCQpo26Wjt2GsJ6BAtV60oJGFqtRl-KqzvPBB8WiVKyij5-_5anSoxV3Lozo_tlkQi_pgB1p1F2lnbEht9daAIie-u.tfirJ3CEFekBFOt2C2HVqg.DpJMIWjsy4lSwZ3Sb3aRuGpFVh8n2YyUFMXBhwwCLP2rYwV7zkDXxwk7es9NfY_uqZGRq9JbmU5AX4VxKpcxCsZ9vpjGlC6EN10UrbVRgc8HWdaBLULBOha2X1wXkYR3k56cxR3SAReqzAugJET7UQ.YuFLezWbG2UcICQeVfl7hXuLga7wqNfstIw36xHVyNE',
+    'eyJhbGciOiJBMjU2S1ciLCJlbmMiOiJBMjU2Q0JDLUhTNTEyIiwiemlwIjoiREVGIn0.gPu8nlLMSeUkUHj-wM43Rh2mIaQ_VuQFarTjcOXXdoBLcwwaqQe7VHQACXwxE4UgYs377Odk33HSI4F8Y1J4KHXYZbqmDF3P.8nljXu7ugXgD5Iop99IuwA.akq6AZpNkozmB_g56GV9sU3sDbsStSTy7OhYmtrfEAygbaACsIaZGjy02VE4IFGHKpz7A2HgHQtQIGwaoCwaKtZ6A2gyz9bd3KGvkdnHUGcL67kT6M-R79Lqvfj7YKA3huuGF45WpdrkM1LJLBk8ew.XzjETOqTo4XB0n46Jjfqd6QskmFN-HU7rqiCYzNNygQ',
   ME: {
     id: 0,
     name: '',
