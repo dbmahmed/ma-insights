@@ -112,24 +112,28 @@ const CustomHeaderBlock = props => {
               color={theme.colors.text.strong}
               icon={'Feather/menu'}
             />
-            <Text
-              accessible={true}
-              {...GlobalStyles.TextStyles(theme)['screen_title'].props}
-              style={StyleSheet.applyWidth(
-                StyleSheet.compose(
-                  GlobalStyles.TextStyles(theme)['screen_title'].style,
-                  {
-                    flex: 1,
-                    fontFamily: 'Poppins_400Regular',
-                    fontSize: { minWidth: Breakpoints.Laptop, value: 16 },
-                    paddingLeft: 5,
-                  }
-                ),
-                dimensions.width
+            <>
+              {dimensions.width >= Breakpoints.Laptop ? null : (
+                <Text
+                  accessible={true}
+                  {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                  style={StyleSheet.applyWidth(
+                    StyleSheet.compose(
+                      GlobalStyles.TextStyles(theme)['screen_title'].style,
+                      {
+                        flex: 1,
+                        fontFamily: 'Poppins_400Regular',
+                        fontSize: { minWidth: Breakpoints.Laptop, value: 16 },
+                        paddingLeft: 5,
+                      }
+                    ),
+                    dimensions.width
+                  )}
+                >
+                  {Constants['pageName']}
+                </Text>
               )}
-            >
-              {Constants['pageName']}
-            </Text>
+            </>
           </View>
           {/* View 2 */}
           <>
@@ -179,6 +183,13 @@ const CustomHeaderBlock = props => {
                     StyleSheet.compose(
                       GlobalStyles.LinkStyles(theme)['Link'].style,
                       {
+                        color: {
+                          minWidth: Breakpoints.Laptop,
+                          value:
+                            Constants['pageName'] === 'Newsletters'
+                              ? palettes.App.Orange
+                              : palettes.Brand.Primary,
+                        },
                         fontFamily: {
                           minWidth: Breakpoints.Laptop,
                           value: 'Quicksand_500Medium',
@@ -226,7 +237,18 @@ const CustomHeaderBlock = props => {
                   }}
                   {...GlobalStyles.LinkStyles(theme)['Link'].props}
                   style={StyleSheet.applyWidth(
-                    GlobalStyles.LinkStyles(theme)['Link'].style,
+                    StyleSheet.compose(
+                      GlobalStyles.LinkStyles(theme)['Link'].style,
+                      {
+                        color: {
+                          minWidth: Breakpoints.Laptop,
+                          value:
+                            Constants['pageName'] === 'All events'
+                              ? palettes.App.Orange
+                              : palettes.Brand.Primary,
+                        },
+                      }
+                    ),
                     dimensions.width
                   )}
                   title={'ALL EVENTS'}
@@ -269,7 +291,18 @@ const CustomHeaderBlock = props => {
                   }}
                   {...GlobalStyles.LinkStyles(theme)['Link'].props}
                   style={StyleSheet.applyWidth(
-                    GlobalStyles.LinkStyles(theme)['Link'].style,
+                    StyleSheet.compose(
+                      GlobalStyles.LinkStyles(theme)['Link'].style,
+                      {
+                        color: {
+                          minWidth: Breakpoints.Laptop,
+                          value:
+                            Constants['pageName'] === 'Companies For Sale'
+                              ? palettes.App.Orange
+                              : palettes.Brand.Primary,
+                        },
+                      }
+                    ),
                     dimensions.width
                   )}
                   title={'CFS'}
@@ -312,7 +345,19 @@ const CustomHeaderBlock = props => {
                   }}
                   {...GlobalStyles.LinkStyles(theme)['Link'].props}
                   style={StyleSheet.applyWidth(
-                    GlobalStyles.LinkStyles(theme)['Link'].style,
+                    StyleSheet.compose(
+                      GlobalStyles.LinkStyles(theme)['Link'].style,
+                      {
+                        color: {
+                          minWidth: Breakpoints.Laptop,
+                          value:
+                            Constants['pageName'] ===
+                            'Private Equity Firms (PEPF)'
+                              ? palettes.App.Orange
+                              : palettes.Brand.Primary,
+                        },
+                      }
+                    ),
                     dimensions.width
                   )}
                   title={'PEPF'}

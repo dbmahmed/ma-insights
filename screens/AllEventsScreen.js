@@ -462,8 +462,8 @@ const AllEventsScreen = props => {
         )}
       >
         <XanoCollectionApi.FetchGetAllEventsGET
-          countryIn={[]}
-          eventTypeIn={[]}
+          countryIn={country}
+          eventTypeIn={eventType}
           handlers={{
             on2xx: fetchData => {
               try {
@@ -506,7 +506,7 @@ const AllEventsScreen = props => {
           }}
           keyword={keywordSearch}
           page={1}
-          sectorIn={[]}
+          sectorIn={sector}
         >
           {({ loading, error, data, refetchGetAllEvents }) => {
             const fetchData = data?.json;

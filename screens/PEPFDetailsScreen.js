@@ -75,10 +75,10 @@ const PEPFDetailsScreen = props => {
               showsVerticalScrollIndicator={true}
               style={StyleSheet.applyWidth(
                 {
-                  alignItems: {
-                    minWidth: Breakpoints.Desktop,
-                    value: 'center',
-                  },
+                  alignItems: [
+                    { minWidth: Breakpoints.Mobile, value: 'center' },
+                    { minWidth: Breakpoints.Desktop, value: 'center' },
+                  ],
                   height: '100%',
                   marginTop: 65,
                   paddingBottom: 65,
@@ -88,473 +88,456 @@ const PEPFDetailsScreen = props => {
                 dimensions.width
               )}
             >
+              <LinearGradient
+                endX={100}
+                endY={100}
+                startX={0}
+                startY={0}
+                {...GlobalStyles.LinearGradientStyles(theme)['Linear Gradient']
+                  .props}
+                color1={theme.colors.text.strong}
+                color2={theme.colors.branding.primary}
+                color3={null}
+                style={StyleSheet.applyWidth(
+                  StyleSheet.compose(
+                    GlobalStyles.LinearGradientStyles(theme)['Linear Gradient']
+                      .style,
+                    {
+                      borderColor: null,
+                      borderRadius: 8,
+                      borderWidth: null,
+                      flex: 0,
+                      gap: 8,
+                      margin: null,
+                      marginBottom: 20,
+                      maxWidth: 1200,
+                      padding: 10,
+                      width: '100%',
+                    }
+                  ),
+                  dimensions.width
+                )}
+              >
+                <H3
+                  selectable={false}
+                  {...GlobalStyles.H3Styles(theme)['H3'].props}
+                  style={StyleSheet.applyWidth(
+                    StyleSheet.compose(
+                      GlobalStyles.H3Styles(theme)['H3'].style,
+                      {
+                        color: palettes.Brand['Strong Inverse'],
+                        fontSize: 16,
+                        marginBottom: 8,
+                        marginTop: 0,
+                      }
+                    ),
+                    dimensions.width
+                  )}
+                >
+                  {fetchData?.Company}
+                </H3>
+
+                <View
+                  style={StyleSheet.applyWidth(
+                    { flexDirection: 'row', gap: 8 },
+                    dimensions.width
+                  )}
+                >
+                  <View
+                    style={StyleSheet.applyWidth(
+                      { width: 100 },
+                      dimensions.width
+                    )}
+                  >
+                    <Text
+                      accessible={true}
+                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.TextStyles(theme)['screen_title'].style,
+                          {
+                            color: palettes.Brand['Strong Inverse'],
+                            fontFamily: 'Quicksand_500Medium',
+                          }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      {'Country:'}
+                    </Text>
+                  </View>
+
+                  <Text
+                    accessible={true}
+                    {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.TextStyles(theme)['screen_title'].style,
+                        {
+                          color: palettes.Brand['Strong Inverse'],
+                          fontFamily: 'Quicksand_500Medium',
+                        }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    {fetchData?.country}
+                  </Text>
+                </View>
+                {/* View 2 */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    { flexDirection: 'row', gap: 8 },
+                    dimensions.width
+                  )}
+                >
+                  <View
+                    style={StyleSheet.applyWidth(
+                      { width: 100 },
+                      dimensions.width
+                    )}
+                  >
+                    <Text
+                      accessible={true}
+                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.TextStyles(theme)['screen_title'].style,
+                          {
+                            color: palettes.Brand['Strong Inverse'],
+                            fontFamily: 'Quicksand_500Medium',
+                          }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      {'Sector:'}
+                    </Text>
+                  </View>
+
+                  <Text
+                    accessible={true}
+                    {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.TextStyles(theme)['screen_title'].style,
+                        {
+                          color: palettes.Brand['Strong Inverse'],
+                          fontFamily: 'Quicksand_500Medium',
+                        }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    {fetchData?._gics_sub_industry?.GICS_Sector}
+                  </Text>
+                </View>
+                {/* View 3 */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    { flexDirection: 'row', gap: 8 },
+                    dimensions.width
+                  )}
+                >
+                  <View
+                    style={StyleSheet.applyWidth(
+                      { width: 100 },
+                      dimensions.width
+                    )}
+                  >
+                    <Text
+                      accessible={true}
+                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.TextStyles(theme)['screen_title'].style,
+                          {
+                            color: palettes.Brand['Strong Inverse'],
+                            fontFamily: 'Quicksand_500Medium',
+                          }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      {'Revenue:'}
+                    </Text>
+                  </View>
+
+                  <Text
+                    accessible={true}
+                    {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.TextStyles(theme)['screen_title'].style,
+                        {
+                          color: palettes.Brand['Strong Inverse'],
+                          fontFamily: 'Quicksand_500Medium',
+                        }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    {fetchData?.revenue_eur}
+                    {' ('}
+                    {fetchData?.financial_year}
+                    {')'}
+                  </Text>
+                </View>
+                {/* View 4 */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    { flexDirection: 'row', gap: 8 },
+                    dimensions.width
+                  )}
+                >
+                  <View
+                    style={StyleSheet.applyWidth(
+                      { width: 100 },
+                      dimensions.width
+                    )}
+                  >
+                    <Text
+                      accessible={true}
+                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.TextStyles(theme)['screen_title'].style,
+                          {
+                            color: palettes.Brand['Strong Inverse'],
+                            fontFamily: 'Quicksand_500Medium',
+                          }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      {'EBITDA:'}
+                    </Text>
+                  </View>
+
+                  <Text
+                    accessible={true}
+                    {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.TextStyles(theme)['screen_title'].style,
+                        {
+                          color: palettes.Brand['Strong Inverse'],
+                          fontFamily: 'Quicksand_500Medium',
+                        }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    {fetchData?.ebitda_eur}
+                    {' ('}
+                    {fetchData?.financial_year}
+                    {')'}
+                  </Text>
+                </View>
+                {/* View 5 */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    { flexDirection: 'row', gap: 8 },
+                    dimensions.width
+                  )}
+                >
+                  <View
+                    style={StyleSheet.applyWidth(
+                      { width: 100 },
+                      dimensions.width
+                    )}
+                  >
+                    <Text
+                      accessible={true}
+                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.TextStyles(theme)['screen_title'].style,
+                          {
+                            color: palettes.Brand['Strong Inverse'],
+                            fontFamily: 'Quicksand_500Medium',
+                          }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      {'Acquired:'}
+                    </Text>
+                  </View>
+
+                  <Text
+                    accessible={true}
+                    {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.TextStyles(theme)['screen_title'].style,
+                        {
+                          color: palettes.Brand['Strong Inverse'],
+                          fontFamily: 'Quicksand_500Medium',
+                        }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    {fetchData?.acquired_date}
+                  </Text>
+                </View>
+                {/* View 6 */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    { flexDirection: 'row', gap: 8 },
+                    dimensions.width
+                  )}
+                >
+                  <View
+                    style={StyleSheet.applyWidth(
+                      { width: 100 },
+                      dimensions.width
+                    )}
+                  >
+                    <Text
+                      accessible={true}
+                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.TextStyles(theme)['screen_title'].style,
+                          {
+                            color: palettes.Brand['Strong Inverse'],
+                            fontFamily: 'Quicksand_500Medium',
+                          }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      {'Curr. Hold:'}
+                    </Text>
+                  </View>
+
+                  <Text
+                    accessible={true}
+                    {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.TextStyles(theme)['screen_title'].style,
+                        {
+                          color: palettes.Brand['Strong Inverse'],
+                          fontFamily: 'Quicksand_500Medium',
+                        }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    {fetchData?.current_holding_years}
+                    {' Years'}
+                  </Text>
+                </View>
+                {/* View 7 */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    { flexDirection: 'row', gap: 8 },
+                    dimensions.width
+                  )}
+                >
+                  <View
+                    style={StyleSheet.applyWidth(
+                      { width: 100 },
+                      dimensions.width
+                    )}
+                  >
+                    <Text
+                      accessible={true}
+                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.TextStyles(theme)['screen_title'].style,
+                          {
+                            color: palettes.Brand['Strong Inverse'],
+                            fontFamily: 'Quicksand_500Medium',
+                          }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      {'PE firm:'}
+                    </Text>
+                  </View>
+
+                  <Text
+                    accessible={true}
+                    {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.TextStyles(theme)['screen_title'].style,
+                        {
+                          color: palettes.Brand['Strong Inverse'],
+                          fontFamily: 'Quicksand_500Medium',
+                        }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    {fetchData?._investor?.name}
+                  </Text>
+                </View>
+                {/* View 8 */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    { flexDirection: 'row', gap: 8 },
+                    dimensions.width
+                  )}
+                >
+                  <View
+                    style={StyleSheet.applyWidth(
+                      { width: 100 },
+                      dimensions.width
+                    )}
+                  >
+                    <Text
+                      accessible={true}
+                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.TextStyles(theme)['screen_title'].style,
+                          {
+                            color: palettes.Brand['Strong Inverse'],
+                            fontFamily: 'Quicksand_500Medium',
+                          }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      {'Fund Entity:'}
+                    </Text>
+                  </View>
+
+                  <Text
+                    accessible={true}
+                    {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.TextStyles(theme)['screen_title'].style,
+                        {
+                          color: palettes.Brand['Strong Inverse'],
+                          fontFamily: 'Quicksand_500Medium',
+                        }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    {fetchData?._fund?.name}
+                    {' ('}
+                    {fetchData?._fund?.age_years}
+                    {')'}
+                  </Text>
+                </View>
+              </LinearGradient>
+
               <View
                 style={StyleSheet.applyWidth(
                   { maxWidth: 1200, padding: 10 },
                   dimensions.width
                 )}
               >
-                <LinearGradient
-                  endX={100}
-                  endY={100}
-                  startX={0}
-                  startY={0}
-                  {...GlobalStyles.LinearGradientStyles(theme)[
-                    'Linear Gradient'
-                  ].props}
-                  color1={theme.colors.text.strong}
-                  color2={theme.colors.branding.primary}
-                  color3={null}
-                  style={StyleSheet.applyWidth(
-                    StyleSheet.compose(
-                      GlobalStyles.LinearGradientStyles(theme)[
-                        'Linear Gradient'
-                      ].style,
-                      {
-                        borderColor: null,
-                        borderRadius: 8,
-                        borderWidth: null,
-                        gap: 8,
-                        margin: null,
-                        marginBottom: 20,
-                        maxWidth: 400,
-                        padding: 10,
-                        width: '100%',
-                      }
-                    ),
-                    dimensions.width
-                  )}
-                >
-                  <H3
-                    selectable={false}
-                    {...GlobalStyles.H3Styles(theme)['H3'].props}
-                    style={StyleSheet.applyWidth(
-                      StyleSheet.compose(
-                        GlobalStyles.H3Styles(theme)['H3'].style,
-                        {
-                          color: palettes.Brand['Strong Inverse'],
-                          fontSize: 16,
-                          marginBottom: 8,
-                          marginTop: 0,
-                        }
-                      ),
-                      dimensions.width
-                    )}
-                  >
-                    {fetchData?.Company}
-                  </H3>
-
-                  <View
-                    style={StyleSheet.applyWidth(
-                      { flexDirection: 'row', gap: 8 },
-                      dimensions.width
-                    )}
-                  >
-                    <View
-                      style={StyleSheet.applyWidth(
-                        { width: 100 },
-                        dimensions.width
-                      )}
-                    >
-                      <Text
-                        accessible={true}
-                        {...GlobalStyles.TextStyles(theme)['screen_title']
-                          .props}
-                        style={StyleSheet.applyWidth(
-                          StyleSheet.compose(
-                            GlobalStyles.TextStyles(theme)['screen_title']
-                              .style,
-                            {
-                              color: palettes.Brand['Strong Inverse'],
-                              fontFamily: 'Quicksand_500Medium',
-                            }
-                          ),
-                          dimensions.width
-                        )}
-                      >
-                        {'Country:'}
-                      </Text>
-                    </View>
-
-                    <Text
-                      accessible={true}
-                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
-                      style={StyleSheet.applyWidth(
-                        StyleSheet.compose(
-                          GlobalStyles.TextStyles(theme)['screen_title'].style,
-                          {
-                            color: palettes.Brand['Strong Inverse'],
-                            fontFamily: 'Quicksand_500Medium',
-                          }
-                        ),
-                        dimensions.width
-                      )}
-                    >
-                      {fetchData?.country}
-                    </Text>
-                  </View>
-                  {/* View 2 */}
-                  <View
-                    style={StyleSheet.applyWidth(
-                      { flexDirection: 'row', gap: 8 },
-                      dimensions.width
-                    )}
-                  >
-                    <View
-                      style={StyleSheet.applyWidth(
-                        { width: 100 },
-                        dimensions.width
-                      )}
-                    >
-                      <Text
-                        accessible={true}
-                        {...GlobalStyles.TextStyles(theme)['screen_title']
-                          .props}
-                        style={StyleSheet.applyWidth(
-                          StyleSheet.compose(
-                            GlobalStyles.TextStyles(theme)['screen_title']
-                              .style,
-                            {
-                              color: palettes.Brand['Strong Inverse'],
-                              fontFamily: 'Quicksand_500Medium',
-                            }
-                          ),
-                          dimensions.width
-                        )}
-                      >
-                        {'Sector:'}
-                      </Text>
-                    </View>
-
-                    <Text
-                      accessible={true}
-                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
-                      style={StyleSheet.applyWidth(
-                        StyleSheet.compose(
-                          GlobalStyles.TextStyles(theme)['screen_title'].style,
-                          {
-                            color: palettes.Brand['Strong Inverse'],
-                            fontFamily: 'Quicksand_500Medium',
-                          }
-                        ),
-                        dimensions.width
-                      )}
-                    >
-                      {fetchData?._gics_sub_industry?.GICS_Sector}
-                    </Text>
-                  </View>
-                  {/* View 3 */}
-                  <View
-                    style={StyleSheet.applyWidth(
-                      { flexDirection: 'row', gap: 8 },
-                      dimensions.width
-                    )}
-                  >
-                    <View
-                      style={StyleSheet.applyWidth(
-                        { width: 100 },
-                        dimensions.width
-                      )}
-                    >
-                      <Text
-                        accessible={true}
-                        {...GlobalStyles.TextStyles(theme)['screen_title']
-                          .props}
-                        style={StyleSheet.applyWidth(
-                          StyleSheet.compose(
-                            GlobalStyles.TextStyles(theme)['screen_title']
-                              .style,
-                            {
-                              color: palettes.Brand['Strong Inverse'],
-                              fontFamily: 'Quicksand_500Medium',
-                            }
-                          ),
-                          dimensions.width
-                        )}
-                      >
-                        {'Revenue:'}
-                      </Text>
-                    </View>
-
-                    <Text
-                      accessible={true}
-                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
-                      style={StyleSheet.applyWidth(
-                        StyleSheet.compose(
-                          GlobalStyles.TextStyles(theme)['screen_title'].style,
-                          {
-                            color: palettes.Brand['Strong Inverse'],
-                            fontFamily: 'Quicksand_500Medium',
-                          }
-                        ),
-                        dimensions.width
-                      )}
-                    >
-                      {fetchData?.revenue_eur}
-                      {' ('}
-                      {fetchData?.financial_year}
-                      {')'}
-                    </Text>
-                  </View>
-                  {/* View 4 */}
-                  <View
-                    style={StyleSheet.applyWidth(
-                      { flexDirection: 'row', gap: 8 },
-                      dimensions.width
-                    )}
-                  >
-                    <View
-                      style={StyleSheet.applyWidth(
-                        { width: 100 },
-                        dimensions.width
-                      )}
-                    >
-                      <Text
-                        accessible={true}
-                        {...GlobalStyles.TextStyles(theme)['screen_title']
-                          .props}
-                        style={StyleSheet.applyWidth(
-                          StyleSheet.compose(
-                            GlobalStyles.TextStyles(theme)['screen_title']
-                              .style,
-                            {
-                              color: palettes.Brand['Strong Inverse'],
-                              fontFamily: 'Quicksand_500Medium',
-                            }
-                          ),
-                          dimensions.width
-                        )}
-                      >
-                        {'EBITDA:'}
-                      </Text>
-                    </View>
-
-                    <Text
-                      accessible={true}
-                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
-                      style={StyleSheet.applyWidth(
-                        StyleSheet.compose(
-                          GlobalStyles.TextStyles(theme)['screen_title'].style,
-                          {
-                            color: palettes.Brand['Strong Inverse'],
-                            fontFamily: 'Quicksand_500Medium',
-                          }
-                        ),
-                        dimensions.width
-                      )}
-                    >
-                      {fetchData?.ebitda_eur}
-                      {' ('}
-                      {fetchData?.financial_year}
-                      {')'}
-                    </Text>
-                  </View>
-                  {/* View 5 */}
-                  <View
-                    style={StyleSheet.applyWidth(
-                      { flexDirection: 'row', gap: 8 },
-                      dimensions.width
-                    )}
-                  >
-                    <View
-                      style={StyleSheet.applyWidth(
-                        { width: 100 },
-                        dimensions.width
-                      )}
-                    >
-                      <Text
-                        accessible={true}
-                        {...GlobalStyles.TextStyles(theme)['screen_title']
-                          .props}
-                        style={StyleSheet.applyWidth(
-                          StyleSheet.compose(
-                            GlobalStyles.TextStyles(theme)['screen_title']
-                              .style,
-                            {
-                              color: palettes.Brand['Strong Inverse'],
-                              fontFamily: 'Quicksand_500Medium',
-                            }
-                          ),
-                          dimensions.width
-                        )}
-                      >
-                        {'Acquired:'}
-                      </Text>
-                    </View>
-
-                    <Text
-                      accessible={true}
-                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
-                      style={StyleSheet.applyWidth(
-                        StyleSheet.compose(
-                          GlobalStyles.TextStyles(theme)['screen_title'].style,
-                          {
-                            color: palettes.Brand['Strong Inverse'],
-                            fontFamily: 'Quicksand_500Medium',
-                          }
-                        ),
-                        dimensions.width
-                      )}
-                    >
-                      {fetchData?.acquired_date}
-                    </Text>
-                  </View>
-                  {/* View 6 */}
-                  <View
-                    style={StyleSheet.applyWidth(
-                      { flexDirection: 'row', gap: 8 },
-                      dimensions.width
-                    )}
-                  >
-                    <View
-                      style={StyleSheet.applyWidth(
-                        { width: 100 },
-                        dimensions.width
-                      )}
-                    >
-                      <Text
-                        accessible={true}
-                        {...GlobalStyles.TextStyles(theme)['screen_title']
-                          .props}
-                        style={StyleSheet.applyWidth(
-                          StyleSheet.compose(
-                            GlobalStyles.TextStyles(theme)['screen_title']
-                              .style,
-                            {
-                              color: palettes.Brand['Strong Inverse'],
-                              fontFamily: 'Quicksand_500Medium',
-                            }
-                          ),
-                          dimensions.width
-                        )}
-                      >
-                        {'Curr. Hold:'}
-                      </Text>
-                    </View>
-
-                    <Text
-                      accessible={true}
-                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
-                      style={StyleSheet.applyWidth(
-                        StyleSheet.compose(
-                          GlobalStyles.TextStyles(theme)['screen_title'].style,
-                          {
-                            color: palettes.Brand['Strong Inverse'],
-                            fontFamily: 'Quicksand_500Medium',
-                          }
-                        ),
-                        dimensions.width
-                      )}
-                    >
-                      {fetchData?.current_holding_years}
-                      {' Years'}
-                    </Text>
-                  </View>
-                  {/* View 7 */}
-                  <View
-                    style={StyleSheet.applyWidth(
-                      { flexDirection: 'row', gap: 8 },
-                      dimensions.width
-                    )}
-                  >
-                    <View
-                      style={StyleSheet.applyWidth(
-                        { width: 100 },
-                        dimensions.width
-                      )}
-                    >
-                      <Text
-                        accessible={true}
-                        {...GlobalStyles.TextStyles(theme)['screen_title']
-                          .props}
-                        style={StyleSheet.applyWidth(
-                          StyleSheet.compose(
-                            GlobalStyles.TextStyles(theme)['screen_title']
-                              .style,
-                            {
-                              color: palettes.Brand['Strong Inverse'],
-                              fontFamily: 'Quicksand_500Medium',
-                            }
-                          ),
-                          dimensions.width
-                        )}
-                      >
-                        {'PE firm:'}
-                      </Text>
-                    </View>
-
-                    <Text
-                      accessible={true}
-                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
-                      style={StyleSheet.applyWidth(
-                        StyleSheet.compose(
-                          GlobalStyles.TextStyles(theme)['screen_title'].style,
-                          {
-                            color: palettes.Brand['Strong Inverse'],
-                            fontFamily: 'Quicksand_500Medium',
-                          }
-                        ),
-                        dimensions.width
-                      )}
-                    >
-                      {fetchData?._investor?.name}
-                    </Text>
-                  </View>
-                  {/* View 8 */}
-                  <View
-                    style={StyleSheet.applyWidth(
-                      { flexDirection: 'row', gap: 8 },
-                      dimensions.width
-                    )}
-                  >
-                    <View
-                      style={StyleSheet.applyWidth(
-                        { width: 100 },
-                        dimensions.width
-                      )}
-                    >
-                      <Text
-                        accessible={true}
-                        {...GlobalStyles.TextStyles(theme)['screen_title']
-                          .props}
-                        style={StyleSheet.applyWidth(
-                          StyleSheet.compose(
-                            GlobalStyles.TextStyles(theme)['screen_title']
-                              .style,
-                            {
-                              color: palettes.Brand['Strong Inverse'],
-                              fontFamily: 'Quicksand_500Medium',
-                            }
-                          ),
-                          dimensions.width
-                        )}
-                      >
-                        {'Fund Entity:'}
-                      </Text>
-                    </View>
-
-                    <Text
-                      accessible={true}
-                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
-                      style={StyleSheet.applyWidth(
-                        StyleSheet.compose(
-                          GlobalStyles.TextStyles(theme)['screen_title'].style,
-                          {
-                            color: palettes.Brand['Strong Inverse'],
-                            fontFamily: 'Quicksand_500Medium',
-                          }
-                        ),
-                        dimensions.width
-                      )}
-                    >
-                      {fetchData?._fund?.name}
-                      {' ('}
-                      {fetchData?._fund?.age_years}
-                      {')'}
-                    </Text>
-                  </View>
-                </LinearGradient>
-
                 <H3
                   selectable={false}
                   {...GlobalStyles.H3Styles(theme)['H3'].props}

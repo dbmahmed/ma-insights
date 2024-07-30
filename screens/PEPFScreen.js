@@ -672,7 +672,12 @@ const PEPFScreen = props => {
                   showsHorizontalScrollIndicator={false}
                   showsVerticalScrollIndicator={false}
                   style={StyleSheet.applyWidth(
-                    { maxWidth: 1200, paddingLeft: 5, paddingRight: 5 },
+                    {
+                      maxWidth: 1200,
+                      paddingLeft: 5,
+                      paddingRight: 5,
+                      width: '100%',
+                    },
                     dimensions.width
                   )}
                 />
@@ -3221,7 +3226,7 @@ const PEPFScreen = props => {
                                 ),
                                 dimensions.width
                               )}
-                              title={'Results\n'}
+                              title={'Filter\n'}
                             />
                           </View>
                         </LinearGradient>
