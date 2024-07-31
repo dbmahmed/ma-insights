@@ -308,28 +308,33 @@ const NewslettersScreen = props => {
                                 {listData?.title}
                               </H4>
                               {/* Subtitle */}
-                              <Text
-                                accessible={true}
-                                {...GlobalStyles.TextStyles(theme)[
-                                  'screen_title'
-                                ].props}
-                                style={StyleSheet.applyWidth(
-                                  StyleSheet.compose(
-                                    GlobalStyles.TextStyles(theme)[
+                              <>
+                                {listData?.potd === 0 ? null : (
+                                  <Text
+                                    accessible={true}
+                                    {...GlobalStyles.TextStyles(theme)[
                                       'screen_title'
-                                    ].style,
-                                    {
-                                      color: palettes.Brand['Strong Inverse'],
-                                      fontFamily: 'Quicksand_400Regular',
-                                    }
-                                  ),
-                                  dimensions.width
+                                    ].props}
+                                    style={StyleSheet.applyWidth(
+                                      StyleSheet.compose(
+                                        GlobalStyles.TextStyles(theme)[
+                                          'screen_title'
+                                        ].style,
+                                        {
+                                          color:
+                                            palettes.Brand['Strong Inverse'],
+                                          fontFamily: 'Quicksand_400Regular',
+                                        }
+                                      ),
+                                      dimensions.width
+                                    )}
+                                    textBreakStrategy={'highQuality'}
+                                  >
+                                    {'Pitch of The Day: '}
+                                    {listData?._potd?.target}
+                                  </Text>
                                 )}
-                                textBreakStrategy={'highQuality'}
-                              >
-                                {'PoTD: '}
-                                {listData?._potd?.target}
-                              </Text>
+                              </>
                             </View>
 
                             <Text

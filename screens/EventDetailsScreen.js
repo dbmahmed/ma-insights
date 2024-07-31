@@ -712,221 +712,237 @@ const EventDetailsScreen = props => {
                       </Text>
                     </View>
                     {/* View 11 */}
-                    <View
-                      style={StyleSheet.applyWidth(
-                        { flexDirection: 'row', gap: 8 },
-                        dimensions.width
-                      )}
-                    >
-                      <View
-                        style={StyleSheet.applyWidth(
-                          { width: 150 },
-                          dimensions.width
-                        )}
-                      >
-                        <Text
-                          accessible={true}
-                          {...GlobalStyles.TextStyles(theme)['screen_title']
-                            .props}
+                    <>
+                      {!(fetchData?.ev_eur === 0) ? null : (
+                        <View
                           style={StyleSheet.applyWidth(
-                            StyleSheet.compose(
-                              GlobalStyles.TextStyles(theme)['screen_title']
-                                .style,
-                              {
-                                color: palettes.Brand['Strong Inverse'],
-                                fontFamily: 'Quicksand_500Medium',
-                              }
-                            ),
+                            { flexDirection: 'row', gap: 8 },
                             dimensions.width
                           )}
                         >
-                          {'Enterprise value (EV):'}
-                        </Text>
-                      </View>
+                          <View
+                            style={StyleSheet.applyWidth(
+                              { width: 150 },
+                              dimensions.width
+                            )}
+                          >
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)['screen_title']
+                                .props}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.TextStyles(theme)['screen_title']
+                                    .style,
+                                  {
+                                    color: palettes.Brand['Strong Inverse'],
+                                    fontFamily: 'Quicksand_500Medium',
+                                  }
+                                ),
+                                dimensions.width
+                              )}
+                            >
+                              {'Enterprise value (EV):'}
+                            </Text>
+                          </View>
 
-                      <Text
-                        accessible={true}
-                        {...GlobalStyles.TextStyles(theme)['screen_title']
-                          .props}
-                        style={StyleSheet.applyWidth(
-                          StyleSheet.compose(
-                            GlobalStyles.TextStyles(theme)['screen_title']
-                              .style,
-                            {
-                              color: palettes.Brand['Strong Inverse'],
-                              fontFamily: 'Quicksand_500Medium',
-                            }
-                          ),
-                          dimensions.width
-                        )}
-                      >
-                        {'€ '}
-                        {fetchData?.ev_eur}
-                        {'m'}
-                      </Text>
-                    </View>
+                          <Text
+                            accessible={true}
+                            {...GlobalStyles.TextStyles(theme)['screen_title']
+                              .props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TextStyles(theme)['screen_title']
+                                  .style,
+                                {
+                                  color: palettes.Brand['Strong Inverse'],
+                                  fontFamily: 'Quicksand_500Medium',
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            {'€ '}
+                            {fetchData?.ev_eur}
+                            {'m'}
+                          </Text>
+                        </View>
+                      )}
+                    </>
                     {/* View 12 */}
-                    <View
-                      style={StyleSheet.applyWidth(
-                        { flexDirection: 'row', gap: 8 },
-                        dimensions.width
-                      )}
-                    >
-                      <View
-                        style={StyleSheet.applyWidth(
-                          { width: 150 },
-                          dimensions.width
-                        )}
-                      >
-                        <Text
-                          accessible={true}
-                          {...GlobalStyles.TextStyles(theme)['screen_title']
-                            .props}
+                    <>
+                      {!(fetchData?.ev_eur === 0) ? null : (
+                        <View
                           style={StyleSheet.applyWidth(
-                            StyleSheet.compose(
-                              GlobalStyles.TextStyles(theme)['screen_title']
-                                .style,
-                              {
-                                color: palettes.Brand['Strong Inverse'],
-                                fontFamily: 'Quicksand_500Medium',
-                              }
-                            ),
+                            { flexDirection: 'row', gap: 8 },
                             dimensions.width
                           )}
                         >
-                          {'EV/Sales ('}
-                          {fetchData?.fy_end}
-                          {'):'}
-                        </Text>
-                      </View>
+                          <View
+                            style={StyleSheet.applyWidth(
+                              { width: 150 },
+                              dimensions.width
+                            )}
+                          >
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)['screen_title']
+                                .props}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.TextStyles(theme)['screen_title']
+                                    .style,
+                                  {
+                                    color: palettes.Brand['Strong Inverse'],
+                                    fontFamily: 'Quicksand_500Medium',
+                                  }
+                                ),
+                                dimensions.width
+                              )}
+                            >
+                              {'EV/Sales ('}
+                              {fetchData?.fy_end}
+                              {'):'}
+                            </Text>
+                          </View>
 
-                      <Text
-                        accessible={true}
-                        {...GlobalStyles.TextStyles(theme)['screen_title']
-                          .props}
-                        style={StyleSheet.applyWidth(
-                          StyleSheet.compose(
-                            GlobalStyles.TextStyles(theme)['screen_title']
-                              .style,
-                            {
-                              color: palettes.Brand['Strong Inverse'],
-                              fontFamily: 'Quicksand_500Medium',
-                            }
-                          ),
-                          dimensions.width
-                        )}
-                      >
-                        {fetchData?.ev_sales}
-                      </Text>
-                    </View>
+                          <Text
+                            accessible={true}
+                            {...GlobalStyles.TextStyles(theme)['screen_title']
+                              .props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TextStyles(theme)['screen_title']
+                                  .style,
+                                {
+                                  color: palettes.Brand['Strong Inverse'],
+                                  fontFamily: 'Quicksand_500Medium',
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            {fetchData?.ev_sales}
+                          </Text>
+                        </View>
+                      )}
+                    </>
                     {/* View 13 */}
-                    <View
-                      style={StyleSheet.applyWidth(
-                        { flexDirection: 'row', gap: 8 },
-                        dimensions.width
-                      )}
-                    >
-                      <View
-                        style={StyleSheet.applyWidth(
-                          { width: 150 },
-                          dimensions.width
-                        )}
-                      >
-                        <Text
-                          accessible={true}
-                          {...GlobalStyles.TextStyles(theme)['screen_title']
-                            .props}
+                    <>
+                      {!(fetchData?.ev_eur === 0) ? null : (
+                        <View
                           style={StyleSheet.applyWidth(
-                            StyleSheet.compose(
-                              GlobalStyles.TextStyles(theme)['screen_title']
-                                .style,
-                              {
-                                color: palettes.Brand['Strong Inverse'],
-                                fontFamily: 'Quicksand_500Medium',
-                              }
-                            ),
+                            { flexDirection: 'row', gap: 8 },
                             dimensions.width
                           )}
                         >
-                          {'EV/EBITDA ('}
-                          {fetchData?.fy_end}
-                          {'):'}
-                        </Text>
-                      </View>
+                          <View
+                            style={StyleSheet.applyWidth(
+                              { width: 150 },
+                              dimensions.width
+                            )}
+                          >
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)['screen_title']
+                                .props}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.TextStyles(theme)['screen_title']
+                                    .style,
+                                  {
+                                    color: palettes.Brand['Strong Inverse'],
+                                    fontFamily: 'Quicksand_500Medium',
+                                  }
+                                ),
+                                dimensions.width
+                              )}
+                            >
+                              {'EV/EBITDA ('}
+                              {fetchData?.fy_end}
+                              {'):'}
+                            </Text>
+                          </View>
 
-                      <Text
-                        accessible={true}
-                        {...GlobalStyles.TextStyles(theme)['screen_title']
-                          .props}
-                        style={StyleSheet.applyWidth(
-                          StyleSheet.compose(
-                            GlobalStyles.TextStyles(theme)['screen_title']
-                              .style,
-                            {
-                              color: palettes.Brand['Strong Inverse'],
-                              fontFamily: 'Quicksand_500Medium',
-                            }
-                          ),
-                          dimensions.width
-                        )}
-                      >
-                        {fetchData?.ev_ebitda}
-                      </Text>
-                    </View>
+                          <Text
+                            accessible={true}
+                            {...GlobalStyles.TextStyles(theme)['screen_title']
+                              .props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TextStyles(theme)['screen_title']
+                                  .style,
+                                {
+                                  color: palettes.Brand['Strong Inverse'],
+                                  fontFamily: 'Quicksand_500Medium',
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            {fetchData?.ev_ebitda}
+                          </Text>
+                        </View>
+                      )}
+                    </>
                     {/* View 14 */}
-                    <View
-                      style={StyleSheet.applyWidth(
-                        { flexDirection: 'row', gap: 8 },
-                        dimensions.width
-                      )}
-                    >
-                      <View
-                        style={StyleSheet.applyWidth(
-                          { width: 150 },
-                          dimensions.width
-                        )}
-                      >
-                        <Text
-                          accessible={true}
-                          {...GlobalStyles.TextStyles(theme)['screen_title']
-                            .props}
+                    <>
+                      {!(fetchData?.ev_eur === 0) ? null : (
+                        <View
                           style={StyleSheet.applyWidth(
-                            StyleSheet.compose(
-                              GlobalStyles.TextStyles(theme)['screen_title']
-                                .style,
-                              {
-                                color: palettes.Brand['Strong Inverse'],
-                                fontFamily: 'Quicksand_500Medium',
-                              }
-                            ),
+                            { flexDirection: 'row', gap: 8 },
                             dimensions.width
                           )}
                         >
-                          {'EV/EBIT ('}
-                          {fetchData?.fy_end}
-                          {'):'}
-                        </Text>
-                      </View>
+                          <View
+                            style={StyleSheet.applyWidth(
+                              { width: 150 },
+                              dimensions.width
+                            )}
+                          >
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)['screen_title']
+                                .props}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.TextStyles(theme)['screen_title']
+                                    .style,
+                                  {
+                                    color: palettes.Brand['Strong Inverse'],
+                                    fontFamily: 'Quicksand_500Medium',
+                                  }
+                                ),
+                                dimensions.width
+                              )}
+                            >
+                              {'EV/EBIT ('}
+                              {fetchData?.fy_end}
+                              {'):'}
+                            </Text>
+                          </View>
 
-                      <Text
-                        accessible={true}
-                        {...GlobalStyles.TextStyles(theme)['screen_title']
-                          .props}
-                        style={StyleSheet.applyWidth(
-                          StyleSheet.compose(
-                            GlobalStyles.TextStyles(theme)['screen_title']
-                              .style,
-                            {
-                              color: palettes.Brand['Strong Inverse'],
-                              fontFamily: 'Quicksand_500Medium',
-                            }
-                          ),
-                          dimensions.width
-                        )}
-                      >
-                        {fetchData?.ev_ebit}
-                      </Text>
-                    </View>
+                          <Text
+                            accessible={true}
+                            {...GlobalStyles.TextStyles(theme)['screen_title']
+                              .props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TextStyles(theme)['screen_title']
+                                  .style,
+                                {
+                                  color: palettes.Brand['Strong Inverse'],
+                                  fontFamily: 'Quicksand_500Medium',
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            {fetchData?.ev_ebit}
+                          </Text>
+                        </View>
+                      )}
+                    </>
                   </LinearGradient>
 
                   <View

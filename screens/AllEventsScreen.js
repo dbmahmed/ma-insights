@@ -11,6 +11,7 @@ import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
+import waitUtil from '../utils/wait';
 import {
   Button,
   Checkbox,
@@ -177,39 +178,31 @@ const AllEventsScreen = props => {
   };
   const isFocused = useIsFocused();
   React.useEffect(() => {
-    const handler = async () => {
-      try {
-        if (!isFocused) {
-          return;
-        }
-        setGlobalVariableValue({
-          key: 'pageName',
-          value: 'All events',
-        });
-        setGlobalVariableValue({
-          key: 'subPage',
-          value: false,
-        });
-        /* hidden 'Log to Console' action */
-        const getEvent = (
-          await XanoCollectionApi.getAllEventsGET(Constants, {
-            keyword: 'Update',
-            page: 1,
-          })
-        )?.json;
-        /* hidden 'Log to Console' action */
-        if (assessAccess(Variables, setGlobalVariableValue) === true) {
-          return;
-        }
-        if (navigation.canGoBack()) {
-          navigation.popToTop();
-        }
-        navigation.replace('LogInScreen');
-      } catch (err) {
-        console.error(err);
+    try {
+      if (!isFocused) {
+        return;
       }
-    };
-    handler();
+      setGlobalVariableValue({
+        key: 'pageName',
+        value: 'All events',
+      });
+      setGlobalVariableValue({
+        key: 'subPage',
+        value: false,
+      });
+      /* hidden 'Log to Console' action */
+      /* hidden 'API Request' action */
+      /* hidden 'Log to Console' action */
+      if (assessAccess(Variables, setGlobalVariableValue) === true) {
+        return;
+      }
+      if (navigation.canGoBack()) {
+        navigation.popToTop();
+      }
+      navigation.replace('LogInScreen');
+    } catch (err) {
+      console.error(err);
+    }
   }, [isFocused]);
 
   return (
@@ -495,9 +488,9 @@ const AllEventsScreen = props => {
             },
             onData: fetchData => {
               try {
-                console.log(fetchData, 'FETCHDATA ONSCREEN');
-                /* hidden 'Set Variable' action */
-                /* hidden 'Set Variable' action */
+                /* hidden 'Log to Console' action */
+                setNextPage(fetchData?.nextPage);
+                setLastPage(fetchData?.pageTotal);
                 /* hidden 'Set Variable' action */
               } catch (err) {
                 console.error(err);
@@ -534,10 +527,11 @@ const AllEventsScreen = props => {
                       let error = null;
                       try {
                         console.log('Start ON_END_REACHED:0 CONSOLE_LOG');
-                        console.log('END REACHED');
-                        console.log('Complete ON_END_REACHED:0 CONSOLE_LOG');
+                        /* hidden 'Log to Console' action */ console.log(
+                          'Complete ON_END_REACHED:0 CONSOLE_LOG'
+                        );
                         console.log('Start ON_END_REACHED:1 CONDITIONAL_STOP');
-                        if (nextPage === lastPage) {
+                        if (nextPage > lastPage) {
                           return console.log(
                             'Complete ON_END_REACHED:1 CONDITIONAL_STOP'
                           );
@@ -2633,6 +2627,7 @@ const AllEventsScreen = props => {
                                 try {
                                   applyFilter();
                                   /* hidden 'API Request' action */
+                                  await waitUtil({ milliseconds: 1000 });
                                   await refetchGetAllEvents();
                                   setFilterPressed(false);
                                 } catch (err) {
