@@ -1921,28 +1921,7 @@ const StockSearchScreen = props => {
                                   { width: 70 },
                                   dimensions.width
                                 )}
-                              >
-                                <Text
-                                  accessible={true}
-                                  {...GlobalStyles.TextStyles(theme)[
-                                    'screen_title'
-                                  ].props}
-                                  style={StyleSheet.applyWidth(
-                                    StyleSheet.compose(
-                                      GlobalStyles.TextStyles(theme)[
-                                        'screen_title'
-                                      ].style,
-                                      {
-                                        fontFamily: 'Quicksand_400Regular',
-                                        fontSize: 12,
-                                      }
-                                    ),
-                                    dimensions.width
-                                  )}
-                                >
-                                  {'EV/EBIT:'}
-                                </Text>
-                              </View>
+                              ></View>
 
                               <Text
                                 accessible={true}

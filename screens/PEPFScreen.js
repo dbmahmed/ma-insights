@@ -504,7 +504,9 @@ const PEPFScreen = props => {
                         <Pressable
                           onPress={() => {
                             try {
-                              navigation.push('PEPFDetailsScreen');
+                              navigation.push('PEPFDetailsScreen', {
+                                pepf_id: listData?.id,
+                              });
                             } catch (err) {
                               console.error(err);
                             }

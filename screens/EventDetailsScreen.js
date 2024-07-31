@@ -57,7 +57,7 @@ const EventDetailsScreen = props => {
     >
       <CustomHeaderBlock />
       <XanoCollectionApi.FetchGetOneEventGET
-        event_id={props.route?.params?.event_id ?? 36980}
+        event_id={props.route?.params?.event_id ?? 169}
       >
         {({ loading, error, data, refetchGetOneEvent }) => {
           const fetchData = data?.json;

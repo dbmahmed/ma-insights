@@ -54,7 +54,9 @@ const PEPFDetailsScreen = props => {
   return (
     <ScreenContainer hasSafeArea={false} scrollable={false}>
       <CustomHeaderBlock />
-      <XanoCollectionApi.FetchGetOnePEPFGET pepf_id={2}>
+      <XanoCollectionApi.FetchGetOnePEPFGET
+        pepf_id={props.route?.params?.pepf_id ?? 2}
+      >
         {({ loading, error, data, refetchGetOnePEPF }) => {
           const fetchData = data?.json;
           if (loading) {

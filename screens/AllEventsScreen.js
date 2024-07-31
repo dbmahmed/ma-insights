@@ -529,47 +529,60 @@ const AllEventsScreen = props => {
                   listKey={'AwqPzJqX'}
                   nestedScrollEnabled={false}
                   onEndReached={() => {
-                    console.log('List ON_END_REACHED Start');
-                    let error = null;
-                    try {
-                      console.log('Start ON_END_REACHED:0 CONDITIONAL_STOP');
-                      if (nextPage === lastPage) {
-                        return console.log(
-                          'Complete ON_END_REACHED:0 CONDITIONAL_STOP'
-                        );
-                      } else {
-                        console.log(
-                          'Skipped ON_END_REACHED:0 CONDITIONAL_STOP: condition not met'
-                        );
+                    const handler = async () => {
+                      console.log('List ON_END_REACHED Start');
+                      let error = null;
+                      try {
+                        console.log('Start ON_END_REACHED:0 CONSOLE_LOG');
+                        console.log('END REACHED');
+                        console.log('Complete ON_END_REACHED:0 CONSOLE_LOG');
+                        console.log('Start ON_END_REACHED:1 CONDITIONAL_STOP');
+                        if (nextPage === lastPage) {
+                          return console.log(
+                            'Complete ON_END_REACHED:1 CONDITIONAL_STOP'
+                          );
+                        } else {
+                          console.log(
+                            'Skipped ON_END_REACHED:1 CONDITIONAL_STOP: condition not met'
+                          );
+                        }
+                        console.log('Start ON_END_REACHED:2 SET_VARIABLE');
+                        const value5LnNJ7Yb = parseInt(nextPage + 1, 10);
+                        setNextPage(value5LnNJ7Yb);
+                        const nextPageSet = value5LnNJ7Yb;
+                        console.log('Complete ON_END_REACHED:2 SET_VARIABLE');
+                        console.log('Start ON_END_REACHED:3 CONSOLE_LOG');
+                        console.log(nextPage);
+                        console.log('Complete ON_END_REACHED:3 CONSOLE_LOG');
+                        console.log('Start ON_END_REACHED:4 FETCH_REQUEST');
+                        const newData = (
+                          await XanoCollectionApi.getAllEventsGET(Constants, {
+                            countryIn: country,
+                            eventTypeIn: eventType,
+                            keyword: keywordSearch,
+                            page: nextPage,
+                            sectorIn: sector,
+                          })
+                        )?.json;
+                        console.log('Complete ON_END_REACHED:4 FETCH_REQUEST', {
+                          newData,
+                        });
+                        console.log('Start ON_END_REACHED:5 SET_VARIABLE');
+                        setEventItems(eventItems.concat(newData?.items));
+                        console.log('Complete ON_END_REACHED:5 SET_VARIABLE');
+                        console.log('Start ON_END_REACHED:6 SET_VARIABLE');
+                        setLastPage(newData?.pageTotal);
+                        console.log('Complete ON_END_REACHED:6 SET_VARIABLE');
+                      } catch (err) {
+                        console.error(err);
+                        error = err.message ?? err;
                       }
-                      console.log('Start ON_END_REACHED:1 FETCH_REQUEST');
-                      /* hidden 'API Request' action */ console.log(
-                        'Complete ON_END_REACHED:1 FETCH_REQUEST'
+                      console.log(
+                        'List ON_END_REACHED Complete',
+                        error ? { error } : 'no error'
                       );
-                      console.log('Start ON_END_REACHED:2 SET_VARIABLE');
-                      /* hidden 'Set Variable' action */ console.log(
-                        'Complete ON_END_REACHED:2 SET_VARIABLE'
-                      );
-                      console.log('Start ON_END_REACHED:3 CONSOLE_LOG');
-                      /* hidden 'Log to Console' action */ console.log(
-                        'Complete ON_END_REACHED:3 CONSOLE_LOG'
-                      );
-                      console.log('Start ON_END_REACHED:4 SET_VARIABLE');
-                      /* hidden 'Set Variable' action */ console.log(
-                        'Complete ON_END_REACHED:4 SET_VARIABLE'
-                      );
-                      console.log('Start ON_END_REACHED:5 SET_VARIABLE');
-                      /* hidden 'Set Variable' action */ console.log(
-                        'Complete ON_END_REACHED:5 SET_VARIABLE'
-                      );
-                    } catch (err) {
-                      console.error(err);
-                      error = err.message ?? err;
-                    }
-                    console.log(
-                      'List ON_END_REACHED Complete',
-                      error ? { error } : 'no error'
-                    );
+                    };
+                    handler();
                   }}
                   renderItem={({ item, index }) => {
                     const listData = item;
@@ -677,12 +690,12 @@ const AllEventsScreen = props => {
                       </View>
                     );
                   }}
+                  numColumns={dimensions.width >= Breakpoints.Laptop ? 1 : 1}
+                  onEndReachedThreshold={0.2}
                   showsHorizontalScrollIndicator={true}
                   showsVerticalScrollIndicator={true}
-                  numColumns={dimensions.width >= Breakpoints.Laptop ? 1 : 1}
-                  onEndReachedThreshold={0.8}
                   style={StyleSheet.applyWidth(
-                    { maxWidth: 1200, minHeight: dimensions.height },
+                    { maxHeight: dimensions.height - 250, maxWidth: 1200 },
                     dimensions.width
                   )}
                 />
