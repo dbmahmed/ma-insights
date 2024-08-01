@@ -288,6 +288,7 @@ const AllEventsScreen = props => {
                           { minWidth: Breakpoints.Mobile, value: 0 },
                           { minWidth: Breakpoints.Laptop, value: 20 },
                         ],
+                        paddingLeft: 5,
                         textDecorationLine: 'none',
                       }
                     ),
