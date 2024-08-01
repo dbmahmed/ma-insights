@@ -838,12 +838,20 @@ const TransactionsScreen = props => {
                       ? 2
                       : 1
                   }
-                  showsHorizontalScrollIndicator={false}
-                  showsVerticalScrollIndicator={false}
+                  showsHorizontalScrollIndicator={true}
+                  showsVerticalScrollIndicator={true}
                   style={StyleSheet.applyWidth(
                     {
                       alignItems: 'stretch',
                       flexWrap: { minWidth: Breakpoints.Laptop, value: 'wrap' },
+                      height: [
+                        { minWidth: Breakpoints.Mobile, value: '100%' },
+                        {
+                          minWidth: Breakpoints.Mobile,
+                          value: dimensions.height,
+                        },
+                      ],
+                      maxHeight: dimensions.height - 240,
                       maxWidth: 1200,
                       width: '100%',
                     },

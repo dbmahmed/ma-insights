@@ -33,6 +33,10 @@ const CustomHeaderBlock = props => {
         {
           backgroundColor: theme.colors.background.brand,
           height: 65,
+          left: { minWidth: Breakpoints.Desktop, value: 0 },
+          position: { minWidth: Breakpoints.Desktop, value: 'absolute' },
+          right: { minWidth: Breakpoints.Desktop, value: 0 },
+          top: { minWidth: Breakpoints.Desktop, value: 0 },
           zIndex: 10,
         },
         dimensions.width
