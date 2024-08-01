@@ -652,9 +652,9 @@ const EventDetailsScreen = props => {
                           dimensions.width
                         )}
                       >
-                        {'€ '}
-                        {fetchData?.revenue_eur}
-                        {'m'}
+                        {fetchData?.revenue_eur !== '0.0'
+                          ? '€ ' + (fetchData?.revenue_eur + 'm')
+                          : '-'}
                       </Text>
                     </View>
                     {/* View 10 */}
@@ -706,14 +706,68 @@ const EventDetailsScreen = props => {
                           dimensions.width
                         )}
                       >
-                        {'€ '}
-                        {fetchData?.ebitda_eur}
-                        {'m'}
+                        {fetchData?.ebitda_eur !== '0.0'
+                          ? '€ ' + (fetchData?.ebitda_eur + 'm')
+                          : undefined}
+                      </Text>
+                    </View>
+                    {/* View 15 */}
+                    <View
+                      style={StyleSheet.applyWidth(
+                        { flexDirection: 'row', gap: 8 },
+                        dimensions.width
+                      )}
+                    >
+                      <View
+                        style={StyleSheet.applyWidth(
+                          { width: 150 },
+                          dimensions.width
+                        )}
+                      >
+                        <Text
+                          accessible={true}
+                          {...GlobalStyles.TextStyles(theme)['screen_title']
+                            .props}
+                          style={StyleSheet.applyWidth(
+                            StyleSheet.compose(
+                              GlobalStyles.TextStyles(theme)['screen_title']
+                                .style,
+                              {
+                                color: palettes.Brand['Strong Inverse'],
+                                fontFamily: 'Quicksand_500Medium',
+                              }
+                            ),
+                            dimensions.width
+                          )}
+                        >
+                          {'Gross Profit:'}
+                        </Text>
+                      </View>
+
+                      <Text
+                        accessible={true}
+                        {...GlobalStyles.TextStyles(theme)['screen_title']
+                          .props}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.TextStyles(theme)['screen_title']
+                              .style,
+                            {
+                              color: palettes.Brand['Strong Inverse'],
+                              fontFamily: 'Quicksand_500Medium',
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {fetchData?.gross_profit_eur !== '0.0'
+                          ? '€ ' + (fetchData?.gross_profit_eur + 'm')
+                          : '-'}
                       </Text>
                     </View>
                     {/* View 11 */}
                     <>
-                      {!(fetchData?.ev_eur === 0) ? null : (
+                      {!(fetchData?.ev_eur !== '0.0') ? null : (
                         <View
                           style={StyleSheet.applyWidth(
                             { flexDirection: 'row', gap: 8 },
@@ -762,16 +816,16 @@ const EventDetailsScreen = props => {
                               dimensions.width
                             )}
                           >
-                            {'€ '}
-                            {fetchData?.ev_eur}
-                            {'m'}
+                            {fetchData?.ev_eur !== '0.0'
+                              ? '€ ' + (fetchData?.ev_eur + 'm')
+                              : undefined}
                           </Text>
                         </View>
                       )}
                     </>
                     {/* View 12 */}
                     <>
-                      {!(fetchData?.ev_eur === 0) ? null : (
+                      {!(fetchData?.ev_eur !== '0.0') ? null : (
                         <View
                           style={StyleSheet.applyWidth(
                             { flexDirection: 'row', gap: 8 },
@@ -822,14 +876,16 @@ const EventDetailsScreen = props => {
                               dimensions.width
                             )}
                           >
-                            {fetchData?.ev_sales}
+                            {fetchData?.ev_sales !== '0.0'
+                              ? fetchData?.ev_sales
+                              : '-'}
                           </Text>
                         </View>
                       )}
                     </>
                     {/* View 13 */}
                     <>
-                      {!(fetchData?.ev_eur === 0) ? null : (
+                      {!(fetchData?.ev_eur !== '0.0') ? null : (
                         <View
                           style={StyleSheet.applyWidth(
                             { flexDirection: 'row', gap: 8 },
@@ -880,14 +936,16 @@ const EventDetailsScreen = props => {
                               dimensions.width
                             )}
                           >
-                            {fetchData?.ev_ebitda}
+                            {fetchData?.ev_ebitda !== '0.0'
+                              ? fetchData?.ev_ebitda
+                              : '-'}
                           </Text>
                         </View>
                       )}
                     </>
                     {/* View 14 */}
                     <>
-                      {!(fetchData?.ev_eur === 0) ? null : (
+                      {!(fetchData?.ev_eur !== '0.0') ? null : (
                         <View
                           style={StyleSheet.applyWidth(
                             { flexDirection: 'row', gap: 8 },
@@ -938,7 +996,9 @@ const EventDetailsScreen = props => {
                               dimensions.width
                             )}
                           >
-                            {fetchData?.ev_ebit}
+                            {fetchData?.ev_ebit !== '0.0'
+                              ? fetchData?.ev_ebit
+                              : '-'}
                           </Text>
                         </View>
                       )}
@@ -1007,7 +1067,9 @@ const EventDetailsScreen = props => {
                           dimensions.width
                         )}
                       >
-                        {getListNameFormArray(fetchData?.sellside_cf)}
+                        {fetchData?.sellside_cf?.length !== 0
+                          ? getListNameFormArray(fetchData?.sellside_cf)
+                          : '-'}
                       </Text>
                     </View>
                     {/* View 2 */}
@@ -1059,7 +1121,9 @@ const EventDetailsScreen = props => {
                           dimensions.width
                         )}
                       >
-                        {getListNameFormArray(fetchData?.sellside_legal)}
+                        {fetchData?.sellside_legal?.length !== 0
+                          ? getListNameFormArray(fetchData?.sellside_legal)
+                          : '-'}
                       </Text>
                     </View>
                     {/* View 3 */}
@@ -1111,7 +1175,9 @@ const EventDetailsScreen = props => {
                           dimensions.width
                         )}
                       >
-                        {getListNameFormArray(fetchData?.buyside_cf)}
+                        {fetchData?.buyside_cf?.length !== 0
+                          ? getListNameFormArray(fetchData?.buyside_cf)
+                          : '-'}
                       </Text>
                     </View>
                     {/* View 4 */}
@@ -1163,7 +1229,9 @@ const EventDetailsScreen = props => {
                           dimensions.width
                         )}
                       >
-                        {getListNameFormArray(fetchData?.buyside_legal)}
+                        {fetchData?.buyside_legal?.length !== 0
+                          ? getListNameFormArray(fetchData?.buyside_legal)
+                          : '-'}
                       </Text>
                     </View>
                   </View>

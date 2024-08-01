@@ -324,3 +324,8 @@ export const ButtonStyles = theme =>
       props: {},
     },
   });
+
+export const SliderStyles = theme =>
+  StyleSheet.create({
+    Slider: { style: { marginLeft: 12, marginRight: 12 }, props: {} },
+  });

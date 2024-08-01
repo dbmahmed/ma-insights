@@ -601,11 +601,34 @@ export const FetchGetAllPeersGET = ({
   return children({ loading, data, error, refetchGetAllPeers: refetch });
 };
 
-export const getAllStocksGET = async (Constants, _args, handlers = {}) => {
-  const url = `https://xne3-pdiu-8ysm.f2.xano.io/api:abjrBkC8/stock`;
+export const getAllStocksGET = async (
+  Constants,
+  { evIn, page, regionIn, sectorIn, stockKeyword },
+  handlers = {}
+) => {
+  const paramsDict = {};
+  if (sectorIn !== undefined) {
+    paramsDict['sector_in'] = renderParam(sectorIn);
+  }
+  if (regionIn !== undefined) {
+    paramsDict['region_in'] = renderParam(regionIn);
+  }
+  if (stockKeyword !== undefined) {
+    paramsDict['stock_keyword'] = renderParam(stockKeyword);
+  }
+  if (evIn !== undefined) {
+    paramsDict['ev_in'] = renderParam(evIn);
+  }
+  if (page !== undefined) {
+    paramsDict['page'] = renderParam(page);
+  }
+  const url = `https://xne3-pdiu-8ysm.f2.xano.io/api:abjrBkC8/stock${renderQueryString(
+    paramsDict
+  )}`;
   const options = {
     headers: cleanHeaders({
       Accept: 'application/json',
+      Authorization: Constants['AUTH_HEADER'],
       'Content-Type': 'application/json',
     }),
   };
@@ -632,6 +655,11 @@ export const FetchGetAllStocksGET = ({
   onData = () => {},
   handlers = {},
   refetchInterval,
+  evIn,
+  page,
+  regionIn,
+  sectorIn,
+  stockKeyword,
 }) => {
   const Constants = GlobalVariables.useValues();
   const isFocused = useIsFocused();
@@ -643,7 +671,7 @@ export const FetchGetAllStocksGET = ({
     error,
     refetch,
   } = useGetAllStocksGET(
-    {},
+    { evIn, page, regionIn, sectorIn, stockKeyword },
     { refetchInterval, handlers: { onData, ...handlers } }
   );
 

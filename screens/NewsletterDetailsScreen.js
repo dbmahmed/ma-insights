@@ -110,7 +110,7 @@ const NewsletterDetailsScreen = props => {
             }
           },
         }}
-        newsletter_id={props.route?.params?.news_id ?? 34}
+        newsletter_id={props.route?.params?.news_id ?? 20}
       >
         {({ loading, error, data, refetchNewsletterEach }) => {
           const fetchData = data?.json;
@@ -324,522 +324,549 @@ const NewsletterDetailsScreen = props => {
                       </Text>
                     </View>
                     {/* Section Name */}
-                    <View
-                      style={StyleSheet.applyWidth(
-                        { marginBottom: 10 },
-                        dimensions.width
-                      )}
-                    >
-                      <LinearGradient
-                        color1={theme.colors.branding.primary}
-                        color2={theme.colors.branding.secondary}
-                        endX={100}
-                        endY={100}
-                        startX={0}
-                        startY={0}
-                        {...GlobalStyles.LinearGradientStyles(theme)[
-                          'SectionName'
-                        ].props}
-                        style={StyleSheet.applyWidth(
-                          StyleSheet.compose(
-                            GlobalStyles.LinearGradientStyles(theme)[
+                    <>
+                      {!(fetchData?.potd !== 0) ? null : (
+                        <View
+                          style={StyleSheet.applyWidth(
+                            { marginBottom: 10 },
+                            dimensions.width
+                          )}
+                        >
+                          <LinearGradient
+                            color1={theme.colors.branding.primary}
+                            color2={theme.colors.branding.secondary}
+                            endX={100}
+                            endY={100}
+                            startX={0}
+                            startY={0}
+                            {...GlobalStyles.LinearGradientStyles(theme)[
                               'SectionName'
-                            ].style,
-                            { margin: null }
-                          ),
-                          dimensions.width
-                        )}
-                      >
-                        <Text
-                          accessible={true}
-                          {...GlobalStyles.TextStyles(theme)['screen_title']
-                            .props}
+                            ].props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.LinearGradientStyles(theme)[
+                                  'SectionName'
+                                ].style,
+                                { margin: null }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)['screen_title']
+                                .props}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.TextStyles(theme)['screen_title']
+                                    .style,
+                                  {
+                                    color: palettes.Brand['Strong Inverse'],
+                                    fontFamily: 'Quicksand_700Bold',
+                                    fontSize: 16,
+                                    textTransform: 'uppercase',
+                                  }
+                                ),
+                                dimensions.width
+                              )}
+                            >
+                              {'PITCH OF THE DAY'}
+                            </Text>
+                          </LinearGradient>
+                        </View>
+                      )}
+                    </>
+                    <>
+                      {!(fetchData?.potd !== 0) ? null : (
+                        <H3
+                          selectable={false}
+                          {...GlobalStyles.H3Styles(theme)['H3'].props}
                           style={StyleSheet.applyWidth(
                             StyleSheet.compose(
-                              GlobalStyles.TextStyles(theme)['screen_title']
-                                .style,
+                              GlobalStyles.H3Styles(theme)['H3'].style,
                               {
-                                color: palettes.Brand['Strong Inverse'],
-                                fontFamily: 'Quicksand_700Bold',
                                 fontSize: 16,
-                                textTransform: 'uppercase',
+                                marginBottom: 10,
+                                marginTop: 0,
+                                padding: 10,
                               }
                             ),
                             dimensions.width
                           )}
                         >
-                          {'PITCH OF THE DAY'}
-                        </Text>
-                      </LinearGradient>
-                    </View>
-
-                    <H3
-                      selectable={false}
-                      {...GlobalStyles.H3Styles(theme)['H3'].props}
-                      style={StyleSheet.applyWidth(
-                        StyleSheet.compose(
-                          GlobalStyles.H3Styles(theme)['H3'].style,
-                          {
-                            fontSize: 16,
-                            marginBottom: 10,
-                            marginTop: 0,
-                            padding: 10,
-                          }
-                        ),
-                        dimensions.width
+                          {fetchData?._potd?.headline}
+                        </H3>
                       )}
-                    >
-                      {fetchData?._potd?.headline}
-                    </H3>
+                    </>
                     {/* potd settings */}
-                    <View
-                      style={StyleSheet.applyWidth(
-                        {
-                          gap: 4,
-                          marginBottom: 20,
-                          maxWidth: 450,
-                          padding: 10,
-                        },
-                        dimensions.width
-                      )}
-                    >
-                      <View
-                        style={StyleSheet.applyWidth(
-                          { flexDirection: 'row', gap: 8 },
-                          dimensions.width
-                        )}
-                      >
+                    <>
+                      {!(fetchData?.potd !== 0) ? null : (
                         <View
-                          style={StyleSheet.applyWidth(
-                            { width: 80 },
-                            dimensions.width
-                          )}
-                        >
-                          {/* Lable */}
-                          <Text
-                            accessible={true}
-                            {...GlobalStyles.TextStyles(theme)['screen_title']
-                              .props}
-                            style={StyleSheet.applyWidth(
-                              StyleSheet.compose(
-                                GlobalStyles.TextStyles(theme)['screen_title']
-                                  .style,
-                                { fontFamily: 'Quicksand_700Bold' }
-                              ),
-                              dimensions.width
-                            )}
-                          >
-                            {'Target:'}
-                          </Text>
-                        </View>
-                        {/* Value */}
-                        <Text
-                          accessible={true}
-                          {...GlobalStyles.TextStyles(theme)['screen_title']
-                            .props}
-                          style={StyleSheet.applyWidth(
-                            StyleSheet.compose(
-                              GlobalStyles.TextStyles(theme)['screen_title']
-                                .style,
-                              { fontFamily: 'Quicksand_400Regular' }
-                            ),
-                            dimensions.width
-                          )}
-                        >
-                          {fetchData?._potd?.target}
-                        </Text>
-                      </View>
-                      {/* View 2 */}
-                      <View
-                        style={StyleSheet.applyWidth(
-                          { flexDirection: 'row', gap: 8 },
-                          dimensions.width
-                        )}
-                      >
-                        <View
-                          style={StyleSheet.applyWidth(
-                            { width: 80 },
-                            dimensions.width
-                          )}
-                        >
-                          {/* Lable */}
-                          <Text
-                            accessible={true}
-                            {...GlobalStyles.TextStyles(theme)['screen_title']
-                              .props}
-                            style={StyleSheet.applyWidth(
-                              StyleSheet.compose(
-                                GlobalStyles.TextStyles(theme)['screen_title']
-                                  .style,
-                                { fontFamily: 'Quicksand_700Bold' }
-                              ),
-                              dimensions.width
-                            )}
-                          >
-                            {'Advisor:'}
-                          </Text>
-                        </View>
-                        {/* Value */}
-                        <Text
-                          accessible={true}
-                          {...GlobalStyles.TextStyles(theme)['screen_title']
-                            .props}
-                          style={StyleSheet.applyWidth(
-                            StyleSheet.compose(
-                              GlobalStyles.TextStyles(theme)['screen_title']
-                                .style,
-                              { fontFamily: 'Quicksand_400Regular' }
-                            ),
-                            dimensions.width
-                          )}
-                        >
-                          {fetchData?._potd?.advisor}
-                        </Text>
-                      </View>
-                      {/* View 3 */}
-                      <View
-                        style={StyleSheet.applyWidth(
-                          { flexDirection: 'row', gap: 8 },
-                          dimensions.width
-                        )}
-                      >
-                        <View
-                          style={StyleSheet.applyWidth(
-                            { width: 80 },
-                            dimensions.width
-                          )}
-                        >
-                          {/* Lable */}
-                          <Text
-                            accessible={true}
-                            {...GlobalStyles.TextStyles(theme)['screen_title']
-                              .props}
-                            style={StyleSheet.applyWidth(
-                              StyleSheet.compose(
-                                GlobalStyles.TextStyles(theme)['screen_title']
-                                  .style,
-                                { fontFamily: 'Quicksand_700Bold' }
-                              ),
-                              dimensions.width
-                            )}
-                          >
-                            {'Stage:'}
-                          </Text>
-                        </View>
-                        {/* Value */}
-                        <Text
-                          accessible={true}
-                          {...GlobalStyles.TextStyles(theme)['screen_title']
-                            .props}
-                          style={StyleSheet.applyWidth(
-                            StyleSheet.compose(
-                              GlobalStyles.TextStyles(theme)['screen_title']
-                                .style,
-                              { fontFamily: 'Quicksand_400Regular' }
-                            ),
-                            dimensions.width
-                          )}
-                        >
-                          {fetchData?._potd?.stage}
-                        </Text>
-                      </View>
-                      {/* View 4 */}
-                      <View
-                        style={StyleSheet.applyWidth(
-                          { flexDirection: 'row', gap: 8 },
-                          dimensions.width
-                        )}
-                      >
-                        <View
-                          style={StyleSheet.applyWidth(
-                            { width: 80 },
-                            dimensions.width
-                          )}
-                        >
-                          {/* Lable */}
-                          <Text
-                            accessible={true}
-                            {...GlobalStyles.TextStyles(theme)['screen_title']
-                              .props}
-                            style={StyleSheet.applyWidth(
-                              StyleSheet.compose(
-                                GlobalStyles.TextStyles(theme)['screen_title']
-                                  .style,
-                                { fontFamily: 'Quicksand_700Bold' }
-                              ),
-                              dimensions.width
-                            )}
-                          >
-                            {'Financials:'}
-                          </Text>
-                        </View>
-                        {/* Value */}
-                        <Text
-                          accessible={true}
-                          {...GlobalStyles.TextStyles(theme)['screen_title']
-                            .props}
-                          style={StyleSheet.applyWidth(
-                            StyleSheet.compose(
-                              GlobalStyles.TextStyles(theme)['screen_title']
-                                .style,
-                              { fontFamily: 'Quicksand_400Regular' }
-                            ),
-                            dimensions.width
-                          )}
-                        >
-                          {fetchData?._potd?.financials}
-                        </Text>
-                      </View>
-                      {/* View 5 */}
-                      <View
-                        style={StyleSheet.applyWidth(
-                          { flexDirection: 'row', gap: 8 },
-                          dimensions.width
-                        )}
-                      >
-                        <View
-                          style={StyleSheet.applyWidth(
-                            { width: 80 },
-                            dimensions.width
-                          )}
-                        >
-                          {/* Lable */}
-                          <Text
-                            accessible={true}
-                            {...GlobalStyles.TextStyles(theme)['screen_title']
-                              .props}
-                            style={StyleSheet.applyWidth(
-                              StyleSheet.compose(
-                                GlobalStyles.TextStyles(theme)['screen_title']
-                                  .style,
-                                { fontFamily: 'Quicksand_700Bold' }
-                              ),
-                              dimensions.width
-                            )}
-                          >
-                            {'GICS:'}
-                          </Text>
-                        </View>
-                        {/* Value */}
-                        <Text
-                          accessible={true}
-                          {...GlobalStyles.TextStyles(theme)['screen_title']
-                            .props}
-                          style={StyleSheet.applyWidth(
-                            StyleSheet.compose(
-                              GlobalStyles.TextStyles(theme)['screen_title']
-                                .style,
-                              { fontFamily: 'Quicksand_400Regular' }
-                            ),
-                            dimensions.width
-                          )}
-                        >
-                          {fetchData?._potd?.gics}
-                        </Text>
-                      </View>
-                      {/* View 6 */}
-                      <View
-                        style={StyleSheet.applyWidth(
-                          { flexDirection: 'row', gap: 8 },
-                          dimensions.width
-                        )}
-                      >
-                        <View
-                          style={StyleSheet.applyWidth(
-                            { width: 80 },
-                            dimensions.width
-                          )}
-                        >
-                          {/* Lable */}
-                          <Text
-                            accessible={true}
-                            {...GlobalStyles.TextStyles(theme)['screen_title']
-                              .props}
-                            style={StyleSheet.applyWidth(
-                              StyleSheet.compose(
-                                GlobalStyles.TextStyles(theme)['screen_title']
-                                  .style,
-                                { fontFamily: 'Quicksand_700Bold' }
-                              ),
-                              dimensions.width
-                            )}
-                          >
-                            {'HQ:'}
-                          </Text>
-                        </View>
-                        {/* Value */}
-                        <Text
-                          accessible={true}
-                          {...GlobalStyles.TextStyles(theme)['screen_title']
-                            .props}
-                          style={StyleSheet.applyWidth(
-                            StyleSheet.compose(
-                              GlobalStyles.TextStyles(theme)['screen_title']
-                                .style,
-                              { fontFamily: 'Quicksand_400Regular' }
-                            ),
-                            dimensions.width
-                          )}
-                        >
-                          {fetchData?._potd?.hq}
-                        </Text>
-                      </View>
-                    </View>
-                    {/* container */}
-                    <View
-                      style={StyleSheet.applyWidth(
-                        { gap: 20, marginBottom: 20, padding: 10 },
-                        dimensions.width
-                      )}
-                    >
-                      {/* Content */}
-                      <View
-                        style={StyleSheet.applyWidth(
-                          {
-                            alignItems: 'flex-start',
-                            flexDirection: 'column',
-                            gap: 8,
-                          },
-                          dimensions.width
-                        )}
-                      >
-                        {/* Lable */}
-                        <Text
-                          accessible={true}
                           style={StyleSheet.applyWidth(
                             {
-                              color: theme.colors.text.light,
-                              fontFamily: 'Quicksand_500Medium',
-                              fontSize: 16,
+                              gap: 4,
+                              marginBottom: 20,
+                              maxWidth: 450,
+                              padding: 10,
                             },
                             dimensions.width
                           )}
                         >
-                          {'Company profile:'}
-                        </Text>
-                        {/* Value */}
-                        <Text
-                          accessible={true}
-                          {...GlobalStyles.TextStyles(theme)['screen_title']
-                            .props}
+                          <View
+                            style={StyleSheet.applyWidth(
+                              { flexDirection: 'row', gap: 8 },
+                              dimensions.width
+                            )}
+                          >
+                            <View
+                              style={StyleSheet.applyWidth(
+                                { width: 80 },
+                                dimensions.width
+                              )}
+                            >
+                              {/* Lable */}
+                              <Text
+                                accessible={true}
+                                {...GlobalStyles.TextStyles(theme)[
+                                  'screen_title'
+                                ].props}
+                                style={StyleSheet.applyWidth(
+                                  StyleSheet.compose(
+                                    GlobalStyles.TextStyles(theme)[
+                                      'screen_title'
+                                    ].style,
+                                    { fontFamily: 'Quicksand_700Bold' }
+                                  ),
+                                  dimensions.width
+                                )}
+                              >
+                                {'Target:'}
+                              </Text>
+                            </View>
+                            {/* Value */}
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)['screen_title']
+                                .props}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.TextStyles(theme)['screen_title']
+                                    .style,
+                                  { fontFamily: 'Quicksand_400Regular' }
+                                ),
+                                dimensions.width
+                              )}
+                            >
+                              {fetchData?._potd?.target}
+                            </Text>
+                          </View>
+                          {/* View 2 */}
+                          <View
+                            style={StyleSheet.applyWidth(
+                              { flexDirection: 'row', gap: 8 },
+                              dimensions.width
+                            )}
+                          >
+                            <View
+                              style={StyleSheet.applyWidth(
+                                { width: 80 },
+                                dimensions.width
+                              )}
+                            >
+                              {/* Lable */}
+                              <Text
+                                accessible={true}
+                                {...GlobalStyles.TextStyles(theme)[
+                                  'screen_title'
+                                ].props}
+                                style={StyleSheet.applyWidth(
+                                  StyleSheet.compose(
+                                    GlobalStyles.TextStyles(theme)[
+                                      'screen_title'
+                                    ].style,
+                                    { fontFamily: 'Quicksand_700Bold' }
+                                  ),
+                                  dimensions.width
+                                )}
+                              >
+                                {'Advisor:'}
+                              </Text>
+                            </View>
+                            {/* Value */}
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)['screen_title']
+                                .props}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.TextStyles(theme)['screen_title']
+                                    .style,
+                                  { fontFamily: 'Quicksand_400Regular' }
+                                ),
+                                dimensions.width
+                              )}
+                            >
+                              {fetchData?._potd?.advisor}
+                            </Text>
+                          </View>
+                          {/* View 3 */}
+                          <View
+                            style={StyleSheet.applyWidth(
+                              { flexDirection: 'row', gap: 8 },
+                              dimensions.width
+                            )}
+                          >
+                            <View
+                              style={StyleSheet.applyWidth(
+                                { width: 80 },
+                                dimensions.width
+                              )}
+                            >
+                              {/* Lable */}
+                              <Text
+                                accessible={true}
+                                {...GlobalStyles.TextStyles(theme)[
+                                  'screen_title'
+                                ].props}
+                                style={StyleSheet.applyWidth(
+                                  StyleSheet.compose(
+                                    GlobalStyles.TextStyles(theme)[
+                                      'screen_title'
+                                    ].style,
+                                    { fontFamily: 'Quicksand_700Bold' }
+                                  ),
+                                  dimensions.width
+                                )}
+                              >
+                                {'Stage:'}
+                              </Text>
+                            </View>
+                            {/* Value */}
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)['screen_title']
+                                .props}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.TextStyles(theme)['screen_title']
+                                    .style,
+                                  { fontFamily: 'Quicksand_400Regular' }
+                                ),
+                                dimensions.width
+                              )}
+                            >
+                              {fetchData?._potd?.stage}
+                            </Text>
+                          </View>
+                          {/* View 4 */}
+                          <View
+                            style={StyleSheet.applyWidth(
+                              { flexDirection: 'row', gap: 8 },
+                              dimensions.width
+                            )}
+                          >
+                            <View
+                              style={StyleSheet.applyWidth(
+                                { width: 80 },
+                                dimensions.width
+                              )}
+                            >
+                              {/* Lable */}
+                              <Text
+                                accessible={true}
+                                {...GlobalStyles.TextStyles(theme)[
+                                  'screen_title'
+                                ].props}
+                                style={StyleSheet.applyWidth(
+                                  StyleSheet.compose(
+                                    GlobalStyles.TextStyles(theme)[
+                                      'screen_title'
+                                    ].style,
+                                    { fontFamily: 'Quicksand_700Bold' }
+                                  ),
+                                  dimensions.width
+                                )}
+                              >
+                                {'Financials:'}
+                              </Text>
+                            </View>
+                            {/* Value */}
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)['screen_title']
+                                .props}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.TextStyles(theme)['screen_title']
+                                    .style,
+                                  { fontFamily: 'Quicksand_400Regular' }
+                                ),
+                                dimensions.width
+                              )}
+                            >
+                              {fetchData?._potd?.financials}
+                            </Text>
+                          </View>
+                          {/* View 5 */}
+                          <View
+                            style={StyleSheet.applyWidth(
+                              { flexDirection: 'row', gap: 8 },
+                              dimensions.width
+                            )}
+                          >
+                            <View
+                              style={StyleSheet.applyWidth(
+                                { width: 80 },
+                                dimensions.width
+                              )}
+                            >
+                              {/* Lable */}
+                              <Text
+                                accessible={true}
+                                {...GlobalStyles.TextStyles(theme)[
+                                  'screen_title'
+                                ].props}
+                                style={StyleSheet.applyWidth(
+                                  StyleSheet.compose(
+                                    GlobalStyles.TextStyles(theme)[
+                                      'screen_title'
+                                    ].style,
+                                    { fontFamily: 'Quicksand_700Bold' }
+                                  ),
+                                  dimensions.width
+                                )}
+                              >
+                                {'GICS:'}
+                              </Text>
+                            </View>
+                            {/* Value */}
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)['screen_title']
+                                .props}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.TextStyles(theme)['screen_title']
+                                    .style,
+                                  { fontFamily: 'Quicksand_400Regular' }
+                                ),
+                                dimensions.width
+                              )}
+                            >
+                              {fetchData?._potd?.gics}
+                            </Text>
+                          </View>
+                          {/* View 6 */}
+                          <View
+                            style={StyleSheet.applyWidth(
+                              { flexDirection: 'row', gap: 8 },
+                              dimensions.width
+                            )}
+                          >
+                            <View
+                              style={StyleSheet.applyWidth(
+                                { width: 80 },
+                                dimensions.width
+                              )}
+                            >
+                              {/* Lable */}
+                              <Text
+                                accessible={true}
+                                {...GlobalStyles.TextStyles(theme)[
+                                  'screen_title'
+                                ].props}
+                                style={StyleSheet.applyWidth(
+                                  StyleSheet.compose(
+                                    GlobalStyles.TextStyles(theme)[
+                                      'screen_title'
+                                    ].style,
+                                    { fontFamily: 'Quicksand_700Bold' }
+                                  ),
+                                  dimensions.width
+                                )}
+                              >
+                                {'HQ:'}
+                              </Text>
+                            </View>
+                            {/* Value */}
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)['screen_title']
+                                .props}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.TextStyles(theme)['screen_title']
+                                    .style,
+                                  { fontFamily: 'Quicksand_400Regular' }
+                                ),
+                                dimensions.width
+                              )}
+                            >
+                              {fetchData?._potd?.hq}
+                            </Text>
+                          </View>
+                        </View>
+                      )}
+                    </>
+                    {/* container */}
+                    <>
+                      {!(fetchData?.potd !== 0) ? null : (
+                        <View
                           style={StyleSheet.applyWidth(
-                            StyleSheet.compose(
-                              GlobalStyles.TextStyles(theme)['screen_title']
-                                .style,
-                              {
-                                fontFamily: 'Quicksand_500Medium',
-                                fontSize: 16,
-                              }
-                            ),
+                            { gap: 20, marginBottom: 20, padding: 10 },
                             dimensions.width
                           )}
                         >
-                          {fetchData?._potd?.story_company_profile}
-                        </Text>
-                      </View>
-                      {/* Content */}
-                      <View
-                        style={StyleSheet.applyWidth(
-                          {
-                            alignItems: 'flex-start',
-                            flexDirection: 'column',
-                            gap: 8,
-                          },
-                          dimensions.width
-                        )}
-                      >
-                        {/* Lable */}
-                        <Text
-                          accessible={true}
-                          {...GlobalStyles.TextStyles(theme)['screen_title']
-                            .props}
-                          style={StyleSheet.applyWidth(
-                            StyleSheet.compose(
-                              GlobalStyles.TextStyles(theme)['screen_title']
-                                .style,
+                          {/* Content */}
+                          <View
+                            style={StyleSheet.applyWidth(
                               {
-                                color: theme.colors.text.light,
-                                fontFamily: 'Quicksand_500Medium',
-                                fontSize: 16,
-                              }
-                            ),
-                            dimensions.width
-                          )}
-                        >
-                          {'The opportunity:'}
-                        </Text>
-                        {/* Value */}
-                        <Text
-                          accessible={true}
-                          {...GlobalStyles.TextStyles(theme)['screen_title']
-                            .props}
-                          style={StyleSheet.applyWidth(
-                            StyleSheet.compose(
-                              GlobalStyles.TextStyles(theme)['screen_title']
-                                .style,
+                                alignItems: 'flex-start',
+                                flexDirection: 'column',
+                                gap: 8,
+                              },
+                              dimensions.width
+                            )}
+                          >
+                            {/* Lable */}
+                            <Text
+                              accessible={true}
+                              style={StyleSheet.applyWidth(
+                                {
+                                  color: theme.colors.text.light,
+                                  fontFamily: 'Quicksand_500Medium',
+                                  fontSize: 16,
+                                },
+                                dimensions.width
+                              )}
+                            >
+                              {'Company profile:'}
+                            </Text>
+                            {/* Value */}
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)['screen_title']
+                                .props}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.TextStyles(theme)['screen_title']
+                                    .style,
+                                  {
+                                    fontFamily: 'Quicksand_500Medium',
+                                    fontSize: 16,
+                                  }
+                                ),
+                                dimensions.width
+                              )}
+                            >
+                              {fetchData?._potd?.story_company_profile}
+                            </Text>
+                          </View>
+                          {/* Content */}
+                          <View
+                            style={StyleSheet.applyWidth(
                               {
-                                fontFamily: 'Quicksand_500Medium',
-                                fontSize: 16,
-                              }
-                            ),
-                            dimensions.width
-                          )}
-                        >
-                          {fetchData?._potd?.story_opportunity}
-                        </Text>
-                      </View>
-                      {/* Content */}
-                      <View
-                        style={StyleSheet.applyWidth(
-                          {
-                            alignItems: 'flex-start',
-                            flexDirection: 'column',
-                            gap: 8,
-                          },
-                          dimensions.width
-                        )}
-                      >
-                        {/* Lable */}
-                        <Text
-                          accessible={true}
-                          {...GlobalStyles.TextStyles(theme)['screen_title']
-                            .props}
-                          style={StyleSheet.applyWidth(
-                            StyleSheet.compose(
-                              GlobalStyles.TextStyles(theme)['screen_title']
-                                .style,
+                                alignItems: 'flex-start',
+                                flexDirection: 'column',
+                                gap: 8,
+                              },
+                              dimensions.width
+                            )}
+                          >
+                            {/* Lable */}
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)['screen_title']
+                                .props}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.TextStyles(theme)['screen_title']
+                                    .style,
+                                  {
+                                    color: theme.colors.text.light,
+                                    fontFamily: 'Quicksand_500Medium',
+                                    fontSize: 16,
+                                  }
+                                ),
+                                dimensions.width
+                              )}
+                            >
+                              {'The opportunity:'}
+                            </Text>
+                            {/* Value */}
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)['screen_title']
+                                .props}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.TextStyles(theme)['screen_title']
+                                    .style,
+                                  {
+                                    fontFamily: 'Quicksand_500Medium',
+                                    fontSize: 16,
+                                  }
+                                ),
+                                dimensions.width
+                              )}
+                            >
+                              {fetchData?._potd?.story_opportunity}
+                            </Text>
+                          </View>
+                          {/* Content */}
+                          <View
+                            style={StyleSheet.applyWidth(
                               {
-                                color: theme.colors.text.light,
-                                fontFamily: 'Quicksand_500Medium',
-                                fontSize: 16,
-                              }
-                            ),
-                            dimensions.width
-                          )}
-                        >
-                          {'Comps & precedents:'}
-                        </Text>
-                        {/* Value */}
-                        <Text
-                          accessible={true}
-                          {...GlobalStyles.TextStyles(theme)['screen_title']
-                            .props}
-                          style={StyleSheet.applyWidth(
-                            StyleSheet.compose(
-                              GlobalStyles.TextStyles(theme)['screen_title']
-                                .style,
-                              {
-                                fontFamily: 'Quicksand_500Medium',
-                                fontSize: 16,
-                              }
-                            ),
-                            dimensions.width
-                          )}
-                        >
-                          {fetchData?._potd?.story_comps}
-                        </Text>
-                      </View>
-                    </View>
+                                alignItems: 'flex-start',
+                                flexDirection: 'column',
+                                gap: 8,
+                              },
+                              dimensions.width
+                            )}
+                          >
+                            {/* Lable */}
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)['screen_title']
+                                .props}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.TextStyles(theme)['screen_title']
+                                    .style,
+                                  {
+                                    color: theme.colors.text.light,
+                                    fontFamily: 'Quicksand_500Medium',
+                                    fontSize: 16,
+                                  }
+                                ),
+                                dimensions.width
+                              )}
+                            >
+                              {'Comps & precedents:'}
+                            </Text>
+                            {/* Value */}
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)['screen_title']
+                                .props}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.TextStyles(theme)['screen_title']
+                                    .style,
+                                  {
+                                    fontFamily: 'Quicksand_500Medium',
+                                    fontSize: 16,
+                                  }
+                                ),
+                                dimensions.width
+                              )}
+                            >
+                              {fetchData?._potd?.story_comps}
+                            </Text>
+                          </View>
+                        </View>
+                      )}
+                    </>
                     {/* Listed comparable */}
                     <>
                       {!fetchData?._potd?._peer_group ? null : (

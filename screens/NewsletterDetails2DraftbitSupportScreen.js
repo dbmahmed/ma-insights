@@ -15,6 +15,7 @@ import {
   Shadow,
   SimpleStyleFlatList,
   SimpleStyleScrollView,
+  Slider,
   withTheme,
 } from '@draftbit/ui';
 import { H1, H3 } from '@expo/html-elements';
@@ -1146,7 +1147,8 @@ const NewsletterDetails2DraftbitSupportScreen = props => {
                               keyExtractor={(listData, index) =>
                                 listData?.id ??
                                 listData?.uuid ??
-                                index.toString()
+                                index?.toString() ??
+                                JSON.stringify(listData)
                               }
                               keyboardShouldPersistTaps={'never'}
                               listKey={'UoZUQcBr'}
@@ -1309,7 +1311,8 @@ const NewsletterDetails2DraftbitSupportScreen = props => {
                               keyExtractor={(listData, index) =>
                                 listData?.id ??
                                 listData?.uuid ??
-                                index.toString()
+                                index?.toString() ??
+                                JSON.stringify(listData)
                               }
                               keyboardShouldPersistTaps={'never'}
                               listKey={'pw20bhwq'}
@@ -1460,7 +1463,8 @@ const NewsletterDetails2DraftbitSupportScreen = props => {
                               keyExtractor={(listData, index) =>
                                 listData?.id ??
                                 listData?.uuid ??
-                                index.toString()
+                                index?.toString() ??
+                                JSON.stringify(listData)
                               }
                               keyboardShouldPersistTaps={'never'}
                               listKey={'AScyjkub'}
@@ -1611,7 +1615,8 @@ const NewsletterDetails2DraftbitSupportScreen = props => {
                               keyExtractor={(listData, index) =>
                                 listData?.id ??
                                 listData?.uuid ??
-                                index.toString()
+                                index?.toString() ??
+                                JSON.stringify(listData)
                               }
                               keyboardShouldPersistTaps={'never'}
                               listKey={'EG2MFO6o'}
@@ -1778,7 +1783,8 @@ const NewsletterDetails2DraftbitSupportScreen = props => {
                               keyExtractor={(listData, index) =>
                                 listData?.id ??
                                 listData?.uuid ??
-                                index.toString()
+                                index?.toString() ??
+                                JSON.stringify(listData)
                               }
                               keyboardShouldPersistTaps={'never'}
                               listKey={'eKkcjofP'}
@@ -1941,7 +1947,8 @@ const NewsletterDetails2DraftbitSupportScreen = props => {
                               keyExtractor={(listData, index) =>
                                 listData?.id ??
                                 listData?.uuid ??
-                                index.toString()
+                                index?.toString() ??
+                                JSON.stringify(listData)
                               }
                               keyboardShouldPersistTaps={'never'}
                               listKey={'X5oi3zee'}
@@ -2224,6 +2231,18 @@ const NewsletterDetails2DraftbitSupportScreen = props => {
                         </View>
                       )}
                     </>
+                    <Slider
+                      {...GlobalStyles.SliderStyles(theme)['Slider'].props}
+                      defaultValue={0}
+                      leftIcon={'Entypo/dot-single'}
+                      maximumValue={100}
+                      minimumValue={0}
+                      rightIcon={'Entypo/dots-two-horizontal'}
+                      style={StyleSheet.applyWidth(
+                        GlobalStyles.SliderStyles(theme)['Slider'].style,
+                        dimensions.width
+                      )}
+                    />
                   </View>
                 </SimpleStyleScrollView>
               )}

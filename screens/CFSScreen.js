@@ -8,6 +8,7 @@ import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
+import waitUtil from '../utils/wait';
 import {
   Button,
   Checkbox,
@@ -339,7 +340,6 @@ const CFSScreen = props => {
           },
         }}
         page={1}
-        refetchInterval={10000}
         sectorIn={sector}
       >
         {({ loading, error, data, refetchGetCFS }) => {
@@ -2599,6 +2599,7 @@ const CFSScreen = props => {
                                 const handler = async () => {
                                   try {
                                     applayFilter();
+                                    await waitUtil({ milliseconds: 1000 });
                                     await refetchGetCFS();
                                     setFilterPressed(false);
                                   } catch (err) {
@@ -2622,7 +2623,7 @@ const CFSScreen = props => {
                                 ),
                                 dimensions.width
                               )}
-                              title={'Results\n'}
+                              title={'Filter'}
                             />
                           </View>
                         </LinearGradient>

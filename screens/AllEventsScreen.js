@@ -39,6 +39,9 @@ const AllEventsScreen = props => {
   const Constants = GlobalVariables.useValues();
   const Variables = Constants;
   const setGlobalVariableValue = GlobalVariables.useSetValue();
+  const [Media_and_Other, setMedia_and_Other] = React.useState(false);
+  const [NKP_Proprietary, setNKP_Proprietary] = React.useState(false);
+  const [Press_Release, setPress_Release] = React.useState(false);
   const [SelectButton, setSelectButton] = React.useState('All');
   const [acq_agenda, setAcq_agenda] = React.useState(false);
   const [austria, setAustria] = React.useState(false);
@@ -70,38 +73,16 @@ const AllEventsScreen = props => {
   const [keywordSearch, setKeywordSearch] = React.useState('');
   const [lastPage, setLastPage] = React.useState(2);
   const [materials, setMaterials] = React.useState(false);
+  const [minEbitda, setMinEbitda] = React.useState(0);
   const [nextPage, setNextPage] = React.useState(2);
   const [norway, setNorway] = React.useState(false);
   const [real_estate, setReal_estate] = React.useState(false);
   const [sector, setSector] = React.useState([]);
+  const [sourceType, setSourceType] = React.useState([]);
   const [sweden, setSweden] = React.useState(false);
   const [switzerland, setSwitzerland] = React.useState(false);
   const [transaction, setTransaction] = React.useState(false);
   const [utilities, setUtilities] = React.useState(false);
-  const toggleAllFilters = flag => {
-    setFuture_opportunity(flag);
-    setAcq_agenda(flag);
-    setTransaction(flag);
-    setSweden(flag);
-    setGermany(flag);
-    setDenmark(flag);
-    setSwitzerland(flag);
-    setNorway(flag);
-    setAustria(flag);
-    setFinland(flag);
-    setCommunication_services(flag);
-    setIndustrials(flag);
-    setConsumer_discretionary(flag);
-    setIt_and_software(flag);
-    setConsumer_staples(flag);
-    setMaterials(flag);
-    setEnergy(flag);
-    setReal_estate(flag);
-    setFinancials(flag);
-    setUtilities(flag);
-    setHealth_care(flag);
-  };
-
   const applyFilter = () => {
     //Event type
     const eventType = [];
@@ -142,7 +123,14 @@ const AllEventsScreen = props => {
 
     setSector(() => sectors);
 
-    console.log(eventType, sectors, countries);
+    // source type
+    const sourceType = [];
+
+    NKP_Proprietary && sourceType.push('NKP Proprietary');
+    Press_Release && sourceType.push('Press Release');
+    Media_and_Other && sourceType.push('Media & Other');
+
+    setSourceType(() => sourceType);
   };
 
   const matchingFilters = () => {
@@ -173,8 +161,37 @@ const AllEventsScreen = props => {
     setFinancials((sector || []).includes('Financials'));
     setUtilities((sector || []).includes('Utilities'));
     setHealth_care((sector || []).includes('Health Care'));
+    console.log(sourceType);
+    setNKP_Proprietary((sourceType || []).includes('NKP Proprietary'));
+    setPress_Release((sourceType || []).includes('Press Release'));
+    setMedia_and_Other((sourceType || []).includes('Media & Other'));
+  };
 
-    console.log(eventType, sector, country);
+  const toggleAllFilters = flag => {
+    setFuture_opportunity(flag);
+    setAcq_agenda(flag);
+    setTransaction(flag);
+    setSweden(flag);
+    setGermany(flag);
+    setDenmark(flag);
+    setSwitzerland(flag);
+    setNorway(flag);
+    setAustria(flag);
+    setFinland(flag);
+    setCommunication_services(flag);
+    setIndustrials(flag);
+    setConsumer_discretionary(flag);
+    setIt_and_software(flag);
+    setConsumer_staples(flag);
+    setMaterials(flag);
+    setEnergy(flag);
+    setReal_estate(flag);
+    setFinancials(flag);
+    setUtilities(flag);
+    setHealth_care(flag);
+    setNKP_Proprietary(flag);
+    setPress_Release(flag);
+    setMedia_and_Other(flag);
   };
   const isFocused = useIsFocused();
   React.useEffect(() => {
@@ -2563,6 +2580,276 @@ const AllEventsScreen = props => {
                                   )}
                                 >
                                   {'Health Care'}
+                                </Text>
+                              </Pressable>
+                            </View>
+                          </View>
+                        </View>
+                        {/* Source Type */}
+                        <View
+                          style={StyleSheet.applyWidth(
+                            {
+                              alignItems: 'stretch',
+                              flexDirection: 'column',
+                              gap: 8,
+                              padding: 10,
+                            },
+                            dimensions.width
+                          )}
+                        >
+                          <H5
+                            selectable={false}
+                            {...GlobalStyles.H5Styles(theme)['H5'].props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.H5Styles(theme)['H5'].style,
+                                {
+                                  color: palettes.Brand['Strong Inverse'],
+                                  fontSize: 16,
+                                  marginBottom: 0,
+                                  marginTop: 0,
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            {'Source Type'}
+                          </H5>
+
+                          <View
+                            style={StyleSheet.applyWidth(
+                              {
+                                alignItems: 'flex-start',
+                                flex: 0,
+                                flexDirection: 'row',
+                                flexWrap: 'wrap',
+                                gap: 8,
+                                justifyContent: 'flex-start',
+                              },
+                              dimensions.width
+                            )}
+                          >
+                            {/* NKP Proprietary */}
+                            <View
+                              style={StyleSheet.applyWidth(
+                                {
+                                  alignContent: 'center',
+                                  alignItems: 'center',
+                                  flexDirection: 'row',
+                                  gap: 4,
+                                  width: [
+                                    {
+                                      minWidth: Breakpoints.Mobile,
+                                      value: '47%',
+                                    },
+                                    {
+                                      minWidth: Breakpoints.Tablet,
+                                      value: '30%',
+                                    },
+                                  ],
+                                },
+                                dimensions.width
+                              )}
+                            >
+                              <Checkbox
+                                onCheck={() => {
+                                  try {
+                                    const valueEG0JIppY = undefined;
+                                    setNKP_Proprietary(valueEG0JIppY);
+                                    const event = valueEG0JIppY;
+                                  } catch (err) {
+                                    console.error(err);
+                                  }
+                                }}
+                                onPress={newCheckboxValue => {
+                                  try {
+                                    setNKP_Proprietary(
+                                      'NKP_Proprietary' ? false : true
+                                    );
+                                  } catch (err) {
+                                    console.error(err);
+                                  }
+                                }}
+                                color={palettes.Brand['Strong Inverse']}
+                                size={24}
+                                status={NKP_Proprietary}
+                                uncheckedColor={
+                                  palettes.Brand['Strong Inverse']
+                                }
+                              />
+                              <Pressable
+                                onPress={() => {
+                                  try {
+                                    setNKP_Proprietary(
+                                      NKP_Proprietary ? false : true
+                                    );
+                                  } catch (err) {
+                                    console.error(err);
+                                  }
+                                }}
+                              >
+                                <Text
+                                  accessible={true}
+                                  {...GlobalStyles.TextStyles(theme)[
+                                    'screen_title'
+                                  ].props}
+                                  style={StyleSheet.applyWidth(
+                                    StyleSheet.compose(
+                                      GlobalStyles.TextStyles(theme)[
+                                        'screen_title'
+                                      ].style,
+                                      {
+                                        color: palettes.Brand['Strong Inverse'],
+                                        fontFamily: 'Quicksand_400Regular',
+                                        fontSize: 12,
+                                      }
+                                    ),
+                                    dimensions.width
+                                  )}
+                                >
+                                  {'NKP Proprietary'}
+                                </Text>
+                              </Pressable>
+                            </View>
+                            {/* Press Release */}
+                            <View
+                              style={StyleSheet.applyWidth(
+                                {
+                                  alignContent: 'center',
+                                  alignItems: 'center',
+                                  flexDirection: 'row',
+                                  gap: 4,
+                                  width: [
+                                    {
+                                      minWidth: Breakpoints.Mobile,
+                                      value: '47%',
+                                    },
+                                    {
+                                      minWidth: Breakpoints.Tablet,
+                                      value: '30%',
+                                    },
+                                  ],
+                                },
+                                dimensions.width
+                              )}
+                            >
+                              <Checkbox
+                                onPress={newCheckboxValue => {
+                                  try {
+                                    setPress_Release(newCheckboxValue);
+                                  } catch (err) {
+                                    console.error(err);
+                                  }
+                                }}
+                                color={palettes.Brand['Strong Inverse']}
+                                size={24}
+                                status={Press_Release}
+                                uncheckedColor={
+                                  palettes.Brand['Strong Inverse']
+                                }
+                              />
+                              <Pressable
+                                onPress={() => {
+                                  try {
+                                    setPress_Release(
+                                      Press_Release ? false : true
+                                    );
+                                  } catch (err) {
+                                    console.error(err);
+                                  }
+                                }}
+                              >
+                                <Text
+                                  accessible={true}
+                                  {...GlobalStyles.TextStyles(theme)[
+                                    'screen_title'
+                                  ].props}
+                                  style={StyleSheet.applyWidth(
+                                    StyleSheet.compose(
+                                      GlobalStyles.TextStyles(theme)[
+                                        'screen_title'
+                                      ].style,
+                                      {
+                                        color: palettes.Brand['Strong Inverse'],
+                                        fontFamily: 'Quicksand_400Regular',
+                                        fontSize: 12,
+                                      }
+                                    ),
+                                    dimensions.width
+                                  )}
+                                >
+                                  {'Press Release'}
+                                </Text>
+                              </Pressable>
+                            </View>
+                            {/* Media & Other */}
+                            <View
+                              style={StyleSheet.applyWidth(
+                                {
+                                  alignContent: 'center',
+                                  alignItems: 'center',
+                                  flexDirection: 'row',
+                                  gap: 4,
+                                  width: [
+                                    {
+                                      minWidth: Breakpoints.Mobile,
+                                      value: '47%',
+                                    },
+                                    {
+                                      minWidth: Breakpoints.Tablet,
+                                      value: '30%',
+                                    },
+                                  ],
+                                },
+                                dimensions.width
+                              )}
+                            >
+                              <Checkbox
+                                onPress={newCheckboxValue => {
+                                  try {
+                                    setMedia_and_Other(newCheckboxValue);
+                                  } catch (err) {
+                                    console.error(err);
+                                  }
+                                }}
+                                color={palettes.Brand['Strong Inverse']}
+                                size={24}
+                                status={Media_and_Other}
+                                uncheckedColor={
+                                  palettes.Brand['Strong Inverse']
+                                }
+                              />
+                              <Pressable
+                                onPress={() => {
+                                  try {
+                                    setMedia_and_Other(
+                                      Media_and_Other ? false : true
+                                    );
+                                  } catch (err) {
+                                    console.error(err);
+                                  }
+                                }}
+                              >
+                                <Text
+                                  accessible={true}
+                                  {...GlobalStyles.TextStyles(theme)[
+                                    'screen_title'
+                                  ].props}
+                                  style={StyleSheet.applyWidth(
+                                    StyleSheet.compose(
+                                      GlobalStyles.TextStyles(theme)[
+                                        'screen_title'
+                                      ].style,
+                                      {
+                                        color: palettes.Brand['Strong Inverse'],
+                                        fontFamily: 'Quicksand_400Regular',
+                                        fontSize: 12,
+                                      }
+                                    ),
+                                    dimensions.width
+                                  )}
+                                >
+                                  {'Media & Other'}
                                 </Text>
                               </Pressable>
                             </View>

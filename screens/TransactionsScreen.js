@@ -438,7 +438,12 @@ const TransactionsScreen = props => {
               {/* View 2 */}
               <View
                 style={StyleSheet.applyWidth(
-                  { paddingLeft: 5, paddingRight: 5, width: '100%' },
+                  {
+                    alignItems: 'center',
+                    paddingLeft: 5,
+                    paddingRight: 5,
+                    width: '100%',
+                  },
                   dimensions.width
                 )}
               >
