@@ -708,7 +708,7 @@ const EventDetailsScreen = props => {
                       >
                         {fetchData?.ebitda_eur !== '0.0'
                           ? '€ ' + (fetchData?.ebitda_eur + 'm')
-                          : undefined}
+                          : '-'}
                       </Text>
                     </View>
                     {/* View 15 */}
