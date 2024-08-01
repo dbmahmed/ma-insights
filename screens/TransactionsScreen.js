@@ -472,6 +472,37 @@ const TransactionsScreen = props => {
                           dimensions.width
                         )}
                       >
+                        <Shadow
+                          showShadowCornerBottomEnd={true}
+                          showShadowCornerBottomStart={true}
+                          showShadowCornerTopEnd={true}
+                          showShadowCornerTopStart={true}
+                          showShadowSideBottom={true}
+                          showShadowSideEnd={true}
+                          showShadowSideStart={true}
+                          showShadowSideTop={true}
+                          distance={4}
+                          offsetX={0}
+                          offsetY={0}
+                          paintInside={true}
+                          stretch={true}
+                          style={StyleSheet.applyWidth(
+                            {
+                              borderRadius: 12,
+                              bottom: 5,
+                              height: '100%',
+                              left: 5,
+                              position: 'absolute',
+                              right: 5,
+                              top: 5,
+                              width: {
+                                minWidth: Breakpoints.Laptop,
+                                value: '100%',
+                              },
+                            },
+                            dimensions.width
+                          )}
+                        />
                         <Pressable
                           onPress={() => {
                             try {
@@ -482,29 +513,25 @@ const TransactionsScreen = props => {
                               console.error(err);
                             }
                           }}
+                          style={StyleSheet.applyWidth(
+                            { height: '100%', width: '100%' },
+                            dimensions.width
+                          )}
                         >
-                          <Shadow
-                            showShadowCornerBottomEnd={true}
-                            showShadowCornerBottomStart={true}
-                            showShadowCornerTopEnd={true}
-                            showShadowCornerTopStart={true}
-                            showShadowSideBottom={true}
-                            showShadowSideEnd={true}
-                            showShadowSideStart={true}
-                            showShadowSideTop={true}
-                            distance={4}
-                            offsetX={0}
-                            offsetY={0}
-                            paintInside={true}
-                            stretch={true}
+                          <View
                             style={StyleSheet.applyWidth(
                               {
-                                borderRadius: 12,
+                                alignContent: 'stretch',
+                                backgroundColor:
+                                  palettes.Brand['Strong Inverse'],
+                                borderColor: palettes.Brand['Light Inverse'],
+                                borderRadius: 8,
+                                borderWidth: 0,
+                                flexDirection: 'row',
                                 height: '100%',
-                                width: {
-                                  minWidth: Breakpoints.Laptop,
-                                  value: '100%',
-                                },
+                                justifyContent: 'space-between',
+                                padding: 0,
+                                width: '100%',
                               },
                               dimensions.width
                             )}
@@ -512,72 +539,150 @@ const TransactionsScreen = props => {
                             <View
                               style={StyleSheet.applyWidth(
                                 {
-                                  alignContent: 'stretch',
-                                  backgroundColor:
-                                    palettes.Brand['Strong Inverse'],
-                                  borderColor: palettes.Brand['Light Inverse'],
-                                  borderRadius: 8,
-                                  borderWidth: 0,
-                                  flexDirection: 'row',
+                                  gap: 4,
                                   justifyContent: 'space-between',
-                                  padding: 0,
+                                  padding: 10,
+                                  width: '45%',
+                                },
+                                dimensions.width
+                              )}
+                            >
+                              <Text
+                                accessible={true}
+                                {...GlobalStyles.TextStyles(theme)[
+                                  'screen_title'
+                                ].props}
+                                style={StyleSheet.applyWidth(
+                                  StyleSheet.compose(
+                                    GlobalStyles.TextStyles(theme)[
+                                      'screen_title'
+                                    ].style,
+                                    {
+                                      fontFamily: 'Quicksand_700Bold',
+                                      fontSize: 12,
+                                    }
+                                  ),
+                                  dimensions.width
+                                )}
+                              >
+                                {listData?.target}
+                              </Text>
+                              {/* Text 2 */}
+                              <Text
+                                accessible={true}
+                                {...GlobalStyles.TextStyles(theme)[
+                                  'screen_title'
+                                ].props}
+                                style={StyleSheet.applyWidth(
+                                  StyleSheet.compose(
+                                    GlobalStyles.TextStyles(theme)[
+                                      'screen_title'
+                                    ].style,
+                                    {
+                                      fontFamily: 'Quicksand_400Regular',
+                                      fontSize: 12,
+                                    }
+                                  ),
+                                  dimensions.width
+                                )}
+                              >
+                                {listData?.published}
+                              </Text>
+                              {/* Text 2 2 */}
+                              <Text
+                                accessible={true}
+                                {...GlobalStyles.TextStyles(theme)[
+                                  'screen_title'
+                                ].props}
+                                style={StyleSheet.applyWidth(
+                                  StyleSheet.compose(
+                                    GlobalStyles.TextStyles(theme)[
+                                      'screen_title'
+                                    ].style,
+                                    {
+                                      fontFamily: 'Quicksand_400Regular',
+                                      fontSize: 12,
+                                    }
+                                  ),
+                                  dimensions.width
+                                )}
+                              >
+                                {'Acquiror: '}
+                                {listData?._buyers}
+                              </Text>
+                              {/* Text 2 3 */}
+                              <Text
+                                accessible={true}
+                                {...GlobalStyles.TextStyles(theme)[
+                                  'screen_title'
+                                ].props}
+                                style={StyleSheet.applyWidth(
+                                  StyleSheet.compose(
+                                    GlobalStyles.TextStyles(theme)[
+                                      'screen_title'
+                                    ].style,
+                                    {
+                                      fontFamily: 'Quicksand_400Regular',
+                                      fontSize: 12,
+                                    }
+                                  ),
+                                  dimensions.width
+                                )}
+                              >
+                                {listData?._gics.GICS_Sector}
+                              </Text>
+                            </View>
+                            {/* View 2 */}
+                            <View
+                              style={StyleSheet.applyWidth(
+                                {
+                                  backgroundColor:
+                                    theme.colors.foreground.brand,
+                                  borderBottomRightRadius: 8,
+                                  borderRadius: 0,
+                                  borderTopRightRadius: 8,
+                                  gap: 4,
+                                  justifyContent: 'space-between',
+                                  padding: 10,
+                                  width: '55%',
                                 },
                                 dimensions.width
                               )}
                             >
                               <View
                                 style={StyleSheet.applyWidth(
-                                  {
-                                    gap: 4,
-                                    justifyContent: 'space-between',
-                                    padding: 10,
-                                    width: '45%',
-                                  },
+                                  { flexDirection: 'row', gap: 4 },
                                   dimensions.width
                                 )}
                               >
-                                <Text
-                                  accessible={true}
-                                  {...GlobalStyles.TextStyles(theme)[
-                                    'screen_title'
-                                  ].props}
+                                <View
                                   style={StyleSheet.applyWidth(
-                                    StyleSheet.compose(
-                                      GlobalStyles.TextStyles(theme)[
-                                        'screen_title'
-                                      ].style,
-                                      {
-                                        fontFamily: 'Quicksand_700Bold',
-                                        fontSize: 12,
-                                      }
-                                    ),
+                                    { width: 70 },
                                     dimensions.width
                                   )}
                                 >
-                                  {listData?.target}
-                                </Text>
-                                {/* Text 2 */}
-                                <Text
-                                  accessible={true}
-                                  {...GlobalStyles.TextStyles(theme)[
-                                    'screen_title'
-                                  ].props}
-                                  style={StyleSheet.applyWidth(
-                                    StyleSheet.compose(
-                                      GlobalStyles.TextStyles(theme)[
-                                        'screen_title'
-                                      ].style,
-                                      {
-                                        fontFamily: 'Quicksand_400Regular',
-                                        fontSize: 12,
-                                      }
-                                    ),
-                                    dimensions.width
-                                  )}
-                                >
-                                  {listData?.published}
-                                </Text>
-                                {/* Text 2 2 */}
+                                  <Text
+                                    accessible={true}
+                                    {...GlobalStyles.TextStyles(theme)[
+                                      'screen_title'
+                                    ].props}
+                                    style={StyleSheet.applyWidth(
+                                      StyleSheet.compose(
+                                        GlobalStyles.TextStyles(theme)[
+                                          'screen_title'
+                                        ].style,
+                                        {
+                                          fontFamily: 'Quicksand_400Regular',
+                                          fontSize: 12,
+                                        }
+                                      ),
+                                      dimensions.width
+                                    )}
+                                  >
+                                    {'EV/Sales:'}
+                                  </Text>
+                                </View>
+
                                 <Text
                                   accessible={true}
                                   {...GlobalStyles.TextStyles(theme)[
@@ -596,82 +701,25 @@ const TransactionsScreen = props => {
                                     dimensions.width
                                   )}
                                 >
-                                  {'Acquiror: '}
-                                  {listData?._buyers}
-                                </Text>
-                                {/* Text 2 3 */}
-                                <Text
-                                  accessible={true}
-                                  {...GlobalStyles.TextStyles(theme)[
-                                    'screen_title'
-                                  ].props}
-                                  style={StyleSheet.applyWidth(
-                                    StyleSheet.compose(
-                                      GlobalStyles.TextStyles(theme)[
-                                        'screen_title'
-                                      ].style,
-                                      {
-                                        fontFamily: 'Quicksand_400Regular',
-                                        fontSize: 12,
-                                      }
-                                    ),
-                                    dimensions.width
-                                  )}
-                                >
-                                  {listData?._gics.GICS_Sector}
+                                  {listData?.ev_sales}
+                                  {' ('}
+                                  {listData?.fy_end}
+                                  {')'}
                                 </Text>
                               </View>
                               {/* View 2 */}
                               <View
                                 style={StyleSheet.applyWidth(
-                                  {
-                                    backgroundColor:
-                                      theme.colors.foreground.brand,
-                                    borderBottomRightRadius: 8,
-                                    borderRadius: 0,
-                                    borderTopRightRadius: 8,
-                                    gap: 4,
-                                    justifyContent: 'space-between',
-                                    padding: 10,
-                                    width: '55%',
-                                  },
+                                  { flexDirection: 'row', gap: 4 },
                                   dimensions.width
                                 )}
                               >
                                 <View
                                   style={StyleSheet.applyWidth(
-                                    { flexDirection: 'row', gap: 4 },
+                                    { width: 70 },
                                     dimensions.width
                                   )}
                                 >
-                                  <View
-                                    style={StyleSheet.applyWidth(
-                                      { width: 70 },
-                                      dimensions.width
-                                    )}
-                                  >
-                                    <Text
-                                      accessible={true}
-                                      {...GlobalStyles.TextStyles(theme)[
-                                        'screen_title'
-                                      ].props}
-                                      style={StyleSheet.applyWidth(
-                                        StyleSheet.compose(
-                                          GlobalStyles.TextStyles(theme)[
-                                            'screen_title'
-                                          ].style,
-                                          {
-                                            fontFamily: 'Quicksand_400Regular',
-                                            fontSize: 12,
-                                          }
-                                        ),
-                                        dimensions.width
-                                      )}
-                                    >
-                                      {'EV/Sales:'}
-                                    </Text>
-                                  </View>
-
                                   <Text
                                     accessible={true}
                                     {...GlobalStyles.TextStyles(theme)[
@@ -690,47 +738,47 @@ const TransactionsScreen = props => {
                                       dimensions.width
                                     )}
                                   >
-                                    {listData?.ev_sales}
-                                    {' ('}
-                                    {listData?.fy_end}
-                                    {')'}
+                                    {'EV/EBITDA:'}
                                   </Text>
                                 </View>
-                                {/* View 2 */}
+
+                                <Text
+                                  accessible={true}
+                                  {...GlobalStyles.TextStyles(theme)[
+                                    'screen_title'
+                                  ].props}
+                                  style={StyleSheet.applyWidth(
+                                    StyleSheet.compose(
+                                      GlobalStyles.TextStyles(theme)[
+                                        'screen_title'
+                                      ].style,
+                                      {
+                                        fontFamily: 'Quicksand_400Regular',
+                                        fontSize: 12,
+                                      }
+                                    ),
+                                    dimensions.width
+                                  )}
+                                >
+                                  {listData?.ebitda_local}
+                                  {' ('}
+                                  {listData?.fy_end}
+                                  {')'}
+                                </Text>
+                              </View>
+                              {/* View 3 */}
+                              <View
+                                style={StyleSheet.applyWidth(
+                                  { flexDirection: 'row', gap: 4 },
+                                  dimensions.width
+                                )}
+                              >
                                 <View
                                   style={StyleSheet.applyWidth(
-                                    { flexDirection: 'row', gap: 4 },
+                                    { width: 70 },
                                     dimensions.width
                                   )}
                                 >
-                                  <View
-                                    style={StyleSheet.applyWidth(
-                                      { width: 70 },
-                                      dimensions.width
-                                    )}
-                                  >
-                                    <Text
-                                      accessible={true}
-                                      {...GlobalStyles.TextStyles(theme)[
-                                        'screen_title'
-                                      ].props}
-                                      style={StyleSheet.applyWidth(
-                                        StyleSheet.compose(
-                                          GlobalStyles.TextStyles(theme)[
-                                            'screen_title'
-                                          ].style,
-                                          {
-                                            fontFamily: 'Quicksand_400Regular',
-                                            fontSize: 12,
-                                          }
-                                        ),
-                                        dimensions.width
-                                      )}
-                                    >
-                                      {'EV/EBITDA:'}
-                                    </Text>
-                                  </View>
-
                                   <Text
                                     accessible={true}
                                     {...GlobalStyles.TextStyles(theme)[
@@ -749,74 +797,36 @@ const TransactionsScreen = props => {
                                       dimensions.width
                                     )}
                                   >
-                                    {listData?.ebitda_local}
-                                    {' ('}
-                                    {listData?.fy_end}
-                                    {')'}
+                                    {'EV/EBIT:'}
                                   </Text>
                                 </View>
-                                {/* View 3 */}
-                                <View
+
+                                <Text
+                                  accessible={true}
+                                  {...GlobalStyles.TextStyles(theme)[
+                                    'screen_title'
+                                  ].props}
                                   style={StyleSheet.applyWidth(
-                                    { flexDirection: 'row', gap: 4 },
+                                    StyleSheet.compose(
+                                      GlobalStyles.TextStyles(theme)[
+                                        'screen_title'
+                                      ].style,
+                                      {
+                                        fontFamily: 'Quicksand_400Regular',
+                                        fontSize: 12,
+                                      }
+                                    ),
                                     dimensions.width
                                   )}
                                 >
-                                  <View
-                                    style={StyleSheet.applyWidth(
-                                      { width: 70 },
-                                      dimensions.width
-                                    )}
-                                  >
-                                    <Text
-                                      accessible={true}
-                                      {...GlobalStyles.TextStyles(theme)[
-                                        'screen_title'
-                                      ].props}
-                                      style={StyleSheet.applyWidth(
-                                        StyleSheet.compose(
-                                          GlobalStyles.TextStyles(theme)[
-                                            'screen_title'
-                                          ].style,
-                                          {
-                                            fontFamily: 'Quicksand_400Regular',
-                                            fontSize: 12,
-                                          }
-                                        ),
-                                        dimensions.width
-                                      )}
-                                    >
-                                      {'EV/EBIT:'}
-                                    </Text>
-                                  </View>
-
-                                  <Text
-                                    accessible={true}
-                                    {...GlobalStyles.TextStyles(theme)[
-                                      'screen_title'
-                                    ].props}
-                                    style={StyleSheet.applyWidth(
-                                      StyleSheet.compose(
-                                        GlobalStyles.TextStyles(theme)[
-                                          'screen_title'
-                                        ].style,
-                                        {
-                                          fontFamily: 'Quicksand_400Regular',
-                                          fontSize: 12,
-                                        }
-                                      ),
-                                      dimensions.width
-                                    )}
-                                  >
-                                    {listData?.ev_ebit}
-                                    {' ('}
-                                    {listData?.fy_end}
-                                    {')'}
-                                  </Text>
-                                </View>
+                                  {listData?.ev_ebit}
+                                  {' ('}
+                                  {listData?.fy_end}
+                                  {')'}
+                                </Text>
                               </View>
                             </View>
-                          </Shadow>
+                          </View>
                         </Pressable>
                       </View>
                     );
