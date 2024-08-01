@@ -228,6 +228,10 @@ const AllEventsScreen = props => {
       hasLeftSafeArea={true}
       hasRightSafeArea={true}
       scrollable={false}
+      style={StyleSheet.applyWidth(
+        { overflow: { minWidth: Breakpoints.Desktop, value: 'hidden' } },
+        dimensions.width
+      )}
     >
       <CustomHeaderBlock />
       {/* box */}

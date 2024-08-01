@@ -312,9 +312,9 @@ const CFSDetailsScreen = props => {
                         dimensions.width
                       )}
                     >
-                      {'€ '}
-                      {fetchData?.revenue_eur}
-                      {'m'}
+                      {fetchData?.revenue_eur !== '0.0'
+                        ? '€ ' + (fetchData?.revenue_eur + 'm')
+                        : '-'}
                     </Text>
                   </View>
                   {/* View 5 */}
@@ -364,9 +364,9 @@ const CFSDetailsScreen = props => {
                         dimensions.width
                       )}
                     >
-                      {'€ '}
-                      {fetchData?.ebitda_eur}
-                      {'m'}
+                      {fetchData?.ebitda_eur !== '0.0'
+                        ? '€ ' + (fetchData?.ebitda_eur + 'm')
+                        : '-'}
                     </Text>
                   </View>
                   {/* View 6 */}

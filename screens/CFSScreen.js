@@ -564,9 +564,10 @@ const CFSScreen = props => {
                                   dimensions.width
                                 )}
                               >
-                                {'EBITDA: €'}
-                                {listData?.ebitda_eur}
-                                {'m'}
+                                {'EBITDA: '}
+                                {listData?.ebitda_eur !== '0.0'
+                                  ? '€ ' + listData?.ebitda_eur + 'm'
+                                  : '-'}
                               </Text>
                               {/* Text 3 */}
                               <Text
@@ -886,6 +887,7 @@ const CFSScreen = props => {
                                     }
                                   }}
                                   color={palettes.Brand['Strong Inverse']}
+                                  disabled={ebitdaRange[0] ? true : false}
                                   size={24}
                                   status={ebitda_small}
                                   uncheckedColor={

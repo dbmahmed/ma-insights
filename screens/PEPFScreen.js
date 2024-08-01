@@ -75,6 +75,7 @@ const PEPFScreen = props => {
   const [sector, setSector] = React.useState([]);
   const [sweden, setSweden] = React.useState(false);
   const [switzerland, setSwitzerland] = React.useState(false);
+  const [testWidth, setTestWidth] = React.useState(2);
   const [transaction, setTransaction] = React.useState(false);
   const [utilities, setUtilities] = React.useState(false);
   const apllayFilters = () => {
@@ -461,7 +462,10 @@ const PEPFScreen = props => {
                   horizontal={false}
                   inverted={false}
                   keyExtractor={(listData, index) =>
-                    listData?.id ?? listData?.uuid ?? index.toString()
+                    listData?.id ??
+                    listData?.uuid ??
+                    index?.toString() ??
+                    JSON.stringify(listData)
                   }
                   keyboardShouldPersistTaps={'never'}
                   listKey={'hDO0JNzh'}
