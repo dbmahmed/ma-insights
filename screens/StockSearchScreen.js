@@ -746,6 +746,7 @@ const StockSearchScreen = props => {
                   style={StyleSheet.applyWidth(
                     {
                       gap: 0,
+                      height: dimensions.height,
                       maxHeight: [
                         {
                           minWidth: Breakpoints.Mobile,

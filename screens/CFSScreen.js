@@ -880,17 +880,59 @@ const CFSScreen = props => {
                               >
                                 <Checkbox
                                   onPress={newCheckboxValue => {
-                                    try {
-                                      setEbitda_small(newCheckboxValue);
-                                    } catch (err) {
-                                      console.error(err);
-                                    }
+                                    const handler = async () => {
+                                      console.log('Checkbox ON_PRESS Start');
+                                      let error = null;
+                                      try {
+                                        console.log(
+                                          'Start ON_PRESS:0 SET_VARIABLE'
+                                        );
+                                        setEbitda_small(newCheckboxValue);
+                                        console.log(
+                                          'Complete ON_PRESS:0 SET_VARIABLE'
+                                        );
+                                        console.log('Start ON_PRESS:1 WAIT');
+                                        await waitUtil({ milliseconds: 1000 });
+                                        console.log('Complete ON_PRESS:1 WAIT');
+                                        console.log(
+                                          'Start ON_PRESS:2 CONSOLE_LOG'
+                                        );
+                                        console.log(ebitda_small);
+                                        console.log(
+                                          'Complete ON_PRESS:2 CONSOLE_LOG'
+                                        );
+                                      } catch (err) {
+                                        console.error(err);
+                                        error = err.message ?? err;
+                                      }
+                                      console.log(
+                                        'Checkbox ON_PRESS Complete',
+                                        error ? { error } : 'no error'
+                                      );
+                                    };
+                                    handler();
                                   }}
-                                  color={palettes.Brand['Strong Inverse']}
-                                  disabled={ebitdaRange[0] ? true : false}
+                                  color={
+                                    (ebitda_medium ||
+                                    ebitda_large ||
+                                    ebitda_giant
+                                      ? palettes.Brand.Error
+                                      : palettes.Brand['Strong Inverse']) ??
+                                    palettes.Brand['Strong Inverse']
+                                  }
+                                  disabled={
+                                    ebitda_medium ||
+                                    ebitda_large ||
+                                    ebitda_giant
+                                  }
                                   size={24}
                                   status={ebitda_small}
                                   uncheckedColor={
+                                    (ebitda_medium ||
+                                    ebitda_large ||
+                                    ebitda_giant
+                                      ? palettes.Brand.Light
+                                      : palettes.Brand['Strong Inverse']) ??
                                     palettes.Brand['Strong Inverse']
                                   }
                                 />
@@ -904,6 +946,11 @@ const CFSScreen = props => {
                                       console.error(err);
                                     }
                                   }}
+                                  disabled={
+                                    ebitda_medium ||
+                                    ebitda_large ||
+                                    ebitda_giant
+                                  }
                                 >
                                   <Text
                                     accessible={true}
@@ -916,8 +963,26 @@ const CFSScreen = props => {
                                           'screen_title'
                                         ].style,
                                         {
-                                          color:
-                                            palettes.Brand['Strong Inverse'],
+                                          color: [
+                                            {
+                                              minWidth: Breakpoints.Mobile,
+                                              value:
+                                                palettes.Brand[
+                                                  'Strong Inverse'
+                                                ],
+                                            },
+                                            {
+                                              minWidth: Breakpoints.Desktop,
+                                              value:
+                                                ebitda_medium ||
+                                                ebitda_large ||
+                                                ebitda_giant
+                                                  ? palettes.Brand.Light
+                                                  : palettes.Brand[
+                                                      'Strong Inverse'
+                                                    ],
+                                            },
+                                          ],
                                           fontFamily: 'Quicksand_400Regular',
                                           fontSize: 12,
                                         }
@@ -955,9 +1020,17 @@ const CFSScreen = props => {
                                     }
                                   }}
                                   color={palettes.Brand['Strong Inverse']}
+                                  disabled={
+                                    ebitda_small || ebitda_large || ebitda_giant
+                                  }
                                   size={24}
                                   status={ebitda_medium}
                                   uncheckedColor={
+                                    (ebitda_small ||
+                                    ebitda_large ||
+                                    ebitda_giant
+                                      ? palettes.Brand.Light
+                                      : palettes.Brand['Strong Inverse']) ??
                                     palettes.Brand['Strong Inverse']
                                   }
                                 />
