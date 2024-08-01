@@ -1044,6 +1044,9 @@ const CFSScreen = props => {
                                       console.error(err);
                                     }
                                   }}
+                                  disabled={
+                                    ebitda_small || ebitda_large || ebitda_giant
+                                  }
                                 >
                                   <Text
                                     accessible={true}
@@ -1056,8 +1059,26 @@ const CFSScreen = props => {
                                           'screen_title'
                                         ].style,
                                         {
-                                          color:
-                                            palettes.Brand['Strong Inverse'],
+                                          color: [
+                                            {
+                                              minWidth: Breakpoints.Mobile,
+                                              value:
+                                                palettes.Brand[
+                                                  'Strong Inverse'
+                                                ],
+                                            },
+                                            {
+                                              minWidth: Breakpoints.Desktop,
+                                              value:
+                                                ebitda_small ||
+                                                ebitda_large ||
+                                                ebitda_giant
+                                                  ? palettes.Brand.Light
+                                                  : palettes.Brand[
+                                                      'Strong Inverse'
+                                                    ],
+                                            },
+                                          ],
                                           fontFamily: 'Quicksand_400Regular',
                                           fontSize: 12,
                                         }
@@ -1091,9 +1112,19 @@ const CFSScreen = props => {
                                     }
                                   }}
                                   color={palettes.Brand['Strong Inverse']}
+                                  disabled={
+                                    ebitda_small ||
+                                    ebitda_medium ||
+                                    ebitda_giant
+                                  }
                                   size={24}
                                   status={ebitda_large}
                                   uncheckedColor={
+                                    (ebitda_small ||
+                                    ebitda_medium ||
+                                    ebitda_giant
+                                      ? palettes.Brand.Light
+                                      : palettes.Brand['Strong Inverse']) ??
                                     palettes.Brand['Strong Inverse']
                                   }
                                 />
@@ -1107,6 +1138,11 @@ const CFSScreen = props => {
                                       console.error(err);
                                     }
                                   }}
+                                  disabled={
+                                    ebitda_small ||
+                                    ebitda_medium ||
+                                    ebitda_giant
+                                  }
                                 >
                                   <Text
                                     accessible={true}
@@ -1119,8 +1155,26 @@ const CFSScreen = props => {
                                           'screen_title'
                                         ].style,
                                         {
-                                          color:
-                                            palettes.Brand['Strong Inverse'],
+                                          color: [
+                                            {
+                                              minWidth: Breakpoints.Mobile,
+                                              value:
+                                                palettes.Brand[
+                                                  'Strong Inverse'
+                                                ],
+                                            },
+                                            {
+                                              minWidth: Breakpoints.Desktop,
+                                              value:
+                                                ebitda_small ||
+                                                ebitda_medium ||
+                                                ebitda_giant
+                                                  ? palettes.Brand.Light
+                                                  : palettes.Brand[
+                                                      'Strong Inverse'
+                                                    ],
+                                            },
+                                          ],
                                           fontFamily: 'Quicksand_400Regular',
                                           fontSize: 12,
                                         }
@@ -1158,9 +1212,19 @@ const CFSScreen = props => {
                                     }
                                   }}
                                   color={palettes.Brand['Strong Inverse']}
+                                  disabled={
+                                    ebitda_small ||
+                                    ebitda_medium ||
+                                    ebitda_large
+                                  }
                                   size={24}
                                   status={ebitda_giant}
                                   uncheckedColor={
+                                    (ebitda_small ||
+                                    ebitda_medium ||
+                                    ebitda_large
+                                      ? palettes.Brand.Light
+                                      : palettes.Brand['Strong Inverse']) ??
                                     palettes.Brand['Strong Inverse']
                                   }
                                 />
@@ -1174,6 +1238,11 @@ const CFSScreen = props => {
                                       console.error(err);
                                     }
                                   }}
+                                  disabled={
+                                    ebitda_small ||
+                                    ebitda_medium ||
+                                    ebitda_large
+                                  }
                                 >
                                   <Text
                                     accessible={true}
@@ -1186,8 +1255,26 @@ const CFSScreen = props => {
                                           'screen_title'
                                         ].style,
                                         {
-                                          color:
-                                            palettes.Brand['Strong Inverse'],
+                                          color: [
+                                            {
+                                              minWidth: Breakpoints.Mobile,
+                                              value:
+                                                palettes.Brand[
+                                                  'Strong Inverse'
+                                                ],
+                                            },
+                                            {
+                                              minWidth: Breakpoints.Desktop,
+                                              value:
+                                                ebitda_small ||
+                                                ebitda_medium ||
+                                                ebitda_large
+                                                  ? palettes.Brand.Light
+                                                  : palettes.Brand[
+                                                      'Strong Inverse'
+                                                    ],
+                                            },
+                                          ],
                                           fontFamily: 'Quicksand_400Regular',
                                           fontSize: 12,
                                         }

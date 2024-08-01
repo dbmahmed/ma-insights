@@ -284,7 +284,6 @@ const AllEventsScreen = props => {
                         fontFamily: 'Quicksand_600SemiBold',
                         fontSize: 25,
                         marginBottom: 20,
-                        marginLeft: 20,
                         marginTop: [
                           { minWidth: Breakpoints.Mobile, value: 0 },
                           { minWidth: Breakpoints.Laptop, value: 20 },
@@ -362,7 +361,7 @@ const AllEventsScreen = props => {
             style={StyleSheet.applyWidth(
               StyleSheet.compose(
                 GlobalStyles.HStackStyles(theme)['H Stack'].style,
-                { gap: 10, justifyContent: 'space-between', marginLeft: 8 }
+                { gap: 10, justifyContent: 'space-between' }
               ),
               dimensions.width
             )}
@@ -2848,10 +2847,9 @@ const AllEventsScreen = props => {
                             const handler = async () => {
                               try {
                                 applyFilter();
-                                /* hidden 'API Request' action */
+                                setFilterPressed(false);
                                 await waitUtil({ milliseconds: 1000 });
                                 await refetchGetAllEvents();
-                                setFilterPressed(false);
                               } catch (err) {
                                 console.error(err);
                               }
