@@ -8,6 +8,7 @@ import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
+import waitUtil from '../utils/wait';
 import {
   Button,
   Checkbox,
@@ -268,6 +269,7 @@ const PEPFScreen = props => {
                       { minWidth: Breakpoints.Mobile, value: 0 },
                       { minWidth: Breakpoints.Laptop, value: 20 },
                     ],
+                    paddingLeft: 5,
                     textDecorationLine: 'none',
                   }),
                   dimensions.width
@@ -396,7 +398,7 @@ const PEPFScreen = props => {
             <>
               <View
                 style={StyleSheet.applyWidth(
-                  { alignItems: 'center', padding: 10 },
+                  { alignItems: 'center' },
                   dimensions.width
                 )}
               >
@@ -409,7 +411,11 @@ const PEPFScreen = props => {
                       flexDirection: 'column',
                       marginTop: { minWidth: Breakpoints.Tablet, value: 5 },
                       maxWidth: 1200,
-                      paddingLeft: { minWidth: Breakpoints.Tablet, value: 15 },
+                      paddingLeft: [
+                        { minWidth: Breakpoints.Tablet, value: 15 },
+                        { minWidth: Breakpoints.Mobile, value: 10 },
+                      ],
+                      paddingRight: 10,
                       width: '100%',
                     },
                     dimensions.width
@@ -443,20 +449,6 @@ const PEPFScreen = props => {
                     {' private equity firms matching filter'}
                   </Text>
                 </View>
-              </View>
-
-              <SimpleStyleScrollView
-                bounces={true}
-                horizontal={false}
-                keyboardShouldPersistTaps={'never'}
-                nestedScrollEnabled={false}
-                showsHorizontalScrollIndicator={true}
-                showsVerticalScrollIndicator={true}
-                style={StyleSheet.applyWidth(
-                  { alignItems: 'center' },
-                  dimensions.width
-                )}
-              >
                 <SimpleStyleFlatList
                   data={fetchData?.items}
                   horizontal={false}
@@ -474,202 +466,225 @@ const PEPFScreen = props => {
                   renderItem={({ item, index }) => {
                     const listData = item;
                     return (
-                      <LinearGradient
-                        endX={100}
-                        endY={100}
-                        startX={0}
-                        startY={0}
-                        {...GlobalStyles.LinearGradientStyles(theme)[
-                          'Linear Gradient'
-                        ].props}
-                        color1={theme.colors.text.strong}
-                        color2={theme.colors.branding.primary}
-                        color3={null}
+                      <View
                         style={StyleSheet.applyWidth(
-                          StyleSheet.compose(
-                            GlobalStyles.LinearGradientStyles(theme)[
-                              'Linear Gradient'
-                            ].style,
-                            {
-                              borderColor: null,
-                              borderRadius: 5,
-                              borderWidth: null,
-                              flexDirection: 'column',
-                              flexWrap: 'nowrap',
-                              maxWidth: {
-                                minWidth: Breakpoints.Tablet,
-                                value: '32.3%',
-                              },
-                            }
-                          ),
+                          {
+                            maxWidth: [
+                              { minWidth: Breakpoints.Mobile, value: '50%' },
+                              { minWidth: Breakpoints.Laptop, value: '33.33%' },
+                            ],
+                            padding: 5,
+                            width: '100%',
+                          },
                           dimensions.width
                         )}
                       >
-                        <Pressable
-                          onPress={() => {
-                            try {
-                              navigation.push('PEPFDetailsScreen', {
-                                pepf_id: listData?.id,
-                              });
-                            } catch (err) {
-                              console.error(err);
-                            }
-                          }}
+                        <LinearGradient
+                          endX={100}
+                          endY={100}
+                          startX={0}
+                          startY={0}
+                          {...GlobalStyles.LinearGradientStyles(theme)[
+                            'Linear Gradient'
+                          ].props}
+                          color1={theme.colors.text.strong}
+                          color2={theme.colors.branding.primary}
+                          color3={null}
                           style={StyleSheet.applyWidth(
-                            { height: '100%' },
+                            StyleSheet.compose(
+                              GlobalStyles.LinearGradientStyles(theme)[
+                                'Linear Gradient'
+                              ].style,
+                              {
+                                borderColor: null,
+                                borderRadius: 5,
+                                borderWidth: null,
+                                flexDirection: 'column',
+                                flexWrap: 'nowrap',
+                                height: '100%',
+                                margin: null,
+                                width: '100%',
+                              }
+                            ),
                             dimensions.width
                           )}
                         >
-                          <View
+                          <Pressable
+                            onPress={() => {
+                              try {
+                                navigation.push('PEPFDetailsScreen', {
+                                  pepf_id: listData?.id,
+                                });
+                              } catch (err) {
+                                console.error(err);
+                              }
+                            }}
                             style={StyleSheet.applyWidth(
-                              {
-                                flexDirection: 'column',
-                                gap: 10,
-                                height: '100%',
-                                justifyContent: 'space-between',
-                                padding: 10,
-                              },
+                              { height: '100%' },
                               dimensions.width
                             )}
                           >
-                            <View>
-                              <H4
-                                selectable={false}
-                                {...GlobalStyles.H4Styles(theme)['H4'].props}
-                                style={StyleSheet.applyWidth(
-                                  StyleSheet.compose(
-                                    GlobalStyles.H4Styles(theme)['H4'].style,
-                                    {
-                                      color: palettes.Brand['Strong Inverse'],
-                                      marginBottom: 0,
-                                      marginTop: 0,
-                                    }
-                                  ),
-                                  dimensions.width
-                                )}
-                              >
-                                {listData?.Company}
-                              </H4>
-                              {/* Subtitle */}
-                              <Text
-                                accessible={true}
-                                {...GlobalStyles.TextStyles(theme)[
-                                  'screen_title'
-                                ].props}
-                                style={StyleSheet.applyWidth(
-                                  StyleSheet.compose(
-                                    GlobalStyles.TextStyles(theme)[
-                                      'screen_title'
-                                    ].style,
-                                    { color: palettes.App.Orange }
-                                  ),
-                                  dimensions.width
-                                )}
-                              >
-                                {listData?.country}
-                              </Text>
+                            <View
+                              style={StyleSheet.applyWidth(
+                                {
+                                  flexDirection: 'column',
+                                  gap: 10,
+                                  height: '100%',
+                                  justifyContent: 'space-between',
+                                  padding: 10,
+                                },
+                                dimensions.width
+                              )}
+                            >
+                              <View>
+                                <H4
+                                  selectable={false}
+                                  {...GlobalStyles.H4Styles(theme)['H4'].props}
+                                  style={StyleSheet.applyWidth(
+                                    StyleSheet.compose(
+                                      GlobalStyles.H4Styles(theme)['H4'].style,
+                                      {
+                                        color: palettes.Brand['Strong Inverse'],
+                                        marginBottom: 0,
+                                        marginTop: 0,
+                                      }
+                                    ),
+                                    dimensions.width
+                                  )}
+                                >
+                                  {listData?.Company}
+                                </H4>
+                                {/* Subtitle */}
+                                <Text
+                                  accessible={true}
+                                  {...GlobalStyles.TextStyles(theme)[
+                                    'screen_title'
+                                  ].props}
+                                  style={StyleSheet.applyWidth(
+                                    StyleSheet.compose(
+                                      GlobalStyles.TextStyles(theme)[
+                                        'screen_title'
+                                      ].style,
+                                      { color: palettes.App.Orange }
+                                    ),
+                                    dimensions.width
+                                  )}
+                                >
+                                  {listData?.country}
+                                </Text>
+                              </View>
+                              {/* View 2 */}
+                              <View>
+                                <Text
+                                  accessible={true}
+                                  {...GlobalStyles.TextStyles(theme)[
+                                    'screen_title'
+                                  ].props}
+                                  style={StyleSheet.applyWidth(
+                                    StyleSheet.compose(
+                                      GlobalStyles.TextStyles(theme)[
+                                        'screen_title'
+                                      ].style,
+                                      {
+                                        color: palettes.Brand['Strong Inverse'],
+                                      }
+                                    ),
+                                    dimensions.width
+                                  )}
+                                >
+                                  {'PE firm: '}
+                                  {listData?._investor?.name}
+                                </Text>
+                                {/* Text 2 */}
+                                <Text
+                                  accessible={true}
+                                  {...GlobalStyles.TextStyles(theme)[
+                                    'screen_title'
+                                  ].props}
+                                  style={StyleSheet.applyWidth(
+                                    StyleSheet.compose(
+                                      GlobalStyles.TextStyles(theme)[
+                                        'screen_title'
+                                      ].style,
+                                      {
+                                        color: palettes.Brand['Strong Inverse'],
+                                      }
+                                    ),
+                                    dimensions.width
+                                  )}
+                                >
+                                  {'Fund: '}
+                                  {listData?._fund?.name}
+                                </Text>
+                                {/* Text 3 */}
+                                <Text
+                                  accessible={true}
+                                  {...GlobalStyles.TextStyles(theme)[
+                                    'screen_title'
+                                  ].props}
+                                  style={StyleSheet.applyWidth(
+                                    StyleSheet.compose(
+                                      GlobalStyles.TextStyles(theme)[
+                                        'screen_title'
+                                      ].style,
+                                      {
+                                        color: palettes.Brand['Strong Inverse'],
+                                      }
+                                    ),
+                                    dimensions.width
+                                  )}
+                                >
+                                  {'Fund vintage: '}
+                                  {listData?._fund?.age_years}
+                                </Text>
+                                {/* Text 4 */}
+                                <Text
+                                  accessible={true}
+                                  {...GlobalStyles.TextStyles(theme)[
+                                    'screen_title'
+                                  ].props}
+                                  style={StyleSheet.applyWidth(
+                                    StyleSheet.compose(
+                                      GlobalStyles.TextStyles(theme)[
+                                        'screen_title'
+                                      ].style,
+                                      {
+                                        color: palettes.Brand['Strong Inverse'],
+                                      }
+                                    ),
+                                    dimensions.width
+                                  )}
+                                >
+                                  {'Aq: '}
+                                  {listData?.acquired_date}
+                                </Text>
+                                {/* Text 5 */}
+                                <Text
+                                  accessible={true}
+                                  {...GlobalStyles.TextStyles(theme)[
+                                    'screen_title'
+                                  ].props}
+                                  style={StyleSheet.applyWidth(
+                                    StyleSheet.compose(
+                                      GlobalStyles.TextStyles(theme)[
+                                        'screen_title'
+                                      ].style,
+                                      {
+                                        color: palettes.Brand['Strong Inverse'],
+                                      }
+                                    ),
+                                    dimensions.width
+                                  )}
+                                >
+                                  {'EBITDA: €'}
+                                  {listData?.ebitda_eur}
+                                  {'m'}
+                                </Text>
+                              </View>
                             </View>
-                            {/* View 2 */}
-                            <View>
-                              <Text
-                                accessible={true}
-                                {...GlobalStyles.TextStyles(theme)[
-                                  'screen_title'
-                                ].props}
-                                style={StyleSheet.applyWidth(
-                                  StyleSheet.compose(
-                                    GlobalStyles.TextStyles(theme)[
-                                      'screen_title'
-                                    ].style,
-                                    { color: palettes.Brand['Strong Inverse'] }
-                                  ),
-                                  dimensions.width
-                                )}
-                              >
-                                {'PE firm: '}
-                                {listData?._investor?.name}
-                              </Text>
-                              {/* Text 2 */}
-                              <Text
-                                accessible={true}
-                                {...GlobalStyles.TextStyles(theme)[
-                                  'screen_title'
-                                ].props}
-                                style={StyleSheet.applyWidth(
-                                  StyleSheet.compose(
-                                    GlobalStyles.TextStyles(theme)[
-                                      'screen_title'
-                                    ].style,
-                                    { color: palettes.Brand['Strong Inverse'] }
-                                  ),
-                                  dimensions.width
-                                )}
-                              >
-                                {'Fund: '}
-                                {listData?._fund?.name}
-                              </Text>
-                              {/* Text 3 */}
-                              <Text
-                                accessible={true}
-                                {...GlobalStyles.TextStyles(theme)[
-                                  'screen_title'
-                                ].props}
-                                style={StyleSheet.applyWidth(
-                                  StyleSheet.compose(
-                                    GlobalStyles.TextStyles(theme)[
-                                      'screen_title'
-                                    ].style,
-                                    { color: palettes.Brand['Strong Inverse'] }
-                                  ),
-                                  dimensions.width
-                                )}
-                              >
-                                {'Fund vintage: '}
-                                {listData?._fund?.age_years}
-                              </Text>
-                              {/* Text 4 */}
-                              <Text
-                                accessible={true}
-                                {...GlobalStyles.TextStyles(theme)[
-                                  'screen_title'
-                                ].props}
-                                style={StyleSheet.applyWidth(
-                                  StyleSheet.compose(
-                                    GlobalStyles.TextStyles(theme)[
-                                      'screen_title'
-                                    ].style,
-                                    { color: palettes.Brand['Strong Inverse'] }
-                                  ),
-                                  dimensions.width
-                                )}
-                              >
-                                {'Aq: '}
-                                {listData?.acquired_date}
-                              </Text>
-                              {/* Text 5 */}
-                              <Text
-                                accessible={true}
-                                {...GlobalStyles.TextStyles(theme)[
-                                  'screen_title'
-                                ].props}
-                                style={StyleSheet.applyWidth(
-                                  StyleSheet.compose(
-                                    GlobalStyles.TextStyles(theme)[
-                                      'screen_title'
-                                    ].style,
-                                    { color: palettes.Brand['Strong Inverse'] }
-                                  ),
-                                  dimensions.width
-                                )}
-                              >
-                                {'EBITDA: €'}
-                                {listData?.ebitda_eur}
-                                {'m'}
-                              </Text>
-                            </View>
-                          </View>
-                        </Pressable>
-                      </LinearGradient>
+                          </Pressable>
+                        </LinearGradient>
+                      </View>
                     );
                   }}
                   numColumns={
@@ -679,10 +694,21 @@ const PEPFScreen = props => {
                       ? 3
                       : 2
                   }
-                  showsHorizontalScrollIndicator={false}
-                  showsVerticalScrollIndicator={false}
+                  showsHorizontalScrollIndicator={true}
+                  showsVerticalScrollIndicator={true}
                   style={StyleSheet.applyWidth(
                     {
+                      flexDirection: 'column',
+                      maxHeight: [
+                        {
+                          minWidth: Breakpoints.Mobile,
+                          value: dimensions.height - 190,
+                        },
+                        {
+                          minWidth: Breakpoints.Laptop,
+                          value: dimensions.height - 270,
+                        },
+                      ],
                       maxWidth: 1200,
                       paddingLeft: 5,
                       paddingRight: 5,
@@ -691,7 +717,7 @@ const PEPFScreen = props => {
                     dimensions.width
                   )}
                 />
-              </SimpleStyleScrollView>
+              </View>
               <>
                 {!filterPressed ? null : (
                   <Modal
@@ -3213,8 +3239,9 @@ const PEPFScreen = props => {
                                 const handler = async () => {
                                   try {
                                     apllayFilters();
-                                    await refetchGetAllPEPF();
                                     setFilterPressed(false);
+                                    await waitUtil({ milliseconds: 100 });
+                                    await refetchGetAllPEPF();
                                   } catch (err) {
                                     console.error(err);
                                   }
