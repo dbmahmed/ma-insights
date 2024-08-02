@@ -37,6 +37,7 @@ const CFSScreen = props => {
   const setGlobalVariableValue = GlobalVariables.useSetValue();
   const [SelectButton, setSelectButton] = React.useState('All');
   const [austria, setAustria] = React.useState(false);
+  const [cfsItems, setCfsItems] = React.useState([]);
   const [communication_services, setCommunication_services] =
     React.useState(false);
   const [consumer_discretionary, setConsumer_discretionary] =
@@ -60,7 +61,9 @@ const CFSScreen = props => {
   const [industrials, setIndustrials] = React.useState(false);
   const [it_and_software, setIt_and_software] = React.useState(false);
   const [keywordSearch, setKeywordSearch] = React.useState('');
+  const [lastPage, setLastPage] = React.useState(2);
   const [materials, setMaterials] = React.useState(false);
+  const [nextPage, setNextPage] = React.useState(1);
   const [norway, setNorway] = React.useState(false);
   const [real_estate, setReal_estate] = React.useState(false);
   const [sector, setSector] = React.useState([]);
@@ -69,14 +72,70 @@ const CFSScreen = props => {
   const [totalCFS, setTotalCFS] = React.useState(0);
   const [transaction, setTransaction] = React.useState(false);
   const [utilities, setUtilities] = React.useState(false);
-  const applayFilter = () => {
+  const toggleAllFilters = flag => {
+    setEbitda_giant(flag);
+    setEbitda_large(flag);
+    setEbitda_medium(flag);
+    setEbitda_small(flag);
+    setSweden(flag);
+    setGermany(flag);
+    setDenmark(flag);
+    setSwitzerland(flag);
+    setNorway(flag);
+    setAustria(flag);
+    setFinland(flag);
+    setCommunication_services(flag);
+    setIndustrials(flag);
+    setConsumer_discretionary(flag);
+    setIt_and_software(flag);
+    setConsumer_staples(flag);
+    setMaterials(flag);
+    setEnergy(flag);
+    setReal_estate(flag);
+    setFinancials(flag);
+    setUtilities(flag);
+    setHealth_care(flag);
+  };
+
+  const matchingFilters = () => {
+    setEbitda_giant((ebitdaRange || []).includes('EBITDA >  €50m'));
+    setEbitda_large((ebitdaRange || []).includes('€20m < EBITDA ≤ €50m'));
+    setEbitda_medium((ebitdaRange || []).includes('€5m < EBITDA ≤ €20m'));
+    setEbitda_small((ebitdaRange || []).includes('EBITDA ≤ €5m'));
+
+    setSweden((country || []).includes('Sweden'));
+    setGermany((country || []).includes('Germany'));
+    setDenmark((country || []).includes('Denmark'));
+    setSwitzerland((country || []).includes('Switzerland'));
+    setNorway((country || []).includes('Norway'));
+    setAustria((country || []).includes('Austria'));
+    setFinland((country || []).includes('Finland'));
+
+    setCommunication_services(
+      (sector || []).includes('Communication Services')
+    );
+    setIndustrials((sector || []).includes('Industrials'));
+    setConsumer_discretionary(
+      (sector || []).includes('Consumer Discretionary')
+    );
+    setIt_and_software((sector || []).includes('IT & Software'));
+    setConsumer_staples((sector || []).includes('Consumer Staples'));
+    setMaterials((sector || []).includes('Materials'));
+    setEnergy((sector || []).includes('Energy'));
+    setReal_estate((sector || []).includes('Real Estate'));
+    setFinancials((sector || []).includes('Financials'));
+    setUtilities((sector || []).includes('Utilities'));
+    setHealth_care((sector || []).includes('Health Care'));
+  };
+
+  const applyFilter = () => {
     //EBITDA Range
     const ebitdaRange = [];
 
     ebitda_giant && ebitdaRange.push('EBITDA >  €50m');
     ebitda_large && ebitdaRange.push('€20m < EBITDA ≤ €50m');
     ebitda_medium && ebitdaRange.push('€5m < EBITDA ≤ €20m');
-    ebitda_small && ebitdaRange.push('EBTDA ≤ €5m');
+    ebitda_small && ebitdaRange.push('EBITDA ≤ €5m');
 
     setEbitdaRange(() => ebitdaRange);
 
@@ -109,62 +168,6 @@ const CFSScreen = props => {
     health_care && sectors.push('Health Care');
 
     setSector(() => sectors);
-  };
-
-  const toggleAllFilters = flag => {
-    setEbitda_giant(flag);
-    setEbitda_large(flag);
-    setEbitda_medium(flag);
-    setEbitda_small(flag);
-    setSweden(flag);
-    setGermany(flag);
-    setDenmark(flag);
-    setSwitzerland(flag);
-    setNorway(flag);
-    setAustria(flag);
-    setFinland(flag);
-    setCommunication_services(flag);
-    setIndustrials(flag);
-    setConsumer_discretionary(flag);
-    setIt_and_software(flag);
-    setConsumer_staples(flag);
-    setMaterials(flag);
-    setEnergy(flag);
-    setReal_estate(flag);
-    setFinancials(flag);
-    setUtilities(flag);
-    setHealth_care(flag);
-  };
-
-  const matchingFilters = () => {
-    setEbitda_giant((ebitdaRange || []).includes('EBITDA >  €50m'));
-    setEbitda_large((ebitdaRange || []).includes('€20m < EBITDA ≤ €50m'));
-    setEbitda_medium((ebitdaRange || []).includes('€5m < EBITDA ≤ €20m'));
-    setEbitda_small((ebitdaRange || []).includes('EBTDA ≤ €5m'));
-
-    setSweden((country || []).includes('Sweden'));
-    setGermany((country || []).includes('Germany'));
-    setDenmark((country || []).includes('Denmark'));
-    setSwitzerland((country || []).includes('Switzerland'));
-    setNorway((country || []).includes('Norway'));
-    setAustria((country || []).includes('Austria'));
-    setFinland((country || []).includes('Finland'));
-
-    setCommunication_services(
-      (sector || []).includes('Communication Services')
-    );
-    setIndustrials((sector || []).includes('Industrials'));
-    setConsumer_discretionary(
-      (sector || []).includes('Consumer Discretionary')
-    );
-    setIt_and_software((sector || []).includes('IT & Software'));
-    setConsumer_staples((sector || []).includes('Consumer Staples'));
-    setMaterials((sector || []).includes('Materials'));
-    setEnergy((sector || []).includes('Energy'));
-    setReal_estate((sector || []).includes('Real Estate'));
-    setFinancials((sector || []).includes('Financials'));
-    setUtilities((sector || []).includes('Utilities'));
-    setHealth_care((sector || []).includes('Health Care'));
   };
   const isFocused = useIsFocused();
   React.useEffect(() => {
@@ -343,9 +346,30 @@ const CFSScreen = props => {
         countryIn={country}
         ebitdaIn={ebitdaRange}
         handlers={{
+          on2xx: fetchData => {
+            try {
+              setCfsItems(fetchData?.json?.items);
+              setNextPage(fetchData?.json?.nextPage);
+              setLastPage(fetchData?.json?.pageTotal);
+            } catch (err) {
+              console.error(err);
+            }
+          },
+          on401: fetchData => {
+            try {
+              if (navigation.canGoBack()) {
+                navigation.popToTop();
+              }
+              navigation.replace('LogInScreen');
+            } catch (err) {
+              console.error(err);
+            }
+          },
           onData: fetchData => {
             try {
               setTotalCFS(fetchData?.itemsTotal?.setCFS);
+              setNextPage(nextPage);
+              setLastPage(fetchData?.pageTotal);
             } catch (err) {
               console.error(err);
             }
@@ -420,13 +444,37 @@ const CFSScreen = props => {
                   </Text>
                 </View>
                 <SimpleStyleFlatList
-                  data={fetchData?.items}
+                  data={cfsItems}
                   horizontal={false}
                   inverted={false}
                   keyExtractor={(listData, index) => listData?.id}
                   keyboardShouldPersistTaps={'never'}
                   listKey={'yCaR0jC6'}
                   nestedScrollEnabled={false}
+                  onEndReached={() => {
+                    const handler = async () => {
+                      try {
+                        if (nextPage > lastPage) {
+                          return;
+                        }
+                        setNextPage(parseInt(nextPage + 1, 10));
+                        const newData = (
+                          await XanoCollectionApi.getCFSGET(Constants, {
+                            cfsSearchQuery: keywordSearch,
+                            countryIn: country,
+                            ebitdaIn: ebitdaRange,
+                            page: parseInt(nextPage, 10),
+                            sectorIn: sector,
+                          })
+                        )?.json;
+                        setCfsItems(cfsItems.concat(newData?.items));
+                        setLastPage(newData?.pageTotal);
+                      } catch (err) {
+                        console.error(err);
+                      }
+                    };
+                    handler();
+                  }}
                   onEndReachedThreshold={0.5}
                   renderItem={({ item, index }) => {
                     const listData = item;
@@ -2799,7 +2847,8 @@ const CFSScreen = props => {
                               onPress={() => {
                                 const handler = async () => {
                                   try {
-                                    applayFilter();
+                                    applyFilter();
+                                    await waitUtil({ milliseconds: 1000 });
                                     setFilterPressed(false);
                                     await waitUtil({ milliseconds: 1000 });
                                     await refetchGetCFS();
