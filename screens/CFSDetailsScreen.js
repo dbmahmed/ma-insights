@@ -13,7 +13,7 @@ import {
   SimpleStyleScrollView,
   withTheme,
 } from '@draftbit/ui';
-import { H3 } from '@expo/html-elements';
+import { H3, H5 } from '@expo/html-elements';
 import { useIsFocused } from '@react-navigation/native';
 import { ActivityIndicator, Text, View } from 'react-native';
 import { Fetch } from 'react-request';
@@ -24,6 +24,11 @@ const CFSDetailsScreen = props => {
   const Constants = GlobalVariables.useValues();
   const Variables = Constants;
   const setGlobalVariableValue = GlobalVariables.useSetValue();
+  const [country, setCountry] = React.useState([]);
+  const [eventType, setEventType] = React.useState([]);
+  const [filterPressed, setFilterPressed] = React.useState(false);
+  const [keywordSearch, setKeywordSearch] = React.useState('');
+  const [sector, setSector] = React.useState([]);
   const isFocused = useIsFocused();
   React.useEffect(() => {
     try {
@@ -90,6 +95,33 @@ const CFSDetailsScreen = props => {
                   dimensions.width
                 )}
               >
+                <>
+                  {!(dimensions.width >= Breakpoints.Laptop) ? null : (
+                    <H5
+                      selectable={false}
+                      {...GlobalStyles.H5Styles(theme)['H5'].props}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.H5Styles(theme)['H5'].style,
+                          {
+                            fontFamily: 'Quicksand_600SemiBold',
+                            fontSize: 25,
+                            marginBottom: 20,
+                            marginTop: [
+                              { minWidth: Breakpoints.Mobile, value: 0 },
+                              { minWidth: Breakpoints.Laptop, value: 20 },
+                            ],
+                            paddingLeft: 5,
+                            textDecorationLine: 'none',
+                          }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      {'Company for Sale detais'}
+                    </H5>
+                  )}
+                </>
                 <LinearGradient
                   endX={100}
                   endY={100}

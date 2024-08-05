@@ -7,6 +7,7 @@ import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
+import waitUtil from '../utils/wait';
 import {
   Button,
   Checkbox,
@@ -55,6 +56,7 @@ const TransactionsScreen = props => {
   const [real_estate, setReal_estate] = React.useState(false);
   const [region, setRegion] = React.useState([]);
   const [sector, setSector] = React.useState([]);
+  const [transaction, setTransaction] = React.useState(false);
   const [utilities, setUtilities] = React.useState(false);
   const applayFilters = () => {
     //sector
@@ -273,7 +275,7 @@ const TransactionsScreen = props => {
             style={StyleSheet.applyWidth(
               StyleSheet.compose(
                 GlobalStyles.HStackStyles(theme)['H Stack'].style,
-                { gap: 10, justifyContent: 'space-between', marginLeft: 8 }
+                { gap: 10, justifyContent: 'space-between' }
               ),
               dimensions.width
             )}
@@ -901,6 +903,7 @@ const TransactionsScreen = props => {
                         maxWidth: [
                           { minWidth: Breakpoints.Mobile, value: 380 },
                           { minWidth: Breakpoints.Tablet, value: 600 },
+                          { minWidth: Breakpoints.Laptop, value: 900 },
                         ],
                         width: '100%',
                       },
@@ -1030,7 +1033,7 @@ const TransactionsScreen = props => {
                         >
                           {'GICS sector'}
                         </H5>
-
+                        {/* View 2 */}
                         <View
                           style={StyleSheet.applyWidth(
                             {
@@ -1038,8 +1041,10 @@ const TransactionsScreen = props => {
                               flex: 0,
                               flexDirection: 'row',
                               flexWrap: 'wrap',
-                              gap: 8,
+                              gap: 0,
                               justifyContent: 'flex-start',
+                              margin: -4,
+                              width: '100%',
                             },
                             dimensions.width
                           )}
@@ -1052,14 +1057,19 @@ const TransactionsScreen = props => {
                                 alignItems: 'center',
                                 flexDirection: 'row',
                                 gap: 4,
+                                padding: 4,
                                 width: [
                                   {
                                     minWidth: Breakpoints.Mobile,
-                                    value: '47%',
+                                    value: '50%',
                                   },
                                   {
                                     minWidth: Breakpoints.Tablet,
-                                    value: '30%',
+                                    value: '33.33%',
+                                  },
+                                  {
+                                    minWidth: Breakpoints.Laptop,
+                                    value: '25%',
                                   },
                                 ],
                               },
@@ -1121,14 +1131,19 @@ const TransactionsScreen = props => {
                                 alignItems: 'center',
                                 flexDirection: 'row',
                                 gap: 4,
+                                padding: 4,
                                 width: [
                                   {
                                     minWidth: Breakpoints.Mobile,
-                                    value: '47%',
+                                    value: '50%',
                                   },
                                   {
                                     minWidth: Breakpoints.Tablet,
-                                    value: '30%',
+                                    value: '33.33%',
+                                  },
+                                  {
+                                    minWidth: Breakpoints.Laptop,
+                                    value: '25%',
                                   },
                                 ],
                               },
@@ -1188,14 +1203,19 @@ const TransactionsScreen = props => {
                                 alignItems: 'center',
                                 flexDirection: 'row',
                                 gap: 4,
+                                padding: 4,
                                 width: [
                                   {
                                     minWidth: Breakpoints.Mobile,
-                                    value: '47%',
+                                    value: '50%',
                                   },
                                   {
                                     minWidth: Breakpoints.Tablet,
-                                    value: '30%',
+                                    value: '33.33%',
+                                  },
+                                  {
+                                    minWidth: Breakpoints.Laptop,
+                                    value: '25%',
                                   },
                                 ],
                               },
@@ -1257,14 +1277,19 @@ const TransactionsScreen = props => {
                                 alignItems: 'center',
                                 flexDirection: 'row',
                                 gap: 4,
+                                padding: 4,
                                 width: [
                                   {
-                                    minWidth: Breakpoints.Mobile,
-                                    value: '47%',
+                                    minWidth: Breakpoints.Tablet,
+                                    value: '33.33%',
                                   },
                                   {
-                                    minWidth: Breakpoints.Tablet,
-                                    value: '30%',
+                                    minWidth: Breakpoints.Mobile,
+                                    value: '50%',
+                                  },
+                                  {
+                                    minWidth: Breakpoints.Laptop,
+                                    value: '25%',
                                   },
                                 ],
                               },
@@ -1326,14 +1351,19 @@ const TransactionsScreen = props => {
                                 alignItems: 'center',
                                 flexDirection: 'row',
                                 gap: 4,
+                                padding: 4,
                                 width: [
                                   {
                                     minWidth: Breakpoints.Mobile,
-                                    value: '47%',
+                                    value: '50%',
                                   },
                                   {
                                     minWidth: Breakpoints.Tablet,
-                                    value: '30%',
+                                    value: '33.33%',
+                                  },
+                                  {
+                                    minWidth: Breakpoints.Laptop,
+                                    value: '25%',
                                   },
                                 ],
                               },
@@ -1395,14 +1425,19 @@ const TransactionsScreen = props => {
                                 alignItems: 'center',
                                 flexDirection: 'row',
                                 gap: 4,
+                                padding: 4,
                                 width: [
                                   {
                                     minWidth: Breakpoints.Mobile,
-                                    value: '47%',
+                                    value: '50%',
                                   },
                                   {
                                     minWidth: Breakpoints.Tablet,
-                                    value: '30%',
+                                    value: '33.33%',
+                                  },
+                                  {
+                                    minWidth: Breakpoints.Laptop,
+                                    value: '25%',
                                   },
                                 ],
                               },
@@ -1462,14 +1497,19 @@ const TransactionsScreen = props => {
                                 alignItems: 'center',
                                 flexDirection: 'row',
                                 gap: 4,
+                                padding: 4,
                                 width: [
                                   {
                                     minWidth: Breakpoints.Mobile,
-                                    value: '47%',
+                                    value: '50%',
                                   },
                                   {
                                     minWidth: Breakpoints.Tablet,
-                                    value: '30%',
+                                    value: '33.33%',
+                                  },
+                                  {
+                                    minWidth: Breakpoints.Laptop,
+                                    value: '25%',
                                   },
                                 ],
                               },
@@ -1529,14 +1569,19 @@ const TransactionsScreen = props => {
                                 alignItems: 'center',
                                 flexDirection: 'row',
                                 gap: 4,
+                                padding: 4,
                                 width: [
                                   {
                                     minWidth: Breakpoints.Mobile,
-                                    value: '47%',
+                                    value: '50%',
                                   },
                                   {
                                     minWidth: Breakpoints.Tablet,
-                                    value: '30%',
+                                    value: '33.33%',
+                                  },
+                                  {
+                                    minWidth: Breakpoints.Laptop,
+                                    value: '25%',
                                   },
                                 ],
                               },
@@ -1596,14 +1641,19 @@ const TransactionsScreen = props => {
                                 alignItems: 'center',
                                 flexDirection: 'row',
                                 gap: 4,
+                                padding: 4,
                                 width: [
                                   {
                                     minWidth: Breakpoints.Mobile,
-                                    value: '47%',
+                                    value: '50%',
                                   },
                                   {
                                     minWidth: Breakpoints.Tablet,
-                                    value: '30%',
+                                    value: '33.33%',
+                                  },
+                                  {
+                                    minWidth: Breakpoints.Laptop,
+                                    value: '25%',
                                   },
                                 ],
                               },
@@ -1663,14 +1713,19 @@ const TransactionsScreen = props => {
                                 alignItems: 'center',
                                 flexDirection: 'row',
                                 gap: 4,
+                                padding: 4,
                                 width: [
                                   {
                                     minWidth: Breakpoints.Mobile,
-                                    value: '47%',
+                                    value: '50%',
                                   },
                                   {
                                     minWidth: Breakpoints.Tablet,
-                                    value: '30%',
+                                    value: '33.33%',
+                                  },
+                                  {
+                                    minWidth: Breakpoints.Laptop,
+                                    value: '25%',
                                   },
                                 ],
                               },
@@ -1730,14 +1785,19 @@ const TransactionsScreen = props => {
                                 alignItems: 'center',
                                 flexDirection: 'row',
                                 gap: 4,
+                                padding: 4,
                                 width: [
                                   {
                                     minWidth: Breakpoints.Mobile,
-                                    value: '47%',
+                                    value: '50%',
                                   },
                                   {
                                     minWidth: Breakpoints.Tablet,
-                                    value: '30%',
+                                    value: '33.33%',
+                                  },
+                                  {
+                                    minWidth: Breakpoints.Laptop,
+                                    value: '25%',
                                   },
                                 ],
                               },
@@ -1760,7 +1820,7 @@ const TransactionsScreen = props => {
                             <Pressable
                               onPress={() => {
                                 try {
-                                  setHealth_care(health_care ? false : true);
+                                  setHealth_care(transaction ? false : true);
                                 } catch (err) {
                                   console.error(err);
                                 }
@@ -1829,8 +1889,10 @@ const TransactionsScreen = props => {
                               flex: 0,
                               flexDirection: 'row',
                               flexWrap: 'wrap',
-                              gap: 8,
+                              gap: 0,
                               justifyContent: 'flex-start',
+                              margin: -4,
+                              width: '100%',
                             },
                             dimensions.width
                           )}
@@ -1843,14 +1905,19 @@ const TransactionsScreen = props => {
                                 alignItems: 'center',
                                 flexDirection: 'row',
                                 gap: 4,
+                                padding: 4,
                                 width: [
                                   {
                                     minWidth: Breakpoints.Mobile,
-                                    value: '47%',
+                                    value: '50%',
                                   },
                                   {
                                     minWidth: Breakpoints.Tablet,
-                                    value: '30%',
+                                    value: '33.33%',
+                                  },
+                                  {
+                                    minWidth: Breakpoints.Laptop,
+                                    value: '25%',
                                   },
                                 ],
                               },
@@ -1910,14 +1977,19 @@ const TransactionsScreen = props => {
                                 alignItems: 'center',
                                 flexDirection: 'row',
                                 gap: 4,
+                                padding: 4,
                                 width: [
                                   {
                                     minWidth: Breakpoints.Mobile,
-                                    value: '47%',
+                                    value: '50%',
                                   },
                                   {
                                     minWidth: Breakpoints.Tablet,
-                                    value: '30%',
+                                    value: '33.33%',
+                                  },
+                                  {
+                                    minWidth: Breakpoints.Laptop,
+                                    value: '25%',
                                   },
                                 ],
                               },
@@ -1977,14 +2049,19 @@ const TransactionsScreen = props => {
                                 alignItems: 'center',
                                 flexDirection: 'row',
                                 gap: 4,
+                                padding: 4,
                                 width: [
                                   {
                                     minWidth: Breakpoints.Mobile,
-                                    value: '47%',
+                                    value: '50%',
                                   },
                                   {
                                     minWidth: Breakpoints.Tablet,
-                                    value: '30%',
+                                    value: '33.33%',
+                                  },
+                                  {
+                                    minWidth: Breakpoints.Laptop,
+                                    value: '25%',
                                   },
                                 ],
                               },
@@ -2046,8 +2123,20 @@ const TransactionsScreen = props => {
                             alignContent: 'flex-start',
                             flexDirection: 'row',
                             flexGrow: 1,
-                            gap: 8,
-                            justifyContent: 'space-between',
+                            gap: [
+                              { minWidth: Breakpoints.Mobile, value: 8 },
+                              { minWidth: Breakpoints.Laptop, value: 10 },
+                            ],
+                            justifyContent: [
+                              {
+                                minWidth: Breakpoints.Mobile,
+                                value: 'space-between',
+                              },
+                              {
+                                minWidth: Breakpoints.Laptop,
+                                value: 'flex-end',
+                              },
+                            ],
                             marginBottom: 10,
                             padding: 10,
                           },
@@ -2080,7 +2169,13 @@ const TransactionsScreen = props => {
                                 borderWidth: 1,
                                 fontFamily: 'Quicksand_600SemiBold',
                                 textTransform: 'uppercase',
-                                width: '47%',
+                                width: [
+                                  {
+                                    minWidth: Breakpoints.Mobile,
+                                    value: '47%',
+                                  },
+                                  { minWidth: Breakpoints.Laptop, value: 150 },
+                                ],
                               }
                             ),
                             dimensions.width
@@ -2095,8 +2190,9 @@ const TransactionsScreen = props => {
                               try {
                                 /* hidden 'API Request' action */
                                 applayFilters();
-                                await refetchGetAllEvents();
                                 setFilterPressed(false);
+                                await waitUtil({ milliseconds: 500 });
+                                await refetchGetAllEvents();
                               } catch (err) {
                                 console.error(err);
                               }
@@ -2111,7 +2207,13 @@ const TransactionsScreen = props => {
                                 backgroundColor: palettes.App.Orange,
                                 fontFamily: 'Quicksand_600SemiBold',
                                 textTransform: 'uppercase',
-                                width: '47%',
+                                width: [
+                                  {
+                                    minWidth: Breakpoints.Mobile,
+                                    value: '47%',
+                                  },
+                                  { minWidth: Breakpoints.Laptop, value: 150 },
+                                ],
                               }
                             ),
                             dimensions.width

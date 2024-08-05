@@ -28,10 +28,12 @@ import PEPFDetailsScreen from './screens/PEPFDetailsScreen';
 import PEPFScreen from './screens/PEPFScreen';
 import PeerGroupDetailsScreen from './screens/PeerGroupDetailsScreen';
 import PeerGroupsScreen from './screens/PeerGroupsScreen';
+import PrivacyPolicyScreen from './screens/PrivacyPolicyScreen';
 import RequestDemoScreen from './screens/RequestDemoScreen';
 import SplashScreen from './screens/SplashScreen';
 import StockDetailsScreen from './screens/StockDetailsScreen';
 import StockSearchScreen from './screens/StockSearchScreen';
+import TermsAndConditionsScreen from './screens/TermsAndConditionsScreen';
 import TransactionsScreen from './screens/TransactionsScreen';
 
 const Stack = createStackNavigator();
@@ -501,6 +503,20 @@ export default function RootAppNavigator() {
           component={NewsletterDetails2DraftbitSupportScreen}
           options={({ navigation }) => ({
             title: 'Newsletter Details 2 - Draftbit Support',
+          })}
+        />
+        <Stack.Screen
+          name="TermsAndConditionsScreen"
+          component={TermsAndConditionsScreen}
+          options={({ navigation }) => ({
+            title: 'Terms & Conditions',
+          })}
+        />
+        <Stack.Screen
+          name="PrivacyPolicyScreen"
+          component={PrivacyPolicyScreen}
+          options={({ navigation }) => ({
+            title: 'Privacy Policy',
           })}
         />
         <Stack.Screen name="MAInsights" component={MAInsights} />

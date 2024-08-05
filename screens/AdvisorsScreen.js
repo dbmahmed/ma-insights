@@ -81,6 +81,7 @@ const AdvisorsScreen = props => {
             style={StyleSheet.applyWidth(
               {
                 alignItems: 'center',
+                backgroundColor: 'rgba(0, 0, 0, 0.6)',
                 height: '100%',
                 justifyContent: 'center',
               },
@@ -190,7 +191,7 @@ const AdvisorsScreen = props => {
                         {
                           backgroundColor: 'rgba(0, 0, 0, 0)',
                           borderWidth: 0,
-                          color: palettes.App.green,
+                          color: palettes.App.Orange,
                           fontFamily: 'Quicksand_600SemiBold',
                           textTransform: 'uppercase',
                           width: 200,
@@ -581,27 +582,27 @@ const AdvisorsScreen = props => {
               data={fetchData}
               horizontal={false}
               inverted={false}
-              keyExtractor={(listData, index) =>
-                listData?.id ?? listData?.uuid ?? index.toString()
-              }
+              keyExtractor={(listData, index) => listData?.id}
               keyboardShouldPersistTaps={'never'}
               listKey={'2cY8Myag'}
               nestedScrollEnabled={false}
-              numColumns={1}
               onEndReachedThreshold={0.5}
               renderItem={({ item, index }) => {
                 const listData = item;
                 return (
-                  <Pressable
-                    onPress={() => {
-                      try {
-                        navigation.push('EventDetailsScreen', {
-                          event_id: listData?.id,
-                        });
-                      } catch (err) {
-                        console.error(err);
-                      }
-                    }}
+                  <View
+                    style={StyleSheet.applyWidth(
+                      {
+                        maxWidth: [
+                          { minWidth: Breakpoints.Mobile, value: '100%' },
+                          { minWidth: Breakpoints.Tablet, value: '50%' },
+                          { minWidth: Breakpoints.Laptop, value: '33.33%' },
+                        ],
+                        padding: 5,
+                        width: '100%',
+                      },
+                      dimensions.width
+                    )}
                   >
                     <Shadow
                       showShadowCornerBottomEnd={true}
@@ -620,13 +621,39 @@ const AdvisorsScreen = props => {
                       style={StyleSheet.applyWidth(
                         {
                           borderRadius: 12,
-                          width: {
-                            minWidth: Breakpoints.Laptop,
-                            value: '100%',
-                          },
+                          bottom: 5,
+                          height: '100%',
+                          left: [
+                            { minWidth: Breakpoints.Tablet, value: 5 },
+                            { minWidth: Breakpoints.Mobile, value: 5 },
+                          ],
+                          position: [
+                            { minWidth: Breakpoints.Tablet, value: 'absolute' },
+                            { minWidth: Breakpoints.Mobile, value: 'absolute' },
+                          ],
+                          right: 5,
+                          top: [
+                            { minWidth: Breakpoints.Tablet, value: 5 },
+                            { minWidth: Breakpoints.Mobile, value: 5 },
+                          ],
+                          width: [
+                            { minWidth: Breakpoints.Laptop, value: '100%' },
+                            { minWidth: Breakpoints.Mobile, value: '100%' },
+                          ],
                         },
                         dimensions.width
                       )}
+                    />
+                    <Pressable
+                      onPress={() => {
+                        try {
+                          navigation.push('EventDetailsScreen', {
+                            event_id: listData?.id,
+                          });
+                        } catch (err) {
+                          console.error(err);
+                        }
+                      }}
                     >
                       <View
                         style={StyleSheet.applyWidth(
@@ -755,11 +782,18 @@ const AdvisorsScreen = props => {
                           </Text>
                         </View>
                       </View>
-                    </Shadow>
-                  </Pressable>
+                    </Pressable>
+                  </View>
                 );
               }}
               showsVerticalScrollIndicator={true}
+              numColumns={
+                dimensions.width >= Breakpoints.Laptop
+                  ? 3
+                  : dimensions.width >= Breakpoints.Tablet
+                  ? 2
+                  : 1
+              }
               showsHorizontalScrollIndicator={true}
               style={StyleSheet.applyWidth(
                 { gap: 8, height: 600, padding: 10 },

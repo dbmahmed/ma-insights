@@ -14,7 +14,7 @@ import {
   SimpleStyleScrollView,
   withTheme,
 } from '@draftbit/ui';
-import { H3, H6 } from '@expo/html-elements';
+import { H3, H5, H6 } from '@expo/html-elements';
 import { useIsFocused } from '@react-navigation/native';
 import { ActivityIndicator, Text, View } from 'react-native';
 import { Fetch } from 'react-request';
@@ -98,12 +98,42 @@ const PEPFDetailsScreen = props => {
                       minWidth: Breakpoints.Desktop,
                       value: 'center',
                     },
-                    paddingTop: { minWidth: Breakpoints.Desktop, value: 10 },
+                    paddingTop: [
+                      { minWidth: Breakpoints.Desktop, value: 10 },
+                      { minWidth: Breakpoints.Mobile, value: 5 },
+                    ],
                     width: '100%',
                   },
                   dimensions.width
                 )}
               >
+                <>
+                  {!(dimensions.width >= Breakpoints.Laptop) ? null : (
+                    <H5
+                      selectable={false}
+                      {...GlobalStyles.H5Styles(theme)['H5'].props}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.H5Styles(theme)['H5'].style,
+                          {
+                            fontFamily: 'Quicksand_600SemiBold',
+                            fontSize: 25,
+                            marginBottom: 20,
+                            marginTop: [
+                              { minWidth: Breakpoints.Mobile, value: 0 },
+                              { minWidth: Breakpoints.Laptop, value: 20 },
+                            ],
+                            paddingLeft: 5,
+                            textDecorationLine: 'none',
+                          }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      {'Private equity portfolio Firm'}
+                    </H5>
+                  )}
+                </>
                 <LinearGradient
                   endX={100}
                   endY={100}
@@ -627,7 +657,10 @@ const PEPFDetailsScreen = props => {
                   horizontal={false}
                   inverted={false}
                   keyExtractor={(listData, index) =>
-                    listData?.id ?? listData?.uuid ?? index.toString()
+                    listData?.id ??
+                    listData?.uuid ??
+                    index?.toString() ??
+                    JSON.stringify(listData)
                   }
                   keyboardShouldPersistTaps={'never'}
                   listKey={'PDqyS97A'}

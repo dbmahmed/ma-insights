@@ -103,8 +103,11 @@ const CustomHeaderBlock = props => {
             <IconButton
               onPress={() => {
                 try {
-                  navigation.navigate('PeerGroupDetailsScreen');
-                  /* hidden 'Set Variable' action */
+                  /* hidden 'Navigate' action */
+                  setGlobalVariableValue({
+                    key: 'top_nav_pressed',
+                    value: true,
+                  });
                 } catch (err) {
                   console.error(err);
                 }
@@ -428,6 +431,248 @@ const CustomHeaderBlock = props => {
           </View>
         </HStack>
       </Shadow>
+      {/* Side Menu */}
+      <Modal
+        animationType={'none'}
+        supportedOrientations={['portrait', 'landscape']}
+        presentationStyle={'pageSheet'}
+        transparent={true}
+        visible={Constants['top_nav_pressed']}
+      >
+        <View
+          style={StyleSheet.applyWidth(
+            {
+              backgroundColor: {
+                minWidth: Breakpoints.Laptop,
+                value: theme.colors.background.brand,
+              },
+              borderColor: {
+                minWidth: Breakpoints.Laptop,
+                value: theme.colors.text.medium,
+              },
+              borderRightWidth: { minWidth: Breakpoints.Laptop, value: 0.5 },
+              minHeight: { minWidth: Breakpoints.Laptop, value: '100%' },
+              top: { minWidth: Breakpoints.Laptop, value: 66 },
+              width: { minWidth: Breakpoints.Laptop, value: '35%' },
+            },
+            dimensions.width
+          )}
+        >
+          <>
+            {!Constants['top_nav_pressed'] ? null : (
+              <VStack
+                {...GlobalStyles.VStackStyles(theme)['V Stack'].props}
+                style={StyleSheet.applyWidth(
+                  GlobalStyles.VStackStyles(theme)['V Stack'].style,
+                  dimensions.width
+                )}
+              >
+                <Text
+                  accessible={true}
+                  {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                  style={StyleSheet.applyWidth(
+                    GlobalStyles.TextStyles(theme)['screen_title'].style,
+                    dimensions.width
+                  )}
+                >
+                  {'Lorem ipsum dolor sit amet'}
+                </Text>
+                <Link
+                  accessible={true}
+                  onPress={() => {
+                    try {
+                      setGlobalVariableValue({
+                        key: 'AUTH_HEADER',
+                        value: '',
+                      });
+                      setGlobalVariableValue({
+                        key: 'ME',
+                        value: {},
+                      });
+                      setGlobalVariableValue({
+                        key: 'top_nav_pressed',
+                        value: false,
+                      });
+                      setGlobalVariableValue({
+                        key: 'acc_pressed',
+                        value: false,
+                      });
+                      setGlobalVariableValue({
+                        key: 'subPage',
+                        value: false,
+                      });
+                      setGlobalVariableValue({
+                        key: 'pageName',
+                        value: 'M&A Insights',
+                      });
+                      if (navigation.canGoBack()) {
+                        navigation.popToTop();
+                      }
+                      navigation.replace('LogInScreen');
+                    } catch (err) {
+                      console.error(err);
+                    }
+                  }}
+                  {...GlobalStyles.LinkStyles(theme)['Link'].props}
+                  style={StyleSheet.applyWidth(
+                    GlobalStyles.LinkStyles(theme)['Link'].style,
+                    dimensions.width
+                  )}
+                  title={'Logout'}
+                />
+                {/* Link 2 */}
+                <Link
+                  accessible={true}
+                  {...GlobalStyles.LinkStyles(theme)['Link'].props}
+                  style={StyleSheet.applyWidth(
+                    GlobalStyles.LinkStyles(theme)['Link'].style,
+                    dimensions.width
+                  )}
+                  title={'Newsletters'}
+                />
+                {/* Link 3 */}
+                <Link
+                  accessible={true}
+                  onPress={() => {
+                    try {
+                      navigation.navigate('PrivacyPolicyScreen');
+                    } catch (err) {
+                      console.error(err);
+                    }
+                  }}
+                  {...GlobalStyles.LinkStyles(theme)['Link'].props}
+                  style={StyleSheet.applyWidth(
+                    GlobalStyles.LinkStyles(theme)['Link'].style,
+                    dimensions.width
+                  )}
+                  title={'Privacy Policy'}
+                />
+                {/* Link 4 */}
+                <Link
+                  accessible={true}
+                  onPress={() => {
+                    try {
+                      navigation.navigate('TermsAndConditionsScreen');
+                    } catch (err) {
+                      console.error(err);
+                    }
+                  }}
+                  {...GlobalStyles.LinkStyles(theme)['Link'].props}
+                  style={StyleSheet.applyWidth(
+                    GlobalStyles.LinkStyles(theme)['Link'].style,
+                    dimensions.width
+                  )}
+                  title={'Terms & Conditions'}
+                />
+                {/* Link 5 */}
+                <Link
+                  accessible={true}
+                  title={'Lorem ipsum dolor sit amet'}
+                  {...GlobalStyles.LinkStyles(theme)['Link'].props}
+                  style={StyleSheet.applyWidth(
+                    GlobalStyles.LinkStyles(theme)['Link'].style,
+                    dimensions.width
+                  )}
+                />
+                {/* Link 6 */}
+                <Link
+                  accessible={true}
+                  title={'Lorem ipsum dolor sit amet'}
+                  {...GlobalStyles.LinkStyles(theme)['Link'].props}
+                  style={StyleSheet.applyWidth(
+                    GlobalStyles.LinkStyles(theme)['Link'].style,
+                    dimensions.width
+                  )}
+                />
+                {/* Link 7 */}
+                <Link
+                  accessible={true}
+                  title={'Lorem ipsum dolor sit amet'}
+                  {...GlobalStyles.LinkStyles(theme)['Link'].props}
+                  style={StyleSheet.applyWidth(
+                    GlobalStyles.LinkStyles(theme)['Link'].style,
+                    dimensions.width
+                  )}
+                />
+                {/* Link 8 */}
+                <Link
+                  accessible={true}
+                  title={'Lorem ipsum dolor sit amet'}
+                  {...GlobalStyles.LinkStyles(theme)['Link'].props}
+                  style={StyleSheet.applyWidth(
+                    GlobalStyles.LinkStyles(theme)['Link'].style,
+                    dimensions.width
+                  )}
+                />
+                {/* Link 9 */}
+                <Link
+                  accessible={true}
+                  title={'Lorem ipsum dolor sit amet'}
+                  {...GlobalStyles.LinkStyles(theme)['Link'].props}
+                  style={StyleSheet.applyWidth(
+                    GlobalStyles.LinkStyles(theme)['Link'].style,
+                    dimensions.width
+                  )}
+                />
+                {/* Link 10 */}
+                <Link
+                  accessible={true}
+                  title={'Lorem ipsum dolor sit amet'}
+                  {...GlobalStyles.LinkStyles(theme)['Link'].props}
+                  style={StyleSheet.applyWidth(
+                    GlobalStyles.LinkStyles(theme)['Link'].style,
+                    dimensions.width
+                  )}
+                />
+                {/* Link 11 */}
+                <Link
+                  accessible={true}
+                  title={'Lorem ipsum dolor sit amet'}
+                  {...GlobalStyles.LinkStyles(theme)['Link'].props}
+                  style={StyleSheet.applyWidth(
+                    GlobalStyles.LinkStyles(theme)['Link'].style,
+                    dimensions.width
+                  )}
+                />
+                {/* Link 12 */}
+                <Link
+                  accessible={true}
+                  title={'Lorem ipsum dolor sit amet'}
+                  {...GlobalStyles.LinkStyles(theme)['Link'].props}
+                  style={StyleSheet.applyWidth(
+                    GlobalStyles.LinkStyles(theme)['Link'].style,
+                    dimensions.width
+                  )}
+                />
+                {/* Link 13 */}
+                <Link
+                  accessible={true}
+                  title={'Lorem ipsum dolor sit amet'}
+                  {...GlobalStyles.LinkStyles(theme)['Link'].props}
+                  style={StyleSheet.applyWidth(
+                    GlobalStyles.LinkStyles(theme)['Link'].style,
+                    dimensions.width
+                  )}
+                />
+                <IconButton
+                  onPress={() => {
+                    try {
+                      setGlobalVariableValue({
+                        key: 'top_nav_pressed',
+                        value: false,
+                      });
+                    } catch (err) {
+                      console.error(err);
+                    }
+                  }}
+                  size={32}
+                  icon={'AntDesign/closecircle'}
+                />
+              </VStack>
+            )}
+          </>
+        </View>
+      </Modal>
     </View>
   );
 };
