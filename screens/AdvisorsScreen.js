@@ -69,7 +69,18 @@ const AdvisorsScreen = props => {
   return (
     <ScreenContainer hasSafeArea={false} scrollable={false}>
       <CustomHeaderBlock />
-      <View style={StyleSheet.applyWidth({ padding: 10 }, dimensions.width)}>
+      <View
+        style={StyleSheet.applyWidth(
+          {
+            alignItems: [
+              { minWidth: Breakpoints.Desktop, value: 'center' },
+              { minWidth: Breakpoints.Mobile, value: 'center' },
+            ],
+            padding: 10,
+          },
+          dimensions.width
+        )}
+      >
         <Modal
           supportedOrientations={['portrait', 'landscape']}
           animationType={'fade'}
@@ -242,6 +253,8 @@ const AdvisorsScreen = props => {
               gap: 8,
               justifyContent: 'space-between',
               marginBottom: 10,
+              maxWidth: 1200,
+              width: '100%',
             },
             dimensions.width
           )}
@@ -258,7 +271,7 @@ const AdvisorsScreen = props => {
               dimensions.width
             )}
           >
-            {'Multiples database'}
+            {'Advisor league tables'}
           </H3>
           <Button
             iconPosition={'left'}
@@ -292,7 +305,12 @@ const AdvisorsScreen = props => {
           />
         </View>
 
-        <View style={StyleSheet.applyWidth({ gap: 8 }, dimensions.width)}>
+        <View
+          style={StyleSheet.applyWidth(
+            { gap: 8, maxWidth: 1200, width: '100%' },
+            dimensions.width
+          )}
+        >
           <TextInput
             autoCorrect={true}
             changeTextDelay={500}
@@ -325,244 +343,286 @@ const AdvisorsScreen = props => {
             )}
             value={keywordSearch}
           />
+          {/* View 2 */}
           <View
             style={StyleSheet.applyWidth(
               {
-                alignContent: 'center',
-                alignItems: 'center',
-                alignSelf: 'auto',
-                flex: 1,
-                flexDirection: 'row',
-                flexGrow: 1,
-                flexShrink: 0,
+                flexDirection: { minWidth: Breakpoints.Laptop, value: 'row' },
                 gap: 8,
-                justifyContent: 'space-between',
+                width: { minWidth: Breakpoints.Laptop, value: '100%' },
               },
               dimensions.width
             )}
           >
-            {/* DK */}
-            <Button
-              iconPosition={'left'}
-              onPress={() => {
-                try {
-                  setTypeAdvisor('dk');
-                } catch (err) {
-                  console.error(err);
-                }
-              }}
-              {...GlobalStyles.ButtonStyles(theme)['Button'].props}
+            <View
               style={StyleSheet.applyWidth(
-                StyleSheet.compose(
-                  GlobalStyles.ButtonStyles(theme)['Button'].style,
-                  {
-                    backgroundColor: [
-                      { minWidth: Breakpoints.Mobile, value: null },
-                      {
-                        minWidth: Breakpoints.Mobile,
-                        value:
-                          typeAdvisor === 'dk'
-                            ? palettes.App.green
-                            : palettes.Brand.Strong,
-                      },
-                    ],
-                    color:
-                      typeAdvisor === 'dk'
-                        ? palettes.Brand.Strong
-                        : palettes.Brand['Strong Inverse'],
-                    fontFamily: 'Quicksand_700Bold',
-                    minWidth: 60,
-                  }
-                ),
+                {
+                  alignContent: 'center',
+                  alignItems: 'center',
+                  alignSelf: 'auto',
+                  flex: 1,
+                  flexDirection: 'row',
+                  flexGrow: 1,
+                  flexShrink: 0,
+                  gap: 0,
+                  justifyContent: 'space-between',
+                  margin: -5,
+                  maxWidth: { minWidth: Breakpoints.Laptop, value: '50%' },
+                  paddingLeft: -5,
+                  paddingRight: -5,
+                },
                 dimensions.width
               )}
-              title={'DK'}
-            />
-            {/* SE */}
-            <Button
-              iconPosition={'left'}
-              onPress={() => {
-                try {
-                  setTypeAdvisor('se');
-                } catch (err) {
-                  console.error(err);
-                }
-              }}
-              {...GlobalStyles.ButtonStyles(theme)['Button'].props}
-              style={StyleSheet.applyWidth(
-                StyleSheet.compose(
-                  GlobalStyles.ButtonStyles(theme)['Button'].style,
-                  {
-                    backgroundColor: [
-                      { minWidth: Breakpoints.Mobile, value: null },
+            >
+              <View
+                style={StyleSheet.applyWidth(
+                  { padding: 5, width: '20%' },
+                  dimensions.width
+                )}
+              >
+                {/* DK */}
+                <Button
+                  iconPosition={'left'}
+                  onPress={() => {
+                    try {
+                      setTypeAdvisor('dk');
+                    } catch (err) {
+                      console.error(err);
+                    }
+                  }}
+                  {...GlobalStyles.ButtonStyles(theme)['Button'].props}
+                  style={StyleSheet.applyWidth(
+                    StyleSheet.compose(
+                      GlobalStyles.ButtonStyles(theme)['Button'].style,
                       {
-                        minWidth: Breakpoints.Mobile,
-                        value:
-                          typeAdvisor === 'se'
-                            ? palettes.App.green
-                            : palettes.Brand.Strong,
-                      },
-                    ],
-                    color:
-                      typeAdvisor === 'se'
-                        ? palettes.Brand.Strong
-                        : palettes.Brand['Strong Inverse'],
-                    fontFamily: 'Quicksand_700Bold',
-                    minWidth: 60,
-                  }
-                ),
+                        backgroundColor: [
+                          { minWidth: Breakpoints.Mobile, value: null },
+                          {
+                            minWidth: Breakpoints.Mobile,
+                            value:
+                              typeAdvisor === 'dk'
+                                ? palettes.App.Orange
+                                : palettes.Brand.Strong,
+                          },
+                        ],
+                        fontFamily: 'Quicksand_700Bold',
+                      }
+                    ),
+                    dimensions.width
+                  )}
+                  title={'DK'}
+                />
+              </View>
+              {/* View 2 */}
+              <View
+                style={StyleSheet.applyWidth(
+                  { padding: 5, width: '20%' },
+                  dimensions.width
+                )}
+              >
+                {/* SE */}
+                <Button
+                  iconPosition={'left'}
+                  onPress={() => {
+                    try {
+                      setTypeAdvisor('se');
+                    } catch (err) {
+                      console.error(err);
+                    }
+                  }}
+                  {...GlobalStyles.ButtonStyles(theme)['Button'].props}
+                  style={StyleSheet.applyWidth(
+                    StyleSheet.compose(
+                      GlobalStyles.ButtonStyles(theme)['Button'].style,
+                      {
+                        backgroundColor: [
+                          { minWidth: Breakpoints.Mobile, value: null },
+                          {
+                            minWidth: Breakpoints.Mobile,
+                            value:
+                              typeAdvisor === 'se'
+                                ? palettes.App.Orange
+                                : palettes.Brand.Strong,
+                          },
+                        ],
+                        fontFamily: 'Quicksand_700Bold',
+                      }
+                    ),
+                    dimensions.width
+                  )}
+                  title={'SE'}
+                />
+              </View>
+              {/* View 3 */}
+              <View
+                style={StyleSheet.applyWidth(
+                  { padding: 5, width: '20%' },
+                  dimensions.width
+                )}
+              >
+                {/* NO */}
+                <Button
+                  iconPosition={'left'}
+                  onPress={() => {
+                    try {
+                      setTypeAdvisor('no');
+                    } catch (err) {
+                      console.error(err);
+                    }
+                  }}
+                  {...GlobalStyles.ButtonStyles(theme)['Button'].props}
+                  style={StyleSheet.applyWidth(
+                    StyleSheet.compose(
+                      GlobalStyles.ButtonStyles(theme)['Button'].style,
+                      {
+                        backgroundColor: [
+                          { minWidth: Breakpoints.Mobile, value: null },
+                          {
+                            minWidth: Breakpoints.Mobile,
+                            value:
+                              typeAdvisor === 'no'
+                                ? palettes.App.Orange
+                                : palettes.Brand.Strong,
+                          },
+                        ],
+                        fontFamily: 'Quicksand_700Bold',
+                      }
+                    ),
+                    dimensions.width
+                  )}
+                  title={'NO'}
+                />
+              </View>
+              {/* View 4 */}
+              <View
+                style={StyleSheet.applyWidth(
+                  { padding: 5, width: '20%' },
+                  dimensions.width
+                )}
+              >
+                {/* FI */}
+                <Button
+                  iconPosition={'left'}
+                  onPress={() => {
+                    try {
+                      setTypeAdvisor('fi');
+                    } catch (err) {
+                      console.error(err);
+                    }
+                  }}
+                  {...GlobalStyles.ButtonStyles(theme)['Button'].props}
+                  style={StyleSheet.applyWidth(
+                    StyleSheet.compose(
+                      GlobalStyles.ButtonStyles(theme)['Button'].style,
+                      {
+                        backgroundColor: [
+                          { minWidth: Breakpoints.Mobile, value: null },
+                          {
+                            minWidth: Breakpoints.Mobile,
+                            value:
+                              typeAdvisor === 'fi'
+                                ? palettes.App.Orange
+                                : palettes.Brand.Strong,
+                          },
+                        ],
+                        fontFamily: 'Quicksand_700Bold',
+                      }
+                    ),
+                    dimensions.width
+                  )}
+                  title={'FI'}
+                />
+              </View>
+              {/* View 5 */}
+              <View
+                style={StyleSheet.applyWidth(
+                  { padding: 5, width: '20%' },
+                  dimensions.width
+                )}
+              >
+                {/* DE */}
+                <Button
+                  iconPosition={'left'}
+                  onPress={() => {
+                    try {
+                      setTypeAdvisor('de');
+                    } catch (err) {
+                      console.error(err);
+                    }
+                  }}
+                  {...GlobalStyles.ButtonStyles(theme)['Button'].props}
+                  style={StyleSheet.applyWidth(
+                    StyleSheet.compose(
+                      GlobalStyles.ButtonStyles(theme)['Button'].style,
+                      {
+                        backgroundColor: [
+                          { minWidth: Breakpoints.Mobile, value: null },
+                          {
+                            minWidth: Breakpoints.Mobile,
+                            value:
+                              typeAdvisor === 'de'
+                                ? palettes.App.Orange
+                                : palettes.Brand.Strong,
+                          },
+                        ],
+                        fontFamily: 'Quicksand_700Bold',
+                      }
+                    ),
+                    dimensions.width
+                  )}
+                  title={'DE'}
+                />
+              </View>
+            </View>
+            {/* View 2 */}
+            <View
+              style={StyleSheet.applyWidth(
+                {
+                  maxWidth: { minWidth: Breakpoints.Laptop, value: '50%' },
+                  width: { minWidth: Breakpoints.Laptop, value: '100%' },
+                },
                 dimensions.width
               )}
-              title={'SE'}
-            />
-            {/* NO */}
-            <Button
-              iconPosition={'left'}
-              onPress={() => {
-                try {
-                  setTypeAdvisor('no');
-                } catch (err) {
-                  console.error(err);
-                }
-              }}
-              {...GlobalStyles.ButtonStyles(theme)['Button'].props}
-              style={StyleSheet.applyWidth(
-                StyleSheet.compose(
-                  GlobalStyles.ButtonStyles(theme)['Button'].style,
-                  {
-                    backgroundColor: [
-                      { minWidth: Breakpoints.Mobile, value: null },
-                      {
-                        minWidth: Breakpoints.Mobile,
-                        value:
-                          typeAdvisor === 'no'
-                            ? palettes.App.green
-                            : palettes.Brand.Strong,
-                      },
-                    ],
-                    color:
-                      typeAdvisor === 'no'
-                        ? palettes.Brand.Strong
-                        : palettes.Brand['Strong Inverse'],
-                    fontFamily: 'Quicksand_700Bold',
-                    minWidth: 60,
+            >
+              <Picker
+                autoDismissKeyboard={true}
+                dropDownBackgroundColor={theme.colors.background.brand}
+                dropDownBorderColor={theme.colors.border.brand}
+                dropDownBorderRadius={8}
+                dropDownBorderWidth={1}
+                dropDownTextColor={theme.colors.text.strong}
+                iconSize={24}
+                leftIconMode={'inset'}
+                mode={'native'}
+                onValueChange={newPickerValue => {
+                  try {
+                    setType(newPickerValue);
+                  } catch (err) {
+                    console.error(err);
                   }
-                ),
-                dimensions.width
-              )}
-              title={'NO'}
-            />
-            {/* FI */}
-            <Button
-              iconPosition={'left'}
-              onPress={() => {
-                try {
-                  setTypeAdvisor('fi');
-                } catch (err) {
-                  console.error(err);
-                }
-              }}
-              {...GlobalStyles.ButtonStyles(theme)['Button'].props}
-              style={StyleSheet.applyWidth(
-                StyleSheet.compose(
-                  GlobalStyles.ButtonStyles(theme)['Button'].style,
+                }}
+                selectedIconColor={theme.colors.text.strong}
+                selectedIconName={'Feather/check'}
+                type={'solid'}
+                options={[
+                  { label: 'Corporate finance', value: 'corporate_finance' },
+                  { label: 'Legal', value: 'legal' },
+                ]}
+                placeholder={''}
+                selectedIconSize={14}
+                style={StyleSheet.applyWidth(
                   {
-                    backgroundColor: [
-                      { minWidth: Breakpoints.Mobile, value: null },
-                      {
-                        minWidth: Breakpoints.Mobile,
-                        value:
-                          typeAdvisor === 'fi'
-                            ? palettes.App.green
-                            : palettes.Brand.Strong,
-                      },
-                    ],
-                    color:
-                      typeAdvisor === 'fi'
-                        ? palettes.Brand.Strong
-                        : palettes.Brand['Strong Inverse'],
-                    fontFamily: 'Quicksand_700Bold',
-                    minWidth: 60,
-                  }
-                ),
-                dimensions.width
-              )}
-              title={'FI'}
-            />
-            {/* DE */}
-            <Button
-              iconPosition={'left'}
-              onPress={() => {
-                try {
-                  setTypeAdvisor('de');
-                } catch (err) {
-                  console.error(err);
-                }
-              }}
-              {...GlobalStyles.ButtonStyles(theme)['Button'].props}
-              style={StyleSheet.applyWidth(
-                StyleSheet.compose(
-                  GlobalStyles.ButtonStyles(theme)['Button'].style,
-                  {
-                    backgroundColor: [
-                      { minWidth: Breakpoints.Mobile, value: null },
-                      {
-                        minWidth: Breakpoints.Mobile,
-                        value:
-                          typeAdvisor === 'de'
-                            ? palettes.App.green
-                            : palettes.Brand.Strong,
-                      },
-                    ],
-                    color:
-                      typeAdvisor === 'de'
-                        ? palettes.Brand.Strong
-                        : palettes.Brand['Strong Inverse'],
-                    fontFamily: 'Quicksand_700Bold',
-                    minWidth: 60,
-                  }
-                ),
-                dimensions.width
-              )}
-              title={'DE'}
-            />
+                    color: theme.colors.text.strong,
+                    fontFamily: 'Quicksand_400Regular',
+                    padding: 8,
+                    width: { minWidth: Breakpoints.Laptop, value: '100%' },
+                  },
+                  dimensions.width
+                )}
+                value={type}
+              />
+            </View>
           </View>
-          <Picker
-            autoDismissKeyboard={true}
-            dropDownBackgroundColor={theme.colors.background.brand}
-            dropDownBorderColor={theme.colors.border.brand}
-            dropDownBorderRadius={8}
-            dropDownBorderWidth={1}
-            dropDownTextColor={theme.colors.text.strong}
-            iconSize={24}
-            leftIconMode={'inset'}
-            mode={'native'}
-            onValueChange={newPickerValue => {
-              try {
-                setType(newPickerValue);
-              } catch (err) {
-                console.error(err);
-              }
-            }}
-            selectedIconColor={theme.colors.text.strong}
-            selectedIconName={'Feather/check'}
-            type={'solid'}
-            options={[
-              { label: 'Corporate finance', value: 'corporate_finance' },
-              { label: 'Legal', value: 'legal' },
-            ]}
-            placeholder={''}
-            selectedIconSize={14}
-            style={StyleSheet.applyWidth(
-              {
-                color: theme.colors.text.strong,
-                fontFamily: 'Quicksand_400Regular',
-                padding: 8,
-              },
-              dimensions.width
-            )}
-            value={type}
-          />
         </View>
       </View>
       {/* Fetch  */}
@@ -578,168 +638,149 @@ const AdvisorsScreen = props => {
           }
 
           return (
-            <SimpleStyleFlatList
-              data={fetchData}
-              horizontal={false}
-              inverted={false}
-              keyExtractor={(listData, index) => listData?.id}
-              keyboardShouldPersistTaps={'never'}
-              listKey={'2cY8Myag'}
-              nestedScrollEnabled={false}
-              onEndReachedThreshold={0.5}
-              renderItem={({ item, index }) => {
-                const listData = item;
-                return (
-                  <View
-                    style={StyleSheet.applyWidth(
-                      {
-                        maxWidth: [
-                          { minWidth: Breakpoints.Mobile, value: '100%' },
-                          { minWidth: Breakpoints.Tablet, value: '50%' },
-                          { minWidth: Breakpoints.Laptop, value: '33.33%' },
-                        ],
-                        padding: 5,
-                        width: '100%',
-                      },
-                      dimensions.width
-                    )}
-                  >
-                    <Shadow
-                      showShadowCornerBottomEnd={true}
-                      showShadowCornerBottomStart={true}
-                      showShadowCornerTopEnd={true}
-                      showShadowCornerTopStart={true}
-                      showShadowSideBottom={true}
-                      showShadowSideEnd={true}
-                      showShadowSideStart={true}
-                      showShadowSideTop={true}
-                      distance={4}
-                      offsetX={0}
-                      offsetY={0}
-                      paintInside={true}
-                      stretch={true}
+            <View
+              style={StyleSheet.applyWidth(
+                { alignItems: 'center' },
+                dimensions.width
+              )}
+            >
+              <SimpleStyleFlatList
+                data={fetchData}
+                horizontal={false}
+                inverted={false}
+                keyExtractor={(listData, index) => listData?.id}
+                keyboardShouldPersistTaps={'never'}
+                listKey={'2cY8Myag'}
+                nestedScrollEnabled={false}
+                onEndReachedThreshold={0.5}
+                renderItem={({ item, index }) => {
+                  const listData = item;
+                  return (
+                    <View
                       style={StyleSheet.applyWidth(
                         {
-                          borderRadius: 12,
-                          bottom: 5,
-                          height: '100%',
-                          left: [
-                            { minWidth: Breakpoints.Tablet, value: 5 },
-                            { minWidth: Breakpoints.Mobile, value: 5 },
-                          ],
-                          position: [
-                            { minWidth: Breakpoints.Tablet, value: 'absolute' },
-                            { minWidth: Breakpoints.Mobile, value: 'absolute' },
-                          ],
-                          right: 5,
-                          top: [
-                            { minWidth: Breakpoints.Tablet, value: 5 },
-                            { minWidth: Breakpoints.Mobile, value: 5 },
-                          ],
-                          width: [
-                            { minWidth: Breakpoints.Laptop, value: '100%' },
+                          maxWidth: [
                             { minWidth: Breakpoints.Mobile, value: '100%' },
+                            { minWidth: Breakpoints.Tablet, value: '50%' },
+                            { minWidth: Breakpoints.Laptop, value: '33.33%' },
                           ],
+                          padding: 5,
+                          width: '100%',
                         },
                         dimensions.width
                       )}
-                    />
-                    <Pressable
-                      onPress={() => {
-                        try {
-                          navigation.push('EventDetailsScreen', {
-                            event_id: listData?.id,
-                          });
-                        } catch (err) {
-                          console.error(err);
-                        }
-                      }}
                     >
-                      <View
+                      <Shadow
+                        showShadowCornerBottomEnd={true}
+                        showShadowCornerBottomStart={true}
+                        showShadowCornerTopEnd={true}
+                        showShadowCornerTopStart={true}
+                        showShadowSideBottom={true}
+                        showShadowSideEnd={true}
+                        showShadowSideStart={true}
+                        showShadowSideTop={true}
+                        distance={4}
+                        offsetX={0}
+                        offsetY={0}
+                        paintInside={true}
+                        stretch={true}
                         style={StyleSheet.applyWidth(
                           {
-                            alignContent: 'stretch',
-                            backgroundColor: palettes.Brand['Strong Inverse'],
-                            borderColor: palettes.Brand['Light Inverse'],
-                            borderRadius: 8,
-                            borderWidth: 0,
-                            flexDirection: 'column',
-                            gap: 4,
-                            justifyContent: 'flex-start',
-                            padding: 10,
+                            borderRadius: 12,
+                            bottom: 5,
+                            height: '100%',
+                            left: [
+                              { minWidth: Breakpoints.Tablet, value: 5 },
+                              { minWidth: Breakpoints.Mobile, value: 5 },
+                            ],
+                            position: [
+                              {
+                                minWidth: Breakpoints.Tablet,
+                                value: 'absolute',
+                              },
+                              {
+                                minWidth: Breakpoints.Mobile,
+                                value: 'absolute',
+                              },
+                            ],
+                            right: 5,
+                            top: [
+                              { minWidth: Breakpoints.Tablet, value: 5 },
+                              { minWidth: Breakpoints.Mobile, value: 5 },
+                            ],
+                            width: [
+                              { minWidth: Breakpoints.Laptop, value: '100%' },
+                              { minWidth: Breakpoints.Mobile, value: '100%' },
+                            ],
                           },
                           dimensions.width
                         )}
+                      />
+                      <Pressable
+                        onPress={() => {
+                          try {
+                            navigation.push('AdvisorDetailsScreen', {
+                              advisor_id: listData?.id,
+                            });
+                          } catch (err) {
+                            console.error(err);
+                          }
+                        }}
                       >
-                        <Text
-                          accessible={true}
-                          {...GlobalStyles.TextStyles(theme)['screen_title']
-                            .props}
-                          style={StyleSheet.applyWidth(
-                            StyleSheet.compose(
-                              GlobalStyles.TextStyles(theme)['screen_title']
-                                .style,
-                              {
-                                fontFamily: 'Quicksand_500Medium',
-                                marginBottom: 4,
-                              }
-                            ),
-                            dimensions.width
-                          )}
-                        >
-                          {listData?.name}
-                        </Text>
-                        {/* Text 2 */}
-                        <Text
-                          accessible={true}
-                          {...GlobalStyles.TextStyles(theme)['screen_title']
-                            .props}
-                          style={StyleSheet.applyWidth(
-                            StyleSheet.compose(
-                              GlobalStyles.TextStyles(theme)['screen_title']
-                                .style,
-                              {
-                                color: palettes.App.Orange,
-                                fontFamily: 'Quicksand_400Regular',
-                                fontSize: 12,
-                              }
-                            ),
-                            dimensions.width
-                          )}
-                        >
-                          {listData?.type}
-                        </Text>
-                        {/* Text 2 2 */}
-                        <Text
-                          accessible={true}
-                          {...GlobalStyles.TextStyles(theme)['screen_title']
-                            .props}
-                          style={StyleSheet.applyWidth(
-                            StyleSheet.compose(
-                              GlobalStyles.TextStyles(theme)['screen_title']
-                                .style,
-                              {
-                                fontFamily: 'Quicksand_400Regular',
-                                fontSize: 12,
-                              }
-                            ),
-                            dimensions.width
-                          )}
-                        >
-                          {'DK YTD: '}
-                          {listData?.cf_se_ytd}
-                        </Text>
-
                         <View
                           style={StyleSheet.applyWidth(
                             {
-                              flexDirection: 'row',
-                              gap: 8,
-                              justifyContent: 'space-between',
+                              alignContent: 'stretch',
+                              backgroundColor: palettes.Brand['Strong Inverse'],
+                              borderColor: palettes.Brand['Light Inverse'],
+                              borderRadius: 8,
+                              borderWidth: 0,
+                              flexDirection: 'column',
+                              gap: 4,
+                              justifyContent: 'flex-start',
+                              padding: 10,
                             },
                             dimensions.width
                           )}
                         >
+                          <Text
+                            accessible={true}
+                            {...GlobalStyles.TextStyles(theme)['screen_title']
+                              .props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TextStyles(theme)['screen_title']
+                                  .style,
+                                {
+                                  fontFamily: 'Quicksand_500Medium',
+                                  marginBottom: 4,
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            {listData?.name}
+                          </Text>
+                          {/* Text 2 */}
+                          <Text
+                            accessible={true}
+                            {...GlobalStyles.TextStyles(theme)['screen_title']
+                              .props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TextStyles(theme)['screen_title']
+                                  .style,
+                                {
+                                  color: palettes.App.Orange,
+                                  fontFamily: 'Quicksand_400Regular',
+                                  fontSize: 12,
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            {listData?.type}
+                          </Text>
                           {/* Text 2 2 */}
                           <Text
                             accessible={true}
@@ -757,49 +798,96 @@ const AdvisorsScreen = props => {
                               dimensions.width
                             )}
                           >
-                            {'DK LY: '}
-                            {listData?.legal_dk_ly}
+                            {'DK YTD: '}
+                            {listData?.cf_se_ytd}
                           </Text>
-                          {/* Text 2 2 2 */}
-                          <Text
-                            accessible={true}
-                            {...GlobalStyles.TextStyles(theme)['screen_title']
-                              .props}
+
+                          <View
                             style={StyleSheet.applyWidth(
-                              StyleSheet.compose(
-                                GlobalStyles.TextStyles(theme)['screen_title']
-                                  .style,
-                                {
-                                  color: palettes.App.green,
-                                  fontFamily: 'Quicksand_500Medium',
-                                  fontSize: 12,
-                                }
-                              ),
+                              {
+                                flexDirection: 'row',
+                                gap: 8,
+                                justifyContent: 'space-between',
+                              },
                               dimensions.width
                             )}
                           >
-                            {listData?.de_legal_rank}
-                          </Text>
+                            {/* Text 2 2 */}
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)['screen_title']
+                                .props}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.TextStyles(theme)['screen_title']
+                                    .style,
+                                  {
+                                    fontFamily: 'Quicksand_400Regular',
+                                    fontSize: 12,
+                                  }
+                                ),
+                                dimensions.width
+                              )}
+                            >
+                              {'DK LY: '}
+                              {listData?.legal_dk_ly}
+                            </Text>
+                            {/* Text 2 2 2 */}
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)['screen_title']
+                                .props}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.TextStyles(theme)['screen_title']
+                                    .style,
+                                  {
+                                    color: theme.colors.branding.primary,
+                                    fontFamily: 'Quicksand_500Medium',
+                                    fontSize: 12,
+                                  }
+                                ),
+                                dimensions.width
+                              )}
+                            >
+                              {listData?.de_legal_rank}
+                            </Text>
+                          </View>
                         </View>
-                      </View>
-                    </Pressable>
-                  </View>
-                );
-              }}
-              showsVerticalScrollIndicator={true}
-              numColumns={
-                dimensions.width >= Breakpoints.Laptop
-                  ? 3
-                  : dimensions.width >= Breakpoints.Tablet
-                  ? 2
-                  : 1
-              }
-              showsHorizontalScrollIndicator={true}
-              style={StyleSheet.applyWidth(
-                { gap: 8, height: 600, padding: 10 },
-                dimensions.width
-              )}
-            />
+                      </Pressable>
+                    </View>
+                  );
+                }}
+                showsVerticalScrollIndicator={true}
+                numColumns={
+                  dimensions.width >= Breakpoints.Laptop
+                    ? 3
+                    : dimensions.width >= Breakpoints.Tablet
+                    ? 2
+                    : 1
+                }
+                showsHorizontalScrollIndicator={true}
+                style={StyleSheet.applyWidth(
+                  {
+                    gap: 8,
+                    maxHeight: [
+                      {
+                        minWidth: Breakpoints.Laptop,
+                        value: dimensions.height - 220,
+                      },
+                      {
+                        minWidth: Breakpoints.Mobile,
+                        value: dimensions.height - 290,
+                      },
+                    ],
+                    maxWidth: 1200,
+                    padding: 5,
+                    width: '100%',
+                  },
+                  dimensions.width
+                )}
+              />
+            </View>
           );
         }}
       </XanoCollectionApi.FetchGetAdvisorsGET>

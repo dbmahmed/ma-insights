@@ -67,9 +67,11 @@ const LogInScreen = props => {
         return;
       }
       console.log('Start ON_SCREEN_FOCUS:0 SET_VARIABLE');
-      /* hidden 'Set Variable' action */ console.log(
-        'Complete ON_SCREEN_FOCUS:0 SET_VARIABLE'
-      );
+      setGlobalVariableValue({
+        key: 'top_nav_pressed',
+        value: false,
+      });
+      console.log('Complete ON_SCREEN_FOCUS:0 SET_VARIABLE');
       console.log('Start ON_SCREEN_FOCUS:1 CONSOLE_LOG');
       /* hidden 'Log to Console' action */ console.log(
         'Complete ON_SCREEN_FOCUS:1 CONSOLE_LOG'

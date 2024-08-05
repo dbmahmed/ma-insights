@@ -1,9 +1,7 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
-import AccModalBlock from '../components/AccModalBlock';
 import CustomHeaderBlock from '../components/CustomHeaderBlock';
-import TopNavBlock from '../components/TopNavBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import assessAccess from '../global-functions/assessAccess';
 import palettes from '../themes/palettes';
@@ -16,7 +14,6 @@ import {
   Link,
   Pressable,
   ScreenContainer,
-  SimpleStyleFlashList,
   SimpleStyleFlatList,
   SimpleStyleScrollView,
   Table,
@@ -384,8 +381,6 @@ const NewslettersScreen = props => {
           );
         }}
       </XanoCollectionApi.FetchNewslettersGET>
-      <>{!Constants['acc_pressed'] ? null : <AccModalBlock />}</>
-      <>{!Constants['top_nav_pressed'] ? null : <TopNavBlock />}</>
     </ScreenContainer>
   );
 };

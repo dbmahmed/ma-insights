@@ -77,7 +77,7 @@ const TopNavBlock = props => {
             onPress={() => {
               try {
                 navigation.navigate('MAInsights', {
-                  screen: 'NewslewttersScreen',
+                  screen: 'NewslettersScreen',
                 });
               } catch (err) {
                 console.error(err);
@@ -342,15 +342,7 @@ const TopNavBlock = props => {
             dimensions.width
           )}
         >
-          <Pressable
-            onPress={() => {
-              try {
-                navigation.navigate('StockSearchScreen');
-              } catch (err) {
-                console.error(err);
-              }
-            }}
-          >
+          <Pressable>
             <HStack
               {...GlobalStyles.HStackStyles(theme)['H Stack'].props}
               style={StyleSheet.applyWidth(
@@ -398,7 +390,7 @@ const TopNavBlock = props => {
           <Pressable
             onPress={() => {
               try {
-                navigation.navigate('PeerGrroupsScreen');
+                navigation.navigate('MAInsights');
               } catch (err) {
                 console.error(err);
               }

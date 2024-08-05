@@ -9,6 +9,7 @@ import useWindowDimensions from '../utils/useWindowDimensions';
 import {
   Button,
   HStack,
+  Icon,
   IconButton,
   Link,
   Pressable,
@@ -440,237 +441,700 @@ const CustomHeaderBlock = props => {
         visible={Constants['top_nav_pressed']}
       >
         <View
+          collapsable={true}
           style={StyleSheet.applyWidth(
             {
-              backgroundColor: {
-                minWidth: Breakpoints.Laptop,
-                value: theme.colors.background.brand,
-              },
-              borderColor: {
-                minWidth: Breakpoints.Laptop,
-                value: theme.colors.text.medium,
-              },
-              borderRightWidth: { minWidth: Breakpoints.Laptop, value: 0.5 },
-              minHeight: { minWidth: Breakpoints.Laptop, value: '100%' },
+              alignItems: [
+                { minWidth: Breakpoints.Mobile, value: 'flex-start' },
+                { minWidth: Breakpoints.Laptop, value: 'flex-start' },
+              ],
+              backgroundColor: theme.colors.background.brand,
+              borderColor: [
+                {
+                  minWidth: Breakpoints.Mobile,
+                  value: theme.colors.text.medium,
+                },
+                {
+                  minWidth: Breakpoints.Laptop,
+                  value: theme.colors.border.brand,
+                },
+              ],
+              borderWidth: [
+                { minWidth: Breakpoints.Mobile, value: 0.5 },
+                { minWidth: Breakpoints.Laptop, value: 0.5 },
+              ],
+              flex: 1,
+              height: '100%',
+              padding: { minWidth: Breakpoints.Laptop, value: 10 },
+              position: { minWidth: Breakpoints.Laptop, value: 'relative' },
               top: { minWidth: Breakpoints.Laptop, value: 66 },
-              width: { minWidth: Breakpoints.Laptop, value: '35%' },
+              width: [
+                { minWidth: Breakpoints.Mobile, value: '50%' },
+                { minWidth: Breakpoints.Laptop, value: '30%' },
+              ],
+              zIndex: 10,
             },
             dimensions.width
           )}
         >
-          <>
-            {!Constants['top_nav_pressed'] ? null : (
-              <VStack
-                {...GlobalStyles.VStackStyles(theme)['V Stack'].props}
-                style={StyleSheet.applyWidth(
+          {/* View 2 */}
+          <View
+            style={StyleSheet.applyWidth(
+              { width: { minWidth: Breakpoints.Laptop, value: '100%' } },
+              dimensions.width
+            )}
+          >
+            <VStack
+              {...GlobalStyles.VStackStyles(theme)['V Stack'].props}
+              style={StyleSheet.applyWidth(
+                StyleSheet.compose(
                   GlobalStyles.VStackStyles(theme)['V Stack'].style,
-                  dimensions.width
-                )}
+                  {
+                    borderBottomWidth: {
+                      minWidth: Breakpoints.Laptop,
+                      value: 0.5,
+                    },
+                    borderColor: {
+                      minWidth: Breakpoints.Laptop,
+                      value: theme.colors.text.light,
+                    },
+                    borderTopWidth: {
+                      minWidth: Breakpoints.Laptop,
+                      value: 0.5,
+                    },
+                    width: { minWidth: Breakpoints.Laptop, value: '100%' },
+                  }
+                ),
+                dimensions.width
+              )}
+            >
+              <Pressable
+                onPress={() => {
+                  try {
+                    navigation.navigate('MAInsights', {
+                      screen: 'NewslettersScreen',
+                    });
+                    setGlobalVariableValue({
+                      key: 'top_nav_pressed',
+                      value: false,
+                    });
+                  } catch (err) {
+                    console.error(err);
+                  }
+                }}
               >
-                <Text
-                  accessible={true}
-                  {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                <HStack
+                  {...GlobalStyles.HStackStyles(theme)['H Stack'].props}
                   style={StyleSheet.applyWidth(
-                    GlobalStyles.TextStyles(theme)['screen_title'].style,
+                    StyleSheet.compose(
+                      GlobalStyles.HStackStyles(theme)['H Stack'].style,
+                      {
+                        gap: { minWidth: Breakpoints.Laptop, value: 10 },
+                        padding: { minWidth: Breakpoints.Laptop, value: 10 },
+                      }
+                    ),
                     dimensions.width
                   )}
                 >
-                  {'Lorem ipsum dolor sit amet'}
-                </Text>
-                <Link
-                  accessible={true}
-                  onPress={() => {
-                    try {
-                      setGlobalVariableValue({
-                        key: 'AUTH_HEADER',
-                        value: '',
-                      });
-                      setGlobalVariableValue({
-                        key: 'ME',
-                        value: {},
-                      });
-                      setGlobalVariableValue({
-                        key: 'top_nav_pressed',
-                        value: false,
-                      });
-                      setGlobalVariableValue({
-                        key: 'acc_pressed',
-                        value: false,
-                      });
-                      setGlobalVariableValue({
-                        key: 'subPage',
-                        value: false,
-                      });
-                      setGlobalVariableValue({
-                        key: 'pageName',
-                        value: 'M&A Insights',
-                      });
-                      if (navigation.canGoBack()) {
-                        navigation.popToTop();
+                  <Icon
+                    size={24}
+                    color={
+                      Constants['pageName'] === 'Newsletters'
+                        ? palettes.App.Orange
+                        : palettes.Brand.Strong
+                    }
+                    name={'Ionicons/newspaper'}
+                  />
+                  <Text
+                    accessible={true}
+                    {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.TextStyles(theme)['screen_title'].style,
+                        {
+                          color: {
+                            minWidth: Breakpoints.Laptop,
+                            value:
+                              Constants['pageName'] === 'Newsletters'
+                                ? palettes.App.Orange
+                                : palettes.Brand.Strong,
+                          },
+                        }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    {'NEWSLETTERS'}
+                  </Text>
+                </HStack>
+              </Pressable>
+            </VStack>
+            {/* V Stack 2 */}
+            <VStack
+              {...GlobalStyles.VStackStyles(theme)['V Stack'].props}
+              style={StyleSheet.applyWidth(
+                StyleSheet.compose(
+                  GlobalStyles.VStackStyles(theme)['V Stack'].style,
+                  {
+                    borderBottomWidth: {
+                      minWidth: Breakpoints.Laptop,
+                      value: 0.5,
+                    },
+                    borderColor: {
+                      minWidth: Breakpoints.Laptop,
+                      value: theme.colors.text.light,
+                    },
+                  }
+                ),
+                dimensions.width
+              )}
+            >
+              <Pressable
+                onPress={() => {
+                  try {
+                    navigation.navigate('MAInsights', {
+                      screen: 'AllEventsScreen',
+                    });
+                    setGlobalVariableValue({
+                      key: 'top_nav_pressed',
+                      value: false,
+                    });
+                  } catch (err) {
+                    console.error(err);
+                  }
+                }}
+              >
+                <HStack
+                  {...GlobalStyles.HStackStyles(theme)['H Stack'].props}
+                  style={StyleSheet.applyWidth(
+                    StyleSheet.compose(
+                      GlobalStyles.HStackStyles(theme)['H Stack'].style,
+                      {
+                        gap: { minWidth: Breakpoints.Laptop, value: 10 },
+                        padding: { minWidth: Breakpoints.Laptop, value: 10 },
                       }
-                      navigation.replace('LogInScreen');
-                    } catch (err) {
-                      console.error(err);
+                    ),
+                    dimensions.width
+                  )}
+                >
+                  <Icon
+                    size={24}
+                    color={
+                      Constants['pageName'] === 'All events'
+                        ? palettes.App.Orange
+                        : palettes.Brand.Strong
                     }
-                  }}
-                  {...GlobalStyles.LinkStyles(theme)['Link'].props}
+                    name={'MaterialIcons/search'}
+                  />
+                  <Text
+                    accessible={true}
+                    {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.TextStyles(theme)['screen_title'].style,
+                        {
+                          color: {
+                            minWidth: Breakpoints.Laptop,
+                            value:
+                              Constants['pageName'] === 'All events'
+                                ? palettes.App.Orange
+                                : palettes.Brand.Strong,
+                          },
+                        }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    {'ALL EVENTS'}
+                  </Text>
+                </HStack>
+              </Pressable>
+            </VStack>
+            {/* V Stack 3 */}
+            <VStack
+              {...GlobalStyles.VStackStyles(theme)['V Stack'].props}
+              style={StyleSheet.applyWidth(
+                StyleSheet.compose(
+                  GlobalStyles.VStackStyles(theme)['V Stack'].style,
+                  {
+                    borderBottomWidth: {
+                      minWidth: Breakpoints.Laptop,
+                      value: 0.5,
+                    },
+                    borderColor: {
+                      minWidth: Breakpoints.Laptop,
+                      value: theme.colors.text.light,
+                    },
+                  }
+                ),
+                dimensions.width
+              )}
+            >
+              <Pressable
+                onPress={() => {
+                  try {
+                    navigation.navigate('MAInsights', { screen: 'CFSScreen' });
+                    setGlobalVariableValue({
+                      key: 'top_nav_pressed',
+                      value: false,
+                    });
+                  } catch (err) {
+                    console.error(err);
+                  }
+                }}
+              >
+                <HStack
+                  {...GlobalStyles.HStackStyles(theme)['H Stack'].props}
                   style={StyleSheet.applyWidth(
-                    GlobalStyles.LinkStyles(theme)['Link'].style,
+                    StyleSheet.compose(
+                      GlobalStyles.HStackStyles(theme)['H Stack'].style,
+                      {
+                        gap: { minWidth: Breakpoints.Laptop, value: 10 },
+                        padding: { minWidth: Breakpoints.Laptop, value: 10 },
+                      }
+                    ),
                     dimensions.width
                   )}
-                  title={'Logout'}
-                />
-                {/* Link 2 */}
-                <Link
-                  accessible={true}
-                  {...GlobalStyles.LinkStyles(theme)['Link'].props}
-                  style={StyleSheet.applyWidth(
-                    GlobalStyles.LinkStyles(theme)['Link'].style,
-                    dimensions.width
-                  )}
-                  title={'Newsletters'}
-                />
-                {/* Link 3 */}
-                <Link
-                  accessible={true}
-                  onPress={() => {
-                    try {
-                      navigation.navigate('PrivacyPolicyScreen');
-                    } catch (err) {
-                      console.error(err);
+                >
+                  <Icon
+                    size={24}
+                    color={
+                      Constants['pageName'] === 'Companies For Sale'
+                        ? palettes.App.Orange
+                        : palettes.Brand.Strong
                     }
-                  }}
-                  {...GlobalStyles.LinkStyles(theme)['Link'].props}
+                    name={'MaterialIcons/business'}
+                  />
+                  <Text
+                    accessible={true}
+                    {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.TextStyles(theme)['screen_title'].style,
+                        {
+                          color: {
+                            minWidth: Breakpoints.Laptop,
+                            value:
+                              Constants['pageName'] === 'Companies For Sale'
+                                ? palettes.App.Orange
+                                : palettes.Brand.Strong,
+                          },
+                        }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    {'CFS'}
+                  </Text>
+                </HStack>
+              </Pressable>
+            </VStack>
+            {/* V Stack 4 */}
+            <VStack
+              {...GlobalStyles.VStackStyles(theme)['V Stack'].props}
+              style={StyleSheet.applyWidth(
+                StyleSheet.compose(
+                  GlobalStyles.VStackStyles(theme)['V Stack'].style,
+                  {
+                    borderBottomWidth: {
+                      minWidth: Breakpoints.Laptop,
+                      value: 0.5,
+                    },
+                    borderColor: {
+                      minWidth: Breakpoints.Laptop,
+                      value: theme.colors.text.light,
+                    },
+                  }
+                ),
+                dimensions.width
+              )}
+            >
+              <Pressable
+                onPress={() => {
+                  try {
+                    navigation.navigate('MAInsights', { screen: 'PEPFScreen' });
+                    setGlobalVariableValue({
+                      key: 'top_nav_pressed',
+                      value: false,
+                    });
+                  } catch (err) {
+                    console.error(err);
+                  }
+                }}
+              >
+                <HStack
+                  {...GlobalStyles.HStackStyles(theme)['H Stack'].props}
                   style={StyleSheet.applyWidth(
-                    GlobalStyles.LinkStyles(theme)['Link'].style,
+                    StyleSheet.compose(
+                      GlobalStyles.HStackStyles(theme)['H Stack'].style,
+                      {
+                        gap: { minWidth: Breakpoints.Laptop, value: 10 },
+                        padding: { minWidth: Breakpoints.Laptop, value: 10 },
+                      }
+                    ),
                     dimensions.width
                   )}
-                  title={'Privacy Policy'}
-                />
-                {/* Link 4 */}
-                <Link
-                  accessible={true}
-                  onPress={() => {
-                    try {
-                      navigation.navigate('TermsAndConditionsScreen');
-                    } catch (err) {
-                      console.error(err);
+                >
+                  <Icon
+                    size={24}
+                    color={
+                      Constants['pageName'] === 'Private Equity Firms (PEPF)'
+                        ? palettes.App.Orange
+                        : palettes.Brand.Strong
                     }
-                  }}
-                  {...GlobalStyles.LinkStyles(theme)['Link'].props}
+                    name={'MaterialIcons/waterfall-chart'}
+                  />
+                  <Text
+                    accessible={true}
+                    {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.TextStyles(theme)['screen_title'].style,
+                        {
+                          color: {
+                            minWidth: Breakpoints.Laptop,
+                            value:
+                              Constants['pageName'] ===
+                              'Private Equity Firms (PEPF)'
+                                ? palettes.App.Orange
+                                : palettes.Brand.Strong,
+                          },
+                        }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    {'PE PORTFOLIOS'}
+                  </Text>
+                </HStack>
+              </Pressable>
+            </VStack>
+            {/* V Stack 5 */}
+            <VStack
+              {...GlobalStyles.VStackStyles(theme)['V Stack'].props}
+              style={StyleSheet.applyWidth(
+                StyleSheet.compose(
+                  GlobalStyles.VStackStyles(theme)['V Stack'].style,
+                  {
+                    borderBottomWidth: {
+                      minWidth: Breakpoints.Laptop,
+                      value: 0.5,
+                    },
+                    borderColor: {
+                      minWidth: Breakpoints.Laptop,
+                      value: theme.colors.text.light,
+                    },
+                  }
+                ),
+                dimensions.width
+              )}
+            >
+              <Pressable
+                onPress={() => {
+                  try {
+                    navigation.navigate('AdvisorsScreen');
+                    setGlobalVariableValue({
+                      key: 'top_nav_pressed',
+                      value: false,
+                    });
+                  } catch (err) {
+                    console.error(err);
+                  }
+                }}
+              >
+                <HStack
+                  {...GlobalStyles.HStackStyles(theme)['H Stack'].props}
                   style={StyleSheet.applyWidth(
-                    GlobalStyles.LinkStyles(theme)['Link'].style,
+                    StyleSheet.compose(
+                      GlobalStyles.HStackStyles(theme)['H Stack'].style,
+                      {
+                        gap: { minWidth: Breakpoints.Laptop, value: 10 },
+                        padding: { minWidth: Breakpoints.Laptop, value: 10 },
+                      }
+                    ),
                     dimensions.width
                   )}
-                  title={'Terms & Conditions'}
-                />
-                {/* Link 5 */}
-                <Link
-                  accessible={true}
-                  title={'Lorem ipsum dolor sit amet'}
-                  {...GlobalStyles.LinkStyles(theme)['Link'].props}
-                  style={StyleSheet.applyWidth(
-                    GlobalStyles.LinkStyles(theme)['Link'].style,
-                    dimensions.width
-                  )}
-                />
-                {/* Link 6 */}
-                <Link
-                  accessible={true}
-                  title={'Lorem ipsum dolor sit amet'}
-                  {...GlobalStyles.LinkStyles(theme)['Link'].props}
-                  style={StyleSheet.applyWidth(
-                    GlobalStyles.LinkStyles(theme)['Link'].style,
-                    dimensions.width
-                  )}
-                />
-                {/* Link 7 */}
-                <Link
-                  accessible={true}
-                  title={'Lorem ipsum dolor sit amet'}
-                  {...GlobalStyles.LinkStyles(theme)['Link'].props}
-                  style={StyleSheet.applyWidth(
-                    GlobalStyles.LinkStyles(theme)['Link'].style,
-                    dimensions.width
-                  )}
-                />
-                {/* Link 8 */}
-                <Link
-                  accessible={true}
-                  title={'Lorem ipsum dolor sit amet'}
-                  {...GlobalStyles.LinkStyles(theme)['Link'].props}
-                  style={StyleSheet.applyWidth(
-                    GlobalStyles.LinkStyles(theme)['Link'].style,
-                    dimensions.width
-                  )}
-                />
-                {/* Link 9 */}
-                <Link
-                  accessible={true}
-                  title={'Lorem ipsum dolor sit amet'}
-                  {...GlobalStyles.LinkStyles(theme)['Link'].props}
-                  style={StyleSheet.applyWidth(
-                    GlobalStyles.LinkStyles(theme)['Link'].style,
-                    dimensions.width
-                  )}
-                />
-                {/* Link 10 */}
-                <Link
-                  accessible={true}
-                  title={'Lorem ipsum dolor sit amet'}
-                  {...GlobalStyles.LinkStyles(theme)['Link'].props}
-                  style={StyleSheet.applyWidth(
-                    GlobalStyles.LinkStyles(theme)['Link'].style,
-                    dimensions.width
-                  )}
-                />
-                {/* Link 11 */}
-                <Link
-                  accessible={true}
-                  title={'Lorem ipsum dolor sit amet'}
-                  {...GlobalStyles.LinkStyles(theme)['Link'].props}
-                  style={StyleSheet.applyWidth(
-                    GlobalStyles.LinkStyles(theme)['Link'].style,
-                    dimensions.width
-                  )}
-                />
-                {/* Link 12 */}
-                <Link
-                  accessible={true}
-                  title={'Lorem ipsum dolor sit amet'}
-                  {...GlobalStyles.LinkStyles(theme)['Link'].props}
-                  style={StyleSheet.applyWidth(
-                    GlobalStyles.LinkStyles(theme)['Link'].style,
-                    dimensions.width
-                  )}
-                />
-                {/* Link 13 */}
-                <Link
-                  accessible={true}
-                  title={'Lorem ipsum dolor sit amet'}
-                  {...GlobalStyles.LinkStyles(theme)['Link'].props}
-                  style={StyleSheet.applyWidth(
-                    GlobalStyles.LinkStyles(theme)['Link'].style,
-                    dimensions.width
-                  )}
-                />
-                <IconButton
-                  onPress={() => {
-                    try {
-                      setGlobalVariableValue({
-                        key: 'top_nav_pressed',
-                        value: false,
-                      });
-                    } catch (err) {
-                      console.error(err);
+                >
+                  <Icon
+                    size={24}
+                    color={
+                      Constants['pageName'] === 'Advisor league tables'
+                        ? palettes.App.Orange
+                        : palettes.Brand.Strong
                     }
-                  }}
-                  size={32}
-                  icon={'AntDesign/closecircle'}
-                />
-              </VStack>
+                    name={'MaterialCommunityIcons/bank'}
+                  />
+                  <Text
+                    accessible={true}
+                    {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.TextStyles(theme)['screen_title'].style,
+                        {
+                          color: {
+                            minWidth: Breakpoints.Laptop,
+                            value:
+                              Constants['pageName'] === 'Advisor league tables'
+                                ? palettes.App.Orange
+                                : palettes.Brand.Strong,
+                          },
+                        }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    {'ADVISORS'}
+                  </Text>
+                </HStack>
+              </Pressable>
+            </VStack>
+            {/* V Stack 6 */}
+            <VStack
+              {...GlobalStyles.VStackStyles(theme)['V Stack'].props}
+              style={StyleSheet.applyWidth(
+                StyleSheet.compose(
+                  GlobalStyles.VStackStyles(theme)['V Stack'].style,
+                  {
+                    borderBottomWidth: {
+                      minWidth: Breakpoints.Laptop,
+                      value: 0.5,
+                    },
+                    borderColor: {
+                      minWidth: Breakpoints.Laptop,
+                      value: theme.colors.text.light,
+                    },
+                  }
+                ),
+                dimensions.width
+              )}
+            >
+              <Pressable
+                onPress={() => {
+                  try {
+                    navigation.navigate('StockSearchScreen');
+                    setGlobalVariableValue({
+                      key: 'top_nav_pressed',
+                      value: false,
+                    });
+                  } catch (err) {
+                    console.error(err);
+                  }
+                }}
+              >
+                <HStack
+                  {...GlobalStyles.HStackStyles(theme)['H Stack'].props}
+                  style={StyleSheet.applyWidth(
+                    StyleSheet.compose(
+                      GlobalStyles.HStackStyles(theme)['H Stack'].style,
+                      {
+                        gap: { minWidth: Breakpoints.Laptop, value: 10 },
+                        padding: { minWidth: Breakpoints.Laptop, value: 10 },
+                      }
+                    ),
+                    dimensions.width
+                  )}
+                >
+                  <Icon
+                    size={24}
+                    color={
+                      Constants['pageName'] === 'Stock search'
+                        ? palettes.App.Orange
+                        : palettes.Brand.Strong
+                    }
+                    name={'Entypo/line-graph'}
+                  />
+                  <Text
+                    accessible={true}
+                    {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                    style={StyleSheet.applyWidth(
+                      GlobalStyles.TextStyles(theme)['screen_title'].style,
+                      dimensions.width
+                    )}
+                  >
+                    {'STOCKS SEARCH'}
+                  </Text>
+                </HStack>
+              </Pressable>
+            </VStack>
+            {/* V Stack 7 */}
+            <VStack
+              {...GlobalStyles.VStackStyles(theme)['V Stack'].props}
+              style={StyleSheet.applyWidth(
+                StyleSheet.compose(
+                  GlobalStyles.VStackStyles(theme)['V Stack'].style,
+                  {
+                    borderBottomWidth: {
+                      minWidth: Breakpoints.Laptop,
+                      value: 0.5,
+                    },
+                    borderColor: {
+                      minWidth: Breakpoints.Laptop,
+                      value: theme.colors.text.light,
+                    },
+                  }
+                ),
+                dimensions.width
+              )}
+            >
+              <Pressable
+                onPress={() => {
+                  try {
+                    navigation.navigate('PeerGroupsScreen');
+                    setGlobalVariableValue({
+                      key: 'top_nav_pressed',
+                      value: false,
+                    });
+                  } catch (err) {
+                    console.error(err);
+                  }
+                }}
+              >
+                <HStack
+                  {...GlobalStyles.HStackStyles(theme)['H Stack'].props}
+                  style={StyleSheet.applyWidth(
+                    StyleSheet.compose(
+                      GlobalStyles.HStackStyles(theme)['H Stack'].style,
+                      {
+                        gap: { minWidth: Breakpoints.Laptop, value: 10 },
+                        padding: { minWidth: Breakpoints.Laptop, value: 10 },
+                      }
+                    ),
+                    dimensions.width
+                  )}
+                >
+                  <Icon
+                    size={24}
+                    color={
+                      Constants['pageName'] === 'Peer Groups'
+                        ? palettes.App.Orange
+                        : palettes.Brand.Strong
+                    }
+                    name={'FontAwesome/bar-chart'}
+                  />
+                  <Text
+                    accessible={true}
+                    {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.TextStyles(theme)['screen_title'].style,
+                        {
+                          color: {
+                            minWidth: Breakpoints.Laptop,
+                            value:
+                              Constants['pageName'] === 'Peer Groups'
+                                ? palettes.App.Orange
+                                : palettes.Brand.Strong,
+                          },
+                        }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    {'PEER GROUPS'}
+                  </Text>
+                </HStack>
+              </Pressable>
+            </VStack>
+          </View>
+
+          <View
+            style={StyleSheet.applyWidth(
+              {
+                alignItems: { minWidth: Breakpoints.Laptop, value: 'center' },
+                borderColor: {
+                  minWidth: Breakpoints.Laptop,
+                  value: theme.colors.text.light,
+                },
+                borderTopWidth: { minWidth: Breakpoints.Laptop, value: 0.5 },
+                justifyContent: {
+                  minWidth: Breakpoints.Laptop,
+                  value: 'flex-end',
+                },
+                width: { minWidth: Breakpoints.Laptop, value: '100%' },
+              },
+              dimensions.width
             )}
-          </>
+          >
+            {/* V Stack 8 */}
+            <VStack
+              {...GlobalStyles.VStackStyles(theme)['V Stack'].props}
+              style={StyleSheet.applyWidth(
+                GlobalStyles.VStackStyles(theme)['V Stack'].style,
+                dimensions.width
+              )}
+            >
+              <Pressable
+                onPress={() => {
+                  try {
+                    setGlobalVariableValue({
+                      key: 'top_nav_pressed',
+                      value: false,
+                    });
+                    setGlobalVariableValue({
+                      key: 'acc_pressed',
+                      value: true,
+                    });
+                  } catch (err) {
+                    console.error(err);
+                  }
+                }}
+              >
+                <HStack
+                  {...GlobalStyles.HStackStyles(theme)['H Stack'].props}
+                  style={StyleSheet.applyWidth(
+                    StyleSheet.compose(
+                      GlobalStyles.HStackStyles(theme)['H Stack'].style,
+                      {
+                        gap: { minWidth: Breakpoints.Laptop, value: 10 },
+                        padding: { minWidth: Breakpoints.Laptop, value: 10 },
+                      }
+                    ),
+                    dimensions.width
+                  )}
+                >
+                  <Icon size={24} name={'MaterialCommunityIcons/account'} />
+                  <Text
+                    accessible={true}
+                    {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                    style={StyleSheet.applyWidth(
+                      GlobalStyles.TextStyles(theme)['screen_title'].style,
+                      dimensions.width
+                    )}
+                  >
+                    {'MY ACCOUNT'}
+                  </Text>
+                </HStack>
+              </Pressable>
+            </VStack>
+            {/* V Stack 9 */}
+            <VStack
+              {...GlobalStyles.VStackStyles(theme)['V Stack'].props}
+              style={StyleSheet.applyWidth(
+                GlobalStyles.VStackStyles(theme)['V Stack'].style,
+                dimensions.width
+              )}
+            >
+              <Link
+                accessible={true}
+                onPress={() => {
+                  try {
+                    setGlobalVariableValue({
+                      key: 'top_nav_pressed',
+                      value: false,
+                    });
+                  } catch (err) {
+                    console.error(err);
+                  }
+                }}
+                {...GlobalStyles.LinkStyles(theme)['Link'].props}
+                style={StyleSheet.applyWidth(
+                  GlobalStyles.LinkStyles(theme)['Link'].style,
+                  dimensions.width
+                )}
+                title={'Dismiss'}
+              />
+            </VStack>
+          </View>
         </View>
       </Modal>
     </View>

@@ -13,6 +13,7 @@ import assessAccess from './global-functions/assessAccess';
 import Breakpoints from './utils/Breakpoints';
 import useWindowDimensions from './utils/useWindowDimensions';
 
+import AdvisorDetailsScreen from './screens/AdvisorDetailsScreen';
 import AdvisorsScreen from './screens/AdvisorsScreen';
 import AllEventsScreen from './screens/AllEventsScreen';
 import CFSDetailsScreen from './screens/CFSDetailsScreen';
@@ -20,6 +21,7 @@ import CFSScreen from './screens/CFSScreen';
 import EventDetailsScreen from './screens/EventDetailsScreen';
 import ForgotPasswordScreen from './screens/ForgotPasswordScreen';
 import LogInScreen from './screens/LogInScreen';
+import MyAccountScreen from './screens/MyAccountScreen';
 import NewsletterDetails2DraftbitSupportScreen from './screens/NewsletterDetails2DraftbitSupportScreen';
 import NewsletterDetailsScreen from './screens/NewsletterDetailsScreen';
 import NewslettersDraftbitSupportScreen from './screens/NewslettersDraftbitSupportScreen';
@@ -29,6 +31,7 @@ import PEPFScreen from './screens/PEPFScreen';
 import PeerGroupDetailsScreen from './screens/PeerGroupDetailsScreen';
 import PeerGroupsScreen from './screens/PeerGroupsScreen';
 import PrivacyPolicyScreen from './screens/PrivacyPolicyScreen';
+import ReportsScreen from './screens/ReportsScreen';
 import RequestDemoScreen from './screens/RequestDemoScreen';
 import SplashScreen from './screens/SplashScreen';
 import StockDetailsScreen from './screens/StockDetailsScreen';
@@ -517,6 +520,27 @@ export default function RootAppNavigator() {
           component={PrivacyPolicyScreen}
           options={({ navigation }) => ({
             title: 'Privacy Policy',
+          })}
+        />
+        <Stack.Screen
+          name="MyAccountScreen"
+          component={MyAccountScreen}
+          options={({ navigation }) => ({
+            title: 'My Account',
+          })}
+        />
+        <Stack.Screen
+          name="ReportsScreen"
+          component={ReportsScreen}
+          options={({ navigation }) => ({
+            title: 'Reports',
+          })}
+        />
+        <Stack.Screen
+          name="AdvisorDetailsScreen"
+          component={AdvisorDetailsScreen}
+          options={({ navigation }) => ({
+            title: 'Advisor Details',
           })}
         />
         <Stack.Screen name="MAInsights" component={MAInsights} />

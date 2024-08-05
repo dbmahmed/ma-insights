@@ -545,6 +545,7 @@ export const getAllPeersGET = async (Constants, _args, handlers = {}) => {
   const options = {
     headers: cleanHeaders({
       Accept: 'application/json',
+      Authorization: Constants['AUTH_HEADER'],
       'Content-Type': 'application/json',
     }),
   };
@@ -1515,6 +1516,65 @@ export const FetchNewslettersGET = ({
     }
   }, [error]);
   return children({ loading, data, error, refetchNewsletters: refetch });
+};
+
+export const reportsGET = async (Constants, _args, handlers = {}) => {
+  const url = `https://xne3-pdiu-8ysm.f2.xano.io/api:abjrBkC8/report`;
+  const options = {
+    headers: cleanHeaders({
+      Accept: 'application/json',
+      Authorization: Constants['AUTH_HEADER'],
+      'Content-Type': 'application/json',
+    }),
+  };
+  const res = await fetch(url, options);
+  return handleResponse(res, handlers);
+};
+
+export const useReportsGET = (
+  args = {},
+  { refetchInterval, handlers = {} } = {}
+) => {
+  const Constants = GlobalVariables.useValues();
+  return useQuery(
+    ['Reports', args],
+    () => reportsGET(Constants, args, handlers),
+    {
+      refetchInterval,
+    }
+  );
+};
+
+export const FetchReportsGET = ({
+  children,
+  onData = () => {},
+  handlers = {},
+  refetchInterval,
+}) => {
+  const Constants = GlobalVariables.useValues();
+  const isFocused = useIsFocused();
+  const prevIsFocused = usePrevious(isFocused);
+
+  const {
+    isLoading: loading,
+    data,
+    error,
+    refetch,
+  } = useReportsGET({}, { refetchInterval, handlers: { onData, ...handlers } });
+
+  React.useEffect(() => {
+    if (!prevIsFocused && isFocused) {
+      refetch();
+    }
+  }, [isFocused, prevIsFocused]);
+
+  React.useEffect(() => {
+    if (error) {
+      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error(error);
+    }
+  }, [error]);
+  return children({ loading, data, error, refetchReports: refetch });
 };
 
 export const requestDemoPOST = async (

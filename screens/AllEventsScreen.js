@@ -1,9 +1,7 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
-import AccModalBlock from '../components/AccModalBlock';
 import CustomHeaderBlock from '../components/CustomHeaderBlock';
-import TopNavBlock from '../components/TopNavBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import assessAccess from '../global-functions/assessAccess';
 import modifyArrays from '../global-functions/modifyArrays';
@@ -3721,8 +3719,6 @@ const AllEventsScreen = props => {
           );
         }}
       </XanoCollectionApi.FetchGetAllEventsGET>
-      <>{!Constants['top_nav_pressed'] ? null : <TopNavBlock />}</>
-      <AccModalBlock />
     </ScreenContainer>
   );
 };
