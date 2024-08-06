@@ -633,7 +633,16 @@ const AllEventsScreen = props => {
                                   GlobalStyles.H6Styles(theme)['H6'].style,
                                   {
                                     fontFamily: 'Quicksand_700Bold',
-                                    fontSize: 12,
+                                    fontSize: [
+                                      {
+                                        minWidth: Breakpoints.Mobile,
+                                        value: 12,
+                                      },
+                                      {
+                                        minWidth: Breakpoints.Laptop,
+                                        value: 14,
+                                      },
+                                    ],
                                     margin: 0,
                                   }
                                 ),
@@ -653,7 +662,16 @@ const AllEventsScreen = props => {
                                     .style,
                                   {
                                     fontFamily: 'Quicksand_400Regular',
-                                    fontSize: 10,
+                                    fontSize: [
+                                      {
+                                        minWidth: Breakpoints.Mobile,
+                                        value: 10,
+                                      },
+                                      {
+                                        minWidth: Breakpoints.Laptop,
+                                        value: 12,
+                                      },
+                                    ],
                                     marginTop: 4,
                                   }
                                 ),
@@ -675,7 +693,16 @@ const AllEventsScreen = props => {
                                     .style,
                                   {
                                     fontFamily: 'Quicksand_400Regular',
-                                    fontSize: 10,
+                                    fontSize: [
+                                      {
+                                        minWidth: Breakpoints.Mobile,
+                                        value: 10,
+                                      },
+                                      {
+                                        minWidth: Breakpoints.Laptop,
+                                        value: 12,
+                                      },
+                                    ],
                                     marginTop: 4,
                                   }
                                 ),
@@ -767,9 +794,17 @@ const AllEventsScreen = props => {
                       color2={theme.colors.branding.primary}
                       color3={null}
                       style={StyleSheet.applyWidth(
-                        GlobalStyles.LinearGradientStyles(theme)[
-                          'Linear Gradient'
-                        ].style,
+                        StyleSheet.compose(
+                          GlobalStyles.LinearGradientStyles(theme)[
+                            'Linear Gradient'
+                          ].style,
+                          {
+                            paddingLeft: {
+                              minWidth: Breakpoints.Laptop,
+                              value: 15,
+                            },
+                          }
+                        ),
                         dimensions.width
                       )}
                     >
@@ -3623,10 +3658,7 @@ const AllEventsScreen = props => {
                                 minWidth: Breakpoints.Mobile,
                                 value: 'space-between',
                               },
-                              {
-                                minWidth: Breakpoints.Laptop,
-                                value: 'flex-end',
-                              },
+                              { minWidth: Breakpoints.Laptop, value: 'center' },
                             ],
                             marginBottom: 10,
                             padding: 10,

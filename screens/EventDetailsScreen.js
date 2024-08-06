@@ -333,6 +333,8 @@ const EventDetailsScreen = props => {
                           handler();
                         }}
                         {...GlobalStyles.LinkStyles(theme)['Link'].props}
+                        ellipsizeMode={'tail'}
+                        numberOfLines={1}
                         style={StyleSheet.applyWidth(
                           StyleSheet.compose(
                             GlobalStyles.LinkStyles(theme)['Link'].style,
@@ -340,7 +342,7 @@ const EventDetailsScreen = props => {
                           ),
                           dimensions.width
                         )}
-                        title={`${fetchData?.source_link_short}`}
+                        title={`${fetchData?.source_link}`}
                       />
                     </View>
                     {/* View 4 */}

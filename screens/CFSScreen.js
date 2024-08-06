@@ -828,7 +828,14 @@ const CFSScreen = props => {
                               GlobalStyles.LinearGradientStyles(theme)[
                                 'Linear Gradient'
                               ].style,
-                              { borderColor: null, borderWidth: null }
+                              {
+                                borderColor: null,
+                                borderWidth: null,
+                                paddingLeft: {
+                                  minWidth: Breakpoints.Laptop,
+                                  value: 15,
+                                },
+                              }
                             ),
                             dimensions.width
                           )}
@@ -3646,6 +3653,10 @@ const CFSScreen = props => {
                             style={StyleSheet.applyWidth(
                               {
                                 alignContent: 'flex-start',
+                                alignItems: {
+                                  minWidth: Breakpoints.Laptop,
+                                  value: 'center',
+                                },
                                 flexDirection: 'row',
                                 flexGrow: 1,
                                 gap: [
@@ -3659,7 +3670,7 @@ const CFSScreen = props => {
                                   },
                                   {
                                     minWidth: Breakpoints.Laptop,
-                                    value: 'flex-end',
+                                    value: 'center',
                                   },
                                 ],
                                 marginBottom: 10,

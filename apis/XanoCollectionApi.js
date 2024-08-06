@@ -479,11 +479,37 @@ export const FetchGetAllInvestorsGET = ({
   return children({ loading, data, error, refetchGetAllInvestors: refetch });
 };
 
-export const getAllPEPFGET = async (Constants, _args, handlers = {}) => {
-  const url = `https://xne3-pdiu-8ysm.f2.xano.io/api:abjrBkC8/pepf`;
+export const getAllPEPFGET = async (
+  Constants,
+  { countryIn, ebitdaIn, holdingPerionIn, page, sectorIn, vintageIn },
+  handlers = {}
+) => {
+  const paramsDict = {};
+  if (ebitdaIn !== undefined) {
+    paramsDict['ebitda_In'] = renderParam(ebitdaIn);
+  }
+  if (holdingPerionIn !== undefined) {
+    paramsDict['holdingPerion_in'] = renderParam(holdingPerionIn);
+  }
+  if (vintageIn !== undefined) {
+    paramsDict['vintage_in'] = renderParam(vintageIn);
+  }
+  if (countryIn !== undefined) {
+    paramsDict['country_in'] = renderParam(countryIn);
+  }
+  if (sectorIn !== undefined) {
+    paramsDict['sector_in'] = renderParam(sectorIn);
+  }
+  if (page !== undefined) {
+    paramsDict['page'] = renderParam(page);
+  }
+  const url = `https://xne3-pdiu-8ysm.f2.xano.io/api:abjrBkC8/pepf${renderQueryString(
+    paramsDict
+  )}`;
   const options = {
     headers: cleanHeaders({
       Accept: 'application/json',
+      Authorization: Constants['AUTH_HEADER'],
       'Content-Type': 'application/json',
     }),
   };
@@ -510,6 +536,12 @@ export const FetchGetAllPEPFGET = ({
   onData = () => {},
   handlers = {},
   refetchInterval,
+  countryIn,
+  ebitdaIn,
+  holdingPerionIn,
+  page,
+  sectorIn,
+  vintageIn,
 }) => {
   const Constants = GlobalVariables.useValues();
   const isFocused = useIsFocused();
@@ -521,7 +553,7 @@ export const FetchGetAllPEPFGET = ({
     error,
     refetch,
   } = useGetAllPEPFGET(
-    {},
+    { countryIn, ebitdaIn, holdingPerionIn, page, sectorIn, vintageIn },
     { refetchInterval, handlers: { onData, ...handlers } }
   );
 

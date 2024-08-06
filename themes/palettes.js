@@ -1,7 +1,7 @@
 export default {
   App: {
-    orange: 'rgb(244, 101, 36)',
-    Orange: 'rgb(244, 101, 36)',
+    orange: 'rgb(255, 77, 1)',
+    Orange: 'rgb(255, 77, 1)',
     purple: 'rgb(111, 66, 193)',
     Purple: 'rgb(111, 66, 193)',
     green: 'rgb(76, 220, 139)',
