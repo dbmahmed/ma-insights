@@ -481,7 +481,15 @@ export const FetchGetAllInvestorsGET = ({
 
 export const getAllPEPFGET = async (
   Constants,
-  { countryIn, ebitdaIn, holdingPerionIn, page, sectorIn, vintageIn },
+  {
+    countryIn,
+    ebitdaIn,
+    holdingPerionIn,
+    page,
+    searchString,
+    sectorIn,
+    vintageIn,
+  },
   handlers = {}
 ) => {
   const paramsDict = {};
@@ -502,6 +510,9 @@ export const getAllPEPFGET = async (
   }
   if (page !== undefined) {
     paramsDict['page'] = renderParam(page);
+  }
+  if (searchString !== undefined) {
+    paramsDict['search_string'] = renderParam(searchString);
   }
   const url = `https://xne3-pdiu-8ysm.f2.xano.io/api:abjrBkC8/pepf${renderQueryString(
     paramsDict
@@ -540,6 +551,7 @@ export const FetchGetAllPEPFGET = ({
   ebitdaIn,
   holdingPerionIn,
   page,
+  searchString,
   sectorIn,
   vintageIn,
 }) => {
@@ -553,7 +565,15 @@ export const FetchGetAllPEPFGET = ({
     error,
     refetch,
   } = useGetAllPEPFGET(
-    { countryIn, ebitdaIn, holdingPerionIn, page, sectorIn, vintageIn },
+    {
+      countryIn,
+      ebitdaIn,
+      holdingPerionIn,
+      page,
+      searchString,
+      sectorIn,
+      vintageIn,
+    },
     { refetchInterval, handlers: { onData, ...handlers } }
   );
 

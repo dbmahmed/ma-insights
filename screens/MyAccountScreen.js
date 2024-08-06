@@ -7,7 +7,6 @@ import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
-import waitUtil from '../utils/wait';
 import {
   Button,
   HStack,
@@ -33,7 +32,9 @@ const MyAccountScreen = props => {
   const setGlobalVariableValue = GlobalVariables.useSetValue();
   const [confirmPass, setConfirmPass] = React.useState('');
   const [cuttentPassword, setCuttentPassword] = React.useState('');
+  const [errorMessage, setErrorMessage] = React.useState('');
   const [newPass, setNewPass] = React.useState('');
+  const [showModal, setShowModal] = React.useState(false);
   const joinStringArray = stringArray => {
     return stringArray.join(', ');
   };
@@ -291,6 +292,13 @@ const MyAccountScreen = props => {
                           {'****************'}
                         </Text>
                         <IconButton
+                          onPress={() => {
+                            try {
+                              setShowModal(true);
+                            } catch (err) {
+                              console.error(err);
+                            }
+                          }}
                           color={theme.colors.text.medium}
                           icon={'Entypo/edit'}
                           size={24}
@@ -577,6 +585,7 @@ const MyAccountScreen = props => {
                 animationType={'fade'}
                 presentationStyle={'pageSheet'}
                 transparent={true}
+                visible={showModal}
               >
                 <SimpleStyleScrollView
                   bounces={true}
@@ -701,6 +710,13 @@ const MyAccountScreen = props => {
                             )}
                           >
                             <IconButton
+                              onPress={() => {
+                                try {
+                                  setShowModal(false);
+                                } catch (err) {
+                                  console.error(err);
+                                }
+                              }}
                               color={palettes.App.Strong2}
                               icon={'AntDesign/close'}
                               size={24}
@@ -907,6 +923,27 @@ const MyAccountScreen = props => {
                           )}
                           value={confirmPass}
                         />
+                        {/* err message */}
+                        <Text
+                          accessible={true}
+                          {...GlobalStyles.TextStyles(theme)['screen_title']
+                            .props}
+                          style={StyleSheet.applyWidth(
+                            StyleSheet.compose(
+                              GlobalStyles.TextStyles(theme)['screen_title']
+                                .style,
+                              {
+                                color: theme.colors.background.danger,
+                                fontFamily: 'Quicksand_700Bold',
+                                marginLeft: 10,
+                              }
+                            ),
+                            dimensions.width
+                          )}
+                        >
+                          {errorMessage}
+                          {' asf asd '}
+                        </Text>
                       </View>
                       {/* Buttons */}
                       <View
@@ -939,17 +976,18 @@ const MyAccountScreen = props => {
                         <Button
                           iconPosition={'left'}
                           onPress={() => {
-                            const handler = async () => {
-                              try {
-                                await waitUtil({ milliseconds: 1000 });
-                                await refetchGetAllEvents();
-                              } catch (err) {
-                                console.error(err);
-                              }
-                            };
-                            handler();
+                            try {
+                              setShowModal(false);
+                            } catch (err) {
+                              console.error(err);
+                            }
                           }}
                           {...GlobalStyles.ButtonStyles(theme)['Button'].props}
+                          disabled={
+                            newPass && confirmPass && cuttentPassword
+                              ? false
+                              : undefined
+                          }
                           style={StyleSheet.applyWidth(
                             StyleSheet.compose(
                               GlobalStyles.ButtonStyles(theme)['Button'].style,
