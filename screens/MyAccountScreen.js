@@ -31,10 +31,16 @@ const MyAccountScreen = props => {
   const Variables = Constants;
   const setGlobalVariableValue = GlobalVariables.useSetValue();
   const [confirmPass, setConfirmPass] = React.useState('');
-  const [cuttentPassword, setCuttentPassword] = React.useState('');
+  const [currentPassword, setCurrentPassword] = React.useState('');
   const [errorMessage, setErrorMessage] = React.useState('');
   const [newPass, setNewPass] = React.useState('');
   const [showModal, setShowModal] = React.useState(false);
+  const resetPasswordsFields = () => {
+    setConfirmPass('');
+    setNewPass('');
+    setCurrentPassword('');
+  };
+
   const joinStringArray = stringArray => {
     return stringArray.join(', ');
   };
@@ -295,6 +301,7 @@ const MyAccountScreen = props => {
                           onPress={() => {
                             try {
                               setShowModal(true);
+                              resetPasswordsFields();
                             } catch (err) {
                               console.error(err);
                             }
@@ -751,7 +758,7 @@ const MyAccountScreen = props => {
                           changeTextDelay={500}
                           onChangeText={newPasswordValue => {
                             try {
-                              setCuttentPassword(newPasswordValue);
+                              setCurrentPassword(newPasswordValue);
                             } catch (err) {
                               console.error(err);
                             }
@@ -793,7 +800,7 @@ const MyAccountScreen = props => {
                             ),
                             dimensions.width
                           )}
-                          value={cuttentPassword}
+                          value={currentPassword}
                         />
                         {/* H5 2 */}
                         <H5
@@ -923,27 +930,6 @@ const MyAccountScreen = props => {
                           )}
                           value={confirmPass}
                         />
-                        {/* err message */}
-                        <Text
-                          accessible={true}
-                          {...GlobalStyles.TextStyles(theme)['screen_title']
-                            .props}
-                          style={StyleSheet.applyWidth(
-                            StyleSheet.compose(
-                              GlobalStyles.TextStyles(theme)['screen_title']
-                                .style,
-                              {
-                                color: theme.colors.background.danger,
-                                fontFamily: 'Quicksand_700Bold',
-                                marginLeft: 10,
-                              }
-                            ),
-                            dimensions.width
-                          )}
-                        >
-                          {errorMessage}
-                          {' asf asd '}
-                        </Text>
                       </View>
                       {/* Buttons */}
                       <View
@@ -984,9 +970,9 @@ const MyAccountScreen = props => {
                           }}
                           {...GlobalStyles.ButtonStyles(theme)['Button'].props}
                           disabled={
-                            newPass && confirmPass && cuttentPassword
+                            newPass && confirmPass && currentPassword
                               ? false
-                              : undefined
+                              : true
                           }
                           style={StyleSheet.applyWidth(
                             StyleSheet.compose(

@@ -765,7 +765,7 @@ const PEPFScreen = props => {
                       : 2
                   }
                   showsHorizontalScrollIndicator={true}
-                  showsVerticalScrollIndicator={true}
+                  showsVerticalScrollIndicator={false}
                   style={StyleSheet.applyWidth(
                     {
                       flexDirection: 'column',
