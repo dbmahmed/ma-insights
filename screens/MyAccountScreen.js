@@ -9,6 +9,7 @@ import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import {
   Button,
+  Checkbox,
   HStack,
   IconButton,
   LinearGradient,
@@ -35,6 +36,7 @@ const MyAccountScreen = props => {
   const [errorMessage, setErrorMessage] = React.useState('');
   const [newPass, setNewPass] = React.useState('');
   const [showModal, setShowModal] = React.useState(false);
+  const [checkboxValue, setCheckboxValue] = React.useState(false);
   const resetPasswordsFields = () => {
     setConfirmPass('');
     setNewPass('');
@@ -536,6 +538,195 @@ const MyAccountScreen = props => {
                   >
                     {'Notification preferences'}
                   </H6>
+                  {/* View 2 */}
+                  <View
+                    style={StyleSheet.applyWidth(
+                      { flexDirection: 'column', gap: 8, marginBottom: 20 },
+                      dimensions.width
+                    )}
+                  >
+                    <View
+                      style={StyleSheet.applyWidth(
+                        { flexDirection: 'row', gap: 0, width: '100%' },
+                        dimensions.width
+                      )}
+                    >
+                      <View
+                        style={StyleSheet.applyWidth(
+                          { paddingRight: 2, width: '30%' },
+                          dimensions.width
+                        )}
+                      >
+                        <Text
+                          accessible={true}
+                          {...GlobalStyles.TextStyles(theme)['screen_title']
+                            .props}
+                          style={StyleSheet.applyWidth(
+                            StyleSheet.compose(
+                              GlobalStyles.TextStyles(theme)['screen_title']
+                                .style,
+                              { fontFamily: 'Quicksand_700Bold' }
+                            ),
+                            dimensions.width
+                          )}
+                        >
+                          {'Event'}
+                        </Text>
+                      </View>
+                      {/* View 2 */}
+                      <View
+                        style={StyleSheet.applyWidth(
+                          { flexDirection: 'row', width: '70%' },
+                          dimensions.width
+                        )}
+                      >
+                        <View
+                          style={StyleSheet.applyWidth(
+                            { paddingLeft: 2, paddingRight: 2, width: '50%' },
+                            dimensions.width
+                          )}
+                        >
+                          <Text
+                            accessible={true}
+                            {...GlobalStyles.TextStyles(theme)['screen_title']
+                              .props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TextStyles(theme)['screen_title']
+                                  .style,
+                                {
+                                  fontFamily: 'Quicksand_700Bold',
+                                  textAlign: 'center',
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            {'Push notification'}
+                          </Text>
+                        </View>
+                        {/* View 2 */}
+                        <View
+                          style={StyleSheet.applyWidth(
+                            { paddingLeft: 2, paddingRight: 2, width: '50%' },
+                            dimensions.width
+                          )}
+                        >
+                          <Text
+                            accessible={true}
+                            {...GlobalStyles.TextStyles(theme)['screen_title']
+                              .props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TextStyles(theme)['screen_title']
+                                  .style,
+                                {
+                                  fontFamily: 'Quicksand_700Bold',
+                                  textAlign: 'center',
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            {'Email'}
+                          </Text>
+                        </View>
+                      </View>
+                    </View>
+                    {/* View 2 */}
+                    <View
+                      style={StyleSheet.applyWidth(
+                        { flexDirection: 'row', gap: 0, width: '100%' },
+                        dimensions.width
+                      )}
+                    >
+                      <View
+                        style={StyleSheet.applyWidth(
+                          {
+                            justifyContent: 'center',
+                            paddingRight: 2,
+                            width: '30%',
+                          },
+                          dimensions.width
+                        )}
+                      >
+                        <Text
+                          accessible={true}
+                          {...GlobalStyles.TextStyles(theme)['screen_title']
+                            .props}
+                          style={StyleSheet.applyWidth(
+                            StyleSheet.compose(
+                              GlobalStyles.TextStyles(theme)['screen_title']
+                                .style,
+                              { fontFamily: 'Quicksand_500Medium' }
+                            ),
+                            dimensions.width
+                          )}
+                        >
+                          {'New Nordic NL'}
+                        </Text>
+                      </View>
+                      {/* View 2 */}
+                      <View
+                        style={StyleSheet.applyWidth(
+                          { flexDirection: 'row', width: '70%' },
+                          dimensions.width
+                        )}
+                      >
+                        <View
+                          style={StyleSheet.applyWidth(
+                            {
+                              alignItems: 'center',
+                              paddingLeft: 2,
+                              paddingRight: 2,
+                              width: '50%',
+                            },
+                            dimensions.width
+                          )}
+                        >
+                          <Checkbox
+                            onPress={newCheckboxValue => {
+                              const checkboxValue = newCheckboxValue;
+                              try {
+                                setCheckboxValue(checkboxValue);
+                              } catch (err) {
+                                console.error(err);
+                              }
+                            }}
+                            color={theme.colors.text.medium}
+                            status={checkboxValue}
+                            uncheckedColor={theme.colors.text.medium}
+                          />
+                        </View>
+                        {/* View 2 */}
+                        <View
+                          style={StyleSheet.applyWidth(
+                            { paddingLeft: 2, paddingRight: 2, width: '50%' },
+                            dimensions.width
+                          )}
+                        >
+                          <Text
+                            accessible={true}
+                            {...GlobalStyles.TextStyles(theme)['screen_title']
+                              .props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TextStyles(theme)['screen_title']
+                                  .style,
+                                {
+                                  fontFamily: 'Quicksand_700Bold',
+                                  textAlign: 'center',
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            {'Email'}
+                          </Text>
+                        </View>
+                      </View>
+                    </View>
+                  </View>
                   <Link
                     accessible={true}
                     onPress={() => {
