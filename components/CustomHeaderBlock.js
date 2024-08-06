@@ -216,11 +216,24 @@ const CustomHeaderBlock = props => {
                           minWidth: Breakpoints.Laptop,
                           value: 'center',
                         },
+                        color: {
+                          minWidth: Breakpoints.Laptop,
+                          value: theme.colors.foreground.brand,
+                        },
                         fontFamily: {
                           minWidth: Breakpoints.Laptop,
                           value: 'Quicksand_300Light',
                         },
                         fontSize: { minWidth: Breakpoints.Laptop, value: 35 },
+                        marginBottom: {
+                          minWidth: Breakpoints.Laptop,
+                          value: 0,
+                        },
+                        marginTop: { minWidth: Breakpoints.Laptop, value: 0 },
+                        textAlign: {
+                          minWidth: Breakpoints.Laptop,
+                          value: 'center',
+                        },
                       }
                     ),
                     dimensions.width
@@ -269,6 +282,10 @@ const CustomHeaderBlock = props => {
                         alignSelf: {
                           minWidth: Breakpoints.Laptop,
                           value: 'center',
+                        },
+                        color: {
+                          minWidth: Breakpoints.Laptop,
+                          value: theme.colors.foreground.brand,
                         },
                         fontFamily: {
                           minWidth: Breakpoints.Laptop,
@@ -324,6 +341,10 @@ const CustomHeaderBlock = props => {
                           minWidth: Breakpoints.Laptop,
                           value: 'center',
                         },
+                        color: {
+                          minWidth: Breakpoints.Laptop,
+                          value: theme.colors.foreground.brand,
+                        },
                         fontFamily: {
                           minWidth: Breakpoints.Laptop,
                           value: 'Quicksand_300Light',
@@ -378,6 +399,10 @@ const CustomHeaderBlock = props => {
                         alignSelf: {
                           minWidth: Breakpoints.Laptop,
                           value: 'center',
+                        },
+                        color: {
+                          minWidth: Breakpoints.Laptop,
+                          value: theme.colors.foreground.brand,
                         },
                         fontFamily: {
                           minWidth: Breakpoints.Laptop,

@@ -64,7 +64,7 @@ const PeerGroupDetailsScreen = props => {
             }
           },
         }}
-        peer_group_id={40}
+        peer_group_id={props.route?.params?.peer_group_id ?? 40}
       >
         {({ loading, error, data, refetchGetOnePeer }) => {
           const fetchData = data?.json;

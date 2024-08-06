@@ -11,6 +11,7 @@ import useWindowDimensions from '../utils/useWindowDimensions';
 import {
   Button,
   LinearGradient,
+  Pressable,
   ScreenContainer,
   Shadow,
   SimpleStyleFlatList,
@@ -1317,7 +1318,8 @@ const NewsletterDetailsScreen = props => {
                               keyExtractor={(listData, index) =>
                                 listData?.id ??
                                 listData?.uuid ??
-                                index.toString()
+                                index?.toString() ??
+                                JSON.stringify(listData)
                               }
                               keyboardShouldPersistTaps={'never'}
                               listKey={'BkWHiVbG'}
@@ -1327,100 +1329,113 @@ const NewsletterDetailsScreen = props => {
                               renderItem={({ item, index }) => {
                                 const listData = item;
                                 return (
-                                  <Shadow
-                                    showShadowCornerBottomEnd={true}
-                                    showShadowCornerBottomStart={true}
-                                    showShadowCornerTopEnd={true}
-                                    showShadowCornerTopStart={true}
-                                    showShadowSideBottom={true}
-                                    showShadowSideEnd={true}
-                                    showShadowSideStart={true}
-                                    showShadowSideTop={true}
-                                    distance={4}
-                                    offsetX={0}
-                                    offsetY={0}
-                                    paintInside={true}
-                                    stretch={true}
-                                    style={StyleSheet.applyWidth(
-                                      {
-                                        borderRadius: 12,
-                                        width: {
-                                          minWidth: Breakpoints.Laptop,
-                                          value: '100%',
-                                        },
-                                      },
-                                      dimensions.width
-                                    )}
+                                  <Pressable
+                                    onPress={() => {
+                                      try {
+                                        navigation.navigate(
+                                          'EventDetailsScreen',
+                                          { event_id: listData?.id }
+                                        );
+                                      } catch (err) {
+                                        console.error(err);
+                                      }
+                                    }}
                                   >
-                                    <View
+                                    <Shadow
+                                      showShadowCornerBottomEnd={true}
+                                      showShadowCornerBottomStart={true}
+                                      showShadowCornerTopEnd={true}
+                                      showShadowCornerTopStart={true}
+                                      showShadowSideBottom={true}
+                                      showShadowSideEnd={true}
+                                      showShadowSideStart={true}
+                                      showShadowSideTop={true}
+                                      distance={4}
+                                      offsetX={0}
+                                      offsetY={0}
+                                      paintInside={true}
+                                      stretch={true}
                                       style={StyleSheet.applyWidth(
                                         {
-                                          backgroundColor:
-                                            palettes.Brand['Strong Inverse'],
-                                          borderColor:
-                                            palettes.Brand['Light Inverse'],
-                                          borderRadius: 8,
-                                          borderWidth: 1,
-                                          padding: 10,
+                                          borderRadius: 12,
+                                          width: {
+                                            minWidth: Breakpoints.Laptop,
+                                            value: '100%',
+                                          },
                                         },
                                         dimensions.width
                                       )}
                                     >
-                                      <View>
-                                        <Text
-                                          accessible={true}
-                                          style={StyleSheet.applyWidth(
-                                            {
-                                              fontFamily:
-                                                'Quicksand_600SemiBold',
-                                              fontSize: 16,
-                                            },
-                                            dimensions.width
-                                          )}
-                                        >
-                                          {listData?.headline}
-                                          {' ('}
-                                          {listData?.source}
-                                          {')'}
-                                        </Text>
-                                      </View>
-                                      {/* View 2 */}
-                                      <View>
-                                        <Text
-                                          accessible={true}
-                                          style={StyleSheet.applyWidth(
-                                            {
-                                              color: palettes.App.Orange,
-                                              fontFamily:
-                                                'Quicksand_400Regular',
-                                            },
-                                            dimensions.width
-                                          )}
-                                        >
+                                      <View
+                                        style={StyleSheet.applyWidth(
                                           {
-                                            listData?._gics_sub_industry
-                                              ?.GICS_Sector
-                                          }
-                                        </Text>
-                                      </View>
-                                      {/* View 3 */}
-                                      <View>
-                                        <Text
-                                          accessible={true}
-                                          style={StyleSheet.applyWidth(
+                                            backgroundColor:
+                                              palettes.Brand['Strong Inverse'],
+                                            borderColor:
+                                              palettes.Brand['Light Inverse'],
+                                            borderRadius: 8,
+                                            borderWidth: 1,
+                                            padding: 10,
+                                          },
+                                          dimensions.width
+                                        )}
+                                      >
+                                        <View>
+                                          <Text
+                                            accessible={true}
+                                            style={StyleSheet.applyWidth(
+                                              {
+                                                fontFamily:
+                                                  'Quicksand_600SemiBold',
+                                                fontSize: 16,
+                                              },
+                                              dimensions.width
+                                            )}
+                                          >
+                                            {listData?.headline}
+                                            {' ('}
+                                            {listData?.source}
+                                            {')'}
+                                          </Text>
+                                        </View>
+                                        {/* View 2 */}
+                                        <View>
+                                          <Text
+                                            accessible={true}
+                                            style={StyleSheet.applyWidth(
+                                              {
+                                                color: palettes.App.Orange,
+                                                fontFamily:
+                                                  'Quicksand_400Regular',
+                                              },
+                                              dimensions.width
+                                            )}
+                                          >
                                             {
-                                              color: theme.colors.text.strong,
-                                              fontFamily:
-                                                'Quicksand_400Regular',
-                                            },
-                                            dimensions.width
-                                          )}
-                                        >
-                                          {listData?.description}
-                                        </Text>
+                                              listData?._gics_sub_industry
+                                                ?.GICS_Sector
+                                            }
+                                          </Text>
+                                        </View>
+                                        {/* View 3 */}
+                                        <View>
+                                          <Text
+                                            accessible={true}
+                                            style={StyleSheet.applyWidth(
+                                              {
+                                                color: theme.colors.text.strong,
+                                                fontFamily:
+                                                  'Quicksand_400Regular',
+                                              },
+                                              dimensions.width
+                                            )}
+                                          >
+                                            {listData?.description}
+                                          </Text>
+                                        </View>
                                       </View>
-                                    </View>
-                                  </Shadow>
+                                    </Shadow>
+                                  </Pressable>
                                 );
                               }}
                               horizontal={false}
@@ -1480,7 +1495,8 @@ const NewsletterDetailsScreen = props => {
                               keyExtractor={(listData, index) =>
                                 listData?.id ??
                                 listData?.uuid ??
-                                index.toString()
+                                index?.toString() ??
+                                JSON.stringify(listData)
                               }
                               keyboardShouldPersistTaps={'never'}
                               listKey={'kqofNM7m'}
@@ -1490,100 +1506,113 @@ const NewsletterDetailsScreen = props => {
                               renderItem={({ item, index }) => {
                                 const listData = item;
                                 return (
-                                  <Shadow
-                                    showShadowCornerBottomEnd={true}
-                                    showShadowCornerBottomStart={true}
-                                    showShadowCornerTopEnd={true}
-                                    showShadowCornerTopStart={true}
-                                    showShadowSideBottom={true}
-                                    showShadowSideEnd={true}
-                                    showShadowSideStart={true}
-                                    showShadowSideTop={true}
-                                    distance={4}
-                                    offsetX={0}
-                                    offsetY={0}
-                                    paintInside={true}
-                                    stretch={true}
-                                    style={StyleSheet.applyWidth(
-                                      {
-                                        borderRadius: 12,
-                                        width: {
-                                          minWidth: Breakpoints.Laptop,
-                                          value: '100%',
-                                        },
-                                      },
-                                      dimensions.width
-                                    )}
+                                  <Pressable
+                                    onPress={() => {
+                                      try {
+                                        navigation.navigate(
+                                          'EventDetailsScreen',
+                                          { event_id: listData?.id }
+                                        );
+                                      } catch (err) {
+                                        console.error(err);
+                                      }
+                                    }}
                                   >
-                                    <View
+                                    <Shadow
+                                      showShadowCornerBottomEnd={true}
+                                      showShadowCornerBottomStart={true}
+                                      showShadowCornerTopEnd={true}
+                                      showShadowCornerTopStart={true}
+                                      showShadowSideBottom={true}
+                                      showShadowSideEnd={true}
+                                      showShadowSideStart={true}
+                                      showShadowSideTop={true}
+                                      distance={4}
+                                      offsetX={0}
+                                      offsetY={0}
+                                      paintInside={true}
+                                      stretch={true}
                                       style={StyleSheet.applyWidth(
                                         {
-                                          backgroundColor:
-                                            palettes.Brand['Strong Inverse'],
-                                          borderColor:
-                                            palettes.Brand['Light Inverse'],
-                                          borderRadius: 8,
-                                          borderWidth: 1,
-                                          padding: 10,
+                                          borderRadius: 12,
+                                          width: {
+                                            minWidth: Breakpoints.Laptop,
+                                            value: '100%',
+                                          },
                                         },
                                         dimensions.width
                                       )}
                                     >
-                                      <View>
-                                        <Text
-                                          accessible={true}
-                                          style={StyleSheet.applyWidth(
-                                            {
-                                              fontFamily:
-                                                'Quicksand_600SemiBold',
-                                              fontSize: 16,
-                                            },
-                                            dimensions.width
-                                          )}
-                                        >
-                                          {listData?.headline}
-                                          {' ('}
-                                          {listData?.source}
-                                          {')'}
-                                        </Text>
-                                      </View>
-                                      {/* View 2 */}
-                                      <View>
-                                        <Text
-                                          accessible={true}
-                                          style={StyleSheet.applyWidth(
-                                            {
-                                              color: palettes.App.Orange,
-                                              fontFamily:
-                                                'Quicksand_400Regular',
-                                            },
-                                            dimensions.width
-                                          )}
-                                        >
+                                      <View
+                                        style={StyleSheet.applyWidth(
                                           {
-                                            listData?._gics_sub_industry
-                                              ?.GICS_Sector
-                                          }
-                                        </Text>
-                                      </View>
-                                      {/* View 3 */}
-                                      <View>
-                                        <Text
-                                          accessible={true}
-                                          style={StyleSheet.applyWidth(
+                                            backgroundColor:
+                                              palettes.Brand['Strong Inverse'],
+                                            borderColor:
+                                              palettes.Brand['Light Inverse'],
+                                            borderRadius: 8,
+                                            borderWidth: 1,
+                                            padding: 10,
+                                          },
+                                          dimensions.width
+                                        )}
+                                      >
+                                        <View>
+                                          <Text
+                                            accessible={true}
+                                            style={StyleSheet.applyWidth(
+                                              {
+                                                fontFamily:
+                                                  'Quicksand_600SemiBold',
+                                                fontSize: 16,
+                                              },
+                                              dimensions.width
+                                            )}
+                                          >
+                                            {listData?.headline}
+                                            {' ('}
+                                            {listData?.source}
+                                            {')'}
+                                          </Text>
+                                        </View>
+                                        {/* View 2 */}
+                                        <View>
+                                          <Text
+                                            accessible={true}
+                                            style={StyleSheet.applyWidth(
+                                              {
+                                                color: palettes.App.Orange,
+                                                fontFamily:
+                                                  'Quicksand_400Regular',
+                                              },
+                                              dimensions.width
+                                            )}
+                                          >
                                             {
-                                              color: theme.colors.text.strong,
-                                              fontFamily:
-                                                'Quicksand_400Regular',
-                                            },
-                                            dimensions.width
-                                          )}
-                                        >
-                                          {listData?.description}
-                                        </Text>
+                                              listData?._gics_sub_industry
+                                                ?.GICS_Sector
+                                            }
+                                          </Text>
+                                        </View>
+                                        {/* View 3 */}
+                                        <View>
+                                          <Text
+                                            accessible={true}
+                                            style={StyleSheet.applyWidth(
+                                              {
+                                                color: theme.colors.text.strong,
+                                                fontFamily:
+                                                  'Quicksand_400Regular',
+                                              },
+                                              dimensions.width
+                                            )}
+                                          >
+                                            {listData?.description}
+                                          </Text>
+                                        </View>
                                       </View>
-                                    </View>
-                                  </Shadow>
+                                    </Shadow>
+                                  </Pressable>
                                 );
                               }}
                               horizontal={false}
@@ -1631,7 +1660,8 @@ const NewsletterDetailsScreen = props => {
                               keyExtractor={(listData, index) =>
                                 listData?.id ??
                                 listData?.uuid ??
-                                index.toString()
+                                index?.toString() ??
+                                JSON.stringify(listData)
                               }
                               keyboardShouldPersistTaps={'never'}
                               listKey={'y01Zzgwh'}
@@ -1641,100 +1671,113 @@ const NewsletterDetailsScreen = props => {
                               renderItem={({ item, index }) => {
                                 const listData = item;
                                 return (
-                                  <Shadow
-                                    showShadowCornerBottomEnd={true}
-                                    showShadowCornerBottomStart={true}
-                                    showShadowCornerTopEnd={true}
-                                    showShadowCornerTopStart={true}
-                                    showShadowSideBottom={true}
-                                    showShadowSideEnd={true}
-                                    showShadowSideStart={true}
-                                    showShadowSideTop={true}
-                                    distance={4}
-                                    offsetX={0}
-                                    offsetY={0}
-                                    paintInside={true}
-                                    stretch={true}
-                                    style={StyleSheet.applyWidth(
-                                      {
-                                        borderRadius: 12,
-                                        width: {
-                                          minWidth: Breakpoints.Laptop,
-                                          value: '100%',
-                                        },
-                                      },
-                                      dimensions.width
-                                    )}
+                                  <Pressable
+                                    onPress={() => {
+                                      try {
+                                        navigation.navigate(
+                                          'EventDetailsScreen',
+                                          { event_id: listData?.id }
+                                        );
+                                      } catch (err) {
+                                        console.error(err);
+                                      }
+                                    }}
                                   >
-                                    <View
+                                    <Shadow
+                                      showShadowCornerBottomEnd={true}
+                                      showShadowCornerBottomStart={true}
+                                      showShadowCornerTopEnd={true}
+                                      showShadowCornerTopStart={true}
+                                      showShadowSideBottom={true}
+                                      showShadowSideEnd={true}
+                                      showShadowSideStart={true}
+                                      showShadowSideTop={true}
+                                      distance={4}
+                                      offsetX={0}
+                                      offsetY={0}
+                                      paintInside={true}
+                                      stretch={true}
                                       style={StyleSheet.applyWidth(
                                         {
-                                          backgroundColor:
-                                            palettes.Brand['Strong Inverse'],
-                                          borderColor:
-                                            palettes.Brand['Light Inverse'],
-                                          borderRadius: 8,
-                                          borderWidth: 1,
-                                          padding: 10,
+                                          borderRadius: 12,
+                                          width: {
+                                            minWidth: Breakpoints.Laptop,
+                                            value: '100%',
+                                          },
                                         },
                                         dimensions.width
                                       )}
                                     >
-                                      <View>
-                                        <Text
-                                          accessible={true}
-                                          style={StyleSheet.applyWidth(
-                                            {
-                                              fontFamily:
-                                                'Quicksand_600SemiBold',
-                                              fontSize: 16,
-                                            },
-                                            dimensions.width
-                                          )}
-                                        >
-                                          {listData?.headline}
-                                          {' ('}
-                                          {listData?.source}
-                                          {')'}
-                                        </Text>
-                                      </View>
-                                      {/* View 2 */}
-                                      <View>
-                                        <Text
-                                          accessible={true}
-                                          style={StyleSheet.applyWidth(
-                                            {
-                                              color: palettes.App.Orange,
-                                              fontFamily:
-                                                'Quicksand_400Regular',
-                                            },
-                                            dimensions.width
-                                          )}
-                                        >
+                                      <View
+                                        style={StyleSheet.applyWidth(
                                           {
-                                            listData?._gics_sub_industry
-                                              ?.GICS_Sector
-                                          }
-                                        </Text>
-                                      </View>
-                                      {/* View 3 */}
-                                      <View>
-                                        <Text
-                                          accessible={true}
-                                          style={StyleSheet.applyWidth(
+                                            backgroundColor:
+                                              palettes.Brand['Strong Inverse'],
+                                            borderColor:
+                                              palettes.Brand['Light Inverse'],
+                                            borderRadius: 8,
+                                            borderWidth: 1,
+                                            padding: 10,
+                                          },
+                                          dimensions.width
+                                        )}
+                                      >
+                                        <View>
+                                          <Text
+                                            accessible={true}
+                                            style={StyleSheet.applyWidth(
+                                              {
+                                                fontFamily:
+                                                  'Quicksand_600SemiBold',
+                                                fontSize: 16,
+                                              },
+                                              dimensions.width
+                                            )}
+                                          >
+                                            {listData?.headline}
+                                            {' ('}
+                                            {listData?.source}
+                                            {')'}
+                                          </Text>
+                                        </View>
+                                        {/* View 2 */}
+                                        <View>
+                                          <Text
+                                            accessible={true}
+                                            style={StyleSheet.applyWidth(
+                                              {
+                                                color: palettes.App.Orange,
+                                                fontFamily:
+                                                  'Quicksand_400Regular',
+                                              },
+                                              dimensions.width
+                                            )}
+                                          >
                                             {
-                                              color: theme.colors.text.strong,
-                                              fontFamily:
-                                                'Quicksand_400Regular',
-                                            },
-                                            dimensions.width
-                                          )}
-                                        >
-                                          {listData?.description}
-                                        </Text>
+                                              listData?._gics_sub_industry
+                                                ?.GICS_Sector
+                                            }
+                                          </Text>
+                                        </View>
+                                        {/* View 3 */}
+                                        <View>
+                                          <Text
+                                            accessible={true}
+                                            style={StyleSheet.applyWidth(
+                                              {
+                                                color: theme.colors.text.strong,
+                                                fontFamily:
+                                                  'Quicksand_400Regular',
+                                              },
+                                              dimensions.width
+                                            )}
+                                          >
+                                            {listData?.description}
+                                          </Text>
+                                        </View>
                                       </View>
-                                    </View>
-                                  </Shadow>
+                                    </Shadow>
+                                  </Pressable>
                                 );
                               }}
                               horizontal={false}
@@ -1782,7 +1825,8 @@ const NewsletterDetailsScreen = props => {
                               keyExtractor={(listData, index) =>
                                 listData?.id ??
                                 listData?.uuid ??
-                                index.toString()
+                                index?.toString() ??
+                                JSON.stringify(listData)
                               }
                               keyboardShouldPersistTaps={'never'}
                               listKey={'MXVhR479'}
@@ -1792,109 +1836,124 @@ const NewsletterDetailsScreen = props => {
                               renderItem={({ item, index }) => {
                                 const listData = item;
                                 return (
-                                  <Shadow
-                                    showShadowCornerBottomEnd={true}
-                                    showShadowCornerBottomStart={true}
-                                    showShadowCornerTopEnd={true}
-                                    showShadowCornerTopStart={true}
-                                    showShadowSideBottom={true}
-                                    showShadowSideEnd={true}
-                                    showShadowSideStart={true}
-                                    showShadowSideTop={true}
-                                    distance={4}
-                                    offsetX={0}
-                                    offsetY={0}
-                                    paintInside={true}
-                                    stretch={true}
-                                    style={StyleSheet.applyWidth(
-                                      {
-                                        borderRadius: 12,
-                                        width: {
-                                          minWidth: Breakpoints.Laptop,
-                                          value: '100%',
-                                        },
-                                      },
-                                      dimensions.width
-                                    )}
+                                  <Pressable
+                                    onPress={() => {
+                                      try {
+                                        navigation.navigate(
+                                          'EventDetailsScreen',
+                                          { event_id: listData?.id }
+                                        );
+                                      } catch (err) {
+                                        console.error(err);
+                                      }
+                                    }}
                                   >
-                                    <View
+                                    <Shadow
+                                      showShadowCornerBottomEnd={true}
+                                      showShadowCornerBottomStart={true}
+                                      showShadowCornerTopEnd={true}
+                                      showShadowCornerTopStart={true}
+                                      showShadowSideBottom={true}
+                                      showShadowSideEnd={true}
+                                      showShadowSideStart={true}
+                                      showShadowSideTop={true}
+                                      distance={4}
+                                      offsetX={0}
+                                      offsetY={0}
+                                      paintInside={true}
+                                      stretch={true}
                                       style={StyleSheet.applyWidth(
                                         {
-                                          backgroundColor:
-                                            palettes.Brand['Strong Inverse'],
-                                          borderColor:
-                                            palettes.Brand['Light Inverse'],
-                                          borderRadius: 8,
-                                          borderWidth: 1,
-                                          padding: 10,
+                                          borderRadius: 12,
+                                          width: {
+                                            minWidth: Breakpoints.Laptop,
+                                            value: '100%',
+                                          },
                                         },
                                         dimensions.width
                                       )}
                                     >
-                                      <View>
-                                        <Text
-                                          accessible={true}
-                                          style={StyleSheet.applyWidth(
-                                            {
-                                              fontFamily:
-                                                'Quicksand_600SemiBold',
-                                              fontSize: 16,
-                                            },
-                                            dimensions.width
-                                          )}
-                                        >
-                                          {listData?.headline}
-                                          {' ('}
-                                          {listData?.source}
-                                          {')'}
-                                        </Text>
-                                      </View>
-                                      {/* View 2 */}
-                                      <View>
-                                        <Text
-                                          accessible={true}
-                                          style={StyleSheet.applyWidth(
-                                            {
-                                              color: [
-                                                {
-                                                  minWidth: Breakpoints.Desktop,
-                                                  value: palettes.App.Orange,
-                                                },
-                                                {
-                                                  minWidth: Breakpoints.Mobile,
-                                                  value: palettes.App.Orange,
-                                                },
-                                              ],
-                                              fontFamily:
-                                                'Quicksand_400Regular',
-                                            },
-                                            dimensions.width
-                                          )}
-                                        >
+                                      <View
+                                        style={StyleSheet.applyWidth(
                                           {
-                                            listData?._gics_sub_industry
-                                              ?.GICS_Sector
-                                          }
-                                        </Text>
-                                      </View>
-                                      {/* View 3 */}
-                                      <View>
-                                        <Text
-                                          accessible={true}
-                                          style={StyleSheet.applyWidth(
+                                            backgroundColor:
+                                              palettes.Brand['Strong Inverse'],
+                                            borderColor:
+                                              palettes.Brand['Light Inverse'],
+                                            borderRadius: 8,
+                                            borderWidth: 1,
+                                            padding: 10,
+                                          },
+                                          dimensions.width
+                                        )}
+                                      >
+                                        <View>
+                                          <Text
+                                            accessible={true}
+                                            style={StyleSheet.applyWidth(
+                                              {
+                                                fontFamily:
+                                                  'Quicksand_600SemiBold',
+                                                fontSize: 16,
+                                              },
+                                              dimensions.width
+                                            )}
+                                          >
+                                            {listData?.headline}
+                                            {' ('}
+                                            {listData?.source}
+                                            {')'}
+                                          </Text>
+                                        </View>
+                                        {/* View 2 */}
+                                        <View>
+                                          <Text
+                                            accessible={true}
+                                            style={StyleSheet.applyWidth(
+                                              {
+                                                color: [
+                                                  {
+                                                    minWidth:
+                                                      Breakpoints.Desktop,
+                                                    value: palettes.App.Orange,
+                                                  },
+                                                  {
+                                                    minWidth:
+                                                      Breakpoints.Mobile,
+                                                    value: palettes.App.Orange,
+                                                  },
+                                                ],
+                                                fontFamily:
+                                                  'Quicksand_400Regular',
+                                              },
+                                              dimensions.width
+                                            )}
+                                          >
                                             {
-                                              color: theme.colors.text.strong,
-                                              fontFamily:
-                                                'Quicksand_400Regular',
-                                            },
-                                            dimensions.width
-                                          )}
-                                        >
-                                          {listData?.description}
-                                        </Text>
+                                              listData?._gics_sub_industry
+                                                ?.GICS_Sector
+                                            }
+                                          </Text>
+                                        </View>
+                                        {/* View 3 */}
+                                        <View>
+                                          <Text
+                                            accessible={true}
+                                            style={StyleSheet.applyWidth(
+                                              {
+                                                color: theme.colors.text.strong,
+                                                fontFamily:
+                                                  'Quicksand_400Regular',
+                                              },
+                                              dimensions.width
+                                            )}
+                                          >
+                                            {listData?.description}
+                                          </Text>
+                                        </View>
                                       </View>
-                                    </View>
-                                  </Shadow>
+                                    </Shadow>
+                                  </Pressable>
                                 );
                               }}
                               horizontal={false}
@@ -1949,7 +2008,8 @@ const NewsletterDetailsScreen = props => {
                               keyExtractor={(listData, index) =>
                                 listData?.id ??
                                 listData?.uuid ??
-                                index.toString()
+                                index?.toString() ??
+                                JSON.stringify(listData)
                               }
                               keyboardShouldPersistTaps={'never'}
                               listKey={'cEbiegfV'}
@@ -1959,102 +2019,115 @@ const NewsletterDetailsScreen = props => {
                               renderItem={({ item, index }) => {
                                 const listData = item;
                                 return (
-                                  <Shadow
-                                    showShadowCornerBottomEnd={true}
-                                    showShadowCornerBottomStart={true}
-                                    showShadowCornerTopEnd={true}
-                                    showShadowCornerTopStart={true}
-                                    showShadowSideBottom={true}
-                                    showShadowSideEnd={true}
-                                    showShadowSideStart={true}
-                                    showShadowSideTop={true}
-                                    distance={4}
-                                    offsetX={0}
-                                    offsetY={0}
-                                    paintInside={true}
-                                    stretch={true}
-                                    style={StyleSheet.applyWidth(
-                                      {
-                                        borderRadius: 12,
-                                        width: {
-                                          minWidth: Breakpoints.Laptop,
-                                          value: '100%',
-                                        },
-                                      },
-                                      dimensions.width
-                                    )}
+                                  <Pressable
+                                    onPress={() => {
+                                      try {
+                                        navigation.navigate(
+                                          'EventDetailsScreen',
+                                          { event_id: listData?.id }
+                                        );
+                                      } catch (err) {
+                                        console.error(err);
+                                      }
+                                    }}
                                   >
-                                    <View
+                                    <Shadow
+                                      showShadowCornerBottomEnd={true}
+                                      showShadowCornerBottomStart={true}
+                                      showShadowCornerTopEnd={true}
+                                      showShadowCornerTopStart={true}
+                                      showShadowSideBottom={true}
+                                      showShadowSideEnd={true}
+                                      showShadowSideStart={true}
+                                      showShadowSideTop={true}
+                                      distance={4}
+                                      offsetX={0}
+                                      offsetY={0}
+                                      paintInside={true}
+                                      stretch={true}
                                       style={StyleSheet.applyWidth(
                                         {
-                                          backgroundColor:
-                                            palettes.Brand['Strong Inverse'],
-                                          borderColor:
-                                            palettes.Brand['Light Inverse'],
-                                          borderRadius: 8,
-                                          borderWidth: 1,
-                                          padding: 10,
+                                          borderRadius: 12,
+                                          width: {
+                                            minWidth: Breakpoints.Laptop,
+                                            value: '100%',
+                                          },
                                         },
                                         dimensions.width
                                       )}
                                     >
-                                      <View>
-                                        <Text
-                                          accessible={true}
-                                          style={StyleSheet.applyWidth(
-                                            {
-                                              fontFamily:
-                                                'Quicksand_600SemiBold',
-                                              fontSize: 16,
-                                            },
-                                            dimensions.width
-                                          )}
-                                        >
-                                          {listData?.headline}
-                                          {' ('}
-                                          {listData?.source}
-                                          {')'}
-                                        </Text>
-                                      </View>
-                                      {/* View 2 */}
-                                      <View>
-                                        <Text
-                                          accessible={true}
-                                          style={StyleSheet.applyWidth(
-                                            {
-                                              color: palettes.App.Orange,
-                                              fontFamily:
-                                                'Quicksand_400Regular',
-                                            },
-                                            dimensions.width
-                                          )}
-                                        >
-                                          {listData?.country}
-                                          {' - '}
+                                      <View
+                                        style={StyleSheet.applyWidth(
                                           {
-                                            listData?._gics_sub_industry
-                                              ?.GICS_Sector
-                                          }
-                                        </Text>
-                                      </View>
-                                      {/* View 3 */}
-                                      <View>
-                                        <Text
-                                          accessible={true}
-                                          style={StyleSheet.applyWidth(
+                                            backgroundColor:
+                                              palettes.Brand['Strong Inverse'],
+                                            borderColor:
+                                              palettes.Brand['Light Inverse'],
+                                            borderRadius: 8,
+                                            borderWidth: 1,
+                                            padding: 10,
+                                          },
+                                          dimensions.width
+                                        )}
+                                      >
+                                        <View>
+                                          <Text
+                                            accessible={true}
+                                            style={StyleSheet.applyWidth(
+                                              {
+                                                fontFamily:
+                                                  'Quicksand_600SemiBold',
+                                                fontSize: 16,
+                                              },
+                                              dimensions.width
+                                            )}
+                                          >
+                                            {listData?.headline}
+                                            {' ('}
+                                            {listData?.source}
+                                            {')'}
+                                          </Text>
+                                        </View>
+                                        {/* View 2 */}
+                                        <View>
+                                          <Text
+                                            accessible={true}
+                                            style={StyleSheet.applyWidth(
+                                              {
+                                                color: palettes.App.Orange,
+                                                fontFamily:
+                                                  'Quicksand_400Regular',
+                                              },
+                                              dimensions.width
+                                            )}
+                                          >
+                                            {listData?.country}
+                                            {' - '}
                                             {
-                                              color: theme.colors.text.strong,
-                                              fontFamily:
-                                                'Quicksand_400Regular',
-                                            },
-                                            dimensions.width
-                                          )}
-                                        >
-                                          {listData?.description}
-                                        </Text>
+                                              listData?._gics_sub_industry
+                                                ?.GICS_Sector
+                                            }
+                                          </Text>
+                                        </View>
+                                        {/* View 3 */}
+                                        <View>
+                                          <Text
+                                            accessible={true}
+                                            style={StyleSheet.applyWidth(
+                                              {
+                                                color: theme.colors.text.strong,
+                                                fontFamily:
+                                                  'Quicksand_400Regular',
+                                              },
+                                              dimensions.width
+                                            )}
+                                          >
+                                            {listData?.description}
+                                          </Text>
+                                        </View>
                                       </View>
-                                    </View>
-                                  </Shadow>
+                                    </Shadow>
+                                  </Pressable>
                                 );
                               }}
                               horizontal={false}
@@ -2112,7 +2185,8 @@ const NewsletterDetailsScreen = props => {
                               keyExtractor={(listData, index) =>
                                 listData?.id ??
                                 listData?.uuid ??
-                                index.toString()
+                                index?.toString() ??
+                                JSON.stringify(listData)
                               }
                               keyboardShouldPersistTaps={'never'}
                               listKey={'VSaJ4R1g'}
@@ -2122,102 +2196,115 @@ const NewsletterDetailsScreen = props => {
                               renderItem={({ item, index }) => {
                                 const listData = item;
                                 return (
-                                  <Shadow
-                                    showShadowCornerBottomEnd={true}
-                                    showShadowCornerBottomStart={true}
-                                    showShadowCornerTopEnd={true}
-                                    showShadowCornerTopStart={true}
-                                    showShadowSideBottom={true}
-                                    showShadowSideEnd={true}
-                                    showShadowSideStart={true}
-                                    showShadowSideTop={true}
-                                    distance={4}
-                                    offsetX={0}
-                                    offsetY={0}
-                                    paintInside={true}
-                                    stretch={true}
-                                    style={StyleSheet.applyWidth(
-                                      {
-                                        borderRadius: 12,
-                                        width: {
-                                          minWidth: Breakpoints.Laptop,
-                                          value: '100%',
-                                        },
-                                      },
-                                      dimensions.width
-                                    )}
+                                  <Pressable
+                                    onPress={() => {
+                                      try {
+                                        navigation.navigate(
+                                          'EventDetailsScreen',
+                                          { event_id: listData?.id }
+                                        );
+                                      } catch (err) {
+                                        console.error(err);
+                                      }
+                                    }}
                                   >
-                                    <View
+                                    <Shadow
+                                      showShadowCornerBottomEnd={true}
+                                      showShadowCornerBottomStart={true}
+                                      showShadowCornerTopEnd={true}
+                                      showShadowCornerTopStart={true}
+                                      showShadowSideBottom={true}
+                                      showShadowSideEnd={true}
+                                      showShadowSideStart={true}
+                                      showShadowSideTop={true}
+                                      distance={4}
+                                      offsetX={0}
+                                      offsetY={0}
+                                      paintInside={true}
+                                      stretch={true}
                                       style={StyleSheet.applyWidth(
                                         {
-                                          backgroundColor:
-                                            palettes.Brand['Strong Inverse'],
-                                          borderColor:
-                                            palettes.Brand['Light Inverse'],
-                                          borderRadius: 8,
-                                          borderWidth: 1,
-                                          padding: 10,
+                                          borderRadius: 12,
+                                          width: {
+                                            minWidth: Breakpoints.Laptop,
+                                            value: '100%',
+                                          },
                                         },
                                         dimensions.width
                                       )}
                                     >
-                                      <View>
-                                        <Text
-                                          accessible={true}
-                                          style={StyleSheet.applyWidth(
-                                            {
-                                              fontFamily:
-                                                'Quicksand_600SemiBold',
-                                              fontSize: 16,
-                                            },
-                                            dimensions.width
-                                          )}
-                                        >
-                                          {listData?.headline}
-                                          {' ('}
-                                          {listData?.source}
-                                          {')'}
-                                        </Text>
-                                      </View>
-                                      {/* View 2 */}
-                                      <View>
-                                        <Text
-                                          accessible={true}
-                                          style={StyleSheet.applyWidth(
-                                            {
-                                              color: palettes.App.Orange,
-                                              fontFamily:
-                                                'Quicksand_400Regular',
-                                            },
-                                            dimensions.width
-                                          )}
-                                        >
-                                          {listData?.country}
-                                          {' - '}
+                                      <View
+                                        style={StyleSheet.applyWidth(
                                           {
-                                            listData?._gics_sub_industry
-                                              ?.GICS_Sector
-                                          }
-                                        </Text>
-                                      </View>
-                                      {/* View 3 */}
-                                      <View>
-                                        <Text
-                                          accessible={true}
-                                          style={StyleSheet.applyWidth(
+                                            backgroundColor:
+                                              palettes.Brand['Strong Inverse'],
+                                            borderColor:
+                                              palettes.Brand['Light Inverse'],
+                                            borderRadius: 8,
+                                            borderWidth: 1,
+                                            padding: 10,
+                                          },
+                                          dimensions.width
+                                        )}
+                                      >
+                                        <View>
+                                          <Text
+                                            accessible={true}
+                                            style={StyleSheet.applyWidth(
+                                              {
+                                                fontFamily:
+                                                  'Quicksand_600SemiBold',
+                                                fontSize: 16,
+                                              },
+                                              dimensions.width
+                                            )}
+                                          >
+                                            {listData?.headline}
+                                            {' ('}
+                                            {listData?.source}
+                                            {')'}
+                                          </Text>
+                                        </View>
+                                        {/* View 2 */}
+                                        <View>
+                                          <Text
+                                            accessible={true}
+                                            style={StyleSheet.applyWidth(
+                                              {
+                                                color: palettes.App.Orange,
+                                                fontFamily:
+                                                  'Quicksand_400Regular',
+                                              },
+                                              dimensions.width
+                                            )}
+                                          >
+                                            {listData?.country}
+                                            {' - '}
                                             {
-                                              color: theme.colors.text.strong,
-                                              fontFamily:
-                                                'Quicksand_400Regular',
-                                            },
-                                            dimensions.width
-                                          )}
-                                        >
-                                          {listData?.description}
-                                        </Text>
+                                              listData?._gics_sub_industry
+                                                ?.GICS_Sector
+                                            }
+                                          </Text>
+                                        </View>
+                                        {/* View 3 */}
+                                        <View>
+                                          <Text
+                                            accessible={true}
+                                            style={StyleSheet.applyWidth(
+                                              {
+                                                color: theme.colors.text.strong,
+                                                fontFamily:
+                                                  'Quicksand_400Regular',
+                                              },
+                                              dimensions.width
+                                            )}
+                                          >
+                                            {listData?.description}
+                                          </Text>
+                                        </View>
                                       </View>
-                                    </View>
-                                  </Shadow>
+                                    </Shadow>
+                                  </Pressable>
                                 );
                               }}
                               horizontal={false}
@@ -2275,103 +2362,116 @@ const NewsletterDetailsScreen = props => {
                               renderItem={({ item, index }) => {
                                 const listData = item;
                                 return (
-                                  <Shadow
-                                    showShadowCornerBottomEnd={true}
-                                    showShadowCornerBottomStart={true}
-                                    showShadowCornerTopEnd={true}
-                                    showShadowCornerTopStart={true}
-                                    showShadowSideBottom={true}
-                                    showShadowSideEnd={true}
-                                    showShadowSideStart={true}
-                                    showShadowSideTop={true}
-                                    distance={4}
-                                    offsetX={0}
-                                    offsetY={0}
-                                    paintInside={true}
-                                    stretch={true}
-                                    style={StyleSheet.applyWidth(
-                                      {
-                                        borderRadius: 12,
-                                        width: {
-                                          minWidth: Breakpoints.Laptop,
-                                          value: '100%',
-                                        },
-                                      },
-                                      dimensions.width
-                                    )}
+                                  <Pressable
+                                    onPress={() => {
+                                      try {
+                                        navigation.navigate(
+                                          'EventDetailsScreen',
+                                          { event_id: listData?.id }
+                                        );
+                                      } catch (err) {
+                                        console.error(err);
+                                      }
+                                    }}
                                   >
-                                    <View
+                                    <Shadow
+                                      showShadowCornerBottomEnd={true}
+                                      showShadowCornerBottomStart={true}
+                                      showShadowCornerTopEnd={true}
+                                      showShadowCornerTopStart={true}
+                                      showShadowSideBottom={true}
+                                      showShadowSideEnd={true}
+                                      showShadowSideStart={true}
+                                      showShadowSideTop={true}
+                                      distance={4}
+                                      offsetX={0}
+                                      offsetY={0}
+                                      paintInside={true}
+                                      stretch={true}
                                       style={StyleSheet.applyWidth(
                                         {
-                                          backgroundColor:
-                                            palettes.Brand['Strong Inverse'],
-                                          borderColor:
-                                            palettes.Brand['Light Inverse'],
-                                          borderRadius: 8,
-                                          borderWidth: 1,
-                                          padding: 10,
+                                          borderRadius: 12,
+                                          width: {
+                                            minWidth: Breakpoints.Laptop,
+                                            value: '100%',
+                                          },
                                         },
                                         dimensions.width
                                       )}
                                     >
-                                      <View>
-                                        <Text
-                                          accessible={true}
-                                          style={StyleSheet.applyWidth(
-                                            {
-                                              fontFamily:
-                                                'Quicksand_600SemiBold',
-                                              fontSize: 16,
-                                            },
-                                            dimensions.width
-                                          )}
-                                        >
-                                          {listData?.headline}
-                                          {' ('}
-                                          {listData?.source}
-                                          {')'}
-                                        </Text>
-                                      </View>
-                                      {/* View 2 */}
-                                      <View>
-                                        <Text
-                                          accessible={true}
-                                          style={StyleSheet.applyWidth(
-                                            {
-                                              color: palettes.App.Orange,
-                                              fontFamily:
-                                                'Quicksand_400Regular',
-                                            },
-                                            dimensions.width
-                                          )}
-                                        >
-                                          {listData?.country}
-                                          {' - '}
+                                      <View
+                                        style={StyleSheet.applyWidth(
                                           {
-                                            listData?._gics_sub_industry
-                                              ?.GICS_Sector
-                                          }
-                                        </Text>
-                                      </View>
-                                      {/* View 3 */}
-                                      <View>
-                                        <Text
-                                          accessible={true}
-                                          style={StyleSheet.applyWidth(
+                                            backgroundColor:
+                                              palettes.Brand['Strong Inverse'],
+                                            borderColor:
+                                              palettes.Brand['Light Inverse'],
+                                            borderRadius: 8,
+                                            borderWidth: 1,
+                                            padding: 10,
+                                          },
+                                          dimensions.width
+                                        )}
+                                      >
+                                        <View>
+                                          <Text
+                                            accessible={true}
+                                            style={StyleSheet.applyWidth(
+                                              {
+                                                fontFamily:
+                                                  'Quicksand_600SemiBold',
+                                                fontSize: 16,
+                                              },
+                                              dimensions.width
+                                            )}
+                                          >
+                                            {listData?.headline}
+                                            {' ('}
+                                            {listData?.source}
+                                            {')'}
+                                          </Text>
+                                        </View>
+                                        {/* View 2 */}
+                                        <View>
+                                          <Text
+                                            accessible={true}
+                                            style={StyleSheet.applyWidth(
+                                              {
+                                                color: palettes.App.Orange,
+                                                fontFamily:
+                                                  'Quicksand_400Regular',
+                                              },
+                                              dimensions.width
+                                            )}
+                                          >
+                                            {listData?.country}
+                                            {' - '}
                                             {
-                                              color: theme.colors.text.strong,
-                                              fontFamily:
-                                                'Quicksand_400Regular',
-                                              textAlign: 'left',
-                                            },
-                                            dimensions.width
-                                          )}
-                                        >
-                                          {listData?.description}
-                                        </Text>
+                                              listData?._gics_sub_industry
+                                                ?.GICS_Sector
+                                            }
+                                          </Text>
+                                        </View>
+                                        {/* View 3 */}
+                                        <View>
+                                          <Text
+                                            accessible={true}
+                                            style={StyleSheet.applyWidth(
+                                              {
+                                                color: theme.colors.text.strong,
+                                                fontFamily:
+                                                  'Quicksand_400Regular',
+                                                textAlign: 'left',
+                                              },
+                                              dimensions.width
+                                            )}
+                                          >
+                                            {listData?.description}
+                                          </Text>
+                                        </View>
                                       </View>
-                                    </View>
-                                  </Shadow>
+                                    </Shadow>
+                                  </Pressable>
                                 );
                               }}
                               horizontal={false}

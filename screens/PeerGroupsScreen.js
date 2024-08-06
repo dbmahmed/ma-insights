@@ -466,6 +466,7 @@ const PeerGroupsScreen = props => {
                       <View
                         style={StyleSheet.applyWidth(
                           {
+                            height: 100,
                             maxWidth: [
                               { minWidth: Breakpoints.Laptop, value: '33.33%' },
                               { minWidth: Breakpoints.Tablet, value: '50%' },
@@ -510,7 +511,9 @@ const PeerGroupsScreen = props => {
                         <Pressable
                           onPress={() => {
                             try {
-                              navigation.push('PeerGroupDetailsScreen');
+                              navigation.push('PeerGroupDetailsScreen', {
+                                peer_group_id: listData?.id,
+                              });
                             } catch (err) {
                               console.error(err);
                             }
@@ -549,7 +552,15 @@ const PeerGroupsScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              <View>
+                              <View
+                                style={StyleSheet.applyWidth(
+                                  {
+                                    flexDirection: 'row',
+                                    justifyContent: 'space-between',
+                                  },
+                                  dimensions.width
+                                )}
+                              >
                                 <Text
                                   accessible={true}
                                   {...GlobalStyles.TextStyles(theme)[
@@ -661,7 +672,7 @@ const PeerGroupsScreen = props => {
                           value: dimensions.height,
                         },
                       ],
-                      maxHeight: dimensions.height - 240,
+                      maxHeight: dimensions.height - 270,
                       maxWidth: 1200,
                       width: '100%',
                     },
