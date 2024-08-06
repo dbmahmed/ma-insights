@@ -543,11 +543,7 @@ export default function RootAppNavigator() {
             title: 'Advisor Details',
           })}
         />
-        <>
-          {dimensions.width >= Breakpoints.Laptop ? null : (
-            <Stack.Screen name="MAInsights" component={MAInsights} />
-          )}
-        </>
+        <Stack.Screen name="MAInsights" component={MAInsights} />
       </Stack.Navigator>
     </NavigationContainer>
   );

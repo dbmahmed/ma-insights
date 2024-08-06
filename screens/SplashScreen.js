@@ -39,11 +39,17 @@ const SplashScreen = props => {
         const get_me = (await XanoCollectionApi.authMeGET(Constants))?.json;
         console.log('Complete ON_SCREEN_FOCUS:1 FETCH_REQUEST', { get_me });
         console.log('Start ON_SCREEN_FOCUS:2 SET_VARIABLE');
-        setGlobalVariableValue({
-          key: 'ME',
-          value: get_me,
-        });
-        console.log('Complete ON_SCREEN_FOCUS:2 SET_VARIABLE');
+        if (get_me) {
+          setGlobalVariableValue({
+            key: 'ME',
+            value: get_me,
+          });
+          console.log('Complete ON_SCREEN_FOCUS:2 SET_VARIABLE');
+        } else {
+          console.log(
+            'Skipped ON_SCREEN_FOCUS:2 SET_VARIABLE: condition not met'
+          );
+        }
         console.log('Start ON_SCREEN_FOCUS:3 CONDITIONAL_STOP');
         /* hidden 'Conditional Stop' action */ console.log(
           'Complete ON_SCREEN_FOCUS:3 CONDITIONAL_STOP'
@@ -52,13 +58,10 @@ const SplashScreen = props => {
         console.log(get_me?.email, 'GET ME: ');
         console.log('Complete ON_SCREEN_FOCUS:4 CONSOLE_LOG');
         console.log('Start ON_SCREEN_FOCUS:5 IF');
-        if (get_me?.email) {
-          navigation.navigate('MAInsights', { screen: 'NewslettersScreen' });
+        if (!get_me?.email) {
+          navigation.navigate('LogInScreen', { message: get_me?.message });
         } else {
-          if (navigation.canGoBack()) {
-            navigation.popToTop();
-          }
-          navigation.replace('LogInScreen', { message: get_me?.message });
+          navigation.navigate('MAInsights', { screen: 'NewslettersScreen' });
         }
         console.log('Complete ON_SCREEN_FOCUS:5 IF');
       } catch (err) {

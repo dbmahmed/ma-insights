@@ -92,7 +92,10 @@ const NewslettersDraftbitSupportScreen = props => {
                 estimatedItemSize={50}
                 inverted={false}
                 keyExtractor={(flashListData, index) =>
-                  flashListData?.id ?? flashListData?.uuid ?? index.toString()
+                  flashListData?.id ??
+                  flashListData?.uuid ??
+                  index?.toString() ??
+                  JSON.stringify(flashListData)
                 }
                 listKey={'HEXECyrh'}
                 onEndReachedThreshold={0.5}

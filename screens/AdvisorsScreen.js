@@ -872,12 +872,12 @@ const AdvisorsScreen = props => {
                     gap: 8,
                     maxHeight: [
                       {
-                        minWidth: Breakpoints.Laptop,
-                        value: dimensions.height - 220,
-                      },
-                      {
                         minWidth: Breakpoints.Mobile,
                         value: dimensions.height - 290,
+                      },
+                      {
+                        minWidth: Breakpoints.Laptop,
+                        value: dimensions.height - 220,
                       },
                     ],
                     maxWidth: 1200,
