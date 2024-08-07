@@ -75,8 +75,8 @@ const EventDetailsScreen = props => {
               horizontal={false}
               keyboardShouldPersistTaps={'never'}
               nestedScrollEnabled={false}
-              showsHorizontalScrollIndicator={true}
-              showsVerticalScrollIndicator={true}
+              showsHorizontalScrollIndicator={false}
+              showsVerticalScrollIndicator={false}
               style={StyleSheet.applyWidth(
                 {
                   alignItems: 'center',

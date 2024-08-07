@@ -764,7 +764,7 @@ const PEPFScreen = props => {
                       ? 3
                       : 2
                   }
-                  showsHorizontalScrollIndicator={true}
+                  showsHorizontalScrollIndicator={false}
                   showsVerticalScrollIndicator={false}
                   style={StyleSheet.applyWidth(
                     {

@@ -101,8 +101,8 @@ const TermsAndConditionsScreen = props => {
             horizontal={false}
             keyboardShouldPersistTaps={'never'}
             nestedScrollEnabled={false}
-            showsHorizontalScrollIndicator={true}
-            showsVerticalScrollIndicator={true}
+            showsHorizontalScrollIndicator={false}
+            showsVerticalScrollIndicator={false}
           >
             {/* View 2 */}
             <View>

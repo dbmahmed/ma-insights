@@ -73,8 +73,8 @@ const PEPFDetailsScreen = props => {
               horizontal={false}
               keyboardShouldPersistTaps={'never'}
               nestedScrollEnabled={false}
-              showsHorizontalScrollIndicator={true}
-              showsVerticalScrollIndicator={true}
+              showsHorizontalScrollIndicator={false}
+              showsVerticalScrollIndicator={false}
               style={StyleSheet.applyWidth(
                 {
                   alignItems: [
@@ -785,9 +785,9 @@ const PEPFDetailsScreen = props => {
                       </>
                     );
                   }}
-                  showsHorizontalScrollIndicator={true}
-                  showsVerticalScrollIndicator={true}
                   onEndReachedThreshold={0.8}
+                  showsHorizontalScrollIndicator={false}
+                  showsVerticalScrollIndicator={false}
                 />
               </View>
             </SimpleStyleScrollView>

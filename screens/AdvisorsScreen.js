@@ -858,7 +858,6 @@ const AdvisorsScreen = props => {
                     </View>
                   );
                 }}
-                showsVerticalScrollIndicator={true}
                 numColumns={
                   dimensions.width >= Breakpoints.Laptop
                     ? 3
@@ -866,18 +865,19 @@ const AdvisorsScreen = props => {
                     ? 2
                     : 1
                 }
-                showsHorizontalScrollIndicator={true}
+                showsHorizontalScrollIndicator={false}
+                showsVerticalScrollIndicator={false}
                 style={StyleSheet.applyWidth(
                   {
                     gap: 8,
                     maxHeight: [
                       {
-                        minWidth: Breakpoints.Mobile,
-                        value: dimensions.height - 290,
-                      },
-                      {
                         minWidth: Breakpoints.Laptop,
                         value: dimensions.height - 220,
+                      },
+                      {
+                        minWidth: Breakpoints.Mobile,
+                        value: dimensions.height - 290,
                       },
                     ],
                     maxWidth: 1200,

@@ -199,8 +199,8 @@ const NewslettersScreen = props => {
               horizontal={false}
               keyboardShouldPersistTaps={'never'}
               nestedScrollEnabled={false}
-              showsHorizontalScrollIndicator={true}
-              showsVerticalScrollIndicator={true}
+              showsHorizontalScrollIndicator={false}
+              showsVerticalScrollIndicator={false}
               style={StyleSheet.applyWidth(
                 {
                   alignItems: { minWidth: Breakpoints.Tablet, value: 'center' },
@@ -366,8 +366,6 @@ const NewslettersScreen = props => {
                       </LinearGradient>
                     );
                   }}
-                  showsHorizontalScrollIndicator={true}
-                  showsVerticalScrollIndicator={true}
                   numColumns={
                     dimensions.width >= Breakpoints.Laptop
                       ? 5
@@ -375,6 +373,8 @@ const NewslettersScreen = props => {
                       ? 3
                       : 2
                   }
+                  showsHorizontalScrollIndicator={false}
+                  showsVerticalScrollIndicator={false}
                 />
               </View>
             </SimpleStyleScrollView>

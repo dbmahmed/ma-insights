@@ -735,9 +735,9 @@ const CFSScreen = props => {
                       </View>
                     );
                   }}
-                  showsHorizontalScrollIndicator={true}
-                  showsVerticalScrollIndicator={true}
                   numColumns={dimensions.width >= Breakpoints.Laptop ? 3 : 2}
+                  showsHorizontalScrollIndicator={false}
+                  showsVerticalScrollIndicator={false}
                   style={StyleSheet.applyWidth(
                     {
                       height: dimensions.height,

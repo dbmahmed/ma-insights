@@ -830,8 +830,8 @@ const StockSearchScreen = props => {
                       ? 2
                       : 1
                   }
-                  showsHorizontalScrollIndicator={true}
-                  showsVerticalScrollIndicator={true}
+                  showsHorizontalScrollIndicator={false}
+                  showsVerticalScrollIndicator={false}
                   style={StyleSheet.applyWidth(
                     {
                       gap: 0,

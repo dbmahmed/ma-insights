@@ -498,8 +498,8 @@ const AdvisorDetailsScreen = props => {
                       : 1
                   }
                   onEndReachedThreshold={0.2}
-                  showsHorizontalScrollIndicator={true}
-                  showsVerticalScrollIndicator={true}
+                  showsHorizontalScrollIndicator={false}
+                  showsVerticalScrollIndicator={false}
                   style={StyleSheet.applyWidth(
                     {
                       height: '100%',

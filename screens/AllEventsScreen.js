@@ -718,8 +718,8 @@ const AllEventsScreen = props => {
                   }}
                   numColumns={dimensions.width >= Breakpoints.Laptop ? 1 : 1}
                   onEndReachedThreshold={0.2}
-                  showsHorizontalScrollIndicator={true}
-                  showsVerticalScrollIndicator={true}
+                  showsHorizontalScrollIndicator={false}
+                  showsVerticalScrollIndicator={false}
                   style={StyleSheet.applyWidth(
                     {
                       maxHeight: dimensions.height - 250,

@@ -76,8 +76,8 @@ const CFSDetailsScreen = props => {
               horizontal={false}
               keyboardShouldPersistTaps={'never'}
               nestedScrollEnabled={false}
-              showsHorizontalScrollIndicator={true}
-              showsVerticalScrollIndicator={true}
+              showsHorizontalScrollIndicator={false}
+              showsVerticalScrollIndicator={false}
               style={StyleSheet.applyWidth(
                 {
                   alignItems: 'center',
@@ -825,8 +825,8 @@ const CFSDetailsScreen = props => {
                     );
                   }}
                   onEndReachedThreshold={0.2}
-                  showsHorizontalScrollIndicator={true}
-                  showsVerticalScrollIndicator={true}
+                  showsHorizontalScrollIndicator={false}
+                  showsVerticalScrollIndicator={false}
                   style={StyleSheet.applyWidth(
                     {
                       gap: { minWidth: Breakpoints.Laptop, value: 5 },
