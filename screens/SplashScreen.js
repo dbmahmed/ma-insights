@@ -151,7 +151,10 @@ const SplashScreen = props => {
         <HStack
           {...GlobalStyles.HStackStyles(theme)['H Stack'].props}
           style={StyleSheet.applyWidth(
-            GlobalStyles.HStackStyles(theme)['H Stack'].style,
+            StyleSheet.compose(
+              GlobalStyles.HStackStyles(theme)['H Stack'].style,
+              { marginTop: 5 }
+            ),
             dimensions.width
           )}
         >
