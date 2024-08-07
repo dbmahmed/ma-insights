@@ -1370,6 +1370,68 @@ export const FetchGetOneStockGET = ({
   return children({ loading, data, error, refetchGetOneStock: refetch });
 };
 
+export const getPeersListGET = async (Constants, _args, handlers = {}) => {
+  const url = `https://xne3-pdiu-8ysm.f2.xano.io/api:abjrBkC8/peer_group_user`;
+  const options = {
+    headers: cleanHeaders({
+      Accept: 'application/json',
+      Authorization: Constants['AUTH_HEADER'],
+      'Content-Type': 'application/json',
+    }),
+  };
+  const res = await fetch(url, options);
+  return handleResponse(res, handlers);
+};
+
+export const useGetPeersListGET = (
+  args = {},
+  { refetchInterval, handlers = {} } = {}
+) => {
+  const Constants = GlobalVariables.useValues();
+  return useQuery(
+    ['Peer Groups', args],
+    () => getPeersListGET(Constants, args, handlers),
+    {
+      refetchInterval,
+    }
+  );
+};
+
+export const FetchGetPeersListGET = ({
+  children,
+  onData = () => {},
+  handlers = {},
+  refetchInterval,
+}) => {
+  const Constants = GlobalVariables.useValues();
+  const isFocused = useIsFocused();
+  const prevIsFocused = usePrevious(isFocused);
+
+  const {
+    isLoading: loading,
+    data,
+    error,
+    refetch,
+  } = useGetPeersListGET(
+    {},
+    { refetchInterval, handlers: { onData, ...handlers } }
+  );
+
+  React.useEffect(() => {
+    if (!prevIsFocused && isFocused) {
+      refetch();
+    }
+  }, [isFocused, prevIsFocused]);
+
+  React.useEffect(() => {
+    if (error) {
+      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error(error);
+    }
+  }, [error]);
+  return children({ loading, data, error, refetchGetPeersList: refetch });
+};
+
 export const loginPOST = async (
   Constants,
   { email, password },
