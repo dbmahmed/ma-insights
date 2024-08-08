@@ -509,6 +509,8 @@ const CFSDetailsScreen = props => {
                       )}
                     >
                       {fetchData?._gics?.GICS_Industry}
+                      {' - '}
+                      {fetchData?._gics?.GICS_Sub_Industry}
                     </Text>
                   </View>
                   {/* View 8 */}
@@ -630,7 +632,11 @@ const CFSDetailsScreen = props => {
               {/* View 3 */}
               <View
                 style={StyleSheet.applyWidth(
-                  { alignContent: 'center', alignItems: 'center' },
+                  {
+                    alignContent: 'center',
+                    alignItems: 'center',
+                    width: '100%',
+                  },
                   dimensions.width
                 )}
               >

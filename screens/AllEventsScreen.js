@@ -636,7 +636,7 @@ const AllEventsScreen = props => {
                                     fontSize: [
                                       {
                                         minWidth: Breakpoints.Mobile,
-                                        value: 12,
+                                        value: 14,
                                       },
                                       {
                                         minWidth: Breakpoints.Laptop,
@@ -665,7 +665,7 @@ const AllEventsScreen = props => {
                                     fontSize: [
                                       {
                                         minWidth: Breakpoints.Mobile,
-                                        value: 10,
+                                        value: 12,
                                       },
                                       {
                                         minWidth: Breakpoints.Laptop,
@@ -696,7 +696,7 @@ const AllEventsScreen = props => {
                                     fontSize: [
                                       {
                                         minWidth: Breakpoints.Mobile,
-                                        value: 10,
+                                        value: 12,
                                       },
                                       {
                                         minWidth: Breakpoints.Laptop,
