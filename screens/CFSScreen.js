@@ -194,6 +194,27 @@ const CFSScreen = props => {
       health_care
     );
   };
+
+  const showOwners = owners => {
+    if (!Array.isArray(owners)) {
+      return '';
+    }
+
+    return owners
+      .map(({ name, type }) => {
+        let fullName = '';
+        if (name) {
+          fullName = name;
+        }
+        if (type) {
+          fullName += ` (${type})`;
+        }
+
+        return fullName.trim();
+      })
+      .filter(Boolean)
+      .join(', ');
+  };
   const isFocused = useIsFocused();
   React.useEffect(() => {
     try {
@@ -686,7 +707,7 @@ const CFSScreen = props => {
                                   )}
                                 >
                                   {'Owner: '}
-                                  {listData?._owners}
+                                  {showOwners(listData?.owners)}
                                 </Text>
                                 {/* Text 4 */}
                                 <Text
