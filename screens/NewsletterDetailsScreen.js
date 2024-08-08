@@ -71,10 +71,6 @@ const NewsletterDetailsScreen = props => {
       hasLeftSafeArea={true}
       hasRightSafeArea={true}
       scrollable={false}
-      style={StyleSheet.applyWidth(
-        { maxHeight: dimensions.height },
-        dimensions.width
-      )}
     >
       <CustomHeaderBlock />
       <XanoCollectionApi.FetchNewsletterEachGET
