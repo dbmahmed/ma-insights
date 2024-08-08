@@ -42,9 +42,9 @@ export const LinearGradientStyles = theme =>
     SectionName: {
       style: { borderRadius: 0, borderWidth: 0, padding: 10 },
       props: {
-        color3: null,
         color2: theme.colors.branding.primary,
         color1: theme.colors.text.strong,
+        color3: null,
       },
     },
   });

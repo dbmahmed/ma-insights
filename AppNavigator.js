@@ -209,6 +209,7 @@ export default function RootAppNavigator() {
       <Stack.Navigator
         initialRouteName="LogInScreen"
         screenOptions={({ navigation }) => ({
+          cardStyle: { flex: 1 },
           headerLeft: ({ tintColor, canGoBack }) =>
             canGoBack ? null : (
               <Touchable

@@ -78,7 +78,6 @@ const App = () => {
       {Platform.OS === 'android' ? (
         <StatusBar barStyle={'light-content'} />
       ) : null}
-
       <SafeAreaProvider
         initialMetrics={initialWindowMetrics}
         onLayout={onLayoutRootView}

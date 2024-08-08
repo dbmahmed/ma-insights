@@ -9,22 +9,64 @@ import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import {
   Button,
+  IconButton,
+  LinearGradient,
+  Picker,
   ScreenContainer,
+  Shadow,
   SimpleStyleScrollView,
+  TextInput,
   withTheme,
 } from '@draftbit/ui';
 import { H3 } from '@expo/html-elements';
 import { useIsFocused } from '@react-navigation/native';
-import { ActivityIndicator, Text, View } from 'react-native';
+import { ActivityIndicator, Modal, Text, View } from 'react-native';
 import { Fetch } from 'react-request';
 
 const StockDetailsScreen = props => {
-  const { theme } = props;
+  const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
   const Constants = GlobalVariables.useValues();
   const Variables = Constants;
   const setGlobalVariableValue = GlobalVariables.useSetValue();
-  const [NKP_Comp, setNKP_Comp] = React.useState(false);
+  const [companyName, setCompanyName] = React.useState('');
+  const [filterPressed, setFilterPressed] = React.useState(false);
+  const [newPeerGroup, setNewPeerGroup] = React.useState('');
+  const [peerGroupId, setPeerGroupId] = React.useState(undefined);
+  const [selectedPeerGroup, setSelectedPeerGroup] = React.useState({});
+  const [showModal, setShowModal] = React.useState(false);
+  const [ticker, setTicker] = React.useState('');
+  const [viewPeerGroup, setViewPeerGroup] = React.useState(false);
+  const prepperPeerGroupList = peerGroups => {
+    const defult = {
+      value: 0,
+      label: 'Select peer group...',
+    };
+    if (!Array.isArray(peerGroups)) {
+      return [];
+    }
+    return [
+      ...peerGroups.map(({ title, id }) => ({
+        value: id,
+        label: title,
+      })),
+    ];
+  };
+
+  const setSeletedPeerGroup = peerGroups => {
+    if (!Array.isArray(peerGroups)) {
+      return;
+    }
+    setSelectedPeerGroup(
+      peerGroups.find(({ id }) => Number(id) === Number(peerGroupId || 0))
+    );
+  };
+
+  const resetForm = () => {
+    setSelectedPeerGroup(undefined);
+    setNewPeerGroup(undefined);
+    setPeerGroupId(undefined);
+  };
   const isFocused = useIsFocused();
   React.useEffect(() => {
     try {
@@ -53,10 +95,17 @@ const StockDetailsScreen = props => {
       <CustomHeaderBlock />
       <XanoCollectionApi.FetchGetOneStockGET
         handlers={{
+          on2xx: fetchData => {
+            try {
+              setCompanyName(fetchData?.json?.company_name);
+              setTicker(fetchData?.json?.ticker);
+            } catch (err) {
+              console.error(err);
+            }
+          },
           onData: fetchData => {
             try {
               if (fetchData?.access_type === 'NKP comps') {
-                setNKP_Comp(true);
               } else {
               }
             } catch (err) {
@@ -167,6 +216,15 @@ const StockDetailsScreen = props => {
                   >
                     <Button
                       iconPosition={'left'}
+                      onPress={() => {
+                        try {
+                          setShowModal(true);
+                          setViewPeerGroup(false);
+                          resetForm();
+                        } catch (err) {
+                          console.error(err);
+                        }
+                      }}
                       {...GlobalStyles.ButtonStyles(theme)['Button'].props}
                       icon={'AntDesign/plus'}
                       style={StyleSheet.applyWidth(
@@ -2458,6 +2516,446 @@ const StockDetailsScreen = props => {
           );
         }}
       </XanoCollectionApi.FetchGetOneStockGET>
+      {/* Fetch 2 */}
+      <XanoCollectionApi.FetchGetPeersListGET>
+        {({ loading, error, data, refetchGetPeersList }) => {
+          const fetch2Data = data?.json;
+          if (loading) {
+            return <ActivityIndicator />;
+          }
+
+          if (error || data?.status < 200 || data?.status >= 300) {
+            return <ActivityIndicator />;
+          }
+
+          return (
+            <Modal
+              supportedOrientations={['portrait', 'landscape']}
+              animationType={'fade'}
+              presentationStyle={'pageSheet'}
+              transparent={true}
+              visible={showModal}
+            >
+              <View
+                style={StyleSheet.applyWidth(
+                  {
+                    alignItems: 'center',
+                    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+                    height: '100%',
+                    justifyContent: 'center',
+                  },
+                  dimensions.width
+                )}
+              >
+                <View
+                  style={StyleSheet.applyWidth(
+                    {
+                      alignItems: 'stretch',
+                      justifyContent: 'flex-start',
+                      maxWidth: 450,
+                      width: '100%',
+                    },
+                    dimensions.width
+                  )}
+                >
+                  <LinearGradient
+                    endX={100}
+                    endY={100}
+                    startX={0}
+                    startY={0}
+                    {...GlobalStyles.LinearGradientStyles(theme)[
+                      'Linear Gradient'
+                    ].props}
+                    color1={theme.colors.text.strong}
+                    color2={theme.colors.branding.primary}
+                    color3={null}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.LinearGradientStyles(theme)[
+                          'Linear Gradient'
+                        ].style,
+                        {
+                          borderColor: null,
+                          borderWidth: null,
+                          margin: null,
+                          padding: 10,
+                        }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    {/* View 2 */}
+                    <View
+                      style={StyleSheet.applyWidth(
+                        { alignItems: 'flex-end' },
+                        dimensions.width
+                      )}
+                    >
+                      <Shadow
+                        offsetX={0}
+                        paintInside={true}
+                        showShadowCornerBottomEnd={true}
+                        showShadowCornerBottomStart={true}
+                        showShadowCornerTopEnd={true}
+                        showShadowCornerTopStart={true}
+                        showShadowSideBottom={true}
+                        showShadowSideEnd={true}
+                        showShadowSideStart={true}
+                        showShadowSideTop={true}
+                        distance={3}
+                        offsetY={2}
+                      >
+                        <View
+                          style={StyleSheet.applyWidth(
+                            {
+                              alignItems: 'center',
+                              backgroundColor: theme.colors.background.brand,
+                              borderRadius: 50,
+                              height: 36,
+                              justifyContent: 'center',
+                              width: 36,
+                            },
+                            dimensions.width
+                          )}
+                        >
+                          <IconButton
+                            onPress={() => {
+                              try {
+                                setShowModal(false);
+                              } catch (err) {
+                                console.error(err);
+                              }
+                            }}
+                            color={palettes.App.Strong2}
+                            icon={'AntDesign/close'}
+                            size={24}
+                          />
+                        </View>
+                      </Shadow>
+                    </View>
+                    {/* View 3 */}
+                    <View>
+                      <Text
+                        accessible={true}
+                        {...GlobalStyles.TextStyles(theme)['screen_title']
+                          .props}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.TextStyles(theme)['screen_title']
+                              .style,
+                            {
+                              color: palettes.Brand['Strong Inverse'],
+                              fontFamily: 'Quicksand_700Bold',
+                              fontSize: 16,
+                              textAlign: 'center',
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {companyName}
+                        {' ('}
+                        {ticker}
+                        {')'}
+                      </Text>
+                    </View>
+                    {/* Form */}
+                    <>
+                      {!(viewPeerGroup === false) ? null : (
+                        <View>
+                          <Text
+                            accessible={true}
+                            {...GlobalStyles.TextStyles(theme)['screen_title']
+                              .props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TextStyles(theme)['screen_title']
+                                  .style,
+                                {
+                                  color: palettes.Brand['Strong Inverse'],
+                                  fontFamily: 'Quicksand_400Regular',
+                                  padding: 10,
+                                  paddingLeft: 20,
+                                  paddingRight: 20,
+                                  textAlign: 'center',
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            {'add to the following peer group'}
+                          </Text>
+
+                          <View
+                            style={StyleSheet.applyWidth(
+                              {
+                                flexDirection: 'row',
+                                gap: 8,
+                                justifyContent: 'space-between',
+                                marginBottom: 20,
+                              },
+                              dimensions.width
+                            )}
+                          >
+                            <Picker
+                              autoDismissKeyboard={true}
+                              dropDownBorderColor={theme.colors.border.brand}
+                              dropDownBorderRadius={8}
+                              dropDownBorderWidth={1}
+                              iconSize={24}
+                              leftIconMode={'inset'}
+                              mode={'native'}
+                              onValueChange={newPickerValue => {
+                                try {
+                                  setPeerGroupId(newPickerValue);
+                                } catch (err) {
+                                  console.error(err);
+                                }
+                              }}
+                              placeholder={'Select an option'}
+                              selectedIconColor={theme.colors.text.strong}
+                              selectedIconName={'Feather/check'}
+                              selectedIconSize={20}
+                              type={'solid'}
+                              dropDownBackgroundColor={
+                                theme.colors.background.brand
+                              }
+                              dropDownTextColor={theme.colors.foreground.brand}
+                              options={prepperPeerGroupList(fetch2Data)}
+                              style={StyleSheet.applyWidth(
+                                {
+                                  color: theme.colors.foreground.brand,
+                                  padding: 7,
+                                  width: '60%',
+                                },
+                                dimensions.width
+                              )}
+                              value={peerGroupId}
+                            />
+                            {/* Button 2 */}
+                            <Button
+                              iconPosition={'left'}
+                              onPress={() => {
+                                try {
+                                  setViewPeerGroup(true);
+                                  setSeletedPeerGroup(fetch2Data);
+                                } catch (err) {
+                                  console.error(err);
+                                }
+                              }}
+                              {...GlobalStyles.ButtonStyles(theme)['Button']
+                                .props}
+                              disabled={!peerGroupId}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.ButtonStyles(theme)['Button']
+                                    .style,
+                                  {
+                                    backgroundColor: palettes.App.Orange,
+                                    fontFamily: 'Quicksand_500Medium',
+                                    textTransform: 'uppercase',
+                                    width: '37%',
+                                  }
+                                ),
+                                dimensions.width
+                              )}
+                              title={'add'}
+                            />
+                          </View>
+                          {/* Text 2 */}
+                          <Text
+                            accessible={true}
+                            {...GlobalStyles.TextStyles(theme)['screen_title']
+                              .props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TextStyles(theme)['screen_title']
+                                  .style,
+                                {
+                                  color: palettes.Brand['Strong Inverse'],
+                                  fontFamily: 'Quicksand_400Regular',
+                                  padding: 10,
+                                  paddingLeft: 20,
+                                  paddingRight: 20,
+                                  textAlign: 'center',
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            {'...or create and add to a new peer group'}
+                          </Text>
+                          {/* View 2 */}
+                          <View
+                            style={StyleSheet.applyWidth(
+                              {
+                                flexDirection: 'row',
+                                gap: 8,
+                                justifyContent: 'space-between',
+                                marginBottom: 20,
+                              },
+                              dimensions.width
+                            )}
+                          >
+                            <TextInput
+                              autoCapitalize={'none'}
+                              autoCorrect={true}
+                              changeTextDelay={500}
+                              onChangeText={newTextInputValue => {
+                                try {
+                                  setNewPeerGroup(newTextInputValue);
+                                } catch (err) {
+                                  console.error(err);
+                                }
+                              }}
+                              webShowOutline={true}
+                              {...GlobalStyles.TextInputStyles(theme)[
+                                'Text Input'
+                              ].props}
+                              placeholder={'Pree group name...'}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.TextInputStyles(theme)[
+                                    'Text Input'
+                                  ].style,
+                                  {
+                                    borderColor: theme.colors.foreground.brand,
+                                    color: theme.colors.foreground.brand,
+                                    fontFamily: 'Quicksand_500Medium',
+                                    paddingLeft: 16,
+                                    width: '60%',
+                                  }
+                                ),
+                                dimensions.width
+                              )}
+                              value={newPeerGroup}
+                            />
+                            {/* Button 2 */}
+                            <Button
+                              iconPosition={'left'}
+                              onPress={() => {
+                                try {
+                                  setViewPeerGroup(true);
+                                } catch (err) {
+                                  console.error(err);
+                                }
+                              }}
+                              {...GlobalStyles.ButtonStyles(theme)['Button']
+                                .props}
+                              disabled={!newPeerGroup}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.ButtonStyles(theme)['Button']
+                                    .style,
+                                  {
+                                    backgroundColor: palettes.App.Orange,
+                                    fontFamily: 'Quicksand_500Medium',
+                                    textTransform: 'uppercase',
+                                    width: '37%',
+                                  }
+                                ),
+                                dimensions.width
+                              )}
+                              title={'create'}
+                            />
+                          </View>
+                        </View>
+                      )}
+                    </>
+                    <>
+                      {!viewPeerGroup ? null : (
+                        <View
+                          style={StyleSheet.applyWidth(
+                            { alignItems: 'center', gap: 10, paddingTop: 10 },
+                            dimensions.width
+                          )}
+                        >
+                          {/* Text 2 */}
+                          <Text
+                            accessible={true}
+                            {...GlobalStyles.TextStyles(theme)['screen_title']
+                              .props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TextStyles(theme)['screen_title']
+                                  .style,
+                                {
+                                  color: palettes.Brand['Strong Inverse'],
+                                  fontFamily: 'Quicksand_400Regular',
+                                  padding: 10,
+                                  paddingLeft: 20,
+                                  paddingRight: 20,
+                                  textAlign: 'center',
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            {'was added to the following peer group'}
+                          </Text>
+
+                          <Text
+                            accessible={true}
+                            {...GlobalStyles.TextStyles(theme)['screen_title']
+                              .props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TextStyles(theme)['screen_title']
+                                  .style,
+                                {
+                                  color: palettes.Brand['Strong Inverse'],
+                                  fontFamily: 'Quicksand_700Bold',
+                                  fontSize: 16,
+                                  paddingBottom: 5,
+                                  textAlign: 'center',
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            {selectedPeerGroup?.title}
+                          </Text>
+                          {/* Button 2 */}
+                          <Button
+                            iconPosition={'left'}
+                            onPress={() => {
+                              try {
+                                navigation.push('PeerGroupDetailsScreen', {
+                                  peer_group_id: selectedPeerGroup?.id,
+                                });
+                                setShowModal(false);
+                              } catch (err) {
+                                console.error(err);
+                              }
+                            }}
+                            {...GlobalStyles.ButtonStyles(theme)['Button']
+                              .props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.ButtonStyles(theme)['Button']
+                                  .style,
+                                {
+                                  backgroundColor: palettes.App.Orange,
+                                  fontFamily: 'Quicksand_500Medium',
+                                  marginBottom: 20,
+                                  textTransform: 'uppercase',
+                                  width: '37%',
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                            title={'VIEW'}
+                          />
+                        </View>
+                      )}
+                    </>
+                  </LinearGradient>
+                </View>
+              </View>
+            </Modal>
+          );
+        }}
+      </XanoCollectionApi.FetchGetPeersListGET>
     </ScreenContainer>
   );
 };

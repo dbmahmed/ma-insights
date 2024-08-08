@@ -484,7 +484,7 @@ export const getAllPEPFGET = async (
   {
     countryIn,
     ebitdaIn,
-    holdingPerionIn,
+    holdingPeriodIn,
     page,
     searchString,
     sectorIn,
@@ -494,10 +494,10 @@ export const getAllPEPFGET = async (
 ) => {
   const paramsDict = {};
   if (ebitdaIn !== undefined) {
-    paramsDict['ebitda_In'] = renderParam(ebitdaIn);
+    paramsDict['ebitda_in'] = renderParam(ebitdaIn);
   }
-  if (holdingPerionIn !== undefined) {
-    paramsDict['holdingPerion_in'] = renderParam(holdingPerionIn);
+  if (holdingPeriodIn !== undefined) {
+    paramsDict['holdingPeriod_in'] = renderParam(holdingPeriodIn);
   }
   if (vintageIn !== undefined) {
     paramsDict['vintage_in'] = renderParam(vintageIn);
@@ -549,7 +549,7 @@ export const FetchGetAllPEPFGET = ({
   refetchInterval,
   countryIn,
   ebitdaIn,
-  holdingPerionIn,
+  holdingPeriodIn,
   page,
   searchString,
   sectorIn,
@@ -568,7 +568,7 @@ export const FetchGetAllPEPFGET = ({
     {
       countryIn,
       ebitdaIn,
-      holdingPerionIn,
+      holdingPeriodIn,
       page,
       searchString,
       sectorIn,

@@ -156,14 +156,14 @@ const PEPFScreen = props => {
     setHealth_care((sector || []).includes('Health Care'));
   };
 
-  const apllyFilters = () => {
+  const applyFilters = () => {
     //EBITDA Range
     const ebitdaRange = [];
 
-    ebitda_giant && ebitdaRange.push('EBITDA >  €50m');
+    ebitda_giant && ebitdaRange.push('EBITDA > €50m');
     ebitda_large && ebitdaRange.push('€20m < EBITDA ≤ €50m');
     ebitda_medium && ebitdaRange.push('€5m < EBITDA ≤ €20m');
-    ebitda_small && ebitdaRange.push('EBTDA ≤ €5m');
+    ebitda_small && ebitdaRange.push('EBITDA ≤ €5m');
 
     setEbitdaRange(() => ebitdaRange);
 
@@ -415,7 +415,7 @@ const PEPFScreen = props => {
             }
           },
         }}
-        holdingPerionIn={holdingPreriod}
+        holdingPeriodIn={holdingPreriod}
         page={1}
         searchString={keywordSearch}
         sectorIn={sector}
@@ -510,7 +510,6 @@ const PEPFScreen = props => {
                           await XanoCollectionApi.getAllPEPFGET(Constants, {
                             countryIn: country,
                             ebitdaIn: ebitdaRange,
-                            holdingPerionIn: holdingPreriod,
                             page: nextPage,
                             sectorIn: sector,
                             vintageIn: fundVintage,
@@ -4587,7 +4586,7 @@ const PEPFScreen = props => {
                               onPress={() => {
                                 const handler = async () => {
                                   try {
-                                    apllyFilters();
+                                    applyFilters();
                                     setFilterPressed(false);
                                     await waitUtil({ milliseconds: 100 });
                                     await refetchGetAllPEPF();
