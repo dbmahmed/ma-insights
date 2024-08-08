@@ -35,7 +35,6 @@ const TransactionsScreen = props => {
   const Variables = Constants;
   const setGlobalVariableValue = GlobalVariables.useSetValue();
   const [RoW, setRoW] = React.useState(false);
-  const [SelectButton, setSelectButton] = React.useState('All');
   const [communication_services, setCommunication_services] =
     React.useState(false);
   const [consumer_discretionary, setConsumer_discretionary] =
@@ -124,6 +123,25 @@ const TransactionsScreen = props => {
     setNordic((region || []).includes('Nordic'));
     setDach((region || []).includes('DACH'));
     setRoW((region || []).includes('Rest of Wold (RoW)'));
+  };
+
+  const checkingSelectedAll = () => {
+    return (
+      communication_services &&
+      industrials &&
+      consumer_discretionary &&
+      it_and_software &&
+      consumer_staples &&
+      materials &&
+      energy &&
+      real_estate &&
+      financials &&
+      utilities &&
+      health_care &&
+      nordic &&
+      dach &&
+      RoW
+    );
   };
   const isFocused = useIsFocused();
   React.useEffect(() => {
@@ -916,9 +934,12 @@ const TransactionsScreen = props => {
                       color2={theme.colors.branding.primary}
                       color3={null}
                       style={StyleSheet.applyWidth(
-                        GlobalStyles.LinearGradientStyles(theme)[
-                          'Linear Gradient'
-                        ].style,
+                        StyleSheet.compose(
+                          GlobalStyles.LinearGradientStyles(theme)[
+                            'Linear Gradient'
+                          ].style,
+                          { margin: null, padding: 10 }
+                        ),
                         dimensions.width
                       )}
                     >
@@ -2128,7 +2149,7 @@ const TransactionsScreen = props => {
                               },
                               {
                                 minWidth: Breakpoints.Laptop,
-                                value: 'flex-end',
+                                value: 'flex-start',
                               },
                             ],
                             marginBottom: 10,
@@ -2142,13 +2163,7 @@ const TransactionsScreen = props => {
                           iconPosition={'left'}
                           onPress={() => {
                             try {
-                              if (SelectButton === 'All') {
-                                setSelectButton('None');
-                                toggleAllFilters(true);
-                              } else {
-                                setSelectButton('All');
-                                toggleAllFilters(false);
-                              }
+                              toggleAllFilters(!checkingSelectedAll());
                             } catch (err) {
                               console.error(err);
                             }
@@ -2174,7 +2189,9 @@ const TransactionsScreen = props => {
                             ),
                             dimensions.width
                           )}
-                          title={`Select ${SelectButton}`}
+                          title={`${
+                            checkingSelectedAll() ? 'RESET' : 'SELECT ALL'
+                          }`}
                         />
                         {/* Results */}
                         <Button

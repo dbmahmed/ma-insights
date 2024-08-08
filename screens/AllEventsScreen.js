@@ -40,7 +40,6 @@ const AllEventsScreen = props => {
   const [Media_and_Other, setMedia_and_Other] = React.useState(false);
   const [NKP_Proprietary, setNKP_Proprietary] = React.useState(false);
   const [Press_Release, setPress_Release] = React.useState(false);
-  const [SelectButton, setSelectButton] = React.useState('All');
   const [acq_agenda, setAcq_agenda] = React.useState(false);
   const [austria, setAustria] = React.useState(false);
   const [checkboxRow2Value, setCheckboxRow2Value] = React.useState('');
@@ -163,6 +162,35 @@ const AllEventsScreen = props => {
     setNKP_Proprietary((sourceType || []).includes('NKP Proprietary'));
     setPress_Release((sourceType || []).includes('Press Release'));
     setMedia_and_Other((sourceType || []).includes('Media & Other'));
+  };
+
+  const checkingSelectedAll = () => {
+    return (
+      future_opportunity &&
+      acq_agenda &&
+      transaction &&
+      sweden &&
+      germany &&
+      denmark &&
+      switzerland &&
+      norway &&
+      austria &&
+      finland &&
+      communication_services &&
+      industrials &&
+      consumer_discretionary &&
+      it_and_software &&
+      consumer_staples &&
+      materials &&
+      energy &&
+      real_estate &&
+      financials &&
+      utilities &&
+      health_care &&
+      NKP_Proprietary &&
+      Press_Release &&
+      Media_and_Other
+    );
   };
 
   const toggleAllFilters = flag => {
@@ -798,12 +826,7 @@ const AllEventsScreen = props => {
                           GlobalStyles.LinearGradientStyles(theme)[
                             'Linear Gradient'
                           ].style,
-                          {
-                            paddingLeft: {
-                              minWidth: Breakpoints.Laptop,
-                              value: 15,
-                            },
-                          }
+                          { margin: null, padding: 10 }
                         ),
                         dimensions.width
                       )}
@@ -3658,7 +3681,10 @@ const AllEventsScreen = props => {
                                 minWidth: Breakpoints.Mobile,
                                 value: 'space-between',
                               },
-                              { minWidth: Breakpoints.Laptop, value: 'center' },
+                              {
+                                minWidth: Breakpoints.Laptop,
+                                value: 'flex-start',
+                              },
                             ],
                             marginBottom: 10,
                             padding: 10,
@@ -3671,13 +3697,7 @@ const AllEventsScreen = props => {
                           iconPosition={'left'}
                           onPress={() => {
                             try {
-                              if (SelectButton === 'All') {
-                                toggleAllFilters(true);
-                                setSelectButton('None');
-                              } else {
-                                toggleAllFilters(false);
-                                setSelectButton('All');
-                              }
+                              toggleAllFilters(!checkingSelectedAll());
                             } catch (err) {
                               console.error(err);
                             }
@@ -3703,7 +3723,9 @@ const AllEventsScreen = props => {
                             ),
                             dimensions.width
                           )}
-                          title={`Select ${SelectButton}`}
+                          title={`${
+                            checkingSelectedAll() ? 'RESET' : 'SELECT ALL'
+                          }`}
                         />
                         {/* Results */}
                         <Button

@@ -36,7 +36,6 @@ const CFSScreen = props => {
   const Constants = GlobalVariables.useValues();
   const Variables = Constants;
   const setGlobalVariableValue = GlobalVariables.useSetValue();
-  const [SelectButton, setSelectButton] = React.useState('All');
   const [austria, setAustria] = React.useState(false);
   const [cfsItems, setCfsItems] = React.useState([]);
   const [communication_services, setCommunication_services] =
@@ -73,31 +72,6 @@ const CFSScreen = props => {
   const [totalCFS, setTotalCFS] = React.useState(0);
   const [transaction, setTransaction] = React.useState(false);
   const [utilities, setUtilities] = React.useState(false);
-  const toggleAllFilters = flag => {
-    setEbitda_giant(flag);
-    // setEbitda_large(flag);
-    // setEbitda_medium(flag);
-    // setEbitda_small(flag);
-    setSweden(flag);
-    setGermany(flag);
-    setDenmark(flag);
-    setSwitzerland(flag);
-    setNorway(flag);
-    setAustria(flag);
-    setFinland(flag);
-    setCommunication_services(flag);
-    setIndustrials(flag);
-    setConsumer_discretionary(flag);
-    setIt_and_software(flag);
-    setConsumer_staples(flag);
-    setMaterials(flag);
-    setEnergy(flag);
-    setReal_estate(flag);
-    setFinancials(flag);
-    setUtilities(flag);
-    setHealth_care(flag);
-  };
-
   const matchingFilters = () => {
     setEbitda_giant((ebitdaRange || []).includes('EBITDA >  €50m'));
     setEbitda_large((ebitdaRange || []).includes('€20m < EBITDA ≤ €50m'));
@@ -169,6 +143,56 @@ const CFSScreen = props => {
     health_care && sectors.push('Health Care');
 
     setSector(() => sectors);
+  };
+
+  const toggleAllFilters = flag => {
+    setEbitda_large(false);
+    setEbitda_medium(false);
+    setEbitda_small(false);
+    setEbitda_giant(flag);
+
+    setSweden(flag);
+    setGermany(flag);
+    setDenmark(flag);
+    setSwitzerland(flag);
+    setNorway(flag);
+    setAustria(flag);
+    setFinland(flag);
+    setCommunication_services(flag);
+    setIndustrials(flag);
+    setConsumer_discretionary(flag);
+    setIt_and_software(flag);
+    setConsumer_staples(flag);
+    setMaterials(flag);
+    setEnergy(flag);
+    setReal_estate(flag);
+    setFinancials(flag);
+    setUtilities(flag);
+    setHealth_care(flag);
+  };
+
+  const checkingSelectedAll = () => {
+    return (
+      (ebitda_giant || ebitda_large || ebitda_medium || ebitda_small) &&
+      sweden &&
+      germany &&
+      denmark &&
+      switzerland &&
+      norway &&
+      austria &&
+      finland &&
+      communication_services &&
+      industrials &&
+      consumer_discretionary &&
+      it_and_software &&
+      consumer_staples &&
+      materials &&
+      energy &&
+      real_estate &&
+      financials &&
+      utilities &&
+      health_care
+    );
   };
   const isFocused = useIsFocused();
   React.useEffect(() => {
@@ -830,6 +854,8 @@ const CFSScreen = props => {
                               {
                                 borderColor: null,
                                 borderWidth: null,
+                                margin: null,
+                                padding: 10,
                                 paddingLeft: {
                                   minWidth: Breakpoints.Laptop,
                                   value: 15,
@@ -3669,7 +3695,7 @@ const CFSScreen = props => {
                                   },
                                   {
                                     minWidth: Breakpoints.Laptop,
-                                    value: 'center',
+                                    value: 'flex-start',
                                   },
                                 ],
                                 marginBottom: 10,
@@ -3683,13 +3709,7 @@ const CFSScreen = props => {
                               iconPosition={'left'}
                               onPress={() => {
                                 try {
-                                  if (SelectButton === 'All') {
-                                    toggleAllFilters(true);
-                                    setSelectButton('None');
-                                  } else {
-                                    toggleAllFilters(false);
-                                    setSelectButton('All');
-                                  }
+                                  toggleAllFilters(!checkingSelectedAll());
                                 } catch (err) {
                                   console.error(err);
                                 }
@@ -3721,7 +3741,9 @@ const CFSScreen = props => {
                                 ),
                                 dimensions.width
                               )}
-                              title={`Select ${SelectButton}`}
+                              title={`${
+                                checkingSelectedAll() ? 'RESET' : 'SELECT ALL'
+                              }`}
                             />
                             {/* Results */}
                             <Button
@@ -3730,7 +3752,6 @@ const CFSScreen = props => {
                                 const handler = async () => {
                                   try {
                                     applyFilter();
-                                    await waitUtil({ milliseconds: 1000 });
                                     setFilterPressed(false);
                                     await waitUtil({ milliseconds: 1000 });
                                     await refetchGetCFS();

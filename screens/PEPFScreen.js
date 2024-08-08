@@ -36,7 +36,6 @@ const PEPFScreen = props => {
   const Constants = GlobalVariables.useValues();
   const Variables = Constants;
   const setGlobalVariableValue = GlobalVariables.useSetValue();
-  const [SelectButton, setSelectButton] = React.useState('All');
   const [austria, setAustria] = React.useState(false);
   const [communication_services, setCommunication_services] =
     React.useState(false);
@@ -83,39 +82,6 @@ const PEPFScreen = props => {
   const [testWidth, setTestWidth] = React.useState(2);
   const [transaction, setTransaction] = React.useState(false);
   const [utilities, setUtilities] = React.useState(false);
-  const toggleAllFilters = flag => {
-    setEbitda_giant(flag);
-    // setEbitda_large(flag);
-    // setEbitda_medium(flag);
-    // setEbitda_small(flag);
-    // setH_less_3(flag);
-    // setH_3_to_5(flag);
-    // setH_5_to_7(flag);
-    setH_more_7(flag);
-    // setLast_3(flag);
-    // setFrom_3_to_5(flag);
-    // setFrom_5_to_7(flag);
-    setMore_7(flag);
-    setSweden(flag);
-    setGermany(flag);
-    setDenmark(flag);
-    setSwitzerland(flag);
-    setNorway(flag);
-    setAustria(flag);
-    setFinland(flag);
-    setCommunication_services(flag);
-    setIndustrials(flag);
-    setConsumer_discretionary(flag);
-    setIt_and_software(flag);
-    setConsumer_staples(flag);
-    setMaterials(flag);
-    setEnergy(flag);
-    setReal_estate(flag);
-    setFinancials(flag);
-    setUtilities(flag);
-    setHealth_care(flag);
-  };
-
   const matchingFilters = () => {
     setEbitda_giant((ebitdaRange || []).includes('EBITDA >  €50m'));
     setEbitda_large((ebitdaRange || []).includes('€20m < EBITDA ≤ €50m'));
@@ -155,6 +121,40 @@ const PEPFScreen = props => {
     setFinancials((sector || []).includes('Financials'));
     setUtilities((sector || []).includes('Utilities'));
     setHealth_care((sector || []).includes('Health Care'));
+  };
+
+  const toggleAllFilters = flag => {
+    setEbitda_large(false);
+    setEbitda_medium(false);
+    setEbitda_small(false);
+    setH_less_3(false);
+    setH_3_to_5(false);
+    setH_5_to_7(false);
+    setLast_3(false);
+    setFrom_3_to_5(false);
+    setFrom_5_to_7(false);
+
+    setEbitda_giant(flag);
+    setH_more_7(flag);
+    setMore_7(flag);
+    setSweden(flag);
+    setGermany(flag);
+    setDenmark(flag);
+    setSwitzerland(flag);
+    setNorway(flag);
+    setAustria(flag);
+    setFinland(flag);
+    setCommunication_services(flag);
+    setIndustrials(flag);
+    setConsumer_discretionary(flag);
+    setIt_and_software(flag);
+    setConsumer_staples(flag);
+    setMaterials(flag);
+    setEnergy(flag);
+    setReal_estate(flag);
+    setFinancials(flag);
+    setUtilities(flag);
+    setHealth_care(flag);
   };
 
   const applyFilters = () => {
@@ -217,6 +217,32 @@ const PEPFScreen = props => {
     health_care && sectors.push('Health Care');
 
     setSector(() => sectors);
+  };
+
+  const checkingSelectedAll = () => {
+    return (
+      (ebitda_giant || ebitda_large || ebitda_medium || ebitda_small) &&
+      (h_less_3 || h_3_to_5 || h_5_to_7 || h_more_7) &&
+      (last_3 || from_3_to_5 || from_5_to_7 || more_7) &&
+      sweden &&
+      germany &&
+      denmark &&
+      switzerland &&
+      norway &&
+      austria &&
+      finland &&
+      communication_services &&
+      industrials &&
+      consumer_discretionary &&
+      it_and_software &&
+      consumer_staples &&
+      materials &&
+      energy &&
+      real_estate &&
+      financials &&
+      utilities &&
+      health_care
+    );
   };
   const isFocused = useIsFocused();
   React.useEffect(() => {
@@ -854,6 +880,8 @@ const PEPFScreen = props => {
                               {
                                 borderColor: null,
                                 borderWidth: null,
+                                margin: null,
+                                padding: 10,
                                 paddingLeft: {
                                   minWidth: Breakpoints.Laptop,
                                   value: 15,
@@ -4522,7 +4550,7 @@ const PEPFScreen = props => {
                                   },
                                   {
                                     minWidth: Breakpoints.Laptop,
-                                    value: 'center',
+                                    value: 'flex-start',
                                   },
                                 ],
                                 marginBottom: 10,
@@ -4536,13 +4564,7 @@ const PEPFScreen = props => {
                               iconPosition={'left'}
                               onPress={() => {
                                 try {
-                                  if (SelectButton === 'All') {
-                                    setSelectButton('None');
-                                    toggleAllFilters(true);
-                                  } else {
-                                    setSelectButton('All');
-                                    toggleAllFilters(false);
-                                  }
+                                  toggleAllFilters(!checkingSelectedAll());
                                 } catch (err) {
                                   console.error(err);
                                 }
@@ -4574,7 +4596,9 @@ const PEPFScreen = props => {
                                 ),
                                 dimensions.width
                               )}
-                              title={`Select ${SelectButton}`}
+                              title={`${
+                                checkingSelectedAll() ? 'RESET' : 'SELECT ALL'
+                              }`}
                             />
                             {/* Results */}
                             <Button

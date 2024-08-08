@@ -33,11 +33,11 @@ const NewslettersScreen = props => {
   const Constants = GlobalVariables.useValues();
   const Variables = Constants;
   const setGlobalVariableValue = GlobalVariables.useSetValue();
-  const [dach, setDach] = React.useState(false);
+  const [dach, setDach] = React.useState(true);
   const [keywordSearch, setKeywordSearch] = React.useState('');
   const [my_peer_groups, setMy_peer_groups] = React.useState(false);
   const [nkp_comps, setNkp_comps] = React.useState(false);
-  const [nordic, setNordic] = React.useState(false);
+  const [nordic, setNordic] = React.useState(true);
   const fixedKeyProp = key => {
     console.log('key', key + window.innerWidth);
     return key + window.innerWidth;
@@ -544,16 +544,16 @@ const NewslettersScreen = props => {
                   {
                     maxHeight: [
                       {
+                        minWidth: Breakpoints.Laptop,
+                        value: dimensions.height - 310,
+                      },
+                      {
                         minWidth: Breakpoints.Mobile,
                         value: dimensions.height - 265,
                       },
                       {
                         minWidth: Breakpoints.Tablet,
                         value: dimensions.height - 250,
-                      },
-                      {
-                        minWidth: Breakpoints.Laptop,
-                        value: dimensions.height - 310,
                       },
                     ],
                     maxWidth: 1200,

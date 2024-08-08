@@ -33,7 +33,6 @@ const AdvisorDetailsScreen = props => {
   const Constants = GlobalVariables.useValues();
   const Variables = Constants;
   const setGlobalVariableValue = GlobalVariables.useSetValue();
-  const [SelectButton, setSelectButton] = React.useState('All');
   const [austria, setAustria] = React.useState(false);
   const [communication_services, setCommunication_services] =
     React.useState(false);
@@ -135,6 +134,29 @@ const AdvisorDetailsScreen = props => {
     setFinancials((sector || []).includes('Financials'));
     setUtilities((sector || []).includes('Utilities'));
     setHealth_care((sector || []).includes('Health Care'));
+  };
+
+  const checkingSelectedAll = () => {
+    return (
+      sweden &&
+      germany &&
+      denmark &&
+      switzerland &&
+      norway &&
+      austria &&
+      finland &&
+      communication_services &&
+      industrials &&
+      consumer_discretionary &&
+      it_and_software &&
+      consumer_staples &&
+      materials &&
+      energy &&
+      real_estate &&
+      financials &&
+      utilities &&
+      health_care
+    );
   };
   const isFocused = useIsFocused();
   React.useEffect(() => {
@@ -575,9 +597,12 @@ const AdvisorDetailsScreen = props => {
                       color2={theme.colors.branding.primary}
                       color3={null}
                       style={StyleSheet.applyWidth(
-                        GlobalStyles.LinearGradientStyles(theme)[
-                          'Linear Gradient'
-                        ].style,
+                        StyleSheet.compose(
+                          GlobalStyles.LinearGradientStyles(theme)[
+                            'Linear Gradient'
+                          ].style,
+                          { margin: null, padding: 10 }
+                        ),
                         dimensions.width
                       )}
                     >
@@ -2789,7 +2814,7 @@ const AdvisorDetailsScreen = props => {
                               },
                               {
                                 minWidth: Breakpoints.Laptop,
-                                value: 'flex-end',
+                                value: 'flex-start',
                               },
                             ],
                             marginBottom: 10,
@@ -2803,13 +2828,7 @@ const AdvisorDetailsScreen = props => {
                           iconPosition={'left'}
                           onPress={() => {
                             try {
-                              if (SelectButton === 'All') {
-                                setSelectButton('None');
-                                toggleAllFilters(true);
-                              } else {
-                                setSelectButton('All');
-                                toggleAllFilters(false);
-                              }
+                              toggleAllFilters(!checkingSelectedAll());
                             } catch (err) {
                               console.error(err);
                             }
@@ -2835,7 +2854,9 @@ const AdvisorDetailsScreen = props => {
                             ),
                             dimensions.width
                           )}
-                          title={`Select ${SelectButton}`}
+                          title={`${
+                            checkingSelectedAll() ? 'RESET' : 'SELECT ALL'
+                          }`}
                         />
                         {/* Results */}
                         <Button

@@ -36,7 +36,6 @@ const StockSearchScreen = props => {
   const Variables = Constants;
   const setGlobalVariableValue = GlobalVariables.useSetValue();
   const [RoW, setRoW] = React.useState(false);
-  const [SelectButton, setSelectButton] = React.useState('All');
   const [austria, setAustria] = React.useState(false);
   const [communication_services, setCommunication_services] =
     React.useState(false);
@@ -122,29 +121,6 @@ const StockSearchScreen = props => {
     setEnterpriseValue(() => enterpriseValue);
   };
 
-  const toggleAllFilters = flag => {
-    setCommunication_services(flag);
-    setIndustrials(flag);
-    setConsumer_discretionary(flag);
-    setIt_and_software(flag);
-    setConsumer_staples(flag);
-    setMaterials(flag);
-    setEnergy(flag);
-    setReal_estate(flag);
-    setFinancials(flag);
-    setUtilities(flag);
-    setHealth_care(flag);
-
-    setNordic(flag);
-    setDach(flag);
-    setRoW(flag);
-
-    setEv_less_100(flag);
-    setEv_100_to_500(flag);
-    setEv_500_to_1000(flag);
-    setEv_more_1000(flag);
-  };
-
   const matchingFilters = () => {
     setCommunication_services(
       (sector || []).includes('Communication Services')
@@ -170,6 +146,52 @@ const StockSearchScreen = props => {
     setEv_100_to_500((enterpriseValue || []).includes('€100m < EV ≤ €500m'));
     setEv_500_to_1000((enterpriseValue || []).includes('€500m < EV ≤ €1,000m'));
     setEv_more_1000((enterpriseValue || []).includes('EV > €1,000m '));
+  };
+
+  const checkingSelectedAll = () => {
+    //sector
+    const sectors = [];
+
+    return (
+      communication_services &&
+      industrials &&
+      consumer_discretionary &&
+      it_and_software &&
+      consumer_staples &&
+      materials &&
+      energy &&
+      real_estate &&
+      financials &&
+      utilities &&
+      health_care &&
+      nordic &&
+      dach &&
+      RoW &&
+      (ev_less_100 || ev_100_to_500 || ev_500_to_1000 || ev_more_1000)
+    );
+  };
+
+  const toggleAllFilters = flag => {
+    setCommunication_services(flag);
+    setIndustrials(flag);
+    setConsumer_discretionary(flag);
+    setIt_and_software(flag);
+    setConsumer_staples(flag);
+    setMaterials(flag);
+    setEnergy(flag);
+    setReal_estate(flag);
+    setFinancials(flag);
+    setUtilities(flag);
+    setHealth_care(flag);
+
+    setNordic(flag);
+    setDach(flag);
+    setRoW(flag);
+
+    setEv_less_100(false);
+    setEv_100_to_500(false);
+    setEv_500_to_1000(false);
+    setEv_more_1000(flag);
   };
   const isFocused = useIsFocused();
   React.useEffect(() => {
@@ -917,9 +939,12 @@ const StockSearchScreen = props => {
                       color2={theme.colors.branding.primary}
                       color3={null}
                       style={StyleSheet.applyWidth(
-                        GlobalStyles.LinearGradientStyles(theme)[
-                          'Linear Gradient'
-                        ].style,
+                        StyleSheet.compose(
+                          GlobalStyles.LinearGradientStyles(theme)[
+                            'Linear Gradient'
+                          ].style,
+                          { margin: null, padding: 10 }
+                        ),
                         dimensions.width
                       )}
                     >
@@ -2188,6 +2213,9 @@ const StockSearchScreen = props => {
                                 }
                               }}
                               color={palettes.Brand['Strong Inverse']}
+                              disabled={
+                                ev_100_to_500 || ev_500_to_1000 || ev_more_1000
+                              }
                               size={24}
                               status={ev_less_100}
                               uncheckedColor={palettes.Brand['Strong Inverse']}
@@ -2200,6 +2228,9 @@ const StockSearchScreen = props => {
                                   console.error(err);
                                 }
                               }}
+                              disabled={
+                                ev_100_to_500 || ev_500_to_1000 || ev_more_1000
+                              }
                             >
                               <Text
                                 accessible={true}
@@ -2256,6 +2287,9 @@ const StockSearchScreen = props => {
                                 }
                               }}
                               color={palettes.Brand['Strong Inverse']}
+                              disabled={
+                                ev_less_100 || ev_500_to_1000 || ev_more_1000
+                              }
                               size={24}
                               status={ev_100_to_500}
                               uncheckedColor={palettes.Brand['Strong Inverse']}
@@ -2270,6 +2304,9 @@ const StockSearchScreen = props => {
                                   console.error(err);
                                 }
                               }}
+                              disabled={
+                                ev_less_100 || ev_500_to_1000 || ev_more_1000
+                              }
                             >
                               <Text
                                 accessible={true}
@@ -2326,6 +2363,9 @@ const StockSearchScreen = props => {
                                 }
                               }}
                               color={palettes.Brand['Strong Inverse']}
+                              disabled={
+                                ev_less_100 || ev_100_to_500 || ev_more_1000
+                              }
                               size={24}
                               status={ev_500_to_1000}
                               uncheckedColor={palettes.Brand['Strong Inverse']}
@@ -2340,6 +2380,9 @@ const StockSearchScreen = props => {
                                   console.error(err);
                                 }
                               }}
+                              disabled={
+                                ev_less_100 || ev_100_to_500 || ev_more_1000
+                              }
                             >
                               <Text
                                 accessible={true}
@@ -2396,6 +2439,9 @@ const StockSearchScreen = props => {
                                 }
                               }}
                               color={palettes.Brand['Strong Inverse']}
+                              disabled={
+                                ev_less_100 || ev_100_to_500 || ev_500_to_1000
+                              }
                               size={24}
                               status={ev_more_1000}
                               uncheckedColor={palettes.Brand['Strong Inverse']}
@@ -2408,6 +2454,9 @@ const StockSearchScreen = props => {
                                   console.error(err);
                                 }
                               }}
+                              disabled={
+                                ev_less_100 || ev_100_to_500 || ev_500_to_1000
+                              }
                             >
                               <Text
                                 accessible={true}
@@ -2453,7 +2502,7 @@ const StockSearchScreen = props => {
                               },
                               {
                                 minWidth: Breakpoints.Laptop,
-                                value: 'flex-end',
+                                value: 'flex-start',
                               },
                             ],
                             marginBottom: 10,
@@ -2467,13 +2516,7 @@ const StockSearchScreen = props => {
                           iconPosition={'left'}
                           onPress={() => {
                             try {
-                              if (SelectButton === 'All') {
-                                setSelectButton('None');
-                                toggleAllFilters(true);
-                              } else {
-                                setSelectButton('All');
-                                toggleAllFilters(false);
-                              }
+                              toggleAllFilters(!checkingSelectedAll());
                             } catch (err) {
                               console.error(err);
                             }
@@ -2499,7 +2542,9 @@ const StockSearchScreen = props => {
                             ),
                             dimensions.width
                           )}
-                          title={`Select ${SelectButton}`}
+                          title={`${
+                            checkingSelectedAll() ? 'RESET' : 'SELECT ALL'
+                          }`}
                         />
                         {/* Results */}
                         <Button
