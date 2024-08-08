@@ -223,10 +223,7 @@ const PEPFScreen = props => {
       if (!isFocused) {
         return;
       }
-      setGlobalVariableValue({
-        key: 'pageName',
-        value: 'Private Equity Firms (PEPF)',
-      });
+      undefined;
       setGlobalVariableValue({
         key: 'subPage',
         value: false,

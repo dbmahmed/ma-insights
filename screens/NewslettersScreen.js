@@ -10,15 +10,16 @@ import * as StyleSheet from '../utils/StyleSheet';
 import showAlertUtil from '../utils/showAlert';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import {
+  Checkbox,
   LinearGradient,
   Link,
   Pressable,
   ScreenContainer,
   SimpleStyleFlatList,
-  SimpleStyleScrollView,
   Table,
   TableCell,
   TableRow,
+  TextInput,
   withTheme,
 } from '@draftbit/ui';
 import { H4, H5 } from '@expo/html-elements';
@@ -32,7 +33,15 @@ const NewslettersScreen = props => {
   const Constants = GlobalVariables.useValues();
   const Variables = Constants;
   const setGlobalVariableValue = GlobalVariables.useSetValue();
+  const [dach, setDach] = React.useState(false);
   const [keywordSearch, setKeywordSearch] = React.useState('');
+  const [my_peer_groups, setMy_peer_groups] = React.useState(false);
+  const [nkp_comps, setNkp_comps] = React.useState(false);
+  const [nordic, setNordic] = React.useState(false);
+  const fixedKeyProp = key => {
+    console.log('key', key + window.innerWidth);
+    return key + window.innerWidth;
+  };
   const isFocused = useIsFocused();
   React.useEffect(() => {
     console.log('Screen ON_SCREEN_FOCUS Start');
@@ -108,7 +117,7 @@ const NewslettersScreen = props => {
         {/* container */}
         <View
           style={StyleSheet.applyWidth(
-            { maxWidth: 1200, width: '100%' },
+            { maxWidth: 1200, padding: 15, width: '100%' },
             dimensions.width
           )}
         >
@@ -122,7 +131,7 @@ const NewslettersScreen = props => {
                     fontFamily: 'Quicksand_600SemiBold',
                     fontSize: 25,
                     marginBottom: 20,
-                    marginLeft: 20,
+                    marginTop: 10,
                     textDecorationLine: 'none',
                   }),
                   dimensions.width
@@ -132,6 +141,173 @@ const NewslettersScreen = props => {
               </H5>
             )}
           </>
+          <View
+            style={StyleSheet.applyWidth(
+              { marginBottom: 10 },
+              dimensions.width
+            )}
+          >
+            <TextInput
+              autoCorrect={true}
+              changeTextDelay={500}
+              onChangeText={newTextInputValue => {
+                try {
+                  setKeywordSearch(newTextInputValue);
+                } catch (err) {
+                  console.error(err);
+                }
+              }}
+              onSubmitEditing={() => {
+                try {
+                  /* hidden 'Set Variable' action */
+                  /* hidden 'API Request' action */
+                  /* 'Refetch Data' action requires configuration: choose an API endpoint */
+                } catch (err) {
+                  console.error(err);
+                }
+              }}
+              webShowOutline={true}
+              {...GlobalStyles.TextInputStyles(theme)['Text Input'].props}
+              autoCapitalize={'sentences'}
+              clearButtonMode={'while-editing'}
+              placeholder={'Search...'}
+              returnKeyType={'search'}
+              style={StyleSheet.applyWidth(
+                StyleSheet.compose(
+                  GlobalStyles.TextInputStyles(theme)['Text Input'].style,
+                  { width: '100%' }
+                ),
+                dimensions.width
+              )}
+              value={keywordSearch}
+            />
+            <View
+              style={StyleSheet.applyWidth(
+                { flexDirection: 'row', width: '100%' },
+                dimensions.width
+              )}
+            >
+              {/* Nordic */}
+              <View
+                style={StyleSheet.applyWidth(
+                  {
+                    alignContent: 'center',
+                    alignItems: 'center',
+                    flexDirection: 'row',
+                    gap: 4,
+                    maxWidth: '50%',
+                    padding: 4,
+                    width: [
+                      { minWidth: Breakpoints.Tablet, value: '33.33%' },
+                      { minWidth: Breakpoints.Desktop, value: '25%' },
+                      { minWidth: Breakpoints.Laptop, value: '25%' },
+                      { minWidth: Breakpoints.Mobile, value: 200 },
+                    ],
+                  },
+                  dimensions.width
+                )}
+              >
+                <Checkbox
+                  onPress={newCheckboxValue => {
+                    try {
+                      setNordic(newCheckboxValue);
+                    } catch (err) {
+                      console.error(err);
+                    }
+                  }}
+                  color={theme.colors.text.medium}
+                  disabled={Constants['ME']?.access_regions === 'DACH'}
+                  size={24}
+                  status={nordic}
+                  uncheckedColor={theme.colors.text.medium}
+                />
+                <Pressable
+                  onPress={() => {
+                    try {
+                      setNordic(nordic ? false : true);
+                    } catch (err) {
+                      console.error(err);
+                    }
+                  }}
+                  disabled={Constants['ME']?.access_regions === 'DACH'}
+                >
+                  <Text
+                    accessible={true}
+                    {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.TextStyles(theme)['screen_title'].style,
+                        { fontFamily: 'Quicksand_400Regular', fontSize: 12 }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    {'Nordic'}
+                  </Text>
+                </Pressable>
+              </View>
+              {/* DACH */}
+              <View
+                style={StyleSheet.applyWidth(
+                  {
+                    alignContent: 'center',
+                    alignItems: 'center',
+                    flexDirection: 'row',
+                    gap: 4,
+                    maxWidth: '50%',
+                    padding: 4,
+                    width: [
+                      { minWidth: Breakpoints.Tablet, value: '33.33%' },
+                      { minWidth: Breakpoints.Desktop, value: '25%' },
+                      { minWidth: Breakpoints.Laptop, value: '25%' },
+                      { minWidth: Breakpoints.Mobile, value: 200 },
+                    ],
+                  },
+                  dimensions.width
+                )}
+              >
+                <Checkbox
+                  onPress={newCheckboxValue => {
+                    try {
+                      setDach(newCheckboxValue);
+                    } catch (err) {
+                      console.error(err);
+                    }
+                  }}
+                  color={theme.colors.text.medium}
+                  disabled={Constants['ME']?.access_regions === 'DACH'}
+                  size={24}
+                  status={dach}
+                  uncheckedColor={theme.colors.text.medium}
+                />
+                <Pressable
+                  onPress={() => {
+                    try {
+                      setDach(dach ? false : true);
+                    } catch (err) {
+                      console.error(err);
+                    }
+                  }}
+                  disabled={Constants['ME']?.access_regions === 'DACH'}
+                >
+                  <Text
+                    accessible={true}
+                    {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.TextStyles(theme)['screen_title'].style,
+                        { fontFamily: 'Quicksand_400Regular', fontSize: 12 }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    {'DACH'}
+                  </Text>
+                </Pressable>
+              </View>
+            </View>
+          </View>
+
           <Text
             accessible={true}
             {...GlobalStyles.TextStyles(theme)['screen_title'].props}
@@ -140,13 +316,8 @@ const NewslettersScreen = props => {
                 GlobalStyles.TextStyles(theme)['screen_title'].style,
                 {
                   fontFamily: 'Quicksand_400Regular',
-                  marginBottom: 20,
-                  marginLeft: 20,
-                  marginRight: 20,
-                  paddingTop: [
-                    { minWidth: Breakpoints.Mobile, value: 20 },
-                    { minWidth: Breakpoints.Laptop, value: 0 },
-                  ],
+                  marginBottom: 10,
+                  paddingTop: { minWidth: Breakpoints.Laptop, value: 0 },
                 }
               ),
               dimensions.width
@@ -194,45 +365,38 @@ const NewslettersScreen = props => {
           }
 
           return (
-            <SimpleStyleScrollView
-              bounces={true}
-              horizontal={false}
-              keyboardShouldPersistTaps={'never'}
-              nestedScrollEnabled={false}
-              showsHorizontalScrollIndicator={false}
-              showsVerticalScrollIndicator={false}
+            <View
               style={StyleSheet.applyWidth(
-                {
-                  alignItems: { minWidth: Breakpoints.Tablet, value: 'center' },
-                  width: { minWidth: Breakpoints.BigScreen, value: '100%' },
-                },
+                { alignItems: 'center' },
                 dimensions.width
               )}
             >
-              {/* container */}
-              <View
-                style={StyleSheet.applyWidth(
-                  {
-                    maxWidth: { minWidth: Breakpoints.Tablet, value: 1200 },
-                    paddingLeft: 10,
-                    paddingRight: 10,
-                    width: { minWidth: Breakpoints.Tablet, value: '100%' },
-                  },
-                  dimensions.width
-                )}
-              >
-                <SimpleStyleFlatList
-                  data={fetchData}
-                  horizontal={false}
-                  inverted={false}
-                  keyExtractor={(listData, index) => listData?.id}
-                  keyboardShouldPersistTaps={'never'}
-                  listKey={'sXtzWjLu'}
-                  nestedScrollEnabled={false}
-                  onEndReachedThreshold={0.5}
-                  renderItem={({ item, index }) => {
-                    const listData = item;
-                    return (
+              <SimpleStyleFlatList
+                data={fetchData}
+                horizontal={false}
+                inverted={false}
+                keyExtractor={(listData, index) => listData?.id}
+                keyboardShouldPersistTaps={'never'}
+                listKey={'sXtzWjLu'}
+                nestedScrollEnabled={false}
+                onEndReachedThreshold={0.5}
+                renderItem={({ item, index }) => {
+                  const listData = item;
+                  return (
+                    <View
+                      style={StyleSheet.applyWidth(
+                        {
+                          maxWidth: [
+                            { minWidth: Breakpoints.Mobile, value: '50%' },
+                            { minWidth: Breakpoints.Tablet, value: '33.33%' },
+                            { minWidth: Breakpoints.Laptop, value: '20%' },
+                          ],
+                          padding: 5,
+                          width: '100%',
+                        },
+                        dimensions.width
+                      )}
+                    >
                       <LinearGradient
                         endX={100}
                         endY={100}
@@ -253,8 +417,8 @@ const NewslettersScreen = props => {
                               borderColor: theme.colors.text.strong,
                               borderRadius: 5,
                               flexDirection: 'column',
+                              margin: null,
                               maxWidth: [
-                                { minWidth: Breakpoints.Mobile, value: 260 },
                                 { minWidth: Breakpoints.Desktop, value: 230 },
                                 { minWidth: Breakpoints.Laptop, value: 183 },
                               ],
@@ -364,20 +528,42 @@ const NewslettersScreen = props => {
                           </View>
                         </Pressable>
                       </LinearGradient>
-                    );
-                  }}
-                  numColumns={
-                    dimensions.width >= Breakpoints.Laptop
-                      ? 5
-                      : dimensions.width >= Breakpoints.Tablet
-                      ? 3
-                      : 2
-                  }
-                  showsHorizontalScrollIndicator={false}
-                  showsVerticalScrollIndicator={false}
-                />
-              </View>
-            </SimpleStyleScrollView>
+                    </View>
+                  );
+                }}
+                numColumns={
+                  dimensions.width >= Breakpoints.Laptop
+                    ? 5
+                    : dimensions.width >= Breakpoints.Tablet
+                    ? 3
+                    : 2
+                }
+                showsHorizontalScrollIndicator={true}
+                showsVerticalScrollIndicator={true}
+                style={StyleSheet.applyWidth(
+                  {
+                    maxHeight: [
+                      {
+                        minWidth: Breakpoints.Mobile,
+                        value: dimensions.height - 265,
+                      },
+                      {
+                        minWidth: Breakpoints.Tablet,
+                        value: dimensions.height - 250,
+                      },
+                      {
+                        minWidth: Breakpoints.Laptop,
+                        value: dimensions.height - 310,
+                      },
+                    ],
+                    maxWidth: 1200,
+                    padding: 5,
+                    width: '100%',
+                  },
+                  dimensions.width
+                )}
+              />
+            </View>
           );
         }}
       </XanoCollectionApi.FetchNewslettersGET>

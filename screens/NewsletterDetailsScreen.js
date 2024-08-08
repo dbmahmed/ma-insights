@@ -274,16 +274,16 @@ const NewsletterDetailsScreen = props => {
                       alignItems: 'center',
                       height: '100%',
                       marginTop: 65,
-                      paddingBottom: 65,
+                      maxHeight: dimensions.height - 67,
                       position: 'absolute',
-                      width: '99.9%',
+                      width: '100%',
                     },
                     dimensions.width
                   )}
                 >
                   <View
                     style={StyleSheet.applyWidth(
-                      { maxWidth: 1200 },
+                      { maxWidth: 1200, width: '100%' },
                       dimensions.width
                     )}
                   >

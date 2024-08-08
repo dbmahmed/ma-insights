@@ -83,7 +83,7 @@ const RequestDemoScreen = props => {
         <Image
           {...GlobalStyles.ImageStyles(theme)['Image'].props}
           resizeMode={'contain'}
-          source={Images.LogoMobileApp}
+          source={Images['LogoMobileApp']}
           style={StyleSheet.applyWidth(
             StyleSheet.compose(GlobalStyles.ImageStyles(theme)['Image'].style, {
               width: 300,

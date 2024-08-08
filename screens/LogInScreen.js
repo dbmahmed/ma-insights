@@ -139,7 +139,7 @@ const LogInScreen = props => {
           <Image
             {...GlobalStyles.ImageStyles(theme)['Image'].props}
             resizeMode={'contain'}
-            source={Images.mainsightsfaviconlogo1024new}
+            source={Images['mainsightsfaviconlogo1024new']}
             style={StyleSheet.applyWidth(
               StyleSheet.compose(
                 GlobalStyles.ImageStyles(theme)['Image'].style,

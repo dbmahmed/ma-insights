@@ -444,7 +444,7 @@ const CustomHeaderBlock = props => {
               <Image
                 {...GlobalStyles.ImageStyles(theme)['Image'].props}
                 resizeMode={'contain'}
-                source={Images.mainsightsfaviconlogo1024cropped}
+                source={Images['mainsightsfaviconlogo1024cropped']}
                 style={StyleSheet.applyWidth(
                   StyleSheet.compose(
                     GlobalStyles.ImageStyles(theme)['Image'].style,

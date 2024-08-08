@@ -40,7 +40,10 @@ const PEPFDetailsScreen = props => {
       }
       setGlobalVariableValue({
         key: 'pageName',
-        value: 'Private Equity Portfolio Firm Details',
+        value:
+          dimensions.width >= Breakpoints.Tablet
+            ? 'Private Equity Firm Details'
+            : 'PE Firm Details',
       });
       setGlobalVariableValue({
         key: 'subPage',
