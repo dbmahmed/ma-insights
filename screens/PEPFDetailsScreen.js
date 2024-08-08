@@ -3,6 +3,7 @@ import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
 import CustomHeaderBlock from '../components/CustomHeaderBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
+import transformEuroM from '../global-functions/transformEuroM';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
@@ -334,7 +335,7 @@ const PEPFDetailsScreen = props => {
                         dimensions.width
                       )}
                     >
-                      {fetchData?.revenue_eur}
+                      {transformEuroM(fetchData?.revenue_eur)}
                       {' ('}
                       {fetchData?.financial_year}
                       {')'}
@@ -387,7 +388,7 @@ const PEPFDetailsScreen = props => {
                         dimensions.width
                       )}
                     >
-                      {fetchData?.ebitda_eur}
+                      {transformEuroM(fetchData?.ebitda_eur)}
                       {' ('}
                       {fetchData?.financial_year}
                       {')'}
@@ -752,7 +753,7 @@ const PEPFDetailsScreen = props => {
                                   GlobalStyles.H6Styles(theme)['H6'].style,
                                   {
                                     fontFamily: 'Quicksand_700Bold',
-                                    fontSize: 12,
+                                    fontSize: 14,
                                     margin: 0,
                                   }
                                 ),
@@ -772,7 +773,7 @@ const PEPFDetailsScreen = props => {
                                     .style,
                                   {
                                     fontFamily: 'Quicksand_400Regular',
-                                    fontSize: 10,
+                                    fontSize: 12,
                                     marginTop: 4,
                                   }
                                 ),

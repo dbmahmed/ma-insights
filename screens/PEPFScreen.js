@@ -4,6 +4,7 @@ import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
 import CustomHeaderBlock from '../components/CustomHeaderBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import modifyArrays from '../global-functions/modifyArrays';
+import transformEuroM from '../global-functions/transformEuroM';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
@@ -742,9 +743,7 @@ const PEPFScreen = props => {
                                   )}
                                 >
                                   {'EBITDA: '}
-                                  {listData?.ebitda_eur !== '0.0'
-                                    ? '€ ' + (listData?.ebitda_eur + 'm')
-                                    : '-'}
+                                  {transformEuroM(listData?.ebitda_eur)}
                                 </Text>
                               </View>
                             </View>

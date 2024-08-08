@@ -3,6 +3,7 @@ import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
 import CustomHeaderBlock from '../components/CustomHeaderBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
+import transformEuroM from '../global-functions/transformEuroM';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
@@ -609,7 +610,7 @@ const StockSearchScreen = props => {
                                 )}
                               >
                                 {'EV: '}
-                                {listData?.ev_eur}
+                                {transformEuroM(listData?.ev_eur)}
                               </Text>
                               {/* Text 2 3 */}
                               <Text
@@ -838,12 +839,12 @@ const StockSearchScreen = props => {
                       height: dimensions.height,
                       maxHeight: [
                         {
-                          minWidth: Breakpoints.Mobile,
-                          value: dimensions.height - 200,
-                        },
-                        {
                           minWidth: Breakpoints.Laptop,
                           value: dimensions.height - 250,
+                        },
+                        {
+                          minWidth: Breakpoints.Mobile,
+                          value: dimensions.height - 200,
                         },
                       ],
                       maxWidth: 1200,

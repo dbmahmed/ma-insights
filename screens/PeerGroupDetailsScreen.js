@@ -3,6 +3,7 @@ import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
 import CustomHeaderBlock from '../components/CustomHeaderBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
+import transformEuroM from '../global-functions/transformEuroM';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
@@ -334,7 +335,7 @@ const PeerGroupDetailsScreen = props => {
                                 )}
                               >
                                 {'EV: '}
-                                {flashListData?.ev_eur}
+                                {transformEuroM(flashListData?.ev_eur)}
                               </Text>
                             </View>
                             {/* View 4 */}

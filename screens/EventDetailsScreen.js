@@ -3,6 +3,7 @@ import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
 import CustomHeaderBlock from '../components/CustomHeaderBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
+import transformEuroM from '../global-functions/transformEuroM';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
@@ -654,9 +655,7 @@ const EventDetailsScreen = props => {
                           dimensions.width
                         )}
                       >
-                        {fetchData?.revenue_eur !== '0.0'
-                          ? '€ ' + (fetchData?.revenue_eur + 'm')
-                          : '-'}
+                        {transformEuroM(fetchData?.revenue_eur)}
                       </Text>
                     </View>
                     {/* View 10 */}
@@ -708,9 +707,7 @@ const EventDetailsScreen = props => {
                           dimensions.width
                         )}
                       >
-                        {fetchData?.ebitda_eur !== '0.0'
-                          ? '€ ' + (fetchData?.ebitda_eur + 'm')
-                          : '-'}
+                        {transformEuroM(fetchData?.ebitda_eur)}
                       </Text>
                     </View>
                     {/* View 15 */}
@@ -762,9 +759,7 @@ const EventDetailsScreen = props => {
                           dimensions.width
                         )}
                       >
-                        {fetchData?.gross_profit_eur !== '0.0'
-                          ? '€ ' + (fetchData?.gross_profit_eur + 'm')
-                          : '-'}
+                        {transformEuroM(fetchData?.gross_profit_eur)}
                       </Text>
                     </View>
                     {/* View 11 */}
@@ -818,9 +813,7 @@ const EventDetailsScreen = props => {
                               dimensions.width
                             )}
                           >
-                            {fetchData?.ev_eur !== '0.0'
-                              ? '€ ' + (fetchData?.ev_eur + 'm')
-                              : undefined}
+                            {transformEuroM(fetchData?.ev_eur)}
                           </Text>
                         </View>
                       )}

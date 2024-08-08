@@ -3,6 +3,7 @@ import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
 import CustomHeaderBlock from '../components/CustomHeaderBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
+import transformEuroM from '../global-functions/transformEuroM';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as DateUtils from '../utils/DateUtils';
@@ -124,7 +125,7 @@ const CFSDetailsScreen = props => {
                         dimensions.width
                       )}
                     >
-                      {'Company for Sale detais'}
+                      {'Company for Sale details'}
                     </H5>
                   )}
                 </>
@@ -354,9 +355,7 @@ const CFSDetailsScreen = props => {
                         dimensions.width
                       )}
                     >
-                      {fetchData?.revenue_eur !== '0.0'
-                        ? '€ ' + (fetchData?.revenue_eur + 'm')
-                        : '-'}
+                      {transformEuroM(fetchData?.revenue_eur)}
                     </Text>
                   </View>
                   {/* View 5 */}
@@ -406,9 +405,7 @@ const CFSDetailsScreen = props => {
                         dimensions.width
                       )}
                     >
-                      {fetchData?.ebitda_eur !== '0.0'
-                        ? '€ ' + (fetchData?.ebitda_eur + 'm')
-                        : '-'}
+                      {transformEuroM(fetchData?.ebitda_eur)}
                     </Text>
                   </View>
                   {/* View 6 */}
@@ -786,11 +783,11 @@ const CFSDetailsScreen = props => {
                                     fontFamily: 'Quicksand_700Bold',
                                     fontSize: [
                                       {
-                                        minWidth: Breakpoints.Mobile,
-                                        value: 12,
+                                        minWidth: Breakpoints.Laptop,
+                                        value: 14,
                                       },
                                       {
-                                        minWidth: Breakpoints.Laptop,
+                                        minWidth: Breakpoints.Mobile,
                                         value: 14,
                                       },
                                     ],
@@ -815,11 +812,11 @@ const CFSDetailsScreen = props => {
                                     fontFamily: 'Quicksand_400Regular',
                                     fontSize: [
                                       {
-                                        minWidth: Breakpoints.Mobile,
-                                        value: 10,
+                                        minWidth: Breakpoints.Laptop,
+                                        value: 12,
                                       },
                                       {
-                                        minWidth: Breakpoints.Laptop,
+                                        minWidth: Breakpoints.Mobile,
                                         value: 12,
                                       },
                                     ],
