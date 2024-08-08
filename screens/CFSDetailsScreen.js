@@ -634,33 +634,41 @@ const CFSDetailsScreen = props => {
                   dimensions.width
                 )}
               >
-                {/* H3 2 */}
-                <H3
-                  selectable={false}
-                  {...GlobalStyles.H3Styles(theme)['H3'].props}
+                <View
                   style={StyleSheet.applyWidth(
-                    StyleSheet.compose(
-                      GlobalStyles.H3Styles(theme)['H3'].style,
-                      {
-                        alignSelf: {
-                          minWidth: Breakpoints.Laptop,
-                          value: 'flex-start',
-                        },
-                        fontFamily: 'Quicksand_700Bold',
-                        fontSize: 20,
-                        marginBottom: 10,
-                        marginTop: 0,
-                        paddingLeft: {
-                          minWidth: Breakpoints.Laptop,
-                          value: 10,
-                        },
-                      }
-                    ),
+                    {
+                      maxWidth: 1200,
+                      paddingLeft: 10,
+                      paddingRight: 10,
+                      width: '100%',
+                    },
                     dimensions.width
                   )}
                 >
-                  {'Other Updates:'}
-                </H3>
+                  {/* H3 2 */}
+                  <H3
+                    selectable={false}
+                    {...GlobalStyles.H3Styles(theme)['H3'].props}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.H3Styles(theme)['H3'].style,
+                        {
+                          alignSelf: {
+                            minWidth: Breakpoints.Laptop,
+                            value: 'flex-start',
+                          },
+                          fontFamily: 'Quicksand_700Bold',
+                          fontSize: 20,
+                          marginBottom: 10,
+                          marginTop: 0,
+                        }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    {'Other Updates:'}
+                  </H3>
+                </View>
                 <SimpleStyleFlatList
                   data={fetchData?.other_events}
                   horizontal={false}

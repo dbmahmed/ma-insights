@@ -69,7 +69,7 @@ const ForgotPasswordScreen = props => {
           >
             <View
               style={StyleSheet.applyWidth(
-                { alignItems: 'center' },
+                { alignItems: 'center', maxWidth: 380, width: '100%' },
                 dimensions.width
               )}
             >
@@ -77,7 +77,7 @@ const ForgotPasswordScreen = props => {
               <Image
                 {...GlobalStyles.ImageStyles(theme)['Image'].props}
                 resizeMode={'contain'}
-                source={Images.LogoMobileApp}
+                source={Images['LogoMobileApp']}
                 style={StyleSheet.applyWidth(
                   StyleSheet.compose(
                     GlobalStyles.ImageStyles(theme)['Image'].style,
@@ -110,7 +110,13 @@ const ForgotPasswordScreen = props => {
             </View>
             {/* Login Window */}
             <View
-              style={StyleSheet.applyWidth({ width: '100%' }, dimensions.width)}
+              style={StyleSheet.applyWidth(
+                {
+                  alignItems: { minWidth: Breakpoints.Tablet, value: 'center' },
+                  width: '100%',
+                },
+                dimensions.width
+              )}
             >
               <Surface
                 {...GlobalStyles.SurfaceStyles(theme)['Surface'].props}
@@ -121,9 +127,11 @@ const ForgotPasswordScreen = props => {
                     {
                       margin: null,
                       marginTop: 15,
+                      maxWidth: 380,
                       padding: 10,
                       paddingBottom: 20,
                       paddingTop: 20,
+                      width: '100%',
                     }
                   ),
                   dimensions.width
@@ -352,7 +360,7 @@ const ForgotPasswordScreen = props => {
           >
             <View
               style={StyleSheet.applyWidth(
-                { alignItems: 'center' },
+                { alignItems: 'center', maxWidth: 380, width: '100%' },
                 dimensions.width
               )}
             >
@@ -360,7 +368,7 @@ const ForgotPasswordScreen = props => {
               <Image
                 {...GlobalStyles.ImageStyles(theme)['Image'].props}
                 resizeMode={'contain'}
-                source={Images.LogoMobileApp}
+                source={Images['LogoMobileApp']}
                 style={StyleSheet.applyWidth(
                   StyleSheet.compose(
                     GlobalStyles.ImageStyles(theme)['Image'].style,
@@ -393,7 +401,10 @@ const ForgotPasswordScreen = props => {
             </View>
             {/* Login Window */}
             <View
-              style={StyleSheet.applyWidth({ width: '100%' }, dimensions.width)}
+              style={StyleSheet.applyWidth(
+                { alignItems: 'center', width: '100%' },
+                dimensions.width
+              )}
             >
               <Surface
                 {...GlobalStyles.SurfaceStyles(theme)['Surface'].props}
@@ -404,9 +415,11 @@ const ForgotPasswordScreen = props => {
                     {
                       margin: null,
                       marginTop: 15,
+                      maxWidth: 380,
                       padding: 10,
                       paddingBottom: 20,
                       paddingTop: 20,
+                      width: '100%',
                     }
                   ),
                   dimensions.width
@@ -663,7 +676,7 @@ const ForgotPasswordScreen = props => {
           >
             <View
               style={StyleSheet.applyWidth(
-                { alignItems: 'center' },
+                { alignItems: 'center', maxWidth: 380, width: '100%' },
                 dimensions.width
               )}
             >
@@ -671,7 +684,7 @@ const ForgotPasswordScreen = props => {
               <Image
                 {...GlobalStyles.ImageStyles(theme)['Image'].props}
                 resizeMode={'contain'}
-                source={Images.LogoMobileApp}
+                source={Images['LogoMobileApp']}
                 style={StyleSheet.applyWidth(
                   StyleSheet.compose(
                     GlobalStyles.ImageStyles(theme)['Image'].style,
@@ -702,7 +715,10 @@ const ForgotPasswordScreen = props => {
             </View>
             {/* Login Window */}
             <View
-              style={StyleSheet.applyWidth({ width: '100%' }, dimensions.width)}
+              style={StyleSheet.applyWidth(
+                { alignItems: 'center', width: '100%' },
+                dimensions.width
+              )}
             >
               <Surface
                 {...GlobalStyles.SurfaceStyles(theme)['Surface'].props}
@@ -713,9 +729,11 @@ const ForgotPasswordScreen = props => {
                     {
                       margin: null,
                       marginTop: 15,
+                      maxWidth: 380,
                       padding: 10,
                       paddingBottom: 20,
                       paddingTop: 20,
+                      width: '100%',
                     }
                   ),
                   dimensions.width
