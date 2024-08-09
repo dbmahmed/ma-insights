@@ -1237,64 +1237,47 @@ const NewsletterDetailsScreen = props => {
                         dimensions.width
                       )}
                     >
-                      <>
-                        {!(
-                          (fetchData?.events_list?.first &&
-                            (fetchData?.events_list?.first)[0]) !== null &&
-                          fetchData?.events_list?.first &&
-                          (fetchData?.events_list?.first)[0] &&
-                          (fetchData?.events_list?.second &&
-                            (fetchData?.events_list?.second)[0]) !== null &&
-                          fetchData?.events_list?.second &&
-                          (fetchData?.events_list?.second)[0] &&
-                          (fetchData?.events_list?.third &&
-                            (fetchData?.events_list?.third)[0]) !== null &&
-                          fetchData?.events_list?.third &&
-                          (fetchData?.events_list?.third)[0]
-                        ) ? null : (
-                          <LinearGradient
-                            color1={theme.colors.branding.primary}
-                            color2={theme.colors.branding.secondary}
-                            endX={100}
-                            endY={100}
-                            startX={0}
-                            startY={0}
-                            {...GlobalStyles.LinearGradientStyles(theme)[
+                      <LinearGradient
+                        color1={theme.colors.branding.primary}
+                        color2={theme.colors.branding.secondary}
+                        endX={100}
+                        endY={100}
+                        startX={0}
+                        startY={0}
+                        {...GlobalStyles.LinearGradientStyles(theme)[
+                          'SectionName'
+                        ].props}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.LinearGradientStyles(theme)[
                               'SectionName'
-                            ].props}
-                            style={StyleSheet.applyWidth(
-                              StyleSheet.compose(
-                                GlobalStyles.LinearGradientStyles(theme)[
-                                  'SectionName'
-                                ].style,
-                                { margin: null }
-                              ),
-                              dimensions.width
-                            )}
-                          >
-                            <Text
-                              accessible={true}
-                              {...GlobalStyles.TextStyles(theme)['screen_title']
-                                .props}
-                              style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.TextStyles(theme)['screen_title']
-                                    .style,
-                                  {
-                                    color: palettes.Brand['Strong Inverse'],
-                                    fontFamily: 'Quicksand_700Bold',
-                                    fontSize: 16,
-                                    textTransform: 'uppercase',
-                                  }
-                                ),
-                                dimensions.width
-                              )}
-                            >
-                              {'NEWSFLOW'}
-                            </Text>
-                          </LinearGradient>
+                            ].style,
+                            { margin: null }
+                          ),
+                          dimensions.width
                         )}
-                      </>
+                      >
+                        <Text
+                          accessible={true}
+                          {...GlobalStyles.TextStyles(theme)['screen_title']
+                            .props}
+                          style={StyleSheet.applyWidth(
+                            StyleSheet.compose(
+                              GlobalStyles.TextStyles(theme)['screen_title']
+                                .style,
+                              {
+                                color: palettes.Brand['Strong Inverse'],
+                                fontFamily: 'Quicksand_700Bold',
+                                fontSize: 16,
+                                textTransform: 'uppercase',
+                              }
+                            ),
+                            dimensions.width
+                          )}
+                        >
+                          {'NEWSFLOW'}
+                        </Text>
+                      </LinearGradient>
                     </View>
                     {/* Nordic Newsflow */}
                     <>
@@ -2185,7 +2168,8 @@ const NewsletterDetailsScreen = props => {
                           <>
                             {!(
                               (fetchData?.events_list?.second &&
-                                (fetchData?.events_list?.second)[0]) !== null
+                                (fetchData?.events_list?.second)[0]) !== null &&
+                              fetchData?.events_list?.second?.length > 0
                             ) ? null : (
                               <View
                                 style={StyleSheet.applyWidth(

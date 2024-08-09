@@ -37,49 +37,104 @@ const AllEventsScreen = props => {
   const Constants = GlobalVariables.useValues();
   const Variables = Constants;
   const setGlobalVariableValue = GlobalVariables.useSetValue();
-  const [Media_and_Other, setMedia_and_Other] = React.useState(false);
-  const [NKP_Proprietary, setNKP_Proprietary] = React.useState(false);
-  const [Press_Release, setPress_Release] = React.useState(false);
-  const [acq_agenda, setAcq_agenda] = React.useState(false);
-  const [austria, setAustria] = React.useState(false);
-  const [checkboxRow2Value, setCheckboxRow2Value] = React.useState('');
-  const [checkboxRowValue, setCheckboxRowValue] = React.useState('');
-  const [checkboxRowValue2, setCheckboxRowValue2] = React.useState('');
-  const [checkboxValue, setCheckboxValue] = React.useState(false);
-  const [checkboxValue2, setCheckboxValue2] = React.useState(false);
-  const [checkboxValue3, setCheckboxValue3] = React.useState(false);
+  const [Media_and_Other, setMedia_and_Other] = React.useState(true);
+  const [NKP_Proprietary, setNKP_Proprietary] = React.useState(true);
+  const [Press_Release, setPress_Release] = React.useState(true);
+  const [acq_agenda, setAcq_agenda] = React.useState(true);
+  const [austria, setAustria] = React.useState(true);
   const [communication_services, setCommunication_services] =
-    React.useState(false);
+    React.useState(true);
   const [consumer_discretionary, setConsumer_discretionary] =
-    React.useState(false);
-  const [consumer_staples, setConsumer_staples] = React.useState(false);
+    React.useState(true);
+  const [consumer_staples, setConsumer_staples] = React.useState(true);
   const [country, setCountry] = React.useState([]);
-  const [denmark, setDenmark] = React.useState(false);
-  const [energy, setEnergy] = React.useState(false);
+  const [denmark, setDenmark] = React.useState(true);
+  const [energy, setEnergy] = React.useState(true);
   const [eventItems, setEventItems] = React.useState([]);
   const [eventSearch, setEventSearch] = React.useState('');
   const [eventType, setEventType] = React.useState([]);
   const [filterPressed, setFilterPressed] = React.useState(false);
-  const [financials, setFinancials] = React.useState(false);
-  const [finland, setFinland] = React.useState(false);
-  const [future_opportunity, setFuture_opportunity] = React.useState(false);
-  const [germany, setGermany] = React.useState(false);
-  const [health_care, setHealth_care] = React.useState(false);
-  const [industrials, setIndustrials] = React.useState(false);
-  const [it_and_software, setIt_and_software] = React.useState(false);
+  const [financials, setFinancials] = React.useState(true);
+  const [finland, setFinland] = React.useState(true);
+  const [future_opportunity, setFuture_opportunity] = React.useState(true);
+  const [germany, setGermany] = React.useState(true);
+  const [health_care, setHealth_care] = React.useState(true);
+  const [industrials, setIndustrials] = React.useState(true);
+  const [it_and_software, setIt_and_software] = React.useState(true);
   const [keywordSearch, setKeywordSearch] = React.useState('');
   const [lastPage, setLastPage] = React.useState(2);
-  const [materials, setMaterials] = React.useState(false);
-  const [minEbitda, setMinEbitda] = React.useState(0);
+  const [materials, setMaterials] = React.useState(true);
+  const [minEbitda, setMinEbitda] = React.useState(true);
   const [nextPage, setNextPage] = React.useState(2);
-  const [norway, setNorway] = React.useState(false);
-  const [real_estate, setReal_estate] = React.useState(false);
+  const [norway, setNorway] = React.useState(true);
+  const [real_estate, setReal_estate] = React.useState(true);
   const [sector, setSector] = React.useState([]);
   const [sourceType, setSourceType] = React.useState([]);
-  const [sweden, setSweden] = React.useState(false);
-  const [switzerland, setSwitzerland] = React.useState(false);
-  const [transaction, setTransaction] = React.useState(false);
-  const [utilities, setUtilities] = React.useState(false);
+  const [sweden, setSweden] = React.useState(true);
+  const [switzerland, setSwitzerland] = React.useState(true);
+  const [transaction, setTransaction] = React.useState(true);
+  const [utilities, setUtilities] = React.useState(true);
+  const matchingFilters = () => {
+    setFuture_opportunity((eventType || []).includes('Future Opportunity'));
+    setAcq_agenda((eventType || []).includes('Acq. agenda & other'));
+    setTransaction((eventType || []).includes('Transaction'));
+
+    setSweden((country || []).includes('Sweden'));
+    setGermany((country || []).includes('Germany'));
+    setDenmark((country || []).includes('Denmark'));
+    setSwitzerland((country || []).includes('Switzerland'));
+    setNorway((country || []).includes('Norway'));
+    setAustria((country || []).includes('Austria'));
+    setFinland((country || []).includes('Finland'));
+
+    setCommunication_services(
+      (sector || []).includes('Communication Services')
+    );
+    setIndustrials((sector || []).includes('Industrials'));
+    setConsumer_discretionary(
+      (sector || []).includes('Consumer Discretionary')
+    );
+    setIt_and_software((sector || []).includes('IT & Software'));
+    setConsumer_staples((sector || []).includes('Consumer Staples'));
+    setMaterials((sector || []).includes('Materials'));
+    setEnergy((sector || []).includes('Energy'));
+    setReal_estate((sector || []).includes('Real Estate'));
+    setFinancials((sector || []).includes('Financials'));
+    setUtilities((sector || []).includes('Utilities'));
+    setHealth_care((sector || []).includes('Health Care'));
+    console.log(sourceType);
+    setNKP_Proprietary((sourceType || []).includes('NKP Proprietary'));
+    setPress_Release((sourceType || []).includes('Press Release'));
+    setMedia_and_Other((sourceType || []).includes('Media & Other'));
+  };
+
+  const toggleAllFilters = flag => {
+    setFuture_opportunity(flag);
+    setAcq_agenda(flag);
+    setTransaction(flag);
+    setSweden(flag);
+    setGermany(flag);
+    setDenmark(flag);
+    setSwitzerland(flag);
+    setNorway(flag);
+    setAustria(flag);
+    setFinland(flag);
+    setCommunication_services(flag);
+    setIndustrials(flag);
+    setConsumer_discretionary(flag);
+    setIt_and_software(flag);
+    setConsumer_staples(flag);
+    setMaterials(flag);
+    setEnergy(flag);
+    setReal_estate(flag);
+    setFinancials(flag);
+    setUtilities(flag);
+    setHealth_care(flag);
+    setNKP_Proprietary(flag);
+    setPress_Release(flag);
+    setMedia_and_Other(flag);
+  };
+
   const applyFilter = () => {
     //Event type
     const eventType = [];
@@ -129,102 +184,13 @@ const AllEventsScreen = props => {
 
     setSourceType(() => sourceType);
   };
-
-  const matchingFilters = () => {
-    setFuture_opportunity((eventType || []).includes('Future Opportunity'));
-    setAcq_agenda((eventType || []).includes('Acq. agenda & other'));
-    setTransaction((eventType || []).includes('Transaction'));
-
-    setSweden((country || []).includes('Sweden'));
-    setGermany((country || []).includes('Germany'));
-    setDenmark((country || []).includes('Denmark'));
-    setSwitzerland((country || []).includes('Switzerland'));
-    setNorway((country || []).includes('Norway'));
-    setAustria((country || []).includes('Austria'));
-    setFinland((country || []).includes('Finland'));
-
-    setCommunication_services(
-      (sector || []).includes('Communication Services')
-    );
-    setIndustrials((sector || []).includes('Industrials'));
-    setConsumer_discretionary(
-      (sector || []).includes('Consumer Discretionary')
-    );
-    setIt_and_software((sector || []).includes('IT & Software'));
-    setConsumer_staples((sector || []).includes('Consumer Staples'));
-    setMaterials((sector || []).includes('Materials'));
-    setEnergy((sector || []).includes('Energy'));
-    setReal_estate((sector || []).includes('Real Estate'));
-    setFinancials((sector || []).includes('Financials'));
-    setUtilities((sector || []).includes('Utilities'));
-    setHealth_care((sector || []).includes('Health Care'));
-    console.log(sourceType);
-    setNKP_Proprietary((sourceType || []).includes('NKP Proprietary'));
-    setPress_Release((sourceType || []).includes('Press Release'));
-    setMedia_and_Other((sourceType || []).includes('Media & Other'));
-  };
-
-  const checkingSelectedAll = () => {
-    return (
-      future_opportunity &&
-      acq_agenda &&
-      transaction &&
-      sweden &&
-      germany &&
-      denmark &&
-      switzerland &&
-      norway &&
-      austria &&
-      finland &&
-      communication_services &&
-      industrials &&
-      consumer_discretionary &&
-      it_and_software &&
-      consumer_staples &&
-      materials &&
-      energy &&
-      real_estate &&
-      financials &&
-      utilities &&
-      health_care &&
-      NKP_Proprietary &&
-      Press_Release &&
-      Media_and_Other
-    );
-  };
-
-  const toggleAllFilters = flag => {
-    setFuture_opportunity(flag);
-    setAcq_agenda(flag);
-    setTransaction(flag);
-    setSweden(flag);
-    setGermany(flag);
-    setDenmark(flag);
-    setSwitzerland(flag);
-    setNorway(flag);
-    setAustria(flag);
-    setFinland(flag);
-    setCommunication_services(flag);
-    setIndustrials(flag);
-    setConsumer_discretionary(flag);
-    setIt_and_software(flag);
-    setConsumer_staples(flag);
-    setMaterials(flag);
-    setEnergy(flag);
-    setReal_estate(flag);
-    setFinancials(flag);
-    setUtilities(flag);
-    setHealth_care(flag);
-    setNKP_Proprietary(flag);
-    setPress_Release(flag);
-    setMedia_and_Other(flag);
-  };
   const isFocused = useIsFocused();
   React.useEffect(() => {
     try {
       if (!isFocused) {
         return;
       }
+      applyFilter();
       setGlobalVariableValue({
         key: 'pageName',
         value: 'All events',
@@ -668,10 +634,14 @@ const AllEventsScreen = props => {
                                       },
                                       {
                                         minWidth: Breakpoints.Laptop,
-                                        value: 14,
+                                        value: 16,
                                       },
                                     ],
                                     margin: 0,
+                                    marginBottom: {
+                                      minWidth: Breakpoints.Laptop,
+                                      value: 5,
+                                    },
                                   }
                                 ),
                                 dimensions.width
@@ -697,9 +667,13 @@ const AllEventsScreen = props => {
                                       },
                                       {
                                         minWidth: Breakpoints.Laptop,
-                                        value: 12,
+                                        value: 14,
                                       },
                                     ],
+                                    marginBottom: {
+                                      minWidth: Breakpoints.Laptop,
+                                      value: 5,
+                                    },
                                     marginTop: 4,
                                   }
                                 ),
@@ -728,9 +702,13 @@ const AllEventsScreen = props => {
                                       },
                                       {
                                         minWidth: Breakpoints.Laptop,
-                                        value: 12,
+                                        value: 14,
                                       },
                                     ],
+                                    marginBottom: {
+                                      minWidth: Breakpoints.Laptop,
+                                      value: 5,
+                                    },
                                     marginTop: 4,
                                   }
                                 ),
@@ -3673,13 +3651,13 @@ const AllEventsScreen = props => {
                             flexDirection: 'row',
                             flexGrow: 1,
                             gap: [
-                              { minWidth: Breakpoints.Mobile, value: 8 },
+                              { minWidth: Breakpoints.Mobile, value: 0 },
                               { minWidth: Breakpoints.Laptop, value: 10 },
                             ],
                             justifyContent: [
                               {
                                 minWidth: Breakpoints.Mobile,
-                                value: 'space-between',
+                                value: 'flex-start',
                               },
                               {
                                 minWidth: Breakpoints.Laptop,
@@ -3687,83 +3665,152 @@ const AllEventsScreen = props => {
                               },
                             ],
                             marginBottom: 10,
-                            padding: 10,
+                            padding: 5,
                           },
                           dimensions.width
                         )}
                       >
-                        {/* Select All */}
-                        <Button
-                          iconPosition={'left'}
-                          onPress={() => {
-                            try {
-                              toggleAllFilters(!checkingSelectedAll());
-                            } catch (err) {
-                              console.error(err);
-                            }
-                          }}
-                          {...GlobalStyles.ButtonStyles(theme)['Button'].props}
+                        <View
                           style={StyleSheet.applyWidth(
-                            StyleSheet.compose(
-                              GlobalStyles.ButtonStyles(theme)['Button'].style,
-                              {
-                                backgroundColor: 'rgba(0, 0, 0, 0)',
-                                borderColor: palettes.Brand['Strong Inverse'],
-                                borderWidth: 1,
-                                fontFamily: 'Quicksand_600SemiBold',
-                                textTransform: 'uppercase',
-                                width: [
-                                  { minWidth: Breakpoints.Laptop, value: 150 },
-                                  {
-                                    minWidth: Breakpoints.Mobile,
-                                    value: '47%',
-                                  },
-                                ],
-                              }
-                            ),
+                            { maxWidth: 150, padding: 5, width: '33.33%' },
                             dimensions.width
                           )}
-                          title={`${
-                            checkingSelectedAll() ? 'RESET' : 'SELECT ALL'
-                          }`}
-                        />
-                        {/* Results */}
-                        <Button
-                          iconPosition={'left'}
-                          onPress={() => {
-                            const handler = async () => {
+                        >
+                          {/* Select All */}
+                          <Button
+                            iconPosition={'left'}
+                            onPress={() => {
                               try {
-                                applyFilter();
-                                setFilterPressed(false);
-                                await waitUtil({ milliseconds: 1000 });
-                                await refetchGetAllEvents();
+                                toggleAllFilters(true);
                               } catch (err) {
                                 console.error(err);
                               }
-                            };
-                            handler();
-                          }}
-                          {...GlobalStyles.ButtonStyles(theme)['Button'].props}
+                            }}
+                            {...GlobalStyles.ButtonStyles(theme)['Button']
+                              .props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.ButtonStyles(theme)['Button']
+                                  .style,
+                                {
+                                  backgroundColor: 'rgba(0, 0, 0, 0)',
+                                  borderColor: palettes.Brand['Strong Inverse'],
+                                  borderWidth: 1,
+                                  fontFamily: 'Quicksand_600SemiBold',
+                                  textTransform: 'uppercase',
+                                  width: [
+                                    {
+                                      minWidth: Breakpoints.Laptop,
+                                      value: 150,
+                                    },
+                                    {
+                                      minWidth: Breakpoints.Mobile,
+                                      value: '100%',
+                                    },
+                                  ],
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                            title={'Select All'}
+                          />
+                        </View>
+                        {/* View 2 */}
+                        <View
                           style={StyleSheet.applyWidth(
-                            StyleSheet.compose(
-                              GlobalStyles.ButtonStyles(theme)['Button'].style,
-                              {
-                                backgroundColor: palettes.App.Orange,
-                                fontFamily: 'Quicksand_600SemiBold',
-                                textTransform: 'uppercase',
-                                width: [
-                                  { minWidth: Breakpoints.Laptop, value: 150 },
-                                  {
-                                    minWidth: Breakpoints.Mobile,
-                                    value: '47%',
-                                  },
-                                ],
-                              }
-                            ),
+                            { maxWidth: 150, padding: 5, width: '33.33%' },
                             dimensions.width
                           )}
-                          title={'Filter'}
-                        />
+                        >
+                          {/* Reset */}
+                          <Button
+                            iconPosition={'left'}
+                            onPress={() => {
+                              try {
+                                toggleAllFilters(false);
+                              } catch (err) {
+                                console.error(err);
+                              }
+                            }}
+                            {...GlobalStyles.ButtonStyles(theme)['Button']
+                              .props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.ButtonStyles(theme)['Button']
+                                  .style,
+                                {
+                                  backgroundColor: 'rgba(0, 0, 0, 0)',
+                                  borderColor: palettes.Brand['Strong Inverse'],
+                                  borderWidth: 1,
+                                  fontFamily: 'Quicksand_600SemiBold',
+                                  textTransform: 'uppercase',
+                                  width: [
+                                    {
+                                      minWidth: Breakpoints.Laptop,
+                                      value: 150,
+                                    },
+                                    {
+                                      minWidth: Breakpoints.Mobile,
+                                      value: '100%',
+                                    },
+                                  ],
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                            title={'Reset'}
+                          />
+                        </View>
+                        {/* View 3 */}
+                        <View
+                          style={StyleSheet.applyWidth(
+                            { maxWidth: 150, padding: 5, width: '33.33%' },
+                            dimensions.width
+                          )}
+                        >
+                          {/* Results */}
+                          <Button
+                            iconPosition={'left'}
+                            onPress={() => {
+                              const handler = async () => {
+                                try {
+                                  applyFilter();
+                                  setFilterPressed(false);
+                                  await waitUtil({ milliseconds: 1000 });
+                                  await refetchGetAllEvents();
+                                } catch (err) {
+                                  console.error(err);
+                                }
+                              };
+                              handler();
+                            }}
+                            {...GlobalStyles.ButtonStyles(theme)['Button']
+                              .props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.ButtonStyles(theme)['Button']
+                                  .style,
+                                {
+                                  backgroundColor: palettes.App.Orange,
+                                  fontFamily: 'Quicksand_600SemiBold',
+                                  textTransform: 'uppercase',
+                                  width: [
+                                    {
+                                      minWidth: Breakpoints.Laptop,
+                                      value: 150,
+                                    },
+                                    {
+                                      minWidth: Breakpoints.Mobile,
+                                      value: '100%',
+                                    },
+                                  ],
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                            title={'Filter'}
+                          />
+                        </View>
                       </View>
                     </LinearGradient>
                   </View>
