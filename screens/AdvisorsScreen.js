@@ -3,6 +3,8 @@ import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
 import CustomHeaderBlock from '../components/CustomHeaderBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
+import assessAccess from '../global-functions/assessAccess';
+import resetAccess from '../global-functions/resetAccess';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
@@ -61,6 +63,8 @@ const AdvisorsScreen = props => {
         key: 'subPage',
         value: false,
       });
+      /* hidden 'Conditional Stop' action */
+      /* hidden 'Navigate' action */
     } catch (err) {
       console.error(err);
     }
@@ -626,7 +630,17 @@ const AdvisorsScreen = props => {
         </View>
       </View>
       {/* Fetch  */}
-      <XanoCollectionApi.FetchGetAdvisorsGET>
+      <XanoCollectionApi.FetchGetAdvisorsGET
+        handlers={{
+          on401: fetchData => {
+            try {
+              resetAccess(navigation, Variables, setGlobalVariableValue);
+            } catch (err) {
+              console.error(err);
+            }
+          },
+        }}
+      >
         {({ loading, error, data, refetchGetAdvisors }) => {
           const fetchData = data?.json;
           if (loading) {

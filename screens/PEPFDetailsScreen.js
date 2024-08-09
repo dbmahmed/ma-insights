@@ -3,6 +3,7 @@ import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
 import CustomHeaderBlock from '../components/CustomHeaderBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
+import assessAccess from '../global-functions/assessAccess';
 import transformEuroM from '../global-functions/transformEuroM';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
@@ -21,7 +22,7 @@ import { ActivityIndicator, Text, View } from 'react-native';
 import { Fetch } from 'react-request';
 
 const PEPFDetailsScreen = props => {
-  const { theme } = props;
+  const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
   const Constants = GlobalVariables.useValues();
   const Variables = Constants;
@@ -50,6 +51,13 @@ const PEPFDetailsScreen = props => {
         key: 'subPage',
         value: true,
       });
+      if (assessAccess(Variables, setGlobalVariableValue) === true) {
+        return;
+      }
+      if (navigation.canGoBack()) {
+        navigation.popToTop();
+      }
+      navigation.replace('LogInScreen');
     } catch (err) {
       console.error(err);
     }

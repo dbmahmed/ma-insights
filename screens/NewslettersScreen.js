@@ -79,7 +79,10 @@ const NewslettersScreen = props => {
         );
       }
       console.log('Start ON_SCREEN_FOCUS:5 NAVIGATE');
-      navigation.navigate('LogInScreen');
+      if (navigation.canGoBack()) {
+        navigation.popToTop();
+      }
+      navigation.replace('LogInScreen');
       console.log('Complete ON_SCREEN_FOCUS:5 NAVIGATE');
       console.log('Start ON_SCREEN_FOCUS:6 SET_VARIABLE');
       /* hidden 'Set Variable' action */ console.log(

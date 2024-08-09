@@ -3,6 +3,7 @@ import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
 import CustomHeaderBlock from '../components/CustomHeaderBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
+import assessAccess from '../global-functions/assessAccess';
 import modifyArrays from '../global-functions/modifyArrays';
 import transformEuroM from '../global-functions/transformEuroM';
 import palettes from '../themes/palettes';
@@ -229,6 +230,13 @@ const CFSScreen = props => {
         key: 'subPage',
         value: false,
       });
+      if (assessAccess(Variables, setGlobalVariableValue) === true) {
+        return;
+      }
+      if (navigation.canGoBack()) {
+        navigation.popToTop();
+      }
+      navigation.replace('LogInScreen');
     } catch (err) {
       console.error(err);
     }

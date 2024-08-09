@@ -3,6 +3,7 @@ import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
 import CustomHeaderBlock from '../components/CustomHeaderBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
+import assessAccess from '../global-functions/assessAccess';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
@@ -81,6 +82,13 @@ const StockDetailsScreen = props => {
         key: 'subPage',
         value: true,
       });
+      if (assessAccess(Variables, setGlobalVariableValue) === true) {
+        return;
+      }
+      if (navigation.canGoBack()) {
+        navigation.popToTop();
+      }
+      navigation.replace('LogInScreen');
     } catch (err) {
       console.error(err);
     }
