@@ -36,8 +36,10 @@ const NewslettersScreen = props => {
   const [dach, setDach] = React.useState(true);
   const [keywordSearch, setKeywordSearch] = React.useState('');
   const [my_peer_groups, setMy_peer_groups] = React.useState(false);
+  const [newsletter, setNewsletter] = React.useState(true);
   const [nkp_comps, setNkp_comps] = React.useState(false);
   const [nordic, setNordic] = React.useState(true);
+  const [weeklyReport, setWeeklyReport] = React.useState(true);
   const fixedKeyProp = key => {
     console.log('key', key + window.innerWidth);
     return key + window.innerWidth;
@@ -150,165 +152,353 @@ const NewslettersScreen = props => {
               dimensions.width
             )}
           >
-            <TextInput
-              autoCorrect={true}
-              changeTextDelay={500}
-              onChangeText={newTextInputValue => {
-                try {
-                  setKeywordSearch(newTextInputValue);
-                } catch (err) {
-                  console.error(err);
-                }
-              }}
-              onSubmitEditing={() => {
-                try {
-                  /* hidden 'Set Variable' action */
-                  /* hidden 'API Request' action */
-                  /* 'Refetch Data' action requires configuration: choose an API endpoint */
-                } catch (err) {
-                  console.error(err);
-                }
-              }}
-              webShowOutline={true}
-              {...GlobalStyles.TextInputStyles(theme)['Text Input'].props}
-              autoCapitalize={'sentences'}
-              clearButtonMode={'while-editing'}
-              placeholder={'Search...'}
-              returnKeyType={'search'}
-              style={StyleSheet.applyWidth(
-                StyleSheet.compose(
-                  GlobalStyles.TextInputStyles(theme)['Text Input'].style,
-                  { width: '100%' }
-                ),
-                dimensions.width
-              )}
-              value={keywordSearch}
-            />
+            {/* View 2 */}
             <View
               style={StyleSheet.applyWidth(
-                { flexDirection: 'row', width: '100%' },
+                {
+                  alignItems: {
+                    minWidth: Breakpoints.Laptop,
+                    value: 'flex-start',
+                  },
+                  flexDirection: { minWidth: Breakpoints.Laptop, value: 'row' },
+                  justifyContent: {
+                    minWidth: Breakpoints.Laptop,
+                    value: 'space-between',
+                  },
+                },
                 dimensions.width
               )}
             >
-              {/* Nordic */}
+              <TextInput
+                autoCorrect={true}
+                changeTextDelay={500}
+                onChangeText={newTextInputValue => {
+                  try {
+                    setKeywordSearch(newTextInputValue);
+                  } catch (err) {
+                    console.error(err);
+                  }
+                }}
+                onSubmitEditing={() => {
+                  try {
+                    /* hidden 'Set Variable' action */
+                    /* hidden 'API Request' action */
+                    /* 'Refetch Data' action requires configuration: choose an API endpoint */
+                  } catch (err) {
+                    console.error(err);
+                  }
+                }}
+                webShowOutline={true}
+                {...GlobalStyles.TextInputStyles(theme)['Text Input'].props}
+                autoCapitalize={'sentences'}
+                clearButtonMode={'while-editing'}
+                placeholder={'Search...'}
+                returnKeyType={'search'}
+                style={StyleSheet.applyWidth(
+                  StyleSheet.compose(
+                    GlobalStyles.TextInputStyles(theme)['Text Input'].style,
+                    {
+                      width: [
+                        { minWidth: Breakpoints.Mobile, value: '100%' },
+                        { minWidth: Breakpoints.Laptop, value: '50%' },
+                      ],
+                    }
+                  ),
+                  dimensions.width
+                )}
+                value={keywordSearch}
+              />
               <View
                 style={StyleSheet.applyWidth(
                   {
-                    alignContent: 'center',
-                    alignItems: 'center',
                     flexDirection: 'row',
-                    gap: 4,
-                    maxWidth: '50%',
-                    padding: 4,
+                    flexWrap: 'wrap',
+                    paddingLeft: { minWidth: Breakpoints.Laptop, value: 8 },
                     width: [
-                      { minWidth: Breakpoints.Tablet, value: '33.33%' },
-                      { minWidth: Breakpoints.Desktop, value: '25%' },
-                      { minWidth: Breakpoints.Laptop, value: '25%' },
-                      { minWidth: Breakpoints.Mobile, value: 200 },
+                      { minWidth: Breakpoints.Mobile, value: '100%' },
+                      { minWidth: Breakpoints.Laptop, value: '50%' },
                     ],
                   },
                   dimensions.width
                 )}
               >
-                <Checkbox
-                  onPress={newCheckboxValue => {
-                    try {
-                      setNordic(newCheckboxValue);
-                    } catch (err) {
-                      console.error(err);
-                    }
-                  }}
-                  color={theme.colors.text.medium}
-                  disabled={Constants['ME']?.access_regions === 'DACH'}
-                  size={24}
-                  status={nordic}
-                  uncheckedColor={theme.colors.text.medium}
-                />
-                <Pressable
-                  onPress={() => {
-                    try {
-                      setNordic(nordic ? false : true);
-                    } catch (err) {
-                      console.error(err);
-                    }
-                  }}
-                  disabled={Constants['ME']?.access_regions === 'DACH'}
+                {/* Nordic */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    {
+                      alignContent: 'center',
+                      alignItems: 'center',
+                      flexDirection: 'row',
+                      gap: 4,
+                      maxWidth: '50%',
+                      padding: 4,
+                      width: [
+                        { minWidth: Breakpoints.Mobile, value: 190 },
+                        { minWidth: Breakpoints.Laptop, value: 115 },
+                      ],
+                    },
+                    dimensions.width
+                  )}
                 >
-                  <Text
-                    accessible={true}
-                    {...GlobalStyles.TextStyles(theme)['screen_title'].props}
-                    style={StyleSheet.applyWidth(
-                      StyleSheet.compose(
-                        GlobalStyles.TextStyles(theme)['screen_title'].style,
-                        { fontFamily: 'Quicksand_400Regular', fontSize: 12 }
-                      ),
-                      dimensions.width
-                    )}
+                  <Checkbox
+                    onPress={newCheckboxValue => {
+                      try {
+                        setNordic(newCheckboxValue);
+                      } catch (err) {
+                        console.error(err);
+                      }
+                    }}
+                    color={theme.colors.text.medium}
+                    disabled={Constants['ME']?.access_regions === 'DACH'}
+                    size={24}
+                    status={nordic}
+                    uncheckedColor={theme.colors.text.medium}
+                  />
+                  <Pressable
+                    onPress={() => {
+                      try {
+                        setNordic(nordic ? false : true);
+                      } catch (err) {
+                        console.error(err);
+                      }
+                    }}
+                    disabled={Constants['ME']?.access_regions === 'DACH'}
                   >
-                    {'Nordic'}
-                  </Text>
-                </Pressable>
-              </View>
-              {/* DACH */}
-              <View
-                style={StyleSheet.applyWidth(
-                  {
-                    alignContent: 'center',
-                    alignItems: 'center',
-                    flexDirection: 'row',
-                    gap: 4,
-                    maxWidth: '50%',
-                    padding: 4,
-                    width: [
-                      { minWidth: Breakpoints.Tablet, value: '33.33%' },
-                      { minWidth: Breakpoints.Desktop, value: '25%' },
-                      { minWidth: Breakpoints.Laptop, value: '25%' },
-                      { minWidth: Breakpoints.Mobile, value: 200 },
-                    ],
-                  },
-                  dimensions.width
-                )}
-              >
-                <Checkbox
-                  onPress={newCheckboxValue => {
-                    try {
-                      setDach(newCheckboxValue);
-                    } catch (err) {
-                      console.error(err);
-                    }
-                  }}
-                  color={theme.colors.text.medium}
-                  disabled={Constants['ME']?.access_regions === 'DACH'}
-                  size={24}
-                  status={dach}
-                  uncheckedColor={theme.colors.text.medium}
-                />
-                <Pressable
-                  onPress={() => {
-                    try {
-                      setDach(dach ? false : true);
-                    } catch (err) {
-                      console.error(err);
-                    }
-                  }}
-                  disabled={Constants['ME']?.access_regions === 'DACH'}
+                    <Text
+                      accessible={true}
+                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.TextStyles(theme)['screen_title'].style,
+                          { fontFamily: 'Quicksand_400Regular', fontSize: 12 }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      {'Nordic'}
+                    </Text>
+                  </Pressable>
+                </View>
+                {/* DACH */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    {
+                      alignContent: 'center',
+                      alignItems: 'center',
+                      flexDirection: 'row',
+                      gap: 4,
+                      maxWidth: '50%',
+                      padding: 4,
+                      width: [
+                        { minWidth: Breakpoints.Mobile, value: 190 },
+                        { minWidth: Breakpoints.Laptop, value: 115 },
+                      ],
+                    },
+                    dimensions.width
+                  )}
                 >
-                  <Text
-                    accessible={true}
-                    {...GlobalStyles.TextStyles(theme)['screen_title'].props}
-                    style={StyleSheet.applyWidth(
-                      StyleSheet.compose(
-                        GlobalStyles.TextStyles(theme)['screen_title'].style,
-                        { fontFamily: 'Quicksand_400Regular', fontSize: 12 }
-                      ),
-                      dimensions.width
-                    )}
+                  <Checkbox
+                    onPress={newCheckboxValue => {
+                      try {
+                        setDach(newCheckboxValue);
+                      } catch (err) {
+                        console.error(err);
+                      }
+                    }}
+                    color={theme.colors.text.medium}
+                    disabled={Constants['ME']?.access_regions === 'DACH'}
+                    size={24}
+                    status={dach}
+                    uncheckedColor={theme.colors.text.medium}
+                  />
+                  <Pressable
+                    onPress={() => {
+                      try {
+                        setDach(dach ? false : true);
+                      } catch (err) {
+                        console.error(err);
+                      }
+                    }}
+                    disabled={Constants['ME']?.access_regions === 'DACH'}
                   >
-                    {'DACH'}
-                  </Text>
-                </Pressable>
+                    <Text
+                      accessible={true}
+                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.TextStyles(theme)['screen_title'].style,
+                          { fontFamily: 'Quicksand_400Regular', fontSize: 12 }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      {'DACH'}
+                    </Text>
+                  </Pressable>
+                </View>
+                {/* Newsletter */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    {
+                      alignContent: 'center',
+                      alignItems: 'center',
+                      flexDirection: 'row',
+                      gap: 4,
+                      maxWidth: '50%',
+                      padding: 4,
+                      width: [
+                        { minWidth: Breakpoints.Mobile, value: 190 },
+                        { minWidth: Breakpoints.Laptop, value: 115 },
+                      ],
+                    },
+                    dimensions.width
+                  )}
+                >
+                  <Checkbox
+                    onPress={newCheckboxValue => {
+                      try {
+                        setNewsletter(newCheckboxValue);
+                      } catch (err) {
+                        console.error(err);
+                      }
+                    }}
+                    color={theme.colors.text.medium}
+                    disabled={Constants['ME']?.access_regions === 'DACH'}
+                    size={24}
+                    status={newsletter}
+                    uncheckedColor={theme.colors.text.medium}
+                  />
+                  <Pressable
+                    onPress={() => {
+                      try {
+                        setNewsletter(newsletter ? false : true);
+                      } catch (err) {
+                        console.error(err);
+                      }
+                    }}
+                    disabled={Constants['ME']?.access_regions === 'DACH'}
+                  >
+                    <Text
+                      accessible={true}
+                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.TextStyles(theme)['screen_title'].style,
+                          { fontFamily: 'Quicksand_400Regular', fontSize: 12 }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      {'Newsletter'}
+                    </Text>
+                  </Pressable>
+                </View>
+                {/* Weekly Report */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    {
+                      alignContent: 'center',
+                      alignItems: 'center',
+                      flexDirection: 'row',
+                      gap: 4,
+                      maxWidth: '50%',
+                      padding: 4,
+                      width: [
+                        { minWidth: Breakpoints.Mobile, value: 190 },
+                        { minWidth: Breakpoints.Laptop, value: 115 },
+                      ],
+                    },
+                    dimensions.width
+                  )}
+                >
+                  <Checkbox
+                    onPress={newCheckboxValue => {
+                      try {
+                        setWeeklyReport(newCheckboxValue);
+                      } catch (err) {
+                        console.error(err);
+                      }
+                    }}
+                    color={theme.colors.text.medium}
+                    disabled={Constants['ME']?.access_regions === 'DACH'}
+                    size={24}
+                    status={weeklyReport}
+                    uncheckedColor={theme.colors.text.medium}
+                  />
+                  <Pressable
+                    onPress={() => {
+                      try {
+                        setWeeklyReport(weeklyReport ? false : true);
+                      } catch (err) {
+                        console.error(err);
+                      }
+                    }}
+                    disabled={Constants['ME']?.access_regions === 'DACH'}
+                  >
+                    <Text
+                      accessible={true}
+                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.TextStyles(theme)['screen_title'].style,
+                          { fontFamily: 'Quicksand_400Regular', fontSize: 12 }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      {'Weekly Report'}
+                    </Text>
+                  </Pressable>
+                </View>
               </View>
             </View>
+            <>
+              {!(!nordic && !dach) ? null : (
+                <Text
+                  accessible={true}
+                  {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                  style={StyleSheet.applyWidth(
+                    StyleSheet.compose(
+                      GlobalStyles.TextStyles(theme)['screen_title'].style,
+                      {
+                        color: theme.colors.background.danger,
+                        fontFamily: 'Quicksand_500Medium',
+                        fontSize: 12,
+                      }
+                    ),
+                    dimensions.width
+                  )}
+                >
+                  {
+                    'It is necessary that at least one of the filters Nordic, DACH was included'
+                  }
+                </Text>
+              )}
+            </>
+            {/* Text 2 */}
+            <>
+              {!(!weeklyReport && !newsletter) ? null : (
+                <Text
+                  accessible={true}
+                  {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                  style={StyleSheet.applyWidth(
+                    StyleSheet.compose(
+                      GlobalStyles.TextStyles(theme)['screen_title'].style,
+                      {
+                        color: theme.colors.background.danger,
+                        fontFamily: 'Quicksand_500Medium',
+                        fontSize: 12,
+                      }
+                    ),
+                    dimensions.width
+                  )}
+                >
+                  {
+                    'It is necessary that at least one of the filters Newsletter, Weekly Report was included'
+                  }
+                </Text>
+              )}
+            </>
           </View>
 
           <Text

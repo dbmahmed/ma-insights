@@ -104,48 +104,6 @@ const CFSScreen = props => {
     setHealth_care((sector || []).includes('Health Care'));
   };
 
-  const applyFilter = () => {
-    //EBITDA Range
-    const ebitdaRange = [];
-
-    ebitda_giant && ebitdaRange.push('EBITDA >  €50m');
-    ebitda_large && ebitdaRange.push('€20m < EBITDA ≤ €50m');
-    ebitda_medium && ebitdaRange.push('€5m < EBITDA ≤ €20m');
-    ebitda_small && ebitdaRange.push('EBITDA ≤ €5m');
-
-    setEbitdaRange(() => ebitdaRange);
-
-    //country
-    const countries = [];
-
-    sweden && countries.push('Sweden');
-    germany && countries.push('Germany');
-    denmark && countries.push('Denmark');
-    switzerland && countries.push('Switzerland');
-    norway && countries.push('Norway');
-    austria && countries.push('Austria');
-    finland && countries.push('Finland');
-
-    setCountry(() => countries);
-
-    //sector
-    const sectors = [];
-
-    communication_services && sectors.push('Communication Services');
-    industrials && sectors.push('Industrials');
-    consumer_discretionary && sectors.push('Consumer Discretionary');
-    it_and_software && sectors.push('IT & Software');
-    consumer_staples && sectors.push('Consumer Staples');
-    materials && sectors.push('Materials');
-    energy && sectors.push('Energy');
-    real_estate && sectors.push('Real Estate');
-    financials && sectors.push('Financials');
-    utilities && sectors.push('Utilities');
-    health_care && sectors.push('Health Care');
-
-    setSector(() => sectors);
-  };
-
   const toggleAllFilters = flag => {
     setEbitda_large(false);
     setEbitda_medium(false);
@@ -215,6 +173,48 @@ const CFSScreen = props => {
       })
       .filter(Boolean)
       .join(', ');
+  };
+
+  const applyFilter = () => {
+    //EBITDA Range
+    const ebitdaRange = [];
+
+    ebitda_giant && ebitdaRange.push('EBITDA > €50m');
+    ebitda_large && ebitdaRange.push('€20m < EBITDA ≤ €50m');
+    ebitda_medium && ebitdaRange.push('€5m < EBITDA ≤ €20m');
+    ebitda_small && ebitdaRange.push('EBITDA ≤ €5m');
+
+    setEbitdaRange(() => ebitdaRange);
+
+    //country
+    const countries = [];
+
+    sweden && countries.push('Sweden');
+    germany && countries.push('Germany');
+    denmark && countries.push('Denmark');
+    switzerland && countries.push('Switzerland');
+    norway && countries.push('Norway');
+    austria && countries.push('Austria');
+    finland && countries.push('Finland');
+
+    setCountry(() => countries);
+
+    //sector
+    const sectors = [];
+
+    communication_services && sectors.push('Communication Services');
+    industrials && sectors.push('Industrials');
+    consumer_discretionary && sectors.push('Consumer Discretionary');
+    it_and_software && sectors.push('IT & Software');
+    consumer_staples && sectors.push('Consumer Staples');
+    materials && sectors.push('Materials');
+    energy && sectors.push('Energy');
+    real_estate && sectors.push('Real Estate');
+    financials && sectors.push('Financials');
+    utilities && sectors.push('Utilities');
+    health_care && sectors.push('Health Care');
+
+    setSector(() => sectors);
   };
   const isFocused = useIsFocused();
   React.useEffect(() => {
