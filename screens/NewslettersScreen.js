@@ -541,8 +541,8 @@ const NewslettersScreen = props => {
                     ? 3
                     : 2
                 }
-                showsHorizontalScrollIndicator={true}
-                showsVerticalScrollIndicator={true}
+                showsHorizontalScrollIndicator={false}
+                showsVerticalScrollIndicator={false}
                 style={StyleSheet.applyWidth(
                   {
                     maxHeight: [
