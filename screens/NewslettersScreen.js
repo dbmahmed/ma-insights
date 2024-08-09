@@ -4,6 +4,7 @@ import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
 import CustomHeaderBlock from '../components/CustomHeaderBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import assessAccess from '../global-functions/assessAccess';
+import resetAccess from '../global-functions/resetAccess';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
@@ -72,23 +73,30 @@ const NewslettersScreen = props => {
         value: false,
       });
       console.log('Complete ON_SCREEN_FOCUS:3 SET_VARIABLE');
-      console.log('Start ON_SCREEN_FOCUS:4 CONDITIONAL_STOP');
+      console.log('Start ON_SCREEN_FOCUS:4 CONSOLE_LOG');
+      console.log(
+        'testing conditional stop',
+        assessAccess(Variables, setGlobalVariableValue)
+      );
+      console.log('Complete ON_SCREEN_FOCUS:4 CONSOLE_LOG');
+      console.log('Start ON_SCREEN_FOCUS:5 CONDITIONAL_STOP');
       if (assessAccess(Variables, setGlobalVariableValue) === true) {
-        return console.log('Complete ON_SCREEN_FOCUS:4 CONDITIONAL_STOP');
+        return console.log('Complete ON_SCREEN_FOCUS:5 CONDITIONAL_STOP');
       } else {
         console.log(
-          'Skipped ON_SCREEN_FOCUS:4 CONDITIONAL_STOP: condition not met'
+          'Skipped ON_SCREEN_FOCUS:5 CONDITIONAL_STOP: condition not met'
         );
       }
-      console.log('Start ON_SCREEN_FOCUS:5 NAVIGATE');
-      if (navigation.canGoBack()) {
-        navigation.popToTop();
-      }
-      navigation.replace('LogInScreen');
-      console.log('Complete ON_SCREEN_FOCUS:5 NAVIGATE');
-      console.log('Start ON_SCREEN_FOCUS:6 SET_VARIABLE');
+      console.log('Start ON_SCREEN_FOCUS:6 CUSTOM_FUNCTION');
+      resetAccess(navigation, Variables, setGlobalVariableValue);
+      console.log('Complete ON_SCREEN_FOCUS:6 CUSTOM_FUNCTION');
+      console.log('Start ON_SCREEN_FOCUS:7 NAVIGATE');
+      /* hidden 'Navigate' action */ console.log(
+        'Complete ON_SCREEN_FOCUS:7 NAVIGATE'
+      );
+      console.log('Start ON_SCREEN_FOCUS:8 SET_VARIABLE');
       /* hidden 'Set Variable' action */ console.log(
-        'Complete ON_SCREEN_FOCUS:6 SET_VARIABLE'
+        'Complete ON_SCREEN_FOCUS:8 SET_VARIABLE'
       );
     } catch (err) {
       console.error(err);
@@ -528,18 +536,10 @@ const NewslettersScreen = props => {
           on401: fetchData => {
             try {
               /* hidden 'Show Alert' action */
-              setGlobalVariableValue({
-                key: 'AUTH_HEADER',
-                value: '',
-              });
-              setGlobalVariableValue({
-                key: 'ME',
-                value: {},
-              });
-              if (navigation.canGoBack()) {
-                navigation.popToTop();
-              }
-              navigation.replace('LogInScreen');
+              /* hidden 'Set Variable' action */
+              /* hidden 'Set Variable' action */
+              /* hidden 'Navigate' action */
+              resetAccess(navigation, Variables, setGlobalVariableValue);
             } catch (err) {
               console.error(err);
             }

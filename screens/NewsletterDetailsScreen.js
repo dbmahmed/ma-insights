@@ -4,6 +4,7 @@ import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
 import CustomHeaderBlock from '../components/CustomHeaderBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import assessAccess from '../global-functions/assessAccess';
+import resetAccess from '../global-functions/resetAccess';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
@@ -59,7 +60,7 @@ const NewsletterDetailsScreen = props => {
       if (assessAccess(Variables, setGlobalVariableValue) === true) {
         return;
       }
-      navigation.push('LogInScreen');
+      resetAccess(navigation, Variables, setGlobalVariableValue);
     } catch (err) {
       console.error(err);
     }
@@ -75,21 +76,29 @@ const NewsletterDetailsScreen = props => {
       <CustomHeaderBlock />
       <XanoCollectionApi.FetchNewsletterEachGET
         handlers={{
+          on401: fetchData => {
+            try {
+              resetAccess(navigation, Variables, setGlobalVariableValue);
+            } catch (err) {
+              console.error(err);
+            }
+          },
           on4xx: fetchData => {
             console.log('Fetch ON_4XX Start');
             let error = null;
             try {
               console.log('Start ON_4XX:0 SET_VARIABLE');
-              const valueboPVcDtF = false;
-              setHas_access(valueboPVcDtF);
-              const access = valueboPVcDtF;
-              console.log('Complete ON_4XX:0 SET_VARIABLE');
+              /* hidden 'Set Variable' action */ console.log(
+                'Complete ON_4XX:0 SET_VARIABLE'
+              );
               console.log('Start ON_4XX:1 CONSOLE_LOG');
-              console.log(has_access);
-              console.log('Complete ON_4XX:1 CONSOLE_LOG');
+              /* hidden 'Log to Console' action */ console.log(
+                'Complete ON_4XX:1 CONSOLE_LOG'
+              );
               console.log('Start ON_4XX:2 DECLARE_VARIABLE');
-              const error = true;
-              console.log('Complete ON_4XX:2 DECLARE_VARIABLE', { error });
+              /* hidden 'Declare Variable' action */ console.log(
+                'Complete ON_4XX:2 DECLARE_VARIABLE'
+              );
             } catch (err) {
               console.error(err);
               error = err.message ?? err;

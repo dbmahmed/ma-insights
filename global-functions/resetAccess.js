@@ -18,7 +18,7 @@ line two` ) and will not work with special characters inside of quotes ( example
     value: {},
   });
 
-  navigation.navigate('Login');
+  navigation.navigate('LoginScreen');
 };
 
 export default resetAccess;

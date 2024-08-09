@@ -36,54 +36,50 @@ const StockSearchScreen = props => {
   const Constants = GlobalVariables.useValues();
   const Variables = Constants;
   const setGlobalVariableValue = GlobalVariables.useSetValue();
-  const [RoW, setRoW] = React.useState(false);
-  const [austria, setAustria] = React.useState(false);
+  const [RoW, setRoW] = React.useState(true);
+  const [austria, setAustria] = React.useState(true);
   const [communication_services, setCommunication_services] =
-    React.useState(false);
+    React.useState(true);
   const [consumer_discretionary, setConsumer_discretionary] =
-    React.useState(false);
-  const [consumer_staples, setConsumer_staples] = React.useState(false);
-  const [dach, setDach] = React.useState(false);
-  const [denmark, setDenmark] = React.useState(false);
-  const [ebitda_giant, setEbitda_giant] = React.useState(false);
-  const [ebitda_large, setEbitda_large] = React.useState(false);
-  const [ebitda_medium, setEbitda_medium] = React.useState(false);
-  const [ebitda_small, setEbitda_small] = React.useState(false);
-  const [energy, setEnergy] = React.useState(false);
+    React.useState(true);
+  const [consumer_staples, setConsumer_staples] = React.useState(true);
+  const [dach, setDach] = React.useState(true);
+  const [denmark, setDenmark] = React.useState('ture');
+  const [energy, setEnergy] = React.useState(true);
   const [enterpriseValue, setEnterpriseValue] = React.useState([]);
-  const [ev_100_to_500, setEv_100_to_500] = React.useState(false);
-  const [ev_500_to_1000, setEv_500_to_1000] = React.useState(false);
-  const [ev_less_100, setEv_less_100] = React.useState(false);
-  const [ev_more_1000, setEv_more_1000] = React.useState(false);
+  const [ev_100_to_500, setEv_100_to_500] = React.useState(true);
+  const [ev_500_to_1000, setEv_500_to_1000] = React.useState(true);
+  const [ev_less_100, setEv_less_100] = React.useState(true);
+  const [ev_more_1000, setEv_more_1000] = React.useState(true);
   const [eventType, setEventType] = React.useState([]);
   const [filterPressed, setFilterPressed] = React.useState(false);
-  const [financials, setFinancials] = React.useState(false);
-  const [finland, setFinland] = React.useState(false);
-  const [from_3_to_5, setFrom_3_to_5] = React.useState(false);
-  const [from_5_to_7, setFrom_5_to_7] = React.useState(false);
-  const [future_opportunity, setFuture_opportunity] = React.useState(false);
-  const [germany, setGermany] = React.useState(false);
-  const [h_3_to_5, setH_3_to_5] = React.useState(false);
-  const [h_5_to_7, setH_5_to_7] = React.useState(false);
-  const [h_less_3, setH_less_3] = React.useState(false);
-  const [h_more_7, setH_more_7] = React.useState(false);
-  const [health_care, setHealth_care] = React.useState(false);
-  const [industrials, setIndustrials] = React.useState(false);
-  const [it_and_software, setIt_and_software] = React.useState(false);
+  const [financials, setFinancials] = React.useState(true);
+  const [finland, setFinland] = React.useState(true);
+  const [from_3_to_5, setFrom_3_to_5] = React.useState(true);
+  const [from_5_to_7, setFrom_5_to_7] = React.useState(true);
+  const [future_opportunity, setFuture_opportunity] = React.useState(true);
+  const [germany, setGermany] = React.useState(true);
+  const [h_3_to_5, setH_3_to_5] = React.useState(true);
+  const [h_5_to_7, setH_5_to_7] = React.useState(true);
+  const [h_less_3, setH_less_3] = React.useState(true);
+  const [h_more_7, setH_more_7] = React.useState(true);
+  const [health_care, setHealth_care] = React.useState(true);
+  const [industrials, setIndustrials] = React.useState(true);
+  const [it_and_software, setIt_and_software] = React.useState(true);
   const [keywordSearch, setKeywordSearch] = React.useState('');
-  const [last_3, setLast_3] = React.useState(false);
-  const [materials, setMaterials] = React.useState(false);
-  const [more_7, setMore_7] = React.useState(false);
-  const [nordic, setNordic] = React.useState(false);
-  const [norway, setNorway] = React.useState(false);
-  const [real_estate, setReal_estate] = React.useState(false);
+  const [last_3, setLast_3] = React.useState(true);
+  const [materials, setMaterials] = React.useState(true);
+  const [more_7, setMore_7] = React.useState(true);
+  const [nordic, setNordic] = React.useState(true);
+  const [norway, setNorway] = React.useState(true);
+  const [real_estate, setReal_estate] = React.useState(true);
   const [region, setRegion] = React.useState([]);
   const [sector, setSector] = React.useState([]);
   const [stockData, setStockData] = React.useState([]);
-  const [sweden, setSweden] = React.useState(false);
-  const [switzerland, setSwitzerland] = React.useState(false);
-  const [transaction, setTransaction] = React.useState(false);
-  const [utilities, setUtilities] = React.useState(false);
+  const [sweden, setSweden] = React.useState(true);
+  const [switzerland, setSwitzerland] = React.useState(true);
+  const [transaction, setTransaction] = React.useState(true);
+  const [utilities, setUtilities] = React.useState(true);
   const applayFilters = () => {
     //sector
     const sectors = [];
@@ -149,29 +145,6 @@ const StockSearchScreen = props => {
     setEv_more_1000((enterpriseValue || []).includes('EV > €1,000m '));
   };
 
-  const checkingSelectedAll = () => {
-    //sector
-    const sectors = [];
-
-    return (
-      communication_services &&
-      industrials &&
-      consumer_discretionary &&
-      it_and_software &&
-      consumer_staples &&
-      materials &&
-      energy &&
-      real_estate &&
-      financials &&
-      utilities &&
-      health_care &&
-      nordic &&
-      dach &&
-      RoW &&
-      (ev_less_100 || ev_100_to_500 || ev_500_to_1000 || ev_more_1000)
-    );
-  };
-
   const toggleAllFilters = flag => {
     setCommunication_services(flag);
     setIndustrials(flag);
@@ -189,9 +162,9 @@ const StockSearchScreen = props => {
     setDach(flag);
     setRoW(flag);
 
-    setEv_less_100(false);
-    setEv_100_to_500(false);
-    setEv_500_to_1000(false);
+    setEv_less_100(flag);
+    setEv_100_to_500(flag);
+    setEv_500_to_1000(flag);
     setEv_more_1000(flag);
   };
   const isFocused = useIsFocused();
@@ -200,6 +173,7 @@ const StockSearchScreen = props => {
       if (!isFocused) {
         return;
       }
+      applayFilters();
       setGlobalVariableValue({
         key: 'pageName',
         value: 'Stock Search',
@@ -2500,13 +2474,13 @@ const StockSearchScreen = props => {
                             flexDirection: 'row',
                             flexGrow: 1,
                             gap: [
-                              { minWidth: Breakpoints.Mobile, value: 8 },
+                              { minWidth: Breakpoints.Mobile, value: 0 },
                               { minWidth: Breakpoints.Laptop, value: 10 },
                             ],
                             justifyContent: [
                               {
                                 minWidth: Breakpoints.Mobile,
-                                value: 'space-between',
+                                value: 'flex-start',
                               },
                               {
                                 minWidth: Breakpoints.Laptop,
@@ -2514,83 +2488,125 @@ const StockSearchScreen = props => {
                               },
                             ],
                             marginBottom: 10,
-                            padding: 10,
+                            padding: 5,
                           },
                           dimensions.width
                         )}
                       >
-                        {/* Select All */}
-                        <Button
-                          iconPosition={'left'}
-                          onPress={() => {
-                            try {
-                              toggleAllFilters(!checkingSelectedAll());
-                            } catch (err) {
-                              console.error(err);
-                            }
-                          }}
-                          {...GlobalStyles.ButtonStyles(theme)['Button'].props}
+                        <View
                           style={StyleSheet.applyWidth(
-                            StyleSheet.compose(
-                              GlobalStyles.ButtonStyles(theme)['Button'].style,
-                              {
-                                backgroundColor: 'rgba(0, 0, 0, 0)',
-                                borderColor: palettes.Brand['Strong Inverse'],
-                                borderWidth: 1,
-                                fontFamily: 'Quicksand_600SemiBold',
-                                textTransform: 'uppercase',
-                                width: [
-                                  {
-                                    minWidth: Breakpoints.Mobile,
-                                    value: '47%',
-                                  },
-                                  { minWidth: Breakpoints.Laptop, value: 150 },
-                                ],
-                              }
-                            ),
+                            { maxWidth: 150, padding: 5, width: '33.33%' },
                             dimensions.width
                           )}
-                          title={`${
-                            checkingSelectedAll() ? 'RESET' : 'SELECT ALL'
-                          }`}
-                        />
-                        {/* Results */}
-                        <Button
-                          iconPosition={'left'}
-                          onPress={() => {
-                            const handler = async () => {
+                        >
+                          {/* Select All */}
+                          <Button
+                            iconPosition={'left'}
+                            onPress={() => {
                               try {
-                                applayFilters();
-                                setFilterPressed(false);
-                                await waitUtil({ milliseconds: 500 });
-                                await refetchGetAllEvents();
+                                toggleAllFilters(true);
                               } catch (err) {
                                 console.error(err);
                               }
-                            };
-                            handler();
-                          }}
-                          {...GlobalStyles.ButtonStyles(theme)['Button'].props}
+                            }}
+                            {...GlobalStyles.ButtonStyles(theme)['Button']
+                              .props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.ButtonStyles(theme)['Button']
+                                  .style,
+                                {
+                                  backgroundColor: 'rgba(0, 0, 0, 0)',
+                                  borderColor: palettes.Brand['Strong Inverse'],
+                                  borderWidth: 1,
+                                  fontFamily: 'Quicksand_600SemiBold',
+                                  textTransform: 'uppercase',
+                                  width: '100%',
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                            title={'Select All'}
+                          />
+                        </View>
+                        {/* View 2 */}
+                        <View
                           style={StyleSheet.applyWidth(
-                            StyleSheet.compose(
-                              GlobalStyles.ButtonStyles(theme)['Button'].style,
-                              {
-                                backgroundColor: palettes.App.Orange,
-                                fontFamily: 'Quicksand_600SemiBold',
-                                textTransform: 'uppercase',
-                                width: [
-                                  {
-                                    minWidth: Breakpoints.Mobile,
-                                    value: '47%',
-                                  },
-                                  { minWidth: Breakpoints.Laptop, value: 150 },
-                                ],
-                              }
-                            ),
+                            { maxWidth: 150, padding: 5, width: '33.33%' },
                             dimensions.width
                           )}
-                          title={'Filter'}
-                        />
+                        >
+                          {/* reset */}
+                          <Button
+                            iconPosition={'left'}
+                            onPress={() => {
+                              try {
+                                toggleAllFilters(false);
+                              } catch (err) {
+                                console.error(err);
+                              }
+                            }}
+                            {...GlobalStyles.ButtonStyles(theme)['Button']
+                              .props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.ButtonStyles(theme)['Button']
+                                  .style,
+                                {
+                                  backgroundColor: 'rgba(0, 0, 0, 0)',
+                                  borderColor: palettes.Brand['Strong Inverse'],
+                                  borderWidth: 1,
+                                  fontFamily: 'Quicksand_600SemiBold',
+                                  textTransform: 'uppercase',
+                                  width: '100%',
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                            title={'Reset'}
+                          />
+                        </View>
+                        {/* View 3 */}
+                        <View
+                          style={StyleSheet.applyWidth(
+                            { maxWidth: 150, padding: 5, width: '33.33%' },
+                            dimensions.width
+                          )}
+                        >
+                          {/* Results */}
+                          <Button
+                            iconPosition={'left'}
+                            onPress={() => {
+                              const handler = async () => {
+                                try {
+                                  applayFilters();
+                                  setFilterPressed(false);
+                                  await waitUtil({ milliseconds: 500 });
+                                  await refetchGetAllEvents();
+                                } catch (err) {
+                                  console.error(err);
+                                }
+                              };
+                              handler();
+                            }}
+                            {...GlobalStyles.ButtonStyles(theme)['Button']
+                              .props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.ButtonStyles(theme)['Button']
+                                  .style,
+                                {
+                                  backgroundColor: palettes.App.Orange,
+                                  fontFamily: 'Quicksand_600SemiBold',
+                                  textTransform: 'uppercase',
+                                  width: '100%',
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                            title={'Filter'}
+                          />
+                        </View>
                       </View>
                     </LinearGradient>
                   </View>

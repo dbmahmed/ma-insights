@@ -37,44 +37,90 @@ const CFSScreen = props => {
   const Constants = GlobalVariables.useValues();
   const Variables = Constants;
   const setGlobalVariableValue = GlobalVariables.useSetValue();
-  const [austria, setAustria] = React.useState(false);
+  const [austria, setAustria] = React.useState(true);
   const [cfsItems, setCfsItems] = React.useState([]);
   const [communication_services, setCommunication_services] =
-    React.useState(false);
+    React.useState(true);
   const [consumer_discretionary, setConsumer_discretionary] =
-    React.useState(false);
-  const [consumer_staples, setConsumer_staples] = React.useState(false);
+    React.useState(true);
+  const [consumer_staples, setConsumer_staples] = React.useState(true);
   const [country, setCountry] = React.useState([]);
-  const [denmark, setDenmark] = React.useState(false);
+  const [denmark, setDenmark] = React.useState(true);
   const [ebitdaRange, setEbitdaRange] = React.useState([]);
-  const [ebitda_giant, setEbitda_giant] = React.useState(false);
-  const [ebitda_large, setEbitda_large] = React.useState(false);
-  const [ebitda_medium, setEbitda_medium] = React.useState(false);
-  const [ebitda_small, setEbitda_small] = React.useState(false);
-  const [energy, setEnergy] = React.useState(false);
+  const [ebitda_giant, setEbitda_giant] = React.useState(true);
+  const [ebitda_large, setEbitda_large] = React.useState(true);
+  const [ebitda_medium, setEbitda_medium] = React.useState(true);
+  const [ebitda_small, setEbitda_small] = React.useState(true);
+  const [energy, setEnergy] = React.useState(true);
   const [filterPressed, setFilterPressed] = React.useState(false);
-  const [filtersApplied, setFiltersApplied] = React.useState(false);
-  const [financials, setFinancials] = React.useState(false);
-  const [finland, setFinland] = React.useState(false);
-  const [future_opportunity, setFuture_opportunity] = React.useState(false);
-  const [germany, setGermany] = React.useState(false);
-  const [health_care, setHealth_care] = React.useState(false);
-  const [industrials, setIndustrials] = React.useState(false);
-  const [it_and_software, setIt_and_software] = React.useState(false);
+  const [financials, setFinancials] = React.useState(true);
+  const [finland, setFinland] = React.useState(true);
+  const [future_opportunity, setFuture_opportunity] = React.useState(true);
+  const [germany, setGermany] = React.useState(true);
+  const [health_care, setHealth_care] = React.useState(true);
+  const [industrials, setIndustrials] = React.useState(true);
+  const [it_and_software, setIt_and_software] = React.useState(true);
   const [keywordSearch, setKeywordSearch] = React.useState('');
   const [lastPage, setLastPage] = React.useState(2);
-  const [materials, setMaterials] = React.useState(false);
+  const [materials, setMaterials] = React.useState(true);
   const [nextPage, setNextPage] = React.useState(1);
-  const [norway, setNorway] = React.useState(false);
-  const [real_estate, setReal_estate] = React.useState(false);
+  const [norway, setNorway] = React.useState(true);
+  const [real_estate, setReal_estate] = React.useState(true);
   const [sector, setSector] = React.useState([]);
-  const [sweden, setSweden] = React.useState(false);
-  const [switzerland, setSwitzerland] = React.useState(false);
+  const [sweden, setSweden] = React.useState(true);
+  const [switzerland, setSwitzerland] = React.useState(true);
   const [totalCFS, setTotalCFS] = React.useState(0);
-  const [transaction, setTransaction] = React.useState(false);
-  const [utilities, setUtilities] = React.useState(false);
+  const [transaction, setTransaction] = React.useState(true);
+  const [utilities, setUtilities] = React.useState(true);
+  const toggleAllFilters = flag => {
+    setEbitda_large(flag);
+    setEbitda_medium(flag);
+    setEbitda_small(flag);
+    setEbitda_giant(flag);
+
+    setSweden(flag);
+    setGermany(flag);
+    setDenmark(flag);
+    setSwitzerland(flag);
+    setNorway(flag);
+    setAustria(flag);
+    setFinland(flag);
+    setCommunication_services(flag);
+    setIndustrials(flag);
+    setConsumer_discretionary(flag);
+    setIt_and_software(flag);
+    setConsumer_staples(flag);
+    setMaterials(flag);
+    setEnergy(flag);
+    setReal_estate(flag);
+    setFinancials(flag);
+    setUtilities(flag);
+    setHealth_care(flag);
+  };
+
+  const showOwners = owners => {
+    if (!Array.isArray(owners)) {
+      return '';
+    }
+
+    return owners
+      .map(({ name, type }) => {
+        let fullName = '';
+        if (name) {
+          fullName = name;
+        }
+        if (type) {
+          fullName += ` (${type})`;
+        }
+
+        return fullName.trim();
+      })
+      .filter(Boolean)
+      .join(', ');
+  };
+
   const matchingFilters = () => {
-    setEbitda_giant((ebitdaRange || []).includes('EBITDA >  €50m'));
+    setEbitda_giant((ebitdaRange || []).includes('EBITDA > €50m'));
     setEbitda_large((ebitdaRange || []).includes('€20m < EBITDA ≤ €50m'));
     setEbitda_medium((ebitdaRange || []).includes('€5m < EBITDA ≤ €20m'));
     setEbitda_small((ebitdaRange || []).includes('EBITDA ≤ €5m'));
@@ -102,77 +148,6 @@ const CFSScreen = props => {
     setFinancials((sector || []).includes('Financials'));
     setUtilities((sector || []).includes('Utilities'));
     setHealth_care((sector || []).includes('Health Care'));
-  };
-
-  const toggleAllFilters = flag => {
-    setEbitda_large(false);
-    setEbitda_medium(false);
-    setEbitda_small(false);
-    setEbitda_giant(flag);
-
-    setSweden(flag);
-    setGermany(flag);
-    setDenmark(flag);
-    setSwitzerland(flag);
-    setNorway(flag);
-    setAustria(flag);
-    setFinland(flag);
-    setCommunication_services(flag);
-    setIndustrials(flag);
-    setConsumer_discretionary(flag);
-    setIt_and_software(flag);
-    setConsumer_staples(flag);
-    setMaterials(flag);
-    setEnergy(flag);
-    setReal_estate(flag);
-    setFinancials(flag);
-    setUtilities(flag);
-    setHealth_care(flag);
-  };
-
-  const checkingSelectedAll = () => {
-    return (
-      (ebitda_giant || ebitda_large || ebitda_medium || ebitda_small) &&
-      sweden &&
-      germany &&
-      denmark &&
-      switzerland &&
-      norway &&
-      austria &&
-      finland &&
-      communication_services &&
-      industrials &&
-      consumer_discretionary &&
-      it_and_software &&
-      consumer_staples &&
-      materials &&
-      energy &&
-      real_estate &&
-      financials &&
-      utilities &&
-      health_care
-    );
-  };
-
-  const showOwners = owners => {
-    if (!Array.isArray(owners)) {
-      return '';
-    }
-
-    return owners
-      .map(({ name, type }) => {
-        let fullName = '';
-        if (name) {
-          fullName = name;
-        }
-        if (type) {
-          fullName += ` (${type})`;
-        }
-
-        return fullName.trim();
-      })
-      .filter(Boolean)
-      .join(', ');
   };
 
   const applyFilter = () => {
@@ -222,6 +197,7 @@ const CFSScreen = props => {
       if (!isFocused) {
         return;
       }
+      applyFilter();
       setGlobalVariableValue({
         key: 'pageName',
         value: 'Companies For Sale',
@@ -1084,11 +1060,6 @@ const CFSScreen = props => {
                                     handler();
                                   }}
                                   color={palettes.Brand['Strong Inverse']}
-                                  disabled={
-                                    ebitda_medium ||
-                                    ebitda_large ||
-                                    ebitda_giant
-                                  }
                                   size={24}
                                   status={ebitda_small}
                                   uncheckedColor={
@@ -1110,11 +1081,7 @@ const CFSScreen = props => {
                                       console.error(err);
                                     }
                                   }}
-                                  disabled={
-                                    ebitda_medium ||
-                                    ebitda_large ||
-                                    ebitda_giant
-                                  }
+                                  disabled={ebitda_medium || undefined}
                                 >
                                   <Text
                                     accessible={true}
@@ -1190,9 +1157,6 @@ const CFSScreen = props => {
                                     }
                                   }}
                                   color={palettes.Brand['Strong Inverse']}
-                                  disabled={
-                                    ebitda_small || ebitda_large || ebitda_giant
-                                  }
                                   size={24}
                                   status={ebitda_medium}
                                   uncheckedColor={
@@ -1214,9 +1178,6 @@ const CFSScreen = props => {
                                       console.error(err);
                                     }
                                   }}
-                                  disabled={
-                                    ebitda_small || ebitda_large || ebitda_giant
-                                  }
                                 >
                                   <Text
                                     accessible={true}
@@ -1292,11 +1253,6 @@ const CFSScreen = props => {
                                     }
                                   }}
                                   color={palettes.Brand['Strong Inverse']}
-                                  disabled={
-                                    ebitda_small ||
-                                    ebitda_medium ||
-                                    ebitda_giant
-                                  }
                                   size={24}
                                   status={ebitda_large}
                                   uncheckedColor={
@@ -1318,11 +1274,6 @@ const CFSScreen = props => {
                                       console.error(err);
                                     }
                                   }}
-                                  disabled={
-                                    ebitda_small ||
-                                    ebitda_medium ||
-                                    ebitda_giant
-                                  }
                                 >
                                   <Text
                                     accessible={true}
@@ -1398,11 +1349,6 @@ const CFSScreen = props => {
                                     }
                                   }}
                                   color={palettes.Brand['Strong Inverse']}
-                                  disabled={
-                                    ebitda_small ||
-                                    ebitda_medium ||
-                                    ebitda_large
-                                  }
                                   size={24}
                                   status={ebitda_giant}
                                   uncheckedColor={
@@ -1424,11 +1370,6 @@ const CFSScreen = props => {
                                       console.error(err);
                                     }
                                   }}
-                                  disabled={
-                                    ebitda_small ||
-                                    ebitda_medium ||
-                                    ebitda_large
-                                  }
                                 >
                                   <Text
                                     accessible={true}
@@ -3714,13 +3655,13 @@ const CFSScreen = props => {
                                 flexDirection: 'row',
                                 flexGrow: 1,
                                 gap: [
-                                  { minWidth: Breakpoints.Mobile, value: 8 },
+                                  { minWidth: Breakpoints.Mobile, value: 0 },
                                   { minWidth: Breakpoints.Laptop, value: 10 },
                                 ],
                                 justifyContent: [
                                   {
                                     minWidth: Breakpoints.Mobile,
-                                    value: 'space-between',
+                                    value: 'flex-start',
                                   },
                                   {
                                     minWidth: Breakpoints.Laptop,
@@ -3728,94 +3669,154 @@ const CFSScreen = props => {
                                   },
                                 ],
                                 marginBottom: 10,
-                                padding: 10,
+                                padding: 5,
                               },
                               dimensions.width
                             )}
                           >
-                            {/* Select */}
-                            <Button
-                              iconPosition={'left'}
-                              onPress={() => {
-                                try {
-                                  toggleAllFilters(!checkingSelectedAll());
-                                } catch (err) {
-                                  console.error(err);
-                                }
-                              }}
-                              {...GlobalStyles.ButtonStyles(theme)['Button']
-                                .props}
+                            <View
                               style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.ButtonStyles(theme)['Button']
-                                    .style,
-                                  {
-                                    backgroundColor: 'rgba(0, 0, 0, 0)',
-                                    borderColor:
-                                      palettes.Brand['Strong Inverse'],
-                                    borderWidth: 1,
-                                    fontFamily: 'Quicksand_600SemiBold',
-                                    textTransform: 'uppercase',
-                                    width: [
-                                      {
-                                        minWidth: Breakpoints.Mobile,
-                                        value: '47%',
-                                      },
-                                      {
-                                        minWidth: Breakpoints.Laptop,
-                                        value: 150,
-                                      },
-                                    ],
-                                  }
-                                ),
+                                { maxWidth: 150, padding: 5, width: '33.33%' },
                                 dimensions.width
                               )}
-                              title={`${
-                                checkingSelectedAll() ? 'RESET' : 'SELECT ALL'
-                              }`}
-                            />
-                            {/* Results */}
-                            <Button
-                              iconPosition={'left'}
-                              onPress={() => {
-                                const handler = async () => {
+                            >
+                              {/* Select */}
+                              <Button
+                                iconPosition={'left'}
+                                onPress={() => {
                                   try {
-                                    applyFilter();
-                                    setFilterPressed(false);
-                                    await waitUtil({ milliseconds: 1000 });
-                                    await refetchGetCFS();
+                                    toggleAllFilters(true);
                                   } catch (err) {
                                     console.error(err);
                                   }
-                                };
-                                handler();
-                              }}
-                              {...GlobalStyles.ButtonStyles(theme)['Button']
-                                .props}
+                                }}
+                                {...GlobalStyles.ButtonStyles(theme)['Button']
+                                  .props}
+                                style={StyleSheet.applyWidth(
+                                  StyleSheet.compose(
+                                    GlobalStyles.ButtonStyles(theme)['Button']
+                                      .style,
+                                    {
+                                      backgroundColor: 'rgba(0, 0, 0, 0)',
+                                      borderColor:
+                                        palettes.Brand['Strong Inverse'],
+                                      borderWidth: 1,
+                                      fontFamily: 'Quicksand_600SemiBold',
+                                      textTransform: 'uppercase',
+                                      width: [
+                                        {
+                                          minWidth: Breakpoints.Mobile,
+                                          value: '100%',
+                                        },
+                                        {
+                                          minWidth: Breakpoints.Laptop,
+                                          value: 150,
+                                        },
+                                      ],
+                                    }
+                                  ),
+                                  dimensions.width
+                                )}
+                                title={'Select All'}
+                              />
+                            </View>
+                            {/* View 2 */}
+                            <View
                               style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.ButtonStyles(theme)['Button']
-                                    .style,
-                                  {
-                                    backgroundColor: palettes.App.Orange,
-                                    fontFamily: 'Quicksand_600SemiBold',
-                                    textTransform: 'uppercase',
-                                    width: [
-                                      {
-                                        minWidth: Breakpoints.Mobile,
-                                        value: '47%',
-                                      },
-                                      {
-                                        minWidth: Breakpoints.Laptop,
-                                        value: 150,
-                                      },
-                                    ],
-                                  }
-                                ),
+                                { maxWidth: 150, padding: 5, width: '33.33%' },
                                 dimensions.width
                               )}
-                              title={'Filter'}
-                            />
+                            >
+                              {/* reset */}
+                              <Button
+                                iconPosition={'left'}
+                                onPress={() => {
+                                  try {
+                                    toggleAllFilters(false);
+                                  } catch (err) {
+                                    console.error(err);
+                                  }
+                                }}
+                                {...GlobalStyles.ButtonStyles(theme)['Button']
+                                  .props}
+                                style={StyleSheet.applyWidth(
+                                  StyleSheet.compose(
+                                    GlobalStyles.ButtonStyles(theme)['Button']
+                                      .style,
+                                    {
+                                      backgroundColor: 'rgba(0, 0, 0, 0)',
+                                      borderColor:
+                                        palettes.Brand['Strong Inverse'],
+                                      borderWidth: 1,
+                                      fontFamily: 'Quicksand_600SemiBold',
+                                      textTransform: 'uppercase',
+                                      width: [
+                                        {
+                                          minWidth: Breakpoints.Laptop,
+                                          value: 150,
+                                        },
+                                        {
+                                          minWidth: Breakpoints.Mobile,
+                                          value: '100%',
+                                        },
+                                      ],
+                                    }
+                                  ),
+                                  dimensions.width
+                                )}
+                                title={'Reset'}
+                              />
+                            </View>
+                            {/* View 3 */}
+                            <View
+                              style={StyleSheet.applyWidth(
+                                { maxWidth: 150, padding: 5, width: '33.33%' },
+                                dimensions.width
+                              )}
+                            >
+                              {/* Results */}
+                              <Button
+                                iconPosition={'left'}
+                                onPress={() => {
+                                  const handler = async () => {
+                                    try {
+                                      applyFilter();
+                                      setFilterPressed(false);
+                                      await waitUtil({ milliseconds: 1000 });
+                                      await refetchGetCFS();
+                                    } catch (err) {
+                                      console.error(err);
+                                    }
+                                  };
+                                  handler();
+                                }}
+                                {...GlobalStyles.ButtonStyles(theme)['Button']
+                                  .props}
+                                style={StyleSheet.applyWidth(
+                                  StyleSheet.compose(
+                                    GlobalStyles.ButtonStyles(theme)['Button']
+                                      .style,
+                                    {
+                                      backgroundColor: palettes.App.Orange,
+                                      fontFamily: 'Quicksand_600SemiBold',
+                                      textTransform: 'uppercase',
+                                      width: [
+                                        {
+                                          minWidth: Breakpoints.Mobile,
+                                          value: '100%',
+                                        },
+                                        {
+                                          minWidth: Breakpoints.Laptop,
+                                          value: 150,
+                                        },
+                                      ],
+                                    }
+                                  ),
+                                  dimensions.width
+                                )}
+                                title={'Filter'}
+                              />
+                            </View>
                           </View>
                         </LinearGradient>
                       </View>

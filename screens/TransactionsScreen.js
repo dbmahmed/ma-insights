@@ -35,29 +35,29 @@ const TransactionsScreen = props => {
   const Constants = GlobalVariables.useValues();
   const Variables = Constants;
   const setGlobalVariableValue = GlobalVariables.useSetValue();
-  const [RoW, setRoW] = React.useState(false);
+  const [RoW, setRoW] = React.useState(true);
   const [communication_services, setCommunication_services] =
-    React.useState(false);
+    React.useState(true);
   const [consumer_discretionary, setConsumer_discretionary] =
-    React.useState(false);
-  const [consumer_staples, setConsumer_staples] = React.useState(false);
-  const [dach, setDach] = React.useState(false);
-  const [energy, setEnergy] = React.useState(false);
+    React.useState(true);
+  const [consumer_staples, setConsumer_staples] = React.useState(true);
+  const [dach, setDach] = React.useState(true);
+  const [energy, setEnergy] = React.useState(true);
   const [filterPressed, setFilterPressed] = React.useState(false);
-  const [financials, setFinancials] = React.useState(false);
-  const [germany, setGermany] = React.useState(false);
-  const [health_care, setHealth_care] = React.useState(false);
-  const [industrials, setIndustrials] = React.useState(false);
-  const [it_and_software, setIt_and_software] = React.useState(false);
+  const [financials, setFinancials] = React.useState(true);
+  const [germany, setGermany] = React.useState(true);
+  const [health_care, setHealth_care] = React.useState(true);
+  const [industrials, setIndustrials] = React.useState(true);
+  const [it_and_software, setIt_and_software] = React.useState(true);
   const [keywordSearch, setKeywordSearch] = React.useState('');
-  const [materials, setMaterials] = React.useState(false);
-  const [nordic, setNordic] = React.useState(false);
-  const [norgic, setNorgic] = React.useState(false);
-  const [real_estate, setReal_estate] = React.useState(false);
+  const [materials, setMaterials] = React.useState(true);
+  const [nordic, setNordic] = React.useState(true);
+  const [norgic, setNorgic] = React.useState(true);
+  const [real_estate, setReal_estate] = React.useState(true);
   const [region, setRegion] = React.useState([]);
   const [sector, setSector] = React.useState([]);
-  const [transaction, setTransaction] = React.useState(false);
-  const [utilities, setUtilities] = React.useState(false);
+  const [transaction, setTransaction] = React.useState(true);
+  const [utilities, setUtilities] = React.useState(true);
   const applayFilters = () => {
     //sector
     const sectors = [];
@@ -125,31 +125,13 @@ const TransactionsScreen = props => {
     setDach((region || []).includes('DACH'));
     setRoW((region || []).includes('Rest of Wold (RoW)'));
   };
-
-  const checkingSelectedAll = () => {
-    return (
-      communication_services &&
-      industrials &&
-      consumer_discretionary &&
-      it_and_software &&
-      consumer_staples &&
-      materials &&
-      energy &&
-      real_estate &&
-      financials &&
-      utilities &&
-      health_care &&
-      nordic &&
-      dach &&
-      RoW
-    );
-  };
   const isFocused = useIsFocused();
   React.useEffect(() => {
     try {
       if (!isFocused) {
         return;
       }
+      applayFilters();
       setGlobalVariableValue({
         key: 'pageName',
         value: 'Transactions',
@@ -2147,13 +2129,13 @@ const TransactionsScreen = props => {
                             flexDirection: 'row',
                             flexGrow: 1,
                             gap: [
-                              { minWidth: Breakpoints.Mobile, value: 8 },
+                              { minWidth: Breakpoints.Mobile, value: 0 },
                               { minWidth: Breakpoints.Laptop, value: 10 },
                             ],
                             justifyContent: [
                               {
                                 minWidth: Breakpoints.Mobile,
-                                value: 'space-between',
+                                value: 'flex-start',
                               },
                               {
                                 minWidth: Breakpoints.Laptop,
@@ -2161,84 +2143,126 @@ const TransactionsScreen = props => {
                               },
                             ],
                             marginBottom: 10,
-                            padding: 10,
+                            padding: 5,
                           },
                           dimensions.width
                         )}
                       >
-                        {/* Select All */}
-                        <Button
-                          iconPosition={'left'}
-                          onPress={() => {
-                            try {
-                              toggleAllFilters(!checkingSelectedAll());
-                            } catch (err) {
-                              console.error(err);
-                            }
-                          }}
-                          {...GlobalStyles.ButtonStyles(theme)['Button'].props}
+                        <View
                           style={StyleSheet.applyWidth(
-                            StyleSheet.compose(
-                              GlobalStyles.ButtonStyles(theme)['Button'].style,
-                              {
-                                backgroundColor: 'rgba(0, 0, 0, 0)',
-                                borderColor: palettes.Brand['Strong Inverse'],
-                                borderWidth: 1,
-                                fontFamily: 'Quicksand_600SemiBold',
-                                textTransform: 'uppercase',
-                                width: [
-                                  {
-                                    minWidth: Breakpoints.Mobile,
-                                    value: '47%',
-                                  },
-                                  { minWidth: Breakpoints.Laptop, value: 150 },
-                                ],
-                              }
-                            ),
+                            { maxWidth: 150, padding: 5, width: '33.33%' },
                             dimensions.width
                           )}
-                          title={`${
-                            checkingSelectedAll() ? 'RESET' : 'SELECT ALL'
-                          }`}
-                        />
-                        {/* Results */}
-                        <Button
-                          iconPosition={'left'}
-                          onPress={() => {
-                            const handler = async () => {
+                        >
+                          {/* Select All */}
+                          <Button
+                            iconPosition={'left'}
+                            onPress={() => {
                               try {
-                                /* hidden 'API Request' action */
-                                applayFilters();
-                                setFilterPressed(false);
-                                await waitUtil({ milliseconds: 500 });
-                                await refetchGetAllEvents();
+                                toggleAllFilters(true);
                               } catch (err) {
                                 console.error(err);
                               }
-                            };
-                            handler();
-                          }}
-                          {...GlobalStyles.ButtonStyles(theme)['Button'].props}
+                            }}
+                            {...GlobalStyles.ButtonStyles(theme)['Button']
+                              .props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.ButtonStyles(theme)['Button']
+                                  .style,
+                                {
+                                  backgroundColor: 'rgba(0, 0, 0, 0)',
+                                  borderColor: palettes.Brand['Strong Inverse'],
+                                  borderWidth: 1,
+                                  fontFamily: 'Quicksand_600SemiBold',
+                                  textTransform: 'uppercase',
+                                  width: '100%',
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                            title={'Select all'}
+                          />
+                        </View>
+                        {/* View 2 */}
+                        <View
                           style={StyleSheet.applyWidth(
-                            StyleSheet.compose(
-                              GlobalStyles.ButtonStyles(theme)['Button'].style,
-                              {
-                                backgroundColor: palettes.App.Orange,
-                                fontFamily: 'Quicksand_600SemiBold',
-                                textTransform: 'uppercase',
-                                width: [
-                                  {
-                                    minWidth: Breakpoints.Mobile,
-                                    value: '47%',
-                                  },
-                                  { minWidth: Breakpoints.Laptop, value: 150 },
-                                ],
-                              }
-                            ),
+                            { maxWidth: 150, padding: 5, width: '33.33%' },
                             dimensions.width
                           )}
-                          title={'Filter'}
-                        />
+                        >
+                          {/* reset */}
+                          <Button
+                            iconPosition={'left'}
+                            onPress={() => {
+                              try {
+                                toggleAllFilters(false);
+                              } catch (err) {
+                                console.error(err);
+                              }
+                            }}
+                            {...GlobalStyles.ButtonStyles(theme)['Button']
+                              .props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.ButtonStyles(theme)['Button']
+                                  .style,
+                                {
+                                  backgroundColor: 'rgba(0, 0, 0, 0)',
+                                  borderColor: palettes.Brand['Strong Inverse'],
+                                  borderWidth: 1,
+                                  fontFamily: 'Quicksand_600SemiBold',
+                                  textTransform: 'uppercase',
+                                  width: '100%',
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                            title={'reset'}
+                          />
+                        </View>
+                        {/* View 3 */}
+                        <View
+                          style={StyleSheet.applyWidth(
+                            { maxWidth: 150, padding: 5, width: '33.33%' },
+                            dimensions.width
+                          )}
+                        >
+                          {/* Results */}
+                          <Button
+                            iconPosition={'left'}
+                            onPress={() => {
+                              const handler = async () => {
+                                try {
+                                  /* hidden 'API Request' action */
+                                  applayFilters();
+                                  setFilterPressed(false);
+                                  await waitUtil({ milliseconds: 500 });
+                                  await refetchGetAllEvents();
+                                } catch (err) {
+                                  console.error(err);
+                                }
+                              };
+                              handler();
+                            }}
+                            {...GlobalStyles.ButtonStyles(theme)['Button']
+                              .props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.ButtonStyles(theme)['Button']
+                                  .style,
+                                {
+                                  backgroundColor: palettes.App.Orange,
+                                  fontFamily: 'Quicksand_600SemiBold',
+                                  textTransform: 'uppercase',
+                                  width: '100%',
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                            title={'Filter'}
+                          />
+                        </View>
                       </View>
                     </LinearGradient>
                   </View>
