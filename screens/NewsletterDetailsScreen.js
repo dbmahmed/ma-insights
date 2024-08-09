@@ -107,7 +107,7 @@ const NewsletterDetailsScreen = props => {
             }
           },
         }}
-        newsletter_id={props.route?.params?.news_id ?? 20}
+        newsletter_id={props.route?.params?.news_id ?? 66}
       >
         {({ loading, error, data, refetchNewsletterEach }) => {
           const fetchData = data?.json;
@@ -1237,47 +1237,64 @@ const NewsletterDetailsScreen = props => {
                         dimensions.width
                       )}
                     >
-                      <LinearGradient
-                        color1={theme.colors.branding.primary}
-                        color2={theme.colors.branding.secondary}
-                        endX={100}
-                        endY={100}
-                        startX={0}
-                        startY={0}
-                        {...GlobalStyles.LinearGradientStyles(theme)[
-                          'SectionName'
-                        ].props}
-                        style={StyleSheet.applyWidth(
-                          StyleSheet.compose(
-                            GlobalStyles.LinearGradientStyles(theme)[
+                      <>
+                        {!(
+                          (fetchData?.events_list?.first &&
+                            (fetchData?.events_list?.first)[0]) !== null &&
+                          fetchData?.events_list?.first &&
+                          (fetchData?.events_list?.first)[0] &&
+                          (fetchData?.events_list?.second &&
+                            (fetchData?.events_list?.second)[0]) !== null &&
+                          fetchData?.events_list?.second &&
+                          (fetchData?.events_list?.second)[0] &&
+                          (fetchData?.events_list?.third &&
+                            (fetchData?.events_list?.third)[0]) !== null &&
+                          fetchData?.events_list?.third &&
+                          (fetchData?.events_list?.third)[0]
+                        ) ? null : (
+                          <LinearGradient
+                            color1={theme.colors.branding.primary}
+                            color2={theme.colors.branding.secondary}
+                            endX={100}
+                            endY={100}
+                            startX={0}
+                            startY={0}
+                            {...GlobalStyles.LinearGradientStyles(theme)[
                               'SectionName'
-                            ].style,
-                            { margin: null }
-                          ),
-                          dimensions.width
+                            ].props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.LinearGradientStyles(theme)[
+                                  'SectionName'
+                                ].style,
+                                { margin: null }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)['screen_title']
+                                .props}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.TextStyles(theme)['screen_title']
+                                    .style,
+                                  {
+                                    color: palettes.Brand['Strong Inverse'],
+                                    fontFamily: 'Quicksand_700Bold',
+                                    fontSize: 16,
+                                    textTransform: 'uppercase',
+                                  }
+                                ),
+                                dimensions.width
+                              )}
+                            >
+                              {'NEWSFLOW'}
+                            </Text>
+                          </LinearGradient>
                         )}
-                      >
-                        <Text
-                          accessible={true}
-                          {...GlobalStyles.TextStyles(theme)['screen_title']
-                            .props}
-                          style={StyleSheet.applyWidth(
-                            StyleSheet.compose(
-                              GlobalStyles.TextStyles(theme)['screen_title']
-                                .style,
-                              {
-                                color: palettes.Brand['Strong Inverse'],
-                                fontFamily: 'Quicksand_700Bold',
-                                fontSize: 16,
-                                textTransform: 'uppercase',
-                              }
-                            ),
-                            dimensions.width
-                          )}
-                        >
-                          {'NEWSFLOW'}
-                        </Text>
-                      </LinearGradient>
+                      </>
                     </View>
                     {/* Nordic Newsflow */}
                     <>
@@ -1974,520 +1991,558 @@ const NewsletterDetailsScreen = props => {
                       {!(fetchData?.version === 'DACH') ? null : (
                         <View>
                           {/* Large Cap */}
-                          <View
-                            style={StyleSheet.applyWidth(
-                              { padding: 10 },
-                              dimensions.width
-                            )}
-                          >
-                            <H3
-                              selectable={false}
-                              {...GlobalStyles.H3Styles(theme)['H3'].props}
-                              style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.H3Styles(theme)['H3'].style,
-                                  {
-                                    marginBottom: 10,
-                                    marginTop: 0,
-                                    paddingLeft: 2,
-                                    paddingRight: 2,
-                                  }
-                                ),
-                                dimensions.width
-                              )}
-                            >
-                              {'Large Cap:'}
-                            </H3>
-                            <SimpleStyleFlatList
-                              data={fetchData?.events_list?.first}
-                              inverted={false}
-                              keyExtractor={(listData, index) =>
-                                listData?.id ??
-                                listData?.uuid ??
-                                index?.toString() ??
-                                JSON.stringify(listData)
-                              }
-                              keyboardShouldPersistTaps={'never'}
-                              listKey={'cEbiegfV'}
-                              nestedScrollEnabled={false}
-                              numColumns={1}
-                              onEndReachedThreshold={0.5}
-                              renderItem={({ item, index }) => {
-                                const listData = item;
-                                return (
-                                  <Pressable
-                                    onPress={() => {
-                                      try {
-                                        navigation.navigate(
-                                          'EventDetailsScreen',
-                                          { event_id: listData?.id }
-                                        );
-                                      } catch (err) {
-                                        console.error(err);
+                          <>
+                            {!(
+                              (fetchData?.events_list?.first &&
+                                (fetchData?.events_list?.first)[0]) !== null &&
+                              fetchData?.events_list?.first &&
+                              (fetchData?.events_list?.first)[0]
+                            ) ? null : (
+                              <View
+                                style={StyleSheet.applyWidth(
+                                  { padding: 10 },
+                                  dimensions.width
+                                )}
+                              >
+                                <H3
+                                  selectable={false}
+                                  {...GlobalStyles.H3Styles(theme)['H3'].props}
+                                  style={StyleSheet.applyWidth(
+                                    StyleSheet.compose(
+                                      GlobalStyles.H3Styles(theme)['H3'].style,
+                                      {
+                                        marginBottom: 10,
+                                        marginTop: 0,
+                                        paddingLeft: 2,
+                                        paddingRight: 2,
                                       }
-                                    }}
-                                  >
-                                    <Shadow
-                                      showShadowCornerBottomEnd={true}
-                                      showShadowCornerBottomStart={true}
-                                      showShadowCornerTopEnd={true}
-                                      showShadowCornerTopStart={true}
-                                      showShadowSideBottom={true}
-                                      showShadowSideEnd={true}
-                                      showShadowSideStart={true}
-                                      showShadowSideTop={true}
-                                      distance={4}
-                                      offsetX={0}
-                                      offsetY={0}
-                                      paintInside={true}
-                                      stretch={true}
-                                      style={StyleSheet.applyWidth(
-                                        {
-                                          borderRadius: 12,
-                                          width: {
-                                            minWidth: Breakpoints.Laptop,
-                                            value: '100%',
-                                          },
-                                        },
-                                        dimensions.width
-                                      )}
-                                    >
-                                      <View
-                                        style={StyleSheet.applyWidth(
-                                          {
-                                            backgroundColor:
-                                              palettes.Brand['Strong Inverse'],
-                                            borderColor:
-                                              palettes.Brand['Light Inverse'],
-                                            borderRadius: 8,
-                                            borderWidth: 1,
-                                            padding: 10,
-                                          },
-                                          dimensions.width
-                                        )}
+                                    ),
+                                    dimensions.width
+                                  )}
+                                >
+                                  {'Large Cap:'}
+                                </H3>
+                                <SimpleStyleFlatList
+                                  data={fetchData?.events_list?.first}
+                                  inverted={false}
+                                  keyExtractor={(listData, index) =>
+                                    listData?.id ??
+                                    listData?.uuid ??
+                                    index?.toString() ??
+                                    JSON.stringify(listData)
+                                  }
+                                  keyboardShouldPersistTaps={'never'}
+                                  listKey={'cEbiegfV'}
+                                  nestedScrollEnabled={false}
+                                  numColumns={1}
+                                  onEndReachedThreshold={0.5}
+                                  renderItem={({ item, index }) => {
+                                    const listData = item;
+                                    return (
+                                      <Pressable
+                                        onPress={() => {
+                                          try {
+                                            navigation.navigate(
+                                              'EventDetailsScreen',
+                                              { event_id: listData?.id }
+                                            );
+                                          } catch (err) {
+                                            console.error(err);
+                                          }
+                                        }}
                                       >
-                                        <View>
-                                          <Text
-                                            accessible={true}
-                                            style={StyleSheet.applyWidth(
-                                              {
-                                                fontFamily:
-                                                  'Quicksand_600SemiBold',
-                                                fontSize: 16,
-                                              },
-                                              dimensions.width
-                                            )}
-                                          >
-                                            {listData?.headline}
-                                            {' ('}
-                                            {listData?.source}
-                                            {')'}
-                                          </Text>
-                                        </View>
-                                        {/* View 2 */}
-                                        <View>
-                                          <Text
-                                            accessible={true}
-                                            style={StyleSheet.applyWidth(
-                                              {
-                                                color: palettes.App.Orange,
-                                                fontFamily:
-                                                  'Quicksand_400Regular',
-                                              },
-                                              dimensions.width
-                                            )}
-                                          >
-                                            {listData?.country}
-                                            {' - '}
+                                        <Shadow
+                                          showShadowCornerBottomEnd={true}
+                                          showShadowCornerBottomStart={true}
+                                          showShadowCornerTopEnd={true}
+                                          showShadowCornerTopStart={true}
+                                          showShadowSideBottom={true}
+                                          showShadowSideEnd={true}
+                                          showShadowSideStart={true}
+                                          showShadowSideTop={true}
+                                          distance={4}
+                                          offsetX={0}
+                                          offsetY={0}
+                                          paintInside={true}
+                                          stretch={true}
+                                          style={StyleSheet.applyWidth(
                                             {
-                                              listData?._gics_sub_industry
-                                                ?.GICS_Sector
-                                            }
-                                          </Text>
-                                        </View>
-                                        {/* View 3 */}
-                                        <View>
-                                          <Text
-                                            accessible={true}
+                                              borderRadius: 12,
+                                              width: {
+                                                minWidth: Breakpoints.Laptop,
+                                                value: '100%',
+                                              },
+                                            },
+                                            dimensions.width
+                                          )}
+                                        >
+                                          <View
                                             style={StyleSheet.applyWidth(
                                               {
-                                                color: theme.colors.text.strong,
-                                                fontFamily:
-                                                  'Quicksand_400Regular',
+                                                backgroundColor:
+                                                  palettes.Brand[
+                                                    'Strong Inverse'
+                                                  ],
+                                                borderColor:
+                                                  palettes.Brand[
+                                                    'Light Inverse'
+                                                  ],
+                                                borderRadius: 8,
+                                                borderWidth: 1,
+                                                padding: 10,
                                               },
                                               dimensions.width
                                             )}
                                           >
-                                            {listData?.description}
-                                          </Text>
-                                        </View>
-                                      </View>
-                                    </Shadow>
-                                  </Pressable>
-                                );
-                              }}
-                              horizontal={false}
-                              showsHorizontalScrollIndicator={false}
-                              showsVerticalScrollIndicator={false}
-                              style={StyleSheet.applyWidth(
-                                {
-                                  alignSelf: [
+                                            <View>
+                                              <Text
+                                                accessible={true}
+                                                style={StyleSheet.applyWidth(
+                                                  {
+                                                    fontFamily:
+                                                      'Quicksand_600SemiBold',
+                                                    fontSize: 16,
+                                                  },
+                                                  dimensions.width
+                                                )}
+                                              >
+                                                {listData?.headline}
+                                                {' ('}
+                                                {listData?.source}
+                                                {')'}
+                                              </Text>
+                                            </View>
+                                            {/* View 2 */}
+                                            <View>
+                                              <Text
+                                                accessible={true}
+                                                style={StyleSheet.applyWidth(
+                                                  {
+                                                    color: palettes.App.Orange,
+                                                    fontFamily:
+                                                      'Quicksand_400Regular',
+                                                  },
+                                                  dimensions.width
+                                                )}
+                                              >
+                                                {listData?.country}
+                                                {' - '}
+                                                {
+                                                  listData?._gics_sub_industry
+                                                    ?.GICS_Sector
+                                                }
+                                              </Text>
+                                            </View>
+                                            {/* View 3 */}
+                                            <View>
+                                              <Text
+                                                accessible={true}
+                                                style={StyleSheet.applyWidth(
+                                                  {
+                                                    color:
+                                                      theme.colors.text.strong,
+                                                    fontFamily:
+                                                      'Quicksand_400Regular',
+                                                  },
+                                                  dimensions.width
+                                                )}
+                                              >
+                                                {listData?.description}
+                                              </Text>
+                                            </View>
+                                          </View>
+                                        </Shadow>
+                                      </Pressable>
+                                    );
+                                  }}
+                                  horizontal={false}
+                                  showsHorizontalScrollIndicator={false}
+                                  showsVerticalScrollIndicator={false}
+                                  style={StyleSheet.applyWidth(
                                     {
-                                      minWidth: Breakpoints.Laptop,
-                                      value: 'stretch',
+                                      alignSelf: [
+                                        {
+                                          minWidth: Breakpoints.Laptop,
+                                          value: 'stretch',
+                                        },
+                                        {
+                                          minWidth: Breakpoints.Mobile,
+                                          value: 'stretch',
+                                        },
+                                      ],
+                                      gap: 8,
+                                      marginLeft: -10,
+                                      marginRight: -10,
+                                      padding: 10,
                                     },
-                                    {
-                                      minWidth: Breakpoints.Mobile,
-                                      value: 'stretch',
-                                    },
-                                  ],
-                                  gap: 8,
-                                  marginLeft: -10,
-                                  marginRight: -10,
-                                  padding: 10,
-                                },
-                                dimensions.width
-                              )}
-                            />
-                          </View>
+                                    dimensions.width
+                                  )}
+                                />
+                              </View>
+                            )}
+                          </>
                           {/* Mid Cap */}
-                          <View
-                            style={StyleSheet.applyWidth(
-                              { padding: 10 },
-                              dimensions.width
-                            )}
-                          >
-                            <H3
-                              selectable={false}
-                              {...GlobalStyles.H3Styles(theme)['H3'].props}
-                              style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.H3Styles(theme)['H3'].style,
-                                  {
-                                    marginBottom: 10,
-                                    marginTop: 0,
-                                    paddingLeft: 2,
-                                    paddingRight: 2,
-                                  }
-                                ),
-                                dimensions.width
-                              )}
-                            >
-                              {'Mid Cap:'}
-                            </H3>
-                            <SimpleStyleFlatList
-                              data={fetchData?.events_list?.second}
-                              inverted={false}
-                              keyExtractor={(listData, index) =>
-                                listData?.id ??
-                                listData?.uuid ??
-                                index?.toString() ??
-                                JSON.stringify(listData)
-                              }
-                              keyboardShouldPersistTaps={'never'}
-                              listKey={'VSaJ4R1g'}
-                              nestedScrollEnabled={false}
-                              numColumns={1}
-                              onEndReachedThreshold={0.5}
-                              renderItem={({ item, index }) => {
-                                const listData = item;
-                                return (
-                                  <Pressable
-                                    onPress={() => {
-                                      try {
-                                        navigation.navigate(
-                                          'EventDetailsScreen',
-                                          { event_id: listData?.id }
-                                        );
-                                      } catch (err) {
-                                        console.error(err);
+                          <>
+                            {!(
+                              (fetchData?.events_list?.second &&
+                                (fetchData?.events_list?.second)[0]) !== null
+                            ) ? null : (
+                              <View
+                                style={StyleSheet.applyWidth(
+                                  { padding: 10 },
+                                  dimensions.width
+                                )}
+                              >
+                                <H3
+                                  selectable={false}
+                                  {...GlobalStyles.H3Styles(theme)['H3'].props}
+                                  style={StyleSheet.applyWidth(
+                                    StyleSheet.compose(
+                                      GlobalStyles.H3Styles(theme)['H3'].style,
+                                      {
+                                        marginBottom: 10,
+                                        marginTop: 0,
+                                        paddingLeft: 2,
+                                        paddingRight: 2,
                                       }
-                                    }}
-                                  >
-                                    <Shadow
-                                      showShadowCornerBottomEnd={true}
-                                      showShadowCornerBottomStart={true}
-                                      showShadowCornerTopEnd={true}
-                                      showShadowCornerTopStart={true}
-                                      showShadowSideBottom={true}
-                                      showShadowSideEnd={true}
-                                      showShadowSideStart={true}
-                                      showShadowSideTop={true}
-                                      distance={4}
-                                      offsetX={0}
-                                      offsetY={0}
-                                      paintInside={true}
-                                      stretch={true}
-                                      style={StyleSheet.applyWidth(
-                                        {
-                                          borderRadius: 12,
-                                          width: {
-                                            minWidth: Breakpoints.Laptop,
-                                            value: '100%',
-                                          },
-                                        },
-                                        dimensions.width
-                                      )}
-                                    >
-                                      <View
-                                        style={StyleSheet.applyWidth(
-                                          {
-                                            backgroundColor:
-                                              palettes.Brand['Strong Inverse'],
-                                            borderColor:
-                                              palettes.Brand['Light Inverse'],
-                                            borderRadius: 8,
-                                            borderWidth: 1,
-                                            padding: 10,
-                                          },
-                                          dimensions.width
-                                        )}
+                                    ),
+                                    dimensions.width
+                                  )}
+                                >
+                                  {'Mid Cap:'}
+                                </H3>
+                                <SimpleStyleFlatList
+                                  data={fetchData?.events_list?.second}
+                                  inverted={false}
+                                  keyExtractor={(listData, index) =>
+                                    listData?.id ??
+                                    listData?.uuid ??
+                                    index?.toString() ??
+                                    JSON.stringify(listData)
+                                  }
+                                  keyboardShouldPersistTaps={'never'}
+                                  listKey={'VSaJ4R1g'}
+                                  nestedScrollEnabled={false}
+                                  numColumns={1}
+                                  onEndReachedThreshold={0.5}
+                                  renderItem={({ item, index }) => {
+                                    const listData = item;
+                                    return (
+                                      <Pressable
+                                        onPress={() => {
+                                          try {
+                                            navigation.navigate(
+                                              'EventDetailsScreen',
+                                              { event_id: listData?.id }
+                                            );
+                                          } catch (err) {
+                                            console.error(err);
+                                          }
+                                        }}
                                       >
-                                        <View>
-                                          <Text
-                                            accessible={true}
-                                            style={StyleSheet.applyWidth(
-                                              {
-                                                fontFamily:
-                                                  'Quicksand_600SemiBold',
-                                                fontSize: 16,
-                                              },
-                                              dimensions.width
-                                            )}
-                                          >
-                                            {listData?.headline}
-                                            {' ('}
-                                            {listData?.source}
-                                            {')'}
-                                          </Text>
-                                        </View>
-                                        {/* View 2 */}
-                                        <View>
-                                          <Text
-                                            accessible={true}
-                                            style={StyleSheet.applyWidth(
-                                              {
-                                                color: palettes.App.Orange,
-                                                fontFamily:
-                                                  'Quicksand_400Regular',
-                                              },
-                                              dimensions.width
-                                            )}
-                                          >
-                                            {listData?.country}
-                                            {' - '}
+                                        <Shadow
+                                          showShadowCornerBottomEnd={true}
+                                          showShadowCornerBottomStart={true}
+                                          showShadowCornerTopEnd={true}
+                                          showShadowCornerTopStart={true}
+                                          showShadowSideBottom={true}
+                                          showShadowSideEnd={true}
+                                          showShadowSideStart={true}
+                                          showShadowSideTop={true}
+                                          distance={4}
+                                          offsetX={0}
+                                          offsetY={0}
+                                          paintInside={true}
+                                          stretch={true}
+                                          style={StyleSheet.applyWidth(
                                             {
-                                              listData?._gics_sub_industry
-                                                ?.GICS_Sector
-                                            }
-                                          </Text>
-                                        </View>
-                                        {/* View 3 */}
-                                        <View>
-                                          <Text
-                                            accessible={true}
+                                              borderRadius: 12,
+                                              width: {
+                                                minWidth: Breakpoints.Laptop,
+                                                value: '100%',
+                                              },
+                                            },
+                                            dimensions.width
+                                          )}
+                                        >
+                                          <View
                                             style={StyleSheet.applyWidth(
                                               {
-                                                color: theme.colors.text.strong,
-                                                fontFamily:
-                                                  'Quicksand_400Regular',
+                                                backgroundColor:
+                                                  palettes.Brand[
+                                                    'Strong Inverse'
+                                                  ],
+                                                borderColor:
+                                                  palettes.Brand[
+                                                    'Light Inverse'
+                                                  ],
+                                                borderRadius: 8,
+                                                borderWidth: 1,
+                                                padding: 10,
                                               },
                                               dimensions.width
                                             )}
                                           >
-                                            {listData?.description}
-                                          </Text>
-                                        </View>
-                                      </View>
-                                    </Shadow>
-                                  </Pressable>
-                                );
-                              }}
-                              horizontal={false}
-                              showsHorizontalScrollIndicator={false}
-                              showsVerticalScrollIndicator={false}
-                              style={StyleSheet.applyWidth(
-                                {
-                                  alignSelf: {
-                                    minWidth: Breakpoints.Laptop,
-                                    value: 'stretch',
-                                  },
-                                  gap: 8,
-                                  marginLeft: -10,
-                                  marginRight: -10,
-                                  padding: 10,
-                                },
-                                dimensions.width
-                              )}
-                            />
-                          </View>
+                                            <View>
+                                              <Text
+                                                accessible={true}
+                                                style={StyleSheet.applyWidth(
+                                                  {
+                                                    fontFamily:
+                                                      'Quicksand_600SemiBold',
+                                                    fontSize: 16,
+                                                  },
+                                                  dimensions.width
+                                                )}
+                                              >
+                                                {listData?.headline}
+                                                {' ('}
+                                                {listData?.source}
+                                                {')'}
+                                              </Text>
+                                            </View>
+                                            {/* View 2 */}
+                                            <View>
+                                              <Text
+                                                accessible={true}
+                                                style={StyleSheet.applyWidth(
+                                                  {
+                                                    color: palettes.App.Orange,
+                                                    fontFamily:
+                                                      'Quicksand_400Regular',
+                                                  },
+                                                  dimensions.width
+                                                )}
+                                              >
+                                                {listData?.country}
+                                                {' - '}
+                                                {
+                                                  listData?._gics_sub_industry
+                                                    ?.GICS_Sector
+                                                }
+                                              </Text>
+                                            </View>
+                                            {/* View 3 */}
+                                            <View>
+                                              <Text
+                                                accessible={true}
+                                                style={StyleSheet.applyWidth(
+                                                  {
+                                                    color:
+                                                      theme.colors.text.strong,
+                                                    fontFamily:
+                                                      'Quicksand_400Regular',
+                                                  },
+                                                  dimensions.width
+                                                )}
+                                              >
+                                                {listData?.description}
+                                              </Text>
+                                            </View>
+                                          </View>
+                                        </Shadow>
+                                      </Pressable>
+                                    );
+                                  }}
+                                  horizontal={false}
+                                  showsHorizontalScrollIndicator={false}
+                                  showsVerticalScrollIndicator={false}
+                                  style={StyleSheet.applyWidth(
+                                    {
+                                      alignSelf: {
+                                        minWidth: Breakpoints.Laptop,
+                                        value: 'stretch',
+                                      },
+                                      gap: 8,
+                                      marginLeft: -10,
+                                      marginRight: -10,
+                                      padding: 10,
+                                    },
+                                    dimensions.width
+                                  )}
+                                />
+                              </View>
+                            )}
+                          </>
                           {/* Small Cap */}
-                          <View
-                            style={StyleSheet.applyWidth(
-                              { padding: 10 },
-                              dimensions.width
-                            )}
-                          >
-                            <H3
-                              selectable={false}
-                              {...GlobalStyles.H3Styles(theme)['H3'].props}
-                              style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.H3Styles(theme)['H3'].style,
-                                  {
-                                    marginBottom: 10,
-                                    marginTop: 0,
-                                    paddingLeft: 2,
-                                    paddingRight: 2,
-                                  }
-                                ),
-                                dimensions.width
-                              )}
-                            >
-                              {'Small Cap & Growth Equity:'}
-                            </H3>
-                            <SimpleStyleFlatList
-                              data={fetchData?.events_list?.third}
-                              inverted={false}
-                              keyExtractor={(listData, index) => listData}
-                              keyboardShouldPersistTaps={'never'}
-                              listKey={'eZ4x76dS'}
-                              nestedScrollEnabled={false}
-                              numColumns={1}
-                              onEndReachedThreshold={0.5}
-                              renderItem={({ item, index }) => {
-                                const listData = item;
-                                return (
-                                  <Pressable
-                                    onPress={() => {
-                                      try {
-                                        navigation.navigate(
-                                          'EventDetailsScreen',
-                                          { event_id: listData?.id }
-                                        );
-                                      } catch (err) {
-                                        console.error(err);
+                          <>
+                            {!(
+                              (fetchData?.events_list?.third &&
+                                (fetchData?.events_list?.third)[0]) !== null
+                            ) ? null : (
+                              <View
+                                style={StyleSheet.applyWidth(
+                                  { padding: 10 },
+                                  dimensions.width
+                                )}
+                              >
+                                <H3
+                                  selectable={false}
+                                  {...GlobalStyles.H3Styles(theme)['H3'].props}
+                                  style={StyleSheet.applyWidth(
+                                    StyleSheet.compose(
+                                      GlobalStyles.H3Styles(theme)['H3'].style,
+                                      {
+                                        marginBottom: 10,
+                                        marginTop: 0,
+                                        paddingLeft: 2,
+                                        paddingRight: 2,
                                       }
-                                    }}
-                                  >
-                                    <Shadow
-                                      showShadowCornerBottomEnd={true}
-                                      showShadowCornerBottomStart={true}
-                                      showShadowCornerTopEnd={true}
-                                      showShadowCornerTopStart={true}
-                                      showShadowSideBottom={true}
-                                      showShadowSideEnd={true}
-                                      showShadowSideStart={true}
-                                      showShadowSideTop={true}
-                                      distance={4}
-                                      offsetX={0}
-                                      offsetY={0}
-                                      paintInside={true}
-                                      stretch={true}
-                                      style={StyleSheet.applyWidth(
-                                        {
-                                          borderRadius: 12,
-                                          width: {
-                                            minWidth: Breakpoints.Laptop,
-                                            value: '100%',
-                                          },
-                                        },
-                                        dimensions.width
-                                      )}
-                                    >
-                                      <View
-                                        style={StyleSheet.applyWidth(
-                                          {
-                                            backgroundColor:
-                                              palettes.Brand['Strong Inverse'],
-                                            borderColor:
-                                              palettes.Brand['Light Inverse'],
-                                            borderRadius: 8,
-                                            borderWidth: 1,
-                                            padding: 10,
-                                          },
-                                          dimensions.width
-                                        )}
+                                    ),
+                                    dimensions.width
+                                  )}
+                                >
+                                  {'Small Cap & Growth Equity:'}
+                                </H3>
+                                <SimpleStyleFlatList
+                                  data={fetchData?.events_list?.third}
+                                  inverted={false}
+                                  keyExtractor={(listData, index) => listData}
+                                  keyboardShouldPersistTaps={'never'}
+                                  listKey={'eZ4x76dS'}
+                                  nestedScrollEnabled={false}
+                                  numColumns={1}
+                                  onEndReachedThreshold={0.5}
+                                  renderItem={({ item, index }) => {
+                                    const listData = item;
+                                    return (
+                                      <Pressable
+                                        onPress={() => {
+                                          try {
+                                            navigation.navigate(
+                                              'EventDetailsScreen',
+                                              { event_id: listData?.id }
+                                            );
+                                          } catch (err) {
+                                            console.error(err);
+                                          }
+                                        }}
                                       >
-                                        <View>
-                                          <Text
-                                            accessible={true}
-                                            style={StyleSheet.applyWidth(
-                                              {
-                                                fontFamily:
-                                                  'Quicksand_600SemiBold',
-                                                fontSize: 16,
-                                              },
-                                              dimensions.width
-                                            )}
-                                          >
-                                            {listData?.headline}
-                                            {' ('}
-                                            {listData?.source}
-                                            {')'}
-                                          </Text>
-                                        </View>
-                                        {/* View 2 */}
-                                        <View>
-                                          <Text
-                                            accessible={true}
-                                            style={StyleSheet.applyWidth(
-                                              {
-                                                color: palettes.App.Orange,
-                                                fontFamily:
-                                                  'Quicksand_400Regular',
-                                              },
-                                              dimensions.width
-                                            )}
-                                          >
-                                            {listData?.country}
-                                            {' - '}
+                                        <Shadow
+                                          showShadowCornerBottomEnd={true}
+                                          showShadowCornerBottomStart={true}
+                                          showShadowCornerTopEnd={true}
+                                          showShadowCornerTopStart={true}
+                                          showShadowSideBottom={true}
+                                          showShadowSideEnd={true}
+                                          showShadowSideStart={true}
+                                          showShadowSideTop={true}
+                                          distance={4}
+                                          offsetX={0}
+                                          offsetY={0}
+                                          paintInside={true}
+                                          stretch={true}
+                                          style={StyleSheet.applyWidth(
                                             {
-                                              listData?._gics_sub_industry
-                                                ?.GICS_Sector
-                                            }
-                                          </Text>
-                                        </View>
-                                        {/* View 3 */}
-                                        <View>
-                                          <Text
-                                            accessible={true}
+                                              borderRadius: 12,
+                                              width: {
+                                                minWidth: Breakpoints.Laptop,
+                                                value: '100%',
+                                              },
+                                            },
+                                            dimensions.width
+                                          )}
+                                        >
+                                          <View
                                             style={StyleSheet.applyWidth(
                                               {
-                                                color: theme.colors.text.strong,
-                                                fontFamily:
-                                                  'Quicksand_400Regular',
-                                                textAlign: 'left',
+                                                backgroundColor:
+                                                  palettes.Brand[
+                                                    'Strong Inverse'
+                                                  ],
+                                                borderColor:
+                                                  palettes.Brand[
+                                                    'Light Inverse'
+                                                  ],
+                                                borderRadius: 8,
+                                                borderWidth: 1,
+                                                padding: 10,
                                               },
                                               dimensions.width
                                             )}
                                           >
-                                            {listData?.description}
-                                          </Text>
-                                        </View>
-                                      </View>
-                                    </Shadow>
-                                  </Pressable>
-                                );
-                              }}
-                              horizontal={false}
-                              showsHorizontalScrollIndicator={false}
-                              showsVerticalScrollIndicator={false}
-                              style={StyleSheet.applyWidth(
-                                {
-                                  alignSelf: {
-                                    minWidth: Breakpoints.Laptop,
-                                    value: 'stretch',
-                                  },
-                                  gap: 8,
-                                  marginLeft: -10,
-                                  marginRight: -10,
-                                  padding: 10,
-                                },
-                                dimensions.width
-                              )}
-                            />
-                          </View>
+                                            <View>
+                                              <Text
+                                                accessible={true}
+                                                style={StyleSheet.applyWidth(
+                                                  {
+                                                    fontFamily:
+                                                      'Quicksand_600SemiBold',
+                                                    fontSize: 16,
+                                                  },
+                                                  dimensions.width
+                                                )}
+                                              >
+                                                {listData?.headline}
+                                                {' ('}
+                                                {listData?.source}
+                                                {')'}
+                                              </Text>
+                                            </View>
+                                            {/* View 2 */}
+                                            <View>
+                                              <Text
+                                                accessible={true}
+                                                style={StyleSheet.applyWidth(
+                                                  {
+                                                    color: palettes.App.Orange,
+                                                    fontFamily:
+                                                      'Quicksand_400Regular',
+                                                  },
+                                                  dimensions.width
+                                                )}
+                                              >
+                                                {listData?.country}
+                                                {' - '}
+                                                {
+                                                  listData?._gics_sub_industry
+                                                    ?.GICS_Sector
+                                                }
+                                              </Text>
+                                            </View>
+                                            {/* View 3 */}
+                                            <View>
+                                              <Text
+                                                accessible={true}
+                                                style={StyleSheet.applyWidth(
+                                                  {
+                                                    color:
+                                                      theme.colors.text.strong,
+                                                    fontFamily:
+                                                      'Quicksand_400Regular',
+                                                    textAlign: 'left',
+                                                  },
+                                                  dimensions.width
+                                                )}
+                                              >
+                                                {listData?.description}
+                                              </Text>
+                                            </View>
+                                          </View>
+                                        </Shadow>
+                                      </Pressable>
+                                    );
+                                  }}
+                                  horizontal={false}
+                                  showsHorizontalScrollIndicator={false}
+                                  showsVerticalScrollIndicator={false}
+                                  style={StyleSheet.applyWidth(
+                                    {
+                                      alignSelf: {
+                                        minWidth: Breakpoints.Laptop,
+                                        value: 'stretch',
+                                      },
+                                      gap: 8,
+                                      marginLeft: -10,
+                                      marginRight: -10,
+                                      padding: 10,
+                                    },
+                                    dimensions.width
+                                  )}
+                                />
+                              </View>
+                            )}
+                          </>
                         </View>
                       )}
                     </>
