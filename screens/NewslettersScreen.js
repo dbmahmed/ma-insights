@@ -584,6 +584,7 @@ const NewslettersScreen = props => {
                             { minWidth: Breakpoints.Tablet, value: '33.33%' },
                             { minWidth: Breakpoints.Laptop, value: '20%' },
                           ],
+                          minHeight: 150,
                           padding: 5,
                           width: '100%',
                         },
@@ -610,11 +611,13 @@ const NewslettersScreen = props => {
                               borderColor: theme.colors.text.strong,
                               borderRadius: 5,
                               flexDirection: 'column',
+                              height: '100%',
                               margin: null,
                               maxWidth: [
                                 { minWidth: Breakpoints.Desktop, value: 230 },
                                 { minWidth: Breakpoints.Laptop, value: 183 },
                               ],
+                              width: '100%',
                             }
                           ),
                           dimensions.width
@@ -632,6 +635,10 @@ const NewslettersScreen = props => {
                               console.error(err);
                             }
                           }}
+                          style={StyleSheet.applyWidth(
+                            { height: '100%' },
+                            dimensions.width
+                          )}
                         >
                           <View
                             style={StyleSheet.applyWidth(
@@ -639,8 +646,8 @@ const NewslettersScreen = props => {
                                 flexDirection: 'column',
                                 flexWrap: 'nowrap',
                                 gap: 10,
+                                height: '100%',
                                 justifyContent: 'space-between',
-                                minHeight: 160,
                                 padding: 5,
                               },
                               dimensions.width

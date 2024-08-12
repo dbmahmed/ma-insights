@@ -17,8 +17,8 @@ line two` ) and will not work with special characters inside of quotes ( example
     key: 'ME',
     value: {},
   });
-
-  navigation.navigate('LoginScreen');
+  console.log('test navigation');
+  navigation.navigate('LogInScreen');
 };
 
 export default resetAccess;

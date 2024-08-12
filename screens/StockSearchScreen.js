@@ -4,6 +4,7 @@ import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
 import CustomHeaderBlock from '../components/CustomHeaderBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import assessAccess from '../global-functions/assessAccess';
+import formatNumber from '../global-functions/formatNumber';
 import transformEuroM from '../global-functions/transformEuroM';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
@@ -437,7 +438,7 @@ const StockSearchScreen = props => {
                       dimensions.width
                     )}
                   >
-                    {fetchData?.itemsTotal}
+                    {formatNumber(fetchData?.itemsTotal)}
                     {' private equity firms matching filter'}
                   </Text>
                 </View>
