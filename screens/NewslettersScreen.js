@@ -571,7 +571,6 @@ const NewslettersScreen = props => {
         newsletters={newsletter}
         nordic={nordic}
         page={1}
-        refetchInterval={300000}
         reports={weeklyReport}
       >
         {({ loading, error, data, refetchNewsletters }) => {
