@@ -1572,7 +1572,7 @@ export const FetchNewsletterEachGET = ({
 
 export const newslettersGET = async (
   Constants,
-  { dach, newsletters, nordic, reports },
+  { dach, keyword, newsletters, nordic, page, reports },
   handlers = {}
 ) => {
   const paramsDict = {};
@@ -1587,6 +1587,12 @@ export const newslettersGET = async (
   }
   if (newsletters !== undefined) {
     paramsDict['newsletters'] = renderParam(newsletters);
+  }
+  if (keyword !== undefined) {
+    paramsDict['keyword'] = renderParam(keyword);
+  }
+  if (page !== undefined) {
+    paramsDict['page'] = renderParam(page);
   }
   const url = `https://xne3-pdiu-8ysm.f2.xano.io/api:abjrBkC8/newsletter${renderQueryString(
     paramsDict
@@ -1622,8 +1628,10 @@ export const FetchNewslettersGET = ({
   handlers = {},
   refetchInterval,
   dach,
+  keyword,
   newsletters,
   nordic,
+  page,
   reports,
 }) => {
   const Constants = GlobalVariables.useValues();
@@ -1636,7 +1644,7 @@ export const FetchNewslettersGET = ({
     error,
     refetch,
   } = useNewslettersGET(
-    { dach, newsletters, nordic, reports },
+    { dach, keyword, newsletters, nordic, page, reports },
     { refetchInterval, handlers: { onData, ...handlers } }
   );
 

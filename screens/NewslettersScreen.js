@@ -10,6 +10,7 @@ import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import showAlertUtil from '../utils/showAlert';
 import useWindowDimensions from '../utils/useWindowDimensions';
+import waitUtil from '../utils/wait';
 import {
   Checkbox,
   LinearGradient,
@@ -36,8 +37,12 @@ const NewslettersScreen = props => {
   const setGlobalVariableValue = GlobalVariables.useSetValue();
   const [dach, setDach] = React.useState(true);
   const [keywordSearch, setKeywordSearch] = React.useState('');
+  const [keywordSearch_raw, setKeywordSearch_raw] = React.useState('');
+  const [lastPage, setLastPage] = React.useState(0);
   const [my_peer_groups, setMy_peer_groups] = React.useState(false);
   const [newsletter, setNewsletter] = React.useState(true);
+  const [newslettersList, setNewslettersList] = React.useState([]);
+  const [nextPage, setNextPage] = React.useState(2);
   const [nkp_comps, setNkp_comps] = React.useState(false);
   const [nordic, setNordic] = React.useState(true);
   const [weeklyReport, setWeeklyReport] = React.useState(true);
@@ -73,20 +78,20 @@ const NewslettersScreen = props => {
         value: false,
       });
       console.log('Complete ON_SCREEN_FOCUS:3 SET_VARIABLE');
-      console.log('Start ON_SCREEN_FOCUS:4 CONSOLE_LOG');
+      console.log('Start ON_SCREEN_FOCUS:4 CONDITIONAL_STOP');
+      if (assessAccess(Variables, setGlobalVariableValue) === true) {
+        return console.log('Complete ON_SCREEN_FOCUS:4 CONDITIONAL_STOP');
+      } else {
+        console.log(
+          'Skipped ON_SCREEN_FOCUS:4 CONDITIONAL_STOP: condition not met'
+        );
+      }
+      console.log('Start ON_SCREEN_FOCUS:5 CONSOLE_LOG');
       console.log(
         'testing conditional stop',
         assessAccess(Variables, setGlobalVariableValue)
       );
-      console.log('Complete ON_SCREEN_FOCUS:4 CONSOLE_LOG');
-      console.log('Start ON_SCREEN_FOCUS:5 CONDITIONAL_STOP');
-      if (assessAccess(Variables, setGlobalVariableValue) === true) {
-        return console.log('Complete ON_SCREEN_FOCUS:5 CONDITIONAL_STOP');
-      } else {
-        console.log(
-          'Skipped ON_SCREEN_FOCUS:5 CONDITIONAL_STOP: condition not met'
-        );
-      }
+      console.log('Complete ON_SCREEN_FOCUS:5 CONSOLE_LOG');
       console.log('Start ON_SCREEN_FOCUS:6 CUSTOM_FUNCTION');
       resetAccess(navigation, Variables, setGlobalVariableValue);
       console.log('Complete ON_SCREEN_FOCUS:6 CUSTOM_FUNCTION');
@@ -181,17 +186,23 @@ const NewslettersScreen = props => {
                 autoCorrect={true}
                 changeTextDelay={500}
                 onChangeText={newTextInputValue => {
-                  try {
-                    setKeywordSearch(newTextInputValue);
-                  } catch (err) {
-                    console.error(err);
-                  }
+                  const handler = async () => {
+                    try {
+                      setKeywordSearch_raw(newTextInputValue);
+                      await waitUtil({ milliseconds: 100 });
+                      if (newTextInputValue !== '') {
+                        return;
+                      }
+                      setKeywordSearch(keywordSearch_raw);
+                    } catch (err) {
+                      console.error(err);
+                    }
+                  };
+                  handler();
                 }}
                 onSubmitEditing={() => {
                   try {
-                    /* hidden 'Set Variable' action */
-                    /* hidden 'API Request' action */
-                    /* 'Refetch Data' action requires configuration: choose an API endpoint */
+                    setKeywordSearch(keywordSearch_raw);
                   } catch (err) {
                     console.error(err);
                   }
@@ -214,7 +225,7 @@ const NewslettersScreen = props => {
                   ),
                   dimensions.width
                 )}
-                value={keywordSearch}
+                value={keywordSearch_raw}
               />
               <View
                 style={StyleSheet.applyWidth(
@@ -532,8 +543,18 @@ const NewslettersScreen = props => {
       </View>
 
       <XanoCollectionApi.FetchNewslettersGET
-        dach={true}
+        dach={dach}
         handlers={{
+          on2xx: fetchData => {
+            try {
+              setNewslettersList(fetchData?.json?.items);
+              console.log(newslettersList);
+              /* hidden 'Set Variable' action */
+              setLastPage(fetchData?.json?.pageTotal);
+            } catch (err) {
+              console.error(err);
+            }
+          },
           on401: fetchData => {
             try {
               /* hidden 'Show Alert' action */
@@ -546,10 +567,12 @@ const NewslettersScreen = props => {
             }
           },
         }}
-        newsletters={true}
-        nordic={true}
+        keyword={keywordSearch}
+        newsletters={newsletter}
+        nordic={nordic}
+        page={1}
         refetchInterval={300000}
-        reports={true}
+        reports={weeklyReport}
       >
         {({ loading, error, data, refetchNewsletters }) => {
           const fetchData = data?.json;
@@ -569,14 +592,81 @@ const NewslettersScreen = props => {
               )}
             >
               <SimpleStyleFlatList
-                data={fetchData}
+                data={newslettersList}
                 horizontal={false}
                 inverted={false}
                 keyExtractor={(listData, index) => listData?.id}
                 keyboardShouldPersistTaps={'never'}
                 listKey={'sXtzWjLu'}
                 nestedScrollEnabled={false}
-                onEndReachedThreshold={0.5}
+                onEndReached={() => {
+                  const handler = async () => {
+                    console.log('List ON_END_REACHED Start');
+                    let error = null;
+                    try {
+                      console.log('Start ON_END_REACHED:0 SET_VARIABLE');
+                      setNextPage(parseInt(nextPage + 1, 10));
+                      console.log('Complete ON_END_REACHED:0 SET_VARIABLE');
+                      console.log('Start ON_END_REACHED:1 CONDITIONAL_STOP');
+                      if (nextPage > lastPage) {
+                        return console.log(
+                          'Complete ON_END_REACHED:1 CONDITIONAL_STOP'
+                        );
+                      } else {
+                        console.log(
+                          'Skipped ON_END_REACHED:1 CONDITIONAL_STOP: condition not met'
+                        );
+                      }
+                      console.log('Start ON_END_REACHED:2 CONSOLE_LOG');
+                      /* hidden 'Log to Console' action */ console.log(
+                        'Complete ON_END_REACHED:2 CONSOLE_LOG'
+                      );
+                      console.log('Start ON_END_REACHED:3 FETCH_REQUEST');
+                      const newData = (
+                        await XanoCollectionApi.newslettersGET(Constants, {
+                          dach: dach,
+                          keyword: keywordSearch,
+                          newsletters: newsletter,
+                          nordic: nordic,
+                          page: parseInt(nextPage, 10),
+                          reports: weeklyReport,
+                        })
+                      )?.json;
+                      console.log('Complete ON_END_REACHED:3 FETCH_REQUEST', {
+                        newData,
+                      });
+                      console.log('Start ON_END_REACHED:4 CONSOLE_LOG');
+                      console.log(newData?.items);
+                      console.log('Complete ON_END_REACHED:4 CONSOLE_LOG');
+                      console.log('Start ON_END_REACHED:5 CONDITIONAL_STOP');
+                      if (fetchData?.items === 0) {
+                        return console.log(
+                          'Complete ON_END_REACHED:5 CONDITIONAL_STOP'
+                        );
+                      } else {
+                        console.log(
+                          'Skipped ON_END_REACHED:5 CONDITIONAL_STOP: condition not met'
+                        );
+                      }
+                      console.log('Start ON_END_REACHED:6 SET_VARIABLE');
+                      setNewslettersList(
+                        newslettersList.concat(newData?.items)
+                      );
+                      console.log('Complete ON_END_REACHED:6 SET_VARIABLE');
+                      console.log('Start ON_END_REACHED:7 SET_VARIABLE');
+                      setLastPage(newData?.pagesTotal);
+                      console.log('Complete ON_END_REACHED:7 SET_VARIABLE');
+                    } catch (err) {
+                      console.error(err);
+                      error = err.message ?? err;
+                    }
+                    console.log(
+                      'List ON_END_REACHED Complete',
+                      error ? { error } : 'no error'
+                    );
+                  };
+                  handler();
+                }}
                 renderItem={({ item, index }) => {
                   const listData = item;
                   return (
@@ -742,6 +832,7 @@ const NewslettersScreen = props => {
                     ? 3
                     : 2
                 }
+                onEndReachedThreshold={0.2}
                 showsHorizontalScrollIndicator={false}
                 showsVerticalScrollIndicator={false}
                 style={StyleSheet.applyWidth(

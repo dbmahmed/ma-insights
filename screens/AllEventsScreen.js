@@ -547,17 +547,7 @@ const AllEventsScreen = props => {
                         /* hidden 'Log to Console' action */ console.log(
                           'Complete ON_END_REACHED:3 CONSOLE_LOG'
                         );
-                        console.log('Start ON_END_REACHED:4 CONDITIONAL_STOP');
-                        if (nextPage?.items?.length !== 0) {
-                          return console.log(
-                            'Complete ON_END_REACHED:4 CONDITIONAL_STOP'
-                          );
-                        } else {
-                          console.log(
-                            'Skipped ON_END_REACHED:4 CONDITIONAL_STOP: condition not met'
-                          );
-                        }
-                        console.log('Start ON_END_REACHED:5 FETCH_REQUEST');
+                        console.log('Start ON_END_REACHED:4 FETCH_REQUEST');
                         const newData = (
                           await XanoCollectionApi.getAllEventsGET(Constants, {
                             countryIn: country,
@@ -567,9 +557,19 @@ const AllEventsScreen = props => {
                             sectorIn: sector,
                           })
                         )?.json;
-                        console.log('Complete ON_END_REACHED:5 FETCH_REQUEST', {
+                        console.log('Complete ON_END_REACHED:4 FETCH_REQUEST', {
                           newData,
                         });
+                        console.log('Start ON_END_REACHED:5 CONDITIONAL_STOP');
+                        if (newData?.items?.length > 0) {
+                          return console.log(
+                            'Complete ON_END_REACHED:5 CONDITIONAL_STOP'
+                          );
+                        } else {
+                          console.log(
+                            'Skipped ON_END_REACHED:5 CONDITIONAL_STOP: condition not met'
+                          );
+                        }
                         console.log('Start ON_END_REACHED:6 SET_VARIABLE');
                         setEventItems(eventItems.concat(newData?.items));
                         console.log('Complete ON_END_REACHED:6 SET_VARIABLE');

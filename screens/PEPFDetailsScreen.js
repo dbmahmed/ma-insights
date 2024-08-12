@@ -119,33 +119,44 @@ const PEPFDetailsScreen = props => {
                   dimensions.width
                 )}
               >
-                <>
-                  {!(dimensions.width >= Breakpoints.Laptop) ? null : (
-                    <H5
-                      selectable={false}
-                      {...GlobalStyles.H5Styles(theme)['H5'].props}
-                      style={StyleSheet.applyWidth(
-                        StyleSheet.compose(
-                          GlobalStyles.H5Styles(theme)['H5'].style,
-                          {
-                            fontFamily: 'Quicksand_600SemiBold',
-                            fontSize: 25,
-                            marginBottom: 20,
-                            marginTop: [
-                              { minWidth: Breakpoints.Mobile, value: 0 },
-                              { minWidth: Breakpoints.Laptop, value: 20 },
-                            ],
-                            paddingLeft: 5,
-                            textDecorationLine: 'none',
-                          }
-                        ),
-                        dimensions.width
-                      )}
-                    >
-                      {'Private equity portfolio Firm'}
-                    </H5>
+                <View
+                  style={StyleSheet.applyWidth(
+                    {
+                      maxWidth: { minWidth: Breakpoints.Desktop, value: 1200 },
+                      width: { minWidth: Breakpoints.Desktop, value: '100%' },
+                    },
+                    dimensions.width
                   )}
-                </>
+                >
+                  <>
+                    {!(dimensions.width >= Breakpoints.Laptop) ? null : (
+                      <H5
+                        selectable={false}
+                        {...GlobalStyles.H5Styles(theme)['H5'].props}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.H5Styles(theme)['H5'].style,
+                            {
+                              fontFamily: 'Quicksand_600SemiBold',
+                              fontSize: 25,
+                              marginBottom: 20,
+                              marginTop: [
+                                { minWidth: Breakpoints.Mobile, value: 0 },
+                                { minWidth: Breakpoints.Laptop, value: 20 },
+                              ],
+                              paddingLeft: 5,
+                              textDecorationLine: 'none',
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {'Private equity portfolio Firm'}
+                      </H5>
+                    )}
+                  </>
+                </View>
+
                 <LinearGradient
                   endX={100}
                   endY={100}
