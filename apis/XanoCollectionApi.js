@@ -1570,8 +1570,27 @@ export const FetchNewsletterEachGET = ({
   return children({ loading, data, error, refetchNewsletterEach: refetch });
 };
 
-export const newslettersGET = async (Constants, _args, handlers = {}) => {
-  const url = `https://xne3-pdiu-8ysm.f2.xano.io/api:abjrBkC8/newsletter`;
+export const newslettersGET = async (
+  Constants,
+  { dach, newsletters, nordic, reports },
+  handlers = {}
+) => {
+  const paramsDict = {};
+  if (nordic !== undefined) {
+    paramsDict['nordic'] = renderParam(nordic);
+  }
+  if (reports !== undefined) {
+    paramsDict['reports'] = renderParam(reports);
+  }
+  if (dach !== undefined) {
+    paramsDict['dach'] = renderParam(dach);
+  }
+  if (newsletters !== undefined) {
+    paramsDict['newsletters'] = renderParam(newsletters);
+  }
+  const url = `https://xne3-pdiu-8ysm.f2.xano.io/api:abjrBkC8/newsletter${renderQueryString(
+    paramsDict
+  )}`;
   const options = {
     headers: cleanHeaders({
       Accept: 'application/json',
@@ -1602,6 +1621,10 @@ export const FetchNewslettersGET = ({
   onData = () => {},
   handlers = {},
   refetchInterval,
+  dach,
+  newsletters,
+  nordic,
+  reports,
 }) => {
   const Constants = GlobalVariables.useValues();
   const isFocused = useIsFocused();
@@ -1613,7 +1636,7 @@ export const FetchNewslettersGET = ({
     error,
     refetch,
   } = useNewslettersGET(
-    {},
+    { dach, newsletters, nordic, reports },
     { refetchInterval, handlers: { onData, ...handlers } }
   );
 

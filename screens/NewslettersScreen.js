@@ -532,6 +532,7 @@ const NewslettersScreen = props => {
       </View>
 
       <XanoCollectionApi.FetchNewslettersGET
+        dach={true}
         handlers={{
           on401: fetchData => {
             try {
@@ -545,7 +546,10 @@ const NewslettersScreen = props => {
             }
           },
         }}
+        newsletters={true}
+        nordic={true}
         refetchInterval={300000}
+        reports={true}
       >
         {({ loading, error, data, refetchNewsletters }) => {
           const fetchData = data?.json;

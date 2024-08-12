@@ -174,7 +174,6 @@ const StockSearchScreen = props => {
       if (!isFocused) {
         return;
       }
-      applayFilters();
       setGlobalVariableValue({
         key: 'pageName',
         value: 'Stock Search',
@@ -2494,46 +2493,17 @@ const StockSearchScreen = props => {
                           dimensions.width
                         )}
                       >
-                        <View
-                          style={StyleSheet.applyWidth(
-                            { maxWidth: 150, padding: 5, width: '33.33%' },
-                            dimensions.width
-                          )}
-                        >
-                          {/* Select All */}
-                          <Button
-                            iconPosition={'left'}
-                            onPress={() => {
-                              try {
-                                toggleAllFilters(true);
-                              } catch (err) {
-                                console.error(err);
-                              }
-                            }}
-                            {...GlobalStyles.ButtonStyles(theme)['Button']
-                              .props}
-                            style={StyleSheet.applyWidth(
-                              StyleSheet.compose(
-                                GlobalStyles.ButtonStyles(theme)['Button']
-                                  .style,
-                                {
-                                  backgroundColor: 'rgba(0, 0, 0, 0)',
-                                  borderColor: palettes.Brand['Strong Inverse'],
-                                  borderWidth: 1,
-                                  fontFamily: 'Quicksand_600SemiBold',
-                                  textTransform: 'uppercase',
-                                  width: '100%',
-                                }
-                              ),
-                              dimensions.width
-                            )}
-                            title={'Select All'}
-                          />
-                        </View>
                         {/* View 2 */}
                         <View
                           style={StyleSheet.applyWidth(
-                            { maxWidth: 150, padding: 5, width: '33.33%' },
+                            {
+                              maxWidth: {
+                                minWidth: Breakpoints.Tablet,
+                                value: 150,
+                              },
+                              padding: 5,
+                              width: '50%',
+                            },
                             dimensions.width
                           )}
                         >
@@ -2570,7 +2540,14 @@ const StockSearchScreen = props => {
                         {/* View 3 */}
                         <View
                           style={StyleSheet.applyWidth(
-                            { maxWidth: 150, padding: 5, width: '33.33%' },
+                            {
+                              maxWidth: {
+                                minWidth: Breakpoints.Tablet,
+                                value: 150,
+                              },
+                              padding: 5,
+                              width: '50%',
+                            },
                             dimensions.width
                           )}
                         >

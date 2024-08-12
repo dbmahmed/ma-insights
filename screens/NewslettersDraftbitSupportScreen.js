@@ -74,7 +74,13 @@ const NewslettersDraftbitSupportScreen = props => {
       hasRightSafeArea={true}
       scrollable={true}
     >
-      <XanoCollectionApi.FetchNewslettersGET refetchInterval={300000}>
+      <XanoCollectionApi.FetchNewslettersGET
+        dach={true}
+        newsletters={true}
+        nordic={true}
+        refetchInterval={300000}
+        reports={true}
+      >
         {({ loading, error, data, refetchNewsletters }) => {
           const fetchData = data?.json;
           if (loading) {
