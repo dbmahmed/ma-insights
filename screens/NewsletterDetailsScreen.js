@@ -11,6 +11,7 @@ import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import {
   Button,
+  CircularProgress,
   LinearGradient,
   Pressable,
   ScreenContainer,
@@ -121,7 +122,34 @@ const NewsletterDetailsScreen = props => {
         {({ loading, error, data, refetchNewsletterEach }) => {
           const fetchData = data?.json;
           if (loading) {
-            return <ActivityIndicator />;
+            return (
+              <>
+                {/* View 2 */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    { alignItems: 'center', padding: 20 },
+                    dimensions.width
+                  )}
+                >
+                  <CircularProgress
+                    color={theme.colors.branding.primary}
+                    isAnimated={true}
+                    lineCap={'round'}
+                    showTrack={true}
+                    startPosition={'top'}
+                    trackColor={theme.colors.border.brand}
+                    trackLineCap={'round'}
+                    animationDuration={500}
+                    indeterminate={true}
+                    style={StyleSheet.applyWidth(
+                      { minWidth: 50, width: 50 },
+                      dimensions.width
+                    )}
+                    thickness={5}
+                  />
+                </View>
+              </>
+            );
           }
 
           if (error || data?.status < 200 || data?.status >= 300) {
