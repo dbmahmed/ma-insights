@@ -627,7 +627,7 @@ const NewslettersScreen = props => {
                           keyword: '',
                           newsletters: newsletter,
                           nordic: nordic,
-                          page: 1,
+                          page: nextPage,
                           reports: weeklyReport,
                         })
                       )?.json;

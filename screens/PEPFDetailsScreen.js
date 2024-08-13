@@ -67,7 +67,7 @@ const PEPFDetailsScreen = props => {
     <ScreenContainer hasSafeArea={false} scrollable={false}>
       <CustomHeaderBlock />
       <XanoCollectionApi.FetchGetOnePEPFGET
-        pepf_id={props.route?.params?.pepf_id ?? 2}
+        pepf_id={props.route?.params?.pepf_id ?? 3}
       >
         {({ loading, error, data, refetchGetOnePEPF }) => {
           const fetchData = data?.json;
@@ -611,7 +611,7 @@ const PEPFDetailsScreen = props => {
                         dimensions.width
                       )}
                     >
-                      {fetchData?._fund?.name}
+                      {fetchData?._fund?.name ? fetchData?._fund?.name : '-'}
                       {' ('}
                       {fetchData?._fund?.age_years}
                       {')'}
