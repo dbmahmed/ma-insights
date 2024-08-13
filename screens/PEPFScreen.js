@@ -4,6 +4,7 @@ import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
 import CustomHeaderBlock from '../components/CustomHeaderBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import assessAccess from '../global-functions/assessAccess';
+import cutText from '../global-functions/cutText';
 import formatNumber from '../global-functions/formatNumber';
 import modifyArrays from '../global-functions/modifyArrays';
 import transformEuroM from '../global-functions/transformEuroM';
@@ -602,13 +603,18 @@ const PEPFScreen = props => {
                                   flexDirection: 'column',
                                   gap: 10,
                                   height: '100%',
-                                  justifyContent: 'space-between',
+                                  justifyContent: 'flex-start',
                                   padding: 10,
                                 },
                                 dimensions.width
                               )}
                             >
-                              <View>
+                              <View
+                                style={StyleSheet.applyWidth(
+                                  { gap: 5 },
+                                  dimensions.width
+                                )}
+                              >
                                 <H4
                                   selectable={false}
                                   {...GlobalStyles.H4Styles(theme)['H4'].props}
@@ -643,6 +649,27 @@ const PEPFScreen = props => {
                                   )}
                                 >
                                   {listData?.country}
+                                </Text>
+                                {/* Text 2 */}
+                                <Text
+                                  accessible={true}
+                                  {...GlobalStyles.TextStyles(theme)[
+                                    'screen_title'
+                                  ].props}
+                                  style={StyleSheet.applyWidth(
+                                    StyleSheet.compose(
+                                      GlobalStyles.TextStyles(theme)[
+                                        'screen_title'
+                                      ].style,
+                                      {
+                                        color: palettes.Brand['Strong Inverse'],
+                                      }
+                                    ),
+                                    dimensions.width
+                                  )}
+                                >
+                                  {'Company description: '}
+                                  {cutText(listData?.company_description, 60)}
                                 </Text>
                               </View>
                               {/* View 2 */}
