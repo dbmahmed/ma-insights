@@ -600,11 +600,11 @@ const PEPFScreen = props => {
                               {
                                 borderColor: null,
                                 borderRadius: 5,
-                                borderWidth: null,
+                                borderWidth: 0,
                                 flexDirection: 'column',
                                 flexWrap: 'nowrap',
                                 height: '100%',
-                                margin: null,
+                                margin: 0,
                                 width: '100%',
                               }
                             ),

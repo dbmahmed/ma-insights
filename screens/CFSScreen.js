@@ -588,9 +588,9 @@ const CFSScreen = props => {
                                     'Linear Gradient'
                                   ].style,
                                   {
-                                    borderColor: theme.colors.branding.primary,
+                                    borderColor: null,
                                     borderRadius: 5,
-                                    borderWidth: null,
+                                    borderWidth: 0,
                                     flexDirection: 'column',
                                     flexWrap: 'nowrap',
                                     height: '100%',
@@ -3097,6 +3097,7 @@ const CFSScreen = props => {
                                       setFilterPressed(false);
                                       await waitUtil({ milliseconds: 1000 });
                                       await refetchGetCFS();
+                                      setTotalCFS(fetchData?.itemsTotal);
                                     } catch (err) {
                                       console.error(err);
                                     }

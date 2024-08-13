@@ -4,6 +4,7 @@ import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
 import CustomHeaderBlock from '../components/CustomHeaderBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import assessAccess from '../global-functions/assessAccess';
+import formatNumber from '../global-functions/formatNumber';
 import modifyArrays from '../global-functions/modifyArrays';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
@@ -533,6 +534,55 @@ const AllEventsScreen = props => {
 
           return (
             <>
+              {/* View 2 2 */}
+              <View
+                style={StyleSheet.applyWidth(
+                  {
+                    alignItems: 'stretch',
+                    alignSelf: 'auto',
+                    flexDirection: 'column',
+                    marginBottom: 5,
+                    marginTop: { minWidth: Breakpoints.Tablet, value: 5 },
+                    maxWidth: 1200,
+                    paddingLeft: [
+                      { minWidth: Breakpoints.Tablet, value: 15 },
+                      { minWidth: Breakpoints.Mobile, value: 15 },
+                    ],
+                    paddingRight: 10,
+                    width: '100%',
+                  },
+                  dimensions.width
+                )}
+              >
+                <Text
+                  accessible={true}
+                  {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                  style={StyleSheet.applyWidth(
+                    StyleSheet.compose(
+                      GlobalStyles.TextStyles(theme)['screen_title'].style,
+                      {
+                        color: [
+                          {
+                            minWidth: Breakpoints.Tablet,
+                            value: theme.colors.text.strong,
+                          },
+                          {
+                            minWidth: Breakpoints.Mobile,
+                            value: theme.colors.text.strong,
+                          },
+                        ],
+                        fontFamily: 'Quicksand_400Regular',
+                        fontSize: 12,
+                      }
+                    ),
+                    dimensions.width
+                  )}
+                >
+                  {formatNumber(fetchData?.itemsTotal)}
+                  {' events matching filter'}
+                </Text>
+              </View>
+
               <View
                 style={StyleSheet.applyWidth(
                   { alignContent: 'center', alignItems: 'center' },
@@ -2723,7 +2773,7 @@ const AllEventsScreen = props => {
                             <Pressable
                               onPress={() => {
                                 try {
-                                  setHealth_care(transaction ? false : true);
+                                  setHealth_care(health_care ? false : true);
                                 } catch (err) {
                                   console.error(err);
                                 }
