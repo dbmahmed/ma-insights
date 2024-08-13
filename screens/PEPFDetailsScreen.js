@@ -596,26 +596,49 @@ const PEPFDetailsScreen = props => {
                         {'Fund Entity:'}
                       </Text>
                     </View>
-
-                    <Text
-                      accessible={true}
-                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
-                      style={StyleSheet.applyWidth(
-                        StyleSheet.compose(
-                          GlobalStyles.TextStyles(theme)['screen_title'].style,
-                          {
-                            color: palettes.Brand['Strong Inverse'],
-                            fontFamily: 'Quicksand_500Medium',
-                          }
-                        ),
-                        dimensions.width
-                      )}
-                    >
-                      {fetchData?._fund?.name ? fetchData?._fund?.name : '-'}
-                      {' ('}
-                      {fetchData?._fund?.age_years}
-                      {')'}
-                    </Text>
+                    {/* View 2 */}
+                    <View>
+                      <Text
+                        accessible={true}
+                        {...GlobalStyles.TextStyles(theme)['screen_title']
+                          .props}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.TextStyles(theme)['screen_title']
+                              .style,
+                            {
+                              color: palettes.Brand['Strong Inverse'],
+                              fontFamily: 'Quicksand_500Medium',
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {fetchData?._fund?.name ? fetchData?._fund?.name : '-'}
+                      </Text>
+                      {/* Text 2 */}
+                      <Text
+                        accessible={true}
+                        {...GlobalStyles.TextStyles(theme)['screen_title']
+                          .props}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.TextStyles(theme)['screen_title']
+                              .style,
+                            {
+                              color: palettes.Brand['Strong Inverse'],
+                              fontFamily: 'Quicksand_500Medium',
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {undefined ? undefined : '-'}
+                        {' ('}
+                        {null}
+                        {')'}
+                      </Text>
+                    </View>
                   </View>
                 </LinearGradient>
               </View>

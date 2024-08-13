@@ -839,11 +839,11 @@ const NewslettersScreen = props => {
                     maxHeight: [
                       {
                         minWidth: Breakpoints.Laptop,
-                        value: dimensions.height - 310,
+                        value: dimensions.height - 280,
                       },
                       {
                         minWidth: Breakpoints.Mobile,
-                        value: dimensions.height - 265,
+                        value: dimensions.height - 300,
                       },
                       {
                         minWidth: Breakpoints.Tablet,
