@@ -643,7 +643,7 @@ const CFSScreen = props => {
                                   {/* View 2 */}
                                   <View
                                     style={StyleSheet.applyWidth(
-                                      { gap: 8 },
+                                      { gap: 6 },
                                       dimensions.width
                                     )}
                                   >

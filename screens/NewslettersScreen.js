@@ -551,6 +551,10 @@ const NewslettersScreen = props => {
               /* hidden 'Log to Console' action */
               setNextPage(fetchData?.json?.nextPage);
               setLastPage(fetchData?.json?.pageTotal);
+              if (nextPage === null) {
+                setNextPage(lastPage);
+              } else {
+              }
             } catch (err) {
               console.error(err);
             }
@@ -600,75 +604,38 @@ const NewslettersScreen = props => {
                 nestedScrollEnabled={false}
                 onEndReached={() => {
                   const handler = async () => {
-                    console.log('List ON_END_REACHED Start');
-                    let error = null;
                     try {
-                      console.log('Start ON_END_REACHED:0 SET_VARIABLE');
-                      /* hidden 'Set Variable' action */ console.log(
-                        'Complete ON_END_REACHED:0 SET_VARIABLE'
-                      );
-                      console.log('Start ON_END_REACHED:1 CONDITIONAL_STOP');
-                      if (nextPage > lastPage) {
-                        return console.log(
-                          'Complete ON_END_REACHED:1 CONDITIONAL_STOP'
-                        );
-                      } else {
-                        console.log(
-                          'Skipped ON_END_REACHED:1 CONDITIONAL_STOP: condition not met'
-                        );
+                      if (nextPage === null) {
+                        return;
                       }
-                      console.log('Start ON_END_REACHED:2 CONSOLE_LOG');
-                      /* hidden 'Log to Console' action */ console.log(
-                        'Complete ON_END_REACHED:2 CONSOLE_LOG'
-                      );
-                      console.log('Start ON_END_REACHED:3 FETCH_REQUEST');
-                      const newData = (
-                        await XanoCollectionApi.newslettersGET(Constants, {
-                          dach: dach,
-                          keyword: '',
-                          newsletters: newsletter,
-                          nordic: nordic,
-                          page: nextPage,
-                          reports: weeklyReport,
-                        })
-                      )?.json;
-                      console.log('Complete ON_END_REACHED:3 FETCH_REQUEST', {
-                        newData,
-                      });
-                      console.log('Start ON_END_REACHED:4 CONSOLE_LOG');
                       console.log(
                         'next page is ',
                         nextPage,
                         'last page is ',
                         lastPage
                       );
-                      console.log('Complete ON_END_REACHED:4 CONSOLE_LOG');
-                      console.log('Start ON_END_REACHED:5 CONDITIONAL_STOP');
+                      const newData = (
+                        await XanoCollectionApi.newslettersGET(Constants, {
+                          dach: dach,
+                          keyword: keywordSearch,
+                          newsletters: newsletter,
+                          nordic: nordic,
+                          page: nextPage,
+                          reports: weeklyReport,
+                        })
+                      )?.json;
+                      setNextPage(newData?.nextPage);
+                      setLastPage(newData?.pageTotal);
                       if (fetchData?.items === 0) {
-                        return console.log(
-                          'Complete ON_END_REACHED:5 CONDITIONAL_STOP'
-                        );
-                      } else {
-                        console.log(
-                          'Skipped ON_END_REACHED:5 CONDITIONAL_STOP: condition not met'
-                        );
+                        return;
                       }
-                      console.log('Start ON_END_REACHED:6 SET_VARIABLE');
                       setNewslettersList(
                         newslettersList.concat(newData?.items)
                       );
-                      console.log('Complete ON_END_REACHED:6 SET_VARIABLE');
-                      console.log('Start ON_END_REACHED:7 SET_VARIABLE');
-                      setLastPage(newData?.pagesTotal);
-                      console.log('Complete ON_END_REACHED:7 SET_VARIABLE');
+                      setLastPage(newData?.pageTotal);
                     } catch (err) {
                       console.error(err);
-                      error = err.message ?? err;
                     }
-                    console.log(
-                      'List ON_END_REACHED Complete',
-                      error ? { error } : 'no error'
-                    );
                   };
                   handler();
                 }}

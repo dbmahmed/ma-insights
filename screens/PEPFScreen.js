@@ -646,7 +646,12 @@ const PEPFScreen = props => {
                                 </Text>
                               </View>
                               {/* View 2 */}
-                              <View>
+                              <View
+                                style={StyleSheet.applyWidth(
+                                  { gap: 6 },
+                                  dimensions.width
+                                )}
+                              >
                                 <Text
                                   accessible={true}
                                   {...GlobalStyles.TextStyles(theme)[

@@ -355,9 +355,34 @@ const PEPFDetailsScreen = props => {
                       )}
                     >
                       {transformEuroM(fetchData?.revenue_eur)}
-                      {' ('}
-                      {fetchData?.financial_year}
-                      {')'}
+                      {/* Text 2 */}
+                      <>
+                        {!(
+                          transformEuroM(fetchData?.revenue_eur) !== '-'
+                        ) ? null : (
+                          <Text
+                            accessible={true}
+                            {...GlobalStyles.TextStyles(theme)['screen_title']
+                              .props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TextStyles(theme)['screen_title']
+                                  .style,
+                                {
+                                  color: palettes.Brand['Strong Inverse'],
+                                  fontFamily: 'Quicksand_500Medium',
+                                  paddingLeft: 5,
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            {'('}
+                            {fetchData?.financial_year}
+                            {')'}
+                          </Text>
+                        )}
+                      </>
                     </Text>
                   </View>
                   {/* View 4 */}
@@ -408,9 +433,34 @@ const PEPFDetailsScreen = props => {
                       )}
                     >
                       {transformEuroM(fetchData?.ebitda_eur)}
-                      {' ('}
-                      {fetchData?.financial_year}
-                      {')'}
+                      {/* Text 2 */}
+                      <>
+                        {!(
+                          transformEuroM(fetchData?.ebitda_eur) !== '-'
+                        ) ? null : (
+                          <Text
+                            accessible={true}
+                            {...GlobalStyles.TextStyles(theme)['screen_title']
+                              .props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TextStyles(theme)['screen_title']
+                                  .style,
+                                {
+                                  color: palettes.Brand['Strong Inverse'],
+                                  fontFamily: 'Quicksand_500Medium',
+                                  paddingLeft: 5,
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            {'('}
+                            {fetchData?.financial_year}
+                            {')'}
+                          </Text>
+                        )}
+                      </>
                     </Text>
                   </View>
                   {/* View 5 */}
@@ -667,6 +717,7 @@ const PEPFDetailsScreen = props => {
                           {
                             fontFamily: 'Quicksand_700Bold',
                             fontSize: 20,
+                            marginBottom: 10,
                             marginTop: 0,
                           }
                         ),
@@ -709,6 +760,7 @@ const PEPFDetailsScreen = props => {
                                 {
                                   fontFamily: 'Quicksand_700Bold',
                                   fontSize: 20,
+                                  marginBottom: 10,
                                   marginTop: 0,
                                 }
                               ),
