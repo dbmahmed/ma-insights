@@ -76,8 +76,10 @@ const NewslettersDraftbitSupportScreen = props => {
     >
       <XanoCollectionApi.FetchNewslettersGET
         dach={true}
+        keyword={''}
         newsletters={true}
         nordic={true}
+        page={1}
         refetchInterval={300000}
         reports={true}
       >

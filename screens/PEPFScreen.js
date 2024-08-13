@@ -454,11 +454,12 @@ const PEPFScreen = props => {
                       alignItems: 'stretch',
                       alignSelf: 'auto',
                       flexDirection: 'column',
+                      marginBottom: 5,
                       marginTop: { minWidth: Breakpoints.Tablet, value: 5 },
                       maxWidth: 1200,
                       paddingLeft: [
                         { minWidth: Breakpoints.Tablet, value: 15 },
-                        { minWidth: Breakpoints.Mobile, value: 10 },
+                        { minWidth: Breakpoints.Mobile, value: 15 },
                       ],
                       paddingRight: 10,
                       width: '100%',

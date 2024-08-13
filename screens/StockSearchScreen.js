@@ -394,7 +394,7 @@ const StockSearchScreen = props => {
             <>
               <View
                 style={StyleSheet.applyWidth(
-                  { alignItems: 'center', padding: 10 },
+                  { alignItems: 'center' },
                   dimensions.width
                 )}
               >
@@ -405,9 +405,14 @@ const StockSearchScreen = props => {
                       alignItems: 'stretch',
                       alignSelf: 'auto',
                       flexDirection: 'column',
+                      marginBottom: 5,
                       marginTop: { minWidth: Breakpoints.Tablet, value: 5 },
                       maxWidth: 1200,
-                      paddingLeft: { minWidth: Breakpoints.Tablet, value: 15 },
+                      paddingLeft: [
+                        { minWidth: Breakpoints.Tablet, value: 15 },
+                        { minWidth: Breakpoints.Mobile, value: 15 },
+                      ],
+                      paddingRight: 10,
                       width: '100%',
                     },
                     dimensions.width

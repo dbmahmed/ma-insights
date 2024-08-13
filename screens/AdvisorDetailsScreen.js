@@ -206,6 +206,7 @@ const AdvisorDetailsScreen = props => {
                         fontFamily: 'Quicksand_700Bold',
                         marginBottom: 0,
                         marginTop: 0,
+                        paddingLeft: 5,
                       },
                       dimensions.width
                     )}
