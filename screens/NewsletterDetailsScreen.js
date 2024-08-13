@@ -1348,12 +1348,7 @@ const NewsletterDetailsScreen = props => {
                             <SimpleStyleFlatList
                               data={fetchData?.events_list?.first}
                               inverted={false}
-                              keyExtractor={(listData, index) =>
-                                listData?.id ??
-                                listData?.uuid ??
-                                index?.toString() ??
-                                JSON.stringify(listData)
-                              }
+                              keyExtractor={(listData, index) => listData?.id}
                               keyboardShouldPersistTaps={'never'}
                               listKey={'BkWHiVbG'}
                               nestedScrollEnabled={false}
@@ -1525,12 +1520,7 @@ const NewsletterDetailsScreen = props => {
                             <SimpleStyleFlatList
                               data={fetchData?.events_list?.second}
                               inverted={false}
-                              keyExtractor={(listData, index) =>
-                                listData?.id ??
-                                listData?.uuid ??
-                                index?.toString() ??
-                                JSON.stringify(listData)
-                              }
+                              keyExtractor={(listData, index) => listData?.id}
                               keyboardShouldPersistTaps={'never'}
                               listKey={'kqofNM7m'}
                               nestedScrollEnabled={false}
@@ -1690,12 +1680,7 @@ const NewsletterDetailsScreen = props => {
                             <SimpleStyleFlatList
                               data={fetchData?.events_list?.third}
                               inverted={false}
-                              keyExtractor={(listData, index) =>
-                                listData?.id ??
-                                listData?.uuid ??
-                                index?.toString() ??
-                                JSON.stringify(listData)
-                              }
+                              keyExtractor={(listData, index) => listData?.id}
                               keyboardShouldPersistTaps={'never'}
                               listKey={'y01Zzgwh'}
                               nestedScrollEnabled={false}
@@ -1855,12 +1840,7 @@ const NewsletterDetailsScreen = props => {
                             <SimpleStyleFlatList
                               data={fetchData?.events_list?.fourth}
                               inverted={false}
-                              keyExtractor={(listData, index) =>
-                                listData?.id ??
-                                listData?.uuid ??
-                                index?.toString() ??
-                                JSON.stringify(listData)
-                              }
+                              keyExtractor={(listData, index) => listData?.id}
                               keyboardShouldPersistTaps={'never'}
                               listKey={'MXVhR479'}
                               nestedScrollEnabled={false}
@@ -2046,10 +2026,7 @@ const NewsletterDetailsScreen = props => {
                                   data={fetchData?.events_list?.first}
                                   inverted={false}
                                   keyExtractor={(listData, index) =>
-                                    listData?.id ??
-                                    listData?.uuid ??
-                                    index?.toString() ??
-                                    JSON.stringify(listData)
+                                    listData?.id
                                   }
                                   keyboardShouldPersistTaps={'never'}
                                   listKey={'cEbiegfV'}
@@ -2236,10 +2213,7 @@ const NewsletterDetailsScreen = props => {
                                   data={fetchData?.events_list?.second}
                                   inverted={false}
                                   keyExtractor={(listData, index) =>
-                                    listData?.id ??
-                                    listData?.uuid ??
-                                    index?.toString() ??
-                                    JSON.stringify(listData)
+                                    listData?.id
                                   }
                                   keyboardShouldPersistTaps={'never'}
                                   listKey={'VSaJ4R1g'}
@@ -2418,7 +2392,9 @@ const NewsletterDetailsScreen = props => {
                                 <SimpleStyleFlatList
                                   data={fetchData?.events_list?.third}
                                   inverted={false}
-                                  keyExtractor={(listData, index) => listData}
+                                  keyExtractor={(listData, index) =>
+                                    listData?.id
+                                  }
                                   keyboardShouldPersistTaps={'never'}
                                   listKey={'eZ4x76dS'}
                                   nestedScrollEnabled={false}
