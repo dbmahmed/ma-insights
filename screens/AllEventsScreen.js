@@ -534,61 +534,64 @@ const AllEventsScreen = props => {
 
           return (
             <>
-              {/* View 2 2 */}
-              <View
-                style={StyleSheet.applyWidth(
-                  {
-                    alignItems: 'stretch',
-                    alignSelf: 'auto',
-                    flexDirection: 'column',
-                    marginBottom: 5,
-                    marginTop: { minWidth: Breakpoints.Tablet, value: 5 },
-                    maxWidth: 1200,
-                    paddingLeft: [
-                      { minWidth: Breakpoints.Tablet, value: 15 },
-                      { minWidth: Breakpoints.Mobile, value: 15 },
-                    ],
-                    paddingRight: 10,
-                    width: '100%',
-                  },
-                  dimensions.width
-                )}
-              >
-                <Text
-                  accessible={true}
-                  {...GlobalStyles.TextStyles(theme)['screen_title'].props}
-                  style={StyleSheet.applyWidth(
-                    StyleSheet.compose(
-                      GlobalStyles.TextStyles(theme)['screen_title'].style,
-                      {
-                        color: [
-                          {
-                            minWidth: Breakpoints.Tablet,
-                            value: theme.colors.text.strong,
-                          },
-                          {
-                            minWidth: Breakpoints.Mobile,
-                            value: theme.colors.text.strong,
-                          },
-                        ],
-                        fontFamily: 'Quicksand_400Regular',
-                        fontSize: 12,
-                      }
-                    ),
-                    dimensions.width
-                  )}
-                >
-                  {formatNumber(fetchData?.itemsTotal)}
-                  {' events matching filter'}
-                </Text>
-              </View>
-
               <View
                 style={StyleSheet.applyWidth(
                   { alignContent: 'center', alignItems: 'center' },
                   dimensions.width
                 )}
               >
+                {/* View 2 2 */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    {
+                      alignContent: {
+                        minWidth: Breakpoints.Desktop,
+                        value: 'center',
+                      },
+                      alignItems: 'stretch',
+                      alignSelf: 'auto',
+                      flexDirection: 'column',
+                      marginBottom: 5,
+                      marginTop: { minWidth: Breakpoints.Tablet, value: 5 },
+                      maxWidth: 1200,
+                      paddingLeft: [
+                        { minWidth: Breakpoints.Tablet, value: 15 },
+                        { minWidth: Breakpoints.Mobile, value: 15 },
+                      ],
+                      paddingRight: 10,
+                      width: '100%',
+                    },
+                    dimensions.width
+                  )}
+                >
+                  <Text
+                    accessible={true}
+                    {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.TextStyles(theme)['screen_title'].style,
+                        {
+                          color: [
+                            {
+                              minWidth: Breakpoints.Tablet,
+                              value: theme.colors.text.strong,
+                            },
+                            {
+                              minWidth: Breakpoints.Mobile,
+                              value: theme.colors.text.strong,
+                            },
+                          ],
+                          fontFamily: 'Quicksand_400Regular',
+                          fontSize: 12,
+                        }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    {formatNumber(fetchData?.itemsTotal)}
+                    {' events matching filter'}
+                  </Text>
+                </View>
                 <SimpleStyleFlatList
                   data={eventItems}
                   horizontal={false}

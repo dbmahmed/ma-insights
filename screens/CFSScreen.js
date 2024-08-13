@@ -507,8 +507,9 @@ const CFSScreen = props => {
                       dimensions.width
                     )}
                   >
-                    {formatNumber(fetchData?.itemsTotal)}
-                    {' companies for sale matching filter'}
+                    {formatNumber(fetchData?.itemsTotal)}{' '}
+                    {fetchData?.itemsTotal > 1 ? 'companies' : 'company'}
+                    {' for sale matching filter'}
                   </Text>
                 </View>
                 <>
@@ -1145,26 +1146,8 @@ const CFSScreen = props => {
                                           'screen_title'
                                         ].style,
                                         {
-                                          color: [
-                                            {
-                                              minWidth: Breakpoints.Mobile,
-                                              value:
-                                                palettes.Brand[
-                                                  'Strong Inverse'
-                                                ],
-                                            },
-                                            {
-                                              minWidth: Breakpoints.Desktop,
-                                              value:
-                                                ebitda_medium ||
-                                                ebitda_large ||
-                                                ebitda_giant
-                                                  ? palettes.Brand.Light
-                                                  : palettes.Brand[
-                                                      'Strong Inverse'
-                                                    ],
-                                            },
-                                          ],
+                                          color:
+                                            palettes.Brand['Strong Inverse'],
                                           fontFamily: 'Quicksand_400Regular',
                                           fontSize: 12,
                                         }
@@ -1236,26 +1219,8 @@ const CFSScreen = props => {
                                           'screen_title'
                                         ].style,
                                         {
-                                          color: [
-                                            {
-                                              minWidth: Breakpoints.Mobile,
-                                              value:
-                                                palettes.Brand[
-                                                  'Strong Inverse'
-                                                ],
-                                            },
-                                            {
-                                              minWidth: Breakpoints.Desktop,
-                                              value:
-                                                ebitda_small ||
-                                                ebitda_large ||
-                                                ebitda_giant
-                                                  ? palettes.Brand.Light
-                                                  : palettes.Brand[
-                                                      'Strong Inverse'
-                                                    ],
-                                            },
-                                          ],
+                                          color:
+                                            palettes.Brand['Strong Inverse'],
                                           fontFamily: 'Quicksand_400Regular',
                                           fontSize: 12,
                                         }
@@ -1327,26 +1292,8 @@ const CFSScreen = props => {
                                           'screen_title'
                                         ].style,
                                         {
-                                          color: [
-                                            {
-                                              minWidth: Breakpoints.Mobile,
-                                              value:
-                                                palettes.Brand[
-                                                  'Strong Inverse'
-                                                ],
-                                            },
-                                            {
-                                              minWidth: Breakpoints.Desktop,
-                                              value:
-                                                ebitda_small ||
-                                                ebitda_medium ||
-                                                ebitda_giant
-                                                  ? palettes.Brand.Light
-                                                  : palettes.Brand[
-                                                      'Strong Inverse'
-                                                    ],
-                                            },
-                                          ],
+                                          color:
+                                            palettes.Brand['Strong Inverse'],
                                           fontFamily: 'Quicksand_400Regular',
                                           fontSize: 12,
                                         }
@@ -1418,26 +1365,8 @@ const CFSScreen = props => {
                                           'screen_title'
                                         ].style,
                                         {
-                                          color: [
-                                            {
-                                              minWidth: Breakpoints.Mobile,
-                                              value:
-                                                palettes.Brand[
-                                                  'Strong Inverse'
-                                                ],
-                                            },
-                                            {
-                                              minWidth: Breakpoints.Desktop,
-                                              value:
-                                                ebitda_small ||
-                                                ebitda_medium ||
-                                                ebitda_large
-                                                  ? palettes.Brand.Light
-                                                  : palettes.Brand[
-                                                      'Strong Inverse'
-                                                    ],
-                                            },
-                                          ],
+                                          color:
+                                            palettes.Brand['Strong Inverse'],
                                           fontFamily: 'Quicksand_400Regular',
                                           fontSize: 12,
                                         }
