@@ -549,7 +549,7 @@ const NewslettersScreen = props => {
             try {
               setNewslettersList(fetchData?.json?.items);
               /* hidden 'Log to Console' action */
-              /* hidden 'Set Variable' action */
+              setNextPage(fetchData?.json?.nextPage);
               setLastPage(fetchData?.json?.pageTotal);
             } catch (err) {
               console.error(err);
@@ -604,8 +604,9 @@ const NewslettersScreen = props => {
                     let error = null;
                     try {
                       console.log('Start ON_END_REACHED:0 SET_VARIABLE');
-                      setNextPage(parseInt(nextPage + 1, 10));
-                      console.log('Complete ON_END_REACHED:0 SET_VARIABLE');
+                      /* hidden 'Set Variable' action */ console.log(
+                        'Complete ON_END_REACHED:0 SET_VARIABLE'
+                      );
                       console.log('Start ON_END_REACHED:1 CONDITIONAL_STOP');
                       if (nextPage > lastPage) {
                         return console.log(
@@ -635,7 +636,12 @@ const NewslettersScreen = props => {
                         newData,
                       });
                       console.log('Start ON_END_REACHED:4 CONSOLE_LOG');
-                      console.log(newData?.items);
+                      console.log(
+                        'next page is ',
+                        nextPage,
+                        'last page is ',
+                        lastPage
+                      );
                       console.log('Complete ON_END_REACHED:4 CONSOLE_LOG');
                       console.log('Start ON_END_REACHED:5 CONDITIONAL_STOP');
                       if (fetchData?.items === 0) {

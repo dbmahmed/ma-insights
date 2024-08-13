@@ -180,7 +180,7 @@ const PEPFDetailsScreen = props => {
                         borderWidth: null,
                         gap: 8,
                         margin: null,
-                        marginBottom: 20,
+                        marginBottom: 10,
                         maxWidth: 1200,
                         padding: 10,
                         width: '100%',
@@ -597,7 +597,12 @@ const PEPFDetailsScreen = props => {
                       </Text>
                     </View>
                     {/* View 2 */}
-                    <View>
+                    <View
+                      style={StyleSheet.applyWidth(
+                        { flexDirection: 'row', gap: 4 },
+                        dimensions.width
+                      )}
+                    >
                       <Text
                         accessible={true}
                         {...GlobalStyles.TextStyles(theme)['screen_title']
@@ -617,225 +622,264 @@ const PEPFDetailsScreen = props => {
                         {fetchData?._fund?.name ? fetchData?._fund?.name : '-'}
                       </Text>
                       {/* Text 2 */}
-                      <Text
-                        accessible={true}
-                        {...GlobalStyles.TextStyles(theme)['screen_title']
-                          .props}
-                        style={StyleSheet.applyWidth(
-                          StyleSheet.compose(
-                            GlobalStyles.TextStyles(theme)['screen_title']
-                              .style,
-                            {
-                              color: palettes.Brand['Strong Inverse'],
-                              fontFamily: 'Quicksand_500Medium',
-                            }
-                          ),
-                          dimensions.width
+                      <>
+                        {!fetchData?._fund?.age_years ? null : (
+                          <Text
+                            accessible={true}
+                            {...GlobalStyles.TextStyles(theme)['screen_title']
+                              .props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TextStyles(theme)['screen_title']
+                                  .style,
+                                {
+                                  color: palettes.Brand['Strong Inverse'],
+                                  fontFamily: 'Quicksand_500Medium',
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            {'('}
+                            {fetchData?._fund?.age_years}
+                            {')'}
+                          </Text>
                         )}
-                      >
-                        {undefined ? undefined : '-'}
-                        {' ('}
-                        {null}
-                        {')'}
-                      </Text>
+                      </>
                     </View>
                   </View>
                 </LinearGradient>
               </View>
+              <>
+                {!'.evetns.lenth' ? null : (
+                  <View
+                    style={StyleSheet.applyWidth(
+                      { maxWidth: 1200, padding: 10, width: '100%' },
+                      dimensions.width
+                    )}
+                  >
+                    <H3
+                      selectable={false}
+                      {...GlobalStyles.H3Styles(theme)['H3'].props}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.H3Styles(theme)['H3'].style,
+                          {
+                            fontFamily: 'Quicksand_700Bold',
+                            fontSize: 20,
+                            marginTop: 0,
+                          }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      {'Company description'}
+                    </H3>
 
-              <View
-                style={StyleSheet.applyWidth(
-                  { maxWidth: 1200, padding: 10 },
-                  dimensions.width
-                )}
-              >
-                <H3
-                  selectable={false}
-                  {...GlobalStyles.H3Styles(theme)['H3'].props}
-                  style={StyleSheet.applyWidth(
-                    StyleSheet.compose(
-                      GlobalStyles.H3Styles(theme)['H3'].style,
-                      {
-                        fontFamily: 'Quicksand_700Bold',
-                        fontSize: 20,
-                        marginTop: 0,
-                      }
-                    ),
-                    dimensions.width
-                  )}
-                >
-                  {'Company description'}
-                </H3>
-
-                <Text
-                  accessible={true}
-                  {...GlobalStyles.TextStyles(theme)['screen_title'].props}
-                  style={StyleSheet.applyWidth(
-                    StyleSheet.compose(
-                      GlobalStyles.TextStyles(theme)['screen_title'].style,
-                      { fontFamily: 'Quicksand_400Regular', marginBottom: 20 }
-                    ),
-                    dimensions.width
-                  )}
-                >
-                  {fetchData?.company_description}
-                </Text>
-
-                <H3
-                  selectable={false}
-                  {...GlobalStyles.H3Styles(theme)['H3'].props}
-                  style={StyleSheet.applyWidth(
-                    StyleSheet.compose(
-                      GlobalStyles.H3Styles(theme)['H3'].style,
-                      {
-                        fontFamily: 'Quicksand_700Bold',
-                        fontSize: 20,
-                        marginTop: 0,
-                      }
-                    ),
-                    dimensions.width
-                  )}
-                >
-                  {'Related events'}
-                </H3>
-                <SimpleStyleFlatList
-                  data={fetchData?.events}
-                  horizontal={false}
-                  inverted={false}
-                  keyExtractor={(listData, index) =>
-                    listData?.id ??
-                    listData?.uuid ??
-                    index?.toString() ??
-                    JSON.stringify(listData)
-                  }
-                  keyboardShouldPersistTaps={'never'}
-                  listKey={'PDqyS97A'}
-                  nestedScrollEnabled={false}
-                  numColumns={1}
-                  onEndReached={() => {
-                    console.log('List ON_END_REACHED Start');
-                    let error = null;
-                    try {
-                      console.log('Start ON_END_REACHED:0 CONDITIONAL_STOP');
-                      if (nextPage === lastPage) {
-                        return console.log(
-                          'Complete ON_END_REACHED:0 CONDITIONAL_STOP'
-                        );
-                      } else {
-                        console.log(
-                          'Skipped ON_END_REACHED:0 CONDITIONAL_STOP: condition not met'
-                        );
-                      }
-                      console.log('Start ON_END_REACHED:1 FETCH_REQUEST');
-                      /* hidden 'API Request' action */ console.log(
-                        'Complete ON_END_REACHED:1 FETCH_REQUEST'
-                      );
-                      console.log('Start ON_END_REACHED:2 SET_VARIABLE');
-                      /* hidden 'Set Variable' action */ console.log(
-                        'Complete ON_END_REACHED:2 SET_VARIABLE'
-                      );
-                      console.log('Start ON_END_REACHED:3 CONSOLE_LOG');
-                      /* hidden 'Log to Console' action */ console.log(
-                        'Complete ON_END_REACHED:3 CONSOLE_LOG'
-                      );
-                      console.log('Start ON_END_REACHED:4 SET_VARIABLE');
-                      /* hidden 'Set Variable' action */ console.log(
-                        'Complete ON_END_REACHED:4 SET_VARIABLE'
-                      );
-                      console.log('Start ON_END_REACHED:5 SET_VARIABLE');
-                      /* hidden 'Set Variable' action */ console.log(
-                        'Complete ON_END_REACHED:5 SET_VARIABLE'
-                      );
-                    } catch (err) {
-                      console.error(err);
-                      error = err.message ?? err;
-                    }
-                    console.log(
-                      'List ON_END_REACHED Complete',
-                      error ? { error } : 'no error'
-                    );
-                  }}
-                  renderItem={({ item, index }) => {
-                    const listData = item;
-                    return (
-                      <>
-                        {/* View 2 */}
+                    <Text
+                      accessible={true}
+                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.TextStyles(theme)['screen_title'].style,
+                          {
+                            fontFamily: 'Quicksand_400Regular',
+                            marginBottom: 20,
+                          }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      {fetchData?.company_description}
+                    </Text>
+                    <>
+                      {!fetchData?.events.length ? null : (
                         <View
                           style={StyleSheet.applyWidth(
-                            {
-                              flex: { minWidth: Breakpoints.Laptop, value: 1 },
-                              padding: {
-                                minWidth: Breakpoints.Laptop,
-                                value: 5,
-                              },
-                            },
+                            { paddingTop: 10 },
                             dimensions.width
                           )}
                         >
-                          <View
+                          <H3
+                            selectable={false}
+                            {...GlobalStyles.H3Styles(theme)['H3'].props}
                             style={StyleSheet.applyWidth(
-                              {
-                                borderBottomWidth: 0.5,
-                                borderColor: theme.colors.text.light,
-                                flexWrap: {
-                                  minWidth: Breakpoints.Laptop,
-                                  value: 'nowrap',
-                                },
-                                paddingBottom: 5,
-                                paddingTop: 5,
-                              },
+                              StyleSheet.compose(
+                                GlobalStyles.H3Styles(theme)['H3'].style,
+                                {
+                                  fontFamily: 'Quicksand_700Bold',
+                                  fontSize: 20,
+                                  marginTop: 0,
+                                }
+                              ),
                               dimensions.width
                             )}
                           >
-                            <H6
-                              selectable={false}
-                              {...GlobalStyles.H6Styles(theme)['H6'].props}
-                              style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.H6Styles(theme)['H6'].style,
-                                  {
-                                    fontFamily: 'Quicksand_700Bold',
-                                    fontSize: 14,
-                                    margin: 0,
-                                  }
-                                ),
-                                dimensions.width
-                              )}
-                            >
-                              {listData?.headline}
-                            </H6>
+                            {'Related events'}
+                          </H3>
+                          <SimpleStyleFlatList
+                            data={fetchData?.events}
+                            horizontal={false}
+                            inverted={false}
+                            keyExtractor={(listData, index) =>
+                              listData?.id ??
+                              listData?.uuid ??
+                              index?.toString() ??
+                              JSON.stringify(listData)
+                            }
+                            keyboardShouldPersistTaps={'never'}
+                            listKey={'PDqyS97A'}
+                            nestedScrollEnabled={false}
+                            numColumns={1}
+                            onEndReached={() => {
+                              console.log('List ON_END_REACHED Start');
+                              let error = null;
+                              try {
+                                console.log(
+                                  'Start ON_END_REACHED:0 CONDITIONAL_STOP'
+                                );
+                                if (nextPage === lastPage) {
+                                  return console.log(
+                                    'Complete ON_END_REACHED:0 CONDITIONAL_STOP'
+                                  );
+                                } else {
+                                  console.log(
+                                    'Skipped ON_END_REACHED:0 CONDITIONAL_STOP: condition not met'
+                                  );
+                                }
+                                console.log(
+                                  'Start ON_END_REACHED:1 FETCH_REQUEST'
+                                );
+                                /* hidden 'API Request' action */ console.log(
+                                  'Complete ON_END_REACHED:1 FETCH_REQUEST'
+                                );
+                                console.log(
+                                  'Start ON_END_REACHED:2 SET_VARIABLE'
+                                );
+                                /* hidden 'Set Variable' action */ console.log(
+                                  'Complete ON_END_REACHED:2 SET_VARIABLE'
+                                );
+                                console.log(
+                                  'Start ON_END_REACHED:3 CONSOLE_LOG'
+                                );
+                                /* hidden 'Log to Console' action */ console.log(
+                                  'Complete ON_END_REACHED:3 CONSOLE_LOG'
+                                );
+                                console.log(
+                                  'Start ON_END_REACHED:4 SET_VARIABLE'
+                                );
+                                /* hidden 'Set Variable' action */ console.log(
+                                  'Complete ON_END_REACHED:4 SET_VARIABLE'
+                                );
+                                console.log(
+                                  'Start ON_END_REACHED:5 SET_VARIABLE'
+                                );
+                                /* hidden 'Set Variable' action */ console.log(
+                                  'Complete ON_END_REACHED:5 SET_VARIABLE'
+                                );
+                              } catch (err) {
+                                console.error(err);
+                                error = err.message ?? err;
+                              }
+                              console.log(
+                                'List ON_END_REACHED Complete',
+                                error ? { error } : 'no error'
+                              );
+                            }}
+                            renderItem={({ item, index }) => {
+                              const listData = item;
+                              return (
+                                <>
+                                  {/* View 2 */}
+                                  <View
+                                    style={StyleSheet.applyWidth(
+                                      {
+                                        flex: {
+                                          minWidth: Breakpoints.Laptop,
+                                          value: 1,
+                                        },
+                                        padding: {
+                                          minWidth: Breakpoints.Laptop,
+                                          value: 5,
+                                        },
+                                      },
+                                      dimensions.width
+                                    )}
+                                  >
+                                    <View
+                                      style={StyleSheet.applyWidth(
+                                        {
+                                          borderBottomWidth: 0.5,
+                                          borderColor: theme.colors.text.light,
+                                          flexWrap: {
+                                            minWidth: Breakpoints.Laptop,
+                                            value: 'nowrap',
+                                          },
+                                          paddingBottom: 5,
+                                          paddingTop: 5,
+                                        },
+                                        dimensions.width
+                                      )}
+                                    >
+                                      <H6
+                                        selectable={false}
+                                        {...GlobalStyles.H6Styles(theme)['H6']
+                                          .props}
+                                        style={StyleSheet.applyWidth(
+                                          StyleSheet.compose(
+                                            GlobalStyles.H6Styles(theme)['H6']
+                                              .style,
+                                            {
+                                              fontFamily: 'Quicksand_700Bold',
+                                              fontSize: 14,
+                                              margin: 0,
+                                            }
+                                          ),
+                                          dimensions.width
+                                        )}
+                                      >
+                                        {listData?.headline}
+                                      </H6>
 
-                            <Text
-                              accessible={true}
-                              {...GlobalStyles.TextStyles(theme)['screen_title']
-                                .props}
-                              style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.TextStyles(theme)['screen_title']
-                                    .style,
-                                  {
-                                    fontFamily: 'Quicksand_400Regular',
-                                    fontSize: 12,
-                                    marginTop: 4,
-                                  }
-                                ),
-                                dimensions.width
-                              )}
-                            >
-                              {listData?.published}
-                              {' | Source: '}
-                              {listData?.source}
-                            </Text>
-                          </View>
+                                      <Text
+                                        accessible={true}
+                                        {...GlobalStyles.TextStyles(theme)[
+                                          'screen_title'
+                                        ].props}
+                                        style={StyleSheet.applyWidth(
+                                          StyleSheet.compose(
+                                            GlobalStyles.TextStyles(theme)[
+                                              'screen_title'
+                                            ].style,
+                                            {
+                                              fontFamily:
+                                                'Quicksand_400Regular',
+                                              fontSize: 12,
+                                              marginTop: 4,
+                                            }
+                                          ),
+                                          dimensions.width
+                                        )}
+                                      >
+                                        {listData?.published}
+                                        {' | Source: '}
+                                        {listData?.source}
+                                      </Text>
+                                    </View>
+                                  </View>
+                                </>
+                              );
+                            }}
+                            onEndReachedThreshold={0.8}
+                            showsHorizontalScrollIndicator={false}
+                            showsVerticalScrollIndicator={false}
+                          />
                         </View>
-                      </>
-                    );
-                  }}
-                  onEndReachedThreshold={0.8}
-                  showsHorizontalScrollIndicator={false}
-                  showsVerticalScrollIndicator={false}
-                />
-              </View>
+                      )}
+                    </>
+                  </View>
+                )}
+              </>
             </SimpleStyleScrollView>
           );
         }}

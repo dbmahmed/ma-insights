@@ -9,6 +9,7 @@ import modifyArrays from '../global-functions/modifyArrays';
 import transformEuroM from '../global-functions/transformEuroM';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
+import * as DateUtils from '../utils/DateUtils';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import waitUtil from '../utils/wait';
@@ -668,52 +669,66 @@ const PEPFScreen = props => {
                                     ? listData?._investor.name
                                     : '-'}
                                 </Text>
-                                {/* Text 2 */}
-                                <Text
-                                  accessible={true}
-                                  {...GlobalStyles.TextStyles(theme)[
-                                    'screen_title'
-                                  ].props}
-                                  style={StyleSheet.applyWidth(
-                                    StyleSheet.compose(
-                                      GlobalStyles.TextStyles(theme)[
-                                        'screen_title'
-                                      ].style,
-                                      {
-                                        color: palettes.Brand['Strong Inverse'],
-                                      }
-                                    ),
-                                    dimensions.width
-                                  )}
-                                >
-                                  {'Fund: '}
-                                  {listData?._fund?.name
-                                    ? listData?._fund.name
-                                    : '-'}
-                                </Text>
-                                {/* Text 3 */}
-                                <Text
-                                  accessible={true}
-                                  {...GlobalStyles.TextStyles(theme)[
-                                    'screen_title'
-                                  ].props}
-                                  style={StyleSheet.applyWidth(
-                                    StyleSheet.compose(
-                                      GlobalStyles.TextStyles(theme)[
-                                        'screen_title'
-                                      ].style,
-                                      {
-                                        color: palettes.Brand['Strong Inverse'],
-                                      }
-                                    ),
-                                    dimensions.width
-                                  )}
-                                >
-                                  {'Fund vintage: '}
-                                  {listData?._fund?.age_years
-                                    ? listData?._fund.age_years
-                                    : '-'}
-                                </Text>
+
+                                <View>
+                                  {/* Text 2 */}
+                                  <Text
+                                    accessible={true}
+                                    {...GlobalStyles.TextStyles(theme)[
+                                      'screen_title'
+                                    ].props}
+                                    style={StyleSheet.applyWidth(
+                                      StyleSheet.compose(
+                                        GlobalStyles.TextStyles(theme)[
+                                          'screen_title'
+                                        ].style,
+                                        {
+                                          color:
+                                            palettes.Brand['Strong Inverse'],
+                                        }
+                                      ),
+                                      dimensions.width
+                                    )}
+                                  >
+                                    {'Fund: '}
+                                    {listData?._fund?.name
+                                      ? listData?._fund.name
+                                      : '-'}
+                                    {/* Text 3 */}
+                                    <>
+                                      {!listData?._fund ? null : (
+                                        <Text
+                                          accessible={true}
+                                          {...GlobalStyles.TextStyles(theme)[
+                                            'screen_title'
+                                          ].props}
+                                          style={StyleSheet.applyWidth(
+                                            StyleSheet.compose(
+                                              GlobalStyles.TextStyles(theme)[
+                                                'screen_title'
+                                              ].style,
+                                              {
+                                                color:
+                                                  palettes.Brand[
+                                                    'Strong Inverse'
+                                                  ],
+                                                paddingLeft: 5,
+                                              }
+                                            ),
+                                            dimensions.width
+                                          )}
+                                        >
+                                          {'('}
+                                          {DateUtils.format(
+                                            listData?._fund.created_at,
+                                            'dd/mm/yyyy'
+                                          )}
+                                          {')'}
+                                        </Text>
+                                      )}
+                                    </>
+                                  </Text>
+                                </View>
                                 {/* Text 4 */}
                                 <Text
                                   accessible={true}
