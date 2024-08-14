@@ -104,23 +104,26 @@ const CFSScreen = props => {
 
   const showOwners = owners => {
     if (!Array.isArray(owners)) {
-      return '';
+      return '-';
     }
 
-    return owners
-      .map(({ name, type }) => {
-        let fullName = '';
-        if (name) {
-          fullName = name;
-        }
-        if (type) {
-          fullName += ` (${type})`;
-        }
+    return (
+      owners
+        .filter(Boolean)
+        .map(({ name, type }) => {
+          let fullName = '';
+          if (name) {
+            fullName = name;
+          }
+          if (type) {
+            fullName += ` (${type})`;
+          }
 
-        return fullName.trim();
-      })
-      .filter(Boolean)
-      .join(', ');
+          return fullName.trim();
+        })
+        .filter(Boolean)
+        .join(', ') || '-'
+    );
   };
 
   const matchingFilters = () => {

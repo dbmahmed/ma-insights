@@ -20,7 +20,6 @@ import {
   Pressable,
   ScreenContainer,
   SimpleStyleFlatList,
-  SimpleStyleScrollView,
   Table,
   TableCell,
   TableRow,
@@ -811,14 +810,26 @@ const NewslettersScreen = props => {
                       },
                     ],
                     padding: 5,
-                    paddingLeft: {
-                      minWidth: Breakpoints.BigScreen,
-                      value: setPadding(dimensions.width - 5),
-                    },
-                    paddingRight: {
-                      minWidth: Breakpoints.BigScreen,
-                      value: setPadding(dimensions.width - 5),
-                    },
+                    paddingLeft: [
+                      {
+                        minWidth: Breakpoints.BigScreen,
+                        value: setPadding(dimensions.width - 5),
+                      },
+                      {
+                        minWidth: Breakpoints.Mobile,
+                        value: setPadding(dimensions.width),
+                      },
+                    ],
+                    paddingRight: [
+                      {
+                        minWidth: Breakpoints.BigScreen,
+                        value: setPadding(dimensions.width - 5),
+                      },
+                      {
+                        minWidth: Breakpoints.Mobile,
+                        value: setPadding(dimensions.width),
+                      },
+                    ],
                     width: '100%',
                   },
                   dimensions.width

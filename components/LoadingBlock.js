@@ -137,7 +137,6 @@ const LoadingBlock = props => {
     >
       <CircularProgress
         color={theme.colors.branding.primary}
-        isAnimated={true}
         lineCap={'round'}
         showTrack={true}
         startPosition={'top'}
@@ -145,6 +144,7 @@ const LoadingBlock = props => {
         trackLineCap={'round'}
         animationDuration={500}
         indeterminate={true}
+        isAnimated={true}
         style={StyleSheet.applyWidth(
           { minWidth: 50, width: 50 },
           dimensions.width

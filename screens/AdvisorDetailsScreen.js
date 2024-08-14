@@ -2,8 +2,10 @@ import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
 import CustomHeaderBlock from '../components/CustomHeaderBlock';
+import LoadingBlock from '../components/LoadingBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import assessAccess from '../global-functions/assessAccess';
+import setPadding from '../global-functions/setPadding';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
@@ -171,7 +173,7 @@ const AdvisorDetailsScreen = props => {
         {({ loading, error, data, refetchGetAdvisor }) => {
           const fetchData = data?.json;
           if (loading) {
-            return <ActivityIndicator />;
+            return <LoadingBlock />;
           }
 
           if (error || data?.status < 200 || data?.status >= 300) {
@@ -265,266 +267,257 @@ const AdvisorDetailsScreen = props => {
                   </Shadow>
                 </View>
               </View>
-              {/* View 2 */}
-              <View
-                style={StyleSheet.applyWidth(
-                  {
-                    alignItems: {
-                      minWidth: Breakpoints.Desktop,
-                      value: 'center',
-                    },
-                    height: [
-                      { minWidth: Breakpoints.Desktop, value: '100%' },
-                      { minWidth: Breakpoints.Mobile, value: '100%' },
-                    ],
-                  },
-                  dimensions.width
-                )}
-              >
-                <SimpleStyleFlatList
-                  data={fetchData?._events}
-                  horizontal={false}
-                  inverted={false}
-                  keyExtractor={(listData, index) => listData?.id}
-                  keyboardShouldPersistTaps={'never'}
-                  listKey={'aDfVzu4Y'}
-                  nestedScrollEnabled={false}
-                  onEndReached={() => {
-                    const handler = async () => {
-                      console.log('List ON_END_REACHED Start');
-                      let error = null;
-                      try {
-                        console.log('Start ON_END_REACHED:0 CONSOLE_LOG');
-                        /* hidden 'Log to Console' action */ console.log(
-                          'Complete ON_END_REACHED:0 CONSOLE_LOG'
-                        );
-                        console.log('Start ON_END_REACHED:1 CONDITIONAL_STOP');
-                        if (nextPage > undefined) {
-                          return console.log(
-                            'Complete ON_END_REACHED:1 CONDITIONAL_STOP'
-                          );
-                        } else {
-                          console.log(
-                            'Skipped ON_END_REACHED:1 CONDITIONAL_STOP: condition not met'
-                          );
-                        }
-                        console.log('Start ON_END_REACHED:2 SET_VARIABLE');
-                        const valueohqI6hAQ = parseInt(nextPage + 1, 10);
-                        setNextPage(valueohqI6hAQ);
-                        const nextPageSet = valueohqI6hAQ;
-                        console.log('Complete ON_END_REACHED:2 SET_VARIABLE');
-                        console.log('Start ON_END_REACHED:3 CONSOLE_LOG');
-                        console.log(nextPage);
-                        console.log('Complete ON_END_REACHED:3 CONSOLE_LOG');
-                        console.log('Start ON_END_REACHED:4 FETCH_REQUEST');
-                        const newData = (
-                          await XanoCollectionApi.getAllEventsGET(Constants, {
-                            countryIn: country,
-                            page: nextPage,
-                            sectorIn: sector,
-                          })
-                        )?.json;
-                        console.log('Complete ON_END_REACHED:4 FETCH_REQUEST', {
-                          newData,
-                        });
-                      } catch (err) {
-                        console.error(err);
-                        error = err.message ?? err;
-                      }
-                      console.log(
-                        'List ON_END_REACHED Complete',
-                        error ? { error } : 'no error'
+              <SimpleStyleFlatList
+                data={fetchData?._events}
+                horizontal={false}
+                inverted={false}
+                keyExtractor={(listData, index) => listData?.id}
+                keyboardShouldPersistTaps={'never'}
+                listKey={'aDfVzu4Y'}
+                nestedScrollEnabled={false}
+                onEndReached={() => {
+                  const handler = async () => {
+                    console.log('List ON_END_REACHED Start');
+                    let error = null;
+                    try {
+                      console.log('Start ON_END_REACHED:0 CONSOLE_LOG');
+                      /* hidden 'Log to Console' action */ console.log(
+                        'Complete ON_END_REACHED:0 CONSOLE_LOG'
                       );
-                    };
-                    handler();
-                  }}
-                  renderItem={({ item, index }) => {
-                    const listData = item;
-                    return (
-                      <>
-                        {/* View 2 */}
-                        <View
+                      console.log('Start ON_END_REACHED:1 CONDITIONAL_STOP');
+                      if (nextPage > undefined) {
+                        return console.log(
+                          'Complete ON_END_REACHED:1 CONDITIONAL_STOP'
+                        );
+                      } else {
+                        console.log(
+                          'Skipped ON_END_REACHED:1 CONDITIONAL_STOP: condition not met'
+                        );
+                      }
+                      console.log('Start ON_END_REACHED:2 SET_VARIABLE');
+                      const valueohqI6hAQ = parseInt(nextPage + 1, 10);
+                      setNextPage(valueohqI6hAQ);
+                      const nextPageSet = valueohqI6hAQ;
+                      console.log('Complete ON_END_REACHED:2 SET_VARIABLE');
+                      console.log('Start ON_END_REACHED:3 CONSOLE_LOG');
+                      console.log(nextPage);
+                      console.log('Complete ON_END_REACHED:3 CONSOLE_LOG');
+                      console.log('Start ON_END_REACHED:4 FETCH_REQUEST');
+                      const newData = (
+                        await XanoCollectionApi.getAllEventsGET(Constants, {
+                          countryIn: country,
+                          page: nextPage,
+                          sectorIn: sector,
+                        })
+                      )?.json;
+                      console.log('Complete ON_END_REACHED:4 FETCH_REQUEST', {
+                        newData,
+                      });
+                    } catch (err) {
+                      console.error(err);
+                      error = err.message ?? err;
+                    }
+                    console.log(
+                      'List ON_END_REACHED Complete',
+                      error ? { error } : 'no error'
+                    );
+                  };
+                  handler();
+                }}
+                renderItem={({ item, index }) => {
+                  const listData = item;
+                  return (
+                    <>
+                      {/* View 2 */}
+                      <View
+                        style={StyleSheet.applyWidth(
+                          {
+                            maxWidth: [
+                              { minWidth: Breakpoints.Laptop, value: '33.33%' },
+                              { minWidth: Breakpoints.Tablet, value: '50%' },
+                            ],
+                            padding: 5,
+                            width: '100%',
+                          },
+                          dimensions.width
+                        )}
+                      >
+                        <Shadow
+                          showShadowCornerBottomEnd={true}
+                          showShadowCornerBottomStart={true}
+                          showShadowCornerTopEnd={true}
+                          showShadowCornerTopStart={true}
+                          showShadowSideBottom={true}
+                          showShadowSideEnd={true}
+                          showShadowSideStart={true}
+                          showShadowSideTop={true}
+                          distance={4}
+                          offsetX={0}
+                          offsetY={0}
+                          paintInside={true}
+                          stretch={true}
                           style={StyleSheet.applyWidth(
                             {
-                              maxWidth: [
-                                {
-                                  minWidth: Breakpoints.Laptop,
-                                  value: '33.33%',
-                                },
-                                { minWidth: Breakpoints.Tablet, value: '50%' },
-                              ],
-                              padding: 5,
-                              width: '100%',
+                              borderRadius: 12,
+                              bottom: 5,
+                              height: '100%',
+                              left: 5,
+                              position: 'absolute',
+                              right: 5,
+                              top: 5,
+                              width: {
+                                minWidth: Breakpoints.Laptop,
+                                value: '100%',
+                              },
                             },
                             dimensions.width
                           )}
+                        />
+                        <Pressable
+                          onPress={() => {
+                            try {
+                              navigation.push('EventDetailsScreen');
+                            } catch (err) {
+                              console.error(err);
+                            }
+                          }}
+                          style={StyleSheet.applyWidth(
+                            { height: '100%', width: '100%' },
+                            dimensions.width
+                          )}
                         >
-                          <Shadow
-                            showShadowCornerBottomEnd={true}
-                            showShadowCornerBottomStart={true}
-                            showShadowCornerTopEnd={true}
-                            showShadowCornerTopStart={true}
-                            showShadowSideBottom={true}
-                            showShadowSideEnd={true}
-                            showShadowSideStart={true}
-                            showShadowSideTop={true}
-                            distance={4}
-                            offsetX={0}
-                            offsetY={0}
-                            paintInside={true}
-                            stretch={true}
+                          <View
                             style={StyleSheet.applyWidth(
                               {
-                                borderRadius: 12,
-                                bottom: 5,
+                                alignContent: 'stretch',
+                                backgroundColor:
+                                  palettes.Brand['Strong Inverse'],
+                                borderColor: palettes.Brand['Light Inverse'],
+                                borderRadius: 8,
+                                borderWidth: 0,
+                                flexDirection: 'row',
                                 height: '100%',
-                                left: 5,
-                                position: 'absolute',
-                                right: 5,
-                                top: 5,
-                                width: {
-                                  minWidth: Breakpoints.Laptop,
-                                  value: '100%',
-                                },
+                                justifyContent: 'space-between',
+                                padding: 0,
+                                width: '100%',
                               },
-                              dimensions.width
-                            )}
-                          />
-                          <Pressable
-                            onPress={() => {
-                              try {
-                                navigation.push('EventDetailsScreen');
-                              } catch (err) {
-                                console.error(err);
-                              }
-                            }}
-                            style={StyleSheet.applyWidth(
-                              { height: '100%', width: '100%' },
                               dimensions.width
                             )}
                           >
                             <View
                               style={StyleSheet.applyWidth(
                                 {
-                                  alignContent: 'stretch',
-                                  backgroundColor:
-                                    palettes.Brand['Strong Inverse'],
-                                  borderColor: palettes.Brand['Light Inverse'],
-                                  borderRadius: 8,
-                                  borderWidth: 0,
-                                  flexDirection: 'row',
-                                  height: '100%',
+                                  gap: 4,
                                   justifyContent: 'space-between',
-                                  padding: 0,
-                                  width: '100%',
+                                  padding: 10,
+                                  width: '45%',
                                 },
                                 dimensions.width
                               )}
                             >
-                              <View
+                              <Text
+                                accessible={true}
+                                {...GlobalStyles.TextStyles(theme)[
+                                  'screen_title'
+                                ].props}
                                 style={StyleSheet.applyWidth(
-                                  {
-                                    gap: 4,
-                                    justifyContent: 'space-between',
-                                    padding: 10,
-                                    width: '45%',
-                                  },
+                                  StyleSheet.compose(
+                                    GlobalStyles.TextStyles(theme)[
+                                      'screen_title'
+                                    ].style,
+                                    {
+                                      fontFamily: 'Quicksand_700Bold',
+                                      fontSize: 12,
+                                    }
+                                  ),
                                   dimensions.width
                                 )}
                               >
-                                <Text
-                                  accessible={true}
-                                  {...GlobalStyles.TextStyles(theme)[
-                                    'screen_title'
-                                  ].props}
-                                  style={StyleSheet.applyWidth(
-                                    StyleSheet.compose(
-                                      GlobalStyles.TextStyles(theme)[
-                                        'screen_title'
-                                      ].style,
-                                      {
-                                        fontFamily: 'Quicksand_700Bold',
-                                        fontSize: 12,
-                                      }
-                                    ),
-                                    dimensions.width
-                                  )}
-                                >
-                                  {listData?.target}
-                                </Text>
-                                {/* Text 2 */}
-                                <Text
-                                  accessible={true}
-                                  {...GlobalStyles.TextStyles(theme)[
-                                    'screen_title'
-                                  ].props}
-                                  style={StyleSheet.applyWidth(
-                                    StyleSheet.compose(
-                                      GlobalStyles.TextStyles(theme)[
-                                        'screen_title'
-                                      ].style,
-                                      {
-                                        fontFamily: 'Quicksand_400Regular',
-                                        fontSize: 12,
-                                      }
-                                    ),
-                                    dimensions.width
-                                  )}
-                                >
-                                  {listData?.published}
-                                </Text>
-                                {/* Text 2 2 */}
-                                <Text
-                                  accessible={true}
-                                  {...GlobalStyles.TextStyles(theme)[
-                                    'screen_title'
-                                  ].props}
-                                  style={StyleSheet.applyWidth(
-                                    StyleSheet.compose(
-                                      GlobalStyles.TextStyles(theme)[
-                                        'screen_title'
-                                      ].style,
-                                      {
-                                        fontFamily: 'Quicksand_400Regular',
-                                        fontSize: 12,
-                                      }
-                                    ),
-                                    dimensions.width
-                                  )}
-                                >
-                                  {'Role: '}
-                                  {listData?.type}
-                                </Text>
-                              </View>
+                                {listData?.target}
+                              </Text>
+                              {/* Text 2 */}
+                              <Text
+                                accessible={true}
+                                {...GlobalStyles.TextStyles(theme)[
+                                  'screen_title'
+                                ].props}
+                                style={StyleSheet.applyWidth(
+                                  StyleSheet.compose(
+                                    GlobalStyles.TextStyles(theme)[
+                                      'screen_title'
+                                    ].style,
+                                    {
+                                      fontFamily: 'Quicksand_400Regular',
+                                      fontSize: 12,
+                                    }
+                                  ),
+                                  dimensions.width
+                                )}
+                              >
+                                {listData?.published}
+                              </Text>
+                              {/* Text 2 2 */}
+                              <Text
+                                accessible={true}
+                                {...GlobalStyles.TextStyles(theme)[
+                                  'screen_title'
+                                ].props}
+                                style={StyleSheet.applyWidth(
+                                  StyleSheet.compose(
+                                    GlobalStyles.TextStyles(theme)[
+                                      'screen_title'
+                                    ].style,
+                                    {
+                                      fontFamily: 'Quicksand_400Regular',
+                                      fontSize: 12,
+                                    }
+                                  ),
+                                  dimensions.width
+                                )}
+                              >
+                                {'Role: '}
+                                {listData?.type}
+                              </Text>
                             </View>
-                          </Pressable>
-                        </View>
-                      </>
-                    );
-                  }}
-                  numColumns={
-                    dimensions.width >= Breakpoints.Laptop
-                      ? 3
-                      : dimensions.width >= Breakpoints.Tablet
-                      ? 2
-                      : 1
-                  }
-                  onEndReachedThreshold={0.2}
-                  showsHorizontalScrollIndicator={false}
-                  showsVerticalScrollIndicator={false}
-                  style={StyleSheet.applyWidth(
-                    {
-                      height: '100%',
-                      maxHeight: dimensions.height - 130,
-                      maxWidth: 1200,
-                      paddingLeft: 5,
-                      paddingRight: 5,
-                      width: '100%',
-                    },
-                    dimensions.width
-                  )}
-                />
-              </View>
+                          </View>
+                        </Pressable>
+                      </View>
+                    </>
+                  );
+                }}
+                numColumns={
+                  dimensions.width >= Breakpoints.Laptop
+                    ? 3
+                    : dimensions.width >= Breakpoints.Tablet
+                    ? 2
+                    : 1
+                }
+                onEndReachedThreshold={0.2}
+                showsHorizontalScrollIndicator={false}
+                showsVerticalScrollIndicator={false}
+                style={StyleSheet.applyWidth(
+                  {
+                    height: '100%',
+                    maxHeight: dimensions.height - 130,
+                    paddingLeft: [
+                      { minWidth: Breakpoints.Mobile, value: 5 },
+                      {
+                        minWidth: Breakpoints.Mobile,
+                        value: setPadding(dimensions.width),
+                      },
+                    ],
+                    paddingRight: [
+                      { minWidth: Breakpoints.Mobile, value: 5 },
+                      {
+                        minWidth: Breakpoints.Mobile,
+                        value: setPadding(dimensions.width),
+                      },
+                    ],
+                    width: '100%',
+                  },
+                  dimensions.width
+                )}
+              />
               {/* Modal 2 */}
               <Modal
                 supportedOrientations={['portrait', 'landscape']}

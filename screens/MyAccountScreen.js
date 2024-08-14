@@ -2,6 +2,7 @@ import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
 import CustomHeaderBlock from '../components/CustomHeaderBlock';
+import LoadingBlock from '../components/LoadingBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import assessAccess from '../global-functions/assessAccess';
 import palettes from '../themes/palettes';
@@ -101,7 +102,7 @@ const MyAccountScreen = props => {
         {({ loading, error, data, refetchAuthMe }) => {
           const fetchData = data?.json;
           if (loading) {
-            return <ActivityIndicator />;
+            return <LoadingBlock />;
           }
 
           if (error || data?.status < 200 || data?.status >= 300) {
