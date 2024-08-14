@@ -2,9 +2,11 @@ import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
 import CustomHeaderBlock from '../components/CustomHeaderBlock';
+import LoadingBlock from '../components/LoadingBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import assessAccess from '../global-functions/assessAccess';
 import resetAccess from '../global-functions/resetAccess';
+import setPadding from '../global-functions/setPadding';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
@@ -644,7 +646,7 @@ const AdvisorsScreen = props => {
         {({ loading, error, data, refetchGetAdvisors }) => {
           const fetchData = data?.json;
           if (loading) {
-            return <ActivityIndicator />;
+            return <LoadingBlock />;
           }
 
           if (error || data?.status < 200 || data?.status >= 300) {
@@ -652,149 +654,168 @@ const AdvisorsScreen = props => {
           }
 
           return (
-            <View
-              style={StyleSheet.applyWidth(
-                { alignItems: 'center' },
-                dimensions.width
-              )}
-            >
-              <SimpleStyleFlatList
-                data={fetchData}
-                horizontal={false}
-                inverted={false}
-                keyExtractor={(listData, index) => listData?.id}
-                keyboardShouldPersistTaps={'never'}
-                listKey={'2cY8Myag'}
-                nestedScrollEnabled={false}
-                onEndReachedThreshold={0.5}
-                renderItem={({ item, index }) => {
-                  const listData = item;
-                  return (
-                    <View
+            <SimpleStyleFlatList
+              data={fetchData}
+              horizontal={false}
+              inverted={false}
+              keyExtractor={(listData, index) => listData?.id}
+              keyboardShouldPersistTaps={'never'}
+              listKey={'2cY8Myag'}
+              nestedScrollEnabled={false}
+              onEndReachedThreshold={0.5}
+              renderItem={({ item, index }) => {
+                const listData = item;
+                return (
+                  <View
+                    style={StyleSheet.applyWidth(
+                      {
+                        maxWidth: [
+                          { minWidth: Breakpoints.Mobile, value: '100%' },
+                          { minWidth: Breakpoints.Tablet, value: '50%' },
+                          { minWidth: Breakpoints.Laptop, value: '33.33%' },
+                        ],
+                        padding: 5,
+                        width: '100%',
+                      },
+                      dimensions.width
+                    )}
+                  >
+                    <Shadow
+                      showShadowCornerBottomEnd={true}
+                      showShadowCornerBottomStart={true}
+                      showShadowCornerTopEnd={true}
+                      showShadowCornerTopStart={true}
+                      showShadowSideBottom={true}
+                      showShadowSideEnd={true}
+                      showShadowSideStart={true}
+                      showShadowSideTop={true}
+                      distance={4}
+                      offsetX={0}
+                      offsetY={0}
+                      paintInside={true}
+                      stretch={true}
                       style={StyleSheet.applyWidth(
                         {
-                          maxWidth: [
-                            { minWidth: Breakpoints.Mobile, value: '100%' },
-                            { minWidth: Breakpoints.Tablet, value: '50%' },
-                            { minWidth: Breakpoints.Laptop, value: '33.33%' },
+                          borderRadius: 12,
+                          bottom: 5,
+                          height: '100%',
+                          left: [
+                            { minWidth: Breakpoints.Tablet, value: 5 },
+                            { minWidth: Breakpoints.Mobile, value: 5 },
                           ],
-                          padding: 5,
-                          width: '100%',
+                          position: [
+                            { minWidth: Breakpoints.Tablet, value: 'absolute' },
+                            { minWidth: Breakpoints.Mobile, value: 'absolute' },
+                          ],
+                          right: 5,
+                          top: [
+                            { minWidth: Breakpoints.Tablet, value: 5 },
+                            { minWidth: Breakpoints.Mobile, value: 5 },
+                          ],
+                          width: [
+                            { minWidth: Breakpoints.Laptop, value: '100%' },
+                            { minWidth: Breakpoints.Mobile, value: '100%' },
+                          ],
                         },
                         dimensions.width
                       )}
+                    />
+                    <Pressable
+                      onPress={() => {
+                        try {
+                          navigation.push('AdvisorDetailsScreen', {
+                            advisor_id: listData?.id,
+                          });
+                        } catch (err) {
+                          console.error(err);
+                        }
+                      }}
                     >
-                      <Shadow
-                        showShadowCornerBottomEnd={true}
-                        showShadowCornerBottomStart={true}
-                        showShadowCornerTopEnd={true}
-                        showShadowCornerTopStart={true}
-                        showShadowSideBottom={true}
-                        showShadowSideEnd={true}
-                        showShadowSideStart={true}
-                        showShadowSideTop={true}
-                        distance={4}
-                        offsetX={0}
-                        offsetY={0}
-                        paintInside={true}
-                        stretch={true}
+                      <View
                         style={StyleSheet.applyWidth(
                           {
-                            borderRadius: 12,
-                            bottom: 5,
-                            height: '100%',
-                            left: [
-                              { minWidth: Breakpoints.Tablet, value: 5 },
-                              { minWidth: Breakpoints.Mobile, value: 5 },
-                            ],
-                            position: [
-                              {
-                                minWidth: Breakpoints.Tablet,
-                                value: 'absolute',
-                              },
-                              {
-                                minWidth: Breakpoints.Mobile,
-                                value: 'absolute',
-                              },
-                            ],
-                            right: 5,
-                            top: [
-                              { minWidth: Breakpoints.Tablet, value: 5 },
-                              { minWidth: Breakpoints.Mobile, value: 5 },
-                            ],
-                            width: [
-                              { minWidth: Breakpoints.Laptop, value: '100%' },
-                              { minWidth: Breakpoints.Mobile, value: '100%' },
-                            ],
+                            alignContent: 'stretch',
+                            backgroundColor: palettes.Brand['Strong Inverse'],
+                            borderColor: palettes.Brand['Light Inverse'],
+                            borderRadius: 8,
+                            borderWidth: 0,
+                            flexDirection: 'column',
+                            gap: 4,
+                            justifyContent: 'flex-start',
+                            padding: 10,
                           },
                           dimensions.width
                         )}
-                      />
-                      <Pressable
-                        onPress={() => {
-                          try {
-                            navigation.push('AdvisorDetailsScreen', {
-                              advisor_id: listData?.id,
-                            });
-                          } catch (err) {
-                            console.error(err);
-                          }
-                        }}
                       >
+                        <Text
+                          accessible={true}
+                          {...GlobalStyles.TextStyles(theme)['screen_title']
+                            .props}
+                          style={StyleSheet.applyWidth(
+                            StyleSheet.compose(
+                              GlobalStyles.TextStyles(theme)['screen_title']
+                                .style,
+                              {
+                                fontFamily: 'Quicksand_500Medium',
+                                marginBottom: 4,
+                              }
+                            ),
+                            dimensions.width
+                          )}
+                        >
+                          {listData?.name}
+                        </Text>
+                        {/* Text 2 */}
+                        <Text
+                          accessible={true}
+                          {...GlobalStyles.TextStyles(theme)['screen_title']
+                            .props}
+                          style={StyleSheet.applyWidth(
+                            StyleSheet.compose(
+                              GlobalStyles.TextStyles(theme)['screen_title']
+                                .style,
+                              {
+                                color: palettes.App.Orange,
+                                fontFamily: 'Quicksand_400Regular',
+                                fontSize: 12,
+                              }
+                            ),
+                            dimensions.width
+                          )}
+                        >
+                          {listData?.type}
+                        </Text>
+                        {/* Text 2 2 */}
+                        <Text
+                          accessible={true}
+                          {...GlobalStyles.TextStyles(theme)['screen_title']
+                            .props}
+                          style={StyleSheet.applyWidth(
+                            StyleSheet.compose(
+                              GlobalStyles.TextStyles(theme)['screen_title']
+                                .style,
+                              {
+                                fontFamily: 'Quicksand_400Regular',
+                                fontSize: 12,
+                              }
+                            ),
+                            dimensions.width
+                          )}
+                        >
+                          {'DK YTD: '}
+                          {listData?.cf_se_ytd}
+                        </Text>
+
                         <View
                           style={StyleSheet.applyWidth(
                             {
-                              alignContent: 'stretch',
-                              backgroundColor: palettes.Brand['Strong Inverse'],
-                              borderColor: palettes.Brand['Light Inverse'],
-                              borderRadius: 8,
-                              borderWidth: 0,
-                              flexDirection: 'column',
-                              gap: 4,
-                              justifyContent: 'flex-start',
-                              padding: 10,
+                              flexDirection: 'row',
+                              gap: 8,
+                              justifyContent: 'space-between',
                             },
                             dimensions.width
                           )}
                         >
-                          <Text
-                            accessible={true}
-                            {...GlobalStyles.TextStyles(theme)['screen_title']
-                              .props}
-                            style={StyleSheet.applyWidth(
-                              StyleSheet.compose(
-                                GlobalStyles.TextStyles(theme)['screen_title']
-                                  .style,
-                                {
-                                  fontFamily: 'Quicksand_500Medium',
-                                  marginBottom: 4,
-                                }
-                              ),
-                              dimensions.width
-                            )}
-                          >
-                            {listData?.name}
-                          </Text>
-                          {/* Text 2 */}
-                          <Text
-                            accessible={true}
-                            {...GlobalStyles.TextStyles(theme)['screen_title']
-                              .props}
-                            style={StyleSheet.applyWidth(
-                              StyleSheet.compose(
-                                GlobalStyles.TextStyles(theme)['screen_title']
-                                  .style,
-                                {
-                                  color: palettes.App.Orange,
-                                  fontFamily: 'Quicksand_400Regular',
-                                  fontSize: 12,
-                                }
-                              ),
-                              dimensions.width
-                            )}
-                          >
-                            {listData?.type}
-                          </Text>
                           {/* Text 2 2 */}
                           <Text
                             accessible={true}
@@ -812,96 +833,65 @@ const AdvisorsScreen = props => {
                               dimensions.width
                             )}
                           >
-                            {'DK YTD: '}
-                            {listData?.cf_se_ytd}
+                            {'DK LY: '}
+                            {listData?.legal_dk_ly}
                           </Text>
-
-                          <View
+                          {/* Text 2 2 2 */}
+                          <Text
+                            accessible={true}
+                            {...GlobalStyles.TextStyles(theme)['screen_title']
+                              .props}
                             style={StyleSheet.applyWidth(
-                              {
-                                flexDirection: 'row',
-                                gap: 8,
-                                justifyContent: 'space-between',
-                              },
+                              StyleSheet.compose(
+                                GlobalStyles.TextStyles(theme)['screen_title']
+                                  .style,
+                                {
+                                  color: theme.colors.branding.primary,
+                                  fontFamily: 'Quicksand_500Medium',
+                                  fontSize: 12,
+                                }
+                              ),
                               dimensions.width
                             )}
                           >
-                            {/* Text 2 2 */}
-                            <Text
-                              accessible={true}
-                              {...GlobalStyles.TextStyles(theme)['screen_title']
-                                .props}
-                              style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.TextStyles(theme)['screen_title']
-                                    .style,
-                                  {
-                                    fontFamily: 'Quicksand_400Regular',
-                                    fontSize: 12,
-                                  }
-                                ),
-                                dimensions.width
-                              )}
-                            >
-                              {'DK LY: '}
-                              {listData?.legal_dk_ly}
-                            </Text>
-                            {/* Text 2 2 2 */}
-                            <Text
-                              accessible={true}
-                              {...GlobalStyles.TextStyles(theme)['screen_title']
-                                .props}
-                              style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.TextStyles(theme)['screen_title']
-                                    .style,
-                                  {
-                                    color: theme.colors.branding.primary,
-                                    fontFamily: 'Quicksand_500Medium',
-                                    fontSize: 12,
-                                  }
-                                ),
-                                dimensions.width
-                              )}
-                            >
-                              {listData?.de_legal_rank}
-                            </Text>
-                          </View>
+                            {listData?.de_legal_rank}
+                          </Text>
                         </View>
-                      </Pressable>
-                    </View>
-                  );
-                }}
-                numColumns={
-                  dimensions.width >= Breakpoints.Laptop
-                    ? 3
-                    : dimensions.width >= Breakpoints.Tablet
-                    ? 2
-                    : 1
-                }
-                showsHorizontalScrollIndicator={false}
-                showsVerticalScrollIndicator={false}
-                style={StyleSheet.applyWidth(
-                  {
-                    gap: 8,
-                    maxHeight: [
-                      {
-                        minWidth: Breakpoints.Laptop,
-                        value: dimensions.height - 220,
-                      },
-                      {
-                        minWidth: Breakpoints.Mobile,
-                        value: dimensions.height - 290,
-                      },
-                    ],
-                    maxWidth: 1200,
-                    padding: 5,
-                    width: '100%',
-                  },
-                  dimensions.width
-                )}
-              />
-            </View>
+                      </View>
+                    </Pressable>
+                  </View>
+                );
+              }}
+              numColumns={
+                dimensions.width >= Breakpoints.Laptop
+                  ? 3
+                  : dimensions.width >= Breakpoints.Tablet
+                  ? 2
+                  : 1
+              }
+              showsHorizontalScrollIndicator={false}
+              showsVerticalScrollIndicator={false}
+              style={StyleSheet.applyWidth(
+                {
+                  gap: 8,
+                  maxHeight: [
+                    {
+                      minWidth: Breakpoints.Laptop,
+                      value: dimensions.height - 220,
+                    },
+                    {
+                      minWidth: Breakpoints.Mobile,
+                      value: dimensions.height - 290,
+                    },
+                  ],
+                  padding: 5,
+                  paddingLeft: setPadding(dimensions.width),
+                  paddingRight: setPadding(dimensions.width),
+                  width: '100%',
+                },
+                dimensions.width
+              )}
+            />
           );
         }}
       </XanoCollectionApi.FetchGetAdvisorsGET>

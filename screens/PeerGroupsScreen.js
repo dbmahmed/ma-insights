@@ -2,7 +2,9 @@ import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
 import CustomHeaderBlock from '../components/CustomHeaderBlock';
+import LoadingBlock from '../components/LoadingBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
+import setPadding from '../global-functions/setPadding';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
@@ -380,7 +382,7 @@ const PeerGroupsScreen = props => {
         {({ loading, error, data, refetchGetAllPeers }) => {
           const fetchData = data?.json;
           if (loading) {
-            return <ActivityIndicator />;
+            return <LoadingBlock />;
           }
 
           if (error || data?.status < 200 || data?.status >= 300) {
@@ -439,103 +441,101 @@ const PeerGroupsScreen = props => {
                   </Text>
                 </View>
               </View>
-              {/* View 2 */}
-              <View
-                style={StyleSheet.applyWidth(
-                  {
-                    alignItems: 'center',
-                    paddingLeft: 5,
-                    paddingRight: 5,
-                    width: '100%',
-                  },
-                  dimensions.width
-                )}
-              >
-                <SimpleStyleFlatList
-                  data={fetchData?.items}
-                  horizontal={false}
-                  inverted={false}
-                  keyExtractor={(listData, index) => listData?.id}
-                  keyboardShouldPersistTaps={'never'}
-                  listKey={'O0u33Gng'}
-                  nestedScrollEnabled={false}
-                  onEndReachedThreshold={0.5}
-                  renderItem={({ item, index }) => {
-                    const listData = item;
-                    return (
-                      <View
+              <SimpleStyleFlatList
+                data={fetchData?.items}
+                horizontal={false}
+                inverted={false}
+                keyExtractor={(listData, index) => listData?.id}
+                keyboardShouldPersistTaps={'never'}
+                listKey={'O0u33Gng'}
+                nestedScrollEnabled={false}
+                onEndReachedThreshold={0.5}
+                renderItem={({ item, index }) => {
+                  const listData = item;
+                  return (
+                    <View
+                      style={StyleSheet.applyWidth(
+                        {
+                          height: 100,
+                          maxWidth: [
+                            { minWidth: Breakpoints.Laptop, value: '33.33%' },
+                            { minWidth: Breakpoints.Tablet, value: '50%' },
+                          ],
+                          padding: 5,
+                          width: '100%',
+                        },
+                        dimensions.width
+                      )}
+                    >
+                      <Shadow
+                        showShadowCornerBottomEnd={true}
+                        showShadowCornerBottomStart={true}
+                        showShadowCornerTopEnd={true}
+                        showShadowCornerTopStart={true}
+                        showShadowSideBottom={true}
+                        showShadowSideEnd={true}
+                        showShadowSideStart={true}
+                        showShadowSideTop={true}
+                        distance={4}
+                        offsetX={0}
+                        offsetY={0}
+                        paintInside={true}
+                        stretch={true}
                         style={StyleSheet.applyWidth(
                           {
-                            height: 100,
-                            maxWidth: [
-                              { minWidth: Breakpoints.Laptop, value: '33.33%' },
-                              { minWidth: Breakpoints.Tablet, value: '50%' },
-                            ],
-                            padding: 5,
-                            width: '100%',
+                            borderRadius: 12,
+                            bottom: 5,
+                            height: '100%',
+                            left: 5,
+                            position: 'absolute',
+                            right: 5,
+                            top: 5,
+                            width: {
+                              minWidth: Breakpoints.Laptop,
+                              value: '100%',
+                            },
                           },
                           dimensions.width
                         )}
+                      />
+                      <Pressable
+                        onPress={() => {
+                          try {
+                            navigation.push('PeerGroupDetailsScreen', {
+                              peer_group_id: listData?.id,
+                            });
+                          } catch (err) {
+                            console.error(err);
+                          }
+                        }}
+                        style={StyleSheet.applyWidth(
+                          { height: '100%', width: '100%' },
+                          dimensions.width
+                        )}
                       >
-                        <Shadow
-                          showShadowCornerBottomEnd={true}
-                          showShadowCornerBottomStart={true}
-                          showShadowCornerTopEnd={true}
-                          showShadowCornerTopStart={true}
-                          showShadowSideBottom={true}
-                          showShadowSideEnd={true}
-                          showShadowSideStart={true}
-                          showShadowSideTop={true}
-                          distance={4}
-                          offsetX={0}
-                          offsetY={0}
-                          paintInside={true}
-                          stretch={true}
+                        <View
                           style={StyleSheet.applyWidth(
                             {
-                              borderRadius: 12,
-                              bottom: 5,
+                              alignContent: 'stretch',
+                              backgroundColor: palettes.Brand['Strong Inverse'],
+                              borderColor: palettes.Brand['Light Inverse'],
+                              borderRadius: 8,
+                              borderWidth: 0,
+                              flexDirection: 'row',
                               height: '100%',
-                              left: 5,
-                              position: 'absolute',
-                              right: 5,
-                              top: 5,
-                              width: {
-                                minWidth: Breakpoints.Laptop,
-                                value: '100%',
-                              },
+                              justifyContent: 'space-between',
+                              padding: 0,
+                              width: '100%',
                             },
-                            dimensions.width
-                          )}
-                        />
-                        <Pressable
-                          onPress={() => {
-                            try {
-                              navigation.push('PeerGroupDetailsScreen', {
-                                peer_group_id: listData?.id,
-                              });
-                            } catch (err) {
-                              console.error(err);
-                            }
-                          }}
-                          style={StyleSheet.applyWidth(
-                            { height: '100%', width: '100%' },
                             dimensions.width
                           )}
                         >
                           <View
                             style={StyleSheet.applyWidth(
                               {
-                                alignContent: 'stretch',
-                                backgroundColor:
-                                  palettes.Brand['Strong Inverse'],
-                                borderColor: palettes.Brand['Light Inverse'],
-                                borderRadius: 8,
-                                borderWidth: 0,
-                                flexDirection: 'row',
-                                height: '100%',
+                                gap: 4,
                                 justifyContent: 'space-between',
-                                padding: 0,
+                                padding: 10,
                                 width: '100%',
                               },
                               dimensions.width
@@ -544,66 +544,12 @@ const PeerGroupsScreen = props => {
                             <View
                               style={StyleSheet.applyWidth(
                                 {
-                                  gap: 4,
+                                  flexDirection: 'row',
                                   justifyContent: 'space-between',
-                                  padding: 10,
-                                  width: '100%',
                                 },
                                 dimensions.width
                               )}
                             >
-                              <View
-                                style={StyleSheet.applyWidth(
-                                  {
-                                    flexDirection: 'row',
-                                    justifyContent: 'space-between',
-                                  },
-                                  dimensions.width
-                                )}
-                              >
-                                <Text
-                                  accessible={true}
-                                  {...GlobalStyles.TextStyles(theme)[
-                                    'screen_title'
-                                  ].props}
-                                  style={StyleSheet.applyWidth(
-                                    StyleSheet.compose(
-                                      GlobalStyles.TextStyles(theme)[
-                                        'screen_title'
-                                      ].style,
-                                      {
-                                        fontFamily: 'Quicksand_700Bold',
-                                        fontSize: 12,
-                                      }
-                                    ),
-                                    dimensions.width
-                                  )}
-                                >
-                                  {listData?.title}
-                                </Text>
-                                {/* Text 2 */}
-                                <Text
-                                  accessible={true}
-                                  {...GlobalStyles.TextStyles(theme)[
-                                    'screen_title'
-                                  ].props}
-                                  style={StyleSheet.applyWidth(
-                                    StyleSheet.compose(
-                                      GlobalStyles.TextStyles(theme)[
-                                        'screen_title'
-                                      ].style,
-                                      {
-                                        fontFamily: 'Quicksand_400Regular',
-                                        fontSize: 12,
-                                      }
-                                    ),
-                                    dimensions.width
-                                  )}
-                                >
-                                  {listData?.created_at}
-                                </Text>
-                              </View>
-                              {/* Text 2 2 */}
                               <Text
                                 accessible={true}
                                 {...GlobalStyles.TextStyles(theme)[
@@ -615,14 +561,14 @@ const PeerGroupsScreen = props => {
                                       'screen_title'
                                     ].style,
                                     {
-                                      fontFamily: 'Quicksand_400Regular',
+                                      fontFamily: 'Quicksand_700Bold',
                                       fontSize: 12,
                                     }
                                   ),
                                   dimensions.width
                                 )}
                               >
-                                {listData?.access_type}
+                                {listData?.title}
                               </Text>
                               {/* Text 2 */}
                               <Text
@@ -643,43 +589,83 @@ const PeerGroupsScreen = props => {
                                   dimensions.width
                                 )}
                               >
-                                {'Companies: '}
-                                {listData?.number_of_stocks}
+                                {listData?.created_at}
                               </Text>
                             </View>
+                            {/* Text 2 2 */}
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)['screen_title']
+                                .props}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.TextStyles(theme)['screen_title']
+                                    .style,
+                                  {
+                                    fontFamily: 'Quicksand_400Regular',
+                                    fontSize: 12,
+                                  }
+                                ),
+                                dimensions.width
+                              )}
+                            >
+                              {listData?.access_type}
+                            </Text>
+                            {/* Text 2 */}
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)['screen_title']
+                                .props}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.TextStyles(theme)['screen_title']
+                                    .style,
+                                  {
+                                    fontFamily: 'Quicksand_400Regular',
+                                    fontSize: 12,
+                                  }
+                                ),
+                                dimensions.width
+                              )}
+                            >
+                              {'Companies: '}
+                              {listData?.number_of_stocks}
+                            </Text>
                           </View>
-                        </Pressable>
-                      </View>
-                    );
-                  }}
-                  numColumns={
-                    dimensions.width >= Breakpoints.Laptop
-                      ? 3
-                      : dimensions.width >= Breakpoints.Tablet
-                      ? 2
-                      : 1
-                  }
-                  showsHorizontalScrollIndicator={false}
-                  showsVerticalScrollIndicator={false}
-                  style={StyleSheet.applyWidth(
-                    {
-                      alignItems: 'stretch',
-                      flexWrap: { minWidth: Breakpoints.Laptop, value: 'wrap' },
-                      height: [
-                        { minWidth: Breakpoints.Mobile, value: '100%' },
-                        {
-                          minWidth: Breakpoints.Mobile,
-                          value: dimensions.height,
-                        },
-                      ],
-                      maxHeight: dimensions.height - 270,
-                      maxWidth: 1200,
-                      width: '100%',
-                    },
-                    dimensions.width
-                  )}
-                />
-              </View>
+                        </View>
+                      </Pressable>
+                    </View>
+                  );
+                }}
+                numColumns={
+                  dimensions.width >= Breakpoints.Laptop
+                    ? 3
+                    : dimensions.width >= Breakpoints.Tablet
+                    ? 2
+                    : 1
+                }
+                showsHorizontalScrollIndicator={false}
+                showsVerticalScrollIndicator={false}
+                style={StyleSheet.applyWidth(
+                  {
+                    alignItems: 'stretch',
+                    flexWrap: { minWidth: Breakpoints.Laptop, value: 'wrap' },
+                    height: [
+                      { minWidth: Breakpoints.Mobile, value: '100%' },
+                      {
+                        minWidth: Breakpoints.Mobile,
+                        value: dimensions.height,
+                      },
+                    ],
+                    maxHeight: dimensions.height - 270,
+                    padding: 5,
+                    paddingLeft: setPadding(dimensions.width),
+                    paddingRight: setPadding(dimensions.width),
+                    width: '100%',
+                  },
+                  dimensions.width
+                )}
+              />
             </>
           );
         }}

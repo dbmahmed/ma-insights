@@ -822,11 +822,15 @@ const PEPFScreen = props => {
                     maxHeight: [
                       {
                         minWidth: Breakpoints.Mobile,
-                        value: dimensions.height - 190,
+                        value: dimensions.height - 195,
                       },
                       {
                         minWidth: Breakpoints.Laptop,
                         value: dimensions.height - 270,
+                      },
+                      {
+                        minWidth: Breakpoints.Tablet,
+                        value: dimensions.height - 200,
                       },
                     ],
                     paddingLeft: [
