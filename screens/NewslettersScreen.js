@@ -551,7 +551,7 @@ const NewslettersScreen = props => {
           on2xx: fetchData => {
             try {
               setNewslettersList(fetchData?.json?.items);
-              /* hidden 'Log to Console' action */
+              console.log(newslettersList);
               setNextPage(fetchData?.json?.nextPage);
               setLastPage(fetchData?.json?.pageTotal);
               if (nextPage === null) {
@@ -606,12 +606,6 @@ const NewslettersScreen = props => {
                       if (nextPage === null) {
                         return;
                       }
-                      console.log(
-                        'next page is ',
-                        nextPage,
-                        'last page is ',
-                        lastPage
-                      );
                       const newData = (
                         await XanoCollectionApi.newslettersGET(Constants, {
                           dach: dach,
@@ -630,7 +624,6 @@ const NewslettersScreen = props => {
                       setNewslettersList(
                         newslettersList.concat(newData?.items)
                       );
-                      setLastPage(newData?.pageTotal);
                     } catch (err) {
                       console.error(err);
                     }
