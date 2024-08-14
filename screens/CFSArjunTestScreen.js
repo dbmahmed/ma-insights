@@ -7,6 +7,7 @@ import assessAccess from '../global-functions/assessAccess';
 import checkScrollIsFinish from '../global-functions/checkScrollIsFinish';
 import formatNumber from '../global-functions/formatNumber';
 import modifyArrays from '../global-functions/modifyArrays';
+import setPadding from '../global-functions/setPadding';
 import transformEuroM from '../global-functions/transformEuroM';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
@@ -34,7 +35,7 @@ import { useIsFocused } from '@react-navigation/native';
 import { ActivityIndicator, Modal, Text, View } from 'react-native';
 import { Fetch } from 'react-request';
 
-const CFSScreen = props => {
+const CFSArjunTestScreen = props => {
   const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
   const Constants = GlobalVariables.useValues();
@@ -197,28 +198,49 @@ const CFSScreen = props => {
   };
   const isFocused = useIsFocused();
   React.useEffect(() => {
+    console.log('Screen ON_SCREEN_FOCUS Start');
+    let error = null;
     try {
       if (!isFocused) {
         return;
       }
+      console.log('Start ON_SCREEN_FOCUS:0 CUSTOM_FUNCTION');
+      setPadding(dimensions.width);
+      console.log('Complete ON_SCREEN_FOCUS:0 CUSTOM_FUNCTION');
+      console.log('Start ON_SCREEN_FOCUS:1 SET_VARIABLE');
       setGlobalVariableValue({
         key: 'pageName',
         value: 'Companies For Sale',
       });
+      console.log('Complete ON_SCREEN_FOCUS:1 SET_VARIABLE');
+      console.log('Start ON_SCREEN_FOCUS:2 SET_VARIABLE');
       setGlobalVariableValue({
         key: 'subPage',
         value: false,
       });
+      console.log('Complete ON_SCREEN_FOCUS:2 SET_VARIABLE');
+      console.log('Start ON_SCREEN_FOCUS:3 CONDITIONAL_STOP');
       if (assessAccess(Variables, setGlobalVariableValue) === true) {
-        return;
+        return console.log('Complete ON_SCREEN_FOCUS:3 CONDITIONAL_STOP');
+      } else {
+        console.log(
+          'Skipped ON_SCREEN_FOCUS:3 CONDITIONAL_STOP: condition not met'
+        );
       }
+      console.log('Start ON_SCREEN_FOCUS:4 NAVIGATE');
       if (navigation.canGoBack()) {
         navigation.popToTop();
       }
       navigation.replace('LogInScreen');
+      console.log('Complete ON_SCREEN_FOCUS:4 NAVIGATE');
     } catch (err) {
       console.error(err);
+      error = err.message ?? err;
     }
+    console.log(
+      'Screen ON_SCREEN_FOCUS Complete',
+      error ? { error } : 'no error'
+    );
   }, [isFocused]);
 
   return (
@@ -514,369 +536,381 @@ const CFSScreen = props => {
                   </Text>
                 </View>
               </View>
-              {/* Scroll List */}
-              <SimpleStyleScrollView
-                bounces={true}
-                horizontal={false}
-                keyboardShouldPersistTaps={'never'}
-                nestedScrollEnabled={false}
-                onScroll={event => {
-                  try {
-                    if (checkScrollIsFinish(event)) {
-                      console.log('hi');
-                    } else {
-                    }
-                  } catch (err) {
-                    console.error(err);
-                  }
-                }}
-                showsHorizontalScrollIndicator={false}
-                showsVerticalScrollIndicator={false}
-                style={StyleSheet.applyWidth(
-                  {
-                    alignItems: 'center',
-                    maxHeight: [
-                      {
-                        minWidth: Breakpoints.Mobile,
-                        value: dimensions.height - 195,
-                      },
-                      {
-                        minWidth: Breakpoints.Tablet,
-                        value: dimensions.height - 200,
-                      },
-                      {
-                        minWidth: Breakpoints.Laptop,
-                        value: dimensions.height - 270,
-                      },
-                    ],
-                    width: '100%',
-                  },
-                  dimensions.width
-                )}
-              >
-                <>
-                  {!(cfsItems?.length > 0) ? null : (
-                    <SimpleStyleFlatList
-                      data={cfsItems}
-                      horizontal={false}
-                      inverted={false}
-                      keyExtractor={(listData, index) => listData?.id}
-                      keyboardShouldPersistTaps={'never'}
-                      listKey={'yCaR0jC6'}
-                      nestedScrollEnabled={false}
-                      onEndReached={() => {
-                        const handler = async () => {
-                          try {
-                            if (nextPage > lastPage) {
-                              return;
-                            }
-                            setNextPage(parseInt(nextPage + 1, 10));
-                            const newData = (
-                              await XanoCollectionApi.getCFSGET(Constants, {
-                                cfsSearchQuery: keywordSearch_raw,
-                                countryIn: country,
-                                ebitdaIn: ebitdaRange,
-                                page: parseInt(nextPage, 10),
-                                sectorIn: sector,
-                              })
-                            )?.json;
-                            if (newData?.items?.length !== 0) {
-                              return;
-                            }
-                            setCfsItems(cfsItems.concat(newData?.items));
-                            setLastPage(newData?.pageTotal);
-                          } catch (err) {
-                            console.error(err);
+              <>
+                {!(cfsItems?.length > 0) ? null : (
+                  <SimpleStyleFlatList
+                    data={cfsItems}
+                    horizontal={false}
+                    inverted={false}
+                    keyExtractor={(listData, index) => listData?.id}
+                    keyboardShouldPersistTaps={'never'}
+                    listKey={'Run5MqQM'}
+                    nestedScrollEnabled={false}
+                    onEndReached={() => {
+                      const handler = async () => {
+                        console.log('List ON_END_REACHED Start');
+                        let error = null;
+                        try {
+                          console.log('Start ON_END_REACHED:0 CONSOLE_LOG');
+                          console.log('End Reached');
+                          console.log('Complete ON_END_REACHED:0 CONSOLE_LOG');
+                          console.log(
+                            'Start ON_END_REACHED:1 CONDITIONAL_STOP'
+                          );
+                          if (nextPage > lastPage) {
+                            return console.log(
+                              'Complete ON_END_REACHED:1 CONDITIONAL_STOP'
+                            );
+                          } else {
+                            console.log(
+                              'Skipped ON_END_REACHED:1 CONDITIONAL_STOP: condition not met'
+                            );
                           }
-                        };
-                        handler();
-                      }}
-                      onEndReachedThreshold={0.5}
-                      renderItem={({ item, index }) => {
-                        const listData = item;
-                        return (
-                          <View
+                          console.log('Start ON_END_REACHED:2 CONSOLE_LOG');
+                          console.log('End Reached 2');
+                          console.log('Complete ON_END_REACHED:2 CONSOLE_LOG');
+                          console.log('Start ON_END_REACHED:3 SET_VARIABLE');
+                          setNextPage(parseInt(nextPage + 1, 10));
+                          console.log('Complete ON_END_REACHED:3 SET_VARIABLE');
+                          console.log('Start ON_END_REACHED:4 FETCH_REQUEST');
+                          const newData = (
+                            await XanoCollectionApi.getCFSGET(Constants, {
+                              cfsSearchQuery: keywordSearch_raw,
+                              countryIn: country,
+                              ebitdaIn: ebitdaRange,
+                              page: parseInt(nextPage, 10),
+                              sectorIn: sector,
+                            })
+                          )?.json;
+                          console.log(
+                            'Complete ON_END_REACHED:4 FETCH_REQUEST',
+                            { newData }
+                          );
+                          console.log(
+                            'Start ON_END_REACHED:5 CONDITIONAL_STOP'
+                          );
+                          if (newData?.items?.length === 0) {
+                            return console.log(
+                              'Complete ON_END_REACHED:5 CONDITIONAL_STOP'
+                            );
+                          } else {
+                            console.log(
+                              'Skipped ON_END_REACHED:5 CONDITIONAL_STOP: condition not met'
+                            );
+                          }
+                          console.log('Start ON_END_REACHED:6 SET_VARIABLE');
+                          setCfsItems(cfsItems.concat(newData?.items));
+                          console.log('Complete ON_END_REACHED:6 SET_VARIABLE');
+                          console.log('Start ON_END_REACHED:7 SET_VARIABLE');
+                          setLastPage(newData?.pageTotal);
+                          console.log('Complete ON_END_REACHED:7 SET_VARIABLE');
+                        } catch (err) {
+                          console.error(err);
+                          error = err.message ?? err;
+                        }
+                        console.log(
+                          'List ON_END_REACHED Complete',
+                          error ? { error } : 'no error'
+                        );
+                      };
+                      handler();
+                    }}
+                    onEndReachedThreshold={0.5}
+                    renderItem={({ item, index }) => {
+                      const listData = item;
+                      return (
+                        <View
+                          style={StyleSheet.applyWidth(
+                            {
+                              maxWidth: [
+                                { minWidth: Breakpoints.Mobile, value: '50%' },
+                                {
+                                  minWidth: Breakpoints.Laptop,
+                                  value: '33.33%',
+                                },
+                              ],
+                              padding: 5,
+                              width: '100%',
+                            },
+                            dimensions.width
+                          )}
+                        >
+                          <LinearGradient
+                            endX={100}
+                            endY={100}
+                            startX={0}
+                            startY={0}
+                            {...GlobalStyles.LinearGradientStyles(theme)[
+                              'Linear Gradient'
+                            ].props}
+                            color1={theme.colors.text.strong}
+                            color2={theme.colors.branding.primary}
+                            color3={null}
                             style={StyleSheet.applyWidth(
-                              {
-                                maxWidth: [
-                                  {
-                                    minWidth: Breakpoints.Mobile,
-                                    value: '50%',
-                                  },
-                                  {
-                                    minWidth: Breakpoints.Laptop,
-                                    value: '33.33%',
-                                  },
-                                ],
-                                padding: 5,
-                                width: '100%',
-                              },
+                              StyleSheet.compose(
+                                GlobalStyles.LinearGradientStyles(theme)[
+                                  'Linear Gradient'
+                                ].style,
+                                {
+                                  borderColor: null,
+                                  borderRadius: 5,
+                                  borderWidth: 0,
+                                  flexDirection: 'column',
+                                  flexWrap: 'nowrap',
+                                  height: '100%',
+                                  margin: null,
+                                  width: '100%',
+                                }
+                              ),
                               dimensions.width
                             )}
                           >
-                            <LinearGradient
-                              endX={100}
-                              endY={100}
-                              startX={0}
-                              startY={0}
-                              {...GlobalStyles.LinearGradientStyles(theme)[
-                                'Linear Gradient'
-                              ].props}
-                              color1={theme.colors.text.strong}
-                              color2={theme.colors.branding.primary}
-                              color3={null}
+                            <Pressable
+                              onPress={() => {
+                                try {
+                                  navigation.navigate('CFSDetailsScreen', {
+                                    cfs_id: listData?.id,
+                                  });
+                                } catch (err) {
+                                  console.error(err);
+                                }
+                              }}
                               style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.LinearGradientStyles(theme)[
-                                    'Linear Gradient'
-                                  ].style,
-                                  {
-                                    borderColor: null,
-                                    borderRadius: 5,
-                                    borderWidth: 0,
-                                    flexDirection: 'column',
-                                    flexWrap: 'nowrap',
-                                    height: '100%',
-                                    margin: null,
-                                    width: '100%',
-                                  }
-                                ),
+                                { height: '100%' },
                                 dimensions.width
                               )}
                             >
-                              <Pressable
-                                onPress={() => {
-                                  try {
-                                    navigation.navigate('CFSDetailsScreen', {
-                                      cfs_id: listData?.id,
-                                    });
-                                  } catch (err) {
-                                    console.error(err);
-                                  }
-                                }}
+                              <View
                                 style={StyleSheet.applyWidth(
-                                  { height: '100%' },
+                                  {
+                                    flexDirection: 'column',
+                                    gap: 10,
+                                    height: '100%',
+                                    justifyContent: 'flex-start',
+                                    padding: 10,
+                                  },
                                   dimensions.width
                                 )}
                               >
-                                <View
-                                  style={StyleSheet.applyWidth(
-                                    {
-                                      flexDirection: 'column',
-                                      gap: 10,
-                                      height: '100%',
-                                      justifyContent: 'flex-start',
-                                      padding: 10,
-                                    },
-                                    dimensions.width
-                                  )}
-                                >
-                                  <View>
-                                    <H4
-                                      selectable={false}
-                                      {...GlobalStyles.H4Styles(theme)['H4']
-                                        .props}
-                                      style={StyleSheet.applyWidth(
-                                        StyleSheet.compose(
-                                          GlobalStyles.H4Styles(theme)['H4']
-                                            .style,
-                                          {
-                                            color:
-                                              palettes.Brand['Strong Inverse'],
-                                            marginBottom: 0,
-                                            marginTop: 0,
-                                          }
-                                        ),
-                                        dimensions.width
-                                      )}
-                                    >
-                                      {listData?.company}
-                                    </H4>
-                                    {/* Subtitle */}
-                                    <Text
-                                      accessible={true}
-                                      {...GlobalStyles.TextStyles(theme)[
-                                        'screen_title'
-                                      ].props}
-                                      style={StyleSheet.applyWidth(
-                                        StyleSheet.compose(
-                                          GlobalStyles.TextStyles(theme)[
-                                            'screen_title'
-                                          ].style,
-                                          { color: palettes.App.Orange }
-                                        ),
-                                        dimensions.width
-                                      )}
-                                    >
-                                      {listData?.country}
-                                    </Text>
-                                  </View>
-                                  {/* View 2 */}
-                                  <View
+                                <View>
+                                  <H4
+                                    selectable={false}
+                                    {...GlobalStyles.H4Styles(theme)['H4']
+                                      .props}
                                     style={StyleSheet.applyWidth(
-                                      { gap: 6 },
+                                      StyleSheet.compose(
+                                        GlobalStyles.H4Styles(theme)['H4']
+                                          .style,
+                                        {
+                                          color:
+                                            palettes.Brand['Strong Inverse'],
+                                          marginBottom: 0,
+                                          marginTop: 0,
+                                        }
+                                      ),
                                       dimensions.width
                                     )}
                                   >
-                                    <Text
-                                      accessible={true}
-                                      {...GlobalStyles.TextStyles(theme)[
-                                        'screen_title'
-                                      ].props}
-                                      style={StyleSheet.applyWidth(
-                                        StyleSheet.compose(
-                                          GlobalStyles.TextStyles(theme)[
-                                            'screen_title'
-                                          ].style,
-                                          {
-                                            color:
-                                              palettes.Brand['Strong Inverse'],
-                                          }
-                                        ),
-                                        dimensions.width
-                                      )}
-                                    >
-                                      {'Sector: '}
-                                      {
-                                        listData?._gics_sub_industry
-                                          ?.GICS_Sector
-                                      }
-                                    </Text>
-                                    {/* Text 2 */}
-                                    <Text
-                                      accessible={true}
-                                      {...GlobalStyles.TextStyles(theme)[
-                                        'screen_title'
-                                      ].props}
-                                      style={StyleSheet.applyWidth(
-                                        StyleSheet.compose(
-                                          GlobalStyles.TextStyles(theme)[
-                                            'screen_title'
-                                          ].style,
-                                          {
-                                            color:
-                                              palettes.Brand['Strong Inverse'],
-                                          }
-                                        ),
-                                        dimensions.width
-                                      )}
-                                    >
-                                      {'EBITDA: '}
-                                      {transformEuroM(listData?.ebitda_eur)}
-                                    </Text>
-                                    {/* Text 3 */}
-                                    <Text
-                                      accessible={true}
-                                      {...GlobalStyles.TextStyles(theme)[
-                                        'screen_title'
-                                      ].props}
-                                      style={StyleSheet.applyWidth(
-                                        StyleSheet.compose(
-                                          GlobalStyles.TextStyles(theme)[
-                                            'screen_title'
-                                          ].style,
-                                          {
-                                            color:
-                                              palettes.Brand['Strong Inverse'],
-                                          }
-                                        ),
-                                        dimensions.width
-                                      )}
-                                    >
-                                      {'Owner: '}
-                                      {showOwners(listData?.owners)}
-                                    </Text>
-                                    {/* Text 4 */}
-                                    <Text
-                                      accessible={true}
-                                      {...GlobalStyles.TextStyles(theme)[
-                                        'screen_title'
-                                      ].props}
-                                      style={StyleSheet.applyWidth(
-                                        StyleSheet.compose(
-                                          GlobalStyles.TextStyles(theme)[
-                                            'screen_title'
-                                          ].style,
-                                          {
-                                            color:
-                                              palettes.Brand['Strong Inverse'],
-                                          }
-                                        ),
-                                        dimensions.width
-                                      )}
-                                    >
-                                      {'Advisor: '}
-                                      {listData?._advisors}
-                                    </Text>
-                                    {/* Text 5 */}
-                                    <Text
-                                      accessible={true}
-                                      {...GlobalStyles.TextStyles(theme)[
-                                        'screen_title'
-                                      ].props}
-                                      style={StyleSheet.applyWidth(
-                                        StyleSheet.compose(
-                                          GlobalStyles.TextStyles(theme)[
-                                            'screen_title'
-                                          ].style,
-                                          {
-                                            color:
-                                              palettes.Brand['Strong Inverse'],
-                                          }
-                                        ),
-                                        dimensions.width
-                                      )}
-                                    >
-                                      {'Stage: '}
-                                      {listData?.stage}
-                                    </Text>
-                                    {/* Text 6 */}
-                                    <Text
-                                      accessible={true}
-                                      {...GlobalStyles.TextStyles(theme)[
-                                        'screen_title'
-                                      ].props}
-                                      style={StyleSheet.applyWidth(
-                                        StyleSheet.compose(
-                                          GlobalStyles.TextStyles(theme)[
-                                            'screen_title'
-                                          ].style,
-                                          {
-                                            color:
-                                              palettes.Brand['Strong Inverse'],
-                                          }
-                                        ),
-                                        dimensions.width
-                                      )}
-                                    >
-                                      {'Update: '}
-                                      {listData?.last_update}
-                                    </Text>
-                                  </View>
+                                    {listData?.company}
+                                  </H4>
+                                  {/* Subtitle */}
+                                  <Text
+                                    accessible={true}
+                                    {...GlobalStyles.TextStyles(theme)[
+                                      'screen_title'
+                                    ].props}
+                                    style={StyleSheet.applyWidth(
+                                      StyleSheet.compose(
+                                        GlobalStyles.TextStyles(theme)[
+                                          'screen_title'
+                                        ].style,
+                                        { color: palettes.App.Orange }
+                                      ),
+                                      dimensions.width
+                                    )}
+                                  >
+                                    {listData?.country}
+                                  </Text>
                                 </View>
-                              </Pressable>
-                            </LinearGradient>
-                          </View>
-                        );
-                      }}
-                      numColumns={
-                        dimensions.width >= Breakpoints.Laptop ? 3 : 2
-                      }
-                      showsHorizontalScrollIndicator={false}
-                      showsVerticalScrollIndicator={false}
-                      style={StyleSheet.applyWidth(
-                        {
-                          maxWidth: 1200,
-                          paddingLeft: 5,
-                          paddingRight: 5,
-                          width: '100%',
+                                {/* View 2 */}
+                                <View
+                                  style={StyleSheet.applyWidth(
+                                    { gap: 6 },
+                                    dimensions.width
+                                  )}
+                                >
+                                  <Text
+                                    accessible={true}
+                                    {...GlobalStyles.TextStyles(theme)[
+                                      'screen_title'
+                                    ].props}
+                                    style={StyleSheet.applyWidth(
+                                      StyleSheet.compose(
+                                        GlobalStyles.TextStyles(theme)[
+                                          'screen_title'
+                                        ].style,
+                                        {
+                                          color:
+                                            palettes.Brand['Strong Inverse'],
+                                        }
+                                      ),
+                                      dimensions.width
+                                    )}
+                                  >
+                                    {'Sector: '}
+                                    {listData?._gics_sub_industry?.GICS_Sector}
+                                  </Text>
+                                  {/* Text 2 */}
+                                  <Text
+                                    accessible={true}
+                                    {...GlobalStyles.TextStyles(theme)[
+                                      'screen_title'
+                                    ].props}
+                                    style={StyleSheet.applyWidth(
+                                      StyleSheet.compose(
+                                        GlobalStyles.TextStyles(theme)[
+                                          'screen_title'
+                                        ].style,
+                                        {
+                                          color:
+                                            palettes.Brand['Strong Inverse'],
+                                        }
+                                      ),
+                                      dimensions.width
+                                    )}
+                                  >
+                                    {'EBITDA: '}
+                                    {transformEuroM(listData?.ebitda_eur)}
+                                  </Text>
+                                  {/* Text 3 */}
+                                  <Text
+                                    accessible={true}
+                                    {...GlobalStyles.TextStyles(theme)[
+                                      'screen_title'
+                                    ].props}
+                                    style={StyleSheet.applyWidth(
+                                      StyleSheet.compose(
+                                        GlobalStyles.TextStyles(theme)[
+                                          'screen_title'
+                                        ].style,
+                                        {
+                                          color:
+                                            palettes.Brand['Strong Inverse'],
+                                        }
+                                      ),
+                                      dimensions.width
+                                    )}
+                                  >
+                                    {'Owner: '}
+                                    {showOwners(listData?.owners)}
+                                  </Text>
+                                  {/* Text 4 */}
+                                  <Text
+                                    accessible={true}
+                                    {...GlobalStyles.TextStyles(theme)[
+                                      'screen_title'
+                                    ].props}
+                                    style={StyleSheet.applyWidth(
+                                      StyleSheet.compose(
+                                        GlobalStyles.TextStyles(theme)[
+                                          'screen_title'
+                                        ].style,
+                                        {
+                                          color:
+                                            palettes.Brand['Strong Inverse'],
+                                        }
+                                      ),
+                                      dimensions.width
+                                    )}
+                                  >
+                                    {'Advisor: '}
+                                    {listData?._advisors}
+                                  </Text>
+                                  {/* Text 5 */}
+                                  <Text
+                                    accessible={true}
+                                    {...GlobalStyles.TextStyles(theme)[
+                                      'screen_title'
+                                    ].props}
+                                    style={StyleSheet.applyWidth(
+                                      StyleSheet.compose(
+                                        GlobalStyles.TextStyles(theme)[
+                                          'screen_title'
+                                        ].style,
+                                        {
+                                          color:
+                                            palettes.Brand['Strong Inverse'],
+                                        }
+                                      ),
+                                      dimensions.width
+                                    )}
+                                  >
+                                    {'Stage: '}
+                                    {listData?.stage}
+                                  </Text>
+                                  {/* Text 6 */}
+                                  <Text
+                                    accessible={true}
+                                    {...GlobalStyles.TextStyles(theme)[
+                                      'screen_title'
+                                    ].props}
+                                    style={StyleSheet.applyWidth(
+                                      StyleSheet.compose(
+                                        GlobalStyles.TextStyles(theme)[
+                                          'screen_title'
+                                        ].style,
+                                        {
+                                          color:
+                                            palettes.Brand['Strong Inverse'],
+                                        }
+                                      ),
+                                      dimensions.width
+                                    )}
+                                  >
+                                    {'Update: '}
+                                    {listData?.last_update}
+                                  </Text>
+                                </View>
+                              </View>
+                            </Pressable>
+                          </LinearGradient>
+                        </View>
+                      );
+                    }}
+                    numColumns={dimensions.width >= Breakpoints.Laptop ? 3 : 2}
+                    showsHorizontalScrollIndicator={false}
+                    showsVerticalScrollIndicator={false}
+                    style={StyleSheet.applyWidth(
+                      {
+                        alignContent: {
+                          minWidth: Breakpoints.BigScreen,
+                          value: 'center',
                         },
-                        dimensions.width
-                      )}
-                    />
-                  )}
-                </>
-              </SimpleStyleScrollView>
+                        alignSelf: {
+                          minWidth: Breakpoints.BigScreen,
+                          value: 'center',
+                        },
+                        paddingLeft: [
+                          { minWidth: Breakpoints.Mobile, value: 5 },
+                          {
+                            minWidth: Breakpoints.BigScreen,
+                            value: setPadding(dimensions.width),
+                          },
+                        ],
+                        paddingRight: [
+                          { minWidth: Breakpoints.Mobile, value: 5 },
+                          {
+                            minWidth: Breakpoints.BigScreen,
+                            value: setPadding(dimensions.width),
+                          },
+                        ],
+                        width: '100%',
+                      },
+                      dimensions.width
+                    )}
+                  />
+                )}
+              </>
               <>
                 {!filterPressed ? null : (
                   <Modal
@@ -3106,4 +3140,4 @@ const CFSScreen = props => {
   );
 };
 
-export default withTheme(CFSScreen);
+export default withTheme(CFSArjunTestScreen);

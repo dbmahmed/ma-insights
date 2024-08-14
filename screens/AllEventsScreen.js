@@ -2,6 +2,7 @@ import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
 import CustomHeaderBlock from '../components/CustomHeaderBlock';
+import LoadingBlock from '../components/LoadingBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import assessAccess from '../global-functions/assessAccess';
 import formatNumber from '../global-functions/formatNumber';
@@ -14,7 +15,6 @@ import waitUtil from '../utils/wait';
 import {
   Button,
   Checkbox,
-  CircularProgress,
   HStack,
   IconButton,
   LinearGradient,
@@ -498,34 +498,7 @@ const AllEventsScreen = props => {
         {({ loading, error, data, refetchGetAllEvents }) => {
           const fetchData = data?.json;
           if (loading) {
-            return (
-              <>
-                {/* View 2 */}
-                <View
-                  style={StyleSheet.applyWidth(
-                    { alignItems: 'center', padding: 20 },
-                    dimensions.width
-                  )}
-                >
-                  <CircularProgress
-                    color={theme.colors.branding.primary}
-                    isAnimated={true}
-                    lineCap={'round'}
-                    showTrack={true}
-                    startPosition={'top'}
-                    trackColor={theme.colors.border.brand}
-                    trackLineCap={'round'}
-                    animationDuration={500}
-                    indeterminate={true}
-                    style={StyleSheet.applyWidth(
-                      { minWidth: 50, width: 50 },
-                      dimensions.width
-                    )}
-                    thickness={5}
-                  />
-                </View>
-              </>
-            );
+            return <LoadingBlock />;
           }
 
           if (error || data?.status < 200 || data?.status >= 300) {
@@ -593,243 +566,258 @@ const AllEventsScreen = props => {
                     {' matching filter'}
                   </Text>
                 </View>
-                <SimpleStyleFlatList
-                  data={eventItems}
-                  horizontal={false}
-                  inverted={false}
-                  keyExtractor={(listData, index) => listData?.id}
-                  keyboardShouldPersistTaps={'never'}
-                  listKey={'AwqPzJqX'}
-                  nestedScrollEnabled={false}
-                  onEndReached={() => {
-                    const handler = async () => {
-                      console.log('List ON_END_REACHED Start');
-                      let error = null;
-                      try {
-                        console.log('Start ON_END_REACHED:0 CONSOLE_LOG');
-                        /* hidden 'Log to Console' action */ console.log(
-                          'Complete ON_END_REACHED:0 CONSOLE_LOG'
+              </View>
+              <SimpleStyleFlatList
+                data={eventItems}
+                horizontal={false}
+                inverted={false}
+                keyExtractor={(listData, index) => index}
+                keyboardShouldPersistTaps={'never'}
+                listKey={'AwqPzJqX'}
+                nestedScrollEnabled={false}
+                numColumns={1}
+                onEndReached={() => {
+                  const handler = async () => {
+                    console.log('List ON_END_REACHED Start');
+                    let error = null;
+                    try {
+                      console.log('Start ON_END_REACHED:0 CONSOLE_LOG');
+                      console.log('END REACHED');
+                      console.log('Complete ON_END_REACHED:0 CONSOLE_LOG');
+                      console.log('Start ON_END_REACHED:1 CONDITIONAL_STOP');
+                      if (nextPage > lastPage) {
+                        return console.log(
+                          'Complete ON_END_REACHED:1 CONDITIONAL_STOP'
                         );
-                        console.log('Start ON_END_REACHED:1 CONDITIONAL_STOP');
-                        if (nextPage > lastPage) {
-                          return console.log(
-                            'Complete ON_END_REACHED:1 CONDITIONAL_STOP'
-                          );
-                        } else {
-                          console.log(
-                            'Skipped ON_END_REACHED:1 CONDITIONAL_STOP: condition not met'
-                          );
-                        }
-                        console.log('Start ON_END_REACHED:2 SET_VARIABLE');
-                        const value5LnNJ7Yb = parseInt(nextPage + 1, 10);
-                        setNextPage(value5LnNJ7Yb);
-                        const nextPageSet = value5LnNJ7Yb;
-                        console.log('Complete ON_END_REACHED:2 SET_VARIABLE');
-                        console.log('Start ON_END_REACHED:3 CONSOLE_LOG');
-                        /* hidden 'Log to Console' action */ console.log(
-                          'Complete ON_END_REACHED:3 CONSOLE_LOG'
+                      } else {
+                        console.log(
+                          'Skipped ON_END_REACHED:1 CONDITIONAL_STOP: condition not met'
                         );
-                        console.log('Start ON_END_REACHED:4 FETCH_REQUEST');
-                        const newData = (
-                          await XanoCollectionApi.getAllEventsGET(Constants, {
-                            countryIn: country,
-                            eventTypeIn: eventType,
-                            keyword: keywordSearch,
-                            page: nextPage,
-                            sectorIn: sector,
-                          })
-                        )?.json;
-                        console.log('Complete ON_END_REACHED:4 FETCH_REQUEST', {
-                          newData,
-                        });
-                        console.log('Start ON_END_REACHED:5 CONDITIONAL_STOP');
-                        if (newData?.items?.length > 0) {
-                          return console.log(
-                            'Complete ON_END_REACHED:5 CONDITIONAL_STOP'
-                          );
-                        } else {
-                          console.log(
-                            'Skipped ON_END_REACHED:5 CONDITIONAL_STOP: condition not met'
-                          );
-                        }
-                        console.log('Start ON_END_REACHED:6 SET_VARIABLE');
-                        setEventItems(eventItems.concat(newData?.items));
-                        console.log('Complete ON_END_REACHED:6 SET_VARIABLE');
-                        console.log('Start ON_END_REACHED:7 SET_VARIABLE');
-                        setLastPage(newData?.pageTotal);
-                        console.log('Complete ON_END_REACHED:7 SET_VARIABLE');
-                      } catch (err) {
-                        console.error(err);
-                        error = err.message ?? err;
                       }
-                      console.log(
-                        'List ON_END_REACHED Complete',
-                        error ? { error } : 'no error'
+                      console.log('Start ON_END_REACHED:2 SET_VARIABLE');
+                      const value5LnNJ7Yb = parseInt(nextPage + 1, 10);
+                      setNextPage(value5LnNJ7Yb);
+                      const nextPageSet = value5LnNJ7Yb;
+                      console.log('Complete ON_END_REACHED:2 SET_VARIABLE');
+                      console.log('Start ON_END_REACHED:3 CONSOLE_LOG');
+                      /* hidden 'Log to Console' action */ console.log(
+                        'Complete ON_END_REACHED:3 CONSOLE_LOG'
                       );
-                    };
-                    handler();
-                  }}
-                  renderItem={({ item, index }) => {
-                    const listData = item;
-                    return (
-                      <View
-                        style={StyleSheet.applyWidth(
-                          {
-                            flex: { minWidth: Breakpoints.Laptop, value: 1 },
-                            padding: { minWidth: Breakpoints.Laptop, value: 5 },
+                      console.log('Start ON_END_REACHED:4 FETCH_REQUEST');
+                      const newData = (
+                        await XanoCollectionApi.getAllEventsGET(Constants, {
+                          countryIn: country,
+                          eventTypeIn: eventType,
+                          keyword: keywordSearch,
+                          page: nextPage,
+                          sectorIn: sector,
+                        })
+                      )?.json;
+                      console.log('Complete ON_END_REACHED:4 FETCH_REQUEST', {
+                        newData,
+                      });
+                      console.log('Start ON_END_REACHED:5 CONDITIONAL_STOP');
+                      if (newData?.items?.length > 0) {
+                        return console.log(
+                          'Complete ON_END_REACHED:5 CONDITIONAL_STOP'
+                        );
+                      } else {
+                        console.log(
+                          'Skipped ON_END_REACHED:5 CONDITIONAL_STOP: condition not met'
+                        );
+                      }
+                      console.log('Start ON_END_REACHED:6 SET_VARIABLE');
+                      setEventItems(eventItems.concat(newData?.items));
+                      console.log('Complete ON_END_REACHED:6 SET_VARIABLE');
+                      console.log('Start ON_END_REACHED:7 SET_VARIABLE');
+                      setLastPage(newData?.pageTotal);
+                      console.log('Complete ON_END_REACHED:7 SET_VARIABLE');
+                    } catch (err) {
+                      console.error(err);
+                      error = err.message ?? err;
+                    }
+                    console.log(
+                      'List ON_END_REACHED Complete',
+                      error ? { error } : 'no error'
+                    );
+                  };
+                  handler();
+                }}
+                renderItem={({ item, index }) => {
+                  const listData = item;
+                  return (
+                    <View
+                      style={StyleSheet.applyWidth(
+                        {
+                          alignContent: {
+                            minWidth: Breakpoints.BigScreen,
+                            value: 'center',
                           },
-                          dimensions.width
-                        )}
+                          alignSelf: {
+                            minWidth: Breakpoints.BigScreen,
+                            value: 'center',
+                          },
+                          flex: { minWidth: Breakpoints.Laptop, value: 1 },
+                          maxWidth: {
+                            minWidth: Breakpoints.BigScreen,
+                            value: 1200,
+                          },
+                          padding: { minWidth: Breakpoints.Laptop, value: 5 },
+                          paddingLeft: {
+                            minWidth: Breakpoints.BigScreen,
+                            value: 15,
+                          },
+                          paddingRight: {
+                            minWidth: Breakpoints.BigScreen,
+                            value: 10,
+                          },
+                          width: {
+                            minWidth: Breakpoints.BigScreen,
+                            value: '100%',
+                          },
+                        },
+                        dimensions.width
+                      )}
+                    >
+                      <Touchable
+                        onPress={() => {
+                          try {
+                            navigation.navigate('EventDetailsScreen', {
+                              event_id: listData?.id,
+                            });
+                          } catch (err) {
+                            console.error(err);
+                          }
+                        }}
                       >
-                        <Touchable
-                          onPress={() => {
-                            try {
-                              navigation.navigate('EventDetailsScreen', {
-                                event_id: listData?.id,
-                              });
-                            } catch (err) {
-                              console.error(err);
-                            }
-                          }}
-                        >
-                          <View
-                            style={StyleSheet.applyWidth(
-                              {
-                                borderBottomWidth: 0.5,
-                                borderColor: theme.colors.text.light,
-                                flexWrap: {
-                                  minWidth: Breakpoints.Laptop,
-                                  value: 'nowrap',
-                                },
-                                minHeight: {
-                                  minWidth: Breakpoints.Laptop,
-                                  value: 85,
-                                },
-                                paddingBottom: 5,
-                                paddingTop: 5,
+                        <View
+                          style={StyleSheet.applyWidth(
+                            {
+                              borderBottomWidth: 0.5,
+                              borderColor: theme.colors.text.light,
+                              flexWrap: {
+                                minWidth: Breakpoints.Laptop,
+                                value: 'nowrap',
                               },
+                              minHeight: {
+                                minWidth: Breakpoints.Laptop,
+                                value: 85,
+                              },
+                              paddingBottom: 5,
+                              paddingTop: 5,
+                            },
+                            dimensions.width
+                          )}
+                        >
+                          <H6
+                            selectable={false}
+                            {...GlobalStyles.H6Styles(theme)['H6'].props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.H6Styles(theme)['H6'].style,
+                                {
+                                  fontFamily: 'Quicksand_700Bold',
+                                  fontSize: [
+                                    { minWidth: Breakpoints.Mobile, value: 14 },
+                                    { minWidth: Breakpoints.Laptop, value: 16 },
+                                  ],
+                                  margin: 0,
+                                  marginBottom: {
+                                    minWidth: Breakpoints.Laptop,
+                                    value: 5,
+                                  },
+                                }
+                              ),
                               dimensions.width
                             )}
                           >
-                            <H6
-                              selectable={false}
-                              {...GlobalStyles.H6Styles(theme)['H6'].props}
-                              style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.H6Styles(theme)['H6'].style,
-                                  {
-                                    fontFamily: 'Quicksand_700Bold',
-                                    fontSize: [
-                                      {
-                                        minWidth: Breakpoints.Mobile,
-                                        value: 14,
-                                      },
-                                      {
-                                        minWidth: Breakpoints.Laptop,
-                                        value: 16,
-                                      },
-                                    ],
-                                    margin: 0,
-                                    marginBottom: {
-                                      minWidth: Breakpoints.Laptop,
-                                      value: 5,
-                                    },
-                                  }
-                                ),
-                                dimensions.width
-                              )}
-                            >
-                              {listData?.headline}
-                            </H6>
+                            {listData?.headline}
+                          </H6>
 
-                            <Text
-                              accessible={true}
-                              {...GlobalStyles.TextStyles(theme)['screen_title']
-                                .props}
-                              style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.TextStyles(theme)['screen_title']
-                                    .style,
-                                  {
-                                    fontFamily: 'Quicksand_400Regular',
-                                    fontSize: [
-                                      {
-                                        minWidth: Breakpoints.Mobile,
-                                        value: 12,
-                                      },
-                                      {
-                                        minWidth: Breakpoints.Laptop,
-                                        value: 14,
-                                      },
-                                    ],
-                                    marginBottom: {
-                                      minWidth: Breakpoints.Laptop,
-                                      value: 5,
-                                    },
-                                    marginTop: 4,
-                                  }
-                                ),
-                                dimensions.width
-                              )}
-                            >
-                              {listData?.published}
-                              {' | Source: '}
-                              {listData?.source}
-                            </Text>
-                            {/* Text 2 */}
-                            <Text
-                              accessible={true}
-                              {...GlobalStyles.TextStyles(theme)['screen_title']
-                                .props}
-                              style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.TextStyles(theme)['screen_title']
-                                    .style,
-                                  {
-                                    fontFamily: 'Quicksand_400Regular',
-                                    fontSize: [
-                                      {
-                                        minWidth: Breakpoints.Mobile,
-                                        value: 12,
-                                      },
-                                      {
-                                        minWidth: Breakpoints.Laptop,
-                                        value: 14,
-                                      },
-                                    ],
-                                    marginBottom: {
-                                      minWidth: Breakpoints.Laptop,
-                                      value: 5,
-                                    },
-                                    marginTop: 4,
-                                  }
-                                ),
-                                dimensions.width
-                              )}
-                            >
-                              {listData?.description}
-                            </Text>
-                          </View>
-                        </Touchable>
-                      </View>
-                    );
-                  }}
-                  numColumns={dimensions.width >= Breakpoints.Laptop ? 1 : 1}
-                  onEndReachedThreshold={0.2}
-                  showsHorizontalScrollIndicator={false}
-                  showsVerticalScrollIndicator={false}
-                  style={StyleSheet.applyWidth(
-                    {
-                      maxHeight: dimensions.height - 250,
-                      maxWidth: 1200,
-                      paddingLeft: 10,
-                      paddingRight: 10,
-                      width: '100%',
+                          <Text
+                            accessible={true}
+                            {...GlobalStyles.TextStyles(theme)['screen_title']
+                              .props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TextStyles(theme)['screen_title']
+                                  .style,
+                                {
+                                  fontFamily: 'Quicksand_400Regular',
+                                  fontSize: [
+                                    { minWidth: Breakpoints.Mobile, value: 12 },
+                                    { minWidth: Breakpoints.Laptop, value: 14 },
+                                  ],
+                                  marginBottom: {
+                                    minWidth: Breakpoints.Laptop,
+                                    value: 5,
+                                  },
+                                  marginTop: 4,
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            {listData?.published}
+                            {' | Source: '}
+                            {listData?.source}
+                          </Text>
+                          {/* Text 2 */}
+                          <Text
+                            accessible={true}
+                            {...GlobalStyles.TextStyles(theme)['screen_title']
+                              .props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TextStyles(theme)['screen_title']
+                                  .style,
+                                {
+                                  fontFamily: 'Quicksand_400Regular',
+                                  fontSize: [
+                                    { minWidth: Breakpoints.Mobile, value: 12 },
+                                    { minWidth: Breakpoints.Laptop, value: 14 },
+                                  ],
+                                  marginBottom: {
+                                    minWidth: Breakpoints.Laptop,
+                                    value: 5,
+                                  },
+                                  marginTop: 4,
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            {listData?.description}
+                          </Text>
+                        </View>
+                      </Touchable>
+                    </View>
+                  );
+                }}
+                onEndReachedThreshold={0.2}
+                showsHorizontalScrollIndicator={false}
+                showsVerticalScrollIndicator={false}
+                style={StyleSheet.applyWidth(
+                  {
+                    alignContent: {
+                      minWidth: Breakpoints.BigScreen,
+                      value: 'center',
                     },
-                    dimensions.width
-                  )}
-                />
-              </View>
+                    alignItems: {
+                      minWidth: Breakpoints.BigScreen,
+                      value: 'stretch',
+                    },
+                    alignSelf: {
+                      minWidth: Breakpoints.BigScreen,
+                      value: 'center',
+                    },
+                    paddingLeft: 10,
+                    paddingRight: 10,
+                    width: '100%',
+                  },
+                  dimensions.width
+                )}
+              />
               {/* Modal 2 */}
               <Modal
                 supportedOrientations={['portrait', 'landscape']}

@@ -2,9 +2,11 @@ import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
 import CustomHeaderBlock from '../components/CustomHeaderBlock';
+import LoadingBlock from '../components/LoadingBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import assessAccess from '../global-functions/assessAccess';
 import resetAccess from '../global-functions/resetAccess';
+import setPadding from '../global-functions/setPadding';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
@@ -18,6 +20,7 @@ import {
   Pressable,
   ScreenContainer,
   SimpleStyleFlatList,
+  SimpleStyleScrollView,
   Table,
   TableCell,
   TableRow,
@@ -580,7 +583,7 @@ const NewslettersScreen = props => {
         {({ loading, error, data, refetchNewsletters }) => {
           const fetchData = data?.json;
           if (loading) {
-            return <ActivityIndicator />;
+            return <LoadingBlock />;
           }
 
           if (error || data?.status < 200 || data?.status >= 300) {
@@ -588,12 +591,7 @@ const NewslettersScreen = props => {
           }
 
           return (
-            <View
-              style={StyleSheet.applyWidth(
-                { alignItems: 'center' },
-                dimensions.width
-              )}
-            >
+            <>
               <SimpleStyleFlatList
                 data={newslettersList}
                 horizontal={false}
@@ -815,22 +813,31 @@ const NewslettersScreen = props => {
                         value: dimensions.height - 280,
                       },
                       {
-                        minWidth: Breakpoints.Mobile,
-                        value: dimensions.height - 300,
-                      },
-                      {
                         minWidth: Breakpoints.Tablet,
                         value: dimensions.height - 250,
                       },
                     ],
-                    maxWidth: 1200,
                     padding: 5,
+                    paddingLeft: {
+                      minWidth: Breakpoints.BigScreen,
+                      value: setPadding(dimensions.width - 5),
+                    },
+                    paddingRight: {
+                      minWidth: Breakpoints.BigScreen,
+                      value: setPadding(dimensions.width - 5),
+                    },
                     width: '100%',
                   },
                   dimensions.width
                 )}
               />
-            </View>
+              <View
+                style={StyleSheet.applyWidth(
+                  { alignItems: 'center' },
+                  dimensions.width
+                )}
+              />
+            </>
           );
         }}
       </XanoCollectionApi.FetchNewslettersGET>

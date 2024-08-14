@@ -16,6 +16,7 @@ import useWindowDimensions from './utils/useWindowDimensions';
 import AdvisorDetailsScreen from './screens/AdvisorDetailsScreen';
 import AdvisorsScreen from './screens/AdvisorsScreen';
 import AllEventsScreen from './screens/AllEventsScreen';
+import CFSArjunTestScreen from './screens/CFSArjunTestScreen';
 import CFSDetailsScreen from './screens/CFSDetailsScreen';
 import CFSScreen from './screens/CFSScreen';
 import EventDetailsScreen from './screens/EventDetailsScreen';
@@ -542,6 +543,13 @@ export default function RootAppNavigator() {
           component={AdvisorDetailsScreen}
           options={({ navigation }) => ({
             title: 'Advisor Details',
+          })}
+        />
+        <Stack.Screen
+          name="CFSArjunTestScreen"
+          component={CFSArjunTestScreen}
+          options={({ navigation }) => ({
+            title: 'CFS Arjun Test',
           })}
         />
         <Stack.Screen name="MAInsights" component={MAInsights} />
