@@ -588,8 +588,9 @@ const AllEventsScreen = props => {
                       dimensions.width
                     )}
                   >
-                    {formatNumber(fetchData?.itemsTotal)}
-                    {' events matching filter'}
+                    {formatNumber(fetchData?.itemsTotal)}{' '}
+                    {fetchData?.itemsTotal === 1 ? 'event' : 'events'}
+                    {' matching filter'}
                   </Text>
                 </View>
                 <SimpleStyleFlatList

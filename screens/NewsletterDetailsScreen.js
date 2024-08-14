@@ -1357,17 +1357,11 @@ const NewsletterDetailsScreen = props => {
                               renderItem={({ item, index }) => {
                                 const listData = item;
                                 return (
-                                  <Pressable
-                                    onPress={() => {
-                                      try {
-                                        navigation.navigate(
-                                          'EventDetailsScreen',
-                                          { event_id: listData?.id }
-                                        );
-                                      } catch (err) {
-                                        console.error(err);
-                                      }
-                                    }}
+                                  <View
+                                    style={StyleSheet.applyWidth(
+                                      { padding: 5 },
+                                      dimensions.width
+                                    )}
                                   >
                                     <Shadow
                                       showShadowCornerBottomEnd={true}
@@ -1386,13 +1380,37 @@ const NewsletterDetailsScreen = props => {
                                       style={StyleSheet.applyWidth(
                                         {
                                           borderRadius: 12,
-                                          width: {
-                                            minWidth: Breakpoints.Laptop,
-                                            value: '100%',
-                                          },
+                                          bottom: 5,
+                                          height: '100%',
+                                          left: 5,
+                                          position: 'absolute',
+                                          right: 5,
+                                          top: 5,
+                                          width: [
+                                            {
+                                              minWidth: Breakpoints.Laptop,
+                                              value: '100%',
+                                            },
+                                            {
+                                              minWidth: Breakpoints.Mobile,
+                                              value: '100%',
+                                            },
+                                          ],
                                         },
                                         dimensions.width
                                       )}
+                                    />
+                                    <Pressable
+                                      onPress={() => {
+                                        try {
+                                          navigation.navigate(
+                                            'EventDetailsScreen',
+                                            { event_id: listData?.id }
+                                          );
+                                        } catch (err) {
+                                          console.error(err);
+                                        }
+                                      }}
                                     >
                                       <View
                                         style={StyleSheet.applyWidth(
@@ -1462,8 +1480,8 @@ const NewsletterDetailsScreen = props => {
                                           </Text>
                                         </View>
                                       </View>
-                                    </Shadow>
-                                  </Pressable>
+                                    </Pressable>
+                                  </View>
                                 );
                               }}
                               horizontal={false}
@@ -1483,8 +1501,8 @@ const NewsletterDetailsScreen = props => {
                                     },
                                   ],
                                   gap: 8,
-                                  marginLeft: -10,
-                                  marginRight: -10,
+                                  marginLeft: -15,
+                                  marginRight: -15,
                                   padding: 10,
                                   position: 'relative',
                                 },
@@ -1529,17 +1547,15 @@ const NewsletterDetailsScreen = props => {
                               renderItem={({ item, index }) => {
                                 const listData = item;
                                 return (
-                                  <Pressable
-                                    onPress={() => {
-                                      try {
-                                        navigation.navigate(
-                                          'EventDetailsScreen',
-                                          { event_id: listData?.id }
-                                        );
-                                      } catch (err) {
-                                        console.error(err);
-                                      }
-                                    }}
+                                  <View
+                                    style={StyleSheet.applyWidth(
+                                      {
+                                        height: '100%',
+                                        padding: 5,
+                                        width: '100%',
+                                      },
+                                      dimensions.width
+                                    )}
                                   >
                                     <Shadow
                                       showShadowCornerBottomEnd={true}
@@ -1558,13 +1574,37 @@ const NewsletterDetailsScreen = props => {
                                       style={StyleSheet.applyWidth(
                                         {
                                           borderRadius: 12,
-                                          width: {
-                                            minWidth: Breakpoints.Laptop,
-                                            value: '100%',
-                                          },
+                                          bottom: 5,
+                                          height: '100%',
+                                          left: 5,
+                                          position: 'absolute',
+                                          right: 5,
+                                          top: 5,
+                                          width: [
+                                            {
+                                              minWidth: Breakpoints.Laptop,
+                                              value: '100%',
+                                            },
+                                            {
+                                              minWidth: Breakpoints.Mobile,
+                                              value: '100%',
+                                            },
+                                          ],
                                         },
                                         dimensions.width
                                       )}
+                                    />
+                                    <Pressable
+                                      onPress={() => {
+                                        try {
+                                          navigation.navigate(
+                                            'EventDetailsScreen',
+                                            { event_id: listData?.id }
+                                          );
+                                        } catch (err) {
+                                          console.error(err);
+                                        }
+                                      }}
                                     >
                                       <View
                                         style={StyleSheet.applyWidth(
@@ -1634,8 +1674,8 @@ const NewsletterDetailsScreen = props => {
                                           </Text>
                                         </View>
                                       </View>
-                                    </Shadow>
-                                  </Pressable>
+                                    </Pressable>
+                                  </View>
                                 );
                               }}
                               horizontal={false}
@@ -1644,8 +1684,8 @@ const NewsletterDetailsScreen = props => {
                               style={StyleSheet.applyWidth(
                                 {
                                   gap: 8,
-                                  marginLeft: -10,
-                                  marginRight: -10,
+                                  marginLeft: -15,
+                                  marginRight: -15,
                                   padding: 10,
                                 },
                                 dimensions.width
@@ -1689,17 +1729,11 @@ const NewsletterDetailsScreen = props => {
                               renderItem={({ item, index }) => {
                                 const listData = item;
                                 return (
-                                  <Pressable
-                                    onPress={() => {
-                                      try {
-                                        navigation.navigate(
-                                          'EventDetailsScreen',
-                                          { event_id: listData?.id }
-                                        );
-                                      } catch (err) {
-                                        console.error(err);
-                                      }
-                                    }}
+                                  <View
+                                    style={StyleSheet.applyWidth(
+                                      { padding: 5 },
+                                      dimensions.width
+                                    )}
                                   >
                                     <Shadow
                                       showShadowCornerBottomEnd={true}
@@ -1718,13 +1752,37 @@ const NewsletterDetailsScreen = props => {
                                       style={StyleSheet.applyWidth(
                                         {
                                           borderRadius: 12,
-                                          width: {
-                                            minWidth: Breakpoints.Laptop,
-                                            value: '100%',
-                                          },
+                                          bottom: 5,
+                                          height: '100%',
+                                          left: 5,
+                                          position: 'absolute',
+                                          right: 5,
+                                          top: 5,
+                                          width: [
+                                            {
+                                              minWidth: Breakpoints.Laptop,
+                                              value: '100%',
+                                            },
+                                            {
+                                              minWidth: Breakpoints.Mobile,
+                                              value: '100%',
+                                            },
+                                          ],
                                         },
                                         dimensions.width
                                       )}
+                                    />
+                                    <Pressable
+                                      onPress={() => {
+                                        try {
+                                          navigation.navigate(
+                                            'EventDetailsScreen',
+                                            { event_id: listData?.id }
+                                          );
+                                        } catch (err) {
+                                          console.error(err);
+                                        }
+                                      }}
                                     >
                                       <View
                                         style={StyleSheet.applyWidth(
@@ -1794,8 +1852,8 @@ const NewsletterDetailsScreen = props => {
                                           </Text>
                                         </View>
                                       </View>
-                                    </Shadow>
-                                  </Pressable>
+                                    </Pressable>
+                                  </View>
                                 );
                               }}
                               horizontal={false}
@@ -1804,8 +1862,8 @@ const NewsletterDetailsScreen = props => {
                               style={StyleSheet.applyWidth(
                                 {
                                   gap: 8,
-                                  marginLeft: -10,
-                                  marginRight: -10,
+                                  marginLeft: -15,
+                                  marginRight: -15,
                                   padding: 10,
                                 },
                                 dimensions.width
@@ -1849,17 +1907,11 @@ const NewsletterDetailsScreen = props => {
                               renderItem={({ item, index }) => {
                                 const listData = item;
                                 return (
-                                  <Pressable
-                                    onPress={() => {
-                                      try {
-                                        navigation.navigate(
-                                          'EventDetailsScreen',
-                                          { event_id: listData?.id }
-                                        );
-                                      } catch (err) {
-                                        console.error(err);
-                                      }
-                                    }}
+                                  <View
+                                    style={StyleSheet.applyWidth(
+                                      { padding: 5 },
+                                      dimensions.width
+                                    )}
                                   >
                                     <Shadow
                                       showShadowCornerBottomEnd={true}
@@ -1878,13 +1930,37 @@ const NewsletterDetailsScreen = props => {
                                       style={StyleSheet.applyWidth(
                                         {
                                           borderRadius: 12,
-                                          width: {
-                                            minWidth: Breakpoints.Laptop,
-                                            value: '100%',
-                                          },
+                                          bottom: 5,
+                                          height: '100%',
+                                          left: 5,
+                                          position: 'absolute',
+                                          right: 5,
+                                          top: 5,
+                                          width: [
+                                            {
+                                              minWidth: Breakpoints.Laptop,
+                                              value: '100%',
+                                            },
+                                            {
+                                              minWidth: Breakpoints.Mobile,
+                                              value: '100%',
+                                            },
+                                          ],
                                         },
                                         dimensions.width
                                       )}
+                                    />
+                                    <Pressable
+                                      onPress={() => {
+                                        try {
+                                          navigation.navigate(
+                                            'EventDetailsScreen',
+                                            { event_id: listData?.id }
+                                          );
+                                        } catch (err) {
+                                          console.error(err);
+                                        }
+                                      }}
                                     >
                                       <View
                                         style={StyleSheet.applyWidth(
@@ -1965,8 +2041,8 @@ const NewsletterDetailsScreen = props => {
                                           </Text>
                                         </View>
                                       </View>
-                                    </Shadow>
-                                  </Pressable>
+                                    </Pressable>
+                                  </View>
                                 );
                               }}
                               horizontal={false}
@@ -1975,8 +2051,8 @@ const NewsletterDetailsScreen = props => {
                               style={StyleSheet.applyWidth(
                                 {
                                   gap: 8,
-                                  marginLeft: -10,
-                                  marginRight: -10,
+                                  marginLeft: -15,
+                                  marginRight: -15,
                                   padding: 10,
                                 },
                                 dimensions.width
@@ -2036,18 +2112,7 @@ const NewsletterDetailsScreen = props => {
                                   renderItem={({ item, index }) => {
                                     const listData = item;
                                     return (
-                                      <Pressable
-                                        onPress={() => {
-                                          try {
-                                            navigation.navigate(
-                                              'EventDetailsScreen',
-                                              { event_id: listData?.id }
-                                            );
-                                          } catch (err) {
-                                            console.error(err);
-                                          }
-                                        }}
-                                      >
+                                      <>
                                         <Shadow
                                           showShadowCornerBottomEnd={true}
                                           showShadowCornerBottomStart={true}
@@ -2065,91 +2130,124 @@ const NewsletterDetailsScreen = props => {
                                           style={StyleSheet.applyWidth(
                                             {
                                               borderRadius: 12,
-                                              width: {
-                                                minWidth: Breakpoints.Laptop,
-                                                value: '100%',
-                                              },
+                                              bottom: 5,
+                                              height: '100%',
+                                              left: 5,
+                                              position: 'absolute',
+                                              right: 5,
+                                              top: 5,
+                                              width: [
+                                                {
+                                                  minWidth: Breakpoints.Laptop,
+                                                  value: '100%',
+                                                },
+                                                {
+                                                  minWidth: Breakpoints.Mobile,
+                                                  value: '100%',
+                                                },
+                                              ],
                                             },
                                             dimensions.width
                                           )}
+                                        />
+                                        <View
+                                          style={StyleSheet.applyWidth(
+                                            { padding: 5 },
+                                            dimensions.width
+                                          )}
                                         >
-                                          <View
-                                            style={StyleSheet.applyWidth(
-                                              {
-                                                backgroundColor:
-                                                  palettes.Brand[
-                                                    'Strong Inverse'
-                                                  ],
-                                                borderColor:
-                                                  palettes.Brand[
-                                                    'Light Inverse'
-                                                  ],
-                                                borderRadius: 8,
-                                                borderWidth: 1,
-                                                padding: 10,
-                                              },
-                                              dimensions.width
-                                            )}
+                                          <Pressable
+                                            onPress={() => {
+                                              try {
+                                                navigation.navigate(
+                                                  'EventDetailsScreen',
+                                                  { event_id: listData?.id }
+                                                );
+                                              } catch (err) {
+                                                console.error(err);
+                                              }
+                                            }}
                                           >
-                                            <View>
-                                              <Text
-                                                accessible={true}
-                                                style={StyleSheet.applyWidth(
-                                                  {
-                                                    fontFamily:
-                                                      'Quicksand_600SemiBold',
-                                                    fontSize: 16,
-                                                  },
-                                                  dimensions.width
-                                                )}
-                                              >
-                                                {listData?.headline}
-                                                {' ('}
-                                                {listData?.source}
-                                                {')'}
-                                              </Text>
-                                            </View>
-                                            {/* View 2 */}
-                                            <View>
-                                              <Text
-                                                accessible={true}
-                                                style={StyleSheet.applyWidth(
-                                                  {
-                                                    color: palettes.App.Orange,
-                                                    fontFamily:
-                                                      'Quicksand_400Regular',
-                                                  },
-                                                  dimensions.width
-                                                )}
-                                              >
-                                                {listData?.country}
-                                                {' - '}
+                                            <View
+                                              style={StyleSheet.applyWidth(
                                                 {
-                                                  listData?._gics_sub_industry
-                                                    ?.GICS_Sector
-                                                }
-                                              </Text>
-                                            </View>
-                                            {/* View 3 */}
-                                            <View>
-                                              <Text
-                                                accessible={true}
-                                                style={StyleSheet.applyWidth(
+                                                  backgroundColor:
+                                                    palettes.Brand[
+                                                      'Strong Inverse'
+                                                    ],
+                                                  borderColor:
+                                                    palettes.Brand[
+                                                      'Light Inverse'
+                                                    ],
+                                                  borderRadius: 8,
+                                                  borderWidth: 1,
+                                                  padding: 10,
+                                                },
+                                                dimensions.width
+                                              )}
+                                            >
+                                              <View>
+                                                <Text
+                                                  accessible={true}
+                                                  style={StyleSheet.applyWidth(
+                                                    {
+                                                      fontFamily:
+                                                        'Quicksand_600SemiBold',
+                                                      fontSize: 16,
+                                                    },
+                                                    dimensions.width
+                                                  )}
+                                                >
+                                                  {listData?.headline}
+                                                  {' ('}
+                                                  {listData?.source}
+                                                  {')'}
+                                                </Text>
+                                              </View>
+                                              {/* View 2 */}
+                                              <View>
+                                                <Text
+                                                  accessible={true}
+                                                  style={StyleSheet.applyWidth(
+                                                    {
+                                                      color:
+                                                        palettes.App.Orange,
+                                                      fontFamily:
+                                                        'Quicksand_400Regular',
+                                                    },
+                                                    dimensions.width
+                                                  )}
+                                                >
+                                                  {listData?.country}
+                                                  {' - '}
                                                   {
-                                                    color:
-                                                      theme.colors.text.strong,
-                                                    fontFamily:
-                                                      'Quicksand_400Regular',
-                                                  },
-                                                  dimensions.width
-                                                )}
-                                              >
-                                                {listData?.description}
-                                              </Text>
+                                                    listData?._gics_sub_industry
+                                                      ?.GICS_Sector
+                                                  }
+                                                </Text>
+                                              </View>
+                                              {/* View 3 */}
+                                              <View>
+                                                <Text
+                                                  accessible={true}
+                                                  style={StyleSheet.applyWidth(
+                                                    {
+                                                      color:
+                                                        theme.colors.text
+                                                          .strong,
+                                                      fontFamily:
+                                                        'Quicksand_400Regular',
+                                                    },
+                                                    dimensions.width
+                                                  )}
+                                                >
+                                                  {listData?.description}
+                                                </Text>
+                                              </View>
                                             </View>
-                                          </View>
-                                        </Shadow>
-                                      </Pressable>
+                                          </Pressable>
+                                        </View>
+                                      </>
                                     );
                                   }}
                                   horizontal={false}
@@ -2168,8 +2266,8 @@ const NewsletterDetailsScreen = props => {
                                         },
                                       ],
                                       gap: 8,
-                                      marginLeft: -10,
-                                      marginRight: -10,
+                                      marginLeft: -15,
+                                      marginRight: -15,
                                       padding: 10,
                                     },
                                     dimensions.width
@@ -2223,17 +2321,11 @@ const NewsletterDetailsScreen = props => {
                                   renderItem={({ item, index }) => {
                                     const listData = item;
                                     return (
-                                      <Pressable
-                                        onPress={() => {
-                                          try {
-                                            navigation.navigate(
-                                              'EventDetailsScreen',
-                                              { event_id: listData?.id }
-                                            );
-                                          } catch (err) {
-                                            console.error(err);
-                                          }
-                                        }}
+                                      <View
+                                        style={StyleSheet.applyWidth(
+                                          { padding: 5 },
+                                          dimensions.width
+                                        )}
                                       >
                                         <Shadow
                                           showShadowCornerBottomEnd={true}
@@ -2252,13 +2344,37 @@ const NewsletterDetailsScreen = props => {
                                           style={StyleSheet.applyWidth(
                                             {
                                               borderRadius: 12,
-                                              width: {
-                                                minWidth: Breakpoints.Laptop,
-                                                value: '100%',
-                                              },
+                                              bottom: 5,
+                                              height: '100%',
+                                              left: 5,
+                                              position: 'absolute',
+                                              right: 5,
+                                              top: 5,
+                                              width: [
+                                                {
+                                                  minWidth: Breakpoints.Laptop,
+                                                  value: '100%',
+                                                },
+                                                {
+                                                  minWidth: Breakpoints.Mobile,
+                                                  value: '100%',
+                                                },
+                                              ],
                                             },
                                             dimensions.width
                                           )}
+                                        />
+                                        <Pressable
+                                          onPress={() => {
+                                            try {
+                                              navigation.navigate(
+                                                'EventDetailsScreen',
+                                                { event_id: listData?.id }
+                                              );
+                                            } catch (err) {
+                                              console.error(err);
+                                            }
+                                          }}
                                         >
                                           <View
                                             style={StyleSheet.applyWidth(
@@ -2335,8 +2451,8 @@ const NewsletterDetailsScreen = props => {
                                               </Text>
                                             </View>
                                           </View>
-                                        </Shadow>
-                                      </Pressable>
+                                        </Pressable>
+                                      </View>
                                     );
                                   }}
                                   horizontal={false}
@@ -2349,8 +2465,8 @@ const NewsletterDetailsScreen = props => {
                                         value: 'stretch',
                                       },
                                       gap: 8,
-                                      marginLeft: -10,
-                                      marginRight: -10,
+                                      marginLeft: -15,
+                                      marginRight: -15,
                                       padding: 10,
                                     },
                                     dimensions.width
@@ -2403,17 +2519,11 @@ const NewsletterDetailsScreen = props => {
                                   renderItem={({ item, index }) => {
                                     const listData = item;
                                     return (
-                                      <Pressable
-                                        onPress={() => {
-                                          try {
-                                            navigation.navigate(
-                                              'EventDetailsScreen',
-                                              { event_id: listData?.id }
-                                            );
-                                          } catch (err) {
-                                            console.error(err);
-                                          }
-                                        }}
+                                      <View
+                                        style={StyleSheet.applyWidth(
+                                          { padding: 5 },
+                                          dimensions.width
+                                        )}
                                       >
                                         <Shadow
                                           showShadowCornerBottomEnd={true}
@@ -2432,13 +2542,37 @@ const NewsletterDetailsScreen = props => {
                                           style={StyleSheet.applyWidth(
                                             {
                                               borderRadius: 12,
-                                              width: {
-                                                minWidth: Breakpoints.Laptop,
-                                                value: '100%',
-                                              },
+                                              bottom: 5,
+                                              height: '100%',
+                                              left: 5,
+                                              position: 'absolute',
+                                              right: 5,
+                                              top: 5,
+                                              width: [
+                                                {
+                                                  minWidth: Breakpoints.Laptop,
+                                                  value: '100%',
+                                                },
+                                                {
+                                                  minWidth: Breakpoints.Mobile,
+                                                  value: '100%',
+                                                },
+                                              ],
                                             },
                                             dimensions.width
                                           )}
+                                        />
+                                        <Pressable
+                                          onPress={() => {
+                                            try {
+                                              navigation.navigate(
+                                                'EventDetailsScreen',
+                                                { event_id: listData?.id }
+                                              );
+                                            } catch (err) {
+                                              console.error(err);
+                                            }
+                                          }}
                                         >
                                           <View
                                             style={StyleSheet.applyWidth(
@@ -2516,8 +2650,8 @@ const NewsletterDetailsScreen = props => {
                                               </Text>
                                             </View>
                                           </View>
-                                        </Shadow>
-                                      </Pressable>
+                                        </Pressable>
+                                      </View>
                                     );
                                   }}
                                   horizontal={false}
@@ -2530,8 +2664,8 @@ const NewsletterDetailsScreen = props => {
                                         value: 'stretch',
                                       },
                                       gap: 8,
-                                      marginLeft: -10,
-                                      marginRight: -10,
+                                      marginLeft: -15,
+                                      marginRight: -15,
                                       padding: 10,
                                     },
                                     dimensions.width
