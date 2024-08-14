@@ -636,7 +636,7 @@ const AdvisorsScreen = props => {
         handlers={{
           on401: fetchData => {
             try {
-              resetAccess(navigation, Variables, setGlobalVariableValue);
+              /* hidden 'Run a Custom Function' action */
             } catch (err) {
               console.error(err);
             }

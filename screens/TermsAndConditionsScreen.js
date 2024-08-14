@@ -33,7 +33,7 @@ const TermsAndConditionsScreen = props => {
       });
       setGlobalVariableValue({
         key: 'subPage',
-        value: false,
+        value: true,
       });
     } catch (err) {
       console.error(err);

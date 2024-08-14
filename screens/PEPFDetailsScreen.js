@@ -8,10 +8,12 @@ import assessAccess from '../global-functions/assessAccess';
 import transformEuroM from '../global-functions/transformEuroM';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
+import * as DateUtils from '../utils/DateUtils';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import {
   LinearGradient,
+  Link,
   ScreenContainer,
   SimpleStyleFlatList,
   SimpleStyleScrollView,
@@ -19,6 +21,7 @@ import {
 } from '@draftbit/ui';
 import { H3, H5, H6 } from '@expo/html-elements';
 import { useIsFocused } from '@react-navigation/native';
+import * as WebBrowser from 'expo-web-browser';
 import { ActivityIndicator, Text, View } from 'react-native';
 import { Fetch } from 'react-request';
 
@@ -257,6 +260,68 @@ const PEPFDetailsScreen = props => {
                     >
                       {fetchData?.country}
                     </Text>
+                  </View>
+                  {/* View 9 */}
+                  <View
+                    style={StyleSheet.applyWidth(
+                      { flexDirection: 'row', gap: 8 },
+                      dimensions.width
+                    )}
+                  >
+                    <View
+                      style={StyleSheet.applyWidth(
+                        { width: 100 },
+                        dimensions.width
+                      )}
+                    >
+                      <Text
+                        accessible={true}
+                        {...GlobalStyles.TextStyles(theme)['screen_title']
+                          .props}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.TextStyles(theme)['screen_title']
+                              .style,
+                            {
+                              color: palettes.Brand['Strong Inverse'],
+                              fontFamily: 'Quicksand_500Medium',
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {'Website:'}
+                      </Text>
+                    </View>
+                    <Link
+                      accessible={true}
+                      onPress={() => {
+                        const handler = async () => {
+                          try {
+                            await WebBrowser.openBrowserAsync(
+                              `${fetchData?.website}`
+                            );
+                          } catch (err) {
+                            console.error(err);
+                          }
+                        };
+                        handler();
+                      }}
+                      {...GlobalStyles.LinkStyles(theme)['Link'].props}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.LinkStyles(theme)['Link'].style,
+                          {
+                            color: {
+                              minWidth: Breakpoints.Laptop,
+                              value: palettes.App.Orange,
+                            },
+                          }
+                        ),
+                        dimensions.width
+                      )}
+                      title={`${fetchData?.website}`}
+                    />
                   </View>
                   {/* View 2 */}
                   <View
@@ -692,7 +757,10 @@ const PEPFDetailsScreen = props => {
                             )}
                           >
                             {'('}
-                            {fetchData?._fund?.age_years}
+                            {DateUtils.format(
+                              fetchData?._fund?.vintage_date,
+                              'Y'
+                            )}
                             {')'}
                           </Text>
                         )}

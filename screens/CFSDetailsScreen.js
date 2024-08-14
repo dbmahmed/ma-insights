@@ -68,7 +68,7 @@ const CFSDetailsScreen = props => {
     <ScreenContainer hasSafeArea={false} scrollable={false}>
       <CustomHeaderBlock />
       <XanoCollectionApi.FetchGetOneCFSGET
-        cfs_id={props.route?.params?.cfs_id ?? 3}
+        cfs_id={props.route?.params?.cfs_id ?? 2}
       >
         {({ loading, error, data, refetchGetOneCFS }) => {
           const fetchData = data?.json;
@@ -571,295 +571,361 @@ const CFSDetailsScreen = props => {
                   </View>
                 </LinearGradient>
               </View>
-
-              <View
-                style={StyleSheet.applyWidth(
-                  { maxWidth: 1200, padding: 10, width: '100%' },
-                  dimensions.width
-                )}
-              >
-                <H3
-                  selectable={false}
-                  {...GlobalStyles.H3Styles(theme)['H3'].props}
-                  style={StyleSheet.applyWidth(
-                    StyleSheet.compose(
-                      GlobalStyles.H3Styles(theme)['H3'].style,
-                      {
-                        fontFamily: 'Quicksand_700Bold',
-                        fontSize: 20,
-                        marginBottom: 10,
-                        marginTop: 0,
-                      }
-                    ),
-                    dimensions.width
-                  )}
-                >
-                  {fetchData?._event?.headline}
-                </H3>
-                <>
-                  {!(fetchData?.event !== 0) ? null : (
-                    <Text
-                      accessible={true}
-                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+              <>
+                {!fetchData?._main_event ? null : (
+                  <View
+                    style={StyleSheet.applyWidth(
+                      { maxWidth: 1200, padding: 10, width: '100%' },
+                      dimensions.width
+                    )}
+                  >
+                    {/* H3 3 */}
+                    <H3
+                      selectable={false}
+                      {...GlobalStyles.H3Styles(theme)['H3'].props}
                       style={StyleSheet.applyWidth(
                         StyleSheet.compose(
-                          GlobalStyles.TextStyles(theme)['screen_title'].style,
+                          GlobalStyles.H3Styles(theme)['H3'].style,
                           {
-                            color: palettes.App.Orange,
-                            fontFamily: 'Quicksand_500Medium',
-                            fontSize: 13,
-                            marginBottom: 20,
+                            alignSelf: {
+                              minWidth: Breakpoints.Laptop,
+                              value: 'flex-start',
+                            },
+                            fontFamily: 'Quicksand_700Bold',
+                            fontSize: 20,
+                            marginBottom: 10,
+                            marginTop: 0,
                           }
                         ),
                         dimensions.width
                       )}
                     >
-                      {fetchData?._event?.published}
-                      {' ('}
-                      {fetchData?._event?.source}
-                      {')'}
-                    </Text>
-                  )}
-                </>
-                <View>
-                  {/* Text 2 */}
-                  <Text
-                    accessible={true}
-                    {...GlobalStyles.TextStyles(theme)['screen_title'].props}
-                    style={StyleSheet.applyWidth(
-                      GlobalStyles.TextStyles(theme)['screen_title'].style,
-                      dimensions.width
-                    )}
-                  >
-                    {fetchData?._event?.description}
-                  </Text>
-                </View>
-              </View>
-              {/* View 3 */}
-              <View
-                style={StyleSheet.applyWidth(
-                  {
-                    alignContent: 'center',
-                    alignItems: 'center',
-                    width: '100%',
-                  },
-                  dimensions.width
-                )}
-              >
-                <View
-                  style={StyleSheet.applyWidth(
-                    {
-                      maxWidth: 1200,
-                      paddingLeft: 10,
-                      paddingRight: 10,
-                      width: '100%',
-                    },
-                    dimensions.width
-                  )}
-                >
-                  {/* H3 2 */}
-                  <H3
-                    selectable={false}
-                    {...GlobalStyles.H3Styles(theme)['H3'].props}
-                    style={StyleSheet.applyWidth(
-                      StyleSheet.compose(
-                        GlobalStyles.H3Styles(theme)['H3'].style,
-                        {
-                          alignSelf: {
-                            minWidth: Breakpoints.Laptop,
-                            value: 'flex-start',
-                          },
-                          fontFamily: 'Quicksand_700Bold',
-                          fontSize: 20,
-                          marginBottom: 10,
-                          marginTop: 0,
-                        }
-                      ),
-                      dimensions.width
-                    )}
-                  >
-                    {'Other Updates:'}
-                  </H3>
-                </View>
-                <SimpleStyleFlatList
-                  data={fetchData?.other_events}
-                  horizontal={false}
-                  inverted={false}
-                  keyExtractor={(listData, index) => listData?.id}
-                  keyboardShouldPersistTaps={'never'}
-                  listKey={'PZ8E2B8w'}
-                  nestedScrollEnabled={false}
-                  numColumns={1}
-                  onEndReached={() => {
-                    const handler = async () => {
-                      console.log('List ON_END_REACHED Start');
-                      let error = null;
-                      try {
-                        console.log('Start ON_END_REACHED:0 CONSOLE_LOG');
-                        /* hidden 'Log to Console' action */ console.log(
-                          'Complete ON_END_REACHED:0 CONSOLE_LOG'
-                        );
-                        console.log('Start ON_END_REACHED:1 CONDITIONAL_STOP');
-                        if (nextPage > lastPage) {
-                          return console.log(
-                            'Complete ON_END_REACHED:1 CONDITIONAL_STOP'
-                          );
-                        } else {
-                          console.log(
-                            'Skipped ON_END_REACHED:1 CONDITIONAL_STOP: condition not met'
-                          );
-                        }
-                        console.log('Start ON_END_REACHED:2 SET_VARIABLE');
-                        const valueJ8KIsgJR = parseInt(nextPage + 1, 10);
-                        setNextPage(valueJ8KIsgJR);
-                        const nextPageSet = valueJ8KIsgJR;
-                        console.log('Complete ON_END_REACHED:2 SET_VARIABLE');
-                        console.log('Start ON_END_REACHED:3 CONSOLE_LOG');
-                        console.log(nextPage);
-                        console.log('Complete ON_END_REACHED:3 CONSOLE_LOG');
-                        console.log('Start ON_END_REACHED:4 FETCH_REQUEST');
-                        const newData = (
-                          await XanoCollectionApi.getAllEventsGET(Constants, {
-                            countryIn: country,
-                            eventTypeIn: eventType,
-                            keyword: keywordSearch,
-                            page: nextPage,
-                            sectorIn: sector,
-                          })
-                        )?.json;
-                        console.log('Complete ON_END_REACHED:4 FETCH_REQUEST', {
-                          newData,
-                        });
-                        console.log('Start ON_END_REACHED:5 SET_VARIABLE');
-                        setEventItems(eventItems.concat(newData?.items));
-                        console.log('Complete ON_END_REACHED:5 SET_VARIABLE');
-                        console.log('Start ON_END_REACHED:6 SET_VARIABLE');
-                        setLastPage(newData?.pageTotal);
-                        console.log('Complete ON_END_REACHED:6 SET_VARIABLE');
-                      } catch (err) {
-                        console.error(err);
-                        error = err.message ?? err;
-                      }
-                      console.log(
-                        'List ON_END_REACHED Complete',
-                        error ? { error } : 'no error'
-                      );
-                    };
-                    handler();
-                  }}
-                  renderItem={({ item, index }) => {
-                    const listData = item;
-                    return (
-                      <View
+                      {'Latest Update:'}
+                    </H3>
+
+                    <H3
+                      selectable={false}
+                      {...GlobalStyles.H3Styles(theme)['H3'].props}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.H3Styles(theme)['H3'].style,
+                          {
+                            fontFamily: 'Quicksand_700Bold',
+                            fontSize: 20,
+                            marginBottom: 10,
+                            marginTop: 0,
+                          }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      {fetchData?._main_event?.headline}
+                    </H3>
+                    <>
+                      {!(fetchData?.event !== 0) ? null : (
+                        <Text
+                          accessible={true}
+                          {...GlobalStyles.TextStyles(theme)['screen_title']
+                            .props}
+                          style={StyleSheet.applyWidth(
+                            StyleSheet.compose(
+                              GlobalStyles.TextStyles(theme)['screen_title']
+                                .style,
+                              {
+                                color: palettes.App.Orange,
+                                fontFamily: 'Quicksand_500Medium',
+                                fontSize: 13,
+                                marginBottom: 20,
+                              }
+                            ),
+                            dimensions.width
+                          )}
+                        >
+                          {DateUtils.format(
+                            fetchData?._main_event?.published,
+                            'd/m/Y'
+                          )}
+                          {' ('}
+                          {fetchData?._main_event?.source}
+                          {')'}
+                        </Text>
+                      )}
+                    </>
+                    <View>
+                      {/* Text 2 */}
+                      <Text
+                        accessible={true}
+                        {...GlobalStyles.TextStyles(theme)['screen_title']
+                          .props}
                         style={StyleSheet.applyWidth(
-                          { flex: { minWidth: Breakpoints.Laptop, value: 1 } },
+                          GlobalStyles.TextStyles(theme)['screen_title'].style,
                           dimensions.width
                         )}
                       >
-                        <Touchable
-                          onPress={() => {
-                            try {
-                              navigation.navigate('EventDetailsScreen', {
-                                event_id: listData?.id,
-                              });
-                            } catch (err) {
-                              console.error(err);
+                        {fetchData?._main_event?.description}
+                      </Text>
+                    </View>
+                  </View>
+                )}
+              </>
+              {/* View 3 */}
+              <>
+                {!(
+                  fetchData?.other_events && (fetchData?.other_events)[0]
+                ) ? null : (
+                  <View
+                    style={StyleSheet.applyWidth(
+                      {
+                        alignContent: 'center',
+                        alignItems: 'center',
+                        width: '100%',
+                      },
+                      dimensions.width
+                    )}
+                  >
+                    <View
+                      style={StyleSheet.applyWidth(
+                        {
+                          maxWidth: 1200,
+                          paddingLeft: 10,
+                          paddingRight: 10,
+                          width: '100%',
+                        },
+                        dimensions.width
+                      )}
+                    >
+                      {/* H3 2 */}
+                      <H3
+                        selectable={false}
+                        {...GlobalStyles.H3Styles(theme)['H3'].props}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.H3Styles(theme)['H3'].style,
+                            {
+                              alignSelf: {
+                                minWidth: Breakpoints.Laptop,
+                                value: 'flex-start',
+                              },
+                              fontFamily: 'Quicksand_700Bold',
+                              fontSize: 20,
+                              marginBottom: 10,
+                              marginTop: 0,
                             }
-                          }}
-                        >
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {'Other Updates:'}
+                      </H3>
+                    </View>
+                    <SimpleStyleFlatList
+                      data={fetchData?.other_events}
+                      horizontal={false}
+                      inverted={false}
+                      keyExtractor={(listData, index) => listData?.id}
+                      keyboardShouldPersistTaps={'never'}
+                      listKey={'PZ8E2B8w'}
+                      nestedScrollEnabled={false}
+                      numColumns={1}
+                      onEndReached={() => {
+                        const handler = async () => {
+                          console.log('List ON_END_REACHED Start');
+                          let error = null;
+                          try {
+                            console.log('Start ON_END_REACHED:0 CONSOLE_LOG');
+                            /* hidden 'Log to Console' action */ console.log(
+                              'Complete ON_END_REACHED:0 CONSOLE_LOG'
+                            );
+                            console.log(
+                              'Start ON_END_REACHED:1 CONDITIONAL_STOP'
+                            );
+                            if (nextPage > lastPage) {
+                              return console.log(
+                                'Complete ON_END_REACHED:1 CONDITIONAL_STOP'
+                              );
+                            } else {
+                              console.log(
+                                'Skipped ON_END_REACHED:1 CONDITIONAL_STOP: condition not met'
+                              );
+                            }
+                            console.log('Start ON_END_REACHED:2 SET_VARIABLE');
+                            const valueJ8KIsgJR = parseInt(nextPage + 1, 10);
+                            setNextPage(valueJ8KIsgJR);
+                            const nextPageSet = valueJ8KIsgJR;
+                            console.log(
+                              'Complete ON_END_REACHED:2 SET_VARIABLE'
+                            );
+                            console.log('Start ON_END_REACHED:3 CONSOLE_LOG');
+                            console.log(nextPage);
+                            console.log(
+                              'Complete ON_END_REACHED:3 CONSOLE_LOG'
+                            );
+                            console.log('Start ON_END_REACHED:4 FETCH_REQUEST');
+                            const newData = (
+                              await XanoCollectionApi.getAllEventsGET(
+                                Constants,
+                                {
+                                  countryIn: country,
+                                  eventTypeIn: eventType,
+                                  keyword: keywordSearch,
+                                  page: nextPage,
+                                  sectorIn: sector,
+                                }
+                              )
+                            )?.json;
+                            console.log(
+                              'Complete ON_END_REACHED:4 FETCH_REQUEST',
+                              { newData }
+                            );
+                            console.log('Start ON_END_REACHED:5 SET_VARIABLE');
+                            setEventItems(eventItems.concat(newData?.items));
+                            console.log(
+                              'Complete ON_END_REACHED:5 SET_VARIABLE'
+                            );
+                            console.log('Start ON_END_REACHED:6 SET_VARIABLE');
+                            setLastPage(newData?.pageTotal);
+                            console.log(
+                              'Complete ON_END_REACHED:6 SET_VARIABLE'
+                            );
+                          } catch (err) {
+                            console.error(err);
+                            error = err.message ?? err;
+                          }
+                          console.log(
+                            'List ON_END_REACHED Complete',
+                            error ? { error } : 'no error'
+                          );
+                        };
+                        handler();
+                      }}
+                      renderItem={({ item, index }) => {
+                        const listData = item;
+                        return (
                           <View
                             style={StyleSheet.applyWidth(
                               {
-                                borderBottomWidth: 0.5,
-                                borderColor: theme.colors.text.light,
-                                flexWrap: {
+                                flex: {
                                   minWidth: Breakpoints.Laptop,
-                                  value: 'nowrap',
+                                  value: 1,
                                 },
-                                paddingBottom: 5,
-                                paddingTop: 5,
                               },
                               dimensions.width
                             )}
                           >
-                            <H6
-                              selectable={false}
-                              {...GlobalStyles.H6Styles(theme)['H6'].props}
-                              style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.H6Styles(theme)['H6'].style,
-                                  {
-                                    fontFamily: 'Quicksand_700Bold',
-                                    fontSize: [
-                                      {
-                                        minWidth: Breakpoints.Laptop,
-                                        value: 14,
-                                      },
-                                      {
-                                        minWidth: Breakpoints.Mobile,
-                                        value: 14,
-                                      },
-                                    ],
-                                    margin: 0,
-                                  }
-                                ),
-                                dimensions.width
-                              )}
+                            <Touchable
+                              onPress={() => {
+                                try {
+                                  navigation.navigate('EventDetailsScreen', {
+                                    event_id: listData?.id,
+                                  });
+                                } catch (err) {
+                                  console.error(err);
+                                }
+                              }}
                             >
-                              {listData?.headline}
-                            </H6>
-
-                            <Text
-                              accessible={true}
-                              {...GlobalStyles.TextStyles(theme)['screen_title']
-                                .props}
-                              style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.TextStyles(theme)['screen_title']
-                                    .style,
+                              <View
+                                style={StyleSheet.applyWidth(
                                   {
-                                    fontFamily: 'Quicksand_400Regular',
-                                    fontSize: [
+                                    borderBottomWidth: 0.5,
+                                    borderColor: theme.colors.text.light,
+                                    flexWrap: {
+                                      minWidth: Breakpoints.Laptop,
+                                      value: 'nowrap',
+                                    },
+                                    paddingBottom: 5,
+                                    paddingTop: 5,
+                                  },
+                                  dimensions.width
+                                )}
+                              >
+                                <H6
+                                  selectable={false}
+                                  {...GlobalStyles.H6Styles(theme)['H6'].props}
+                                  style={StyleSheet.applyWidth(
+                                    StyleSheet.compose(
+                                      GlobalStyles.H6Styles(theme)['H6'].style,
                                       {
-                                        minWidth: Breakpoints.Laptop,
-                                        value: 12,
-                                      },
-                                      {
-                                        minWidth: Breakpoints.Mobile,
-                                        value: 12,
-                                      },
-                                    ],
-                                    marginTop: 4,
-                                  }
-                                ),
-                                dimensions.width
-                              )}
-                            >
-                              {DateUtils.format(listData?.published, 'd/m/Y')}
-                              {' | Source: '}
-                              {listData?.source}
-                            </Text>
+                                        fontFamily: 'Quicksand_700Bold',
+                                        fontSize: [
+                                          {
+                                            minWidth: Breakpoints.Laptop,
+                                            value: 14,
+                                          },
+                                          {
+                                            minWidth: Breakpoints.Mobile,
+                                            value: 14,
+                                          },
+                                        ],
+                                        margin: 0,
+                                      }
+                                    ),
+                                    dimensions.width
+                                  )}
+                                >
+                                  {listData?.headline}
+                                </H6>
+                                <>
+                                  {!(fetchData?.event !== 0) ? null : (
+                                    <Text
+                                      accessible={true}
+                                      {...GlobalStyles.TextStyles(theme)[
+                                        'screen_title'
+                                      ].props}
+                                      style={StyleSheet.applyWidth(
+                                        StyleSheet.compose(
+                                          GlobalStyles.TextStyles(theme)[
+                                            'screen_title'
+                                          ].style,
+                                          {
+                                            fontFamily: 'Quicksand_400Regular',
+                                            fontSize: [
+                                              {
+                                                minWidth: Breakpoints.Laptop,
+                                                value: 12,
+                                              },
+                                              {
+                                                minWidth: Breakpoints.Mobile,
+                                                value: 12,
+                                              },
+                                            ],
+                                            marginTop: 4,
+                                          }
+                                        ),
+                                        dimensions.width
+                                      )}
+                                    >
+                                      {DateUtils.format(
+                                        listData?.published,
+                                        'd/m/Y'
+                                      )}
+                                      {' | Source: '}
+                                      {listData?.source}
+                                    </Text>
+                                  )}
+                                </>
+                              </View>
+                            </Touchable>
                           </View>
-                        </Touchable>
-                      </View>
-                    );
-                  }}
-                  onEndReachedThreshold={0.2}
-                  showsHorizontalScrollIndicator={false}
-                  showsVerticalScrollIndicator={false}
-                  style={StyleSheet.applyWidth(
-                    {
-                      gap: { minWidth: Breakpoints.Laptop, value: 5 },
-                      maxHeight: dimensions.height - 250,
-                      maxWidth: 1200,
-                      paddingLeft: 10,
-                      paddingRight: 10,
-                      width: '100%',
-                    },
-                    dimensions.width
-                  )}
-                />
-              </View>
+                        );
+                      }}
+                      onEndReachedThreshold={0.2}
+                      showsHorizontalScrollIndicator={false}
+                      showsVerticalScrollIndicator={false}
+                      style={StyleSheet.applyWidth(
+                        {
+                          gap: { minWidth: Breakpoints.Laptop, value: 5 },
+                          maxHeight: dimensions.height - 250,
+                          maxWidth: 1200,
+                          paddingLeft: 10,
+                          paddingRight: 10,
+                          width: '100%',
+                        },
+                        dimensions.width
+                      )}
+                    />
+                  </View>
+                )}
+              </>
             </SimpleStyleScrollView>
           );
         }}

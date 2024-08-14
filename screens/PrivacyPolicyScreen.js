@@ -38,7 +38,7 @@ const PrivacyPolicyScreen = props => {
       });
       setGlobalVariableValue({
         key: 'subPage',
-        value: false,
+        value: true,
       });
     } catch (err) {
       console.error(err);
@@ -46,7 +46,7 @@ const PrivacyPolicyScreen = props => {
   }, [isFocused]);
 
   return (
-    <ScreenContainer hasSafeArea={false} scrollable={true}>
+    <ScreenContainer hasSafeArea={false} scrollable={false}>
       <CustomHeaderBlock />
       {/* View 2 */}
       <View
@@ -61,6 +61,7 @@ const PrivacyPolicyScreen = props => {
         )}
       >
         <View
+          pointerEvents={'auto'}
           style={StyleSheet.applyWidth(
             {
               alignItems: 'stretch',
@@ -104,8 +105,9 @@ const PrivacyPolicyScreen = props => {
           <SimpleStyleScrollView
             bounces={true}
             horizontal={false}
-            keyboardShouldPersistTaps={'never'}
             nestedScrollEnabled={false}
+            keyboardShouldPersistTaps={'always'}
+            pagingEnabled={true}
             showsHorizontalScrollIndicator={false}
             showsVerticalScrollIndicator={false}
           >

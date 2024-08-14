@@ -232,7 +232,7 @@ const PEPFScreen = props => {
       }
       setGlobalVariableValue({
         key: 'pageName',
-        value: 'PEFP',
+        value: 'PEPF',
       });
       setGlobalVariableValue({
         key: 'subPage',
@@ -517,28 +517,15 @@ const PEPFScreen = props => {
                 listKey={'hDO0JNzh'}
                 nestedScrollEnabled={false}
                 onEndReached={() => {
-                  const handler = async () => {
-                    try {
-                      if (nextPage > lastPage) {
-                        return;
-                      }
-                      setNextPage(parseInt(nextPage + 1, 10));
-                      const newData = (
-                        await XanoCollectionApi.getAllPEPFGET(Constants, {
-                          countryIn: country,
-                          ebitdaIn: ebitdaRange,
-                          page: nextPage,
-                          sectorIn: sector,
-                          vintageIn: fundVintage,
-                        })
-                      )?.json;
-                      setPepfItems(pepfItems.concat(newData?.items));
-                      setLastPage(newData?.pagesTotal);
-                    } catch (err) {
-                      console.error(err);
-                    }
-                  };
-                  handler();
+                  try {
+                    /* hidden 'Conditional Stop' action */
+                    /* hidden 'Set Variable' action */
+                    /* hidden 'API Request' action */
+                    /* hidden 'Set Variable' action */
+                    /* hidden 'Set Variable' action */
+                  } catch (err) {
+                    console.error(err);
+                  }
                 }}
                 onEndReachedThreshold={0.5}
                 renderItem={({ item, index }) => {
@@ -753,8 +740,8 @@ const PEPFScreen = props => {
                                       >
                                         {'('}
                                         {DateUtils.format(
-                                          listData?._fund.created_at,
-                                          'dd/mm/yyyy'
+                                          listData?._fund.vintage_date,
+                                          'Y'
                                         )}
                                         {')'}
                                       </Text>
@@ -778,7 +765,7 @@ const PEPFScreen = props => {
                                   dimensions.width
                                 )}
                               >
-                                {'Acq: '}
+                                {'Acq.: '}
                                 {listData?.acquired_date}
                               </Text>
                               {/* Text 5 */}
@@ -798,7 +785,14 @@ const PEPFScreen = props => {
                                 )}
                               >
                                 {'EBITDA: '}
-                                {transformEuroM(listData?.ebitda_eur)}
+                                {transformEuroM(listData?.ebitda_eur)}{' '}
+                                {transformEuroM(listData?.ebitda_eur) !== '-'
+                                  ? '(' +
+                                    DateUtils.format(
+                                      listData?.financial_year,
+                                      'Y' + ')'
+                                    )
+                                  : undefined}
                               </Text>
                             </View>
                           </View>

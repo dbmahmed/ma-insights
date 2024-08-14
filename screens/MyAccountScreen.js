@@ -266,6 +266,8 @@ const MyAccountScreen = props => {
                         accessible={true}
                         {...GlobalStyles.TextStyles(theme)['screen_title']
                           .props}
+                        adjustsFontSizeToFit={true}
+                        numberOfLines={2}
                         style={StyleSheet.applyWidth(
                           StyleSheet.compose(
                             GlobalStyles.TextStyles(theme)['screen_title']

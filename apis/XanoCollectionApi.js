@@ -76,6 +76,91 @@ export const FetchAuthMeGET = ({
   return children({ loading, data, error, refetchAuthMe: refetch });
 };
 
+export const eventTransactionsGET = async (
+  Constants,
+  { keyword, page, region_in, sector_in },
+  handlers = {}
+) => {
+  const paramsDict = {};
+  if (sector_in !== undefined) {
+    paramsDict['sector_in'] = renderParam(sector_in);
+  }
+  if (region_in !== undefined) {
+    paramsDict['region_in'] = renderParam(region_in);
+  }
+  if (keyword !== undefined) {
+    paramsDict['keyword'] = renderParam(keyword);
+  }
+  if (page !== undefined) {
+    paramsDict['page'] = renderParam(page);
+  }
+  const url = `https://xne3-pdiu-8ysm.f2.xano.io/api:abjrBkC8/event_transactions${renderQueryString(
+    paramsDict
+  )}`;
+  const options = {
+    headers: cleanHeaders({
+      Accept: 'application/json',
+      Authorization: Constants['AUTH_HEADER'],
+      'Content-Type': 'application/json',
+    }),
+  };
+  const res = await fetch(url, options);
+  return handleResponse(res, handlers);
+};
+
+export const useEventTransactionsGET = (
+  args = {},
+  { refetchInterval, handlers = {} } = {}
+) => {
+  const Constants = GlobalVariables.useValues();
+  return useQuery(
+    ['Events', args],
+    () => eventTransactionsGET(Constants, args, handlers),
+    {
+      refetchInterval,
+    }
+  );
+};
+
+export const FetchEventTransactionsGET = ({
+  children,
+  onData = () => {},
+  handlers = {},
+  refetchInterval,
+  keyword,
+  page,
+  region_in,
+  sector_in,
+}) => {
+  const Constants = GlobalVariables.useValues();
+  const isFocused = useIsFocused();
+  const prevIsFocused = usePrevious(isFocused);
+
+  const {
+    isLoading: loading,
+    data,
+    error,
+    refetch,
+  } = useEventTransactionsGET(
+    { keyword, page, region_in, sector_in },
+    { refetchInterval, handlers: { onData, ...handlers } }
+  );
+
+  React.useEffect(() => {
+    if (!prevIsFocused && isFocused) {
+      refetch();
+    }
+  }, [isFocused, prevIsFocused]);
+
+  React.useEffect(() => {
+    if (error) {
+      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error(error);
+    }
+  }, [error]);
+  return children({ loading, data, error, refetchEventTransactions: refetch });
+};
+
 export const getAdvisorGET = async (
   Constants,
   { advisor_id },
@@ -151,6 +236,7 @@ export const getAdvisorsGET = async (Constants, _args, handlers = {}) => {
   const options = {
     headers: cleanHeaders({
       Accept: 'application/json',
+      Authorization: Constants['AUTH_HEADER'],
       'Content-Type': 'application/json',
     }),
   };

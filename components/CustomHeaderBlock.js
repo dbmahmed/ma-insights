@@ -459,8 +459,8 @@ const CustomHeaderBlock = props => {
       </Shadow>
       {/* Side Menu */}
       <Modal
-        animationType={'none'}
         supportedOrientations={['portrait', 'landscape']}
+        animationType={'fade'}
         presentationStyle={'pageSheet'}
         transparent={true}
         visible={Constants['top_nav_pressed']}

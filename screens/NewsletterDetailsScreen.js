@@ -20,7 +20,7 @@ import {
   SimpleStyleScrollView,
   withTheme,
 } from '@draftbit/ui';
-import { H1, H3 } from '@expo/html-elements';
+import { H1, H3, H5 } from '@expo/html-elements';
 import { useIsFocused } from '@react-navigation/native';
 import { ActivityIndicator, Text, View } from 'react-native';
 import { Fetch } from 'react-request';
@@ -324,6 +324,39 @@ const NewsletterDetailsScreen = props => {
                       dimensions.width
                     )}
                   >
+                    <>
+                      {!(dimensions.width >= Breakpoints.Laptop) ? null : (
+                        <H5
+                          selectable={false}
+                          {...GlobalStyles.H5Styles(theme)['H5'].props}
+                          style={StyleSheet.applyWidth(
+                            StyleSheet.compose(
+                              GlobalStyles.H5Styles(theme)['H5'].style,
+                              {
+                                fontFamily: 'Quicksand_600SemiBold',
+                                fontSize: 25,
+                                marginBottom: {
+                                  minWidth: Breakpoints.Laptop,
+                                  value: 0,
+                                },
+                                marginTop: {
+                                  minWidth: Breakpoints.Laptop,
+                                  value: 10,
+                                },
+                                paddingLeft: [
+                                  { minWidth: Breakpoints.Mobile, value: 5 },
+                                  { minWidth: Breakpoints.Laptop, value: 10 },
+                                ],
+                                textDecorationLine: 'none',
+                              }
+                            ),
+                            dimensions.width
+                          )}
+                        >
+                          {'Newsletter details'}
+                        </H5>
+                      )}
+                    </>
                     <View
                       style={StyleSheet.applyWidth(
                         { marginBottom: 10, padding: 10 },

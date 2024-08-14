@@ -7,6 +7,8 @@ import * as GlobalVariables from '../config/GlobalVariableContext';
 import assessAccess from '../global-functions/assessAccess';
 import formatNumber from '../global-functions/formatNumber';
 import setPadding from '../global-functions/setPadding';
+import showDate from '../global-functions/showDate';
+import transformNumber from '../global-functions/transformNumber';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
@@ -378,8 +380,13 @@ const TransactionsScreen = props => {
         </View>
       </View>
 
-      <XanoCollectionApi.FetchGetAllEventsGET page={1}>
-        {({ loading, error, data, refetchGetAllEvents }) => {
+      <XanoCollectionApi.FetchEventTransactionsGET
+        keyword={keywordSearch}
+        page={1}
+        region_in={region}
+        sector_in={sector}
+      >
+        {({ loading, error, data, refetchEventTransactions }) => {
           const fetchData = data?.json;
           if (loading) {
             return <LoadingBlock />;
@@ -442,7 +449,7 @@ const TransactionsScreen = props => {
                     )}
                   >
                     {formatNumber(fetchData?.itemsTotal)}
-                    {' private equity firms matching filter'}
+                    {' transactions matching filter'}
                   </Text>
                 </View>
               </View>
@@ -690,10 +697,10 @@ const TransactionsScreen = props => {
                                   dimensions.width
                                 )}
                               >
-                                {listData?.ev_sales}
-                                {' ('}
-                                {listData?.fy_end}
-                                {')'}
+                                {transformNumber(listData?.ev_sales)}{' '}
+                                {transformNumber(listData?.ev_sales) !== '-'
+                                  ? '(' + (listData?.fy_end + ')')
+                                  : undefined}
                               </Text>
                             </View>
                             {/* View 2 */}
@@ -749,10 +756,11 @@ const TransactionsScreen = props => {
                                   dimensions.width
                                 )}
                               >
-                                {listData?.ebitda_local}
-                                {' ('}
-                                {listData?.fy_end}
-                                {')'}
+                                {transformNumber(listData?.ev_ebitda)}{' '}
+                                {showDate(
+                                  listData?.ev_ebitda,
+                                  listData?.fy_end
+                                )}
                               </Text>
                             </View>
                             {/* View 3 */}
@@ -808,10 +816,8 @@ const TransactionsScreen = props => {
                                   dimensions.width
                                 )}
                               >
-                                {listData?.ev_ebit}
-                                {' ('}
-                                {listData?.fy_end}
-                                {')'}
+                                {transformNumber(listData?.ev_ebit)}{' '}
+                                {showDate(listData?.ev_ebit, listData?.fy_end)}
                               </Text>
                             </View>
                           </View>
@@ -2235,7 +2241,7 @@ const TransactionsScreen = props => {
             </>
           );
         }}
-      </XanoCollectionApi.FetchGetAllEventsGET>
+      </XanoCollectionApi.FetchEventTransactionsGET>
     </ScreenContainer>
   );
 };
