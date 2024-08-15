@@ -6,6 +6,7 @@ import LoadingBlock from '../components/LoadingBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import assessAccess from '../global-functions/assessAccess';
 import formatNumber from '../global-functions/formatNumber';
+import modifyArrays from '../global-functions/modifyArrays';
 import setPadding from '../global-functions/setPadding';
 import showDate from '../global-functions/showDate';
 import transformNumber from '../global-functions/transformNumber';
@@ -47,6 +48,11 @@ const TransactionsScreen = props => {
     React.useState(true);
   const [consumer_staples, setConsumer_staples] = React.useState(true);
   const [dach, setDach] = React.useState(true);
+  const [ebitdaRange, setEbitdaRange] = React.useState([]);
+  const [ebitda_giant, setEbitda_giant] = React.useState(false);
+  const [ebitda_large, setEbitda_large] = React.useState(false);
+  const [ebitda_medium, setEbitda_medium] = React.useState(false);
+  const [ebitda_small, setEbitda_small] = React.useState(false);
   const [energy, setEnergy] = React.useState(true);
   const [filterPressed, setFilterPressed] = React.useState(false);
   const [financials, setFinancials] = React.useState(true);
@@ -63,7 +69,40 @@ const TransactionsScreen = props => {
   const [sector, setSector] = React.useState([]);
   const [transaction, setTransaction] = React.useState(true);
   const [utilities, setUtilities] = React.useState(true);
+  const toggleAllFilters = flag => {
+    setEbitda_large(flag);
+    setEbitda_medium(flag);
+    setEbitda_small(flag);
+    setEbitda_giant(flag);
+
+    setCommunication_services(flag);
+    setIndustrials(flag);
+    setConsumer_discretionary(flag);
+    setIt_and_software(flag);
+    setConsumer_staples(flag);
+    setMaterials(flag);
+    setEnergy(flag);
+    setReal_estate(flag);
+    setFinancials(flag);
+    setUtilities(flag);
+    setHealth_care(flag);
+
+    setNordic(flag);
+    setDach(flag);
+    setRoW(flag);
+  };
+
   const applyFilters = () => {
+    //EBITDA Range
+    const ebitdaRange = [];
+
+    ebitda_giant && ebitdaRange.push('EBITDA > €50m');
+    ebitda_large && ebitdaRange.push('€20m < EBITDA ≤ €50m');
+    ebitda_medium && ebitdaRange.push('€5m < EBITDA ≤ €20m');
+    ebitda_small && ebitdaRange.push('EBITDA ≤ €5m');
+
+    setEbitdaRange(() => ebitdaRange);
+
     //sector
     const sectors = [];
 
@@ -92,6 +131,11 @@ const TransactionsScreen = props => {
   };
 
   const matchingFilters = () => {
+    setEbitda_giant((ebitdaRange || []).includes('EBITDA > €50m'));
+    setEbitda_large((ebitdaRange || []).includes('€20m < EBITDA ≤ €50m'));
+    setEbitda_medium((ebitdaRange || []).includes('€5m < EBITDA ≤ €20m'));
+    setEbitda_small((ebitdaRange || []).includes('EBITDA ≤ €5m'));
+
     setCommunication_services(
       (sector || []).includes('Communication Services')
     );
@@ -111,24 +155,6 @@ const TransactionsScreen = props => {
     setNordic((region || []).includes('Nordic'));
     setDach((region || []).includes('DACH'));
     setRoW((region || []).includes('RoW'));
-  };
-
-  const toggleAllFilters = flag => {
-    setCommunication_services(flag);
-    setIndustrials(flag);
-    setConsumer_discretionary(flag);
-    setIt_and_software(flag);
-    setConsumer_staples(flag);
-    setMaterials(flag);
-    setEnergy(flag);
-    setReal_estate(flag);
-    setFinancials(flag);
-    setUtilities(flag);
-    setHealth_care(flag);
-
-    setNordic(flag);
-    setDach(flag);
-    setRoW(flag);
   };
   const isFocused = useIsFocused();
   React.useEffect(() => {
@@ -1000,6 +1026,352 @@ const TransactionsScreen = props => {
                           </View>
                         </Shadow>
                       </HStack>
+                      {/* EBITDA */}
+                      <View
+                        style={StyleSheet.applyWidth(
+                          {
+                            alignItems: 'flex-start',
+                            flexDirection: [
+                              { minWidth: Breakpoints.Mobile, value: 'column' },
+                              { minWidth: Breakpoints.Tablet, value: 'column' },
+                            ],
+                            gap: 8,
+                            padding: 10,
+                          },
+                          dimensions.width
+                        )}
+                      >
+                        <H5
+                          selectable={false}
+                          {...GlobalStyles.H5Styles(theme)['H5'].props}
+                          style={StyleSheet.applyWidth(
+                            StyleSheet.compose(
+                              GlobalStyles.H5Styles(theme)['H5'].style,
+                              {
+                                color: palettes.Brand['Strong Inverse'],
+                                fontSize: 16,
+                                marginBottom: 0,
+                                marginTop: 0,
+                              }
+                            ),
+                            dimensions.width
+                          )}
+                        >
+                          {'Target EBITDA'}
+                        </H5>
+
+                        <View
+                          {...GlobalStyles.ViewStyles(theme)['split_options']
+                            .props}
+                          style={StyleSheet.applyWidth(
+                            StyleSheet.compose(
+                              GlobalStyles.ViewStyles(theme)['split_options']
+                                .style,
+                              { gap: 0, margin: -4, width: '100%' }
+                            ),
+                            dimensions.width
+                          )}
+                        >
+                          {/* EBTDA ≤ €5m */}
+                          <View
+                            style={StyleSheet.applyWidth(
+                              {
+                                alignContent: 'center',
+                                alignItems: 'center',
+                                flexDirection: 'row',
+                                gap: 4,
+                                padding: 4,
+                                width: [
+                                  {
+                                    minWidth: Breakpoints.Mobile,
+                                    value: '50%',
+                                  },
+                                  {
+                                    minWidth: Breakpoints.Laptop,
+                                    value: '25%',
+                                  },
+                                ],
+                              },
+                              dimensions.width
+                            )}
+                          >
+                            <Checkbox
+                              onPress={newCheckboxValue => {
+                                const handler = async () => {
+                                  console.log('Checkbox ON_PRESS Start');
+                                  let error = null;
+                                  try {
+                                    console.log(
+                                      'Start ON_PRESS:0 SET_VARIABLE'
+                                    );
+                                    setEbitda_small(newCheckboxValue);
+                                    console.log(
+                                      'Complete ON_PRESS:0 SET_VARIABLE'
+                                    );
+                                    console.log('Start ON_PRESS:1 WAIT');
+                                    await waitUtil({ milliseconds: 1000 });
+                                    console.log('Complete ON_PRESS:1 WAIT');
+                                    console.log('Start ON_PRESS:2 CONSOLE_LOG');
+                                    console.log(ebitda_small);
+                                    console.log(
+                                      'Complete ON_PRESS:2 CONSOLE_LOG'
+                                    );
+                                  } catch (err) {
+                                    console.error(err);
+                                    error = err.message ?? err;
+                                  }
+                                  console.log(
+                                    'Checkbox ON_PRESS Complete',
+                                    error ? { error } : 'no error'
+                                  );
+                                };
+                                handler();
+                              }}
+                              color={palettes.Brand['Strong Inverse']}
+                              size={24}
+                              status={ebitda_small}
+                              uncheckedColor={palettes.Brand['Strong Inverse']}
+                            />
+                            <Pressable
+                              onPress={() => {
+                                try {
+                                  setEbitda_small(ebitda_small ? false : true);
+                                } catch (err) {
+                                  console.error(err);
+                                }
+                              }}
+                            >
+                              <Text
+                                accessible={true}
+                                {...GlobalStyles.TextStyles(theme)[
+                                  'screen_title'
+                                ].props}
+                                style={StyleSheet.applyWidth(
+                                  StyleSheet.compose(
+                                    GlobalStyles.TextStyles(theme)[
+                                      'screen_title'
+                                    ].style,
+                                    {
+                                      color: palettes.Brand['Strong Inverse'],
+                                      fontFamily: 'Quicksand_400Regular',
+                                      fontSize: 12,
+                                    }
+                                  ),
+                                  dimensions.width
+                                )}
+                              >
+                                {'EBITDA ≤ €5m'}
+                              </Text>
+                            </Pressable>
+                          </View>
+                          {/* €5m < EBITDA ≤ €20m */}
+                          <View
+                            style={StyleSheet.applyWidth(
+                              {
+                                alignContent: 'center',
+                                alignItems: 'center',
+                                flexDirection: 'row',
+                                gap: 4,
+                                padding: 4,
+                                width: [
+                                  {
+                                    minWidth: Breakpoints.Mobile,
+                                    value: '50%',
+                                  },
+                                  {
+                                    minWidth: Breakpoints.Laptop,
+                                    value: '25%',
+                                  },
+                                ],
+                              },
+                              dimensions.width
+                            )}
+                          >
+                            <Checkbox
+                              onPress={newCheckboxValue => {
+                                try {
+                                  setEbitda_medium(newCheckboxValue);
+                                } catch (err) {
+                                  console.error(err);
+                                }
+                              }}
+                              color={palettes.Brand['Strong Inverse']}
+                              size={24}
+                              status={ebitda_medium}
+                              uncheckedColor={palettes.Brand['Strong Inverse']}
+                            />
+                            <Pressable
+                              onPress={() => {
+                                try {
+                                  setEbitda_medium(
+                                    ebitda_medium ? false : true
+                                  );
+                                } catch (err) {
+                                  console.error(err);
+                                }
+                              }}
+                            >
+                              <Text
+                                accessible={true}
+                                {...GlobalStyles.TextStyles(theme)[
+                                  'screen_title'
+                                ].props}
+                                style={StyleSheet.applyWidth(
+                                  StyleSheet.compose(
+                                    GlobalStyles.TextStyles(theme)[
+                                      'screen_title'
+                                    ].style,
+                                    {
+                                      color: palettes.Brand['Strong Inverse'],
+                                      fontFamily: 'Quicksand_400Regular',
+                                      fontSize: 12,
+                                    }
+                                  ),
+                                  dimensions.width
+                                )}
+                              >
+                                {'€5m < EBITDA ≤ €20m'}
+                              </Text>
+                            </Pressable>
+                          </View>
+                          {/* €20m < EBITDA ≤ €50m */}
+                          <View
+                            style={StyleSheet.applyWidth(
+                              {
+                                alignContent: 'center',
+                                alignItems: 'center',
+                                flexDirection: 'row',
+                                gap: 4,
+                                padding: 4,
+                                width: [
+                                  {
+                                    minWidth: Breakpoints.Mobile,
+                                    value: '50%',
+                                  },
+                                  {
+                                    minWidth: Breakpoints.Laptop,
+                                    value: '25%',
+                                  },
+                                ],
+                              },
+                              dimensions.width
+                            )}
+                          >
+                            <Checkbox
+                              onPress={newCheckboxValue => {
+                                try {
+                                  setEbitda_large(newCheckboxValue);
+                                } catch (err) {
+                                  console.error(err);
+                                }
+                              }}
+                              color={palettes.Brand['Strong Inverse']}
+                              size={24}
+                              status={ebitda_large}
+                              uncheckedColor={palettes.Brand['Strong Inverse']}
+                            />
+                            <Pressable
+                              onPress={() => {
+                                try {
+                                  setEbitda_large(ebitda_large ? false : true);
+                                } catch (err) {
+                                  console.error(err);
+                                }
+                              }}
+                            >
+                              <Text
+                                accessible={true}
+                                {...GlobalStyles.TextStyles(theme)[
+                                  'screen_title'
+                                ].props}
+                                style={StyleSheet.applyWidth(
+                                  StyleSheet.compose(
+                                    GlobalStyles.TextStyles(theme)[
+                                      'screen_title'
+                                    ].style,
+                                    {
+                                      color: palettes.Brand['Strong Inverse'],
+                                      fontFamily: 'Quicksand_400Regular',
+                                      fontSize: 12,
+                                    }
+                                  ),
+                                  dimensions.width
+                                )}
+                              >
+                                {'€20m < EBITDA ≤ €50m'}
+                              </Text>
+                            </Pressable>
+                          </View>
+                          {/* EBITDA >  €50m */}
+                          <View
+                            style={StyleSheet.applyWidth(
+                              {
+                                alignContent: 'center',
+                                alignItems: 'center',
+                                flexDirection: 'row',
+                                gap: 4,
+                                padding: 4,
+                                width: [
+                                  {
+                                    minWidth: Breakpoints.Mobile,
+                                    value: '50%',
+                                  },
+                                  {
+                                    minWidth: Breakpoints.Laptop,
+                                    value: '25%',
+                                  },
+                                ],
+                              },
+                              dimensions.width
+                            )}
+                          >
+                            <Checkbox
+                              onPress={newCheckboxValue => {
+                                try {
+                                  setEbitda_giant(newCheckboxValue);
+                                } catch (err) {
+                                  console.error(err);
+                                }
+                              }}
+                              color={palettes.Brand['Strong Inverse']}
+                              size={24}
+                              status={ebitda_giant}
+                              uncheckedColor={palettes.Brand['Strong Inverse']}
+                            />
+                            <Pressable
+                              onPress={() => {
+                                try {
+                                  setEbitda_giant(ebitda_giant ? false : true);
+                                } catch (err) {
+                                  console.error(err);
+                                }
+                              }}
+                            >
+                              <Text
+                                accessible={true}
+                                {...GlobalStyles.TextStyles(theme)[
+                                  'screen_title'
+                                ].props}
+                                style={StyleSheet.applyWidth(
+                                  StyleSheet.compose(
+                                    GlobalStyles.TextStyles(theme)[
+                                      'screen_title'
+                                    ].style,
+                                    {
+                                      color: palettes.Brand['Strong Inverse'],
+                                      fontFamily: 'Quicksand_400Regular',
+                                      fontSize: 12,
+                                    }
+                                  ),
+                                  dimensions.width
+                                )}
+                              >
+                                {'EBITDA >  €50m'}
+                              </Text>
+                            </Pressable>
+                          </View>
+                        </View>
+                      </View>
                       {/* Sector */}
                       <View
                         style={StyleSheet.applyWidth(

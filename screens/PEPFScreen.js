@@ -679,7 +679,6 @@ const PEPFScreen = props => {
                                   dimensions.width
                                 )}
                               >
-                                {'Company description: '}
                                 {cutText(listData?.company_description, 60)}
                               </Text>
                             </View>

@@ -1120,7 +1120,7 @@ const CustomHeaderBlock = props => {
                       GlobalStyles.HStackStyles(theme)['H Stack'].style,
                       {
                         gap: { minWidth: Breakpoints.Laptop, value: 10 },
-                        justifyContent: 'center',
+                        justifyContent: 'flex-start',
                       }
                     ),
                     dimensions.width
