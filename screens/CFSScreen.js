@@ -513,7 +513,9 @@ const CFSScreen = props => {
                   >
                     {formatNumber(fetchData?.itemsTotal)}{' '}
                     {fetchData?.itemsTotal > 1 ? 'companies' : 'company'}
-                    {' for sale matching filter'}
+                    {
+                      ' for sale matching filter and sorted by latest coverage, new to old'
+                    }
                   </Text>
                 </View>
               </View>
