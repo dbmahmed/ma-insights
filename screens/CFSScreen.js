@@ -796,20 +796,8 @@ const CFSScreen = props => {
                     style={StyleSheet.applyWidth(
                       {
                         maxHeight: dimensions.height - 195,
-                        paddingLeft: [
-                          { minWidth: Breakpoints.Mobile, value: 5 },
-                          {
-                            minWidth: Breakpoints.Mobile,
-                            value: setPadding(dimensions.width),
-                          },
-                        ],
-                        paddingRight: [
-                          { minWidth: Breakpoints.Mobile, value: 5 },
-                          {
-                            minWidth: Breakpoints.Mobile,
-                            value: setPadding(dimensions.width),
-                          },
-                        ],
+                        paddingLeft: setPadding(dimensions.width),
+                        paddingRight: setPadding(dimensions.width),
                         width: '100%',
                       },
                       dimensions.width

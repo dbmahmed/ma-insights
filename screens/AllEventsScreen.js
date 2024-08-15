@@ -7,6 +7,7 @@ import * as GlobalVariables from '../config/GlobalVariableContext';
 import assessAccess from '../global-functions/assessAccess';
 import formatNumber from '../global-functions/formatNumber';
 import modifyArrays from '../global-functions/modifyArrays';
+import setPadding from '../global-functions/setPadding';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
@@ -64,6 +65,7 @@ const AllEventsScreen = props => {
   const [industrials, setIndustrials] = React.useState(true);
   const [it_and_software, setIt_and_software] = React.useState(true);
   const [keywordSearch, setKeywordSearch] = React.useState('');
+  const [keywordSearchRaw, setKeywordSearchRaw] = React.useState('');
   const [lastPage, setLastPage] = React.useState(2);
   const [materials, setMaterials] = React.useState(true);
   const [minEbitda, setMinEbitda] = React.useState(true);
@@ -365,16 +367,16 @@ const AllEventsScreen = props => {
               changeTextDelay={500}
               onChangeText={newTextInputValue => {
                 try {
-                  setKeywordSearch(newTextInputValue);
+                  setKeywordSearchRaw(newTextInputValue);
                 } catch (err) {
                   console.error(err);
                 }
               }}
               onSubmitEditing={() => {
                 try {
-                  /* hidden 'Set Variable' action */
+                  setKeywordSearch(keywordSearchRaw);
                   /* hidden 'API Request' action */
-                  /* 'Refetch Data' action requires configuration: choose an API endpoint */
+                  /* hidden 'Refetch Data' action */
                 } catch (err) {
                   console.error(err);
                 }
@@ -392,7 +394,7 @@ const AllEventsScreen = props => {
                 ),
                 dimensions.width
               )}
-              value={keywordSearch}
+              value={keywordSearchRaw}
             />
             <Shadow
               offsetX={0}
@@ -528,6 +530,7 @@ const AllEventsScreen = props => {
                       marginTop: { minWidth: Breakpoints.Tablet, value: 5 },
                       maxWidth: 1200,
                       paddingLeft: [
+                        { minWidth: Breakpoints.Desktop, value: 10 },
                         { minWidth: Breakpoints.Tablet, value: 15 },
                         { minWidth: Breakpoints.Mobile, value: 15 },
                       ],
@@ -585,7 +588,7 @@ const AllEventsScreen = props => {
                       console.log('END REACHED');
                       console.log('Complete ON_END_REACHED:0 CONSOLE_LOG');
                       console.log('Start ON_END_REACHED:1 CONDITIONAL_STOP');
-                      if (nextPage > lastPage) {
+                      if (nextPage === null) {
                         return console.log(
                           'Complete ON_END_REACHED:1 CONDITIONAL_STOP'
                         );
@@ -608,7 +611,7 @@ const AllEventsScreen = props => {
                         await XanoCollectionApi.getAllEventsGET(Constants, {
                           countryIn: country,
                           eventTypeIn: eventType,
-                          keyword: keywordSearch,
+                          keyword: keywordSearchRaw,
                           page: nextPage,
                           sectorIn: sector,
                         })
@@ -617,7 +620,7 @@ const AllEventsScreen = props => {
                         newData,
                       });
                       console.log('Start ON_END_REACHED:5 CONDITIONAL_STOP');
-                      if (newData?.items?.length > 0) {
+                      if (newData?.items?.length === 0) {
                         return console.log(
                           'Complete ON_END_REACHED:5 CONDITIONAL_STOP'
                         );
@@ -662,15 +665,15 @@ const AllEventsScreen = props => {
                             minWidth: Breakpoints.BigScreen,
                             value: 1200,
                           },
-                          padding: { minWidth: Breakpoints.Laptop, value: 5 },
-                          paddingLeft: {
-                            minWidth: Breakpoints.BigScreen,
-                            value: 15,
-                          },
-                          paddingRight: {
-                            minWidth: Breakpoints.BigScreen,
-                            value: 10,
-                          },
+                          padding: { minWidth: Breakpoints.Desktop, value: 5 },
+                          paddingLeft: [
+                            { minWidth: Breakpoints.Desktop, value: 10 },
+                            { minWidth: Breakpoints.BigScreen, value: 15 },
+                          ],
+                          paddingRight: [
+                            { minWidth: Breakpoints.Desktop, value: 10 },
+                            { minWidth: Breakpoints.BigScreen, value: 10 },
+                          ],
                           width: {
                             minWidth: Breakpoints.BigScreen,
                             value: '100%',
@@ -811,8 +814,14 @@ const AllEventsScreen = props => {
                       minWidth: Breakpoints.BigScreen,
                       value: 'center',
                     },
-                    paddingLeft: 10,
-                    paddingRight: 10,
+                    paddingLeft: {
+                      minWidth: Breakpoints.Desktop,
+                      value: setPadding(dimensions.width),
+                    },
+                    paddingRight: {
+                      minWidth: Breakpoints.Desktop,
+                      value: setPadding(dimensions.width),
+                    },
                     width: '100%',
                   },
                   dimensions.width

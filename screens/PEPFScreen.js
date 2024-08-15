@@ -74,6 +74,7 @@ const PEPFScreen = props => {
   const [industrials, setIndustrials] = React.useState(true);
   const [it_and_software, setIt_and_software] = React.useState(true);
   const [keywordSearch, setKeywordSearch] = React.useState('');
+  const [keywordSearchRaw, setKeywordSearchRaw] = React.useState('');
   const [lastPage, setLastPage] = React.useState(2);
   const [last_3, setLast_3] = React.useState(true);
   const [materials, setMaterials] = React.useState(true);
@@ -311,16 +312,16 @@ const PEPFScreen = props => {
               changeTextDelay={500}
               onChangeText={newTextInputValue => {
                 try {
-                  setKeywordSearch(newTextInputValue);
+                  setKeywordSearchRaw(newTextInputValue);
                 } catch (err) {
                   console.error(err);
                 }
               }}
               onSubmitEditing={() => {
                 try {
-                  /* hidden 'Set Variable' action */
+                  setKeywordSearch(keywordSearchRaw);
                   /* hidden 'API Request' action */
-                  /* 'Refetch Data' action requires configuration: choose an API endpoint */
+                  /* hidden 'Refetch Data' action */
                 } catch (err) {
                   console.error(err);
                 }
@@ -338,7 +339,7 @@ const PEPFScreen = props => {
                 ),
                 dimensions.width
               )}
-              value={keywordSearch}
+              value={keywordSearchRaw}
             />
             <Shadow
               offsetX={0}
@@ -517,15 +518,32 @@ const PEPFScreen = props => {
                 listKey={'hDO0JNzh'}
                 nestedScrollEnabled={false}
                 onEndReached={() => {
-                  try {
-                    /* hidden 'Conditional Stop' action */
-                    /* hidden 'Set Variable' action */
-                    /* hidden 'API Request' action */
-                    /* hidden 'Set Variable' action */
-                    /* hidden 'Set Variable' action */
-                  } catch (err) {
-                    console.error(err);
-                  }
+                  const handler = async () => {
+                    try {
+                      if (nextPage === null) {
+                        return;
+                      }
+                      const newData = (
+                        await XanoCollectionApi.getAllPEPFGET(Constants, {
+                          countryIn: country,
+                          ebitdaIn: ebitdaRange,
+                          page: nextPage,
+                          searchString: keywordSearch,
+                          sectorIn: sector,
+                          vintageIn: fundVintage,
+                        })
+                      )?.json;
+                      setNextPage(newData?.nextPage);
+                      setLastPage(newData?.pagesTotal);
+                      if (fetchData?.items === 0) {
+                        return;
+                      }
+                      setPepfItems(pepfItems.concat(newData?.items));
+                    } catch (err) {
+                      console.error(err);
+                    }
+                  };
+                  handler();
                 }}
                 onEndReachedThreshold={0.5}
                 renderItem={({ item, index }) => {

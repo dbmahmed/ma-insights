@@ -11,7 +11,7 @@ line two` ) and will not work with special characters inside of quotes ( example
   if (winWidth <= 1200) {
     return 5;
   } else {
-    return Math.round((winWidth - 1200) / 2) + 5;
+    return Math.round((winWidth - 1200) / 2);
   }
 };
 
