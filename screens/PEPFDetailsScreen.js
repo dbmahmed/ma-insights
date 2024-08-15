@@ -114,10 +114,7 @@ const PEPFDetailsScreen = props => {
                       minWidth: Breakpoints.Desktop,
                       value: 'center',
                     },
-                    paddingTop: [
-                      { minWidth: Breakpoints.Desktop, value: 10 },
-                      { minWidth: Breakpoints.Mobile, value: 5 },
-                    ],
+                    paddingTop: { minWidth: Breakpoints.Desktop, value: 10 },
                     width: '100%',
                   },
                   dimensions.width
@@ -312,10 +309,16 @@ const PEPFDetailsScreen = props => {
                         StyleSheet.compose(
                           GlobalStyles.LinkStyles(theme)['Link'].style,
                           {
-                            color: {
-                              minWidth: Breakpoints.Laptop,
-                              value: palettes.App.Orange,
-                            },
+                            color: [
+                              {
+                                minWidth: Breakpoints.Mobile,
+                                value: palettes.App.Orange,
+                              },
+                              {
+                                minWidth: Breakpoints.Laptop,
+                                value: palettes.App.Orange,
+                              },
+                            ],
                           }
                         ),
                         dimensions.width
@@ -773,7 +776,19 @@ const PEPFDetailsScreen = props => {
                 {!'.evetns.lenth' ? null : (
                   <View
                     style={StyleSheet.applyWidth(
-                      { maxWidth: 1200, padding: 10, width: '100%' },
+                      {
+                        maxWidth: 1200,
+                        padding: 10,
+                        paddingLeft: {
+                          minWidth: Breakpoints.Desktop,
+                          value: 5,
+                        },
+                        paddingRight: {
+                          minWidth: Breakpoints.Desktop,
+                          value: 5,
+                        },
+                        width: '100%',
+                      },
                       dimensions.width
                     )}
                   >
@@ -922,6 +937,14 @@ const PEPFDetailsScreen = props => {
                                         padding: {
                                           minWidth: Breakpoints.Laptop,
                                           value: 5,
+                                        },
+                                        paddingLeft: {
+                                          minWidth: Breakpoints.Desktop,
+                                          value: 0,
+                                        },
+                                        paddingRight: {
+                                          minWidth: Breakpoints.Desktop,
+                                          value: 0,
                                         },
                                       },
                                       dimensions.width

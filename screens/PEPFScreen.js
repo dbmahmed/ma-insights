@@ -500,7 +500,9 @@ const PEPFScreen = props => {
                     )}
                   >
                     {formatNumber(fetchData?.itemsTotal)}
-                    {' private equity portfolio firms matching the filter'}
+                    {
+                      ' private equity portfolio firms matching the filter and sorted by EBITDA, high to low'
+                    }
                   </Text>
                 </View>
               </View>
@@ -614,7 +616,7 @@ const PEPFScreen = props => {
                                 flexDirection: 'column',
                                 gap: 10,
                                 height: '100%',
-                                justifyContent: 'flex-start',
+                                justifyContent: 'space-between',
                                 padding: 10,
                               },
                               dimensions.width
