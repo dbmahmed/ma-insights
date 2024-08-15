@@ -63,7 +63,7 @@ const TransactionsScreen = props => {
   const [sector, setSector] = React.useState([]);
   const [transaction, setTransaction] = React.useState(true);
   const [utilities, setUtilities] = React.useState(true);
-  const applayFilters = () => {
+  const applyFilters = () => {
     //sector
     const sectors = [];
 
@@ -86,27 +86,9 @@ const TransactionsScreen = props => {
 
     nordic && region.push('Nordic');
     dach && region.push('DACH');
-    RoW && region.push('Rest of Wold (RoW)');
+    RoW && region.push('RoW');
 
     setRegion(() => region);
-  };
-
-  const toggleAllFilters = flag => {
-    setCommunication_services(flag);
-    setIndustrials(flag);
-    setConsumer_discretionary(flag);
-    setIt_and_software(flag);
-    setConsumer_staples(flag);
-    setMaterials(flag);
-    setEnergy(flag);
-    setReal_estate(flag);
-    setFinancials(flag);
-    setUtilities(flag);
-    setHealth_care(flag);
-
-    setNordic(flag);
-    setDach(flag);
-    setRoW(flag);
   };
 
   const matchingFilters = () => {
@@ -128,7 +110,25 @@ const TransactionsScreen = props => {
 
     setNordic((region || []).includes('Nordic'));
     setDach((region || []).includes('DACH'));
-    setRoW((region || []).includes('Rest of Wold (RoW)'));
+    setRoW((region || []).includes('RoW'));
+  };
+
+  const toggleAllFilters = flag => {
+    setCommunication_services(flag);
+    setIndustrials(flag);
+    setConsumer_discretionary(flag);
+    setIt_and_software(flag);
+    setConsumer_staples(flag);
+    setMaterials(flag);
+    setEnergy(flag);
+    setReal_estate(flag);
+    setFinancials(flag);
+    setUtilities(flag);
+    setHealth_care(flag);
+
+    setNordic(flag);
+    setDach(flag);
+    setRoW(flag);
   };
   const isFocused = useIsFocused();
   React.useEffect(() => {
@@ -2205,7 +2205,7 @@ const TransactionsScreen = props => {
                               const handler = async () => {
                                 try {
                                   /* hidden 'API Request' action */
-                                  applayFilters();
+                                  applyFilters();
                                   setFilterPressed(false);
                                   await waitUtil({ milliseconds: 500 });
                                   await refetchGetAllEvents();
