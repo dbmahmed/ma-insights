@@ -6,4 +6,5 @@ export default {
   mainsightsfaviconlogo1024cropped: require('../assets/images/MAInsightsFaviconLogo1024Cropped.png'),
   NKPIcon1024: require('../assets/images/NKPIcon1024.png'),
   LogoMobileApp: require('../assets/images/LogoMobileApp.png'),
+  mainsightslogowithnameleftsignature2: require('../assets/images/MAInsightsLogoWithNameLeft(signature)(2).png'),
 };

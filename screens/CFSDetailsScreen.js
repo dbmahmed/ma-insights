@@ -69,7 +69,7 @@ const CFSDetailsScreen = props => {
     <ScreenContainer hasSafeArea={false} scrollable={false}>
       <CustomHeaderBlock />
       <XanoCollectionApi.FetchGetOneCFSGET
-        cfs_id={props.route?.params?.cfs_id ?? 1968}
+        cfs_id={props.route?.params?.cfs_id ?? 3}
       >
         {({ loading, error, data, refetchGetOneCFS }) => {
           const fetchData = data?.json;

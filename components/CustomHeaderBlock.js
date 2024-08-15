@@ -96,6 +96,10 @@ const CustomHeaderBlock = props => {
                   onPress={() => {
                     try {
                       navigation.goBack();
+                      setGlobalVariableValue({
+                        key: 'top_nav_pressed',
+                        value: false,
+                      });
                     } catch (err) {
                       console.error(err);
                     }
@@ -478,7 +482,7 @@ const CustomHeaderBlock = props => {
               alignItems: 'center',
               alignSelf: 'center',
               flexDirection: 'row',
-              height: 66,
+              height: 65,
               paddingLeft: 15,
               width: '100%',
             },
@@ -492,6 +496,10 @@ const CustomHeaderBlock = props => {
                 onPress={() => {
                   try {
                     navigation.goBack();
+                    setGlobalVariableValue({
+                      key: 'top_nav_pressed',
+                      value: false,
+                    });
                   } catch (err) {
                     console.error(err);
                   }
@@ -547,19 +555,13 @@ const CustomHeaderBlock = props => {
                 { minWidth: Breakpoints.Laptop, value: 0.5 },
               ],
               flex: 1,
-              gap: 8,
+              gap: 0,
               height: '100%',
               justifyContent: 'space-between',
-              padding: [
-                { minWidth: Breakpoints.Mobile, value: 10 },
-                { minWidth: Breakpoints.Laptop, value: 10 },
-              ],
-              paddingBottom: 10,
-              position: { minWidth: Breakpoints.Laptop, value: 'relative' },
-              width: [
-                { minWidth: Breakpoints.Mobile, value: 250 },
-                { minWidth: Breakpoints.Laptop, value: '30%' },
-              ],
+              maxWidth: 300,
+              padding: 10,
+              paddingTop: 5,
+              width: '100%',
               zIndex: 10,
             },
             dimensions.width
@@ -568,7 +570,12 @@ const CustomHeaderBlock = props => {
           {/* View 2 */}
           <View
             style={StyleSheet.applyWidth(
-              { width: { minWidth: Breakpoints.Laptop, value: '100%' } },
+              {
+                width: [
+                  { minWidth: Breakpoints.Mobile, value: '100%' },
+                  { minWidth: Breakpoints.Laptop, value: '100%' },
+                ],
+              },
               dimensions.width
             )}
           >
@@ -578,19 +585,10 @@ const CustomHeaderBlock = props => {
                 StyleSheet.compose(
                   GlobalStyles.VStackStyles(theme)['V Stack'].style,
                   {
-                    borderBottomWidth: {
-                      minWidth: Breakpoints.Laptop,
-                      value: 0.5,
-                    },
-                    borderColor: {
-                      minWidth: Breakpoints.Laptop,
-                      value: theme.colors.text.light,
-                    },
-                    borderTopWidth: {
-                      minWidth: Breakpoints.Laptop,
-                      value: 0.5,
-                    },
-                    width: { minWidth: Breakpoints.Laptop, value: '100%' },
+                    borderBottomWidth: 0.5,
+                    borderColor: theme.colors.foreground.brand,
+                    borderTopWidth: 0.5,
+                    width: '100%',
                   }
                 ),
                 dimensions.width
@@ -616,16 +614,7 @@ const CustomHeaderBlock = props => {
                   style={StyleSheet.applyWidth(
                     StyleSheet.compose(
                       GlobalStyles.HStackStyles(theme)['H Stack'].style,
-                      {
-                        gap: [
-                          { minWidth: Breakpoints.Mobile, value: 10 },
-                          { minWidth: Breakpoints.Laptop, value: 10 },
-                        ],
-                        padding: [
-                          { minWidth: Breakpoints.Mobile, value: 10 },
-                          { minWidth: Breakpoints.Laptop, value: 10 },
-                        ],
-                      }
+                      { gap: 10, padding: 10 }
                     ),
                     dimensions.width
                   )}
@@ -670,14 +659,8 @@ const CustomHeaderBlock = props => {
                 StyleSheet.compose(
                   GlobalStyles.VStackStyles(theme)['V Stack'].style,
                   {
-                    borderBottomWidth: {
-                      minWidth: Breakpoints.Laptop,
-                      value: 0.5,
-                    },
-                    borderColor: {
-                      minWidth: Breakpoints.Laptop,
-                      value: theme.colors.text.light,
-                    },
+                    borderBottomWidth: 0.5,
+                    borderColor: theme.colors.foreground.brand,
                   }
                 ),
                 dimensions.width
@@ -703,16 +686,7 @@ const CustomHeaderBlock = props => {
                   style={StyleSheet.applyWidth(
                     StyleSheet.compose(
                       GlobalStyles.HStackStyles(theme)['H Stack'].style,
-                      {
-                        gap: [
-                          { minWidth: Breakpoints.Mobile, value: 10 },
-                          { minWidth: Breakpoints.Laptop, value: 10 },
-                        ],
-                        padding: [
-                          { minWidth: Breakpoints.Mobile, value: 10 },
-                          { minWidth: Breakpoints.Laptop, value: 10 },
-                        ],
-                      }
+                      { gap: 10, padding: 10 }
                     ),
                     dimensions.width
                   )}
@@ -757,14 +731,8 @@ const CustomHeaderBlock = props => {
                 StyleSheet.compose(
                   GlobalStyles.VStackStyles(theme)['V Stack'].style,
                   {
-                    borderBottomWidth: {
-                      minWidth: Breakpoints.Laptop,
-                      value: 0.5,
-                    },
-                    borderColor: {
-                      minWidth: Breakpoints.Laptop,
-                      value: theme.colors.text.light,
-                    },
+                    borderBottomWidth: 0.5,
+                    borderColor: theme.colors.foreground.brand,
                   }
                 ),
                 dimensions.width
@@ -788,16 +756,7 @@ const CustomHeaderBlock = props => {
                   style={StyleSheet.applyWidth(
                     StyleSheet.compose(
                       GlobalStyles.HStackStyles(theme)['H Stack'].style,
-                      {
-                        gap: [
-                          { minWidth: Breakpoints.Mobile, value: 10 },
-                          { minWidth: Breakpoints.Laptop, value: 10 },
-                        ],
-                        padding: [
-                          { minWidth: Breakpoints.Mobile, value: 10 },
-                          { minWidth: Breakpoints.Laptop, value: 10 },
-                        ],
-                      }
+                      { gap: 10, padding: 10 }
                     ),
                     dimensions.width
                   )}
@@ -842,14 +801,8 @@ const CustomHeaderBlock = props => {
                 StyleSheet.compose(
                   GlobalStyles.VStackStyles(theme)['V Stack'].style,
                   {
-                    borderBottomWidth: {
-                      minWidth: Breakpoints.Laptop,
-                      value: 0.5,
-                    },
-                    borderColor: {
-                      minWidth: Breakpoints.Laptop,
-                      value: theme.colors.text.light,
-                    },
+                    borderBottomWidth: 0.5,
+                    borderColor: theme.colors.foreground.brand,
                   }
                 ),
                 dimensions.width
@@ -873,16 +826,7 @@ const CustomHeaderBlock = props => {
                   style={StyleSheet.applyWidth(
                     StyleSheet.compose(
                       GlobalStyles.HStackStyles(theme)['H Stack'].style,
-                      {
-                        gap: [
-                          { minWidth: Breakpoints.Mobile, value: 10 },
-                          { minWidth: Breakpoints.Laptop, value: 10 },
-                        ],
-                        padding: [
-                          { minWidth: Breakpoints.Mobile, value: 10 },
-                          { minWidth: Breakpoints.Laptop, value: 10 },
-                        ],
-                      }
+                      { gap: 10, padding: 10 }
                     ),
                     dimensions.width
                   )}
@@ -928,14 +872,9 @@ const CustomHeaderBlock = props => {
                 StyleSheet.compose(
                   GlobalStyles.VStackStyles(theme)['V Stack'].style,
                   {
-                    borderBottomWidth: {
-                      minWidth: Breakpoints.Laptop,
-                      value: 0.5,
-                    },
-                    borderColor: {
-                      minWidth: Breakpoints.Laptop,
-                      value: theme.colors.text.light,
-                    },
+                    borderBottomWidth: 0.5,
+                    borderColor: theme.colors.foreground.brand,
+                    width: '100%',
                   }
                 ),
                 dimensions.width
@@ -959,16 +898,7 @@ const CustomHeaderBlock = props => {
                   style={StyleSheet.applyWidth(
                     StyleSheet.compose(
                       GlobalStyles.HStackStyles(theme)['H Stack'].style,
-                      {
-                        gap: [
-                          { minWidth: Breakpoints.Mobile, value: 10 },
-                          { minWidth: Breakpoints.Laptop, value: 10 },
-                        ],
-                        padding: [
-                          { minWidth: Breakpoints.Mobile, value: 10 },
-                          { minWidth: Breakpoints.Laptop, value: 10 },
-                        ],
-                      }
+                      { gap: 10, padding: 10 }
                     ),
                     dimensions.width
                   )}
@@ -1013,14 +943,9 @@ const CustomHeaderBlock = props => {
                 StyleSheet.compose(
                   GlobalStyles.VStackStyles(theme)['V Stack'].style,
                   {
-                    borderBottomWidth: {
-                      minWidth: Breakpoints.Laptop,
-                      value: 0.5,
-                    },
-                    borderColor: {
-                      minWidth: Breakpoints.Laptop,
-                      value: theme.colors.text.light,
-                    },
+                    borderBottomWidth: 0.5,
+                    borderColor: theme.colors.foreground.brand,
+                    width: '100%',
                   }
                 ),
                 dimensions.width
@@ -1044,16 +969,7 @@ const CustomHeaderBlock = props => {
                   style={StyleSheet.applyWidth(
                     StyleSheet.compose(
                       GlobalStyles.HStackStyles(theme)['H Stack'].style,
-                      {
-                        gap: [
-                          { minWidth: Breakpoints.Mobile, value: 10 },
-                          { minWidth: Breakpoints.Laptop, value: 10 },
-                        ],
-                        padding: [
-                          { minWidth: Breakpoints.Mobile, value: 10 },
-                          { minWidth: Breakpoints.Laptop, value: 10 },
-                        ],
-                      }
+                      { gap: 10, padding: 10 }
                     ),
                     dimensions.width
                   )}
@@ -1087,14 +1003,9 @@ const CustomHeaderBlock = props => {
                 StyleSheet.compose(
                   GlobalStyles.VStackStyles(theme)['V Stack'].style,
                   {
-                    borderBottomWidth: {
-                      minWidth: Breakpoints.Laptop,
-                      value: 0.5,
-                    },
-                    borderColor: {
-                      minWidth: Breakpoints.Laptop,
-                      value: theme.colors.text.light,
-                    },
+                    borderBottomWidth: 0.5,
+                    borderColor: theme.colors.foreground.brand,
+                    width: '100%',
                   }
                 ),
                 dimensions.width
@@ -1118,16 +1029,7 @@ const CustomHeaderBlock = props => {
                   style={StyleSheet.applyWidth(
                     StyleSheet.compose(
                       GlobalStyles.HStackStyles(theme)['H Stack'].style,
-                      {
-                        gap: [
-                          { minWidth: Breakpoints.Mobile, value: 10 },
-                          { minWidth: Breakpoints.Laptop, value: 10 },
-                        ],
-                        padding: [
-                          { minWidth: Breakpoints.Mobile, value: 10 },
-                          { minWidth: Breakpoints.Laptop, value: 10 },
-                        ],
-                      }
+                      { gap: 10, padding: 10 }
                     ),
                     dimensions.width
                   )}
@@ -1171,15 +1073,11 @@ const CustomHeaderBlock = props => {
             style={StyleSheet.applyWidth(
               {
                 alignItems: { minWidth: Breakpoints.Laptop, value: 'center' },
-                borderColor: {
-                  minWidth: Breakpoints.Laptop,
-                  value: theme.colors.text.light,
-                },
-                borderTopWidth: { minWidth: Breakpoints.Laptop, value: 0.5 },
                 justifyContent: {
                   minWidth: Breakpoints.Laptop,
                   value: 'flex-end',
                 },
+                paddingBottom: 10,
                 width: [
                   { minWidth: Breakpoints.Mobile, value: '100%' },
                   { minWidth: Breakpoints.Laptop, value: '100%' },
@@ -1223,7 +1121,6 @@ const CustomHeaderBlock = props => {
                       {
                         gap: { minWidth: Breakpoints.Laptop, value: 10 },
                         justifyContent: 'center',
-                        padding: { minWidth: Breakpoints.Laptop, value: 10 },
                       }
                     ),
                     dimensions.width
