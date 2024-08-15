@@ -885,16 +885,16 @@ const PEPFScreen = props => {
                           backgroundColor: 'rgba(0, 0, 0, 0.6)',
                           height: '100%',
                           justifyContent: [
-                            { minWidth: Breakpoints.Mobile, value: 'center' },
                             {
-                              minWidth: Breakpoints.Tablet,
+                              minWidth: Breakpoints.Desktop,
                               value: 'flex-start',
                             },
+                            { minWidth: Breakpoints.Mobile, value: 'center' },
                           ],
                           padding: 2,
                           paddingTop: {
-                            minWidth: Breakpoints.Tablet,
-                            value: 100,
+                            minWidth: Breakpoints.Desktop,
+                            value: 150,
                           },
                           width: '100%',
                         },

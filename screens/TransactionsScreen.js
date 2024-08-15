@@ -876,10 +876,10 @@ const TransactionsScreen = props => {
                       backgroundColor: 'rgba(0, 0, 0, 0.6)',
                       height: '100%',
                       justifyContent: [
+                        { minWidth: Breakpoints.Desktop, value: 'flex-start' },
                         { minWidth: Breakpoints.Mobile, value: 'center' },
-                        { minWidth: Breakpoints.Tablet, value: 'flex-start' },
                       ],
-                      paddingTop: { minWidth: Breakpoints.Tablet, value: 100 },
+                      paddingTop: { minWidth: Breakpoints.Desktop, value: 150 },
                       width: '100%',
                     },
                     dimensions.width

@@ -249,7 +249,6 @@ const StockSearchScreen = props => {
                         fontFamily: 'Quicksand_600SemiBold',
                         fontSize: 25,
                         marginBottom: 20,
-                        marginLeft: 20,
                         marginTop: [
                           { minWidth: Breakpoints.Mobile, value: 0 },
                           { minWidth: Breakpoints.Laptop, value: 20 },
@@ -876,10 +875,11 @@ const StockSearchScreen = props => {
                       backgroundColor: 'rgba(0, 0, 0, 0.6)',
                       height: '100%',
                       justifyContent: [
+                        { minWidth: Breakpoints.Desktop, value: 'flex-start' },
+                        { minWidth: Breakpoints.Tablet, value: 'center' },
                         { minWidth: Breakpoints.Mobile, value: 'center' },
-                        { minWidth: Breakpoints.Tablet, value: 'flex-start' },
                       ],
-                      paddingTop: { minWidth: Breakpoints.Tablet, value: 100 },
+                      paddingTop: { minWidth: Breakpoints.Desktop, value: 150 },
                       width: '100%',
                     },
                     dimensions.width
