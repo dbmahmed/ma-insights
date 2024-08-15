@@ -590,259 +590,248 @@ const NewslettersScreen = props => {
           }
 
           return (
-            <>
-              <SimpleStyleFlatList
-                data={newslettersList}
-                horizontal={false}
-                inverted={false}
-                keyExtractor={(listData, index) => listData?.id}
-                keyboardShouldPersistTaps={'never'}
-                listKey={'sXtzWjLu'}
-                nestedScrollEnabled={false}
-                onEndReached={() => {
-                  const handler = async () => {
-                    try {
-                      if (nextPage === null) {
-                        return;
-                      }
-                      const newData = (
-                        await XanoCollectionApi.newslettersGET(Constants, {
-                          dach: dach,
-                          keyword: keywordSearch,
-                          newsletters: newsletter,
-                          nordic: nordic,
-                          page: nextPage,
-                          reports: weeklyReport,
-                        })
-                      )?.json;
-                      setNextPage(newData?.nextPage);
-                      setLastPage(newData?.pageTotal);
-                      if (fetchData?.items === 0) {
-                        return;
-                      }
-                      setNewslettersList(
-                        newslettersList.concat(newData?.items)
-                      );
-                    } catch (err) {
-                      console.error(err);
+            <SimpleStyleFlatList
+              data={newslettersList}
+              horizontal={false}
+              inverted={false}
+              keyExtractor={(listData, index) => listData?.id}
+              keyboardShouldPersistTaps={'never'}
+              listKey={'sXtzWjLu'}
+              nestedScrollEnabled={false}
+              onEndReached={() => {
+                const handler = async () => {
+                  try {
+                    if (nextPage === null) {
+                      return;
                     }
-                  };
-                  handler();
-                }}
-                renderItem={({ item, index }) => {
-                  const listData = item;
-                  return (
-                    <View
-                      style={StyleSheet.applyWidth(
-                        {
-                          maxWidth: [
-                            { minWidth: Breakpoints.Mobile, value: '50%' },
-                            { minWidth: Breakpoints.Tablet, value: '33.33%' },
-                            { minWidth: Breakpoints.Laptop, value: '20%' },
-                          ],
-                          minHeight: 150,
-                          padding: 5,
-                          width: '100%',
+                    const newData = (
+                      await XanoCollectionApi.newslettersGET(Constants, {
+                        dach: dach,
+                        keyword: keywordSearch,
+                        newsletters: newsletter,
+                        nordic: nordic,
+                        page: nextPage,
+                        reports: weeklyReport,
+                      })
+                    )?.json;
+                    setNextPage(newData?.nextPage);
+                    setLastPage(newData?.pageTotal);
+                    if (fetchData?.items === 0) {
+                      return;
+                    }
+                    setNewslettersList(newslettersList.concat(newData?.items));
+                  } catch (err) {
+                    console.error(err);
+                  }
+                };
+                handler();
+              }}
+              renderItem={({ item, index }) => {
+                const listData = item;
+                return (
+                  <View
+                    style={StyleSheet.applyWidth(
+                      {
+                        alignSelf: {
+                          minWidth: Breakpoints.Tablet,
+                          value: 'auto',
                         },
+                        maxWidth: [
+                          { minWidth: Breakpoints.Mobile, value: '50%' },
+                          { minWidth: Breakpoints.Tablet, value: '33.33%' },
+                          { minWidth: Breakpoints.Laptop, value: '20%' },
+                        ],
+                        minHeight: 150,
+                        padding: 5,
+                        width: '100%',
+                      },
+                      dimensions.width
+                    )}
+                  >
+                    <LinearGradient
+                      endX={100}
+                      endY={100}
+                      startX={0}
+                      startY={0}
+                      {...GlobalStyles.LinearGradientStyles(theme)[
+                        'Linear Gradient'
+                      ].props}
+                      color1={theme.colors.text.strong}
+                      color2={theme.colors.branding.primary}
+                      color3={null}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.LinearGradientStyles(theme)[
+                            'Linear Gradient'
+                          ].style,
+                          {
+                            borderColor: null,
+                            borderRadius: 5,
+                            borderWidth: null,
+                            flexDirection: 'column',
+                            height: '100%',
+                            margin: null,
+                            width: '100%',
+                          }
+                        ),
                         dimensions.width
                       )}
                     >
-                      <LinearGradient
-                        endX={100}
-                        endY={100}
-                        startX={0}
-                        startY={0}
-                        {...GlobalStyles.LinearGradientStyles(theme)[
-                          'Linear Gradient'
-                        ].props}
-                        color1={theme.colors.text.strong}
-                        color2={theme.colors.branding.primary}
-                        color3={null}
+                      <Pressable
+                        onPress={() => {
+                          try {
+                            navigation.navigate('NewsletterDetailsScreen', {
+                              news_id: listData?.id,
+                            });
+                            /* hidden 'Log to Console' action */
+                            /* hidden 'If/Else' action */
+                          } catch (err) {
+                            console.error(err);
+                          }
+                        }}
                         style={StyleSheet.applyWidth(
-                          StyleSheet.compose(
-                            GlobalStyles.LinearGradientStyles(theme)[
-                              'Linear Gradient'
-                            ].style,
-                            {
-                              borderColor: null,
-                              borderRadius: 5,
-                              borderWidth: null,
-                              flexDirection: 'column',
-                              height: '100%',
-                              margin: null,
-                              maxWidth: [
-                                { minWidth: Breakpoints.Desktop, value: 230 },
-                                { minWidth: Breakpoints.Laptop, value: 183 },
-                              ],
-                              width: '100%',
-                            }
-                          ),
+                          { height: '100%' },
                           dimensions.width
                         )}
                       >
-                        <Pressable
-                          onPress={() => {
-                            try {
-                              navigation.navigate('NewsletterDetailsScreen', {
-                                news_id: listData?.id,
-                              });
-                              /* hidden 'Log to Console' action */
-                              /* hidden 'If/Else' action */
-                            } catch (err) {
-                              console.error(err);
-                            }
-                          }}
+                        <View
                           style={StyleSheet.applyWidth(
-                            { height: '100%' },
+                            {
+                              flexDirection: 'column',
+                              flexWrap: 'nowrap',
+                              gap: 10,
+                              height: '100%',
+                              justifyContent: 'space-between',
+                              padding: 5,
+                            },
                             dimensions.width
                           )}
                         >
-                          <View
-                            style={StyleSheet.applyWidth(
-                              {
-                                flexDirection: 'column',
-                                flexWrap: 'nowrap',
-                                gap: 10,
-                                height: '100%',
-                                justifyContent: 'space-between',
-                                padding: 5,
-                              },
-                              dimensions.width
-                            )}
-                          >
-                            <View>
-                              <H4
-                                selectable={false}
-                                {...GlobalStyles.H4Styles(theme)['H4'].props}
-                                style={StyleSheet.applyWidth(
-                                  StyleSheet.compose(
-                                    GlobalStyles.H4Styles(theme)['H4'].style,
-                                    {
-                                      color: palettes.Brand['Strong Inverse'],
-                                      fontSize: 14,
-                                      marginBottom: 4,
-                                      marginTop: 0,
-                                    }
-                                  ),
-                                  dimensions.width
-                                )}
-                              >
-                                {listData?.title}
-                              </H4>
-                              {/* Subtitle */}
-                              <>
-                                {listData?.potd === 0 ? null : (
-                                  <Text
-                                    accessible={true}
-                                    {...GlobalStyles.TextStyles(theme)[
-                                      'screen_title'
-                                    ].props}
-                                    style={StyleSheet.applyWidth(
-                                      StyleSheet.compose(
-                                        GlobalStyles.TextStyles(theme)[
-                                          'screen_title'
-                                        ].style,
-                                        {
-                                          color:
-                                            palettes.Brand['Strong Inverse'],
-                                          fontFamily: 'Quicksand_400Regular',
-                                        }
-                                      ),
-                                      dimensions.width
-                                    )}
-                                    textBreakStrategy={'highQuality'}
-                                  >
-                                    {'Pitch of The Day: '}
-                                    {listData?._potd?.target}
-                                  </Text>
-                                )}
-                              </>
-                            </View>
-
-                            <Text
-                              accessible={true}
-                              {...GlobalStyles.TextStyles(theme)['screen_title']
-                                .props}
+                          <View>
+                            <H4
+                              selectable={false}
+                              {...GlobalStyles.H4Styles(theme)['H4'].props}
                               style={StyleSheet.applyWidth(
                                 StyleSheet.compose(
-                                  GlobalStyles.TextStyles(theme)['screen_title']
-                                    .style,
+                                  GlobalStyles.H4Styles(theme)['H4'].style,
                                   {
                                     color: palettes.Brand['Strong Inverse'],
-                                    fontSize: 12,
+                                    fontSize: 14,
+                                    marginBottom: 4,
+                                    marginTop: 0,
                                   }
                                 ),
                                 dimensions.width
                               )}
                             >
-                              {'Stories: '}
-                              {listData?.total_stories}
-                              {'\nOpportunities: '}
-                              {listData?.opportunities}
-                              {'\nTransactional: '}
-                              {listData?.transactional}
-                            </Text>
+                              {listData?.title}
+                            </H4>
+                            {/* Subtitle */}
+                            <>
+                              {listData?.potd === 0 ? null : (
+                                <Text
+                                  accessible={true}
+                                  {...GlobalStyles.TextStyles(theme)[
+                                    'screen_title'
+                                  ].props}
+                                  style={StyleSheet.applyWidth(
+                                    StyleSheet.compose(
+                                      GlobalStyles.TextStyles(theme)[
+                                        'screen_title'
+                                      ].style,
+                                      {
+                                        color: palettes.Brand['Strong Inverse'],
+                                        fontFamily: 'Quicksand_400Regular',
+                                      }
+                                    ),
+                                    dimensions.width
+                                  )}
+                                  textBreakStrategy={'highQuality'}
+                                >
+                                  {'Pitch of The Day: '}
+                                  {listData?._potd?.target}
+                                </Text>
+                              )}
+                            </>
                           </View>
-                        </Pressable>
-                      </LinearGradient>
-                    </View>
-                  );
-                }}
-                numColumns={
-                  dimensions.width >= Breakpoints.Laptop
-                    ? 5
-                    : dimensions.width >= Breakpoints.Tablet
-                    ? 3
-                    : 2
-                }
-                onEndReachedThreshold={0.2}
-                showsHorizontalScrollIndicator={false}
-                showsVerticalScrollIndicator={false}
-                style={StyleSheet.applyWidth(
-                  {
-                    maxHeight: [
-                      {
-                        minWidth: Breakpoints.Laptop,
-                        value: dimensions.height - 280,
-                      },
-                      {
-                        minWidth: Breakpoints.Tablet,
-                        value: dimensions.height - 250,
-                      },
-                    ],
-                    padding: 5,
-                    paddingLeft: [
-                      {
-                        minWidth: Breakpoints.BigScreen,
-                        value: setPadding(dimensions.width - 5),
-                      },
-                      {
-                        minWidth: Breakpoints.Mobile,
-                        value: setPadding(dimensions.width),
-                      },
-                    ],
-                    paddingRight: [
-                      {
-                        minWidth: Breakpoints.BigScreen,
-                        value: setPadding(dimensions.width - 5),
-                      },
-                      {
-                        minWidth: Breakpoints.Mobile,
-                        value: setPadding(dimensions.width),
-                      },
-                    ],
-                    width: '100%',
-                  },
-                  dimensions.width
-                )}
-              />
-              <View
-                style={StyleSheet.applyWidth(
-                  { alignItems: 'center' },
-                  dimensions.width
-                )}
-              />
-            </>
+
+                          <Text
+                            accessible={true}
+                            {...GlobalStyles.TextStyles(theme)['screen_title']
+                              .props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TextStyles(theme)['screen_title']
+                                  .style,
+                                {
+                                  color: palettes.Brand['Strong Inverse'],
+                                  fontSize: 12,
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            {'Stories: '}
+                            {listData?.total_stories}
+                            {'\nOpportunities: '}
+                            {listData?.opportunities}
+                            {'\nTransactional: '}
+                            {listData?.transactional}
+                          </Text>
+                        </View>
+                      </Pressable>
+                    </LinearGradient>
+                  </View>
+                );
+              }}
+              numColumns={
+                dimensions.width >= Breakpoints.Laptop
+                  ? 5
+                  : dimensions.width >= Breakpoints.Tablet
+                  ? 3
+                  : 2
+              }
+              onEndReachedThreshold={0.2}
+              showsHorizontalScrollIndicator={false}
+              showsVerticalScrollIndicator={false}
+              style={StyleSheet.applyWidth(
+                {
+                  maxHeight: [
+                    {
+                      minWidth: Breakpoints.Laptop,
+                      value: dimensions.height - 280,
+                    },
+                    {
+                      minWidth: Breakpoints.Tablet,
+                      value: dimensions.height - 250,
+                    },
+                  ],
+                  padding: 5,
+                  paddingLeft: [
+                    {
+                      minWidth: Breakpoints.BigScreen,
+                      value: setPadding(dimensions.width - 5),
+                    },
+                    {
+                      minWidth: Breakpoints.Mobile,
+                      value: setPadding(dimensions.width),
+                    },
+                  ],
+                  paddingRight: [
+                    {
+                      minWidth: Breakpoints.BigScreen,
+                      value: setPadding(dimensions.width - 5),
+                    },
+                    {
+                      minWidth: Breakpoints.Mobile,
+                      value: setPadding(dimensions.width),
+                    },
+                  ],
+                  width: '100%',
+                },
+                dimensions.width
+              )}
+            />
           );
         }}
       </XanoCollectionApi.FetchNewslettersGET>

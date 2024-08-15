@@ -7,4 +7,6 @@ export default {
   NKPIcon1024: require('../assets/images/NKPIcon1024.png'),
   LogoMobileApp: require('../assets/images/LogoMobileApp.png'),
   mainsightslogowithnameleftsignature2: require('../assets/images/MAInsightsLogoWithNameLeft(signature)(2).png'),
+  logorightsmall: require('../assets/images/LogoRightSmall.png'),
+  logorightsmall2: require('../assets/images/LogoRightSmall2.png'),
 };

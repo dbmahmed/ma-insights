@@ -320,7 +320,7 @@ const NewsletterDetailsScreen = props => {
                 >
                   <View
                     style={StyleSheet.applyWidth(
-                      { maxWidth: 1200, width: '100%' },
+                      { maxWidth: 900, width: '100%' },
                       dimensions.width
                     )}
                   >
@@ -470,12 +470,7 @@ const NewsletterDetailsScreen = props => {
                       {!(fetchData?.potd !== 0) ? null : (
                         <View
                           style={StyleSheet.applyWidth(
-                            {
-                              gap: 4,
-                              marginBottom: 20,
-                              maxWidth: 450,
-                              padding: 10,
-                            },
+                            { gap: 4, marginBottom: 20, padding: 10 },
                             dimensions.width
                           )}
                         >
