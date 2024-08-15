@@ -267,6 +267,106 @@ const CFSDetailsScreen = props => {
                       {fetchData?._advisors}
                     </Text>
                   </View>
+                  {/* View 9 */}
+                  <View
+                    style={StyleSheet.applyWidth(
+                      { flexDirection: 'row', gap: 8 },
+                      dimensions.width
+                    )}
+                  >
+                    <View
+                      style={StyleSheet.applyWidth(
+                        { width: 100 },
+                        dimensions.width
+                      )}
+                    >
+                      <Text
+                        accessible={true}
+                        {...GlobalStyles.TextStyles(theme)['screen_title']
+                          .props}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.TextStyles(theme)['screen_title']
+                              .style,
+                            {
+                              color: palettes.Brand['Strong Inverse'],
+                              fontFamily: 'Quicksand_500Medium',
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {'Owners:'}
+                      </Text>
+                    </View>
+
+                    <Text
+                      accessible={true}
+                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.TextStyles(theme)['screen_title'].style,
+                          {
+                            color: palettes.Brand['Strong Inverse'],
+                            fontFamily: 'Quicksand_500Medium',
+                          }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      {fetchData?._ownersList}
+                    </Text>
+                  </View>
+                  {/* View 10 */}
+                  <View
+                    style={StyleSheet.applyWidth(
+                      { flexDirection: 'row', gap: 8 },
+                      dimensions.width
+                    )}
+                  >
+                    <View
+                      style={StyleSheet.applyWidth(
+                        { width: 100 },
+                        dimensions.width
+                      )}
+                    >
+                      <Text
+                        accessible={true}
+                        {...GlobalStyles.TextStyles(theme)['screen_title']
+                          .props}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.TextStyles(theme)['screen_title']
+                              .style,
+                            {
+                              color: palettes.Brand['Strong Inverse'],
+                              fontFamily: 'Quicksand_500Medium',
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {'Org. source:'}
+                      </Text>
+                    </View>
+
+                    <Text
+                      accessible={true}
+                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.TextStyles(theme)['screen_title'].style,
+                          {
+                            color: palettes.Brand['Strong Inverse'],
+                            fontFamily: 'Quicksand_500Medium',
+                          }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      {fetchData?.source}
+                    </Text>
+                  </View>
                   {/* View 3 */}
                   <View
                     style={StyleSheet.applyWidth(
