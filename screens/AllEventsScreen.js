@@ -668,10 +668,12 @@ const AllEventsScreen = props => {
                           padding: { minWidth: Breakpoints.Desktop, value: 5 },
                           paddingLeft: [
                             { minWidth: Breakpoints.Desktop, value: 10 },
+                            { minWidth: Breakpoints.Mobile, value: 10 },
                             { minWidth: Breakpoints.BigScreen, value: 15 },
                           ],
                           paddingRight: [
                             { minWidth: Breakpoints.Desktop, value: 10 },
+                            { minWidth: Breakpoints.Mobile, value: 10 },
                             { minWidth: Breakpoints.BigScreen, value: 10 },
                           ],
                           width: {
@@ -814,10 +816,13 @@ const AllEventsScreen = props => {
                       minWidth: Breakpoints.BigScreen,
                       value: 'center',
                     },
-                    paddingLeft: {
-                      minWidth: Breakpoints.Desktop,
-                      value: setPadding(dimensions.width),
-                    },
+                    paddingLeft: [
+                      { minWidth: Breakpoints.Mobile, value: 5 },
+                      {
+                        minWidth: Breakpoints.Desktop,
+                        value: setPadding(dimensions.width),
+                      },
+                    ],
                     paddingRight: {
                       minWidth: Breakpoints.Desktop,
                       value: setPadding(dimensions.width),
