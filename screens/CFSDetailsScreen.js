@@ -6,6 +6,7 @@ import LoadingBlock from '../components/LoadingBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import assessAccess from '../global-functions/assessAccess';
 import transformEuroM from '../global-functions/transformEuroM';
+import transformNumber from '../global-functions/transformNumber';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as DateUtils from '../utils/DateUtils';
@@ -68,7 +69,7 @@ const CFSDetailsScreen = props => {
     <ScreenContainer hasSafeArea={false} scrollable={false}>
       <CustomHeaderBlock />
       <XanoCollectionApi.FetchGetOneCFSGET
-        cfs_id={props.route?.params?.cfs_id ?? 2}
+        cfs_id={props.route?.params?.cfs_id ?? 1968}
       >
         {({ loading, error, data, refetchGetOneCFS }) => {
           const fetchData = data?.json;
@@ -264,7 +265,7 @@ const CFSDetailsScreen = props => {
                         dimensions.width
                       )}
                     >
-                      {fetchData?._advisors}
+                      {transformNumber(fetchData?._advisors)}
                     </Text>
                   </View>
                   {/* View 9 */}
@@ -314,7 +315,7 @@ const CFSDetailsScreen = props => {
                         dimensions.width
                       )}
                     >
-                      {fetchData?._ownersList}
+                      {transformNumber(fetchData?._ownersList)}
                     </Text>
                   </View>
                   {/* View 10 */}
@@ -743,7 +744,7 @@ const CFSDetailsScreen = props => {
                         >
                           {DateUtils.format(
                             fetchData?._main_event?.published,
-                            'd/m/Y'
+                            'dd/MM/yyyy'
                           )}
                           {' ('}
                           {fetchData?._main_event?.source}

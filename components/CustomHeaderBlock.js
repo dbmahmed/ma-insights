@@ -52,7 +52,13 @@ const CustomHeaderBlock = props => {
         showShadowSideStart={true}
         showShadowSideTop={true}
         paintInside={false}
-        style={StyleSheet.applyWidth({ width: '100%' }, dimensions.width)}
+        style={StyleSheet.applyWidth(
+          {
+            width: '100%',
+            zIndex: { minWidth: Breakpoints.Desktop, value: 1000 },
+          },
+          dimensions.width
+        )}
       >
         <HStack
           {...GlobalStyles.HStackStyles(theme)['H Stack'].props}
@@ -104,7 +110,6 @@ const CustomHeaderBlock = props => {
             <IconButton
               onPress={() => {
                 try {
-                  /* hidden 'Navigate' action */
                   setGlobalVariableValue({
                     key: 'top_nav_pressed',
                     value: true,
@@ -465,6 +470,56 @@ const CustomHeaderBlock = props => {
         transparent={true}
         visible={Constants['top_nav_pressed']}
       >
+        {/* View 3 */}
+        <View
+          style={StyleSheet.applyWidth(
+            {
+              alignContent: 'center',
+              alignItems: 'center',
+              alignSelf: 'center',
+              flexDirection: 'row',
+              height: 66,
+              paddingLeft: 15,
+              width: '100%',
+            },
+            dimensions.width
+          )}
+        >
+          {/* Back */}
+          <>
+            {!Constants['subPage'] ? null : (
+              <IconButton
+                onPress={() => {
+                  try {
+                    navigation.goBack();
+                  } catch (err) {
+                    console.error(err);
+                  }
+                }}
+                size={32}
+                color={theme.colors.text.strong}
+                icon={'Entypo/chevron-thin-left'}
+              />
+            )}
+          </>
+          {/* MENU */}
+          <IconButton
+            onPress={() => {
+              try {
+                setGlobalVariableValue({
+                  key: 'top_nav_pressed',
+                  value: false,
+                });
+              } catch (err) {
+                console.error(err);
+              }
+            }}
+            size={32}
+            color={theme.colors.text.strong}
+            icon={'Feather/menu'}
+          />
+        </View>
+
         <View
           collapsable={true}
           style={StyleSheet.applyWidth(
@@ -474,27 +529,35 @@ const CustomHeaderBlock = props => {
                 { minWidth: Breakpoints.Laptop, value: 'flex-start' },
               ],
               backgroundColor: theme.colors.background.brand,
+              borderBottomWidth: 0,
               borderColor: [
                 {
                   minWidth: Breakpoints.Mobile,
-                  value: theme.colors.text.medium,
+                  value: theme.colors.border.brand,
                 },
                 {
                   minWidth: Breakpoints.Laptop,
                   value: theme.colors.border.brand,
                 },
               ],
+              borderLeftWidth: 0,
+              borderTopWidth: 0,
               borderWidth: [
                 { minWidth: Breakpoints.Mobile, value: 0.5 },
                 { minWidth: Breakpoints.Laptop, value: 0.5 },
               ],
               flex: 1,
+              gap: 8,
               height: '100%',
-              padding: { minWidth: Breakpoints.Laptop, value: 10 },
+              justifyContent: 'space-between',
+              padding: [
+                { minWidth: Breakpoints.Mobile, value: 10 },
+                { minWidth: Breakpoints.Laptop, value: 10 },
+              ],
+              paddingBottom: 10,
               position: { minWidth: Breakpoints.Laptop, value: 'relative' },
-              top: { minWidth: Breakpoints.Laptop, value: 66 },
               width: [
-                { minWidth: Breakpoints.Mobile, value: '50%' },
+                { minWidth: Breakpoints.Mobile, value: 250 },
                 { minWidth: Breakpoints.Laptop, value: '30%' },
               ],
               zIndex: 10,
@@ -554,8 +617,14 @@ const CustomHeaderBlock = props => {
                     StyleSheet.compose(
                       GlobalStyles.HStackStyles(theme)['H Stack'].style,
                       {
-                        gap: { minWidth: Breakpoints.Laptop, value: 10 },
-                        padding: { minWidth: Breakpoints.Laptop, value: 10 },
+                        gap: [
+                          { minWidth: Breakpoints.Mobile, value: 10 },
+                          { minWidth: Breakpoints.Laptop, value: 10 },
+                        ],
+                        padding: [
+                          { minWidth: Breakpoints.Mobile, value: 10 },
+                          { minWidth: Breakpoints.Laptop, value: 10 },
+                        ],
                       }
                     ),
                     dimensions.width
@@ -635,8 +704,14 @@ const CustomHeaderBlock = props => {
                     StyleSheet.compose(
                       GlobalStyles.HStackStyles(theme)['H Stack'].style,
                       {
-                        gap: { minWidth: Breakpoints.Laptop, value: 10 },
-                        padding: { minWidth: Breakpoints.Laptop, value: 10 },
+                        gap: [
+                          { minWidth: Breakpoints.Mobile, value: 10 },
+                          { minWidth: Breakpoints.Laptop, value: 10 },
+                        ],
+                        padding: [
+                          { minWidth: Breakpoints.Mobile, value: 10 },
+                          { minWidth: Breakpoints.Laptop, value: 10 },
+                        ],
                       }
                     ),
                     dimensions.width
@@ -714,8 +789,14 @@ const CustomHeaderBlock = props => {
                     StyleSheet.compose(
                       GlobalStyles.HStackStyles(theme)['H Stack'].style,
                       {
-                        gap: { minWidth: Breakpoints.Laptop, value: 10 },
-                        padding: { minWidth: Breakpoints.Laptop, value: 10 },
+                        gap: [
+                          { minWidth: Breakpoints.Mobile, value: 10 },
+                          { minWidth: Breakpoints.Laptop, value: 10 },
+                        ],
+                        padding: [
+                          { minWidth: Breakpoints.Mobile, value: 10 },
+                          { minWidth: Breakpoints.Laptop, value: 10 },
+                        ],
                       }
                     ),
                     dimensions.width
@@ -793,8 +874,14 @@ const CustomHeaderBlock = props => {
                     StyleSheet.compose(
                       GlobalStyles.HStackStyles(theme)['H Stack'].style,
                       {
-                        gap: { minWidth: Breakpoints.Laptop, value: 10 },
-                        padding: { minWidth: Breakpoints.Laptop, value: 10 },
+                        gap: [
+                          { minWidth: Breakpoints.Mobile, value: 10 },
+                          { minWidth: Breakpoints.Laptop, value: 10 },
+                        ],
+                        padding: [
+                          { minWidth: Breakpoints.Mobile, value: 10 },
+                          { minWidth: Breakpoints.Laptop, value: 10 },
+                        ],
                       }
                     ),
                     dimensions.width
@@ -873,8 +960,14 @@ const CustomHeaderBlock = props => {
                     StyleSheet.compose(
                       GlobalStyles.HStackStyles(theme)['H Stack'].style,
                       {
-                        gap: { minWidth: Breakpoints.Laptop, value: 10 },
-                        padding: { minWidth: Breakpoints.Laptop, value: 10 },
+                        gap: [
+                          { minWidth: Breakpoints.Mobile, value: 10 },
+                          { minWidth: Breakpoints.Laptop, value: 10 },
+                        ],
+                        padding: [
+                          { minWidth: Breakpoints.Mobile, value: 10 },
+                          { minWidth: Breakpoints.Laptop, value: 10 },
+                        ],
                       }
                     ),
                     dimensions.width
@@ -952,8 +1045,14 @@ const CustomHeaderBlock = props => {
                     StyleSheet.compose(
                       GlobalStyles.HStackStyles(theme)['H Stack'].style,
                       {
-                        gap: { minWidth: Breakpoints.Laptop, value: 10 },
-                        padding: { minWidth: Breakpoints.Laptop, value: 10 },
+                        gap: [
+                          { minWidth: Breakpoints.Mobile, value: 10 },
+                          { minWidth: Breakpoints.Laptop, value: 10 },
+                        ],
+                        padding: [
+                          { minWidth: Breakpoints.Mobile, value: 10 },
+                          { minWidth: Breakpoints.Laptop, value: 10 },
+                        ],
                       }
                     ),
                     dimensions.width
@@ -1020,8 +1119,14 @@ const CustomHeaderBlock = props => {
                     StyleSheet.compose(
                       GlobalStyles.HStackStyles(theme)['H Stack'].style,
                       {
-                        gap: { minWidth: Breakpoints.Laptop, value: 10 },
-                        padding: { minWidth: Breakpoints.Laptop, value: 10 },
+                        gap: [
+                          { minWidth: Breakpoints.Mobile, value: 10 },
+                          { minWidth: Breakpoints.Laptop, value: 10 },
+                        ],
+                        padding: [
+                          { minWidth: Breakpoints.Mobile, value: 10 },
+                          { minWidth: Breakpoints.Laptop, value: 10 },
+                        ],
                       }
                     ),
                     dimensions.width
@@ -1075,7 +1180,10 @@ const CustomHeaderBlock = props => {
                   minWidth: Breakpoints.Laptop,
                   value: 'flex-end',
                 },
-                width: { minWidth: Breakpoints.Laptop, value: '100%' },
+                width: [
+                  { minWidth: Breakpoints.Mobile, value: '100%' },
+                  { minWidth: Breakpoints.Laptop, value: '100%' },
+                ],
               },
               dimensions.width
             )}
@@ -1084,7 +1192,10 @@ const CustomHeaderBlock = props => {
             <VStack
               {...GlobalStyles.VStackStyles(theme)['V Stack'].props}
               style={StyleSheet.applyWidth(
-                GlobalStyles.VStackStyles(theme)['V Stack'].style,
+                StyleSheet.compose(
+                  GlobalStyles.VStackStyles(theme)['V Stack'].style,
+                  { width: '100%' }
+                ),
                 dimensions.width
               )}
             >
@@ -1111,6 +1222,7 @@ const CustomHeaderBlock = props => {
                       GlobalStyles.HStackStyles(theme)['H Stack'].style,
                       {
                         gap: { minWidth: Breakpoints.Laptop, value: 10 },
+                        justifyContent: 'center',
                         padding: { minWidth: Breakpoints.Laptop, value: 10 },
                       }
                     ),
@@ -1122,7 +1234,10 @@ const CustomHeaderBlock = props => {
                     accessible={true}
                     {...GlobalStyles.TextStyles(theme)['screen_title'].props}
                     style={StyleSheet.applyWidth(
-                      GlobalStyles.TextStyles(theme)['screen_title'].style,
+                      StyleSheet.compose(
+                        GlobalStyles.TextStyles(theme)['screen_title'].style,
+                        { textAlign: 'center' }
+                      ),
                       dimensions.width
                     )}
                   >
@@ -1130,34 +1245,6 @@ const CustomHeaderBlock = props => {
                   </Text>
                 </HStack>
               </Pressable>
-            </VStack>
-            {/* V Stack 9 */}
-            <VStack
-              {...GlobalStyles.VStackStyles(theme)['V Stack'].props}
-              style={StyleSheet.applyWidth(
-                GlobalStyles.VStackStyles(theme)['V Stack'].style,
-                dimensions.width
-              )}
-            >
-              <Link
-                accessible={true}
-                onPress={() => {
-                  try {
-                    setGlobalVariableValue({
-                      key: 'top_nav_pressed',
-                      value: false,
-                    });
-                  } catch (err) {
-                    console.error(err);
-                  }
-                }}
-                {...GlobalStyles.LinkStyles(theme)['Link'].props}
-                style={StyleSheet.applyWidth(
-                  GlobalStyles.LinkStyles(theme)['Link'].style,
-                  dimensions.width
-                )}
-                title={'Dismiss'}
-              />
             </VStack>
           </View>
         </View>

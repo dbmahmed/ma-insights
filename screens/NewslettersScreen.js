@@ -664,8 +664,9 @@ const NewslettersScreen = props => {
                               'Linear Gradient'
                             ].style,
                             {
-                              borderColor: theme.colors.text.strong,
+                              borderColor: null,
                               borderRadius: 5,
+                              borderWidth: null,
                               flexDirection: 'column',
                               height: '100%',
                               margin: null,
