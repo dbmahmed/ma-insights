@@ -874,8 +874,7 @@ const AllEventsScreen = props => {
                         maxWidth: [
                           { minWidth: Breakpoints.Mobile, value: 380 },
                           { minWidth: Breakpoints.Tablet, value: 600 },
-                          { minWidth: Breakpoints.Desktop, value: 900 },
-                          { minWidth: Breakpoints.Laptop, value: 900 },
+                          { minWidth: Breakpoints.Laptop, value: 750 },
                         ],
                         width: '100%',
                       },

@@ -558,10 +558,9 @@ const AdvisorDetailsScreen = props => {
                         borderRadius: 8,
                         justifyContent: 'center',
                         maxWidth: [
+                          { minWidth: Breakpoints.Laptop, value: 750 },
                           { minWidth: Breakpoints.Mobile, value: 380 },
                           { minWidth: Breakpoints.Tablet, value: 600 },
-                          { minWidth: Breakpoints.Desktop, value: 900 },
-                          { minWidth: Breakpoints.Laptop, value: 900 },
                         ],
                         width: '100%',
                       },
