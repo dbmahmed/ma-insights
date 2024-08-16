@@ -412,7 +412,7 @@ const AdvisorDetailsScreen = props => {
                                   gap: 4,
                                   justifyContent: 'space-between',
                                   padding: 10,
-                                  width: '45%',
+                                  width: '100%',
                                 },
                                 dimensions.width
                               )}
