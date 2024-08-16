@@ -5,6 +5,7 @@ import CustomHeaderBlock from '../components/CustomHeaderBlock';
 import LoadingBlock from '../components/LoadingBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import assessAccess from '../global-functions/assessAccess';
+import cutTextByWidth from '../global-functions/cutTextByWidth';
 import removeGlobalScroll from '../global-functions/removeGlobalScroll';
 import transformEuroM from '../global-functions/transformEuroM';
 import palettes from '../themes/palettes';
@@ -73,7 +74,7 @@ const PEPFDetailsScreen = props => {
     <ScreenContainer hasSafeArea={false} scrollable={false}>
       <CustomHeaderBlock />
       <XanoCollectionApi.FetchGetOnePEPFGET
-        pepf_id={props.route?.params?.pepf_id ?? 3}
+        pepf_id={props.route?.params?.pepf_id ?? 1304}
       >
         {({ loading, error, data, refetchGetOnePEPF }) => {
           const fetchData = data?.json;
@@ -325,7 +326,11 @@ const PEPFDetailsScreen = props => {
                         ),
                         dimensions.width
                       )}
-                      title={`${fetchData?.website}`}
+                      title={`${cutTextByWidth(
+                        fetchData?.website,
+                        dimensions.width,
+                        130
+                      )}`}
                     />
                   </View>
                   {/* View 2 */}
