@@ -541,7 +541,7 @@ const StockSearchScreen = props => {
                                 gap: 4,
                                 justifyContent: 'space-between',
                                 padding: 10,
-                                width: '50%',
+                                width: '60%',
                               },
                               dimensions.width
                             )}
@@ -623,19 +623,36 @@ const StockSearchScreen = props => {
                               {listData?._gics_sub_industry?.GICS_Sector}
                             </Text>
                           </View>
-                          {/* View 2 */}
-                          <View
+
+                          <LinearGradient
+                            endX={100}
+                            endY={100}
+                            startX={0}
+                            startY={0}
+                            {...GlobalStyles.LinearGradientStyles(theme)[
+                              'Linear Gradient'
+                            ].props}
+                            color1={theme.colors.text.strong}
+                            color2={theme.colors.branding.primary}
+                            color3={null}
                             style={StyleSheet.applyWidth(
-                              {
-                                backgroundColor: theme.colors.foreground.brand,
-                                borderBottomRightRadius: 8,
-                                borderRadius: 0,
-                                borderTopRightRadius: 8,
-                                gap: 4,
-                                justifyContent: 'space-between',
-                                padding: 10,
-                                width: '50%',
-                              },
+                              StyleSheet.compose(
+                                GlobalStyles.LinearGradientStyles(theme)[
+                                  'Linear Gradient'
+                                ].style,
+                                {
+                                  borderBottomRightRadius: 8,
+                                  borderColor: null,
+                                  borderRadius: null,
+                                  borderTopRightRadius: 8,
+                                  borderWidth: null,
+                                  gap: 4,
+                                  justifyContent: 'space-between',
+                                  margin: null,
+                                  padding: 10,
+                                  width: '40%',
+                                }
+                              ),
                               dimensions.width
                             )}
                           >
@@ -662,6 +679,7 @@ const StockSearchScreen = props => {
                                         'screen_title'
                                       ].style,
                                       {
+                                        color: palettes.Brand['Strong Inverse'],
                                         fontFamily: 'Quicksand_400Regular',
                                         fontSize: 12,
                                       }
@@ -684,6 +702,7 @@ const StockSearchScreen = props => {
                                       'screen_title'
                                     ].style,
                                     {
+                                      color: palettes.Brand['Strong Inverse'],
                                       fontFamily: 'Quicksand_400Regular',
                                       fontSize: 12,
                                     }
@@ -718,6 +737,7 @@ const StockSearchScreen = props => {
                                         'screen_title'
                                       ].style,
                                       {
+                                        color: palettes.Brand['Strong Inverse'],
                                         fontFamily: 'Quicksand_400Regular',
                                         fontSize: 12,
                                       }
@@ -740,6 +760,7 @@ const StockSearchScreen = props => {
                                       'screen_title'
                                     ].style,
                                     {
+                                      color: palettes.Brand['Strong Inverse'],
                                       fontFamily: 'Quicksand_400Regular',
                                       fontSize: 12,
                                     }
@@ -774,6 +795,7 @@ const StockSearchScreen = props => {
                                         'screen_title'
                                       ].style,
                                       {
+                                        color: palettes.Brand['Strong Inverse'],
                                         fontFamily: 'Quicksand_400Regular',
                                         fontSize: 12,
                                       }
@@ -796,6 +818,7 @@ const StockSearchScreen = props => {
                                       'screen_title'
                                     ].style,
                                     {
+                                      color: palettes.Brand['Strong Inverse'],
                                       fontFamily: 'Quicksand_400Regular',
                                       fontSize: 12,
                                     }
@@ -806,7 +829,7 @@ const StockSearchScreen = props => {
                                 {listData?.ev_ebit_ttm}
                               </Text>
                             </View>
-                          </View>
+                          </LinearGradient>
                         </View>
                       </Pressable>
                     </View>

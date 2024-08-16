@@ -201,7 +201,12 @@ const EventDetailsScreen = props => {
                     >
                       <View
                         style={StyleSheet.applyWidth(
-                          { width: 150 },
+                          {
+                            width: [
+                              { minWidth: Breakpoints.Tablet, value: 160 },
+                              { minWidth: Breakpoints.Mobile, value: 150 },
+                            ],
+                          },
                           dimensions.width
                         )}
                       >
@@ -253,7 +258,12 @@ const EventDetailsScreen = props => {
                     >
                       <View
                         style={StyleSheet.applyWidth(
-                          { width: 150 },
+                          {
+                            width: [
+                              { minWidth: Breakpoints.Tablet, value: 160 },
+                              { minWidth: Breakpoints.Mobile, value: 150 },
+                            ],
+                          },
                           dimensions.width
                         )}
                       >
@@ -305,7 +315,12 @@ const EventDetailsScreen = props => {
                     >
                       <View
                         style={StyleSheet.applyWidth(
-                          { width: 150 },
+                          {
+                            width: [
+                              { minWidth: Breakpoints.Tablet, value: 160 },
+                              { minWidth: Breakpoints.Mobile, value: 150 },
+                            ],
+                          },
                           dimensions.width
                         )}
                       >
@@ -364,7 +379,12 @@ const EventDetailsScreen = props => {
                     >
                       <View
                         style={StyleSheet.applyWidth(
-                          { width: 150 },
+                          {
+                            width: [
+                              { minWidth: Breakpoints.Tablet, value: 160 },
+                              { minWidth: Breakpoints.Mobile, value: 150 },
+                            ],
+                          },
                           dimensions.width
                         )}
                       >
@@ -416,7 +436,12 @@ const EventDetailsScreen = props => {
                     >
                       <View
                         style={StyleSheet.applyWidth(
-                          { width: 150 },
+                          {
+                            width: [
+                              { minWidth: Breakpoints.Tablet, value: 160 },
+                              { minWidth: Breakpoints.Mobile, value: 150 },
+                            ],
+                          },
                           dimensions.width
                         )}
                       >
@@ -468,7 +493,12 @@ const EventDetailsScreen = props => {
                     >
                       <View
                         style={StyleSheet.applyWidth(
-                          { width: 150 },
+                          {
+                            width: [
+                              { minWidth: Breakpoints.Tablet, value: 160 },
+                              { minWidth: Breakpoints.Mobile, value: 150 },
+                            ],
+                          },
                           dimensions.width
                         )}
                       >
@@ -520,7 +550,12 @@ const EventDetailsScreen = props => {
                     >
                       <View
                         style={StyleSheet.applyWidth(
-                          { width: 150 },
+                          {
+                            width: [
+                              { minWidth: Breakpoints.Tablet, value: 160 },
+                              { minWidth: Breakpoints.Mobile, value: 150 },
+                            ],
+                          },
                           dimensions.width
                         )}
                       >
@@ -572,7 +607,12 @@ const EventDetailsScreen = props => {
                     >
                       <View
                         style={StyleSheet.applyWidth(
-                          { width: 150 },
+                          {
+                            width: [
+                              { minWidth: Breakpoints.Tablet, value: 160 },
+                              { minWidth: Breakpoints.Mobile, value: 150 },
+                            ],
+                          },
                           dimensions.width
                         )}
                       >
@@ -615,6 +655,65 @@ const EventDetailsScreen = props => {
                         {getListNameFormArray(fetchData?.buyer)}
                       </Text>
                     </View>
+                    {/* View 16 */}
+                    <View
+                      style={StyleSheet.applyWidth(
+                        { flexDirection: 'row', gap: 8 },
+                        dimensions.width
+                      )}
+                    >
+                      <View
+                        style={StyleSheet.applyWidth(
+                          {
+                            width: [
+                              { minWidth: Breakpoints.Mobile, value: 150 },
+                              { minWidth: Breakpoints.Tablet, value: 160 },
+                            ],
+                          },
+                          dimensions.width
+                        )}
+                      >
+                        <Text
+                          accessible={true}
+                          {...GlobalStyles.TextStyles(theme)['screen_title']
+                            .props}
+                          style={StyleSheet.applyWidth(
+                            StyleSheet.compose(
+                              GlobalStyles.TextStyles(theme)['screen_title']
+                                .style,
+                              {
+                                color: palettes.Brand['Strong Inverse'],
+                                fontFamily: 'Quicksand_500Medium',
+                              }
+                            ),
+                            dimensions.width
+                          )}
+                        >
+                          {'Comment to financials:'}
+                        </Text>
+                      </View>
+
+                      <Text
+                        accessible={true}
+                        {...GlobalStyles.TextStyles(theme)['screen_title']
+                          .props}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.TextStyles(theme)['screen_title']
+                              .style,
+                            {
+                              color: palettes.Brand['Strong Inverse'],
+                              fontFamily: 'Quicksand_500Medium',
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {fetchData?.note_financials
+                          ? fetchData?.note_financials
+                          : '-'}
+                      </Text>
+                    </View>
                     {/* View 9 */}
                     <View
                       style={StyleSheet.applyWidth(
@@ -624,7 +723,12 @@ const EventDetailsScreen = props => {
                     >
                       <View
                         style={StyleSheet.applyWidth(
-                          { width: 150 },
+                          {
+                            width: [
+                              { minWidth: Breakpoints.Tablet, value: 160 },
+                              { minWidth: Breakpoints.Mobile, value: 150 },
+                            ],
+                          },
                           dimensions.width
                         )}
                       >
@@ -676,7 +780,12 @@ const EventDetailsScreen = props => {
                     >
                       <View
                         style={StyleSheet.applyWidth(
-                          { width: 150 },
+                          {
+                            width: [
+                              { minWidth: Breakpoints.Tablet, value: 160 },
+                              { minWidth: Breakpoints.Mobile, value: 150 },
+                            ],
+                          },
                           dimensions.width
                         )}
                       >
@@ -728,7 +837,12 @@ const EventDetailsScreen = props => {
                     >
                       <View
                         style={StyleSheet.applyWidth(
-                          { width: 150 },
+                          {
+                            width: [
+                              { minWidth: Breakpoints.Tablet, value: 160 },
+                              { minWidth: Breakpoints.Mobile, value: 150 },
+                            ],
+                          },
                           dimensions.width
                         )}
                       >
@@ -782,7 +896,12 @@ const EventDetailsScreen = props => {
                         >
                           <View
                             style={StyleSheet.applyWidth(
-                              { width: 150 },
+                              {
+                                width: [
+                                  { minWidth: Breakpoints.Tablet, value: 160 },
+                                  { minWidth: Breakpoints.Mobile, value: 150 },
+                                ],
+                              },
                               dimensions.width
                             )}
                           >
@@ -838,7 +957,12 @@ const EventDetailsScreen = props => {
                         >
                           <View
                             style={StyleSheet.applyWidth(
-                              { width: 150 },
+                              {
+                                width: [
+                                  { minWidth: Breakpoints.Tablet, value: 160 },
+                                  { minWidth: Breakpoints.Mobile, value: 150 },
+                                ],
+                              },
                               dimensions.width
                             )}
                           >
@@ -898,7 +1022,12 @@ const EventDetailsScreen = props => {
                         >
                           <View
                             style={StyleSheet.applyWidth(
-                              { width: 150 },
+                              {
+                                width: [
+                                  { minWidth: Breakpoints.Tablet, value: 160 },
+                                  { minWidth: Breakpoints.Mobile, value: 150 },
+                                ],
+                              },
                               dimensions.width
                             )}
                           >
@@ -958,7 +1087,12 @@ const EventDetailsScreen = props => {
                         >
                           <View
                             style={StyleSheet.applyWidth(
-                              { width: 150 },
+                              {
+                                width: [
+                                  { minWidth: Breakpoints.Tablet, value: 160 },
+                                  { minWidth: Breakpoints.Mobile, value: 150 },
+                                ],
+                              },
                               dimensions.width
                             )}
                           >

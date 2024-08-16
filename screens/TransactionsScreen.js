@@ -5,6 +5,7 @@ import CustomHeaderBlock from '../components/CustomHeaderBlock';
 import LoadingBlock from '../components/LoadingBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import assessAccess from '../global-functions/assessAccess';
+import cutText from '../global-functions/cutText';
 import formatNumber from '../global-functions/formatNumber';
 import modifyArrays from '../global-functions/modifyArrays';
 import setPadding from '../global-functions/setPadding';
@@ -573,7 +574,16 @@ const TransactionsScreen = props => {
                                 gap: 4,
                                 justifyContent: 'space-between',
                                 padding: 10,
-                                width: '45%',
+                                width: [
+                                  {
+                                    minWidth: Breakpoints.Laptop,
+                                    value: '50%',
+                                  },
+                                  {
+                                    minWidth: Breakpoints.Mobile,
+                                    value: '55%',
+                                  },
+                                ],
                               },
                               dimensions.width
                             )}
@@ -594,7 +604,7 @@ const TransactionsScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {listData?.target}
+                              {cutText(listData?.target, 24)}
                             </Text>
                             {/* Text 2 */}
                             <Text
@@ -655,19 +665,35 @@ const TransactionsScreen = props => {
                               {listData?._gics.GICS_Sector}
                             </Text>
                           </View>
-                          {/* View 2 */}
-                          <View
+
+                          <LinearGradient
+                            endX={100}
+                            endY={100}
+                            startX={0}
+                            startY={0}
+                            {...GlobalStyles.LinearGradientStyles(theme)[
+                              'Linear Gradient'
+                            ].props}
+                            color1={theme.colors.text.strong}
+                            color2={theme.colors.branding.primary}
+                            color3={null}
                             style={StyleSheet.applyWidth(
-                              {
-                                backgroundColor: theme.colors.foreground.brand,
-                                borderBottomRightRadius: 8,
-                                borderRadius: 0,
-                                borderTopRightRadius: 8,
-                                gap: 4,
-                                justifyContent: 'space-between',
-                                padding: 10,
-                                width: '55%',
-                              },
+                              StyleSheet.compose(
+                                GlobalStyles.LinearGradientStyles(theme)[
+                                  'Linear Gradient'
+                                ].style,
+                                {
+                                  borderBottomRightRadius: 8,
+                                  borderColor: null,
+                                  borderRadius: null,
+                                  borderTopRightRadius: 8,
+                                  borderWidth: null,
+                                  gap: 4,
+                                  justifyContent: 'space-between',
+                                  margin: null,
+                                  padding: 10,
+                                }
+                              ),
                               dimensions.width
                             )}
                           >
@@ -694,6 +720,7 @@ const TransactionsScreen = props => {
                                         'screen_title'
                                       ].style,
                                       {
+                                        color: palettes.Brand['Strong Inverse'],
                                         fontFamily: 'Quicksand_400Regular',
                                         fontSize: 12,
                                       }
@@ -716,6 +743,7 @@ const TransactionsScreen = props => {
                                       'screen_title'
                                     ].style,
                                     {
+                                      color: palettes.Brand['Strong Inverse'],
                                       fontFamily: 'Quicksand_400Regular',
                                       fontSize: 12,
                                     }
@@ -753,6 +781,7 @@ const TransactionsScreen = props => {
                                         'screen_title'
                                       ].style,
                                       {
+                                        color: palettes.Brand['Strong Inverse'],
                                         fontFamily: 'Quicksand_400Regular',
                                         fontSize: 12,
                                       }
@@ -775,6 +804,7 @@ const TransactionsScreen = props => {
                                       'screen_title'
                                     ].style,
                                     {
+                                      color: palettes.Brand['Strong Inverse'],
                                       fontFamily: 'Quicksand_400Regular',
                                       fontSize: 12,
                                     }
@@ -813,6 +843,7 @@ const TransactionsScreen = props => {
                                         'screen_title'
                                       ].style,
                                       {
+                                        color: palettes.Brand['Strong Inverse'],
                                         fontFamily: 'Quicksand_400Regular',
                                         fontSize: 12,
                                       }
@@ -835,6 +866,7 @@ const TransactionsScreen = props => {
                                       'screen_title'
                                     ].style,
                                     {
+                                      color: palettes.Brand['Strong Inverse'],
                                       fontFamily: 'Quicksand_400Regular',
                                       fontSize: 12,
                                     }
@@ -846,7 +878,7 @@ const TransactionsScreen = props => {
                                 {showDate(listData?.ev_ebit, listData?.fy_end)}
                               </Text>
                             </View>
-                          </View>
+                          </LinearGradient>
                         </View>
                       </Pressable>
                     </View>
@@ -864,7 +896,6 @@ const TransactionsScreen = props => {
                 style={StyleSheet.applyWidth(
                   {
                     alignItems: 'stretch',
-                    flexWrap: { minWidth: Breakpoints.Laptop, value: 'wrap' },
                     height: [
                       { minWidth: Breakpoints.Mobile, value: '100%' },
                       {
