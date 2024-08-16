@@ -7,6 +7,7 @@ import * as GlobalVariables from '../config/GlobalVariableContext';
 import assessAccess from '../global-functions/assessAccess';
 import formatNumber from '../global-functions/formatNumber';
 import modifyArrays from '../global-functions/modifyArrays';
+import removeGlobalScroll from '../global-functions/removeGlobalScroll';
 import setPadding from '../global-functions/setPadding';
 import transformEuroM from '../global-functions/transformEuroM';
 import palettes from '../themes/palettes';
@@ -231,6 +232,7 @@ const CFSScreen = props => {
       if (!isFocused) {
         return;
       }
+      removeGlobalScroll();
       setGlobalVariableValue({
         key: 'pageName',
         value: 'Companies For Sale',

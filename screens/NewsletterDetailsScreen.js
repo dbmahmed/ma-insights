@@ -4,6 +4,7 @@ import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
 import CustomHeaderBlock from '../components/CustomHeaderBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import assessAccess from '../global-functions/assessAccess';
+import removeGlobalScroll from '../global-functions/removeGlobalScroll';
 import resetAccess from '../global-functions/resetAccess';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
@@ -50,6 +51,7 @@ const NewsletterDetailsScreen = props => {
       if (!isFocused) {
         return;
       }
+      removeGlobalScroll();
       setGlobalVariableValue({
         key: 'pageName',
         value: 'Newsletter Details',

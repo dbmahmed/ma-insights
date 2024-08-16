@@ -4,6 +4,7 @@ import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
 import * as XanoResetPassApi from '../apis/XanoResetPassApi.js';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import Images from '../config/Images';
+import removeGlobalScroll from '../global-functions/removeGlobalScroll';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
@@ -17,6 +18,7 @@ import {
   TextInput,
   withTheme,
 } from '@draftbit/ui';
+import { useIsFocused } from '@react-navigation/native';
 import { Image, Keyboard, Text, View } from 'react-native';
 
 const ForgotPasswordScreen = props => {
@@ -36,6 +38,17 @@ const ForgotPasswordScreen = props => {
   const [tempPassVal, setTempPassVal] = React.useState('');
   const xanoResetPassResetPasswordPOST =
     XanoResetPassApi.useResetPasswordPOST();
+  const isFocused = useIsFocused();
+  React.useEffect(() => {
+    try {
+      if (!isFocused) {
+        return;
+      }
+      removeGlobalScroll();
+    } catch (err) {
+      console.error(err);
+    }
+  }, [isFocused]);
 
   return (
     <ScreenContainer

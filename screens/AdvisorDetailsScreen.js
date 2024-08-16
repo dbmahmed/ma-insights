@@ -5,6 +5,7 @@ import CustomHeaderBlock from '../components/CustomHeaderBlock';
 import LoadingBlock from '../components/LoadingBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import assessAccess from '../global-functions/assessAccess';
+import removeGlobalScroll from '../global-functions/removeGlobalScroll';
 import setPadding from '../global-functions/setPadding';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
@@ -144,6 +145,7 @@ const AdvisorDetailsScreen = props => {
       if (!isFocused) {
         return;
       }
+      removeGlobalScroll();
       setGlobalVariableValue({
         key: 'pageName',
         value: 'Advisor details',

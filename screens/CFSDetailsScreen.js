@@ -5,6 +5,7 @@ import CustomHeaderBlock from '../components/CustomHeaderBlock';
 import LoadingBlock from '../components/LoadingBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import assessAccess from '../global-functions/assessAccess';
+import removeGlobalScroll from '../global-functions/removeGlobalScroll';
 import transformEuroM from '../global-functions/transformEuroM';
 import transformNumber from '../global-functions/transformNumber';
 import palettes from '../themes/palettes';
@@ -45,6 +46,7 @@ const CFSDetailsScreen = props => {
       if (!isFocused) {
         return;
       }
+      removeGlobalScroll();
       setGlobalVariableValue({
         key: 'pageName',
         value: 'Company For Sale Details',
@@ -98,7 +100,6 @@ const CFSDetailsScreen = props => {
                     { minWidth: Breakpoints.Desktop, value: 85 },
                   ],
                   paddingBottom: 65,
-                  paddingTop: 5,
                   position: 'absolute',
                   width: '99.9%',
                 },

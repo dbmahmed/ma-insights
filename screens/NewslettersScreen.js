@@ -5,6 +5,7 @@ import CustomHeaderBlock from '../components/CustomHeaderBlock';
 import LoadingBlock from '../components/LoadingBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import assessAccess from '../global-functions/assessAccess';
+import removeGlobalScroll from '../global-functions/removeGlobalScroll';
 import resetAccess from '../global-functions/resetAccess';
 import setPadding from '../global-functions/setPadding';
 import palettes from '../themes/palettes';
@@ -60,50 +61,53 @@ const NewslettersScreen = props => {
       if (!isFocused) {
         return;
       }
-      console.log('Start ON_SCREEN_FOCUS:0 CONSOLE_LOG');
-      /* hidden 'Log to Console' action */ console.log(
-        'Complete ON_SCREEN_FOCUS:0 CONSOLE_LOG'
-      );
+      console.log('Start ON_SCREEN_FOCUS:0 CUSTOM_FUNCTION');
+      removeGlobalScroll();
+      console.log('Complete ON_SCREEN_FOCUS:0 CUSTOM_FUNCTION');
       console.log('Start ON_SCREEN_FOCUS:1 CONSOLE_LOG');
       /* hidden 'Log to Console' action */ console.log(
         'Complete ON_SCREEN_FOCUS:1 CONSOLE_LOG'
       );
-      console.log('Start ON_SCREEN_FOCUS:2 SET_VARIABLE');
+      console.log('Start ON_SCREEN_FOCUS:2 CONSOLE_LOG');
+      /* hidden 'Log to Console' action */ console.log(
+        'Complete ON_SCREEN_FOCUS:2 CONSOLE_LOG'
+      );
+      console.log('Start ON_SCREEN_FOCUS:3 SET_VARIABLE');
       setGlobalVariableValue({
         key: 'pageName',
         value: 'Newsletters',
       });
-      console.log('Complete ON_SCREEN_FOCUS:2 SET_VARIABLE');
-      console.log('Start ON_SCREEN_FOCUS:3 SET_VARIABLE');
+      console.log('Complete ON_SCREEN_FOCUS:3 SET_VARIABLE');
+      console.log('Start ON_SCREEN_FOCUS:4 SET_VARIABLE');
       setGlobalVariableValue({
         key: 'subPage',
         value: false,
       });
-      console.log('Complete ON_SCREEN_FOCUS:3 SET_VARIABLE');
-      console.log('Start ON_SCREEN_FOCUS:4 CONDITIONAL_STOP');
+      console.log('Complete ON_SCREEN_FOCUS:4 SET_VARIABLE');
+      console.log('Start ON_SCREEN_FOCUS:5 CONDITIONAL_STOP');
       if (assessAccess(Variables, setGlobalVariableValue) === true) {
-        return console.log('Complete ON_SCREEN_FOCUS:4 CONDITIONAL_STOP');
+        return console.log('Complete ON_SCREEN_FOCUS:5 CONDITIONAL_STOP');
       } else {
         console.log(
-          'Skipped ON_SCREEN_FOCUS:4 CONDITIONAL_STOP: condition not met'
+          'Skipped ON_SCREEN_FOCUS:5 CONDITIONAL_STOP: condition not met'
         );
       }
-      console.log('Start ON_SCREEN_FOCUS:5 CONSOLE_LOG');
+      console.log('Start ON_SCREEN_FOCUS:6 CONSOLE_LOG');
       console.log(
         'testing conditional stop',
         assessAccess(Variables, setGlobalVariableValue)
       );
-      console.log('Complete ON_SCREEN_FOCUS:5 CONSOLE_LOG');
-      console.log('Start ON_SCREEN_FOCUS:6 CUSTOM_FUNCTION');
+      console.log('Complete ON_SCREEN_FOCUS:6 CONSOLE_LOG');
+      console.log('Start ON_SCREEN_FOCUS:7 CUSTOM_FUNCTION');
       resetAccess(navigation, Variables, setGlobalVariableValue);
-      console.log('Complete ON_SCREEN_FOCUS:6 CUSTOM_FUNCTION');
-      console.log('Start ON_SCREEN_FOCUS:7 NAVIGATE');
+      console.log('Complete ON_SCREEN_FOCUS:7 CUSTOM_FUNCTION');
+      console.log('Start ON_SCREEN_FOCUS:8 NAVIGATE');
       /* hidden 'Navigate' action */ console.log(
-        'Complete ON_SCREEN_FOCUS:7 NAVIGATE'
+        'Complete ON_SCREEN_FOCUS:8 NAVIGATE'
       );
-      console.log('Start ON_SCREEN_FOCUS:8 SET_VARIABLE');
+      console.log('Start ON_SCREEN_FOCUS:9 SET_VARIABLE');
       /* hidden 'Set Variable' action */ console.log(
-        'Complete ON_SCREEN_FOCUS:8 SET_VARIABLE'
+        'Complete ON_SCREEN_FOCUS:9 SET_VARIABLE'
       );
     } catch (err) {
       console.error(err);

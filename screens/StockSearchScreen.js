@@ -6,6 +6,7 @@ import LoadingBlock from '../components/LoadingBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import assessAccess from '../global-functions/assessAccess';
 import formatNumber from '../global-functions/formatNumber';
+import removeGlobalScroll from '../global-functions/removeGlobalScroll';
 import setPadding from '../global-functions/setPadding';
 import transformEuroM from '../global-functions/transformEuroM';
 import palettes from '../themes/palettes';
@@ -176,6 +177,7 @@ const StockSearchScreen = props => {
       if (!isFocused) {
         return;
       }
+      removeGlobalScroll();
       setGlobalVariableValue({
         key: 'pageName',
         value: 'Stock Search',

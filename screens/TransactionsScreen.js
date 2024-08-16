@@ -8,6 +8,7 @@ import assessAccess from '../global-functions/assessAccess';
 import cutText from '../global-functions/cutText';
 import formatNumber from '../global-functions/formatNumber';
 import modifyArrays from '../global-functions/modifyArrays';
+import removeGlobalScroll from '../global-functions/removeGlobalScroll';
 import setPadding from '../global-functions/setPadding';
 import showDate from '../global-functions/showDate';
 import transformNumber from '../global-functions/transformNumber';
@@ -163,6 +164,7 @@ const TransactionsScreen = props => {
       if (!isFocused) {
         return;
       }
+      removeGlobalScroll();
       setGlobalVariableValue({
         key: 'pageName',
         value: 'Transactions',

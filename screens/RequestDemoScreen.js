@@ -3,6 +3,7 @@ import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import Images from '../config/Images';
+import removeGlobalScroll from '../global-functions/removeGlobalScroll';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
@@ -17,6 +18,7 @@ import {
   TextInput,
   withTheme,
 } from '@draftbit/ui';
+import { useIsFocused } from '@react-navigation/native';
 import { Image, Keyboard, Text, View } from 'react-native';
 
 const RequestDemoScreen = props => {
@@ -50,6 +52,17 @@ const RequestDemoScreen = props => {
     return true;
   };
   const xanoCollectionRequestDemoPOST = XanoCollectionApi.useRequestDemoPOST();
+  const isFocused = useIsFocused();
+  React.useEffect(() => {
+    try {
+      if (!isFocused) {
+        return;
+      }
+      removeGlobalScroll();
+    } catch (err) {
+      console.error(err);
+    }
+  }, [isFocused]);
   const fullName7AwDaCGdRef = React.useRef();
   const companyNameZZjKNDmJRef = React.useRef();
   const mobileBYuqOWrYRef = React.useRef();

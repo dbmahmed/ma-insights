@@ -3,6 +3,7 @@ import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import Images from '../config/Images';
+import removeGlobalScroll from '../global-functions/removeGlobalScroll';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
@@ -31,27 +32,30 @@ const SplashScreen = props => {
         if (!isFocused) {
           return;
         }
-        console.log('Start ON_SCREEN_FOCUS:0 CONSOLE_LOG');
+        console.log('Start ON_SCREEN_FOCUS:0 CUSTOM_FUNCTION');
+        removeGlobalScroll();
+        console.log('Complete ON_SCREEN_FOCUS:0 CUSTOM_FUNCTION');
+        console.log('Start ON_SCREEN_FOCUS:1 CONSOLE_LOG');
         /* hidden 'Log to Console' action */ console.log(
-          'Complete ON_SCREEN_FOCUS:0 CONSOLE_LOG'
+          'Complete ON_SCREEN_FOCUS:1 CONSOLE_LOG'
         );
-        console.log('Start ON_SCREEN_FOCUS:1 FETCH_REQUEST');
+        console.log('Start ON_SCREEN_FOCUS:2 FETCH_REQUEST');
         const get_me = (await XanoCollectionApi.authMeGET(Constants))?.json;
-        console.log('Complete ON_SCREEN_FOCUS:1 FETCH_REQUEST', { get_me });
-        console.log('Start ON_SCREEN_FOCUS:2 SET_VARIABLE');
+        console.log('Complete ON_SCREEN_FOCUS:2 FETCH_REQUEST', { get_me });
+        console.log('Start ON_SCREEN_FOCUS:3 SET_VARIABLE');
         setGlobalVariableValue({
           key: 'ME',
           value: get_me,
         });
-        console.log('Complete ON_SCREEN_FOCUS:2 SET_VARIABLE');
-        console.log('Start ON_SCREEN_FOCUS:3 CONDITIONAL_STOP');
+        console.log('Complete ON_SCREEN_FOCUS:3 SET_VARIABLE');
+        console.log('Start ON_SCREEN_FOCUS:4 CONDITIONAL_STOP');
         /* hidden 'Conditional Stop' action */ console.log(
-          'Complete ON_SCREEN_FOCUS:3 CONDITIONAL_STOP'
+          'Complete ON_SCREEN_FOCUS:4 CONDITIONAL_STOP'
         );
-        console.log('Start ON_SCREEN_FOCUS:4 CONSOLE_LOG');
+        console.log('Start ON_SCREEN_FOCUS:5 CONSOLE_LOG');
         console.log(get_me?.email, 'GET ME: ');
-        console.log('Complete ON_SCREEN_FOCUS:4 CONSOLE_LOG');
-        console.log('Start ON_SCREEN_FOCUS:5 IF');
+        console.log('Complete ON_SCREEN_FOCUS:5 CONSOLE_LOG');
+        console.log('Start ON_SCREEN_FOCUS:6 IF');
         if (!get_me?.email) {
           if (navigation.canGoBack()) {
             navigation.popToTop();
@@ -60,7 +64,7 @@ const SplashScreen = props => {
         } else {
           navigation.navigate('MAInsights', { screen: 'NewslettersScreen' });
         }
-        console.log('Complete ON_SCREEN_FOCUS:5 IF');
+        console.log('Complete ON_SCREEN_FOCUS:6 IF');
       } catch (err) {
         console.error(err);
         error = err.message ?? err;

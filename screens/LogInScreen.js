@@ -5,6 +5,7 @@ import * as XanoResetPassApi from '../apis/XanoResetPassApi.js';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import Images from '../config/Images';
 import assessAccess from '../global-functions/assessAccess';
+import removeGlobalScroll from '../global-functions/removeGlobalScroll';
 import setAccessToken from '../global-functions/setAccessToken';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
@@ -90,6 +91,9 @@ const LogInScreen = props => {
       }
       navigation.replace('MAInsights');
       console.log('Complete ON_SCREEN_FOCUS:3 NAVIGATE');
+      console.log('Start ON_SCREEN_FOCUS:4 CUSTOM_FUNCTION');
+      removeGlobalScroll();
+      console.log('Complete ON_SCREEN_FOCUS:4 CUSTOM_FUNCTION');
     } catch (err) {
       console.error(err);
       error = err.message ?? err;
