@@ -26,6 +26,7 @@ import {
 } from '@draftbit/ui';
 import { H3 } from '@expo/html-elements';
 import { useIsFocused } from '@react-navigation/native';
+import * as WebBrowser from 'expo-web-browser';
 import { ActivityIndicator, Modal, Text, View } from 'react-native';
 import { Fetch } from 'react-request';
 
@@ -220,22 +221,28 @@ line two` ) and will not work with special characters inside of quotes ( example
                   <Button
                     iconPosition={'left'}
                     onPress={() => {
-                      try {
-                        setIndustrials(true);
-                        setConsumer_discretionary(true);
-                        setIt_and_software(true);
-                        setConsumer_staples(true);
-                        setMaterials(true);
-                        setEnergy(true);
-                        setReal_estate(true);
-                        setFinancials(true);
-                        setHealth_care(true);
-                        setNordic(true);
-                        setDach(true);
-                        setUtilities(true);
-                      } catch (err) {
-                        console.error(err);
-                      }
+                      const handler = async () => {
+                        try {
+                          /* hidden 'Set Variable' action */
+                          /* hidden 'Set Variable' action */
+                          /* hidden 'Set Variable' action */
+                          /* hidden 'Set Variable' action */
+                          /* hidden 'Set Variable' action */
+                          /* hidden 'Set Variable' action */
+                          /* hidden 'Set Variable' action */
+                          /* hidden 'Set Variable' action */
+                          /* hidden 'Set Variable' action */
+                          /* hidden 'Set Variable' action */
+                          /* hidden 'Set Variable' action */
+                          /* hidden 'Set Variable' action */
+                          await WebBrowser.openBrowserAsync(
+                            'https://xne3-pdiu-8ysm.f2.xano.io/vault/wWtASq8F/oQx-UXpw06QcBcigzMvuyzYrIoM/Kzkd1g../Advisor+tracking.xlsx'
+                          );
+                        } catch (err) {
+                          console.error(err);
+                        }
+                      };
+                      handler();
                     }}
                     {...GlobalStyles.ButtonStyles(theme)['Button'].props}
                     style={StyleSheet.applyWidth(
