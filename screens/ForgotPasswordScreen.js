@@ -608,7 +608,7 @@ const ForgotPasswordScreen = props => {
                         console.log('Start ON_PRESS:17 SET_VARIABLE');
                         setGlobalVariableValue({
                           key: 'RESET_AUTH_HEADER',
-                          value: tempAuthToken,
+                          value: 'Bearer ' + tempAuthToken,
                         });
                         console.log('Complete ON_PRESS:17 SET_VARIABLE');
                         console.log('Start ON_PRESS:18 SET_VARIABLE');
