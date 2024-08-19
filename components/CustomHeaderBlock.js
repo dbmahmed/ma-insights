@@ -2,6 +2,7 @@ import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import Images from '../config/Images';
+import resetAccess from '../global-functions/resetAccess';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
@@ -185,9 +186,7 @@ const CustomHeaderBlock = props => {
                   accessible={true}
                   onPress={() => {
                     try {
-                      navigation.navigate('MAInsights', {
-                        screen: 'NewslettersScreen',
-                      });
+                      navigation.navigate('RootNavigator');
                     } catch (err) {
                       console.error(err);
                     }
@@ -255,9 +254,7 @@ const CustomHeaderBlock = props => {
                   accessible={true}
                   onPress={() => {
                     try {
-                      navigation.navigate('MAInsights', {
-                        screen: 'AllEventsScreen',
-                      });
+                      navigation.navigate('RootNavigator');
                     } catch (err) {
                       console.error(err);
                     }
@@ -313,9 +310,7 @@ const CustomHeaderBlock = props => {
                   accessible={true}
                   onPress={() => {
                     try {
-                      navigation.navigate('MAInsights', {
-                        screen: 'CFSScreen',
-                      });
+                      navigation.navigate('RootNavigator');
                     } catch (err) {
                       console.error(err);
                     }
@@ -371,9 +366,7 @@ const CustomHeaderBlock = props => {
                   accessible={true}
                   onPress={() => {
                     try {
-                      navigation.navigate('MAInsights', {
-                        screen: 'PEPFScreen',
-                      });
+                      navigation.navigate('RootNavigator');
                     } catch (err) {
                       console.error(err);
                     }
@@ -442,9 +435,7 @@ const CustomHeaderBlock = props => {
             <Pressable
               onPress={() => {
                 try {
-                  navigation.navigate('MAInsights', {
-                    screen: 'NewslettersScreen',
-                  });
+                  navigation.navigate('RootNavigator');
                 } catch (err) {
                   console.error(err);
                 }
@@ -466,6 +457,365 @@ const CustomHeaderBlock = props => {
           </View>
         </HStack>
       </Shadow>
+      {/* Shadow 2 */}
+      <>
+        {dimensions.width >= Breakpoints.Laptop ? null : (
+          <Shadow
+            offsetX={0}
+            offsetY={0}
+            paintInside={true}
+            showShadowCornerBottomEnd={true}
+            showShadowCornerBottomStart={true}
+            showShadowCornerTopEnd={true}
+            showShadowCornerTopStart={true}
+            showShadowSideBottom={true}
+            showShadowSideEnd={true}
+            showShadowSideStart={true}
+            showShadowSideTop={true}
+            {...GlobalStyles.ShadowStyles(theme)['bot_nav'].props}
+            style={StyleSheet.applyWidth(
+              StyleSheet.compose(
+                GlobalStyles.ShadowStyles(theme)['bot_nav'].style,
+                {
+                  marginBottom: 25,
+                  top: [
+                    {
+                      minWidth: Breakpoints.Laptop,
+                      value: dimensions.height - 65,
+                    },
+                    {
+                      minWidth: Breakpoints.Mobile,
+                      value: dimensions.height - 125,
+                    },
+                  ],
+                  zIndex: 10,
+                }
+              ),
+              dimensions.width
+            )}
+          >
+            <HStack
+              {...GlobalStyles.HStackStyles(theme)['H Stack'].props}
+              style={StyleSheet.applyWidth(
+                StyleSheet.compose(
+                  GlobalStyles.HStackStyles(theme)['H Stack'].style,
+                  {
+                    alignContent: 'center',
+                    alignSelf: 'center',
+                    backgroundColor: theme.colors.background.brand,
+                    height: 65,
+                    justifyContent: 'space-between',
+                    overflow: { minWidth: Breakpoints.Laptop, value: 'hidden' },
+                    width: '100%',
+                  }
+                ),
+                dimensions.width
+              )}
+            >
+              {/* View 4 */}
+              <View
+                style={StyleSheet.applyWidth(
+                  {
+                    alignContent: 'center',
+                    alignItems: 'stretch',
+                    alignSelf: 'center',
+                    borderColor: [
+                      {
+                        minWidth: Breakpoints.Tablet,
+                        value: theme.colors.foreground.brand,
+                      },
+                      {
+                        minWidth: Breakpoints.Mobile,
+                        value: theme.colors.foreground.brand,
+                      },
+                    ],
+                    borderRightWidth: [
+                      { minWidth: Breakpoints.Tablet, value: 0.5 },
+                      { minWidth: Breakpoints.Mobile, value: 0.5 },
+                    ],
+                    borderStyle: 'dashed',
+                    height: '100%',
+                    justifyContent: 'center',
+                    width: '25%',
+                  },
+                  dimensions.width
+                )}
+              >
+                {/* Pressable 2 */}
+                <Pressable
+                  style={StyleSheet.applyWidth(
+                    { height: '100%', width: '100%' },
+                    dimensions.width
+                  )}
+                >
+                  <View
+                    style={StyleSheet.applyWidth(
+                      {
+                        alignItems: 'center',
+                        height: '100%',
+                        justifyContent: 'center',
+                      },
+                      dimensions.width
+                    )}
+                  >
+                    <Icon
+                      size={24}
+                      color={
+                        Constants['pageName'] === 'Newsletters'
+                          ? palettes.Brand.Primary
+                          : palettes.Brand.Strong
+                      }
+                      name={'Ionicons/newspaper-outline'}
+                      style={StyleSheet.applyWidth(
+                        { width: '100%' },
+                        dimensions.width
+                      )}
+                    />
+                    <Text
+                      accessible={true}
+                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.TextStyles(theme)['screen_title'].style,
+                          {
+                            color:
+                              Constants['pageName'] === 'Newsletters'
+                                ? palettes.Brand.Primary
+                                : palettes.Brand.Strong,
+                            fontFamily: 'Quicksand_400Regular',
+                            marginTop: 2,
+                          }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      {'Newsletters'}
+                    </Text>
+                  </View>
+                </Pressable>
+              </View>
+              {/* View 5 */}
+              <View
+                style={StyleSheet.applyWidth(
+                  {
+                    alignContent: 'center',
+                    alignItems: 'stretch',
+                    alignSelf: 'center',
+                    height: '100%',
+                    justifyContent: 'center',
+                    width: '25%',
+                  },
+                  dimensions.width
+                )}
+              >
+                {/* Pressable 2 */}
+                <Pressable
+                  style={StyleSheet.applyWidth(
+                    {
+                      borderColor: [
+                        {
+                          minWidth: Breakpoints.Tablet,
+                          value: theme.colors.foreground.brand,
+                        },
+                        {
+                          minWidth: Breakpoints.Mobile,
+                          value: theme.colors.foreground.brand,
+                        },
+                      ],
+                      borderRightWidth: [
+                        { minWidth: Breakpoints.Tablet, value: 0.5 },
+                        { minWidth: Breakpoints.Mobile, value: 0.5 },
+                      ],
+                      borderStyle: 'dashed',
+                      height: '100%',
+                      width: '100%',
+                    },
+                    dimensions.width
+                  )}
+                >
+                  <View
+                    style={StyleSheet.applyWidth(
+                      {
+                        alignItems: 'center',
+                        height: '100%',
+                        justifyContent: 'center',
+                      },
+                      dimensions.width
+                    )}
+                  >
+                    <Icon
+                      size={24}
+                      color={
+                        Constants['pageName'] === 'All events'
+                          ? palettes.Brand.Primary
+                          : palettes.Brand.Strong
+                      }
+                      name={'AntDesign/search1'}
+                      style={StyleSheet.applyWidth(
+                        { width: '100%' },
+                        dimensions.width
+                      )}
+                    />
+                    <Text
+                      accessible={true}
+                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.TextStyles(theme)['screen_title'].style,
+                          {
+                            color:
+                              Constants['pageName'] === 'Companies For Sale'
+                                ? palettes.Brand.Primary
+                                : palettes.Brand.Strong,
+                            fontFamily: 'Quicksand_400Regular',
+                            marginTop: 2,
+                          }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      {'All events'}
+                    </Text>
+                  </View>
+                </Pressable>
+              </View>
+              {/* View 6 */}
+              <View
+                style={StyleSheet.applyWidth(
+                  {
+                    alignContent: 'center',
+                    alignItems: 'stretch',
+                    alignSelf: 'center',
+                    height: '100%',
+                    justifyContent: 'center',
+                    width: '25%',
+                  },
+                  dimensions.width
+                )}
+              >
+                {/* Pressable 2 */}
+                <Pressable
+                  style={StyleSheet.applyWidth(
+                    {
+                      borderColor: [
+                        {
+                          minWidth: Breakpoints.Tablet,
+                          value: theme.colors.foreground.brand,
+                        },
+                        {
+                          minWidth: Breakpoints.Mobile,
+                          value: theme.colors.foreground.brand,
+                        },
+                      ],
+                      borderRightWidth: [
+                        { minWidth: Breakpoints.Tablet, value: 0.5 },
+                        { minWidth: Breakpoints.Mobile, value: 0.5 },
+                      ],
+                      borderStyle: 'dashed',
+                      height: '100%',
+                      width: '100%',
+                    },
+                    dimensions.width
+                  )}
+                >
+                  <View
+                    style={StyleSheet.applyWidth(
+                      {
+                        alignItems: 'center',
+                        height: '100%',
+                        justifyContent: 'center',
+                      },
+                      dimensions.width
+                    )}
+                  >
+                    <Icon
+                      size={24}
+                      color={
+                        Constants['pageName'] === 'PEPF'
+                          ? palettes.Brand.Primary
+                          : palettes.Brand.Strong
+                      }
+                      name={'MaterialIcons/business'}
+                      style={StyleSheet.applyWidth(
+                        { width: '100%' },
+                        dimensions.width
+                      )}
+                    />
+                    <Text
+                      accessible={true}
+                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.TextStyles(theme)['screen_title'].style,
+                          { fontFamily: 'Quicksand_400Regular', marginTop: 2 }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      {'CFS'}
+                    </Text>
+                  </View>
+                </Pressable>
+              </View>
+              {/* View 7 */}
+              <View
+                style={StyleSheet.applyWidth(
+                  {
+                    alignContent: 'center',
+                    alignItems: 'stretch',
+                    alignSelf: 'center',
+                    height: '100%',
+                    justifyContent: 'center',
+                    width: '25%',
+                  },
+                  dimensions.width
+                )}
+              >
+                {/* Pressable 2 */}
+                <Pressable
+                  style={StyleSheet.applyWidth(
+                    { height: '100%', width: '100%' },
+                    dimensions.width
+                  )}
+                >
+                  <View
+                    style={StyleSheet.applyWidth(
+                      {
+                        alignItems: 'center',
+                        height: '100%',
+                        justifyContent: 'center',
+                      },
+                      dimensions.width
+                    )}
+                  >
+                    <Icon
+                      size={24}
+                      name={'MaterialIcons/waterfall-chart'}
+                      style={StyleSheet.applyWidth(
+                        { width: '100%' },
+                        dimensions.width
+                      )}
+                    />
+                    <Text
+                      accessible={true}
+                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.TextStyles(theme)['screen_title'].style,
+                          { fontFamily: 'Quicksand_400Regular', marginTop: 2 }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      {'PEPF'}
+                    </Text>
+                  </View>
+                </Pressable>
+              </View>
+            </HStack>
+          </Shadow>
+        )}
+      </>
       {/* Side Menu */}
       <Modal
         supportedOrientations={['portrait', 'landscape']}
@@ -597,9 +947,7 @@ const CustomHeaderBlock = props => {
               <Pressable
                 onPress={() => {
                   try {
-                    navigation.navigate('MAInsights', {
-                      screen: 'NewslettersScreen',
-                    });
+                    navigation.navigate('RootNavigator');
                     setGlobalVariableValue({
                       key: 'top_nav_pressed',
                       value: false,
@@ -678,9 +1026,7 @@ const CustomHeaderBlock = props => {
               <Pressable
                 onPress={() => {
                   try {
-                    navigation.navigate('MAInsights', {
-                      screen: 'AllEventsScreen',
-                    });
+                    navigation.navigate('RootNavigator');
                     setGlobalVariableValue({
                       key: 'top_nav_pressed',
                       value: false,
@@ -759,7 +1105,7 @@ const CustomHeaderBlock = props => {
               <Pressable
                 onPress={() => {
                   try {
-                    navigation.navigate('MAInsights', { screen: 'CFSScreen' });
+                    navigation.navigate('RootNavigator');
                     setGlobalVariableValue({
                       key: 'top_nav_pressed',
                       value: false,
@@ -838,7 +1184,7 @@ const CustomHeaderBlock = props => {
               <Pressable
                 onPress={() => {
                   try {
-                    navigation.navigate('MAInsights', { screen: 'PEPFScreen' });
+                    navigation.navigate('RootNavigator');
                     setGlobalVariableValue({
                       key: 'top_nav_pressed',
                       value: false,
@@ -1293,6 +1639,68 @@ const CustomHeaderBlock = props => {
                     )}
                   >
                     {'MY ACCOUNT'}
+                  </Text>
+                </HStack>
+              </Pressable>
+            </VStack>
+            {/* V Stack 10 */}
+            <VStack
+              {...GlobalStyles.VStackStyles(theme)['V Stack'].props}
+              style={StyleSheet.applyWidth(
+                StyleSheet.compose(
+                  GlobalStyles.VStackStyles(theme)['V Stack'].style,
+                  { width: '100%' }
+                ),
+                dimensions.width
+              )}
+            >
+              <Pressable
+                onPress={() => {
+                  try {
+                    setGlobalVariableValue({
+                      key: 'top_nav_pressed',
+                      value: false,
+                    });
+                    resetAccess(navigation, Variables, setGlobalVariableValue);
+                  } catch (err) {
+                    console.error(err);
+                  }
+                }}
+              >
+                <HStack
+                  {...GlobalStyles.HStackStyles(theme)['H Stack'].props}
+                  style={StyleSheet.applyWidth(
+                    StyleSheet.compose(
+                      GlobalStyles.HStackStyles(theme)['H Stack'].style,
+                      {
+                        gap: { minWidth: Breakpoints.Laptop, value: 10 },
+                        justifyContent: 'flex-start',
+                        padding: 10,
+                      }
+                    ),
+                    dimensions.width
+                  )}
+                >
+                  <Icon size={24} name={'SimpleLineIcons/logout'} />
+                  <Text
+                    accessible={true}
+                    {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.TextStyles(theme)['screen_title'].style,
+                        {
+                          color: {
+                            minWidth: Breakpoints.Laptop,
+                            value: palettes.Brand.Strong,
+                          },
+                          paddingLeft: 4,
+                          textAlign: 'center',
+                        }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    {'LOGOUT'}
                   </Text>
                 </HStack>
               </Pressable>

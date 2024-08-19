@@ -10,12 +10,14 @@ import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import parseBoolean from '../utils/parseBoolean';
 import useWindowDimensions from '../utils/useWindowDimensions';
+import waitUtil from '../utils/wait';
 import {
   Button,
   Link,
   ScreenContainer,
   Surface,
   TextInput,
+  VStack,
   withTheme,
 } from '@draftbit/ui';
 import { useIsFocused } from '@react-navigation/native';
@@ -60,7 +62,16 @@ const ForgotPasswordScreen = props => {
           alignContent: 'center',
           alignItems: 'center',
           alignSelf: 'center',
-          backgroundColor: theme.colors.text.strong,
+          backgroundColor: [
+            {
+              minWidth: Breakpoints.Laptop,
+              value: palettes.App['Custom Color'],
+            },
+            {
+              minWidth: Breakpoints.Mobile,
+              value: palettes.App['Custom Color'],
+            },
+          ],
           justifyContent: 'center',
           margin: 20,
         },
@@ -82,44 +93,105 @@ const ForgotPasswordScreen = props => {
           >
             <View
               style={StyleSheet.applyWidth(
-                { alignItems: 'center', maxWidth: 380, width: '100%' },
+                {
+                  alignContent: 'center',
+                  alignItems: 'center',
+                  alignSelf: 'center',
+                  maxWidth: { minWidth: Breakpoints.Tablet, value: 380 },
+                  width: [
+                    { minWidth: Breakpoints.Laptop, value: '50%' },
+                    { minWidth: Breakpoints.Tablet, value: '100%' },
+                  ],
+                },
                 dimensions.width
               )}
             >
-              {/* NKP Logo */}
-              <Image
-                {...GlobalStyles.ImageStyles(theme)['Image'].props}
-                resizeMode={'contain'}
-                source={Images['LogoMobileApp']}
+              <VStack
+                {...GlobalStyles.VStackStyles(theme)['V Stack'].props}
                 style={StyleSheet.applyWidth(
-                  StyleSheet.compose(
-                    GlobalStyles.ImageStyles(theme)['Image'].style,
-                    { width: 300 }
-                  ),
-                  dimensions.width
-                )}
-              />
-              <Text
-                accessible={true}
-                {...GlobalStyles.TextStyles(theme)['screen_title'].props}
-                style={StyleSheet.applyWidth(
-                  StyleSheet.compose(
-                    GlobalStyles.TextStyles(theme)['screen_title'].style,
-                    {
-                      alignSelf: 'center',
-                      color: palettes.Brand.Surface,
-                      fontFamily: 'Quicksand_400Regular',
-                      marginTop: 15,
-                      textAlign: 'center',
-                    }
-                  ),
+                  GlobalStyles.VStackStyles(theme)['V Stack'].style,
                   dimensions.width
                 )}
               >
-                {
-                  'Enter the email associated with your M&A Insights user and you will be sent a temporary password to reset your account access.'
-                }
-              </Text>
+                {/* NKP Logo */}
+                <Image
+                  {...GlobalStyles.ImageStyles(theme)['Image'].props}
+                  resizeMode={'contain'}
+                  source={Images['mainsightsfaviconlogo1024new']}
+                  style={StyleSheet.applyWidth(
+                    StyleSheet.compose(
+                      GlobalStyles.ImageStyles(theme)['Image'].style,
+                      { width: 300 }
+                    ),
+                    dimensions.width
+                  )}
+                />
+                {/* Text 2 */}
+                <Text
+                  accessible={true}
+                  {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                  style={StyleSheet.applyWidth(
+                    StyleSheet.compose(
+                      GlobalStyles.TextStyles(theme)['screen_title'].style,
+                      {
+                        color: [
+                          {
+                            minWidth: Breakpoints.Desktop,
+                            value: palettes.App.Orange,
+                          },
+                          {
+                            minWidth: Breakpoints.Mobile,
+                            value: palettes.App.Orange,
+                          },
+                        ],
+                        fontFamily: [
+                          {
+                            minWidth: Breakpoints.Desktop,
+                            value: 'Poppins_900Black',
+                          },
+                          {
+                            minWidth: Breakpoints.Mobile,
+                            value: 'Poppins_900Black',
+                          },
+                        ],
+                        fontSize: 30,
+                        lineHeight: 30,
+                        paddingBottom: {
+                          minWidth: Breakpoints.Desktop,
+                          value: 0,
+                        },
+                        textAlign: 'center',
+                      }
+                    ),
+                    dimensions.width
+                  )}
+                >
+                  {dimensions.width >= Breakpoints.Laptop
+                    ? 'M&A INSIGHTS'
+                    : 'M&A\nINSIGHTS'}
+                </Text>
+
+                <Text
+                  accessible={true}
+                  {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                  style={StyleSheet.applyWidth(
+                    StyleSheet.compose(
+                      GlobalStyles.TextStyles(theme)['screen_title'].style,
+                      {
+                        alignSelf: 'center',
+                        color: palettes.Brand.Surface,
+                        fontFamily: 'Poppins_400Regular',
+                        fontSize: 15,
+                        marginTop: 15,
+                        textAlign: 'center',
+                      }
+                    ),
+                    dimensions.width
+                  )}
+                >
+                  {'Creating visibility in unlisted markets'}
+                </Text>
+              </VStack>
             </View>
             {/* Login Window */}
             <View
@@ -140,7 +212,7 @@ const ForgotPasswordScreen = props => {
                     {
                       margin: null,
                       marginTop: 15,
-                      maxWidth: 380,
+                      maxWidth: 1200,
                       padding: 10,
                       paddingBottom: 20,
                       paddingTop: 20,
@@ -327,12 +399,45 @@ const ForgotPasswordScreen = props => {
                   title={'CREATE TEMP PASSWORD'}
                 />
                 {/* Link 2 */}
+                <>
+                  {!emailVarl ? null : (
+                    <Link
+                      accessible={true}
+                      onPress={() => {
+                        try {
+                          /* hidden 'Navigate' action */
+                          setPageState('temp_pass');
+                        } catch (err) {
+                          console.error(err);
+                        }
+                      }}
+                      {...GlobalStyles.LinkStyles(theme)['Link'].props}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.LinkStyles(theme)['Link'].style,
+                          {
+                            fontFamily: 'Quicksand_400Regular',
+                            fontSize: 12,
+                            marginRight: 10,
+                            marginTop: 5,
+                            textAlign: 'right',
+                          }
+                        ),
+                        dimensions.width
+                      )}
+                      title={'I already have a temporary password'}
+                    />
+                  )}
+                </>
+                {/* Link 3 */}
                 <Link
                   accessible={true}
                   onPress={() => {
                     try {
-                      /* hidden 'Navigate' action */
-                      setPageState('temp_pass');
+                      if (navigation.canGoBack()) {
+                        navigation.popToTop();
+                      }
+                      navigation.replace('LogInScreen');
                     } catch (err) {
                       console.error(err);
                     }
@@ -351,7 +456,7 @@ const ForgotPasswordScreen = props => {
                     ),
                     dimensions.width
                   )}
-                  title={'I already have a temporary password'}
+                  title={'Go back'}
                 />
               </Surface>
             </View>
@@ -583,7 +688,7 @@ const ForgotPasswordScreen = props => {
                           temp_auth,
                         });
                         console.log('Start ON_PRESS:13 EXTRACT_KEY');
-                        const tempAuthToken = temp_auth?.authToken;
+                        const tempAuthToken = temp_auth?.tempToken;
                         console.log('Complete ON_PRESS:13 EXTRACT_KEY', {
                           tempAuthToken,
                         });
@@ -611,9 +716,12 @@ const ForgotPasswordScreen = props => {
                           value: 'Bearer ' + tempAuthToken,
                         });
                         console.log('Complete ON_PRESS:17 SET_VARIABLE');
-                        console.log('Start ON_PRESS:18 SET_VARIABLE');
+                        console.log('Start ON_PRESS:18 CONSOLE_LOG');
+                        console.log(Constants['RESET_AUTH_HEADER']);
+                        console.log('Complete ON_PRESS:18 CONSOLE_LOG');
+                        console.log('Start ON_PRESS:19 SET_VARIABLE');
                         setPageState('new_pass');
-                        console.log('Complete ON_PRESS:18 SET_VARIABLE');
+                        console.log('Complete ON_PRESS:19 SET_VARIABLE');
                       } catch (err) {
                         console.error(err);
                         error = err.message ?? err;
@@ -926,55 +1034,58 @@ const ForgotPasswordScreen = props => {
                         /* hidden 'Navigate' action */ console.log(
                           'Complete ON_PRESS:11 NAVIGATE'
                         );
-                        console.log('Start ON_PRESS:12 FETCH_REQUEST');
+                        console.log('Start ON_PRESS:12 WAIT');
+                        await waitUtil({ milliseconds: 1000 });
+                        console.log('Complete ON_PRESS:12 WAIT');
+                        console.log('Start ON_PRESS:13 FETCH_REQUEST');
                         const new_pass_set = (
                           await xanoResetPassResetPasswordPOST.mutateAsync({
                             new_conf_pass: confNewPass,
                             new_pass: newPass,
                           })
                         )?.json;
-                        console.log('Complete ON_PRESS:12 FETCH_REQUEST', {
+                        console.log('Complete ON_PRESS:13 FETCH_REQUEST', {
                           new_pass_set,
                         });
-                        console.log('Start ON_PRESS:13 EXTRACT_KEY');
-                        /* hidden 'Extract Key' action */ console.log(
-                          'Complete ON_PRESS:13 EXTRACT_KEY'
-                        );
                         console.log('Start ON_PRESS:14 EXTRACT_KEY');
+                        /* hidden 'Extract Key' action */ console.log(
+                          'Complete ON_PRESS:14 EXTRACT_KEY'
+                        );
+                        console.log('Start ON_PRESS:15 EXTRACT_KEY');
                         const Message = new_pass_set?.message;
-                        console.log('Complete ON_PRESS:14 EXTRACT_KEY', {
+                        console.log('Complete ON_PRESS:15 EXTRACT_KEY', {
                           Message,
                         });
-                        console.log('Start ON_PRESS:15 SET_VARIABLE');
+                        console.log('Start ON_PRESS:16 SET_VARIABLE');
                         /* hidden 'Set Variable' action */ console.log(
-                          'Complete ON_PRESS:15 SET_VARIABLE'
+                          'Complete ON_PRESS:16 SET_VARIABLE'
                         );
-                        console.log('Start ON_PRESS:16 CONDITIONAL_STOP');
+                        console.log('Start ON_PRESS:17 CONDITIONAL_STOP');
                         if (Message !== 'Password successfully updated') {
                           return console.log(
-                            'Complete ON_PRESS:16 CONDITIONAL_STOP'
+                            'Complete ON_PRESS:17 CONDITIONAL_STOP'
                           );
                         } else {
                           console.log(
-                            'Skipped ON_PRESS:16 CONDITIONAL_STOP: condition not met'
+                            'Skipped ON_PRESS:17 CONDITIONAL_STOP: condition not met'
                           );
                         }
-                        console.log('Start ON_PRESS:17 SET_VARIABLE');
+                        console.log('Start ON_PRESS:18 SET_VARIABLE');
                         setGlobalVariableValue({
                           key: 'RESET_AUTH_HEADER',
                           value: '',
                         });
-                        console.log('Complete ON_PRESS:17 SET_VARIABLE');
-                        console.log('Start ON_PRESS:18 SET_VARIABLE');
+                        console.log('Complete ON_PRESS:18 SET_VARIABLE');
+                        console.log('Start ON_PRESS:19 SET_VARIABLE');
                         /* hidden 'Set Variable' action */ console.log(
-                          'Complete ON_PRESS:18 SET_VARIABLE'
+                          'Complete ON_PRESS:19 SET_VARIABLE'
                         );
-                        console.log('Start ON_PRESS:19 NAVIGATE');
+                        console.log('Start ON_PRESS:20 NAVIGATE');
                         if (navigation.canGoBack()) {
                           navigation.popToTop();
                         }
                         navigation.replace('LogInScreen');
-                        console.log('Complete ON_PRESS:19 NAVIGATE');
+                        console.log('Complete ON_PRESS:20 NAVIGATE');
                       } catch (err) {
                         console.error(err);
                         error = err.message ?? err;

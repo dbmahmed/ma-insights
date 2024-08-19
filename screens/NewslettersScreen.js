@@ -800,6 +800,8 @@ const NewslettersScreen = props => {
               showsVerticalScrollIndicator={false}
               style={StyleSheet.applyWidth(
                 {
+                  marginBottom:
+                    dimensions.width >= Breakpoints.Laptop === false ? 65 : 0,
                   maxHeight: [
                     {
                       minWidth: Breakpoints.Laptop,

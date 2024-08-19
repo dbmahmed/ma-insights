@@ -329,3 +329,19 @@ export const SliderStyles = theme =>
   StyleSheet.create({
     Slider: { style: { marginLeft: 12, marginRight: 12 }, props: {} },
   });
+
+export const ShadowStyles = theme =>
+  StyleSheet.create({
+    bot_nav: {
+      style: {
+        left: { minWidth: Breakpoints.Laptop, value: 0 },
+        position: { minWidth: Breakpoints.Laptop, value: 'absolute' },
+        right: { minWidth: Breakpoints.Laptop, value: 0 },
+        width: '100%',
+        zIndex: { minWidth: Breakpoints.Desktop, value: 1000 },
+      },
+      props: {
+        paintInside: false,
+      },
+    },
+  });

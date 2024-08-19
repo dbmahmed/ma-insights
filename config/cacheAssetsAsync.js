@@ -9,6 +9,7 @@ import {
   Ionicons,
   MaterialCommunityIcons,
   MaterialIcons,
+  SimpleLineIcons,
 } from '@expo/vector-icons';
 
 import IMAGES from './Images.js';
@@ -37,6 +38,7 @@ export default function cacheAssetsAsync() {
     Ionicons.font,
     MaterialCommunityIcons.font,
     MaterialIcons.font,
+    SimpleLineIcons.font,
   ]);
 
   return Promise.all([...imageAssets, ...iconAssets]);

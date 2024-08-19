@@ -57,136 +57,11 @@ function DefaultAndroidBackIcon({ tintColor }) {
 
 function MAInsights() {
   const theme = useTheme();
-  const Constants = GlobalVariables.useValues();
+
   const setGlobalVariableValue = GlobalVariables.useSetValue();
-  const dimensions = useWindowDimensions();
 
-  const tabBarIcons = {
-    NewslettersScreen: 'Ionicons/newspaper-outline',
-    AllEventsScreen: 'MaterialIcons/search',
-    CFSScreen: 'MaterialIcons/business',
-    PEPFScreen: 'MaterialIcons/waterfall-chart',
-  };
-
-  return (
-    <Tab.Navigator
-      initialRouteName="NewslettersScreen"
-      screenOptions={({ navigation }) => ({
-        headerLeft: ({ tintColor, canGoBack }) =>
-          canGoBack ? null : (
-            <View style={[styles.headerContainer, styles.headerContainerLeft]}>
-              <Icon
-                name="MaterialIcons/menu-open"
-                size={Platform.OS === 'ios' ? 21 : 24}
-                color={theme.colors.text.strong}
-                style={[styles.headerIcon, styles.headerIconLeft]}
-              />
-              <View style={styles.headerLabelWrapper}>
-                <Text
-                  style={[
-                    styles.headerLabel,
-                    { color: theme.colors.text.strong },
-                  ]}
-                >
-                  menu
-                </Text>
-              </View>
-            </View>
-          ),
-        headerRight: ({ tintColor }) => (
-          <Touchable
-            style={[styles.headerContainer, styles.headerContainerRight]}
-            onPress={() => {
-              try {
-                /* hidden 'Set Variable' action */
-                navigation.push('MAInsights');
-              } catch (err) {
-                console.error(err);
-              }
-            }}
-          >
-            <Icon
-              name="MaterialCommunityIcons/account"
-              size={Platform.OS === 'ios' ? 21 : 24}
-              color={tintColor}
-              style={[styles.headerIcon, styles.headerIconRight]}
-            />
-          </Touchable>
-        ),
-        headerShown: false,
-        headerTitle: 'News',
-        headerTitleStyle: { fontFamily: 'Quicksand_600SemiBold', fontSize: 20 },
-        tabBarActiveBackgroundColor: 'rgba(0, 0, 0, 0)',
-        tabBarActiveTintColor: theme.colors.branding.primary,
-        tabBarHideOnKeyboard: true,
-        tabBarInactiveTintColor: theme.colors.text.light,
-        tabBarLabelStyle: { fontFamily: 'Quicksand_600SemiBold' },
-        tabBarStyle: { borderTopColor: theme.colors.border.brand },
-      })}
-    >
-      <Tab.Screen
-        name="NewslettersScreen"
-        component={NewslettersScreen}
-        options={({ navigation }) => ({
-          tabBarIcon: ({ focused, color }) => (
-            <Icon
-              name="Ionicons/newspaper-outline"
-              size={25}
-              color={focused ? color : color}
-            />
-          ),
-          tabBarLabel: 'Newsletters',
-          title: 'Newsletters',
-        })}
-      />
-      <Tab.Screen
-        name="AllEventsScreen"
-        component={AllEventsScreen}
-        options={({ navigation }) => ({
-          headerTitleStyle: { fontFamily: 'Quicksand_400Regular' },
-          tabBarIcon: ({ focused, color }) => (
-            <Icon
-              name="MaterialIcons/search"
-              size={25}
-              color={focused ? color : color}
-            />
-          ),
-          tabBarLabel: 'All events',
-          title: 'All Events',
-        })}
-      />
-      <Tab.Screen
-        name="CFSScreen"
-        component={CFSScreen}
-        options={({ navigation }) => ({
-          tabBarIcon: ({ focused, color }) => (
-            <Icon
-              name="MaterialIcons/business"
-              size={25}
-              color={focused ? color : color}
-            />
-          ),
-          tabBarLabel: 'CFS',
-          title: 'CFS',
-        })}
-      />
-      <Tab.Screen
-        name="PEPFScreen"
-        component={PEPFScreen}
-        options={({ navigation }) => ({
-          tabBarIcon: ({ focused, color }) => (
-            <Icon
-              name="MaterialIcons/waterfall-chart"
-              size={25}
-              color={focused ? color : color}
-            />
-          ),
-          tabBarLabel: 'PEPF',
-          title: 'PEPF',
-        })}
-      />
-    </Tab.Navigator>
-  );
+  const tabBarIcons = {};
+  /* Navigator has no children, add a child screen or navigator to have it rendered here */
 }
 
 export default function RootAppNavigator() {
@@ -207,6 +82,7 @@ export default function RootAppNavigator() {
       linking={LinkingConfiguration}
     >
       <Stack.Navigator
+        initialRouteName="NewslettersScreen"
         screenOptions={({ navigation }) => ({
           cardStyle: { flex: 1 },
           headerLeft: ({ tintColor, canGoBack }) =>
@@ -361,6 +237,35 @@ export default function RootAppNavigator() {
                 </Touchable>
               ) : null,
             title: 'Request Demo',
+          })}
+        />
+        <Stack.Screen
+          name="NewslettersScreen"
+          component={NewslettersScreen}
+          options={({ navigation }) => ({
+            title: 'Newsletters',
+          })}
+        />
+        <Stack.Screen
+          name="AllEventsScreen"
+          component={AllEventsScreen}
+          options={({ navigation }) => ({
+            headerTitleStyle: { fontFamily: 'Quicksand_400Regular' },
+            title: 'All Events',
+          })}
+        />
+        <Stack.Screen
+          name="CFSScreen"
+          component={CFSScreen}
+          options={({ navigation }) => ({
+            title: 'CFS',
+          })}
+        />
+        <Stack.Screen
+          name="PEPFScreen"
+          component={PEPFScreen}
+          options={({ navigation }) => ({
+            title: 'PEPF',
           })}
         />
         <Stack.Screen
@@ -577,6 +482,4 @@ const styles = StyleSheet.create({
   }),
   headerIconLeft: Platform.select({ ios: { marginRight: 6 } }),
   headerIconRight: Platform.select({ ios: { marginLeft: 6 } }),
-  headerLabel: { fontSize: 17, letterSpacing: 0.35 },
-  headerLabelWrapper: { flexDirection: 'row', alignItems: 'flex-start' },
 });

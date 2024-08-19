@@ -5,8 +5,10 @@ import CustomHeaderBlock from '../components/CustomHeaderBlock';
 import LoadingBlock from '../components/LoadingBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import assessAccess from '../global-functions/assessAccess';
+import linkGen from '../global-functions/linkGen';
 import passwordValidate from '../global-functions/passwordValidate';
 import removeGlobalScroll from '../global-functions/removeGlobalScroll';
+import resetAccess from '../global-functions/resetAccess';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
@@ -28,6 +30,7 @@ import {
 } from '@draftbit/ui';
 import { H5, H6 } from '@expo/html-elements';
 import { useIsFocused } from '@react-navigation/native';
+import * as WebBrowser from 'expo-web-browser';
 import { ActivityIndicator, Modal, Text, View } from 'react-native';
 import { Fetch } from 'react-request';
 
@@ -559,7 +562,10 @@ const MyAccountScreen = props => {
                         GlobalStyles.TextStyles(theme)['screen_title'].style,
                         {
                           fontFamily: 'Quicksand_400Regular',
-                          fontSize: 10,
+                          fontSize: [
+                            { minWidth: Breakpoints.Laptop, value: 12 },
+                            { minWidth: Breakpoints.Mobile, value: 12 },
+                          ],
                           marginBottom: 20,
                         }
                       ),
@@ -567,8 +573,29 @@ const MyAccountScreen = props => {
                     )}
                   >
                     {
-                      'To update basic profile information, other than your password, please email Sahana at sg@nordicknowledgepartners.com'
+                      'To update basic profile information, other than your password, please email Sahana at '
                     }
+                    <Link
+                      accessible={true}
+                      onPress={() => {
+                        const handler = async () => {
+                          try {
+                            await WebBrowser.openBrowserAsync(
+                              'mailto:sg@mainsights.io'
+                            );
+                          } catch (err) {
+                            console.error(err);
+                          }
+                        };
+                        handler();
+                      }}
+                      {...GlobalStyles.LinkStyles(theme)['Link'].props}
+                      style={StyleSheet.applyWidth(
+                        GlobalStyles.LinkStyles(theme)['Link'].style,
+                        dimensions.width
+                      )}
+                      title={'sg@mainsights.io'}
+                    />
                   </Text>
                   {/* H6 2 */}
                   <H6
@@ -1090,6 +1117,10 @@ const MyAccountScreen = props => {
                           fontFamily: 'Quicksand_700Bold',
                           fontSize: 16,
                           marginBottom: 10,
+                          marginTop: {
+                            minWidth: Breakpoints.Laptop,
+                            value: 10,
+                          },
                         }
                       ),
                       dimensions.width
@@ -1118,11 +1149,55 @@ const MyAccountScreen = props => {
                           color: theme.colors.text.strong,
                           fontFamily: 'Quicksand_700Bold',
                           fontSize: 16,
+                          marginBottom: {
+                            minWidth: Breakpoints.Laptop,
+                            value: 10,
+                          },
+                          marginTop: {
+                            minWidth: Breakpoints.Laptop,
+                            value: 10,
+                          },
                         }
                       ),
                       dimensions.width
                     )}
                     title={'Privacy Policy'}
+                  />
+                  {/* Link 3 */}
+                  <Link
+                    accessible={true}
+                    onPress={() => {
+                      try {
+                        resetAccess(
+                          navigation,
+                          Variables,
+                          setGlobalVariableValue
+                        );
+                      } catch (err) {
+                        console.error(err);
+                      }
+                    }}
+                    {...GlobalStyles.LinkStyles(theme)['Link'].props}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.LinkStyles(theme)['Link'].style,
+                        {
+                          alignSelf: {
+                            minWidth: Breakpoints.Laptop,
+                            value: 'flex-start',
+                          },
+                          color: theme.colors.text.strong,
+                          fontFamily: 'Quicksand_700Bold',
+                          fontSize: 16,
+                          marginTop: {
+                            minWidth: Breakpoints.Laptop,
+                            value: 10,
+                          },
+                        }
+                      ),
+                      dimensions.width
+                    )}
+                    title={'Logout'}
                   />
                 </View>
               </SimpleStyleScrollView>
@@ -1350,6 +1425,49 @@ const MyAccountScreen = props => {
                             dimensions.width
                           )}
                           value={currentPassword}
+                        />
+                        <Link
+                          accessible={true}
+                          onPress={() => {
+                            try {
+                              resetAccess(
+                                navigation,
+                                Variables,
+                                setGlobalVariableValue
+                              );
+                              navigation.push('ForgotPasswordScreen');
+                            } catch (err) {
+                              console.error(err);
+                            }
+                          }}
+                          {...GlobalStyles.LinkStyles(theme)['Link'].props}
+                          style={StyleSheet.applyWidth(
+                            StyleSheet.compose(
+                              GlobalStyles.LinkStyles(theme)['Link'].style,
+                              {
+                                color: {
+                                  minWidth: Breakpoints.Laptop,
+                                  value: palettes.App.Orange,
+                                },
+                                fontFamily: [
+                                  {
+                                    minWidth: Breakpoints.Mobile,
+                                    value: 'Quicksand_400Regular',
+                                  },
+                                  {
+                                    minWidth: Breakpoints.Laptop,
+                                    value: 'Quicksand_500Medium',
+                                  },
+                                ],
+                                fontSize: 12,
+                                marginRight: 10,
+                                marginTop: 5,
+                                textAlign: 'right',
+                              }
+                            ),
+                            dimensions.width
+                          )}
+                          title={'Forgot Password'}
                         />
                         {/* H5 2 */}
                         <H5
