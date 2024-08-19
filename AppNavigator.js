@@ -55,15 +55,6 @@ function DefaultAndroidBackIcon({ tintColor }) {
   );
 }
 
-function MAInsights() {
-  const theme = useTheme();
-
-  const setGlobalVariableValue = GlobalVariables.useSetValue();
-
-  const tabBarIcons = {};
-  /* Navigator has no children, add a child screen or navigator to have it rendered here */
-}
-
 export default function RootAppNavigator() {
   const theme = useTheme();
   const Constants = GlobalVariables.useValues();
@@ -448,7 +439,6 @@ export default function RootAppNavigator() {
             title: 'Advisor Details',
           })}
         />
-        <Stack.Screen name="MAInsights" component={MAInsights} />
       </Stack.Navigator>
     </NavigationContainer>
   );

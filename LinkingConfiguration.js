@@ -21,9 +21,7 @@ const linking = {
   enabled: Platform.OS === 'web' ? false : true,
   prefixes: [prefix],
   config: {
-    screens: {
-      MAInsights: { screens: {} },
-    },
+    screens: {},
   },
 };
 
