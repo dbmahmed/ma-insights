@@ -12,6 +12,7 @@ import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
+import waitUtil from '../utils/wait';
 import {
   Button,
   LinearGradient,
@@ -34,6 +35,7 @@ const AdvisorsScreen = props => {
   const Constants = GlobalVariables.useValues();
   const Variables = Constants;
   const setGlobalVariableValue = GlobalVariables.useSetValue();
+  const [advisorsItems, setAdvisorsItems] = React.useState([]);
   const [consumer_discretionary, setConsumer_discretionary] =
     React.useState(false);
   const [consumer_staples, setConsumer_staples] = React.useState(false);
@@ -45,13 +47,45 @@ const AdvisorsScreen = props => {
   const [industrials, setIndustrials] = React.useState(false);
   const [it_and_software, setIt_and_software] = React.useState(false);
   const [keywordSearch, setKeywordSearch] = React.useState('');
+  const [keywordSearchRaw, setKeywordSearchRaw] = React.useState('');
+  const [lastPage, setLastPage] = React.useState(0);
   const [materials, setMaterials] = React.useState(false);
+  const [nextPage, setNextPage] = React.useState(2);
   const [nordic, setNordic] = React.useState(false);
   const [real_estate, setReal_estate] = React.useState(false);
   const [showSubmitDeal, setShowSubmitDeal] = React.useState(false);
-  const [type, setType] = React.useState('corporate_finance');
+  const [type, setType] = React.useState('Corporate Finance');
   const [typeAdvisor, setTypeAdvisor] = React.useState('dk');
   const [utilities, setUtilities] = React.useState(false);
+  const setAdvisorRank = (
+    Variables,
+    type,
+    region,
+    listItem,
+    yearCadance,
+    rank
+  ) => {
+    // Type the code for the body of your function or hook here.
+    // Functions can be triggered via Button/Touchable actions.
+    // Hooks are run per ReactJS rules.
+
+    /* String line breaks are accomplished with backticks ( example: `line one
+line two` ) and will not work with special characters inside of quotes ( example: "line one line two" ) */
+    // console.log(type, region, listItem);
+
+    let typeN = '';
+    if (region === 'Corporate Finance') {
+      typeN = 'cf';
+    } else if (region === 'Legal Counsel') {
+      typeN = 'legal';
+    }
+
+    rank === true ? (yearCadance = 'rank') : '';
+
+    let subsetName = `${type}_${typeN}_${yearCadance}`;
+
+    return listItem[subsetName];
+  };
   const isFocused = useIsFocused();
   React.useEffect(() => {
     try {
@@ -324,17 +358,39 @@ const AdvisorsScreen = props => {
             changeTextDelay={500}
             onChangeText={newTextInputValue => {
               try {
-                setKeywordSearch(newTextInputValue);
+                setKeywordSearchRaw(newTextInputValue);
               } catch (err) {
                 console.error(err);
               }
             }}
             onSubmitEditing={() => {
-              try {
-                /* 'API Request' action requires configuration: choose an API endpoint */
-              } catch (err) {
-                console.error(err);
-              }
+              const handler = async () => {
+                console.log('Text Input ON_SUBMIT_EDITING Start');
+                let error = null;
+                try {
+                  console.log('Start ON_SUBMIT_EDITING:0 FETCH_REQUEST');
+                  /* hidden 'API Request' action */ console.log(
+                    'Complete ON_SUBMIT_EDITING:0 FETCH_REQUEST'
+                  );
+                  console.log('Start ON_SUBMIT_EDITING:1 WAIT');
+                  await waitUtil({ milliseconds: 100 });
+                  console.log('Complete ON_SUBMIT_EDITING:1 WAIT');
+                  console.log('Start ON_SUBMIT_EDITING:2 SET_VARIABLE');
+                  setKeywordSearch(keywordSearchRaw);
+                  console.log('Complete ON_SUBMIT_EDITING:2 SET_VARIABLE');
+                  console.log('Start ON_SUBMIT_EDITING:3 CONSOLE_LOG');
+                  console.log(keywordSearchRaw, keywordSearch);
+                  console.log('Complete ON_SUBMIT_EDITING:3 CONSOLE_LOG');
+                } catch (err) {
+                  console.error(err);
+                  error = err.message ?? err;
+                }
+                console.log(
+                  'Text Input ON_SUBMIT_EDITING Complete',
+                  error ? { error } : 'no error'
+                );
+              };
+              handler();
             }}
             webShowOutline={true}
             {...GlobalStyles.TextInputStyles(theme)['Text Input'].props}
@@ -349,7 +405,7 @@ const AdvisorsScreen = props => {
               ),
               dimensions.width
             )}
-            value={keywordSearch}
+            value={keywordSearchRaw}
           />
           {/* View 2 */}
           <View
@@ -604,7 +660,9 @@ const AdvisorsScreen = props => {
                 mode={'native'}
                 onValueChange={newPickerValue => {
                   try {
+                    /* hidden 'Wait' action */
                     setType(newPickerValue);
+                    /* hidden 'Log to Console' action */
                   } catch (err) {
                     console.error(err);
                   }
@@ -613,8 +671,8 @@ const AdvisorsScreen = props => {
                 selectedIconName={'Feather/check'}
                 type={'solid'}
                 options={[
-                  { label: 'Corporate finance', value: 'corporate_finance' },
-                  { label: 'Legal', value: 'legal' },
+                  { label: 'Corporate Finance', value: 'Corporate Finance' },
+                  { label: 'Legal', value: 'Legal Counsel' },
                 ]}
                 placeholder={''}
                 selectedIconSize={14}
@@ -636,6 +694,15 @@ const AdvisorsScreen = props => {
       {/* Fetch  */}
       <XanoCollectionApi.FetchGetAdvisorsGET
         handlers={{
+          on2xx: fetchData => {
+            try {
+              /* hidden 'Set Variable' action */
+              /* hidden 'Set Variable' action */
+              /* hidden 'Set Variable' action */
+            } catch (err) {
+              console.error(err);
+            }
+          },
           on401: fetchData => {
             try {
               /* hidden 'Run a Custom Function' action */
@@ -643,7 +710,21 @@ const AdvisorsScreen = props => {
               console.error(err);
             }
           },
+          onData: fetchData => {
+            try {
+              console.log(fetchData);
+              setAdvisorsItems(fetchData?.items);
+              setNextPage(fetchData?.nextPage);
+              setLastPage(fetchData?.pageTotal);
+            } catch (err) {
+              console.error(err);
+            }
+          },
         }}
+        keyword={keywordSearch}
+        page={1}
+        region={typeAdvisor}
+        type={type}
       >
         {({ loading, error, data, refetchGetAdvisors }) => {
           const fetchData = data?.json;
@@ -657,13 +738,39 @@ const AdvisorsScreen = props => {
 
           return (
             <SimpleStyleFlatList
-              data={fetchData}
+              data={advisorsItems}
               horizontal={false}
               inverted={false}
               keyExtractor={(listData, index) => listData?.id}
               keyboardShouldPersistTaps={'never'}
               listKey={'2cY8Myag'}
               nestedScrollEnabled={false}
+              onEndReached={() => {
+                const handler = async () => {
+                  try {
+                    if (nextPage === null) {
+                      return;
+                    }
+                    const newData = (
+                      await XanoCollectionApi.getAdvisorsGET(Constants, {
+                        keyword: keywordSearch,
+                        page: nextPage,
+                        region: typeAdvisor,
+                        type: type,
+                      })
+                    )?.json;
+                    setNextPage(newData?.nextPage);
+                    setLastPage(newData?.pageTotal);
+                    if (fetchData?.items === 0) {
+                      return;
+                    }
+                    setAdvisorsItems(advisorsItems.concat(newData?.items));
+                  } catch (err) {
+                    console.error(err);
+                  }
+                };
+                handler();
+              }}
               onEndReachedThreshold={0.5}
               renderItem={({ item, index }) => {
                 const listData = item;
@@ -804,8 +911,16 @@ const AdvisorsScreen = props => {
                             dimensions.width
                           )}
                         >
-                          {'DK YTD: '}
-                          {listData?.cf_se_ytd}
+                          {typeAdvisor?.toUpperCase()}
+                          {' YTD: '}
+                          {setAdvisorRank(
+                            Variables,
+                            typeAdvisor,
+                            type,
+                            listData,
+                            'ytd',
+                            false
+                          )}
                         </Text>
 
                         <View
@@ -835,8 +950,16 @@ const AdvisorsScreen = props => {
                               dimensions.width
                             )}
                           >
-                            {'DK LY: '}
-                            {listData?.legal_dk_ly}
+                            {typeAdvisor?.toUpperCase()}
+                            {' LY: '}
+                            {setAdvisorRank(
+                              Variables,
+                              typeAdvisor,
+                              type,
+                              listData,
+                              'ly',
+                              false
+                            )}
                           </Text>
                           {/* Text 2 2 2 */}
                           <Text
@@ -856,7 +979,14 @@ const AdvisorsScreen = props => {
                               dimensions.width
                             )}
                           >
-                            {listData?.de_legal_rank}
+                            {setAdvisorRank(
+                              Variables,
+                              typeAdvisor,
+                              type,
+                              listData,
+                              'ytd',
+                              true
+                            )}
                           </Text>
                         </View>
                       </View>

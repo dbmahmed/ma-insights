@@ -171,6 +171,8 @@ const AdvisorDetailsScreen = props => {
       <CustomHeaderBlock />
       <XanoCollectionApi.FetchGetAdvisorGET
         advisor_id={props.route?.params?.advisor_id ?? 1}
+        country_in={country}
+        sector_in={sector}
       >
         {({ loading, error, data, refetchGetAdvisor }) => {
           const fetchData = data?.json;

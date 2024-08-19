@@ -5,14 +5,17 @@ import CustomHeaderBlock from '../components/CustomHeaderBlock';
 import LoadingBlock from '../components/LoadingBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import assessAccess from '../global-functions/assessAccess';
+import passwordValidate from '../global-functions/passwordValidate';
 import removeGlobalScroll from '../global-functions/removeGlobalScroll';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
+import waitUtil from '../utils/wait';
 import {
   Button,
   Checkbox,
+  CircularProgress,
   HStack,
   IconButton,
   LinearGradient,
@@ -34,12 +37,17 @@ const MyAccountScreen = props => {
   const Constants = GlobalVariables.useValues();
   const Variables = Constants;
   const setGlobalVariableValue = GlobalVariables.useSetValue();
+  const [buttonLoading, setButtonLoading] = React.useState(false);
   const [confirmPass, setConfirmPass] = React.useState('');
   const [currentPassword, setCurrentPassword] = React.useState('');
+  const [ed_loading, setEd_loading] = React.useState(false);
   const [emailDach, setEmailDach] = React.useState(false);
   const [emailNordic, setEmailNordic] = React.useState(false);
+  const [en_loading, setEn_loading] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState('');
   const [newPass, setNewPass] = React.useState('');
+  const [pd_loading, setPd_loading] = React.useState(false);
+  const [pn_loading, setPn_loading] = React.useState(false);
   const [pushNotificationDach, setPushNotificationDach] = React.useState(false);
   const [pushNotificationNordic, setPushNotificationNordic] =
     React.useState(false);
@@ -53,6 +61,10 @@ const MyAccountScreen = props => {
   const joinStringArray = stringArray => {
     return stringArray.join(', ');
   };
+  const xanoCollectionUpdateNotificationPUT =
+    XanoCollectionApi.useUpdateNotificationPUT();
+  const xanoCollectionResetPasswordPUT =
+    XanoCollectionApi.useResetPasswordPUT();
   const isFocused = useIsFocused();
   React.useEffect(() => {
     try {
@@ -79,6 +91,7 @@ const MyAccountScreen = props => {
       console.error(err);
     }
   }, [isFocused]);
+  const password6FVhvLAWRef = React.useRef();
 
   return (
     <ScreenContainer hasSafeArea={false} scrollable={false}>
@@ -722,18 +735,69 @@ const MyAccountScreen = props => {
                             dimensions.width
                           )}
                         >
-                          <Checkbox
-                            onPress={newCheckboxValue => {
-                              try {
-                                setPushNotificationNordic(newCheckboxValue);
-                              } catch (err) {
-                                console.error(err);
-                              }
-                            }}
-                            color={theme.colors.text.medium}
-                            status={pushNotificationNordic}
-                            uncheckedColor={theme.colors.text.medium}
-                          />
+                          <>
+                            {pn_loading ? null : (
+                              <Checkbox
+                                onPress={newCheckboxValue => {
+                                  const handler = async () => {
+                                    try {
+                                      setPushNotificationNordic(
+                                        newCheckboxValue
+                                      );
+                                      setPn_loading(true);
+                                      await waitUtil({ milliseconds: 100 });
+                                      (
+                                        await xanoCollectionUpdateNotificationPUT.mutateAsync(
+                                          {
+                                            email_dach: emailDach,
+                                            email_nordic: emailNordic,
+                                            push_dach: pushNotificationDach,
+                                            push_nordic: newCheckboxValue,
+                                          }
+                                        )
+                                      )?.json;
+                                      await refetchAuthMe();
+                                      setPn_loading(false);
+                                    } catch (err) {
+                                      console.error(err);
+                                    }
+                                  };
+                                  handler();
+                                }}
+                                color={theme.colors.text.medium}
+                                status={pushNotificationNordic}
+                                uncheckedColor={theme.colors.text.medium}
+                              />
+                            )}
+                          </>
+                          <>
+                            {!pn_loading ? null : (
+                              <CircularProgress
+                                animationDuration={500}
+                                color={theme.colors.branding.primary}
+                                isAnimated={true}
+                                lineCap={'round'}
+                                showTrack={true}
+                                startPosition={'top'}
+                                trackColor={theme.colors.border.brand}
+                                trackLineCap={'round'}
+                                indeterminate={true}
+                                maximumValue={100}
+                                minimumValue={0}
+                                style={StyleSheet.applyWidth(
+                                  {
+                                    width: {
+                                      minWidth: Breakpoints.Laptop,
+                                      value: 25,
+                                    },
+                                  },
+                                  dimensions.width
+                                )}
+                                thickness={5}
+                                value={25}
+                              />
+                            )}
+                          </>
                         </View>
                         {/* View 2 */}
                         <View
@@ -747,18 +811,68 @@ const MyAccountScreen = props => {
                             dimensions.width
                           )}
                         >
-                          <Checkbox
-                            onPress={newCheckboxValue => {
-                              try {
-                                setEmailNordic(newCheckboxValue);
-                              } catch (err) {
-                                console.error(err);
-                              }
-                            }}
-                            color={theme.colors.text.medium}
-                            status={emailNordic}
-                            uncheckedColor={theme.colors.text.medium}
-                          />
+                          <>
+                            {en_loading ? null : (
+                              <Checkbox
+                                onPress={newCheckboxValue => {
+                                  const handler = async () => {
+                                    try {
+                                      setEmailNordic(newCheckboxValue);
+                                      setEn_loading(true);
+                                      await waitUtil({ milliseconds: 100 });
+                                      (
+                                        await xanoCollectionUpdateNotificationPUT.mutateAsync(
+                                          {
+                                            email_dach: emailDach,
+                                            email_nordic: newCheckboxValue,
+                                            push_dach: pushNotificationDach,
+                                            push_nordic: pushNotificationNordic,
+                                          }
+                                        )
+                                      )?.json;
+                                      await refetchAuthMe();
+                                      setEn_loading(false);
+                                    } catch (err) {
+                                      console.error(err);
+                                    }
+                                  };
+                                  handler();
+                                }}
+                                color={theme.colors.text.medium}
+                                status={emailNordic}
+                                uncheckedColor={theme.colors.text.medium}
+                              />
+                            )}
+                          </>
+                          {/* Circular Progress 2 */}
+                          <>
+                            {!en_loading ? null : (
+                              <CircularProgress
+                                animationDuration={500}
+                                color={theme.colors.branding.primary}
+                                isAnimated={true}
+                                lineCap={'round'}
+                                showTrack={true}
+                                startPosition={'top'}
+                                trackColor={theme.colors.border.brand}
+                                trackLineCap={'round'}
+                                indeterminate={true}
+                                maximumValue={100}
+                                minimumValue={0}
+                                style={StyleSheet.applyWidth(
+                                  {
+                                    width: {
+                                      minWidth: Breakpoints.Laptop,
+                                      value: 25,
+                                    },
+                                  },
+                                  dimensions.width
+                                )}
+                                thickness={5}
+                                value={25}
+                              />
+                            )}
+                          </>
                         </View>
                       </View>
                     </View>
@@ -813,18 +927,68 @@ const MyAccountScreen = props => {
                             dimensions.width
                           )}
                         >
-                          <Checkbox
-                            onPress={newCheckboxValue => {
-                              try {
-                                setPushNotificationDach(newCheckboxValue);
-                              } catch (err) {
-                                console.error(err);
-                              }
-                            }}
-                            color={theme.colors.text.medium}
-                            status={pushNotificationDach}
-                            uncheckedColor={theme.colors.text.medium}
-                          />
+                          <>
+                            {pd_loading ? null : (
+                              <Checkbox
+                                onPress={newCheckboxValue => {
+                                  const handler = async () => {
+                                    try {
+                                      setPushNotificationDach(newCheckboxValue);
+                                      setPd_loading(true);
+                                      await waitUtil({ milliseconds: 100 });
+                                      (
+                                        await xanoCollectionUpdateNotificationPUT.mutateAsync(
+                                          {
+                                            email_dach: emailDach,
+                                            email_nordic: emailNordic,
+                                            push_dach: newCheckboxValue,
+                                            push_nordic: pushNotificationNordic,
+                                          }
+                                        )
+                                      )?.json;
+                                      await refetchAuthMe();
+                                      setPd_loading(false);
+                                    } catch (err) {
+                                      console.error(err);
+                                    }
+                                  };
+                                  handler();
+                                }}
+                                color={theme.colors.text.medium}
+                                status={pushNotificationDach}
+                                uncheckedColor={theme.colors.text.medium}
+                              />
+                            )}
+                          </>
+                          {/* Circular Progress 2 */}
+                          <>
+                            {!pd_loading ? null : (
+                              <CircularProgress
+                                animationDuration={500}
+                                color={theme.colors.branding.primary}
+                                isAnimated={true}
+                                lineCap={'round'}
+                                showTrack={true}
+                                startPosition={'top'}
+                                trackColor={theme.colors.border.brand}
+                                trackLineCap={'round'}
+                                indeterminate={true}
+                                maximumValue={100}
+                                minimumValue={0}
+                                style={StyleSheet.applyWidth(
+                                  {
+                                    width: {
+                                      minWidth: Breakpoints.Laptop,
+                                      value: 25,
+                                    },
+                                  },
+                                  dimensions.width
+                                )}
+                                thickness={5}
+                                value={25}
+                              />
+                            )}
+                          </>
                         </View>
                         {/* View 2 */}
                         <View
@@ -838,18 +1002,68 @@ const MyAccountScreen = props => {
                             dimensions.width
                           )}
                         >
-                          <Checkbox
-                            onPress={newCheckboxValue => {
-                              try {
-                                setEmailDach(newCheckboxValue);
-                              } catch (err) {
-                                console.error(err);
-                              }
-                            }}
-                            color={theme.colors.text.medium}
-                            status={emailDach}
-                            uncheckedColor={theme.colors.text.medium}
-                          />
+                          <>
+                            {ed_loading ? null : (
+                              <Checkbox
+                                onPress={newCheckboxValue => {
+                                  const handler = async () => {
+                                    try {
+                                      setEmailDach(newCheckboxValue);
+                                      setEd_loading(true);
+                                      await waitUtil({ milliseconds: 100 });
+                                      (
+                                        await xanoCollectionUpdateNotificationPUT.mutateAsync(
+                                          {
+                                            email_dach: newCheckboxValue,
+                                            email_nordic: emailNordic,
+                                            push_dach: pushNotificationDach,
+                                            push_nordic: pushNotificationNordic,
+                                          }
+                                        )
+                                      )?.json;
+                                      await refetchAuthMe();
+                                      setEd_loading(false);
+                                    } catch (err) {
+                                      console.error(err);
+                                    }
+                                  };
+                                  handler();
+                                }}
+                                color={theme.colors.text.medium}
+                                status={emailDach}
+                                uncheckedColor={theme.colors.text.medium}
+                              />
+                            )}
+                          </>
+                          {/* Circular Progress 3 */}
+                          <>
+                            {!ed_loading ? null : (
+                              <CircularProgress
+                                animationDuration={500}
+                                color={theme.colors.branding.primary}
+                                isAnimated={true}
+                                lineCap={'round'}
+                                showTrack={true}
+                                startPosition={'top'}
+                                trackColor={theme.colors.border.brand}
+                                trackLineCap={'round'}
+                                indeterminate={true}
+                                maximumValue={100}
+                                minimumValue={0}
+                                style={StyleSheet.applyWidth(
+                                  {
+                                    width: {
+                                      minWidth: Breakpoints.Laptop,
+                                      value: 25,
+                                    },
+                                  },
+                                  dimensions.width
+                                )}
+                                thickness={5}
+                                value={25}
+                              />
+                            )}
+                          </>
                         </View>
                       </View>
                     </View>
@@ -868,6 +1082,10 @@ const MyAccountScreen = props => {
                       StyleSheet.compose(
                         GlobalStyles.LinkStyles(theme)['Link'].style,
                         {
+                          alignSelf: {
+                            minWidth: Breakpoints.Laptop,
+                            value: 'flex-start',
+                          },
                           color: theme.colors.text.strong,
                           fontFamily: 'Quicksand_700Bold',
                           fontSize: 16,
@@ -876,7 +1094,7 @@ const MyAccountScreen = props => {
                       ),
                       dimensions.width
                     )}
-                    title={'Terms & Conditions (link)'}
+                    title={'Terms & Conditions'}
                   />
                   {/* Link 2 */}
                   <Link
@@ -893,6 +1111,10 @@ const MyAccountScreen = props => {
                       StyleSheet.compose(
                         GlobalStyles.LinkStyles(theme)['Link'].style,
                         {
+                          alignSelf: {
+                            minWidth: Breakpoints.Laptop,
+                            value: 'flex-start',
+                          },
                           color: theme.colors.text.strong,
                           fontFamily: 'Quicksand_700Bold',
                           fontSize: 16,
@@ -900,7 +1122,7 @@ const MyAccountScreen = props => {
                       ),
                       dimensions.width
                     )}
-                    title={'Privacy Policy (link)'}
+                    title={'Privacy Policy'}
                   />
                 </View>
               </SimpleStyleScrollView>
@@ -938,8 +1160,8 @@ const MyAccountScreen = props => {
                     style={StyleSheet.applyWidth(
                       {
                         alignItems: [
+                          { minWidth: Breakpoints.Laptop, value: 'center' },
                           { minWidth: Breakpoints.Mobile, value: 'center' },
-                          { minWidth: Breakpoints.Laptop, value: 'stretch' },
                         ],
                         borderRadius: 8,
                         justifyContent: 'center',
@@ -1050,7 +1272,15 @@ const MyAccountScreen = props => {
                         </Shadow>
                       </HStack>
 
-                      <View>
+                      <View
+                        onLayout={event => {
+                          try {
+                            /* hidden 'Focus Text Input' action */
+                          } catch (err) {
+                            console.error(err);
+                          }
+                        }}
+                      >
                         <H5
                           selectable={false}
                           {...GlobalStyles.H5Styles(theme)['H5'].props}
@@ -1092,6 +1322,7 @@ const MyAccountScreen = props => {
                           numberOfLines={1}
                           placeholder={'Enter current password'}
                           placeholderTextColor={theme.colors.text.medium}
+                          ref={password6FVhvLAWRef}
                           returnKeyType={'next'}
                           secureTextEntry={true}
                           selectionColor={theme.colors.text.strong}
@@ -1147,6 +1378,13 @@ const MyAccountScreen = props => {
                           onChangeText={newNewPasswordValue => {
                             try {
                               setNewPass(newNewPasswordValue);
+                              if (newNewPasswordValue === currentPassword) {
+                                setErrorMessage(
+                                  'New password cannot be the same as current password'
+                                );
+                              } else {
+                                setErrorMessage('');
+                              }
                             } catch (err) {
                               console.error(err);
                             }
@@ -1211,6 +1449,11 @@ const MyAccountScreen = props => {
                           onChangeText={newConfirmPasswordValue => {
                             try {
                               setConfirmPass(newConfirmPasswordValue);
+                              if (newPass !== newConfirmPasswordValue) {
+                                setErrorMessage("Passwords don't match");
+                              } else {
+                                setErrorMessage('');
+                              }
                             } catch (err) {
                               console.error(err);
                             }
@@ -1248,6 +1491,47 @@ const MyAccountScreen = props => {
                           )}
                           value={confirmPass}
                         />
+                        <>
+                          {!(errorMessage !== '') ? null : (
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)['screen_title']
+                                .props}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.TextStyles(theme)['screen_title']
+                                    .style,
+                                  {
+                                    color: [
+                                      {
+                                        minWidth: Breakpoints.Laptop,
+                                        value: palettes.App.Orange,
+                                      },
+                                      {
+                                        minWidth: Breakpoints.Laptop,
+                                        value:
+                                          errorMessage !== 'password reset!'
+                                            ? palettes.App.Orange
+                                            : palettes.App.green,
+                                      },
+                                    ],
+                                    fontFamily: {
+                                      minWidth: Breakpoints.Laptop,
+                                      value: 'Quicksand_600SemiBold',
+                                    },
+                                    marginLeft: {
+                                      minWidth: Breakpoints.Laptop,
+                                      value: 10,
+                                    },
+                                  }
+                                ),
+                                dimensions.width
+                              )}
+                            >
+                              {errorMessage}
+                            </Text>
+                          )}
+                        </>
                       </View>
                       {/* Buttons */}
                       <View
@@ -1280,18 +1564,59 @@ const MyAccountScreen = props => {
                         <Button
                           iconPosition={'left'}
                           onPress={() => {
-                            try {
-                              setShowModal(false);
-                            } catch (err) {
-                              console.error(err);
-                            }
+                            const handler = async () => {
+                              try {
+                                setButtonLoading(true);
+                                if (currentPassword === newPass) {
+                                  setErrorMessage(
+                                    'New password cannot be same as Current Password'
+                                  );
+                                } else {
+                                  if (passwordValidate(newPass)) {
+                                    setErrorMessage('');
+                                    const resetPass = (
+                                      await xanoCollectionResetPasswordPUT.mutateAsync(
+                                        {
+                                          current_password: currentPassword,
+                                          new_password: newPass,
+                                        }
+                                      )
+                                    )?.json;
+                                    setErrorMessage(resetPass?.message);
+                                    if (
+                                      resetPass?.message ===
+                                      'Your current password is incorrect!'
+                                    ) {
+                                      setErrorMessage(resetPass?.message);
+                                    } else {
+                                      setErrorMessage(resetPass?.message);
+                                      await waitUtil({ milliseconds: 500 });
+                                      setShowModal(false);
+                                    }
+                                  } else {
+                                    setErrorMessage(
+                                      'This is a weak password. Please try again.'
+                                    );
+                                  }
+                                }
+
+                                setButtonLoading(false);
+                              } catch (err) {
+                                console.error(err);
+                              }
+                            };
+                            handler();
                           }}
                           {...GlobalStyles.ButtonStyles(theme)['Button'].props}
                           disabled={
-                            newPass && confirmPass && currentPassword
+                            newPass &&
+                            confirmPass &&
+                            currentPassword &&
+                            newPass === confirmPass
                               ? false
                               : true
                           }
+                          loading={buttonLoading}
                           style={StyleSheet.applyWidth(
                             StyleSheet.compose(
                               GlobalStyles.ButtonStyles(theme)['Button'].style,

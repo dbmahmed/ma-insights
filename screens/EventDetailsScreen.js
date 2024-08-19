@@ -5,6 +5,7 @@ import CustomHeaderBlock from '../components/CustomHeaderBlock';
 import LoadingBlock from '../components/LoadingBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import assessAccess from '../global-functions/assessAccess';
+import cutTextByWidth from '../global-functions/cutTextByWidth';
 import removeGlobalScroll from '../global-functions/removeGlobalScroll';
 import transformEuroM from '../global-functions/transformEuroM';
 import palettes from '../themes/palettes';
@@ -369,7 +370,11 @@ const EventDetailsScreen = props => {
                           ),
                           dimensions.width
                         )}
-                        title={`${fetchData?.source_link}`}
+                        title={`${cutTextByWidth(
+                          fetchData?.source_link,
+                          dimensions.width,
+                          190
+                        )}`}
                       />
                     </View>
                     {/* View 4 */}

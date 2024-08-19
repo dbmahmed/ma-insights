@@ -10,11 +10,13 @@ import useWindowDimensions from '../utils/useWindowDimensions';
 import {
   ScreenContainer,
   SimpleStyleScrollView,
+  Touchable,
   withTheme,
 } from '@draftbit/ui';
 import { H5 } from '@expo/html-elements';
 import { useIsFocused } from '@react-navigation/native';
 import { Text, View } from 'react-native';
+import { Fetch } from 'react-request';
 
 const ReportsScreen = props => {
   const { theme } = props;
@@ -45,205 +47,204 @@ const ReportsScreen = props => {
       hasLeftSafeArea={true}
     >
       <CustomHeaderBlock />
-      <SimpleStyleScrollView
-        bounces={true}
-        horizontal={false}
-        keyboardShouldPersistTaps={'never'}
-        nestedScrollEnabled={false}
-        showsHorizontalScrollIndicator={false}
-        showsVerticalScrollIndicator={false}
+      <View
         style={StyleSheet.applyWidth(
-          {
-            alignItems: 'center',
-            height: '100%',
-            marginTop: 65,
-            paddingBottom: 65,
-            position: 'absolute',
-            width: '100%',
-          },
+          { maxWidth: 1200, padding: 10, paddingTop: 5, width: '100%' },
           dimensions.width
         )}
       >
+        <>
+          {!(dimensions.width >= Breakpoints.Laptop) ? null : (
+            <H5
+              selectable={false}
+              {...GlobalStyles.H5Styles(theme)['H5'].props}
+              style={StyleSheet.applyWidth(
+                StyleSheet.compose(GlobalStyles.H5Styles(theme)['H5'].style, {
+                  fontFamily: 'Quicksand_600SemiBold',
+                  fontSize: 25,
+                  marginBottom: 20,
+                  marginTop: [
+                    { minWidth: Breakpoints.Mobile, value: 0 },
+                    { minWidth: Breakpoints.Laptop, value: 20 },
+                  ],
+                  paddingLeft: 5,
+                  textDecorationLine: 'none',
+                }),
+                dimensions.width
+              )}
+            >
+              {'Reports'}
+            </H5>
+          )}
+        </>
         <View
           style={StyleSheet.applyWidth(
-            { maxWidth: 1200, padding: 10, paddingTop: 5, width: '100%' },
+            { gap: 10, marginBottom: 10 },
             dimensions.width
           )}
         >
-          <>
-            {!(dimensions.width >= Breakpoints.Laptop) ? null : (
-              <H5
-                selectable={false}
-                {...GlobalStyles.H5Styles(theme)['H5'].props}
-                style={StyleSheet.applyWidth(
-                  StyleSheet.compose(GlobalStyles.H5Styles(theme)['H5'].style, {
-                    fontFamily: 'Quicksand_600SemiBold',
-                    fontSize: 25,
-                    marginBottom: 20,
-                    marginTop: [
-                      { minWidth: Breakpoints.Mobile, value: 0 },
-                      { minWidth: Breakpoints.Laptop, value: 20 },
-                    ],
-                    paddingLeft: 5,
-                    textDecorationLine: 'none',
-                  }),
-                  dimensions.width
-                )}
-              >
-                {'Reports'}
-              </H5>
-            )}
-          </>
-          <View
+          <Text
+            accessible={true}
+            {...GlobalStyles.TextStyles(theme)['screen_title'].props}
             style={StyleSheet.applyWidth(
-              { gap: 10, marginBottom: 10 },
+              StyleSheet.compose(
+                GlobalStyles.TextStyles(theme)['screen_title'].style,
+                { fontFamily: 'Quicksand_400Regular' }
+              ),
               dimensions.width
             )}
           >
-            <Text
-              accessible={true}
-              {...GlobalStyles.TextStyles(theme)['screen_title'].props}
-              style={StyleSheet.applyWidth(
-                StyleSheet.compose(
-                  GlobalStyles.TextStyles(theme)['screen_title'].style,
-                  { fontFamily: 'Quicksand_400Regular' }
-                ),
-                dimensions.width
-              )}
-            >
-              {
-                'Our monthly advisor reports and rankings as well as periodic and ad-hoc special reports.'
-              }
-            </Text>
-            {/* Text 2 */}
-            <Text
-              accessible={true}
-              {...GlobalStyles.TextStyles(theme)['screen_title'].props}
-              style={StyleSheet.applyWidth(
-                StyleSheet.compose(
-                  GlobalStyles.TextStyles(theme)['screen_title'].style,
-                  { fontFamily: 'Quicksand_400Regular' }
-                ),
-                dimensions.width
-              )}
-            >
-              {
-                'Note: the weekly reports with opportunity-related headlines from a given week are found in the “Newsletters” tab.'
-              }
-            </Text>
-          </View>
-        </View>
-        {/* View 2 */}
-        <View
-          style={StyleSheet.applyWidth(
             {
-              backgroundColor: theme.colors.foreground.brand,
-              maxWidth: 1200,
-              padding: 5,
-              width: '100%',
-            },
-            dimensions.width
-          )}
-        >
-          <View
+              'Our monthly advisor reports and rankings as well as periodic and ad-hoc special reports.'
+            }
+          </Text>
+          {/* Text 2 */}
+          <Text
+            accessible={true}
+            {...GlobalStyles.TextStyles(theme)['screen_title'].props}
             style={StyleSheet.applyWidth(
-              { alignItems: 'center', flexDirection: 'row' },
+              StyleSheet.compose(
+                GlobalStyles.TextStyles(theme)['screen_title'].style,
+                { fontFamily: 'Quicksand_400Regular' }
+              ),
               dimensions.width
             )}
           >
-            <View
-              style={StyleSheet.applyWidth(
-                { padding: 2, paddingRight: 5, width: 100 },
-                dimensions.width
-              )}
-            >
-              <Text
-                accessible={true}
-                {...GlobalStyles.TextStyles(theme)['screen_title'].props}
-                style={StyleSheet.applyWidth(
-                  StyleSheet.compose(
-                    GlobalStyles.TextStyles(theme)['screen_title'].style,
-                    { fontFamily: 'Quicksand_600SemiBold' }
-                  ),
-                  dimensions.width
-                )}
-              >
-                {'Published'}
-              </Text>
-            </View>
-            {/* View 2 */}
-            <View
-              style={StyleSheet.applyWidth(
-                { padding: 2, paddingLeft: 5 },
-                dimensions.width
-              )}
-            >
-              <Text
-                accessible={true}
-                {...GlobalStyles.TextStyles(theme)['screen_title'].props}
-                style={StyleSheet.applyWidth(
-                  StyleSheet.compose(
-                    GlobalStyles.TextStyles(theme)['screen_title'].style,
-                    { fontFamily: 'Quicksand_600SemiBold' }
-                  ),
-                  dimensions.width
-                )}
-              >
-                {'Title (PDF download)'}
-              </Text>
-            </View>
-          </View>
-          {/* View 2 */}
-          <View
-            style={StyleSheet.applyWidth(
-              { alignItems: 'center', flexDirection: 'row' },
-              dimensions.width
-            )}
-          >
-            <View
-              style={StyleSheet.applyWidth(
-                { padding: 2, paddingRight: 5, width: 100 },
-                dimensions.width
-              )}
-            >
-              <Text
-                accessible={true}
-                {...GlobalStyles.TextStyles(theme)['screen_title'].props}
-                style={StyleSheet.applyWidth(
-                  StyleSheet.compose(
-                    GlobalStyles.TextStyles(theme)['screen_title'].style,
-                    { fontFamily: 'Quicksand_400Regular' }
-                  ),
-                  dimensions.width
-                )}
-              >
-                {'01/07/2024\n'}
-              </Text>
-            </View>
-            {/* View 2 */}
-            <View
-              style={StyleSheet.applyWidth(
-                { padding: 2, paddingLeft: 5 },
-                dimensions.width
-              )}
-            >
-              <Text
-                accessible={true}
-                {...GlobalStyles.TextStyles(theme)['screen_title'].props}
-                style={StyleSheet.applyWidth(
-                  StyleSheet.compose(
-                    GlobalStyles.TextStyles(theme)['screen_title'].style,
-                    { fontFamily: 'Quicksand_400Regular' }
-                  ),
-                  dimensions.width
-                )}
-              >
-                {'Monthly Advisor Report Nordic June 2024'}
-              </Text>
-            </View>
-          </View>
+            {
+              'Note: the weekly reports with opportunity-related headlines from a given week are found in the “Newsletters” tab.'
+            }
+          </Text>
         </View>
-      </SimpleStyleScrollView>
+      </View>
+      </* Fetch component: no endpoint configured */>
+        {(fetchData => (
+          <SimpleStyleScrollView
+            bounces={true}
+            horizontal={false}
+            keyboardShouldPersistTaps={'never'}
+            nestedScrollEnabled={false}
+            showsHorizontalScrollIndicator={false}
+            showsVerticalScrollIndicator={false}
+            style={StyleSheet.applyWidth(
+              { alignItems: 'center', width: '100%' },
+              dimensions.width
+            )}
+          >
+            {/* View 2 */}
+            <View
+              style={StyleSheet.applyWidth(
+                {
+                  backgroundColor: theme.colors.foreground.brand,
+                  maxWidth: 1200,
+                  padding: 5,
+                  width: '100%',
+                },
+                dimensions.width
+              )}
+            >
+              <View
+                style={StyleSheet.applyWidth(
+                  { alignItems: 'center', flexDirection: 'row' },
+                  dimensions.width
+                )}
+              >
+                <View
+                  style={StyleSheet.applyWidth(
+                    { padding: 2, paddingRight: 5, width: 100 },
+                    dimensions.width
+                  )}
+                >
+                  <Text
+                    accessible={true}
+                    {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.TextStyles(theme)['screen_title'].style,
+                        { fontFamily: 'Quicksand_600SemiBold' }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    {'Published'}
+                  </Text>
+                </View>
+                {/* View 2 */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    { padding: 2, paddingLeft: 5 },
+                    dimensions.width
+                  )}
+                >
+                  <Text
+                    accessible={true}
+                    {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.TextStyles(theme)['screen_title'].style,
+                        { fontFamily: 'Quicksand_600SemiBold' }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    {'Title (PDF download)'}
+                  </Text>
+                </View>
+              </View>
+              {/* View 2 */}
+              <View
+                style={StyleSheet.applyWidth(
+                  { alignItems: 'center', flexDirection: 'row' },
+                  dimensions.width
+                )}
+              >
+                <View
+                  style={StyleSheet.applyWidth(
+                    { padding: 2, paddingRight: 5, width: 100 },
+                    dimensions.width
+                  )}
+                >
+                  <Text
+                    accessible={true}
+                    {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.TextStyles(theme)['screen_title'].style,
+                        { fontFamily: 'Quicksand_400Regular' }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    {'01/07/2024\n'}
+                  </Text>
+                </View>
+                {/* View 2 */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    { padding: 2, paddingLeft: 5 },
+                    dimensions.width
+                  )}
+                >
+                  <Touchable>
+                    <Text
+                      accessible={true}
+                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.TextStyles(theme)['screen_title'].style,
+                          { fontFamily: 'Quicksand_400Regular' }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      {'Monthly Advisor Report Nordic June 2024'}
+                    </Text>
+                  </Touchable>
+                </View>
+              </View>
+            </View>
+          </SimpleStyleScrollView>
+        ))()}
+      </>
     </ScreenContainer>
   );
 };

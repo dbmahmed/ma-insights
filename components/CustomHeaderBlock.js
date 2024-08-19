@@ -635,13 +635,22 @@ const CustomHeaderBlock = props => {
                       StyleSheet.compose(
                         GlobalStyles.TextStyles(theme)['screen_title'].style,
                         {
-                          color: {
-                            minWidth: Breakpoints.Laptop,
-                            value:
-                              Constants['pageName'] === 'Newsletters'
-                                ? palettes.App.Orange
-                                : palettes.Brand.Strong,
-                          },
+                          color: [
+                            {
+                              minWidth: Breakpoints.Laptop,
+                              value:
+                                Constants['pageName'] === 'Newsletters'
+                                  ? palettes.App.Orange
+                                  : palettes.Brand.Strong,
+                            },
+                            {
+                              minWidth: Breakpoints.Mobile,
+                              value:
+                                Constants['pageName'] === 'Newsletters'
+                                  ? palettes.App.Orange
+                                  : palettes.Brand.Strong,
+                            },
+                          ],
                         }
                       ),
                       dimensions.width
@@ -707,13 +716,22 @@ const CustomHeaderBlock = props => {
                       StyleSheet.compose(
                         GlobalStyles.TextStyles(theme)['screen_title'].style,
                         {
-                          color: {
-                            minWidth: Breakpoints.Laptop,
-                            value:
-                              Constants['pageName'] === 'All events'
-                                ? palettes.App.Orange
-                                : palettes.Brand.Strong,
-                          },
+                          color: [
+                            {
+                              minWidth: Breakpoints.Laptop,
+                              value:
+                                Constants['pageName'] === 'All events'
+                                  ? palettes.App.Orange
+                                  : palettes.Brand.Strong,
+                            },
+                            {
+                              minWidth: Breakpoints.Mobile,
+                              value:
+                                Constants['pageName'] === 'All events'
+                                  ? palettes.App.Orange
+                                  : palettes.Brand.Strong,
+                            },
+                          ],
                         }
                       ),
                       dimensions.width
@@ -777,13 +795,22 @@ const CustomHeaderBlock = props => {
                       StyleSheet.compose(
                         GlobalStyles.TextStyles(theme)['screen_title'].style,
                         {
-                          color: {
-                            minWidth: Breakpoints.Laptop,
-                            value:
-                              Constants['pageName'] === 'Companies For Sale'
-                                ? palettes.App.Orange
-                                : palettes.Brand.Strong,
-                          },
+                          color: [
+                            {
+                              minWidth: Breakpoints.Laptop,
+                              value:
+                                Constants['pageName'] === 'Companies For Sale'
+                                  ? palettes.App.Orange
+                                  : palettes.Brand.Strong,
+                            },
+                            {
+                              minWidth: Breakpoints.Mobile,
+                              value:
+                                Constants['pageName'] === 'Companies For Sale'
+                                  ? palettes.App.Orange
+                                  : palettes.Brand.Strong,
+                            },
+                          ],
                         }
                       ),
                       dimensions.width
@@ -834,7 +861,7 @@ const CustomHeaderBlock = props => {
                   <Icon
                     size={24}
                     color={
-                      Constants['pageName'] === 'Private Equity Firms (PEPF)'
+                      Constants['pageName'] === 'PEPF'
                         ? palettes.App.Orange
                         : palettes.Brand.Strong
                     }
@@ -847,14 +874,22 @@ const CustomHeaderBlock = props => {
                       StyleSheet.compose(
                         GlobalStyles.TextStyles(theme)['screen_title'].style,
                         {
-                          color: {
-                            minWidth: Breakpoints.Laptop,
-                            value:
-                              Constants['pageName'] ===
-                              'Private Equity Firms (PEPF)'
-                                ? palettes.App.Orange
-                                : palettes.Brand.Strong,
-                          },
+                          color: [
+                            {
+                              minWidth: Breakpoints.Laptop,
+                              value:
+                                Constants['pageName'] === 'PEPF'
+                                  ? palettes.App.Orange
+                                  : palettes.Brand.Strong,
+                            },
+                            {
+                              minWidth: Breakpoints.Mobile,
+                              value:
+                                Constants['pageName'] === 'PEPF'
+                                  ? palettes.App.Orange
+                                  : palettes.Brand.Strong,
+                            },
+                          ],
                         }
                       ),
                       dimensions.width
@@ -906,7 +941,7 @@ const CustomHeaderBlock = props => {
                   <Icon
                     size={24}
                     color={
-                      Constants['pageName'] === 'Advisor league tables'
+                      Constants['pageName'] === 'Advisors'
                         ? palettes.App.Orange
                         : palettes.Brand.Strong
                     }
@@ -919,13 +954,22 @@ const CustomHeaderBlock = props => {
                       StyleSheet.compose(
                         GlobalStyles.TextStyles(theme)['screen_title'].style,
                         {
-                          color: {
-                            minWidth: Breakpoints.Laptop,
-                            value:
-                              Constants['pageName'] === 'Advisor league tables'
-                                ? palettes.App.Orange
-                                : palettes.Brand.Strong,
-                          },
+                          color: [
+                            {
+                              minWidth: Breakpoints.Laptop,
+                              value:
+                                Constants['pageName'] === 'Advisors'
+                                  ? palettes.App.Orange
+                                  : palettes.Brand.Strong,
+                            },
+                            {
+                              minWidth: Breakpoints.Mobile,
+                              value:
+                                Constants['pageName'] === 'Advisors'
+                                  ? palettes.App.Orange
+                                  : palettes.Brand.Strong,
+                            },
+                          ],
                         }
                       ),
                       dimensions.width
@@ -977,7 +1021,7 @@ const CustomHeaderBlock = props => {
                   <Icon
                     size={24}
                     color={
-                      Constants['pageName'] === 'Stock search'
+                      Constants['pageName'] === 'Stock Search'
                         ? palettes.App.Orange
                         : palettes.Brand.Strong
                     }
@@ -987,11 +1031,19 @@ const CustomHeaderBlock = props => {
                     accessible={true}
                     {...GlobalStyles.TextStyles(theme)['screen_title'].props}
                     style={StyleSheet.applyWidth(
-                      GlobalStyles.TextStyles(theme)['screen_title'].style,
+                      StyleSheet.compose(
+                        GlobalStyles.TextStyles(theme)['screen_title'].style,
+                        {
+                          color:
+                            Constants['pageName'] === 'Stock Search'
+                              ? palettes.App.Orange
+                              : palettes.Brand.Strong,
+                        }
+                      ),
                       dimensions.width
                     )}
                   >
-                    {'STOCKS SEARCH'}
+                    {'STOCK SEARCH'}
                   </Text>
                 </HStack>
               </Pressable>
@@ -1050,19 +1102,108 @@ const CustomHeaderBlock = props => {
                       StyleSheet.compose(
                         GlobalStyles.TextStyles(theme)['screen_title'].style,
                         {
-                          color: {
-                            minWidth: Breakpoints.Laptop,
-                            value:
-                              Constants['pageName'] === 'Peer Groups'
-                                ? palettes.App.Orange
-                                : palettes.Brand.Strong,
-                          },
+                          color: [
+                            {
+                              minWidth: Breakpoints.Laptop,
+                              value:
+                                Constants['pageName'] === 'Peer Groups'
+                                  ? palettes.App.Orange
+                                  : palettes.Brand.Strong,
+                            },
+                            {
+                              minWidth: Breakpoints.Mobile,
+                              value:
+                                Constants['pageName'] === 'Peer Groups'
+                                  ? palettes.App.Orange
+                                  : palettes.Brand.Strong,
+                            },
+                          ],
                         }
                       ),
                       dimensions.width
                     )}
                   >
                     {'PEER GROUPS'}
+                  </Text>
+                </HStack>
+              </Pressable>
+            </VStack>
+            {/* V Stack 9 */}
+            <VStack
+              {...GlobalStyles.VStackStyles(theme)['V Stack'].props}
+              style={StyleSheet.applyWidth(
+                StyleSheet.compose(
+                  GlobalStyles.VStackStyles(theme)['V Stack'].style,
+                  {
+                    borderBottomWidth: 0.5,
+                    borderColor: theme.colors.foreground.brand,
+                    width: '100%',
+                  }
+                ),
+                dimensions.width
+              )}
+            >
+              <Pressable
+                onPress={() => {
+                  try {
+                    navigation.navigate('ReportsScreen');
+                    setGlobalVariableValue({
+                      key: 'top_nav_pressed',
+                      value: false,
+                    });
+                  } catch (err) {
+                    console.error(err);
+                  }
+                }}
+              >
+                <HStack
+                  {...GlobalStyles.HStackStyles(theme)['H Stack'].props}
+                  style={StyleSheet.applyWidth(
+                    StyleSheet.compose(
+                      GlobalStyles.HStackStyles(theme)['H Stack'].style,
+                      { gap: 10, padding: 10 }
+                    ),
+                    dimensions.width
+                  )}
+                >
+                  <Icon
+                    size={24}
+                    color={
+                      Constants['pageName'] === 'Reports'
+                        ? palettes.App.Orange
+                        : palettes.Brand.Strong
+                    }
+                    name={'FontAwesome/file-pdf-o'}
+                  />
+                  <Text
+                    accessible={true}
+                    {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.TextStyles(theme)['screen_title'].style,
+                        {
+                          color: [
+                            {
+                              minWidth: Breakpoints.Laptop,
+                              value:
+                                Constants['pageName'] === 'Reports'
+                                  ? palettes.App.Orange
+                                  : palettes.Brand.Strong,
+                            },
+                            {
+                              minWidth: Breakpoints.Mobile,
+                              value:
+                                Constants['pageName'] === 'Reports'
+                                  ? palettes.App.Orange
+                                  : palettes.Brand.Strong,
+                            },
+                          ],
+                        }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    {'REPORTS'}
                   </Text>
                 </HStack>
               </Pressable>
@@ -1104,10 +1245,8 @@ const CustomHeaderBlock = props => {
                       key: 'top_nav_pressed',
                       value: false,
                     });
-                    setGlobalVariableValue({
-                      key: 'acc_pressed',
-                      value: true,
-                    });
+                    /* hidden 'Set Variable' action */
+                    navigation.navigate('MyAccountScreen');
                   } catch (err) {
                     console.error(err);
                   }
@@ -1121,19 +1260,34 @@ const CustomHeaderBlock = props => {
                       {
                         gap: { minWidth: Breakpoints.Laptop, value: 10 },
                         justifyContent: 'flex-start',
+                        padding: 10,
                       }
                     ),
                     dimensions.width
                   )}
                 >
-                  <Icon size={24} name={'MaterialCommunityIcons/account'} />
+                  <Icon
+                    size={24}
+                    color={
+                      Constants['pageName'] === 'My account'
+                        ? palettes.App.Orange
+                        : palettes.Brand.Strong
+                    }
+                    name={'MaterialCommunityIcons/account'}
+                  />
                   <Text
                     accessible={true}
                     {...GlobalStyles.TextStyles(theme)['screen_title'].props}
                     style={StyleSheet.applyWidth(
                       StyleSheet.compose(
                         GlobalStyles.TextStyles(theme)['screen_title'].style,
-                        { textAlign: 'center' }
+                        {
+                          color:
+                            Constants['pageName'] === 'My account'
+                              ? palettes.App.Orange
+                              : palettes.Brand.Strong,
+                          textAlign: 'center',
+                        }
                       ),
                       dimensions.width
                     )}

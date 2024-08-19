@@ -163,15 +163,23 @@ export const FetchEventTransactionsGET = ({
 
 export const getAdvisorGET = async (
   Constants,
-  { advisor_id },
+  { advisor_id, country_in, sector_in },
   handlers = {}
 ) => {
+  const paramsDict = {};
+  if (sector_in !== undefined) {
+    paramsDict['sector_in'] = renderParam(sector_in);
+  }
+  if (country_in !== undefined) {
+    paramsDict['country_in'] = renderParam(country_in);
+  }
   const url = `https://xne3-pdiu-8ysm.f2.xano.io/api:abjrBkC8/advisor/${encodeQueryParam(
     advisor_id
-  )}`;
+  )}${renderQueryString(paramsDict)}`;
   const options = {
     headers: cleanHeaders({
       Accept: 'application/json',
+      Authorization: Constants['AUTH_HEADER'],
       'Content-Type': 'application/json',
     }),
   };
@@ -201,6 +209,8 @@ export const FetchGetAdvisorGET = ({
   handlers = {},
   refetchInterval,
   advisor_id,
+  country_in,
+  sector_in,
 }) => {
   const Constants = GlobalVariables.useValues();
   const isFocused = useIsFocused();
@@ -212,7 +222,7 @@ export const FetchGetAdvisorGET = ({
     error,
     refetch,
   } = useGetAdvisorGET(
-    { advisor_id },
+    { advisor_id, country_in, sector_in },
     { refetchInterval, handlers: { onData, ...handlers } }
   );
 
@@ -231,8 +241,27 @@ export const FetchGetAdvisorGET = ({
   return children({ loading, data, error, refetchGetAdvisor: refetch });
 };
 
-export const getAdvisorsGET = async (Constants, _args, handlers = {}) => {
-  const url = `https://xne3-pdiu-8ysm.f2.xano.io/api:abjrBkC8/advisor`;
+export const getAdvisorsGET = async (
+  Constants,
+  { keyword, page, region, type },
+  handlers = {}
+) => {
+  const paramsDict = {};
+  if (type !== undefined) {
+    paramsDict['type'] = renderParam(type);
+  }
+  if (region !== undefined) {
+    paramsDict['region'] = renderParam(region);
+  }
+  if (keyword !== undefined) {
+    paramsDict['keyword'] = renderParam(keyword);
+  }
+  if (page !== undefined) {
+    paramsDict['page'] = renderParam(page);
+  }
+  const url = `https://xne3-pdiu-8ysm.f2.xano.io/api:abjrBkC8/advisor${renderQueryString(
+    paramsDict
+  )}`;
   const options = {
     headers: cleanHeaders({
       Accept: 'application/json',
@@ -263,6 +292,10 @@ export const FetchGetAdvisorsGET = ({
   onData = () => {},
   handlers = {},
   refetchInterval,
+  keyword,
+  page,
+  region,
+  type,
 }) => {
   const Constants = GlobalVariables.useValues();
   const isFocused = useIsFocused();
@@ -274,7 +307,7 @@ export const FetchGetAdvisorsGET = ({
     error,
     refetch,
   } = useGetAdvisorsGET(
-    {},
+    { keyword, page, region, type },
     { refetchInterval, handlers: { onData, ...handlers } }
   );
 
@@ -1892,4 +1925,111 @@ export const FetchRequestDemoPOST = ({
     }
   }, [error]);
   return children({ loading, data, error, refetchRequestDemo: refetch });
+};
+
+export const resetPasswordPUT = async (
+  Constants,
+  { current_password, new_password },
+  handlers = {}
+) => {
+  const paramsDict = {};
+  if (current_password !== undefined) {
+    paramsDict['current_password'] = renderParam(current_password);
+  }
+  if (new_password !== undefined) {
+    paramsDict['new_password'] = renderParam(new_password);
+  }
+  const url = `https://xne3-pdiu-8ysm.f2.xano.io/api:abjrBkC8/user/reset_password${renderQueryString(
+    paramsDict
+  )}`;
+  const options = {
+    body: JSON.stringify({ key: 'value' }),
+    headers: cleanHeaders({
+      Accept: 'application/json',
+      Authorization: Constants['AUTH_HEADER'],
+      'Content-Type': 'application/json',
+    }),
+    method: 'PUT',
+  };
+  const res = await fetch(url, options);
+  return handleResponse(res, handlers);
+};
+
+export const useResetPasswordPUT = (
+  initialArgs = {},
+  { handlers = {} } = {}
+) => {
+  const queryClient = useQueryClient();
+  const Constants = GlobalVariables.useValues();
+  return useMutation(
+    args => resetPasswordPUT(Constants, { ...initialArgs, ...args }, handlers),
+    {
+      onError: (err, variables, { previousValue }) => {
+        if (previousValue) {
+          return queryClient.setQueryData('Auth', previousValue);
+        }
+      },
+      onSettled: () => {
+        queryClient.invalidateQueries('Auth');
+        queryClient.invalidateQueries('Auths');
+      },
+    }
+  );
+};
+
+export const updateNotificationPUT = async (
+  Constants,
+  { email_dach, email_nordic, push_dach, push_nordic },
+  handlers = {}
+) => {
+  const paramsDict = {};
+  if (push_nordic !== undefined) {
+    paramsDict['push_nordic'] = renderParam(push_nordic);
+  }
+  if (push_dach !== undefined) {
+    paramsDict['push_dach'] = renderParam(push_dach);
+  }
+  if (email_nordic !== undefined) {
+    paramsDict['email_nordic'] = renderParam(email_nordic);
+  }
+  if (email_dach !== undefined) {
+    paramsDict['email_dach'] = renderParam(email_dach);
+  }
+  const url = `https://xne3-pdiu-8ysm.f2.xano.io/api:abjrBkC8/user/update_notifications${renderQueryString(
+    paramsDict
+  )}`;
+  const options = {
+    body: JSON.stringify({ key: 'value' }),
+    headers: cleanHeaders({
+      Accept: 'application/json',
+      Authorization: Constants['AUTH_HEADER'],
+      'Content-Type': 'application/json',
+    }),
+    method: 'PUT',
+  };
+  const res = await fetch(url, options);
+  return handleResponse(res, handlers);
+};
+
+export const useUpdateNotificationPUT = (
+  initialArgs = {},
+  { handlers = {} } = {}
+) => {
+  const queryClient = useQueryClient();
+  const Constants = GlobalVariables.useValues();
+  return useMutation(
+    args =>
+      updateNotificationPUT(Constants, { ...initialArgs, ...args }, handlers),
+    {
+      onError: (err, variables, { previousValue }) => {
+        if (previousValue) {
+          return queryClient.setQueryData('User', previousValue);
+        }
+      },
+      onSettled: () => {
+        queryClient.invalidateQueries('User');
+        queryClient.invalidateQueries('Users');
+      },
+    }
+  );
 };
