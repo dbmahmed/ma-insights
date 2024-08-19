@@ -238,8 +238,7 @@ export const resetPasswordPOST = async (
     }),
     headers: cleanHeaders({
       Accept: 'application/json',
-      Authorization:
-        'eyJhbGciOiJBMjU2S1ciLCJlbmMiOiJBMjU2Q0JDLUhTNTEyIiwiemlwIjoiREVGIn0.cYiosiQytrOa4Q78UWuS7sOqpxmA2-dDEhZ-jCzHljAQXLjNQFrxj9Tf0IYz8XvR9IPRwXYUstwY_86i3sR_JDJtu7cOv7IV.8ZShr1kHhAuEIzLg7KnNVQ.Np_JsrNyg1LeMEVuTEr5amD90pMdAiqI01M5W7VQmYq_8E_NGi8kZlR_0SnnNbQ90v44ME1XVv6yaROERgcL9_MmlxW3ixKP4njJ0lo196bnGrKMzKE2Fh5RLm8TEvhoXt-lg8LIO0cLL-S-ReJPkg.tWTQfci1CYROyDq3cbVeCQ0261XMfcMplVTlZXx0q3s',
+      Authorization: Constants['RESET_AUTH_HEADER'],
       'Content-Type': 'application/json',
     }),
     method: 'POST',

@@ -475,7 +475,7 @@ const ForgotPasswordScreen = props => {
                   clearButtonMode={'while-editing'}
                   keyboardType={'default'}
                   numberOfLines={1}
-                  placeholder={'Enter password...'}
+                  placeholder={'Enter temporary password...'}
                   placeholderTextColor={theme.colors.text.medium}
                   returnKeyType={'next'}
                   secureTextEntry={true}

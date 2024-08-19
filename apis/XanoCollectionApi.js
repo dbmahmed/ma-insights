@@ -1782,8 +1782,14 @@ export const FetchNewslettersGET = ({
   return children({ loading, data, error, refetchNewsletters: refetch });
 };
 
-export const reportsGET = async (Constants, _args, handlers = {}) => {
-  const url = `https://xne3-pdiu-8ysm.f2.xano.io/api:abjrBkC8/report`;
+export const reportsGET = async (Constants, { page }, handlers = {}) => {
+  const paramsDict = {};
+  if (page !== undefined) {
+    paramsDict['page'] = renderParam(page);
+  }
+  const url = `https://xne3-pdiu-8ysm.f2.xano.io/api:abjrBkC8/report${renderQueryString(
+    paramsDict
+  )}`;
   const options = {
     headers: cleanHeaders({
       Accept: 'application/json',
@@ -1814,6 +1820,7 @@ export const FetchReportsGET = ({
   onData = () => {},
   handlers = {},
   refetchInterval,
+  page,
 }) => {
   const Constants = GlobalVariables.useValues();
   const isFocused = useIsFocused();
@@ -1824,7 +1831,10 @@ export const FetchReportsGET = ({
     data,
     error,
     refetch,
-  } = useReportsGET({}, { refetchInterval, handlers: { onData, ...handlers } });
+  } = useReportsGET(
+    { page },
+    { refetchInterval, handlers: { onData, ...handlers } }
+  );
 
   React.useEffect(() => {
     if (!prevIsFocused && isFocused) {
