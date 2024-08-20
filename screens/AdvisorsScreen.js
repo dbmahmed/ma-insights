@@ -5,6 +5,7 @@ import CustomHeaderBlock from '../components/CustomHeaderBlock';
 import LoadingBlock from '../components/LoadingBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import assessAccess from '../global-functions/assessAccess';
+import modifyArrays from '../global-functions/modifyArrays';
 import removeGlobalScroll from '../global-functions/removeGlobalScroll';
 import resetAccess from '../global-functions/resetAccess';
 import setPadding from '../global-functions/setPadding';
@@ -15,16 +16,21 @@ import useWindowDimensions from '../utils/useWindowDimensions';
 import waitUtil from '../utils/wait';
 import {
   Button,
+  Checkbox,
+  HStack,
+  IconButton,
   LinearGradient,
   Picker,
   Pressable,
   ScreenContainer,
   Shadow,
   SimpleStyleFlatList,
+  SimpleStyleScrollView,
+  Spacer,
   TextInput,
   withTheme,
 } from '@draftbit/ui';
-import { H3 } from '@expo/html-elements';
+import { H3, H5 } from '@expo/html-elements';
 import { useIsFocused } from '@react-navigation/native';
 import * as WebBrowser from 'expo-web-browser';
 import { ActivityIndicator, Modal, Text, View } from 'react-native';
@@ -36,14 +42,28 @@ const AdvisorsScreen = props => {
   const Constants = GlobalVariables.useValues();
   const Variables = Constants;
   const setGlobalVariableValue = GlobalVariables.useSetValue();
+  const [Media_and_Other, setMedia_and_Other] = React.useState(false);
+  const [NKP_Proprietary, setNKP_Proprietary] = React.useState(false);
+  const [Press_Release, setPress_Release] = React.useState(false);
+  const [acq_agenda, setAcq_agenda] = React.useState(false);
   const [advisorsItems, setAdvisorsItems] = React.useState([]);
+  const [austria, setAustria] = React.useState(false);
+  const [communication_services, setCommunication_services] =
+    React.useState(false);
   const [consumer_discretionary, setConsumer_discretionary] =
     React.useState(false);
   const [consumer_staples, setConsumer_staples] = React.useState(false);
+  const [country, setCountry] = React.useState([]);
   const [dach, setDach] = React.useState(false);
+  const [denmark, setDenmark] = React.useState(false);
+  const [ebitdaRange, setEbitdaRange] = React.useState([]);
   const [energy, setEnergy] = React.useState(false);
+  const [eventType, setEventType] = React.useState([]);
+  const [filterPressed, setFilterPressed] = React.useState(false);
   const [financials, setFinancials] = React.useState(false);
+  const [finland, setFinland] = React.useState(false);
   const [future_opportunity, setFuture_opportunity] = React.useState(false);
+  const [germany, setGermany] = React.useState(false);
   const [health_care, setHealth_care] = React.useState(false);
   const [industrials, setIndustrials] = React.useState(false);
   const [it_and_software, setIt_and_software] = React.useState(false);
@@ -53,8 +73,13 @@ const AdvisorsScreen = props => {
   const [materials, setMaterials] = React.useState(false);
   const [nextPage, setNextPage] = React.useState(2);
   const [nordic, setNordic] = React.useState(false);
+  const [norway, setNorway] = React.useState(false);
   const [real_estate, setReal_estate] = React.useState(false);
+  const [sector, setSector] = React.useState([]);
   const [showSubmitDeal, setShowSubmitDeal] = React.useState(false);
+  const [sweden, setSweden] = React.useState(false);
+  const [switzerland, setSwitzerland] = React.useState(false);
+  const [transaction, setTransaction] = React.useState(false);
   const [type, setType] = React.useState('Corporate Finance');
   const [typeAdvisor, setTypeAdvisor] = React.useState('dk');
   const [utilities, setUtilities] = React.useState(false);
@@ -360,60 +385,119 @@ line two` ) and will not work with special characters inside of quotes ( example
             dimensions.width
           )}
         >
-          <TextInput
-            autoCorrect={true}
-            changeTextDelay={500}
-            onChangeText={newTextInputValue => {
-              try {
-                setKeywordSearchRaw(newTextInputValue);
-              } catch (err) {
-                console.error(err);
-              }
-            }}
-            onSubmitEditing={() => {
-              const handler = async () => {
-                console.log('Text Input ON_SUBMIT_EDITING Start');
-                let error = null;
-                try {
-                  console.log('Start ON_SUBMIT_EDITING:0 FETCH_REQUEST');
-                  /* hidden 'API Request' action */ console.log(
-                    'Complete ON_SUBMIT_EDITING:0 FETCH_REQUEST'
-                  );
-                  console.log('Start ON_SUBMIT_EDITING:1 WAIT');
-                  await waitUtil({ milliseconds: 100 });
-                  console.log('Complete ON_SUBMIT_EDITING:1 WAIT');
-                  console.log('Start ON_SUBMIT_EDITING:2 SET_VARIABLE');
-                  setKeywordSearch(keywordSearchRaw);
-                  console.log('Complete ON_SUBMIT_EDITING:2 SET_VARIABLE');
-                  console.log('Start ON_SUBMIT_EDITING:3 CONSOLE_LOG');
-                  console.log(keywordSearchRaw, keywordSearch);
-                  console.log('Complete ON_SUBMIT_EDITING:3 CONSOLE_LOG');
-                } catch (err) {
-                  console.error(err);
-                  error = err.message ?? err;
-                }
-                console.log(
-                  'Text Input ON_SUBMIT_EDITING Complete',
-                  error ? { error } : 'no error'
-                );
-              };
-              handler();
-            }}
-            webShowOutline={true}
-            {...GlobalStyles.TextInputStyles(theme)['Text Input'].props}
-            autoCapitalize={'sentences'}
-            clearButtonMode={'while-editing'}
-            placeholder={'Search...'}
-            returnKeyType={'search'}
+          <HStack
+            {...GlobalStyles.HStackStyles(theme)['H Stack'].props}
             style={StyleSheet.applyWidth(
               StyleSheet.compose(
-                GlobalStyles.TextInputStyles(theme)['Text Input'].style,
-                { fontFamily: 'Quicksand_400Regular', width: '100%' }
+                GlobalStyles.HStackStyles(theme)['H Stack'].style,
+                { gap: 10 }
               ),
               dimensions.width
             )}
-            value={keywordSearchRaw}
-          />
+          >
+            <TextInput
+              autoCorrect={true}
+              changeTextDelay={500}
+              onChangeText={newTextInputValue => {
+                try {
+                  setKeywordSearchRaw(newTextInputValue);
+                } catch (err) {
+                  console.error(err);
+                }
+              }}
+              onSubmitEditing={() => {
+                const handler = async () => {
+                  console.log('Text Input ON_SUBMIT_EDITING Start');
+                  let error = null;
+                  try {
+                    console.log('Start ON_SUBMIT_EDITING:0 FETCH_REQUEST');
+                    /* hidden 'API Request' action */ console.log(
+                      'Complete ON_SUBMIT_EDITING:0 FETCH_REQUEST'
+                    );
+                    console.log('Start ON_SUBMIT_EDITING:1 WAIT');
+                    await waitUtil({ milliseconds: 100 });
+                    console.log('Complete ON_SUBMIT_EDITING:1 WAIT');
+                    console.log('Start ON_SUBMIT_EDITING:2 SET_VARIABLE');
+                    setKeywordSearch(keywordSearchRaw);
+                    console.log('Complete ON_SUBMIT_EDITING:2 SET_VARIABLE');
+                    console.log('Start ON_SUBMIT_EDITING:3 CONSOLE_LOG');
+                    console.log(keywordSearchRaw, keywordSearch);
+                    console.log('Complete ON_SUBMIT_EDITING:3 CONSOLE_LOG');
+                  } catch (err) {
+                    console.error(err);
+                    error = err.message ?? err;
+                  }
+                  console.log(
+                    'Text Input ON_SUBMIT_EDITING Complete',
+                    error ? { error } : 'no error'
+                  );
+                };
+                handler();
+              }}
+              webShowOutline={true}
+              {...GlobalStyles.TextInputStyles(theme)['Text Input'].props}
+              autoCapitalize={'sentences'}
+              clearButtonMode={'while-editing'}
+              placeholder={'Search...'}
+              returnKeyType={'search'}
+              style={StyleSheet.applyWidth(
+                StyleSheet.compose(
+                  GlobalStyles.TextInputStyles(theme)['Text Input'].style,
+                  { fontFamily: 'Quicksand_400Regular', width: '100%' }
+                ),
+                dimensions.width
+              )}
+              value={keywordSearchRaw}
+            />
+            <Shadow
+              offsetX={0}
+              paintInside={true}
+              showShadowCornerBottomEnd={true}
+              showShadowCornerBottomStart={true}
+              showShadowCornerTopEnd={true}
+              showShadowCornerTopStart={true}
+              showShadowSideBottom={true}
+              showShadowSideEnd={true}
+              showShadowSideStart={true}
+              showShadowSideTop={true}
+              distance={3}
+              offsetY={2}
+            >
+              <View
+                style={StyleSheet.applyWidth(
+                  {
+                    alignItems: 'center',
+                    backgroundColor:
+                      ebitdaRange[0] || country[0] || sector[0]
+                        ? palettes.App.Orange
+                        : palettes.Brand.Background,
+                    borderRadius: 50,
+                    height: 36,
+                    justifyContent: 'center',
+                    width: 36,
+                  },
+                  dimensions.width
+                )}
+              >
+                <IconButton
+                  onPress={() => {
+                    try {
+                      setFilterPressed(true);
+                    } catch (err) {
+                      console.error(err);
+                    }
+                  }}
+                  color={
+                    (ebitdaRange[0] || country[0] || sector[0]
+                      ? palettes.Brand['Strong Inverse']
+                      : palettes.App.Strong2) ?? palettes.App.Strong2
+                  }
+                  icon={'MaterialIcons/filter-alt'}
+                  size={24}
+                />
+              </View>
+            </Shadow>
+          </HStack>
           {/* View 2 */}
           <View
             style={StyleSheet.applyWidth(
@@ -651,6 +735,7 @@ line two` ) and will not work with special characters inside of quotes ( example
                 {
                   maxWidth: { minWidth: Breakpoints.Laptop, value: '50%' },
                   width: { minWidth: Breakpoints.Laptop, value: '100%' },
+                  zIndex: 20,
                 },
                 dimensions.width
               )}
@@ -664,7 +749,6 @@ line two` ) and will not work with special characters inside of quotes ( example
                 dropDownTextColor={theme.colors.text.strong}
                 iconSize={24}
                 leftIconMode={'inset'}
-                mode={'native'}
                 onValueChange={newPickerValue => {
                   try {
                     /* hidden 'Wait' action */
@@ -677,6 +761,7 @@ line two` ) and will not work with special characters inside of quotes ( example
                 selectedIconColor={theme.colors.text.strong}
                 selectedIconName={'Feather/check'}
                 type={'solid'}
+                mode={'dropdown-modal'}
                 options={[
                   { label: 'Corporate Finance', value: 'Corporate Finance' },
                   { label: 'Legal', value: 'Legal Counsel' },
@@ -689,6 +774,7 @@ line two` ) and will not work with special characters inside of quotes ( example
                     fontFamily: 'Quicksand_400Regular',
                     padding: 8,
                     width: { minWidth: Breakpoints.Laptop, value: '100%' },
+                    zIndex: 2,
                   },
                   dimensions.width
                 )}
@@ -700,6 +786,7 @@ line two` ) and will not work with special characters inside of quotes ( example
       </View>
       {/* Fetch  */}
       <XanoCollectionApi.FetchGetAdvisorsGET
+        eventType_in={[]}
         handlers={{
           on2xx: fetchData => {
             try {
@@ -731,6 +818,7 @@ line two` ) and will not work with special characters inside of quotes ( example
         keyword={keywordSearch}
         page={1}
         region={typeAdvisor}
+        sector_in={[]}
         type={type}
       >
         {({ loading, error, data, refetchGetAdvisors }) => {
@@ -760,9 +848,11 @@ line two` ) and will not work with special characters inside of quotes ( example
                     }
                     const newData = (
                       await XanoCollectionApi.getAdvisorsGET(Constants, {
+                        eventType_in: [],
                         keyword: keywordSearch,
                         page: nextPage,
                         region: typeAdvisor,
+                        sector_in: [],
                         type: type,
                       })
                     )?.json;
@@ -911,7 +1001,16 @@ line two` ) and will not work with special characters inside of quotes ( example
                               GlobalStyles.TextStyles(theme)['screen_title']
                                 .style,
                               {
-                                fontFamily: 'Quicksand_400Regular',
+                                fontFamily: [
+                                  {
+                                    minWidth: Breakpoints.Mobile,
+                                    value: 'Quicksand_400Regular',
+                                  },
+                                  {
+                                    minWidth: Breakpoints.Laptop,
+                                    value: 'Quicksand_500Medium',
+                                  },
+                                ],
                                 fontSize: 12,
                               }
                             ),
@@ -950,7 +1049,16 @@ line two` ) and will not work with special characters inside of quotes ( example
                                 GlobalStyles.TextStyles(theme)['screen_title']
                                   .style,
                                 {
-                                  fontFamily: 'Quicksand_400Regular',
+                                  fontFamily: [
+                                    {
+                                      minWidth: Breakpoints.Mobile,
+                                      value: 'Quicksand_400Regular',
+                                    },
+                                    {
+                                      minWidth: Breakpoints.Laptop,
+                                      value: 'Quicksand_500Medium',
+                                    },
+                                  ],
                                   fontSize: 12,
                                 }
                               ),
@@ -966,33 +1074,6 @@ line two` ) and will not work with special characters inside of quotes ( example
                               listData,
                               'ly',
                               false
-                            )}
-                          </Text>
-                          {/* Text 2 2 2 */}
-                          <Text
-                            accessible={true}
-                            {...GlobalStyles.TextStyles(theme)['screen_title']
-                              .props}
-                            style={StyleSheet.applyWidth(
-                              StyleSheet.compose(
-                                GlobalStyles.TextStyles(theme)['screen_title']
-                                  .style,
-                                {
-                                  color: theme.colors.branding.primary,
-                                  fontFamily: 'Quicksand_500Medium',
-                                  fontSize: 12,
-                                }
-                              ),
-                              dimensions.width
-                            )}
-                          >
-                            {setAdvisorRank(
-                              Variables,
-                              typeAdvisor,
-                              type,
-                              listData,
-                              'ytd',
-                              true
                             )}
                           </Text>
                         </View>
@@ -1013,20 +1094,22 @@ line two` ) and will not work with special characters inside of quotes ( example
               style={StyleSheet.applyWidth(
                 {
                   gap: 8,
+                  marginBottom: dimensions.width >= Breakpoints.Laptop ? 0 : 65,
                   maxHeight: [
-                    {
-                      minWidth: Breakpoints.Laptop,
-                      value: dimensions.height - 220,
-                    },
                     {
                       minWidth: Breakpoints.Mobile,
                       value: dimensions.height - 290,
+                    },
+                    {
+                      minWidth: Breakpoints.Laptop,
+                      value: dimensions.height - 220,
                     },
                   ],
                   padding: 5,
                   paddingLeft: setPadding(dimensions.width),
                   paddingRight: setPadding(dimensions.width),
                   width: '100%',
+                  zIndex: 1,
                 },
                 dimensions.width
               )}
@@ -1034,6 +1117,1230 @@ line two` ) and will not work with special characters inside of quotes ( example
           );
         }}
       </XanoCollectionApi.FetchGetAdvisorsGET>
+      {/* Modal 2 */}
+      <Modal
+        supportedOrientations={['portrait', 'landscape']}
+        animationType={'fade'}
+        presentationStyle={'pageSheet'}
+        transparent={true}
+        visible={filterPressed}
+      >
+        <SimpleStyleScrollView
+          bounces={true}
+          horizontal={false}
+          keyboardShouldPersistTaps={'never'}
+          nestedScrollEnabled={false}
+          showsHorizontalScrollIndicator={false}
+          showsVerticalScrollIndicator={false}
+          style={StyleSheet.applyWidth(
+            {
+              alignItems: 'center',
+              backgroundColor: 'rgba(0, 0, 0, 0.6)',
+              height: '100%',
+              justifyContent: [
+                { minWidth: Breakpoints.Desktop, value: 'flex-start' },
+                { minWidth: Breakpoints.Mobile, value: 'center' },
+                { minWidth: Breakpoints.Tablet, value: 'center' },
+              ],
+              paddingTop: { minWidth: Breakpoints.Desktop, value: 150 },
+              width: '100%',
+            },
+            dimensions.width
+          )}
+        >
+          <View
+            style={StyleSheet.applyWidth(
+              {
+                alignItems: [
+                  { minWidth: Breakpoints.Mobile, value: 'center' },
+                  { minWidth: Breakpoints.Laptop, value: 'stretch' },
+                ],
+                borderRadius: 8,
+                justifyContent: 'center',
+                maxWidth: [
+                  { minWidth: Breakpoints.Mobile, value: 380 },
+                  { minWidth: Breakpoints.Tablet, value: 600 },
+                  { minWidth: Breakpoints.Laptop, value: 750 },
+                ],
+                width: '100%',
+              },
+              dimensions.width
+            )}
+          >
+            <LinearGradient
+              endX={100}
+              endY={100}
+              startX={0}
+              startY={0}
+              {...GlobalStyles.LinearGradientStyles(theme)['Linear Gradient']
+                .props}
+              color1={theme.colors.text.strong}
+              color2={theme.colors.branding.primary}
+              color3={null}
+              style={StyleSheet.applyWidth(
+                StyleSheet.compose(
+                  GlobalStyles.LinearGradientStyles(theme)['Linear Gradient']
+                    .style,
+                  { margin: null, padding: 10 }
+                ),
+                dimensions.width
+              )}
+            >
+              <HStack
+                {...GlobalStyles.HStackStyles(theme)['H Stack'].props}
+                style={StyleSheet.applyWidth(
+                  StyleSheet.compose(
+                    GlobalStyles.HStackStyles(theme)['H Stack'].style,
+                    {
+                      alignItems: 'flex-start',
+                      backgroundColor: 'rgba(0, 0, 0, 0)',
+                      justifyContent: 'space-between',
+                      padding: 10,
+                    }
+                  ),
+                  dimensions.width
+                )}
+              >
+                <H5
+                  selectable={false}
+                  {...GlobalStyles.H5Styles(theme)['H5'].props}
+                  style={StyleSheet.applyWidth(
+                    StyleSheet.compose(
+                      GlobalStyles.H5Styles(theme)['H5'].style,
+                      {
+                        color: palettes.Brand['Strong Inverse'],
+                        fontSize: 16,
+                        marginTop: 0,
+                      }
+                    ),
+                    dimensions.width
+                  )}
+                >
+                  {'Filtering advisors list'}
+                </H5>
+
+                <Shadow
+                  offsetX={0}
+                  paintInside={true}
+                  showShadowCornerBottomEnd={true}
+                  showShadowCornerBottomStart={true}
+                  showShadowCornerTopEnd={true}
+                  showShadowCornerTopStart={true}
+                  showShadowSideBottom={true}
+                  showShadowSideEnd={true}
+                  showShadowSideStart={true}
+                  showShadowSideTop={true}
+                  distance={3}
+                  offsetY={2}
+                >
+                  <View
+                    style={StyleSheet.applyWidth(
+                      {
+                        alignItems: 'center',
+                        backgroundColor: theme.colors.background.brand,
+                        borderRadius: 50,
+                        height: 36,
+                        justifyContent: 'center',
+                        width: 36,
+                      },
+                      dimensions.width
+                    )}
+                  >
+                    <IconButton
+                      onPress={() => {
+                        try {
+                          setFilterPressed(false);
+                        } catch (err) {
+                          console.error(err);
+                        }
+                      }}
+                      color={palettes.App.Strong2}
+                      icon={'AntDesign/close'}
+                      size={24}
+                    />
+                  </View>
+                </Shadow>
+              </HStack>
+              {/* Sector */}
+              <View
+                style={StyleSheet.applyWidth(
+                  {
+                    alignItems: 'stretch',
+                    flexDirection: 'column',
+                    gap: 8,
+                    padding: 10,
+                  },
+                  dimensions.width
+                )}
+              >
+                <H5
+                  selectable={false}
+                  {...GlobalStyles.H5Styles(theme)['H5'].props}
+                  style={StyleSheet.applyWidth(
+                    StyleSheet.compose(
+                      GlobalStyles.H5Styles(theme)['H5'].style,
+                      {
+                        color: palettes.Brand['Strong Inverse'],
+                        fontSize: 16,
+                        marginBottom: 0,
+                        marginTop: 0,
+                      }
+                    ),
+                    dimensions.width
+                  )}
+                >
+                  {'Sector'}
+                </H5>
+
+                <View
+                  style={StyleSheet.applyWidth(
+                    {
+                      alignItems: 'flex-start',
+                      flex: 0,
+                      flexDirection: 'row',
+                      flexWrap: 'wrap',
+                      gap: 0,
+                      justifyContent: 'flex-start',
+                      margin: -4,
+                      width: '100%',
+                    },
+                    dimensions.width
+                  )}
+                >
+                  {/* Communication Services */}
+                  <View
+                    style={StyleSheet.applyWidth(
+                      {
+                        alignContent: 'center',
+                        alignItems: 'center',
+                        flexDirection: 'row',
+                        gap: 4,
+                        padding: 4,
+                        width: [
+                          { minWidth: Breakpoints.Mobile, value: '50%' },
+                          { minWidth: Breakpoints.Tablet, value: '33.33%' },
+                          { minWidth: Breakpoints.Laptop, value: '25%' },
+                        ],
+                      },
+                      dimensions.width
+                    )}
+                  >
+                    <Checkbox
+                      onPress={newCheckboxValue => {
+                        try {
+                          setCommunication_services(newCheckboxValue);
+                        } catch (err) {
+                          console.error(err);
+                        }
+                      }}
+                      color={palettes.Brand['Strong Inverse']}
+                      size={24}
+                      status={communication_services}
+                      uncheckedColor={palettes.Brand['Strong Inverse']}
+                    />
+                    <Pressable
+                      onPress={() => {
+                        try {
+                          setCommunication_services(
+                            communication_services ? false : true
+                          );
+                        } catch (err) {
+                          console.error(err);
+                        }
+                      }}
+                    >
+                      <Text
+                        accessible={true}
+                        {...GlobalStyles.TextStyles(theme)['screen_title']
+                          .props}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.TextStyles(theme)['screen_title']
+                              .style,
+                            {
+                              color: palettes.Brand['Strong Inverse'],
+                              fontFamily: 'Quicksand_400Regular',
+                              fontSize: 12,
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {'Communication Services'}
+                      </Text>
+                    </Pressable>
+                  </View>
+                  {/* Industrials */}
+                  <View
+                    style={StyleSheet.applyWidth(
+                      {
+                        alignContent: 'center',
+                        alignItems: 'center',
+                        flexDirection: 'row',
+                        gap: 4,
+                        padding: 4,
+                        width: [
+                          { minWidth: Breakpoints.Mobile, value: '50%' },
+                          { minWidth: Breakpoints.Tablet, value: '33.33%' },
+                          { minWidth: Breakpoints.Laptop, value: '25%' },
+                        ],
+                      },
+                      dimensions.width
+                    )}
+                  >
+                    <Checkbox
+                      onPress={newCheckboxValue => {
+                        try {
+                          setIndustrials(newCheckboxValue);
+                        } catch (err) {
+                          console.error(err);
+                        }
+                      }}
+                      color={palettes.Brand['Strong Inverse']}
+                      size={24}
+                      status={industrials}
+                      uncheckedColor={palettes.Brand['Strong Inverse']}
+                    />
+                    <Pressable
+                      onPress={() => {
+                        try {
+                          setIndustrials(industrials ? false : true);
+                        } catch (err) {
+                          console.error(err);
+                        }
+                      }}
+                    >
+                      <Text
+                        accessible={true}
+                        {...GlobalStyles.TextStyles(theme)['screen_title']
+                          .props}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.TextStyles(theme)['screen_title']
+                              .style,
+                            {
+                              color: palettes.Brand['Strong Inverse'],
+                              fontFamily: 'Quicksand_400Regular',
+                              fontSize: 12,
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {'Industrials'}
+                      </Text>
+                    </Pressable>
+                  </View>
+                  {/* Consumer Discretionary */}
+                  <View
+                    style={StyleSheet.applyWidth(
+                      {
+                        alignContent: 'center',
+                        alignItems: 'center',
+                        flexDirection: 'row',
+                        gap: 4,
+                        padding: 4,
+                        width: [
+                          { minWidth: Breakpoints.Mobile, value: '50%' },
+                          { minWidth: Breakpoints.Tablet, value: '33.33%' },
+                          { minWidth: Breakpoints.Laptop, value: '25%' },
+                        ],
+                      },
+                      dimensions.width
+                    )}
+                  >
+                    <Checkbox
+                      onPress={newCheckboxValue => {
+                        try {
+                          setConsumer_discretionary(newCheckboxValue);
+                        } catch (err) {
+                          console.error(err);
+                        }
+                      }}
+                      color={palettes.Brand['Strong Inverse']}
+                      size={24}
+                      status={consumer_discretionary}
+                      uncheckedColor={palettes.Brand['Strong Inverse']}
+                    />
+                    <Pressable
+                      onPress={() => {
+                        try {
+                          setConsumer_discretionary(
+                            consumer_discretionary ? false : true
+                          );
+                        } catch (err) {
+                          console.error(err);
+                        }
+                      }}
+                    >
+                      <Text
+                        accessible={true}
+                        {...GlobalStyles.TextStyles(theme)['screen_title']
+                          .props}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.TextStyles(theme)['screen_title']
+                              .style,
+                            {
+                              color: palettes.Brand['Strong Inverse'],
+                              fontFamily: 'Quicksand_400Regular',
+                              fontSize: 12,
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {'Consumer Discretionary'}
+                      </Text>
+                    </Pressable>
+                  </View>
+                  {/* IT and Software */}
+                  <View
+                    style={StyleSheet.applyWidth(
+                      {
+                        alignContent: 'center',
+                        alignItems: 'center',
+                        flexDirection: 'row',
+                        gap: 4,
+                        padding: 4,
+                        width: [
+                          { minWidth: Breakpoints.Tablet, value: '33.33%' },
+                          { minWidth: Breakpoints.Mobile, value: '50%' },
+                          { minWidth: Breakpoints.Laptop, value: '25%' },
+                        ],
+                      },
+                      dimensions.width
+                    )}
+                  >
+                    <Checkbox
+                      onPress={newCheckboxValue => {
+                        try {
+                          setIt_and_software(newCheckboxValue);
+                        } catch (err) {
+                          console.error(err);
+                        }
+                      }}
+                      color={palettes.Brand['Strong Inverse']}
+                      size={24}
+                      status={it_and_software}
+                      uncheckedColor={palettes.Brand['Strong Inverse']}
+                    />
+                    <Pressable
+                      onPress={() => {
+                        try {
+                          setIt_and_software(it_and_software ? false : true);
+                        } catch (err) {
+                          console.error(err);
+                        }
+                      }}
+                    >
+                      <Text
+                        accessible={true}
+                        {...GlobalStyles.TextStyles(theme)['screen_title']
+                          .props}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.TextStyles(theme)['screen_title']
+                              .style,
+                            {
+                              color: palettes.Brand['Strong Inverse'],
+                              fontFamily: 'Quicksand_400Regular',
+                              fontSize: 12,
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {'IT & Software'}
+                      </Text>
+                    </Pressable>
+                  </View>
+                  {/* Consumer Staples */}
+                  <View
+                    style={StyleSheet.applyWidth(
+                      {
+                        alignContent: 'center',
+                        alignItems: 'center',
+                        flexDirection: 'row',
+                        gap: 4,
+                        padding: 4,
+                        width: [
+                          { minWidth: Breakpoints.Mobile, value: '50%' },
+                          { minWidth: Breakpoints.Tablet, value: '33.33%' },
+                          { minWidth: Breakpoints.Laptop, value: '25%' },
+                        ],
+                      },
+                      dimensions.width
+                    )}
+                  >
+                    <Checkbox
+                      onPress={newCheckboxValue => {
+                        try {
+                          setConsumer_staples(newCheckboxValue);
+                        } catch (err) {
+                          console.error(err);
+                        }
+                      }}
+                      color={palettes.Brand['Strong Inverse']}
+                      size={24}
+                      status={consumer_staples}
+                      uncheckedColor={palettes.Brand['Strong Inverse']}
+                    />
+                    <Pressable
+                      onPress={() => {
+                        try {
+                          setConsumer_staples(consumer_staples ? false : true);
+                        } catch (err) {
+                          console.error(err);
+                        }
+                      }}
+                    >
+                      <Text
+                        accessible={true}
+                        {...GlobalStyles.TextStyles(theme)['screen_title']
+                          .props}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.TextStyles(theme)['screen_title']
+                              .style,
+                            {
+                              color: palettes.Brand['Strong Inverse'],
+                              fontFamily: 'Quicksand_400Regular',
+                              fontSize: 12,
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {'Consumer Staples'}
+                      </Text>
+                    </Pressable>
+                  </View>
+                  {/* Materials */}
+                  <View
+                    style={StyleSheet.applyWidth(
+                      {
+                        alignContent: 'center',
+                        alignItems: 'center',
+                        flexDirection: 'row',
+                        gap: 4,
+                        padding: 4,
+                        width: [
+                          { minWidth: Breakpoints.Mobile, value: '50%' },
+                          { minWidth: Breakpoints.Tablet, value: '33.33%' },
+                          { minWidth: Breakpoints.Laptop, value: '25%' },
+                        ],
+                      },
+                      dimensions.width
+                    )}
+                  >
+                    <Checkbox
+                      onPress={newCheckboxValue => {
+                        try {
+                          setMaterials(newCheckboxValue);
+                        } catch (err) {
+                          console.error(err);
+                        }
+                      }}
+                      color={palettes.Brand['Strong Inverse']}
+                      size={24}
+                      status={materials}
+                      uncheckedColor={palettes.Brand['Strong Inverse']}
+                    />
+                    <Pressable
+                      onPress={() => {
+                        try {
+                          setMaterials(materials ? false : true);
+                        } catch (err) {
+                          console.error(err);
+                        }
+                      }}
+                    >
+                      <Text
+                        accessible={true}
+                        {...GlobalStyles.TextStyles(theme)['screen_title']
+                          .props}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.TextStyles(theme)['screen_title']
+                              .style,
+                            {
+                              color: palettes.Brand['Strong Inverse'],
+                              fontFamily: 'Quicksand_400Regular',
+                              fontSize: 12,
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {'Materials'}
+                      </Text>
+                    </Pressable>
+                  </View>
+                  {/* Energy */}
+                  <View
+                    style={StyleSheet.applyWidth(
+                      {
+                        alignContent: 'center',
+                        alignItems: 'center',
+                        flexDirection: 'row',
+                        gap: 4,
+                        padding: 4,
+                        width: [
+                          { minWidth: Breakpoints.Mobile, value: '50%' },
+                          { minWidth: Breakpoints.Tablet, value: '33.33%' },
+                          { minWidth: Breakpoints.Laptop, value: '25%' },
+                        ],
+                      },
+                      dimensions.width
+                    )}
+                  >
+                    <Checkbox
+                      onPress={newCheckboxValue => {
+                        try {
+                          setEnergy(newCheckboxValue);
+                        } catch (err) {
+                          console.error(err);
+                        }
+                      }}
+                      color={palettes.Brand['Strong Inverse']}
+                      size={24}
+                      status={energy}
+                      uncheckedColor={palettes.Brand['Strong Inverse']}
+                    />
+                    <Pressable
+                      onPress={() => {
+                        try {
+                          setEnergy(energy ? false : true);
+                        } catch (err) {
+                          console.error(err);
+                        }
+                      }}
+                    >
+                      <Text
+                        accessible={true}
+                        {...GlobalStyles.TextStyles(theme)['screen_title']
+                          .props}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.TextStyles(theme)['screen_title']
+                              .style,
+                            {
+                              color: palettes.Brand['Strong Inverse'],
+                              fontFamily: 'Quicksand_400Regular',
+                              fontSize: 12,
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {'Energy'}
+                      </Text>
+                    </Pressable>
+                  </View>
+                  {/* Real Estate */}
+                  <View
+                    style={StyleSheet.applyWidth(
+                      {
+                        alignContent: 'center',
+                        alignItems: 'center',
+                        flexDirection: 'row',
+                        gap: 4,
+                        padding: 4,
+                        width: [
+                          { minWidth: Breakpoints.Mobile, value: '50%' },
+                          { minWidth: Breakpoints.Tablet, value: '33.33%' },
+                          { minWidth: Breakpoints.Laptop, value: '25%' },
+                        ],
+                      },
+                      dimensions.width
+                    )}
+                  >
+                    <Checkbox
+                      onPress={newCheckboxValue => {
+                        try {
+                          setReal_estate(newCheckboxValue);
+                        } catch (err) {
+                          console.error(err);
+                        }
+                      }}
+                      color={palettes.Brand['Strong Inverse']}
+                      size={24}
+                      status={real_estate}
+                      uncheckedColor={palettes.Brand['Strong Inverse']}
+                    />
+                    <Pressable
+                      onPress={() => {
+                        try {
+                          setReal_estate(real_estate ? false : true);
+                        } catch (err) {
+                          console.error(err);
+                        }
+                      }}
+                    >
+                      <Text
+                        accessible={true}
+                        {...GlobalStyles.TextStyles(theme)['screen_title']
+                          .props}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.TextStyles(theme)['screen_title']
+                              .style,
+                            {
+                              color: palettes.Brand['Strong Inverse'],
+                              fontFamily: 'Quicksand_400Regular',
+                              fontSize: 12,
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {'Real Estate'}
+                      </Text>
+                    </Pressable>
+                  </View>
+                  {/* Financials */}
+                  <View
+                    style={StyleSheet.applyWidth(
+                      {
+                        alignContent: 'center',
+                        alignItems: 'center',
+                        flexDirection: 'row',
+                        gap: 4,
+                        padding: 4,
+                        width: [
+                          { minWidth: Breakpoints.Mobile, value: '50%' },
+                          { minWidth: Breakpoints.Tablet, value: '33.33%' },
+                          { minWidth: Breakpoints.Laptop, value: '25%' },
+                        ],
+                      },
+                      dimensions.width
+                    )}
+                  >
+                    <Checkbox
+                      onPress={newCheckboxValue => {
+                        try {
+                          setFinancials(newCheckboxValue);
+                        } catch (err) {
+                          console.error(err);
+                        }
+                      }}
+                      color={palettes.Brand['Strong Inverse']}
+                      size={24}
+                      status={financials}
+                      uncheckedColor={palettes.Brand['Strong Inverse']}
+                    />
+                    <Pressable
+                      onPress={() => {
+                        try {
+                          setFinancials(financials ? false : true);
+                        } catch (err) {
+                          console.error(err);
+                        }
+                      }}
+                    >
+                      <Text
+                        accessible={true}
+                        {...GlobalStyles.TextStyles(theme)['screen_title']
+                          .props}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.TextStyles(theme)['screen_title']
+                              .style,
+                            {
+                              color: palettes.Brand['Strong Inverse'],
+                              fontFamily: 'Quicksand_400Regular',
+                              fontSize: 12,
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {'Financials'}
+                      </Text>
+                    </Pressable>
+                  </View>
+                  {/* Utilities */}
+                  <View
+                    style={StyleSheet.applyWidth(
+                      {
+                        alignContent: 'center',
+                        alignItems: 'center',
+                        flexDirection: 'row',
+                        gap: 4,
+                        padding: 4,
+                        width: [
+                          { minWidth: Breakpoints.Mobile, value: '50%' },
+                          { minWidth: Breakpoints.Tablet, value: '33.33%' },
+                          { minWidth: Breakpoints.Laptop, value: '25%' },
+                        ],
+                      },
+                      dimensions.width
+                    )}
+                  >
+                    <Checkbox
+                      onPress={newCheckboxValue => {
+                        try {
+                          setUtilities(newCheckboxValue);
+                        } catch (err) {
+                          console.error(err);
+                        }
+                      }}
+                      color={palettes.Brand['Strong Inverse']}
+                      size={24}
+                      status={utilities}
+                      uncheckedColor={palettes.Brand['Strong Inverse']}
+                    />
+                    <Pressable
+                      onPress={() => {
+                        try {
+                          setUtilities(utilities ? false : true);
+                        } catch (err) {
+                          console.error(err);
+                        }
+                      }}
+                    >
+                      <Text
+                        accessible={true}
+                        {...GlobalStyles.TextStyles(theme)['screen_title']
+                          .props}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.TextStyles(theme)['screen_title']
+                              .style,
+                            {
+                              color: palettes.Brand['Strong Inverse'],
+                              fontFamily: 'Quicksand_400Regular',
+                              fontSize: 12,
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {'Utilities'}
+                      </Text>
+                    </Pressable>
+                  </View>
+                  {/* Health Care */}
+                  <View
+                    style={StyleSheet.applyWidth(
+                      {
+                        alignContent: 'center',
+                        alignItems: 'center',
+                        flexDirection: 'row',
+                        gap: 4,
+                        padding: 4,
+                        width: [
+                          { minWidth: Breakpoints.Mobile, value: '50%' },
+                          { minWidth: Breakpoints.Tablet, value: '33.33%' },
+                          { minWidth: Breakpoints.Laptop, value: '25%' },
+                        ],
+                      },
+                      dimensions.width
+                    )}
+                  >
+                    <Checkbox
+                      onPress={newCheckboxValue => {
+                        try {
+                          setHealth_care(newCheckboxValue);
+                        } catch (err) {
+                          console.error(err);
+                        }
+                      }}
+                      color={palettes.Brand['Strong Inverse']}
+                      size={24}
+                      status={health_care}
+                      uncheckedColor={palettes.Brand['Strong Inverse']}
+                    />
+                    <Pressable
+                      onPress={() => {
+                        try {
+                          setHealth_care(health_care ? false : true);
+                        } catch (err) {
+                          console.error(err);
+                        }
+                      }}
+                    >
+                      <Text
+                        accessible={true}
+                        {...GlobalStyles.TextStyles(theme)['screen_title']
+                          .props}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.TextStyles(theme)['screen_title']
+                              .style,
+                            {
+                              color: palettes.Brand['Strong Inverse'],
+                              fontFamily: 'Quicksand_400Regular',
+                              fontSize: 12,
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {'Health Care'}
+                      </Text>
+                    </Pressable>
+                  </View>
+                </View>
+              </View>
+              {/* Event type */}
+              <View
+                style={StyleSheet.applyWidth(
+                  {
+                    alignItems: 'stretch',
+                    flexDirection: 'column',
+                    gap: 8,
+                    padding: 10,
+                    width: '100%',
+                  },
+                  dimensions.width
+                )}
+              >
+                <H5
+                  selectable={false}
+                  {...GlobalStyles.H5Styles(theme)['H5'].props}
+                  style={StyleSheet.applyWidth(
+                    StyleSheet.compose(
+                      GlobalStyles.H5Styles(theme)['H5'].style,
+                      {
+                        color: palettes.Brand['Strong Inverse'],
+                        fontSize: 16,
+                        marginBottom: 0,
+                        marginTop: 0,
+                      }
+                    ),
+                    dimensions.width
+                  )}
+                >
+                  {'Event type'}
+                </H5>
+
+                <View
+                  style={StyleSheet.applyWidth(
+                    {
+                      alignItems: 'flex-start',
+                      flex: 0,
+                      flexDirection: 'row',
+                      flexWrap: 'wrap',
+                      gap: 0,
+                      justifyContent: 'flex-start',
+                      margin: -4,
+                      width: '100%',
+                    },
+                    dimensions.width
+                  )}
+                >
+                  {/* Future opportunity */}
+                  <View
+                    style={StyleSheet.applyWidth(
+                      {
+                        alignContent: 'center',
+                        alignItems: 'center',
+                        flexDirection: 'row',
+                        gap: 4,
+                        padding: 4,
+                        width: [
+                          { minWidth: Breakpoints.Mobile, value: '50%' },
+                          { minWidth: Breakpoints.Tablet, value: '33.33%' },
+                          { minWidth: Breakpoints.Desktop, value: '25%' },
+                          { minWidth: Breakpoints.Laptop, value: '25%' },
+                        ],
+                      },
+                      dimensions.width
+                    )}
+                  >
+                    <Checkbox
+                      onCheck={() => {
+                        try {
+                          const valueAEwjlSLH = modifyArrays(
+                            eventType,
+                            'Future Opportunity',
+                            'push'
+                          );
+                          setEventType(valueAEwjlSLH);
+                          const event = valueAEwjlSLH;
+                        } catch (err) {
+                          console.error(err);
+                        }
+                      }}
+                      onPress={newCheckboxValue => {
+                        try {
+                          setFuture_opportunity(newCheckboxValue);
+                        } catch (err) {
+                          console.error(err);
+                        }
+                      }}
+                      color={palettes.Brand['Strong Inverse']}
+                      size={24}
+                      status={future_opportunity}
+                      uncheckedColor={palettes.Brand['Strong Inverse']}
+                    />
+                    <Pressable
+                      onPress={() => {
+                        try {
+                          setFuture_opportunity(
+                            future_opportunity ? false : true
+                          );
+                        } catch (err) {
+                          console.error(err);
+                        }
+                      }}
+                    >
+                      <Text
+                        accessible={true}
+                        {...GlobalStyles.TextStyles(theme)['screen_title']
+                          .props}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.TextStyles(theme)['screen_title']
+                              .style,
+                            {
+                              color: palettes.Brand['Strong Inverse'],
+                              fontFamily: 'Quicksand_400Regular',
+                              fontSize: 12,
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {'Future opportunity'}
+                      </Text>
+                    </Pressable>
+                  </View>
+                  {/* Acq agenda and other */}
+                  <View
+                    style={StyleSheet.applyWidth(
+                      {
+                        alignContent: 'center',
+                        alignItems: 'center',
+                        flexDirection: 'row',
+                        gap: 4,
+                        padding: 4,
+                        width: [
+                          { minWidth: Breakpoints.Mobile, value: '47%' },
+                          { minWidth: Breakpoints.Tablet, value: '33.33%' },
+                          { minWidth: Breakpoints.Desktop, value: '25%' },
+                          { minWidth: Breakpoints.Laptop, value: '25%' },
+                        ],
+                      },
+                      dimensions.width
+                    )}
+                  >
+                    <Checkbox
+                      onPress={newCheckboxValue => {
+                        try {
+                          setAcq_agenda(newCheckboxValue);
+                        } catch (err) {
+                          console.error(err);
+                        }
+                      }}
+                      color={palettes.Brand['Strong Inverse']}
+                      size={24}
+                      status={acq_agenda}
+                      uncheckedColor={palettes.Brand['Strong Inverse']}
+                    />
+                    <Pressable
+                      onPress={() => {
+                        try {
+                          setAcq_agenda(acq_agenda ? false : true);
+                        } catch (err) {
+                          console.error(err);
+                        }
+                      }}
+                    >
+                      <Text
+                        accessible={true}
+                        {...GlobalStyles.TextStyles(theme)['screen_title']
+                          .props}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.TextStyles(theme)['screen_title']
+                              .style,
+                            {
+                              color: palettes.Brand['Strong Inverse'],
+                              fontFamily: 'Quicksand_400Regular',
+                              fontSize: 12,
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {'Acq. agenda & other'}
+                      </Text>
+                    </Pressable>
+                  </View>
+                  {/* Transaction */}
+                  <View
+                    style={StyleSheet.applyWidth(
+                      {
+                        alignContent: 'center',
+                        alignItems: 'center',
+                        flexDirection: 'row',
+                        gap: 4,
+                        padding: 4,
+                        width: [
+                          { minWidth: Breakpoints.Mobile, value: '47%' },
+                          { minWidth: Breakpoints.Tablet, value: '33.33%' },
+                          { minWidth: Breakpoints.Desktop, value: '25%' },
+                          { minWidth: Breakpoints.Laptop, value: '25%' },
+                        ],
+                      },
+                      dimensions.width
+                    )}
+                  >
+                    <Checkbox
+                      onPress={newCheckboxValue => {
+                        try {
+                          setTransaction(newCheckboxValue);
+                        } catch (err) {
+                          console.error(err);
+                        }
+                      }}
+                      color={palettes.Brand['Strong Inverse']}
+                      size={24}
+                      status={transaction}
+                      uncheckedColor={palettes.Brand['Strong Inverse']}
+                    />
+                    <Pressable
+                      onPress={() => {
+                        try {
+                          setTransaction(transaction ? false : true);
+                        } catch (err) {
+                          console.error(err);
+                        }
+                      }}
+                    >
+                      <Text
+                        accessible={true}
+                        {...GlobalStyles.TextStyles(theme)['screen_title']
+                          .props}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.TextStyles(theme)['screen_title']
+                              .style,
+                            {
+                              color: palettes.Brand['Strong Inverse'],
+                              fontFamily: 'Quicksand_400Regular',
+                              fontSize: 12,
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {'Transaction'}
+                      </Text>
+                    </Pressable>
+                  </View>
+                </View>
+              </View>
+              <Spacer bottom={10} left={0} right={0} top={10} />
+              {/* Buttons */}
+              <View
+                style={StyleSheet.applyWidth(
+                  {
+                    alignContent: 'flex-start',
+                    flexDirection: 'row',
+                    flexGrow: 1,
+                    gap: [
+                      { minWidth: Breakpoints.Mobile, value: 0 },
+                      { minWidth: Breakpoints.Laptop, value: 10 },
+                    ],
+                    justifyContent: [
+                      { minWidth: Breakpoints.Mobile, value: 'flex-start' },
+                      { minWidth: Breakpoints.Laptop, value: 'flex-start' },
+                    ],
+                    marginBottom: 10,
+                    padding: 5,
+                  },
+                  dimensions.width
+                )}
+              >
+                {/* View 2 */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    {
+                      maxWidth: { minWidth: Breakpoints.Tablet, value: 150 },
+                      padding: 5,
+                      width: '50%',
+                    },
+                    dimensions.width
+                  )}
+                >
+                  {/* Reset */}
+                  <Button
+                    iconPosition={'left'}
+                    {...GlobalStyles.ButtonStyles(theme)['Button'].props}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.ButtonStyles(theme)['Button'].style,
+                        {
+                          backgroundColor: 'rgba(0, 0, 0, 0)',
+                          borderColor: palettes.Brand['Strong Inverse'],
+                          borderWidth: 1,
+                          fontFamily: 'Quicksand_600SemiBold',
+                          textTransform: 'uppercase',
+                          width: [
+                            { minWidth: Breakpoints.Laptop, value: 150 },
+                            { minWidth: Breakpoints.Mobile, value: '100%' },
+                          ],
+                        }
+                      ),
+                      dimensions.width
+                    )}
+                    title={'Reset'}
+                  />
+                </View>
+                {/* View 3 */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    {
+                      maxWidth: { minWidth: Breakpoints.Tablet, value: 150 },
+                      padding: 5,
+                      width: '50%',
+                    },
+                    dimensions.width
+                  )}
+                >
+                  {/* Results */}
+                  <Button
+                    iconPosition={'left'}
+                    onPress={() => {
+                      const handler = async () => {
+                        try {
+                          setFilterPressed(false);
+                          await waitUtil({ milliseconds: 1000 });
+                          await refetchGetAllEvents();
+                        } catch (err) {
+                          console.error(err);
+                        }
+                      };
+                      handler();
+                    }}
+                    {...GlobalStyles.ButtonStyles(theme)['Button'].props}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.ButtonStyles(theme)['Button'].style,
+                        {
+                          backgroundColor: palettes.App.Orange,
+                          fontFamily: 'Quicksand_600SemiBold',
+                          textTransform: 'uppercase',
+                          width: [
+                            { minWidth: Breakpoints.Laptop, value: 150 },
+                            { minWidth: Breakpoints.Mobile, value: '100%' },
+                          ],
+                        }
+                      ),
+                      dimensions.width
+                    )}
+                    title={'Filter'}
+                  />
+                </View>
+              </View>
+            </LinearGradient>
+          </View>
+        </SimpleStyleScrollView>
+      </Modal>
     </ScreenContainer>
   );
 };

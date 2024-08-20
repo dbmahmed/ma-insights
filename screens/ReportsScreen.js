@@ -293,25 +293,42 @@ const ReportsScreen = props => {
                                   {...GlobalStyles.TextStyles(theme)[
                                     'screen_title'
                                   ].props}
+                                  adjustsFontSizeToFit={true}
+                                  numberOfLines={2}
                                   style={StyleSheet.applyWidth(
                                     StyleSheet.compose(
                                       GlobalStyles.TextStyles(theme)[
                                         'screen_title'
                                       ].style,
                                       {
-                                        color: {
-                                          minWidth: Breakpoints.Laptop,
-                                          value: theme.colors.branding.primary,
-                                        },
+                                        color: [
+                                          {
+                                            minWidth: Breakpoints.Laptop,
+                                            value:
+                                              theme.colors.branding.primary,
+                                          },
+                                          {
+                                            minWidth: Breakpoints.Mobile,
+                                            value:
+                                              theme.colors.branding.primary,
+                                          },
+                                        ],
                                         fontFamily: 'Quicksand_400Regular',
-                                        textDecorationLine: {
-                                          minWidth: Breakpoints.Laptop,
-                                          value: 'underline',
-                                        },
+                                        textDecorationLine: [
+                                          {
+                                            minWidth: Breakpoints.Laptop,
+                                            value: 'underline',
+                                          },
+                                          {
+                                            minWidth: Breakpoints.Mobile,
+                                            value: 'underline',
+                                          },
+                                        ],
                                       }
                                     ),
                                     dimensions.width
                                   )}
+                                  textBreakStrategy={'simple'}
                                 >
                                   {listData?.title}
                                 </Text>

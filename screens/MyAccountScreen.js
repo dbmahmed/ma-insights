@@ -1149,10 +1149,10 @@ const MyAccountScreen = props => {
                           color: theme.colors.text.strong,
                           fontFamily: 'Quicksand_700Bold',
                           fontSize: 16,
-                          marginBottom: {
-                            minWidth: Breakpoints.Laptop,
-                            value: 10,
-                          },
+                          marginBottom: [
+                            { minWidth: Breakpoints.Laptop, value: 10 },
+                            { minWidth: Breakpoints.Mobile, value: 10 },
+                          ],
                           marginTop: {
                             minWidth: Breakpoints.Laptop,
                             value: 10,

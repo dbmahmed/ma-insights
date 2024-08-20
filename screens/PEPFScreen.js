@@ -834,6 +834,8 @@ const PEPFScreen = props => {
                 style={StyleSheet.applyWidth(
                   {
                     flexDirection: 'column',
+                    marginBottom:
+                      dimensions.width >= Breakpoints.Laptop ? 0 : 65,
                     maxHeight: [
                       {
                         minWidth: Breakpoints.Mobile,
@@ -880,8 +882,8 @@ const PEPFScreen = props => {
                       horizontal={false}
                       keyboardShouldPersistTaps={'never'}
                       nestedScrollEnabled={false}
-                      showsHorizontalScrollIndicator={true}
-                      showsVerticalScrollIndicator={true}
+                      showsHorizontalScrollIndicator={false}
+                      showsVerticalScrollIndicator={false}
                       style={StyleSheet.applyWidth(
                         {
                           alignItems: 'center',

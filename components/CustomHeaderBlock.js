@@ -186,7 +186,7 @@ const CustomHeaderBlock = props => {
                   accessible={true}
                   onPress={() => {
                     try {
-                      navigation.navigate('RootNavigator');
+                      navigation.navigate('NewslettersScreen');
                     } catch (err) {
                       console.error(err);
                     }
@@ -196,6 +196,10 @@ const CustomHeaderBlock = props => {
                     StyleSheet.compose(
                       GlobalStyles.LinkStyles(theme)['Link'].style,
                       {
+                        alignSelf: {
+                          minWidth: Breakpoints.Laptop,
+                          value: 'center',
+                        },
                         color: {
                           minWidth: Breakpoints.Laptop,
                           value:
@@ -254,7 +258,7 @@ const CustomHeaderBlock = props => {
                   accessible={true}
                   onPress={() => {
                     try {
-                      navigation.navigate('RootNavigator');
+                      navigation.navigate('AllEventsScreen');
                     } catch (err) {
                       console.error(err);
                     }
@@ -310,7 +314,7 @@ const CustomHeaderBlock = props => {
                   accessible={true}
                   onPress={() => {
                     try {
-                      navigation.navigate('RootNavigator');
+                      navigation.navigate('CFSScreen');
                     } catch (err) {
                       console.error(err);
                     }
@@ -366,7 +370,7 @@ const CustomHeaderBlock = props => {
                   accessible={true}
                   onPress={() => {
                     try {
-                      navigation.navigate('RootNavigator');
+                      navigation.navigate('PEPFScreen');
                     } catch (err) {
                       console.error(err);
                     }
@@ -485,7 +489,7 @@ const CustomHeaderBlock = props => {
                     },
                     {
                       minWidth: Breakpoints.Mobile,
-                      value: dimensions.height - 125,
+                      value: dimensions.height - 130,
                     },
                   ],
                   zIndex: 10,
@@ -543,6 +547,13 @@ const CustomHeaderBlock = props => {
               >
                 {/* Pressable 2 */}
                 <Pressable
+                  onPress={() => {
+                    try {
+                      navigation.navigate('NewslettersScreen');
+                    } catch (err) {
+                      console.error(err);
+                    }
+                  }}
                   style={StyleSheet.applyWidth(
                     { height: '100%', width: '100%' },
                     dimensions.width
@@ -610,6 +621,13 @@ const CustomHeaderBlock = props => {
               >
                 {/* Pressable 2 */}
                 <Pressable
+                  onPress={() => {
+                    try {
+                      navigation.navigate('AllEventsScreen');
+                    } catch (err) {
+                      console.error(err);
+                    }
+                  }}
                   style={StyleSheet.applyWidth(
                     {
                       borderColor: [
@@ -664,7 +682,7 @@ const CustomHeaderBlock = props => {
                           GlobalStyles.TextStyles(theme)['screen_title'].style,
                           {
                             color:
-                              Constants['pageName'] === 'Companies For Sale'
+                              Constants['pageName'] === 'All events'
                                 ? palettes.Brand.Primary
                                 : palettes.Brand.Strong,
                             fontFamily: 'Quicksand_400Regular',
@@ -695,6 +713,13 @@ const CustomHeaderBlock = props => {
               >
                 {/* Pressable 2 */}
                 <Pressable
+                  onPress={() => {
+                    try {
+                      navigation.navigate('CFSScreen');
+                    } catch (err) {
+                      console.error(err);
+                    }
+                  }}
                   style={StyleSheet.applyWidth(
                     {
                       borderColor: [
@@ -731,7 +756,7 @@ const CustomHeaderBlock = props => {
                     <Icon
                       size={24}
                       color={
-                        Constants['pageName'] === 'PEPF'
+                        Constants['pageName'] === 'Companies For Sale'
                           ? palettes.Brand.Primary
                           : palettes.Brand.Strong
                       }
@@ -747,7 +772,14 @@ const CustomHeaderBlock = props => {
                       style={StyleSheet.applyWidth(
                         StyleSheet.compose(
                           GlobalStyles.TextStyles(theme)['screen_title'].style,
-                          { fontFamily: 'Quicksand_400Regular', marginTop: 2 }
+                          {
+                            color:
+                              Constants['pageName'] === 'Companies For Sale'
+                                ? palettes.Brand.Primary
+                                : palettes.Brand.Strong,
+                            fontFamily: 'Quicksand_400Regular',
+                            marginTop: 2,
+                          }
                         ),
                         dimensions.width
                       )}
@@ -773,6 +805,13 @@ const CustomHeaderBlock = props => {
               >
                 {/* Pressable 2 */}
                 <Pressable
+                  onPress={() => {
+                    try {
+                      navigation.navigate('PEPFScreen');
+                    } catch (err) {
+                      console.error(err);
+                    }
+                  }}
                   style={StyleSheet.applyWidth(
                     { height: '100%', width: '100%' },
                     dimensions.width
@@ -790,6 +829,11 @@ const CustomHeaderBlock = props => {
                   >
                     <Icon
                       size={24}
+                      color={
+                        Constants['pageName'] === 'PEPF'
+                          ? palettes.Brand.Primary
+                          : palettes.Brand.Strong
+                      }
                       name={'MaterialIcons/waterfall-chart'}
                       style={StyleSheet.applyWidth(
                         { width: '100%' },
@@ -802,7 +846,14 @@ const CustomHeaderBlock = props => {
                       style={StyleSheet.applyWidth(
                         StyleSheet.compose(
                           GlobalStyles.TextStyles(theme)['screen_title'].style,
-                          { fontFamily: 'Quicksand_400Regular', marginTop: 2 }
+                          {
+                            color:
+                              Constants['pageName'] === 'PEPF'
+                                ? palettes.Brand.Primary
+                                : palettes.Brand.Strong,
+                            fontFamily: 'Quicksand_400Regular',
+                            marginTop: 2,
+                          }
                         ),
                         dimensions.width
                       )}
@@ -947,7 +998,7 @@ const CustomHeaderBlock = props => {
               <Pressable
                 onPress={() => {
                   try {
-                    navigation.navigate('RootNavigator');
+                    navigation.navigate('NewslettersScreen');
                     setGlobalVariableValue({
                       key: 'top_nav_pressed',
                       value: false,
@@ -1026,7 +1077,7 @@ const CustomHeaderBlock = props => {
               <Pressable
                 onPress={() => {
                   try {
-                    navigation.navigate('RootNavigator');
+                    navigation.navigate('AllEventsScreen');
                     setGlobalVariableValue({
                       key: 'top_nav_pressed',
                       value: false,
@@ -1105,7 +1156,7 @@ const CustomHeaderBlock = props => {
               <Pressable
                 onPress={() => {
                   try {
-                    navigation.navigate('RootNavigator');
+                    navigation.navigate('CFSScreen');
                     setGlobalVariableValue({
                       key: 'top_nav_pressed',
                       value: false,
@@ -1184,7 +1235,7 @@ const CustomHeaderBlock = props => {
               <Pressable
                 onPress={() => {
                   try {
-                    navigation.navigate('RootNavigator');
+                    navigation.navigate('PEPFScreen');
                     setGlobalVariableValue({
                       key: 'top_nav_pressed',
                       value: false,

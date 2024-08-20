@@ -243,7 +243,7 @@ export const FetchGetAdvisorGET = ({
 
 export const getAdvisorsGET = async (
   Constants,
-  { keyword, page, region, type },
+  { eventType_in, keyword, page, region, sector_in, type },
   handlers = {}
 ) => {
   const paramsDict = {};
@@ -258,6 +258,12 @@ export const getAdvisorsGET = async (
   }
   if (page !== undefined) {
     paramsDict['page'] = renderParam(page);
+  }
+  if (eventType_in !== undefined) {
+    paramsDict['eventType_in'] = renderParam(eventType_in);
+  }
+  if (sector_in !== undefined) {
+    paramsDict['sector_in'] = renderParam(sector_in);
   }
   const url = `https://xne3-pdiu-8ysm.f2.xano.io/api:abjrBkC8/advisor${renderQueryString(
     paramsDict
@@ -292,9 +298,11 @@ export const FetchGetAdvisorsGET = ({
   onData = () => {},
   handlers = {},
   refetchInterval,
+  eventType_in,
   keyword,
   page,
   region,
+  sector_in,
   type,
 }) => {
   const Constants = GlobalVariables.useValues();
@@ -307,7 +315,7 @@ export const FetchGetAdvisorsGET = ({
     error,
     refetch,
   } = useGetAdvisorsGET(
-    { keyword, page, region, type },
+    { eventType_in, keyword, page, region, sector_in, type },
     { refetchInterval, handlers: { onData, ...handlers } }
   );
 

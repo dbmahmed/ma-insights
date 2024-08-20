@@ -62,7 +62,7 @@ const SplashScreen = props => {
           }
           navigation.replace('LogInScreen', { message: get_me?.message });
         } else {
-          navigation.navigate('MAInsights', { screen: 'NewslettersScreen' });
+          navigation.navigate('NewslettersScreen');
         }
         console.log('Complete ON_SCREEN_FOCUS:6 IF');
       } catch (err) {

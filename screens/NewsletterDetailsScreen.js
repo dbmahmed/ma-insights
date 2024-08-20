@@ -119,7 +119,7 @@ const NewsletterDetailsScreen = props => {
             }
           },
         }}
-        newsletter_id={props.route?.params?.news_id ?? 66}
+        newsletter_id={props.route?.params?.news_id ?? 93}
       >
         {({ loading, error, data, refetchNewsletterEach }) => {
           const fetchData = data?.json;
@@ -264,9 +264,7 @@ const NewsletterDetailsScreen = props => {
                             iconPosition={'left'}
                             onPress={() => {
                               try {
-                                navigation.navigate('MAInsights', {
-                                  screen: 'NewslettersScreen',
-                                });
+                                navigation.navigate('RootNavigator');
                               } catch (err) {
                                 console.error(err);
                               }
@@ -312,6 +310,7 @@ const NewsletterDetailsScreen = props => {
                     {
                       alignItems: 'center',
                       height: '100%',
+                      marginBottom: 65,
                       marginTop: 65,
                       maxHeight: dimensions.height - 67,
                       position: 'absolute',
@@ -322,7 +321,12 @@ const NewsletterDetailsScreen = props => {
                 >
                   <View
                     style={StyleSheet.applyWidth(
-                      { maxWidth: 900, width: '100%' },
+                      {
+                        marginBottom:
+                          dimensions.width >= Breakpoints.Laptop ? 0 : 65,
+                        maxWidth: 900,
+                        width: '100%',
+                      },
                       dimensions.width
                     )}
                   >
@@ -1387,131 +1391,158 @@ const NewsletterDetailsScreen = props => {
                               renderItem={({ item, index }) => {
                                 const listData = item;
                                 return (
-                                  <View
-                                    style={StyleSheet.applyWidth(
-                                      { padding: 5 },
-                                      dimensions.width
-                                    )}
-                                  >
-                                    <Shadow
-                                      showShadowCornerBottomEnd={true}
-                                      showShadowCornerBottomStart={true}
-                                      showShadowCornerTopEnd={true}
-                                      showShadowCornerTopStart={true}
-                                      showShadowSideBottom={true}
-                                      showShadowSideEnd={true}
-                                      showShadowSideStart={true}
-                                      showShadowSideTop={true}
-                                      distance={4}
-                                      offsetX={0}
-                                      offsetY={0}
-                                      paintInside={true}
-                                      stretch={true}
-                                      style={StyleSheet.applyWidth(
-                                        {
-                                          borderRadius: 12,
-                                          bottom: 5,
-                                          height: '100%',
-                                          left: 5,
-                                          position: 'absolute',
-                                          right: 5,
-                                          top: 5,
-                                          width: [
-                                            {
-                                              minWidth: Breakpoints.Laptop,
-                                              value: '100%',
-                                            },
-                                            {
-                                              minWidth: Breakpoints.Mobile,
-                                              value: '100%',
-                                            },
-                                          ],
-                                        },
-                                        dimensions.width
-                                      )}
-                                    />
-                                    <Pressable
-                                      onPress={() => {
-                                        try {
-                                          navigation.navigate(
-                                            'EventDetailsScreen',
-                                            { event_id: listData?.id }
-                                          );
-                                        } catch (err) {
-                                          console.error(err);
-                                        }
-                                      }}
-                                    >
+                                  <>
+                                    {!listData?.headline ? null : (
                                       <View
                                         style={StyleSheet.applyWidth(
-                                          {
-                                            backgroundColor:
-                                              palettes.Brand['Strong Inverse'],
-                                            borderColor:
-                                              palettes.Brand['Light Inverse'],
-                                            borderRadius: 8,
-                                            borderWidth: 1,
-                                            padding: 10,
-                                          },
+                                          { padding: 5 },
                                           dimensions.width
                                         )}
                                       >
-                                        <View>
-                                          <Text
-                                            accessible={true}
-                                            style={StyleSheet.applyWidth(
-                                              {
-                                                fontFamily:
-                                                  'Quicksand_600SemiBold',
-                                                fontSize: 16,
-                                              },
-                                              dimensions.width
-                                            )}
-                                          >
-                                            {listData?.headline}
-                                            {' ('}
-                                            {listData?.source}
-                                            {')'}
-                                          </Text>
-                                        </View>
-                                        {/* View 2 */}
-                                        <View>
-                                          <Text
-                                            accessible={true}
-                                            style={StyleSheet.applyWidth(
-                                              {
-                                                color: palettes.App.Orange,
-                                                fontFamily:
-                                                  'Quicksand_400Regular',
-                                              },
-                                              dimensions.width
-                                            )}
-                                          >
+                                        <Shadow
+                                          showShadowCornerBottomEnd={true}
+                                          showShadowCornerBottomStart={true}
+                                          showShadowCornerTopEnd={true}
+                                          showShadowCornerTopStart={true}
+                                          showShadowSideBottom={true}
+                                          showShadowSideEnd={true}
+                                          showShadowSideStart={true}
+                                          showShadowSideTop={true}
+                                          distance={4}
+                                          offsetX={0}
+                                          offsetY={0}
+                                          paintInside={true}
+                                          stretch={true}
+                                          style={StyleSheet.applyWidth(
                                             {
-                                              listData?._gics_sub_industry
-                                                ?.GICS_Sector
+                                              borderRadius: 12,
+                                              bottom: 5,
+                                              height: '100%',
+                                              left: 5,
+                                              position: 'absolute',
+                                              right: 5,
+                                              top: 5,
+                                              width: [
+                                                {
+                                                  minWidth: Breakpoints.Laptop,
+                                                  value: '100%',
+                                                },
+                                                {
+                                                  minWidth: Breakpoints.Mobile,
+                                                  value: '100%',
+                                                },
+                                              ],
+                                            },
+                                            dimensions.width
+                                          )}
+                                        />
+                                        <Pressable
+                                          onPress={() => {
+                                            try {
+                                              navigation.navigate(
+                                                'EventDetailsScreen',
+                                                { event_id: listData?.id }
+                                              );
+                                            } catch (err) {
+                                              console.error(err);
                                             }
-                                          </Text>
-                                        </View>
-                                        {/* View 3 */}
-                                        <View>
-                                          <Text
-                                            accessible={true}
+                                          }}
+                                        >
+                                          <View
                                             style={StyleSheet.applyWidth(
                                               {
-                                                color: theme.colors.text.strong,
-                                                fontFamily:
-                                                  'Quicksand_400Regular',
+                                                backgroundColor:
+                                                  palettes.Brand[
+                                                    'Strong Inverse'
+                                                  ],
+                                                borderColor:
+                                                  palettes.Brand[
+                                                    'Light Inverse'
+                                                  ],
+                                                borderRadius: 8,
+                                                borderWidth: 1,
+                                                padding: 10,
                                               },
                                               dimensions.width
                                             )}
                                           >
-                                            {listData?.description}
-                                          </Text>
-                                        </View>
+                                            <View>
+                                              <Text
+                                                accessible={true}
+                                                style={StyleSheet.applyWidth(
+                                                  {
+                                                    color: palettes.App.Orange,
+                                                    fontFamily:
+                                                      'Quicksand_600SemiBold',
+                                                    fontSize: 16,
+                                                  },
+                                                  dimensions.width
+                                                )}
+                                              >
+                                                {
+                                                  listData?._gics_sub_industry
+                                                    ?.GICS_Sector
+                                                }{' '}
+                                                <Text
+                                                  accessible={true}
+                                                  style={StyleSheet.applyWidth(
+                                                    {
+                                                      color:
+                                                        theme.colors.text
+                                                          .strong,
+                                                      fontFamily:
+                                                        'Quicksand_600SemiBold',
+                                                      fontSize: 16,
+                                                    },
+                                                    dimensions.width
+                                                  )}
+                                                >
+                                                  {'| '}
+                                                  {listData?.headline}
+                                                </Text>
+                                              </Text>
+                                            </View>
+                                            {/* View 3 */}
+                                            <View>
+                                              <Text
+                                                accessible={true}
+                                                style={StyleSheet.applyWidth(
+                                                  {
+                                                    color:
+                                                      theme.colors.text.strong,
+                                                    fontFamily:
+                                                      'Quicksand_400Regular',
+                                                  },
+                                                  dimensions.width
+                                                )}
+                                              >
+                                                {listData?.description}
+                                              </Text>
+                                            </View>
+                                            {/* View 2 */}
+                                            <View>
+                                              {/* Text 2 */}
+                                              <Text
+                                                accessible={true}
+                                                style={StyleSheet.applyWidth(
+                                                  {
+                                                    color: palettes.App.Orange,
+                                                    fontFamily:
+                                                      'Quicksand_400Regular',
+                                                    fontSize: 14,
+                                                  },
+                                                  dimensions.width
+                                                )}
+                                              >
+                                                {'Source: '}
+                                                {listData?.source}
+                                              </Text>
+                                            </View>
+                                          </View>
+                                        </Pressable>
                                       </View>
-                                    </Pressable>
-                                  </View>
+                                    )}
+                                  </>
                                 );
                               }}
                               horizontal={false}
@@ -1577,135 +1608,162 @@ const NewsletterDetailsScreen = props => {
                               renderItem={({ item, index }) => {
                                 const listData = item;
                                 return (
-                                  <View
-                                    style={StyleSheet.applyWidth(
-                                      {
-                                        height: '100%',
-                                        padding: 5,
-                                        width: '100%',
-                                      },
-                                      dimensions.width
-                                    )}
-                                  >
-                                    <Shadow
-                                      showShadowCornerBottomEnd={true}
-                                      showShadowCornerBottomStart={true}
-                                      showShadowCornerTopEnd={true}
-                                      showShadowCornerTopStart={true}
-                                      showShadowSideBottom={true}
-                                      showShadowSideEnd={true}
-                                      showShadowSideStart={true}
-                                      showShadowSideTop={true}
-                                      distance={4}
-                                      offsetX={0}
-                                      offsetY={0}
-                                      paintInside={true}
-                                      stretch={true}
-                                      style={StyleSheet.applyWidth(
-                                        {
-                                          borderRadius: 12,
-                                          bottom: 5,
-                                          height: '100%',
-                                          left: 5,
-                                          position: 'absolute',
-                                          right: 5,
-                                          top: 5,
-                                          width: [
-                                            {
-                                              minWidth: Breakpoints.Laptop,
-                                              value: '100%',
-                                            },
-                                            {
-                                              minWidth: Breakpoints.Mobile,
-                                              value: '100%',
-                                            },
-                                          ],
-                                        },
-                                        dimensions.width
-                                      )}
-                                    />
-                                    <Pressable
-                                      onPress={() => {
-                                        try {
-                                          navigation.navigate(
-                                            'EventDetailsScreen',
-                                            { event_id: listData?.id }
-                                          );
-                                        } catch (err) {
-                                          console.error(err);
-                                        }
-                                      }}
-                                    >
+                                  <>
+                                    {!listData?.headline ? null : (
                                       <View
                                         style={StyleSheet.applyWidth(
                                           {
-                                            backgroundColor:
-                                              palettes.Brand['Strong Inverse'],
-                                            borderColor:
-                                              palettes.Brand['Light Inverse'],
-                                            borderRadius: 8,
-                                            borderWidth: 1,
-                                            padding: 10,
+                                            height: '100%',
+                                            padding: 5,
+                                            width: '100%',
                                           },
                                           dimensions.width
                                         )}
                                       >
-                                        <View>
-                                          <Text
-                                            accessible={true}
-                                            style={StyleSheet.applyWidth(
-                                              {
-                                                fontFamily:
-                                                  'Quicksand_600SemiBold',
-                                                fontSize: 16,
-                                              },
-                                              dimensions.width
-                                            )}
-                                          >
-                                            {listData?.headline}
-                                            {' ('}
-                                            {listData?.source}
-                                            {')'}
-                                          </Text>
-                                        </View>
-                                        {/* View 2 */}
-                                        <View>
-                                          <Text
-                                            accessible={true}
-                                            style={StyleSheet.applyWidth(
-                                              {
-                                                color: palettes.App.Orange,
-                                                fontFamily:
-                                                  'Quicksand_400Regular',
-                                              },
-                                              dimensions.width
-                                            )}
-                                          >
+                                        <Shadow
+                                          showShadowCornerBottomEnd={true}
+                                          showShadowCornerBottomStart={true}
+                                          showShadowCornerTopEnd={true}
+                                          showShadowCornerTopStart={true}
+                                          showShadowSideBottom={true}
+                                          showShadowSideEnd={true}
+                                          showShadowSideStart={true}
+                                          showShadowSideTop={true}
+                                          distance={4}
+                                          offsetX={0}
+                                          offsetY={0}
+                                          paintInside={true}
+                                          stretch={true}
+                                          style={StyleSheet.applyWidth(
                                             {
-                                              listData?._gics_sub_industry
-                                                ?.GICS_Sector
+                                              borderRadius: 12,
+                                              bottom: 5,
+                                              height: '100%',
+                                              left: 5,
+                                              position: 'absolute',
+                                              right: 5,
+                                              top: 5,
+                                              width: [
+                                                {
+                                                  minWidth: Breakpoints.Laptop,
+                                                  value: '100%',
+                                                },
+                                                {
+                                                  minWidth: Breakpoints.Mobile,
+                                                  value: '100%',
+                                                },
+                                              ],
+                                            },
+                                            dimensions.width
+                                          )}
+                                        />
+                                        <Pressable
+                                          onPress={() => {
+                                            try {
+                                              navigation.navigate(
+                                                'EventDetailsScreen',
+                                                { event_id: listData?.id }
+                                              );
+                                            } catch (err) {
+                                              console.error(err);
                                             }
-                                          </Text>
-                                        </View>
-                                        {/* View 3 */}
-                                        <View>
-                                          <Text
-                                            accessible={true}
+                                          }}
+                                        >
+                                          <View
                                             style={StyleSheet.applyWidth(
                                               {
-                                                color: theme.colors.text.strong,
-                                                fontFamily:
-                                                  'Quicksand_400Regular',
+                                                backgroundColor:
+                                                  palettes.Brand[
+                                                    'Strong Inverse'
+                                                  ],
+                                                borderColor:
+                                                  palettes.Brand[
+                                                    'Light Inverse'
+                                                  ],
+                                                borderRadius: 8,
+                                                borderWidth: 1,
+                                                padding: 10,
                                               },
                                               dimensions.width
                                             )}
                                           >
-                                            {listData?.description}
-                                          </Text>
-                                        </View>
+                                            <View>
+                                              <Text
+                                                accessible={true}
+                                                style={StyleSheet.applyWidth(
+                                                  {
+                                                    color: palettes.App.Orange,
+                                                    fontFamily:
+                                                      'Quicksand_600SemiBold',
+                                                    fontSize: 16,
+                                                  },
+                                                  dimensions.width
+                                                )}
+                                              >
+                                                {
+                                                  listData?._gics_sub_industry
+                                                    ?.GICS_Sector
+                                                }{' '}
+                                                <Text
+                                                  accessible={true}
+                                                  style={StyleSheet.applyWidth(
+                                                    {
+                                                      color:
+                                                        theme.colors.text
+                                                          .strong,
+                                                      fontFamily:
+                                                        'Quicksand_600SemiBold',
+                                                      fontSize: 16,
+                                                    },
+                                                    dimensions.width
+                                                  )}
+                                                >
+                                                  {'| '}
+                                                  {listData?.headline}
+                                                </Text>
+                                              </Text>
+                                            </View>
+                                            {/* View 3 */}
+                                            <View>
+                                              <Text
+                                                accessible={true}
+                                                style={StyleSheet.applyWidth(
+                                                  {
+                                                    color:
+                                                      theme.colors.text.strong,
+                                                    fontFamily:
+                                                      'Quicksand_400Regular',
+                                                  },
+                                                  dimensions.width
+                                                )}
+                                              >
+                                                {listData?.description}
+                                              </Text>
+                                            </View>
+                                            {/* View 2 */}
+                                            <View>
+                                              {/* Text 2 */}
+                                              <Text
+                                                accessible={true}
+                                                style={StyleSheet.applyWidth(
+                                                  {
+                                                    color: palettes.App.Orange,
+                                                    fontFamily:
+                                                      'Quicksand_400Regular',
+                                                    fontSize: 14,
+                                                  },
+                                                  dimensions.width
+                                                )}
+                                              >
+                                                {'Source: '}
+                                                {listData?.source}
+                                              </Text>
+                                            </View>
+                                          </View>
+                                        </Pressable>
                                       </View>
-                                    </Pressable>
-                                  </View>
+                                    )}
+                                  </>
                                 );
                               }}
                               horizontal={false}
@@ -1759,131 +1817,157 @@ const NewsletterDetailsScreen = props => {
                               renderItem={({ item, index }) => {
                                 const listData = item;
                                 return (
-                                  <View
-                                    style={StyleSheet.applyWidth(
-                                      { padding: 5 },
-                                      dimensions.width
-                                    )}
-                                  >
-                                    <Shadow
-                                      showShadowCornerBottomEnd={true}
-                                      showShadowCornerBottomStart={true}
-                                      showShadowCornerTopEnd={true}
-                                      showShadowCornerTopStart={true}
-                                      showShadowSideBottom={true}
-                                      showShadowSideEnd={true}
-                                      showShadowSideStart={true}
-                                      showShadowSideTop={true}
-                                      distance={4}
-                                      offsetX={0}
-                                      offsetY={0}
-                                      paintInside={true}
-                                      stretch={true}
-                                      style={StyleSheet.applyWidth(
-                                        {
-                                          borderRadius: 12,
-                                          bottom: 5,
-                                          height: '100%',
-                                          left: 5,
-                                          position: 'absolute',
-                                          right: 5,
-                                          top: 5,
-                                          width: [
-                                            {
-                                              minWidth: Breakpoints.Laptop,
-                                              value: '100%',
-                                            },
-                                            {
-                                              minWidth: Breakpoints.Mobile,
-                                              value: '100%',
-                                            },
-                                          ],
-                                        },
-                                        dimensions.width
-                                      )}
-                                    />
-                                    <Pressable
-                                      onPress={() => {
-                                        try {
-                                          navigation.navigate(
-                                            'EventDetailsScreen',
-                                            { event_id: listData?.id }
-                                          );
-                                        } catch (err) {
-                                          console.error(err);
-                                        }
-                                      }}
-                                    >
+                                  <>
+                                    {!listData?.headline ? null : (
                                       <View
                                         style={StyleSheet.applyWidth(
-                                          {
-                                            backgroundColor:
-                                              palettes.Brand['Strong Inverse'],
-                                            borderColor:
-                                              palettes.Brand['Light Inverse'],
-                                            borderRadius: 8,
-                                            borderWidth: 1,
-                                            padding: 10,
-                                          },
+                                          { padding: 5 },
                                           dimensions.width
                                         )}
                                       >
-                                        <View>
-                                          <Text
-                                            accessible={true}
-                                            style={StyleSheet.applyWidth(
-                                              {
-                                                fontFamily:
-                                                  'Quicksand_600SemiBold',
-                                                fontSize: 16,
-                                              },
-                                              dimensions.width
-                                            )}
-                                          >
-                                            {listData?.headline}
-                                            {' ('}
-                                            {listData?.source}
-                                            {')'}
-                                          </Text>
-                                        </View>
-                                        {/* View 2 */}
-                                        <View>
-                                          <Text
-                                            accessible={true}
-                                            style={StyleSheet.applyWidth(
-                                              {
-                                                color: palettes.App.Orange,
-                                                fontFamily:
-                                                  'Quicksand_400Regular',
-                                              },
-                                              dimensions.width
-                                            )}
-                                          >
+                                        <Shadow
+                                          showShadowCornerBottomEnd={true}
+                                          showShadowCornerBottomStart={true}
+                                          showShadowCornerTopEnd={true}
+                                          showShadowCornerTopStart={true}
+                                          showShadowSideBottom={true}
+                                          showShadowSideEnd={true}
+                                          showShadowSideStart={true}
+                                          showShadowSideTop={true}
+                                          distance={4}
+                                          offsetX={0}
+                                          offsetY={0}
+                                          paintInside={true}
+                                          stretch={true}
+                                          style={StyleSheet.applyWidth(
                                             {
-                                              listData?._gics_sub_industry
-                                                ?.GICS_Sector
+                                              borderRadius: 12,
+                                              bottom: 5,
+                                              height: '100%',
+                                              left: 5,
+                                              position: 'absolute',
+                                              right: 5,
+                                              top: 5,
+                                              width: [
+                                                {
+                                                  minWidth: Breakpoints.Laptop,
+                                                  value: '100%',
+                                                },
+                                                {
+                                                  minWidth: Breakpoints.Mobile,
+                                                  value: '100%',
+                                                },
+                                              ],
+                                            },
+                                            dimensions.width
+                                          )}
+                                        />
+                                        <Pressable
+                                          onPress={() => {
+                                            try {
+                                              navigation.navigate(
+                                                'EventDetailsScreen',
+                                                { event_id: listData?.id }
+                                              );
+                                            } catch (err) {
+                                              console.error(err);
                                             }
-                                          </Text>
-                                        </View>
-                                        {/* View 3 */}
-                                        <View>
-                                          <Text
-                                            accessible={true}
+                                          }}
+                                        >
+                                          <View
                                             style={StyleSheet.applyWidth(
                                               {
-                                                color: theme.colors.text.strong,
-                                                fontFamily:
-                                                  'Quicksand_400Regular',
+                                                backgroundColor:
+                                                  palettes.Brand[
+                                                    'Strong Inverse'
+                                                  ],
+                                                borderColor:
+                                                  palettes.Brand[
+                                                    'Light Inverse'
+                                                  ],
+                                                borderRadius: 8,
+                                                borderWidth: 1,
+                                                padding: 10,
                                               },
                                               dimensions.width
                                             )}
                                           >
-                                            {listData?.description}
-                                          </Text>
-                                        </View>
+                                            <View>
+                                              {/* Text 2 */}
+                                              <Text
+                                                accessible={true}
+                                                style={StyleSheet.applyWidth(
+                                                  {
+                                                    color: palettes.App.Orange,
+                                                    fontFamily:
+                                                      'Quicksand_600SemiBold',
+                                                    fontSize: 16,
+                                                  },
+                                                  dimensions.width
+                                                )}
+                                              >
+                                                {
+                                                  listData?._gics_sub_industry
+                                                    ?.GICS_Sector
+                                                }{' '}
+                                                <Text
+                                                  accessible={true}
+                                                  style={StyleSheet.applyWidth(
+                                                    {
+                                                      color:
+                                                        theme.colors.text
+                                                          .strong,
+                                                      fontFamily:
+                                                        'Quicksand_600SemiBold',
+                                                      fontSize: 16,
+                                                    },
+                                                    dimensions.width
+                                                  )}
+                                                >
+                                                  {'| '}
+                                                  {listData?.headline}
+                                                </Text>
+                                              </Text>
+                                            </View>
+                                            {/* View 3 */}
+                                            <View>
+                                              <Text
+                                                accessible={true}
+                                                style={StyleSheet.applyWidth(
+                                                  {
+                                                    color:
+                                                      theme.colors.text.strong,
+                                                    fontFamily:
+                                                      'Quicksand_400Regular',
+                                                  },
+                                                  dimensions.width
+                                                )}
+                                              >
+                                                {listData?.description}
+                                              </Text>
+                                            </View>
+                                            {/* View 2 */}
+                                            <View>
+                                              <Text
+                                                accessible={true}
+                                                style={StyleSheet.applyWidth(
+                                                  {
+                                                    color: palettes.App.Orange,
+                                                    fontFamily:
+                                                      'Quicksand_400Regular',
+                                                  },
+                                                  dimensions.width
+                                                )}
+                                              >
+                                                {'Source: '}
+                                                {listData?.source}
+                                              </Text>
+                                            </View>
+                                          </View>
+                                        </Pressable>
                                       </View>
-                                    </Pressable>
-                                  </View>
+                                    )}
+                                  </>
                                 );
                               }}
                               horizontal={false}
@@ -1937,142 +2021,183 @@ const NewsletterDetailsScreen = props => {
                               renderItem={({ item, index }) => {
                                 const listData = item;
                                 return (
-                                  <View
-                                    style={StyleSheet.applyWidth(
-                                      { padding: 5 },
-                                      dimensions.width
-                                    )}
-                                  >
-                                    <Shadow
-                                      showShadowCornerBottomEnd={true}
-                                      showShadowCornerBottomStart={true}
-                                      showShadowCornerTopEnd={true}
-                                      showShadowCornerTopStart={true}
-                                      showShadowSideBottom={true}
-                                      showShadowSideEnd={true}
-                                      showShadowSideStart={true}
-                                      showShadowSideTop={true}
-                                      distance={4}
-                                      offsetX={0}
-                                      offsetY={0}
-                                      paintInside={true}
-                                      stretch={true}
-                                      style={StyleSheet.applyWidth(
-                                        {
-                                          borderRadius: 12,
-                                          bottom: 5,
-                                          height: '100%',
-                                          left: 5,
-                                          position: 'absolute',
-                                          right: 5,
-                                          top: 5,
-                                          width: [
-                                            {
-                                              minWidth: Breakpoints.Laptop,
-                                              value: '100%',
-                                            },
-                                            {
-                                              minWidth: Breakpoints.Mobile,
-                                              value: '100%',
-                                            },
-                                          ],
-                                        },
-                                        dimensions.width
-                                      )}
-                                    />
-                                    <Pressable
-                                      onPress={() => {
-                                        try {
-                                          navigation.navigate(
-                                            'EventDetailsScreen',
-                                            { event_id: listData?.id }
-                                          );
-                                        } catch (err) {
-                                          console.error(err);
-                                        }
-                                      }}
-                                    >
+                                  <>
+                                    {!listData?.headline ? null : (
                                       <View
                                         style={StyleSheet.applyWidth(
-                                          {
-                                            backgroundColor:
-                                              palettes.Brand['Strong Inverse'],
-                                            borderColor:
-                                              palettes.Brand['Light Inverse'],
-                                            borderRadius: 8,
-                                            borderWidth: 1,
-                                            padding: 10,
-                                          },
+                                          { padding: 5 },
                                           dimensions.width
                                         )}
                                       >
-                                        <View>
-                                          <Text
-                                            accessible={true}
-                                            style={StyleSheet.applyWidth(
-                                              {
-                                                fontFamily:
-                                                  'Quicksand_600SemiBold',
-                                                fontSize: 16,
-                                              },
-                                              dimensions.width
-                                            )}
-                                          >
-                                            {listData?.headline}
-                                            {' ('}
-                                            {listData?.source}
-                                            {')'}
-                                          </Text>
-                                        </View>
-                                        {/* View 2 */}
-                                        <View>
-                                          <Text
-                                            accessible={true}
-                                            style={StyleSheet.applyWidth(
-                                              {
-                                                color: [
-                                                  {
-                                                    minWidth:
-                                                      Breakpoints.Desktop,
-                                                    value: palettes.App.Orange,
-                                                  },
-                                                  {
-                                                    minWidth:
-                                                      Breakpoints.Mobile,
-                                                    value: palettes.App.Orange,
-                                                  },
-                                                ],
-                                                fontFamily:
-                                                  'Quicksand_400Regular',
-                                              },
-                                              dimensions.width
-                                            )}
-                                          >
+                                        <Shadow
+                                          showShadowCornerBottomEnd={true}
+                                          showShadowCornerBottomStart={true}
+                                          showShadowCornerTopEnd={true}
+                                          showShadowCornerTopStart={true}
+                                          showShadowSideBottom={true}
+                                          showShadowSideEnd={true}
+                                          showShadowSideStart={true}
+                                          showShadowSideTop={true}
+                                          distance={4}
+                                          offsetX={0}
+                                          offsetY={0}
+                                          paintInside={true}
+                                          stretch={true}
+                                          style={StyleSheet.applyWidth(
                                             {
-                                              listData?._gics_sub_industry
-                                                ?.GICS_Sector
+                                              borderRadius: 12,
+                                              bottom: 5,
+                                              height: '100%',
+                                              left: 5,
+                                              position: 'absolute',
+                                              right: 5,
+                                              top: 5,
+                                              width: [
+                                                {
+                                                  minWidth: Breakpoints.Laptop,
+                                                  value: '100%',
+                                                },
+                                                {
+                                                  minWidth: Breakpoints.Mobile,
+                                                  value: '100%',
+                                                },
+                                              ],
+                                            },
+                                            dimensions.width
+                                          )}
+                                        />
+                                        <Pressable
+                                          onPress={() => {
+                                            try {
+                                              navigation.navigate(
+                                                'EventDetailsScreen',
+                                                { event_id: listData?.id }
+                                              );
+                                            } catch (err) {
+                                              console.error(err);
                                             }
-                                          </Text>
-                                        </View>
-                                        {/* View 3 */}
-                                        <View>
-                                          <Text
-                                            accessible={true}
+                                          }}
+                                        >
+                                          <View
                                             style={StyleSheet.applyWidth(
                                               {
-                                                color: theme.colors.text.strong,
-                                                fontFamily:
-                                                  'Quicksand_400Regular',
+                                                backgroundColor:
+                                                  palettes.Brand[
+                                                    'Strong Inverse'
+                                                  ],
+                                                borderColor:
+                                                  palettes.Brand[
+                                                    'Light Inverse'
+                                                  ],
+                                                borderRadius: 8,
+                                                borderWidth: 1,
+                                                padding: 10,
                                               },
                                               dimensions.width
                                             )}
                                           >
-                                            {listData?.description}
-                                          </Text>
-                                        </View>
+                                            <View>
+                                              {/* Text 2 */}
+                                              <Text
+                                                accessible={true}
+                                                style={StyleSheet.applyWidth(
+                                                  {
+                                                    color: [
+                                                      {
+                                                        minWidth:
+                                                          Breakpoints.Desktop,
+                                                        value:
+                                                          palettes.App.Orange,
+                                                      },
+                                                      {
+                                                        minWidth:
+                                                          Breakpoints.Mobile,
+                                                        value:
+                                                          palettes.App.Orange,
+                                                      },
+                                                    ],
+                                                    fontFamily:
+                                                      'Quicksand_600SemiBold',
+                                                    fontSize: 16,
+                                                  },
+                                                  dimensions.width
+                                                )}
+                                              >
+                                                {
+                                                  listData?._gics_sub_industry
+                                                    ?.GICS_Sector
+                                                }{' '}
+                                                <Text
+                                                  accessible={true}
+                                                  style={StyleSheet.applyWidth(
+                                                    {
+                                                      color:
+                                                        theme.colors.text
+                                                          .strong,
+                                                      fontFamily:
+                                                        'Quicksand_600SemiBold',
+                                                      fontSize: 16,
+                                                    },
+                                                    dimensions.width
+                                                  )}
+                                                >
+                                                  {'| '}
+                                                  {listData?.headline}
+                                                </Text>
+                                              </Text>
+                                            </View>
+                                            {/* View 3 */}
+                                            <View>
+                                              <Text
+                                                accessible={true}
+                                                style={StyleSheet.applyWidth(
+                                                  {
+                                                    color:
+                                                      theme.colors.text.strong,
+                                                    fontFamily:
+                                                      'Quicksand_400Regular',
+                                                  },
+                                                  dimensions.width
+                                                )}
+                                              >
+                                                {listData?.description}
+                                              </Text>
+                                            </View>
+                                            {/* View 2 */}
+                                            <View>
+                                              <Text
+                                                accessible={true}
+                                                style={StyleSheet.applyWidth(
+                                                  {
+                                                    color: [
+                                                      {
+                                                        minWidth:
+                                                          Breakpoints.Desktop,
+                                                        value:
+                                                          palettes.App.Orange,
+                                                      },
+                                                      {
+                                                        minWidth:
+                                                          Breakpoints.Mobile,
+                                                        value:
+                                                          palettes.App.Orange,
+                                                      },
+                                                    ],
+                                                    fontFamily:
+                                                      'Quicksand_400Regular',
+                                                  },
+                                                  dimensions.width
+                                                )}
+                                              >
+                                                {'Source: '}
+                                                {listData?.source}
+                                              </Text>
+                                            </View>
+                                          </View>
+                                        </Pressable>
                                       </View>
-                                    </Pressable>
-                                  </View>
+                                    )}
+                                  </>
                                 );
                               }}
                               horizontal={false}
@@ -2180,103 +2305,124 @@ const NewsletterDetailsScreen = props => {
                                             dimensions.width
                                           )}
                                         />
-                                        <View
-                                          style={StyleSheet.applyWidth(
-                                            { padding: 5 },
-                                            dimensions.width
-                                          )}
-                                        >
-                                          <Pressable
-                                            onPress={() => {
-                                              try {
-                                                navigation.navigate(
-                                                  'EventDetailsScreen',
-                                                  { event_id: listData?.id }
-                                                );
-                                              } catch (err) {
-                                                console.error(err);
-                                              }
-                                            }}
-                                          >
+                                        <>
+                                          {!listData?.headline ? null : (
                                             <View
                                               style={StyleSheet.applyWidth(
-                                                {
-                                                  backgroundColor:
-                                                    palettes.Brand[
-                                                      'Strong Inverse'
-                                                    ],
-                                                  borderColor:
-                                                    palettes.Brand[
-                                                      'Light Inverse'
-                                                    ],
-                                                  borderRadius: 8,
-                                                  borderWidth: 1,
-                                                  padding: 10,
-                                                },
+                                                { padding: 5 },
                                                 dimensions.width
                                               )}
                                             >
-                                              <View>
-                                                <Text
-                                                  accessible={true}
-                                                  style={StyleSheet.applyWidth(
-                                                    {
-                                                      fontFamily:
-                                                        'Quicksand_600SemiBold',
-                                                      fontSize: 16,
-                                                    },
-                                                    dimensions.width
-                                                  )}
-                                                >
-                                                  {listData?.headline}
-                                                  {' ('}
-                                                  {listData?.source}
-                                                  {')'}
-                                                </Text>
-                                              </View>
-                                              {/* View 2 */}
-                                              <View>
-                                                <Text
-                                                  accessible={true}
-                                                  style={StyleSheet.applyWidth(
-                                                    {
-                                                      color:
-                                                        palettes.App.Orange,
-                                                      fontFamily:
-                                                        'Quicksand_400Regular',
-                                                    },
-                                                    dimensions.width
-                                                  )}
-                                                >
-                                                  {listData?.country}
-                                                  {' - '}
-                                                  {
-                                                    listData?._gics_sub_industry
-                                                      ?.GICS_Sector
+                                              <Pressable
+                                                onPress={() => {
+                                                  try {
+                                                    navigation.navigate(
+                                                      'EventDetailsScreen',
+                                                      { event_id: listData?.id }
+                                                    );
+                                                  } catch (err) {
+                                                    console.error(err);
                                                   }
-                                                </Text>
-                                              </View>
-                                              {/* View 3 */}
-                                              <View>
-                                                <Text
-                                                  accessible={true}
+                                                }}
+                                              >
+                                                <View
                                                   style={StyleSheet.applyWidth(
                                                     {
-                                                      color:
-                                                        theme.colors.text
-                                                          .strong,
-                                                      fontFamily:
-                                                        'Quicksand_400Regular',
+                                                      backgroundColor:
+                                                        palettes.Brand[
+                                                          'Strong Inverse'
+                                                        ],
+                                                      borderColor:
+                                                        palettes.Brand[
+                                                          'Light Inverse'
+                                                        ],
+                                                      borderRadius: 8,
+                                                      borderWidth: 1,
+                                                      padding: 10,
                                                     },
                                                     dimensions.width
                                                   )}
                                                 >
-                                                  {listData?.description}
-                                                </Text>
-                                              </View>
+                                                  <View>
+                                                    <Text
+                                                      accessible={true}
+                                                      style={StyleSheet.applyWidth(
+                                                        {
+                                                          fontFamily:
+                                                            'Quicksand_600SemiBold',
+                                                          fontSize: 16,
+                                                        },
+                                                        dimensions.width
+                                                      )}
+                                                    >
+                                                      {listData?.headline}
+                                                    </Text>
+                                                  </View>
+                                                  {/* View 2 */}
+                                                  <View>
+                                                    <Text
+                                                      accessible={true}
+                                                      style={StyleSheet.applyWidth(
+                                                        {
+                                                          color:
+                                                            palettes.App.Orange,
+                                                          fontFamily:
+                                                            'Quicksand_400Regular',
+                                                        },
+                                                        dimensions.width
+                                                      )}
+                                                    >
+                                                      {listData?.country}
+                                                      {' - '}
+                                                      {
+                                                        listData
+                                                          ?._gics_sub_industry
+                                                          ?.GICS_Sector
+                                                      }
+                                                    </Text>
+                                                  </View>
+                                                  {/* View 3 */}
+                                                  <View>
+                                                    <Text
+                                                      accessible={true}
+                                                      style={StyleSheet.applyWidth(
+                                                        {
+                                                          color:
+                                                            theme.colors.text
+                                                              .strong,
+                                                          fontFamily:
+                                                            'Quicksand_400Regular',
+                                                        },
+                                                        dimensions.width
+                                                      )}
+                                                    >
+                                                      {listData?.description}
+                                                    </Text>
+                                                    {/* View 4 */}
+                                                    <View>
+                                                      <Text
+                                                        accessible={true}
+                                                        style={StyleSheet.applyWidth(
+                                                          {
+                                                            color:
+                                                              palettes.App
+                                                                .Orange,
+                                                            fontFamily:
+                                                              'Quicksand_400Regular',
+                                                          },
+                                                          dimensions.width
+                                                        )}
+                                                      >
+                                                        {'Source: '}
+                                                        {listData?.source}
+                                                      </Text>
+                                                    </View>
+                                                  </View>
+                                                </View>
+                                              </Pressable>
                                             </View>
-                                          </Pressable>
-                                        </View>
+                                          )}
+                                        </>
                                       </>
                                     );
                                   }}
@@ -2351,138 +2497,165 @@ const NewsletterDetailsScreen = props => {
                                   renderItem={({ item, index }) => {
                                     const listData = item;
                                     return (
-                                      <View
-                                        style={StyleSheet.applyWidth(
-                                          { padding: 5 },
-                                          dimensions.width
-                                        )}
-                                      >
-                                        <Shadow
-                                          showShadowCornerBottomEnd={true}
-                                          showShadowCornerBottomStart={true}
-                                          showShadowCornerTopEnd={true}
-                                          showShadowCornerTopStart={true}
-                                          showShadowSideBottom={true}
-                                          showShadowSideEnd={true}
-                                          showShadowSideStart={true}
-                                          showShadowSideTop={true}
-                                          distance={4}
-                                          offsetX={0}
-                                          offsetY={0}
-                                          paintInside={true}
-                                          stretch={true}
-                                          style={StyleSheet.applyWidth(
-                                            {
-                                              borderRadius: 12,
-                                              bottom: 5,
-                                              height: '100%',
-                                              left: 5,
-                                              position: 'absolute',
-                                              right: 5,
-                                              top: 5,
-                                              width: [
-                                                {
-                                                  minWidth: Breakpoints.Laptop,
-                                                  value: '100%',
-                                                },
-                                                {
-                                                  minWidth: Breakpoints.Mobile,
-                                                  value: '100%',
-                                                },
-                                              ],
-                                            },
-                                            dimensions.width
-                                          )}
-                                        />
-                                        <Pressable
-                                          onPress={() => {
-                                            try {
-                                              navigation.navigate(
-                                                'EventDetailsScreen',
-                                                { event_id: listData?.id }
-                                              );
-                                            } catch (err) {
-                                              console.error(err);
-                                            }
-                                          }}
-                                        >
+                                      <>
+                                        {!listData ? null : (
                                           <View
                                             style={StyleSheet.applyWidth(
-                                              {
-                                                backgroundColor:
-                                                  palettes.Brand[
-                                                    'Strong Inverse'
-                                                  ],
-                                                borderColor:
-                                                  palettes.Brand[
-                                                    'Light Inverse'
-                                                  ],
-                                                borderRadius: 8,
-                                                borderWidth: 1,
-                                                padding: 10,
-                                              },
+                                              { padding: 5 },
                                               dimensions.width
                                             )}
                                           >
-                                            <View>
-                                              <Text
-                                                accessible={true}
-                                                style={StyleSheet.applyWidth(
-                                                  {
-                                                    fontFamily:
-                                                      'Quicksand_600SemiBold',
-                                                    fontSize: 16,
-                                                  },
-                                                  dimensions.width
-                                                )}
-                                              >
-                                                {listData?.headline}
-                                                {' ('}
-                                                {listData?.source}
-                                                {')'}
-                                              </Text>
-                                            </View>
-                                            {/* View 2 */}
-                                            <View>
-                                              <Text
-                                                accessible={true}
-                                                style={StyleSheet.applyWidth(
-                                                  {
-                                                    color: palettes.App.Orange,
-                                                    fontFamily:
-                                                      'Quicksand_400Regular',
-                                                  },
-                                                  dimensions.width
-                                                )}
-                                              >
-                                                {listData?.country}
-                                                {' - '}
+                                            <Shadow
+                                              showShadowCornerBottomEnd={true}
+                                              showShadowCornerBottomStart={true}
+                                              showShadowCornerTopEnd={true}
+                                              showShadowCornerTopStart={true}
+                                              showShadowSideBottom={true}
+                                              showShadowSideEnd={true}
+                                              showShadowSideStart={true}
+                                              showShadowSideTop={true}
+                                              distance={4}
+                                              offsetX={0}
+                                              offsetY={0}
+                                              paintInside={true}
+                                              stretch={true}
+                                              style={StyleSheet.applyWidth(
                                                 {
-                                                  listData?._gics_sub_industry
-                                                    ?.GICS_Sector
+                                                  borderRadius: 12,
+                                                  bottom: 5,
+                                                  height: '100%',
+                                                  left: 5,
+                                                  position: 'absolute',
+                                                  right: 5,
+                                                  top: 5,
+                                                  width: [
+                                                    {
+                                                      minWidth:
+                                                        Breakpoints.Laptop,
+                                                      value: '100%',
+                                                    },
+                                                    {
+                                                      minWidth:
+                                                        Breakpoints.Mobile,
+                                                      value: '100%',
+                                                    },
+                                                  ],
+                                                },
+                                                dimensions.width
+                                              )}
+                                            />
+                                            <Pressable
+                                              onPress={() => {
+                                                try {
+                                                  navigation.navigate(
+                                                    'EventDetailsScreen',
+                                                    { event_id: listData?.id }
+                                                  );
+                                                } catch (err) {
+                                                  console.error(err);
                                                 }
-                                              </Text>
-                                            </View>
-                                            {/* View 3 */}
-                                            <View>
-                                              <Text
-                                                accessible={true}
+                                              }}
+                                            >
+                                              <View
                                                 style={StyleSheet.applyWidth(
                                                   {
-                                                    color:
-                                                      theme.colors.text.strong,
-                                                    fontFamily:
-                                                      'Quicksand_400Regular',
+                                                    backgroundColor:
+                                                      palettes.Brand[
+                                                        'Strong Inverse'
+                                                      ],
+                                                    borderColor:
+                                                      palettes.Brand[
+                                                        'Light Inverse'
+                                                      ],
+                                                    borderRadius: 8,
+                                                    borderWidth: 1,
+                                                    padding: 10,
                                                   },
                                                   dimensions.width
                                                 )}
                                               >
-                                                {listData?.description}
-                                              </Text>
-                                            </View>
+                                                <View>
+                                                  <Text
+                                                    accessible={true}
+                                                    style={StyleSheet.applyWidth(
+                                                      {
+                                                        fontFamily:
+                                                          'Quicksand_600SemiBold',
+                                                        fontSize: 16,
+                                                      },
+                                                      dimensions.width
+                                                    )}
+                                                  >
+                                                    {listData?.headline}
+                                                    {' ('}
+                                                    {listData?.source}
+                                                    {')'}
+                                                  </Text>
+                                                </View>
+                                                {/* View 2 */}
+                                                <View>
+                                                  <Text
+                                                    accessible={true}
+                                                    style={StyleSheet.applyWidth(
+                                                      {
+                                                        color:
+                                                          palettes.App.Orange,
+                                                        fontFamily:
+                                                          'Quicksand_400Regular',
+                                                      },
+                                                      dimensions.width
+                                                    )}
+                                                  >
+                                                    {listData?.country}
+                                                    {' - '}
+                                                    {
+                                                      listData
+                                                        ?._gics_sub_industry
+                                                        ?.GICS_Sector
+                                                    }
+                                                  </Text>
+                                                </View>
+                                                {/* View 3 */}
+                                                <View>
+                                                  <Text
+                                                    accessible={true}
+                                                    style={StyleSheet.applyWidth(
+                                                      {
+                                                        color:
+                                                          theme.colors.text
+                                                            .strong,
+                                                        fontFamily:
+                                                          'Quicksand_400Regular',
+                                                      },
+                                                      dimensions.width
+                                                    )}
+                                                  >
+                                                    {listData?.description}
+                                                  </Text>
+                                                </View>
+                                                {/* View 5 */}
+                                                <View>
+                                                  <Text
+                                                    accessible={true}
+                                                    style={StyleSheet.applyWidth(
+                                                      {
+                                                        color:
+                                                          palettes.App.Orange,
+                                                        fontFamily:
+                                                          'Quicksand_400Regular',
+                                                      },
+                                                      dimensions.width
+                                                    )}
+                                                  >
+                                                    {'Source: '}
+                                                    {listData?.source}
+                                                  </Text>
+                                                </View>
+                                              </View>
+                                            </Pressable>
                                           </View>
-                                        </Pressable>
-                                      </View>
+                                        )}
+                                      </>
                                     );
                                   }}
                                   horizontal={false}
@@ -2549,139 +2722,166 @@ const NewsletterDetailsScreen = props => {
                                   renderItem={({ item, index }) => {
                                     const listData = item;
                                     return (
-                                      <View
-                                        style={StyleSheet.applyWidth(
-                                          { padding: 5 },
-                                          dimensions.width
-                                        )}
-                                      >
-                                        <Shadow
-                                          showShadowCornerBottomEnd={true}
-                                          showShadowCornerBottomStart={true}
-                                          showShadowCornerTopEnd={true}
-                                          showShadowCornerTopStart={true}
-                                          showShadowSideBottom={true}
-                                          showShadowSideEnd={true}
-                                          showShadowSideStart={true}
-                                          showShadowSideTop={true}
-                                          distance={4}
-                                          offsetX={0}
-                                          offsetY={0}
-                                          paintInside={true}
-                                          stretch={true}
-                                          style={StyleSheet.applyWidth(
-                                            {
-                                              borderRadius: 12,
-                                              bottom: 5,
-                                              height: '100%',
-                                              left: 5,
-                                              position: 'absolute',
-                                              right: 5,
-                                              top: 5,
-                                              width: [
-                                                {
-                                                  minWidth: Breakpoints.Laptop,
-                                                  value: '100%',
-                                                },
-                                                {
-                                                  minWidth: Breakpoints.Mobile,
-                                                  value: '100%',
-                                                },
-                                              ],
-                                            },
-                                            dimensions.width
-                                          )}
-                                        />
-                                        <Pressable
-                                          onPress={() => {
-                                            try {
-                                              navigation.navigate(
-                                                'EventDetailsScreen',
-                                                { event_id: listData?.id }
-                                              );
-                                            } catch (err) {
-                                              console.error(err);
-                                            }
-                                          }}
-                                        >
+                                      <>
+                                        {!listData?.headline ? null : (
                                           <View
                                             style={StyleSheet.applyWidth(
-                                              {
-                                                backgroundColor:
-                                                  palettes.Brand[
-                                                    'Strong Inverse'
-                                                  ],
-                                                borderColor:
-                                                  palettes.Brand[
-                                                    'Light Inverse'
-                                                  ],
-                                                borderRadius: 8,
-                                                borderWidth: 1,
-                                                padding: 10,
-                                              },
+                                              { padding: 5 },
                                               dimensions.width
                                             )}
                                           >
-                                            <View>
-                                              <Text
-                                                accessible={true}
-                                                style={StyleSheet.applyWidth(
-                                                  {
-                                                    fontFamily:
-                                                      'Quicksand_600SemiBold',
-                                                    fontSize: 16,
-                                                  },
-                                                  dimensions.width
-                                                )}
-                                              >
-                                                {listData?.headline}
-                                                {' ('}
-                                                {listData?.source}
-                                                {')'}
-                                              </Text>
-                                            </View>
-                                            {/* View 2 */}
-                                            <View>
-                                              <Text
-                                                accessible={true}
-                                                style={StyleSheet.applyWidth(
-                                                  {
-                                                    color: palettes.App.Orange,
-                                                    fontFamily:
-                                                      'Quicksand_400Regular',
-                                                  },
-                                                  dimensions.width
-                                                )}
-                                              >
-                                                {listData?.country}
-                                                {' - '}
+                                            <Shadow
+                                              showShadowCornerBottomEnd={true}
+                                              showShadowCornerBottomStart={true}
+                                              showShadowCornerTopEnd={true}
+                                              showShadowCornerTopStart={true}
+                                              showShadowSideBottom={true}
+                                              showShadowSideEnd={true}
+                                              showShadowSideStart={true}
+                                              showShadowSideTop={true}
+                                              distance={4}
+                                              offsetX={0}
+                                              offsetY={0}
+                                              paintInside={true}
+                                              stretch={true}
+                                              style={StyleSheet.applyWidth(
                                                 {
-                                                  listData?._gics_sub_industry
-                                                    ?.GICS_Sector
+                                                  borderRadius: 12,
+                                                  bottom: 5,
+                                                  height: '100%',
+                                                  left: 5,
+                                                  position: 'absolute',
+                                                  right: 5,
+                                                  top: 5,
+                                                  width: [
+                                                    {
+                                                      minWidth:
+                                                        Breakpoints.Laptop,
+                                                      value: '100%',
+                                                    },
+                                                    {
+                                                      minWidth:
+                                                        Breakpoints.Mobile,
+                                                      value: '100%',
+                                                    },
+                                                  ],
+                                                },
+                                                dimensions.width
+                                              )}
+                                            />
+                                            <Pressable
+                                              onPress={() => {
+                                                try {
+                                                  navigation.navigate(
+                                                    'EventDetailsScreen',
+                                                    { event_id: listData?.id }
+                                                  );
+                                                } catch (err) {
+                                                  console.error(err);
                                                 }
-                                              </Text>
-                                            </View>
-                                            {/* View 3 */}
-                                            <View>
-                                              <Text
-                                                accessible={true}
+                                              }}
+                                            >
+                                              <View
                                                 style={StyleSheet.applyWidth(
                                                   {
-                                                    color:
-                                                      theme.colors.text.strong,
-                                                    fontFamily:
-                                                      'Quicksand_400Regular',
-                                                    textAlign: 'left',
+                                                    backgroundColor:
+                                                      palettes.Brand[
+                                                        'Strong Inverse'
+                                                      ],
+                                                    borderColor:
+                                                      palettes.Brand[
+                                                        'Light Inverse'
+                                                      ],
+                                                    borderRadius: 8,
+                                                    borderWidth: 1,
+                                                    padding: 10,
                                                   },
                                                   dimensions.width
                                                 )}
                                               >
-                                                {listData?.description}
-                                              </Text>
-                                            </View>
+                                                <View>
+                                                  <Text
+                                                    accessible={true}
+                                                    style={StyleSheet.applyWidth(
+                                                      {
+                                                        fontFamily:
+                                                          'Quicksand_600SemiBold',
+                                                        fontSize: 16,
+                                                      },
+                                                      dimensions.width
+                                                    )}
+                                                  >
+                                                    {listData?.headline}
+                                                    {' ('}
+                                                    {listData?.source}
+                                                    {')'}
+                                                  </Text>
+                                                </View>
+                                                {/* View 2 */}
+                                                <View>
+                                                  <Text
+                                                    accessible={true}
+                                                    style={StyleSheet.applyWidth(
+                                                      {
+                                                        color:
+                                                          palettes.App.Orange,
+                                                        fontFamily:
+                                                          'Quicksand_400Regular',
+                                                      },
+                                                      dimensions.width
+                                                    )}
+                                                  >
+                                                    {listData?.country}
+                                                    {' - '}
+                                                    {
+                                                      listData
+                                                        ?._gics_sub_industry
+                                                        ?.GICS_Sector
+                                                    }
+                                                  </Text>
+                                                </View>
+                                                {/* View 3 */}
+                                                <View>
+                                                  <Text
+                                                    accessible={true}
+                                                    style={StyleSheet.applyWidth(
+                                                      {
+                                                        color:
+                                                          theme.colors.text
+                                                            .strong,
+                                                        fontFamily:
+                                                          'Quicksand_400Regular',
+                                                        textAlign: 'left',
+                                                      },
+                                                      dimensions.width
+                                                    )}
+                                                  >
+                                                    {listData?.description}
+                                                  </Text>
+                                                </View>
+                                                {/* View 5 */}
+                                                <View>
+                                                  <Text
+                                                    accessible={true}
+                                                    style={StyleSheet.applyWidth(
+                                                      {
+                                                        color:
+                                                          palettes.App.Orange,
+                                                        fontFamily:
+                                                          'Quicksand_400Regular',
+                                                      },
+                                                      dimensions.width
+                                                    )}
+                                                  >
+                                                    {'Source: '}
+                                                    {listData?.source}
+                                                  </Text>
+                                                </View>
+                                              </View>
+                                            </Pressable>
                                           </View>
-                                        </Pressable>
-                                      </View>
+                                        )}
+                                      </>
                                     );
                                   }}
                                   horizontal={false}

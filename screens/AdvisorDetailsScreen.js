@@ -24,6 +24,7 @@ import {
   SimpleStyleFlatList,
   SimpleStyleScrollView,
   Spacer,
+  TextInput,
   withTheme,
 } from '@draftbit/ui';
 import { H3, H5 } from '@expo/html-elements';
@@ -45,6 +46,7 @@ const AdvisorDetailsScreen = props => {
   const [consumer_staples, setConsumer_staples] = React.useState(true);
   const [country, setCountry] = React.useState([]);
   const [denmark, setDenmark] = React.useState(true);
+  const [ebitdaRange, setEbitdaRange] = React.useState([]);
   const [energy, setEnergy] = React.useState(true);
   const [filterPressed, setFilterPressed] = React.useState(false);
   const [financials, setFinancials] = React.useState(true);
@@ -53,6 +55,8 @@ const AdvisorDetailsScreen = props => {
   const [health_care, setHealth_care] = React.useState(true);
   const [industrials, setIndustrials] = React.useState(true);
   const [it_and_software, setIt_and_software] = React.useState(true);
+  const [keywordSearch, setKeywordSearch] = React.useState('');
+  const [keywordSearch_raw, setKeywordSearch_raw] = React.useState('');
   const [materials, setMaterials] = React.useState(true);
   const [nextPage, setNextPage] = React.useState(0);
   const [norway, setNorway] = React.useState(true);
@@ -209,6 +213,10 @@ const AdvisorDetailsScreen = props => {
                     selectable={false}
                     style={StyleSheet.applyWidth(
                       {
+                        alignSelf: {
+                          minWidth: Breakpoints.Laptop,
+                          value: 'stretch',
+                        },
                         fontFamily: 'Quicksand_700Bold',
                         marginBottom: 0,
                         marginTop: 0,
@@ -219,56 +227,166 @@ const AdvisorDetailsScreen = props => {
                   >
                     {fetchData?.name}
                   </H3>
-
-                  <Shadow
-                    offsetX={0}
-                    paintInside={true}
-                    showShadowCornerBottomEnd={true}
-                    showShadowCornerBottomStart={true}
-                    showShadowCornerTopEnd={true}
-                    showShadowCornerTopStart={true}
-                    showShadowSideBottom={true}
-                    showShadowSideEnd={true}
-                    showShadowSideStart={true}
-                    showShadowSideTop={true}
-                    distance={3}
-                    offsetY={2}
-                  >
-                    <View
-                      style={StyleSheet.applyWidth(
+                </View>
+                {/* View 2 */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    {
+                      alignItems: 'center',
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                      maxWidth: 1200,
+                      padding: 10,
+                      width: '100%',
+                    },
+                    dimensions.width
+                  )}
+                >
+                  <Text
+                    accessible={true}
+                    {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.TextStyles(theme)['screen_title'].style,
                         {
-                          alignItems: 'center',
-                          backgroundColor:
-                            country[0] || sector[0]
-                              ? palettes.App.Orange
-                              : palettes.Brand.Background,
-                          borderRadius: 50,
-                          height: 36,
-                          justifyContent: 'center',
-                          width: 36,
-                        },
+                          alignSelf: {
+                            minWidth: Breakpoints.Laptop,
+                            value: 'flex-start',
+                          },
+                        }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    {fetchData?.type}
+                  </Text>
+                </View>
+              </View>
+              {/* View 2 2 */}
+              <View
+                style={StyleSheet.applyWidth(
+                  {
+                    alignItems: [
+                      { minWidth: Breakpoints.Desktop, value: 'center' },
+                      { minWidth: Breakpoints.Mobile, value: 'center' },
+                    ],
+                  },
+                  dimensions.width
+                )}
+              >
+                <View
+                  style={StyleSheet.applyWidth(
+                    {
+                      alignItems: 'stretch',
+                      maxWidth: [
+                        { minWidth: Breakpoints.Desktop, value: 1200 },
+                        { minWidth: Breakpoints.Mobile, value: 1200 },
+                      ],
+                      padding: 10,
+                      width: [
+                        { minWidth: Breakpoints.Desktop, value: '100%' },
+                        { minWidth: Breakpoints.Mobile, value: '100%' },
+                      ],
+                    },
+                    dimensions.width
+                  )}
+                >
+                  <HStack
+                    {...GlobalStyles.HStackStyles(theme)['H Stack'].props}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.HStackStyles(theme)['H Stack'].style,
+                        { gap: 10, justifyContent: 'space-between' }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    <TextInput
+                      autoCorrect={true}
+                      changeTextDelay={500}
+                      onChangeText={newTextInputValue => {
+                        try {
+                          setKeywordSearch_raw(newTextInputValue);
+                        } catch (err) {
+                          console.error(err);
+                        }
+                      }}
+                      onSubmitEditing={() => {
+                        try {
+                          setKeywordSearch(keywordSearch_raw);
+                          /* hidden 'API Request' action */
+                          /* hidden 'Refetch Data' action */
+                        } catch (err) {
+                          console.error(err);
+                        }
+                      }}
+                      webShowOutline={true}
+                      {...GlobalStyles.TextInputStyles(theme)['Text Input']
+                        .props}
+                      autoCapitalize={'sentences'}
+                      clearButtonMode={'while-editing'}
+                      placeholder={'Search...'}
+                      returnKeyType={'search'}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.TextInputStyles(theme)['Text Input']
+                            .style,
+                          { width: '90%' }
+                        ),
                         dimensions.width
                       )}
+                      value={keywordSearch_raw}
+                    />
+                    <Shadow
+                      offsetX={0}
+                      paintInside={true}
+                      showShadowCornerBottomEnd={true}
+                      showShadowCornerBottomStart={true}
+                      showShadowCornerTopEnd={true}
+                      showShadowCornerTopStart={true}
+                      showShadowSideBottom={true}
+                      showShadowSideEnd={true}
+                      showShadowSideStart={true}
+                      showShadowSideTop={true}
+                      distance={3}
+                      offsetY={2}
                     >
-                      <IconButton
-                        onPress={() => {
-                          try {
-                            matchingFilters();
-                            setFilterPressed(true);
-                          } catch (err) {
-                            console.error(err);
+                      <View
+                        style={StyleSheet.applyWidth(
+                          {
+                            alignItems: 'center',
+                            backgroundColor:
+                              ebitdaRange[0] || country[0] || sector[0]
+                                ? palettes.App.Orange
+                                : palettes.Brand.Background,
+                            borderRadius: 50,
+                            height: 36,
+                            justifyContent: 'center',
+                            width: 36,
+                          },
+                          dimensions.width
+                        )}
+                      >
+                        <IconButton
+                          onPress={() => {
+                            try {
+                              matchingFilters();
+                              setFilterPressed(true);
+                            } catch (err) {
+                              console.error(err);
+                            }
+                          }}
+                          color={
+                            (ebitdaRange[0] || country[0] || sector[0]
+                              ? palettes.Brand['Strong Inverse']
+                              : palettes.App.Strong2) ?? palettes.App.Strong2
                           }
-                        }}
-                        color={
-                          (country[0] || sector[0]
-                            ? palettes.Brand['Strong Inverse']
-                            : palettes.App.Strong2) ?? palettes.App.Strong2
-                        }
-                        icon={'MaterialIcons/filter-alt'}
-                        size={24}
-                      />
-                    </View>
-                  </Shadow>
+                          icon={'MaterialIcons/filter-alt'}
+                          size={24}
+                        />
+                      </View>
+                    </Shadow>
+                  </HStack>
                 </View>
               </View>
               <SimpleStyleFlatList
@@ -432,11 +550,22 @@ const AdvisorDetailsScreen = props => {
                                     {
                                       fontFamily: 'Quicksand_700Bold',
                                       fontSize: 12,
+                                      paddingTop: [
+                                        {
+                                          minWidth: Breakpoints.Laptop,
+                                          value: 2.5,
+                                        },
+                                        {
+                                          minWidth: Breakpoints.Mobile,
+                                          value: 2.5,
+                                        },
+                                      ],
                                     }
                                   ),
                                   dimensions.width
                                 )}
                               >
+                                {'Target: '}
                                 {listData?.target}
                               </Text>
                               {/* Text 2 */}
@@ -453,14 +582,64 @@ const AdvisorDetailsScreen = props => {
                                     {
                                       fontFamily: 'Quicksand_400Regular',
                                       fontSize: 12,
+                                      paddingTop: [
+                                        {
+                                          minWidth: Breakpoints.Laptop,
+                                          value: 2.5,
+                                        },
+                                        {
+                                          minWidth: Breakpoints.Mobile,
+                                          value: 2.5,
+                                        },
+                                      ],
                                     }
                                   ),
                                   dimensions.width
                                 )}
                               >
                                 {listData?.published}
+                                {' | '}
+                                {listData?.country}
+                                {' | '}
+                                {listData?.event_type}
                               </Text>
                               {/* Text 2 2 */}
+                              <Text
+                                accessible={true}
+                                {...GlobalStyles.TextStyles(theme)[
+                                  'screen_title'
+                                ].props}
+                                adjustsFontSizeToFit={true}
+                                ellipsizeMode={'clip'}
+                                numberOfLines={1}
+                                style={StyleSheet.applyWidth(
+                                  StyleSheet.compose(
+                                    GlobalStyles.TextStyles(theme)[
+                                      'screen_title'
+                                    ].style,
+                                    {
+                                      fontFamily: 'Quicksand_400Regular',
+                                      fontSize: 12,
+                                      paddingTop: [
+                                        {
+                                          minWidth: Breakpoints.Laptop,
+                                          value: 2.5,
+                                        },
+                                        {
+                                          minWidth: Breakpoints.Mobile,
+                                          value: 2.5,
+                                        },
+                                      ],
+                                    }
+                                  ),
+                                  dimensions.width
+                                )}
+                                textBreakStrategy={'highQuality'}
+                              >
+                                {'Headline: '}
+                                {listData?.headline}
+                              </Text>
+                              {/* Text 2 3 */}
                               <Text
                                 accessible={true}
                                 {...GlobalStyles.TextStyles(theme)[
@@ -474,6 +653,26 @@ const AdvisorDetailsScreen = props => {
                                     {
                                       fontFamily: 'Quicksand_400Regular',
                                       fontSize: 12,
+                                      paddingBottom: [
+                                        {
+                                          minWidth: Breakpoints.Laptop,
+                                          value: 2.5,
+                                        },
+                                        {
+                                          minWidth: Breakpoints.Mobile,
+                                          value: 2.5,
+                                        },
+                                      ],
+                                      paddingTop: [
+                                        {
+                                          minWidth: Breakpoints.Laptop,
+                                          value: 2.5,
+                                        },
+                                        {
+                                          minWidth: Breakpoints.Mobile,
+                                          value: 2.5,
+                                        },
+                                      ],
                                     }
                                   ),
                                   dimensions.width
@@ -502,6 +701,8 @@ const AdvisorDetailsScreen = props => {
                 style={StyleSheet.applyWidth(
                   {
                     height: '100%',
+                    marginBottom:
+                      dimensions.width >= Breakpoints.Laptop ? 0 : 65,
                     maxHeight: dimensions.height - 130,
                     paddingLeft: [
                       { minWidth: Breakpoints.Mobile, value: 5 },
@@ -2136,6 +2337,37 @@ const AdvisorDetailsScreen = props => {
                             </Pressable>
                           </View>
                         </View>
+                      </View>
+                      {/* Period */}
+                      <View
+                        style={StyleSheet.applyWidth(
+                          {
+                            alignItems: 'stretch',
+                            flexDirection: 'column',
+                            gap: 8,
+                            padding: 10,
+                          },
+                          dimensions.width
+                        )}
+                      >
+                        <H5
+                          selectable={false}
+                          {...GlobalStyles.H5Styles(theme)['H5'].props}
+                          style={StyleSheet.applyWidth(
+                            StyleSheet.compose(
+                              GlobalStyles.H5Styles(theme)['H5'].style,
+                              {
+                                color: palettes.Brand['Strong Inverse'],
+                                fontSize: 16,
+                                marginBottom: 0,
+                                marginTop: 0,
+                              }
+                            ),
+                            dimensions.width
+                          )}
+                        >
+                          {'Period'}
+                        </H5>
                       </View>
                       <Spacer bottom={10} left={0} right={0} top={10} />
                       {/* Buttons */}
