@@ -513,7 +513,11 @@ const AllEventsScreen = props => {
             <>
               <View
                 style={StyleSheet.applyWidth(
-                  { alignContent: 'center', alignItems: 'center' },
+                  {
+                    alignContent: 'center',
+                    alignItems: 'center',
+                    marginBottom: 5,
+                  },
                   dimensions.width
                 )}
               >

@@ -257,7 +257,7 @@ const TransactionsScreen = props => {
               iconPosition={'left'}
               onPress={() => {
                 try {
-                  navigation.push('MAInsights', { screen: 'AllEventsScreen' });
+                  navigation.push('RootNavigator');
                 } catch (err) {
                   console.error(err);
                 }

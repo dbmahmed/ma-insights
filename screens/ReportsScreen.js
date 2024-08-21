@@ -19,6 +19,7 @@ import {
 } from '@draftbit/ui';
 import { H5 } from '@expo/html-elements';
 import { useIsFocused } from '@react-navigation/native';
+import * as Linking from 'expo-linking';
 import * as WebBrowser from 'expo-web-browser';
 import { ActivityIndicator, Text, View } from 'react-native';
 import { Fetch } from 'react-request';
@@ -270,14 +271,21 @@ const ReportsScreen = props => {
                             {/* View 2 */}
                             <View
                               style={StyleSheet.applyWidth(
-                                { padding: 2, paddingLeft: 5 },
+                                {
+                                  overflow: 'hidden',
+                                  padding: 2,
+                                  paddingLeft: 5,
+                                  width: '100%',
+                                },
                                 dimensions.width
                               )}
                             >
-                              <Touchable
+                              <Link
+                                accessible={true}
                                 onPress={() => {
                                   const handler = async () => {
                                     try {
+                                      /* hidden 'Open App Link' action */
                                       await WebBrowser.openBrowserAsync(
                                         `${listData?.file?.url}`
                                       );
@@ -287,59 +295,25 @@ const ReportsScreen = props => {
                                   };
                                   handler();
                                 }}
-                              >
-                                <Text
-                                  accessible={true}
-                                  {...GlobalStyles.TextStyles(theme)[
-                                    'screen_title'
-                                  ].props}
-                                  adjustsFontSizeToFit={true}
-                                  numberOfLines={2}
-                                  style={StyleSheet.applyWidth(
-                                    StyleSheet.compose(
-                                      GlobalStyles.TextStyles(theme)[
-                                        'screen_title'
-                                      ].style,
-                                      {
-                                        color: [
-                                          {
-                                            minWidth: Breakpoints.Laptop,
-                                            value:
-                                              theme.colors.branding.primary,
-                                          },
-                                          {
-                                            minWidth: Breakpoints.Mobile,
-                                            value:
-                                              theme.colors.branding.primary,
-                                          },
-                                        ],
-                                        fontFamily: 'Quicksand_400Regular',
-                                        textDecorationLine: [
-                                          {
-                                            minWidth: Breakpoints.Laptop,
-                                            value: 'underline',
-                                          },
-                                          {
-                                            minWidth: Breakpoints.Mobile,
-                                            value: 'underline',
-                                          },
-                                        ],
-                                      }
-                                    ),
-                                    dimensions.width
-                                  )}
-                                  textBreakStrategy={'simple'}
-                                >
-                                  {listData?.title}
-                                </Text>
-                              </Touchable>
+                                {...GlobalStyles.LinkStyles(theme)['Link']
+                                  .props}
+                                style={StyleSheet.applyWidth(
+                                  StyleSheet.compose(
+                                    GlobalStyles.LinkStyles(theme)['Link']
+                                      .style,
+                                    { fontFamily: 'Quicksand_400Regular' }
+                                  ),
+                                  dimensions.width
+                                )}
+                                title={`${listData?.title}`}
+                              />
                             </View>
                           </HStack>
                         </>
                       );
                     }}
-                    showsHorizontalScrollIndicator={true}
-                    showsVerticalScrollIndicator={true}
+                    showsHorizontalScrollIndicator={false}
+                    showsVerticalScrollIndicator={false}
                   />
                 </View>
               </View>

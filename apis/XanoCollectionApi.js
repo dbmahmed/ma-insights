@@ -355,7 +355,7 @@ export const getAllEventsGET = async (
   if (countryIn !== undefined) {
     paramsDict['country_in'] = renderParam(countryIn);
   }
-  const url = `https://xne3-pdiu-8ysm.f2.xano.io/api:abjrBkC8/event_test${renderQueryString(
+  const url = `https://xne3-pdiu-8ysm.f2.xano.io/api:abjrBkC8/event${renderQueryString(
     paramsDict
   )}`;
   const options = {
