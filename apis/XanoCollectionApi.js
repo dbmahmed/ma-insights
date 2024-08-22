@@ -719,8 +719,30 @@ export const FetchGetAllPEPFGET = ({
   return children({ loading, data, error, refetchGetAllPEPF: refetch });
 };
 
-export const getAllPeersGET = async (Constants, _args, handlers = {}) => {
-  const url = `https://xne3-pdiu-8ysm.f2.xano.io/api:abjrBkC8/peer_group`;
+export const getAllPeersGET = async (
+  Constants,
+  { keyword, my_peers, nkp_comps, page, type },
+  handlers = {}
+) => {
+  const paramsDict = {};
+  if (type !== undefined) {
+    paramsDict['type'] = renderParam(type);
+  }
+  if (keyword !== undefined) {
+    paramsDict['keyword'] = renderParam(keyword);
+  }
+  if (nkp_comps !== undefined) {
+    paramsDict['nkp_comps'] = renderParam(nkp_comps);
+  }
+  if (my_peers !== undefined) {
+    paramsDict['my_peers'] = renderParam(my_peers);
+  }
+  if (page !== undefined) {
+    paramsDict['page'] = renderParam(page);
+  }
+  const url = `https://xne3-pdiu-8ysm.f2.xano.io/api:abjrBkC8/peer_group${renderQueryString(
+    paramsDict
+  )}`;
   const options = {
     headers: cleanHeaders({
       Accept: 'application/json',
@@ -751,6 +773,11 @@ export const FetchGetAllPeersGET = ({
   onData = () => {},
   handlers = {},
   refetchInterval,
+  keyword,
+  my_peers,
+  nkp_comps,
+  page,
+  type,
 }) => {
   const Constants = GlobalVariables.useValues();
   const isFocused = useIsFocused();
@@ -762,7 +789,7 @@ export const FetchGetAllPeersGET = ({
     error,
     refetch,
   } = useGetAllPeersGET(
-    {},
+    { keyword, my_peers, nkp_comps, page, type },
     { refetchInterval, handlers: { onData, ...handlers } }
   );
 
@@ -1438,6 +1465,7 @@ export const getOneStockGET = async (
   const options = {
     headers: cleanHeaders({
       Accept: 'application/json',
+      Authorization: Constants['AUTH_HEADER'],
       'Content-Type': 'application/json',
     }),
   };

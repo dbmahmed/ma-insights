@@ -7,6 +7,7 @@ import * as GlobalVariables from '../config/GlobalVariableContext';
 import assessAccess from '../global-functions/assessAccess';
 import removeGlobalScroll from '../global-functions/removeGlobalScroll';
 import transformEuroM from '../global-functions/transformEuroM';
+import transformNumber from '../global-functions/transformNumber';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
@@ -100,6 +101,7 @@ const PeerGroupDetailsScreen = props => {
                 {
                   alignItems: 'center',
                   height: '100%',
+                  marginBottom: dimensions.width >= Breakpoints.Laptop ? 0 : 65,
                   marginTop: 65,
                   paddingBottom: 65,
                   position: 'absolute',
@@ -110,7 +112,12 @@ const PeerGroupDetailsScreen = props => {
             >
               <View
                 style={StyleSheet.applyWidth(
-                  { maxWidth: 1200, width: '100%' },
+                  {
+                    marginBottom:
+                      dimensions.width >= Breakpoints.Laptop ? 0 : 65,
+                    maxWidth: 1200,
+                    width: '100%',
+                  },
                   dimensions.width
                 )}
               >
@@ -260,6 +267,7 @@ const PeerGroupDetailsScreen = props => {
                             offsetX={0}
                             offsetY={0}
                             paintInside={true}
+                            stretch={true}
                             style={StyleSheet.applyWidth(
                               {
                                 borderRadius: 12,
@@ -286,6 +294,7 @@ const PeerGroupDetailsScreen = props => {
                           <View
                             style={StyleSheet.applyWidth(
                               {
+                                alignContent: 'stretch',
                                 backgroundColor:
                                   palettes.Brand['Strong Inverse'],
                                 borderColor: palettes.Brand['Light Inverse'],
@@ -906,9 +915,7 @@ const PeerGroupDetailsScreen = props => {
                                         dimensions.width
                                       )}
                                     >
-                                      {'€'}
-                                      {listData?.ev_eur}
-                                      {'m'}
+                                      {transformEuroM(listData?.ev_eur)}
                                     </Text>
                                   </View>
                                   {/* View 6 */}
@@ -1337,8 +1344,7 @@ const PeerGroupDetailsScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.ev_sales_fy0}
-                              {'x'}
+                              {transformNumber(fetchData?.ev_sales_fy0, 'x')}
                             </Text>
                           </View>
                           {/* View 2 */}
@@ -1369,8 +1375,10 @@ const PeerGroupDetailsScreen = props => {
                                     dimensions.width
                                   )}
                                 >
-                                  {fetchData?.ev_sales_ttm}
-                                  {'x'}
+                                  {transformNumber(
+                                    fetchData?.ev_sales_ttm,
+                                    'x'
+                                  )}
                                 </Text>
                               )}
                             </>
@@ -1399,8 +1407,7 @@ const PeerGroupDetailsScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.ev_sales_fy1}
-                              {'x'}
+                              {transformNumber(fetchData?.ev_sales_fy1, 'x')}
                             </Text>
                           </View>
                           {/* View 4 */}
@@ -1427,8 +1434,7 @@ const PeerGroupDetailsScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.ev_sales_fy2}
-                              {'x'}
+                              {transformNumber(fetchData?.ev_sales_fy2, 'x')}
                             </Text>
                           </View>
                         </View>
@@ -1496,8 +1502,7 @@ const PeerGroupDetailsScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.ev_ebitda_fy0}
-                              {'x'}
+                              {transformNumber(fetchData?.ev_ebitda_fy0, 'x')}
                             </Text>
                           </View>
                           {/* View 2 */}
@@ -1524,8 +1529,7 @@ const PeerGroupDetailsScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.ev_ebitda_ttm}
-                              {'x'}
+                              {transformNumber(fetchData?.ev_ebitda_ttm, 'x')}
                             </Text>
                           </View>
                           {/* View 3 */}
@@ -1552,8 +1556,7 @@ const PeerGroupDetailsScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.ev_ebitda_fy1}
-                              {'x'}
+                              {transformNumber(fetchData?.ev_ebitda_fy1, 'x')}
                             </Text>
                           </View>
                           {/* View 4 */}
@@ -1580,8 +1583,7 @@ const PeerGroupDetailsScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.ev_ebitda_fy2}
-                              {'x'}
+                              {transformNumber(fetchData?.ev_ebitda_fy2, 'x')}
                             </Text>
                           </View>
                         </View>
@@ -1649,8 +1651,10 @@ const PeerGroupDetailsScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.ev_ebit_fy0_median}
-                              {'x'}
+                              {transformNumber(
+                                fetchData?.ev_ebit_fy0_median,
+                                'x'
+                              )}
                             </Text>
                           </View>
                           {/* View 2 */}
@@ -1677,8 +1681,10 @@ const PeerGroupDetailsScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.ev_ebit_ttm_median}
-                              {'x'}
+                              {transformNumber(
+                                fetchData?.ev_ebit_ttm_median,
+                                'x'
+                              )}
                             </Text>
                           </View>
                           {/* View 3 */}
@@ -1705,8 +1711,10 @@ const PeerGroupDetailsScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.ev_ebit_fy1_median}
-                              {'x'}
+                              {transformNumber(
+                                fetchData?.ev_ebit_fy1_median,
+                                'x'
+                              )}
                             </Text>
                           </View>
                           {/* View 4 */}
@@ -1733,7 +1741,10 @@ const PeerGroupDetailsScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {'-'}
+                              {transformNumber(
+                                fetchData?.ev_ebit_fy2_median,
+                                'x'
+                              )}
                             </Text>
                           </View>
                         </View>
@@ -1801,8 +1812,7 @@ const PeerGroupDetailsScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.pe_fy0_median}
-                              {'x'}
+                              {transformNumber(fetchData?.pe_fy0_median, 'x')}
                             </Text>
                           </View>
                           {/* View 2 */}
@@ -1829,8 +1839,7 @@ const PeerGroupDetailsScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.pe_ttm_median}
-                              {'x'}
+                              {transformNumber(fetchData?.pe_ttm_median, 'x')}
                             </Text>
                           </View>
                           {/* View 3 */}
@@ -1857,8 +1866,7 @@ const PeerGroupDetailsScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.pe_fy1_median}
-                              {'x'}
+                              {transformNumber(fetchData?.pe_fy1_median, 'x')}
                             </Text>
                           </View>
                           {/* View 4 */}
@@ -1885,8 +1893,7 @@ const PeerGroupDetailsScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.pe_fy2_median}
-                              {'x'}
+                              {transformNumber(fetchData?.pe_fy2_median, 'x')}
                             </Text>
                           </View>
                         </View>
@@ -2175,8 +2182,10 @@ const PeerGroupDetailsScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.growth_fy0_median}
-                              {'%'}
+                              {transformNumber(
+                                fetchData?.growth_fy0_median,
+                                '%'
+                              )}
                             </Text>
                           </View>
                           {/* View 2 */}
@@ -2203,8 +2212,10 @@ const PeerGroupDetailsScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.growth_ttm_median}
-                              {'%'}
+                              {transformNumber(
+                                fetchData?.growth_ttm_median,
+                                '%'
+                              )}
                             </Text>
                           </View>
                           {/* View 3 */}
@@ -2231,8 +2242,10 @@ const PeerGroupDetailsScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.growth_fy1_median}
-                              {'%'}
+                              {transformNumber(
+                                fetchData?.growth_fy1_median,
+                                '%'
+                              )}
                             </Text>
                           </View>
                           {/* View 4 */}
@@ -2259,8 +2272,10 @@ const PeerGroupDetailsScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.growth_fy2_median}
-                              {'%'}
+                              {transformNumber(
+                                fetchData?.growth_fy2_median,
+                                '$'
+                              )}
                             </Text>
                           </View>
                         </View>
@@ -2409,8 +2424,10 @@ const PeerGroupDetailsScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.cagr_fy2_3y_median}
-                              {'%'}
+                              {transformNumber(
+                                fetchData?.cagr_fy2_3y_median,
+                                '%'
+                              )}
                             </Text>
                           </View>
                         </View>
@@ -2478,8 +2495,10 @@ const PeerGroupDetailsScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.ebitda_margin_fy0_median}
-                              {'%'}
+                              {transformNumber(
+                                fetchData?.ebitda_margin_fy0_median,
+                                '%'
+                              )}
                             </Text>
                           </View>
                           {/* View 2 */}
@@ -2506,8 +2525,10 @@ const PeerGroupDetailsScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.ebitda_margin_ttm_median}
-                              {'%'}
+                              {transformNumber(
+                                fetchData?.ebitda_margin_ttm_median,
+                                '%'
+                              )}
                             </Text>
                           </View>
                           {/* View 3 */}
@@ -2534,8 +2555,10 @@ const PeerGroupDetailsScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.ebitda_margin_fy1_median}
-                              {'%'}
+                              {transformNumber(
+                                fetchData?.ebitda_margin_fy1_median,
+                                '%'
+                              )}
                             </Text>
                           </View>
                           {/* View 4 */}
@@ -2562,8 +2585,10 @@ const PeerGroupDetailsScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.ebitda_margin_fy2_median}
-                              {'%'}
+                              {transformNumber(
+                                fetchData?.ebitda_margin_fy2_median,
+                                '%'
+                              )}
                             </Text>
                           </View>
                         </View>
@@ -2631,7 +2656,10 @@ const PeerGroupDetailsScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.np_margin_fy0_median}
+                              {transformNumber(
+                                fetchData?.np_margin_fy0_median,
+                                '%'
+                              )}
                               {'%'}
                             </Text>
                           </View>
@@ -2659,7 +2687,10 @@ const PeerGroupDetailsScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.np_margin_ttm_median}
+                              {transformNumber(
+                                fetchData?.np_margin_ttm_median,
+                                '%'
+                              )}
                               {'%'}
                             </Text>
                           </View>
@@ -2687,7 +2718,10 @@ const PeerGroupDetailsScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.np_margin_fy1_median}
+                              {transformNumber(
+                                fetchData?.np_margin_fy1_median,
+                                '%'
+                              )}
                               {'%'}
                             </Text>
                           </View>
@@ -2715,7 +2749,10 @@ const PeerGroupDetailsScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.np_margin_fy2_median}
+                              {transformNumber(
+                                fetchData?.np_margin_fy2_median,
+                                '%'
+                              )}
                               {'%'}
                             </Text>
                           </View>

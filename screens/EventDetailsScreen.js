@@ -104,7 +104,13 @@ const EventDetailsScreen = props => {
             >
               <View
                 style={StyleSheet.applyWidth(
-                  { maxWidth: 1200, padding: 10, width: '100%' },
+                  {
+                    marginBottom:
+                      dimensions.width >= Breakpoints.Laptop ? 0 : 65,
+                    maxWidth: 1200,
+                    padding: 10,
+                    width: '100%',
+                  },
                   dimensions.width
                 )}
               >

@@ -50,8 +50,10 @@ const PeerGroupsScreen = props => {
   const [keywordSearch, setKeywordSearch] = React.useState('');
   const [materials, setMaterials] = React.useState(false);
   const [my_peer_groups, setMy_peer_groups] = React.useState(false);
+  const [nextPage, setNextPage] = React.useState(1);
   const [nkp_comps, setNkp_comps] = React.useState(false);
   const [nordic, setNordic] = React.useState(false);
+  const [peerItems, setPeerItems] = React.useState([]);
   const [real_estate, setReal_estate] = React.useState(false);
   const [sector, setSector] = React.useState([]);
   const [sweden, setSweden] = React.useState(false);
@@ -285,7 +287,6 @@ const PeerGroupsScreen = props => {
                     }
                   }}
                   color={theme.colors.text.medium}
-                  disabled={Constants['ME']?.access_regions === 'DACH'}
                   size={24}
                   status={my_peer_groups}
                   uncheckedColor={theme.colors.text.medium}
@@ -298,7 +299,6 @@ const PeerGroupsScreen = props => {
                       console.error(err);
                     }
                   }}
-                  disabled={Constants['ME']?.access_regions === 'DACH'}
                 >
                   <Text
                     accessible={true}
@@ -344,7 +344,6 @@ const PeerGroupsScreen = props => {
                     }
                   }}
                   color={theme.colors.text.medium}
-                  disabled={Constants['ME']?.access_regions === 'DACH'}
                   size={24}
                   status={nkp_comps}
                   uncheckedColor={theme.colors.text.medium}
@@ -357,7 +356,6 @@ const PeerGroupsScreen = props => {
                       console.error(err);
                     }
                   }}
-                  disabled={Constants['ME']?.access_regions === 'DACH'}
                 >
                   <Text
                     accessible={true}
@@ -380,7 +378,31 @@ const PeerGroupsScreen = props => {
         </View>
       </View>
 
-      <XanoCollectionApi.FetchGetAllPeersGET>
+      <XanoCollectionApi.FetchGetAllPeersGET
+        handlers={{
+          on2xx: fetchData => {
+            try {
+              setPeerItems(fetchData?.json?.items);
+              setNextPage(fetchData?.json?.nextPage);
+            } catch (err) {
+              console.error(err);
+            }
+          },
+          onData: fetchData => {
+            try {
+              /* hidden 'Set Variable' action */
+              setNextPage(nextPage);
+            } catch (err) {
+              console.error(err);
+            }
+          },
+        }}
+        keyword={keywordSearch}
+        my_peers={my_peer_groups}
+        nkp_comps={nkp_comps}
+        page={1}
+        type={''}
+      >
         {({ loading, error, data, refetchGetAllPeers }) => {
           const fetchData = data?.json;
           if (loading) {
@@ -439,18 +461,50 @@ const PeerGroupsScreen = props => {
                     )}
                   >
                     {fetchData?.itemsTotal}
-                    {' private equity firms matching filter'}
+                    {' peer groups matching filter'}
                   </Text>
                 </View>
               </View>
               <SimpleStyleFlatList
-                data={fetchData?.items}
+                data={peerItems}
                 horizontal={false}
                 inverted={false}
-                keyExtractor={(listData, index) => listData?.id}
+                keyExtractor={(listData, index) =>
+                  listData?.id ??
+                  listData?.uuid ??
+                  index?.toString() ??
+                  JSON.stringify(listData)
+                }
                 keyboardShouldPersistTaps={'never'}
                 listKey={'O0u33Gng'}
                 nestedScrollEnabled={false}
+                onEndReached={() => {
+                  const handler = async () => {
+                    try {
+                      setNextPage(fetchData?.nextPage);
+                      if (nextPage === null) {
+                        return;
+                      }
+                      const newData = (
+                        await XanoCollectionApi.getAllPeersGET(Constants, {
+                          keyword: keywordSearch,
+                          my_peers: my_peer_groups,
+                          nkp_comps: nkp_comps,
+                          page: nextPage,
+                          type: '',
+                        })
+                      )?.json;
+                      setNextPage(newData?.nextPage);
+                      if (fetchData?.items === 0) {
+                        return;
+                      }
+                      setPeerItems(peerItems.concat(newData?.items));
+                    } catch (err) {
+                      console.error(err);
+                    }
+                  };
+                  handler();
+                }}
                 onEndReachedThreshold={0.5}
                 renderItem={({ item, index }) => {
                   const listData = item;
@@ -659,6 +713,8 @@ const PeerGroupsScreen = props => {
                         value: dimensions.height,
                       },
                     ],
+                    marginBottom:
+                      dimensions.width >= Breakpoints.Laptop ? 0 : 65,
                     maxHeight: dimensions.height - 270,
                     padding: 5,
                     paddingLeft: setPadding(dimensions.width),

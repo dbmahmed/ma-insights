@@ -826,6 +826,8 @@ const CFSScreen = props => {
                     showsVerticalScrollIndicator={false}
                     style={StyleSheet.applyWidth(
                       {
+                        marginBottom:
+                          dimensions.width >= Breakpoints.Laptop ? 0 : 65,
                         maxHeight: dimensions.height - 195,
                         paddingLeft: setPadding(dimensions.width),
                         paddingRight: setPadding(dimensions.width),

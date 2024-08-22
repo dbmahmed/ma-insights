@@ -1,6 +1,6 @@
 import React from 'react';
 
-const transformNumber = value => {
+const transformNumber = (value, suffix) => {
   // Type the code for the body of your function or hook here.
   // Functions can be triggered via Button/Touchable actions.
   // Hooks are run per ReactJS rules.
@@ -12,7 +12,7 @@ line two` ) and will not work with special characters inside of quotes ( example
     return '-';
   }
 
-  return value;
+  return value + (suffix !== undefined ? suffix : '');
 };
 
 export default transformNumber;

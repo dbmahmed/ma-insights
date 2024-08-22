@@ -799,7 +799,7 @@ line two` ) and will not work with special characters inside of quotes ( example
           },
           on401: fetchData => {
             try {
-              /* hidden 'Run a Custom Function' action */
+              resetAccess(navigation, Variables, setGlobalVariableValue);
             } catch (err) {
               console.error(err);
             }
@@ -832,213 +832,228 @@ line two` ) and will not work with special characters inside of quotes ( example
           }
 
           return (
-            <SimpleStyleFlatList
-              data={advisorsItems}
-              horizontal={false}
-              inverted={false}
-              keyExtractor={(listData, index) => listData?.id}
-              keyboardShouldPersistTaps={'never'}
-              listKey={'2cY8Myag'}
-              nestedScrollEnabled={false}
-              onEndReached={() => {
-                const handler = async () => {
-                  try {
-                    if (nextPage === null) {
-                      return;
-                    }
-                    const newData = (
-                      await XanoCollectionApi.getAdvisorsGET(Constants, {
-                        eventType_in: [],
-                        keyword: keywordSearch,
-                        page: nextPage,
-                        region: typeAdvisor,
-                        sector_in: [],
-                        type: type,
-                      })
-                    )?.json;
-                    setNextPage(newData?.nextPage);
-                    setLastPage(newData?.pageTotal);
-                    if (fetchData?.items === 0) {
-                      return;
-                    }
-                    setAdvisorsItems(advisorsItems.concat(newData?.items));
-                  } catch (err) {
-                    console.error(err);
-                  }
-                };
-                handler();
-              }}
-              onEndReachedThreshold={0.5}
-              renderItem={({ item, index }) => {
-                const listData = item;
-                return (
-                  <View
+            <>
+              <View
+                style={StyleSheet.applyWidth(
+                  { alignItems: 'center' },
+                  dimensions.width
+                )}
+              >
+                {/* View 2 */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    {
+                      alignItems: 'stretch',
+                      alignSelf: 'auto',
+                      flexDirection: 'column',
+                      marginBottom: 5,
+                      marginTop: { minWidth: Breakpoints.Tablet, value: 5 },
+                      maxWidth: 1200,
+                      paddingLeft: [
+                        { minWidth: Breakpoints.Tablet, value: 15 },
+                        { minWidth: Breakpoints.Mobile, value: 10 },
+                      ],
+                      paddingRight: 10,
+                      width: '100%',
+                    },
+                    dimensions.width
+                  )}
+                >
+                  <Text
+                    accessible={true}
+                    {...GlobalStyles.TextStyles(theme)['screen_title'].props}
                     style={StyleSheet.applyWidth(
-                      {
-                        maxWidth: [
-                          { minWidth: Breakpoints.Mobile, value: '100%' },
-                          { minWidth: Breakpoints.Tablet, value: '50%' },
-                          { minWidth: Breakpoints.Laptop, value: '33.33%' },
-                        ],
-                        padding: 5,
-                        width: '100%',
-                      },
+                      StyleSheet.compose(
+                        GlobalStyles.TextStyles(theme)['screen_title'].style,
+                        {
+                          color: [
+                            {
+                              minWidth: Breakpoints.Tablet,
+                              value: theme.colors.text.strong,
+                            },
+                            {
+                              minWidth: Breakpoints.Mobile,
+                              value: theme.colors.text.strong,
+                            },
+                          ],
+                          fontFamily: 'Quicksand_400Regular',
+                          fontSize: 12,
+                        }
+                      ),
                       dimensions.width
                     )}
                   >
-                    <Shadow
-                      showShadowCornerBottomEnd={true}
-                      showShadowCornerBottomStart={true}
-                      showShadowCornerTopEnd={true}
-                      showShadowCornerTopStart={true}
-                      showShadowSideBottom={true}
-                      showShadowSideEnd={true}
-                      showShadowSideStart={true}
-                      showShadowSideTop={true}
-                      distance={4}
-                      offsetX={0}
-                      offsetY={0}
-                      paintInside={true}
-                      stretch={true}
+                    {fetchData?.itemsTotal}{' '}
+                    {fetchData?.itemsTotal > 1 ? 'advisors' : 'advisor'}
+                    {' matching filter'}
+                  </Text>
+                </View>
+              </View>
+              <SimpleStyleFlatList
+                data={advisorsItems}
+                horizontal={false}
+                inverted={false}
+                keyExtractor={(listData, index) => listData?.id}
+                keyboardShouldPersistTaps={'never'}
+                listKey={'2cY8Myag'}
+                nestedScrollEnabled={false}
+                onEndReached={() => {
+                  const handler = async () => {
+                    try {
+                      if (nextPage === null) {
+                        return;
+                      }
+                      const newData = (
+                        await XanoCollectionApi.getAdvisorsGET(Constants, {
+                          eventType_in: [],
+                          keyword: keywordSearch,
+                          page: nextPage,
+                          region: typeAdvisor,
+                          sector_in: [],
+                          type: type,
+                        })
+                      )?.json;
+                      setNextPage(newData?.nextPage);
+                      setLastPage(newData?.pageTotal);
+                      if (fetchData?.items === 0) {
+                        return;
+                      }
+                      setAdvisorsItems(advisorsItems.concat(newData?.items));
+                    } catch (err) {
+                      console.error(err);
+                    }
+                  };
+                  handler();
+                }}
+                onEndReachedThreshold={0.5}
+                renderItem={({ item, index }) => {
+                  const listData = item;
+                  return (
+                    <View
                       style={StyleSheet.applyWidth(
                         {
-                          borderRadius: 12,
-                          bottom: 5,
-                          height: '100%',
-                          left: [
-                            { minWidth: Breakpoints.Tablet, value: 5 },
-                            { minWidth: Breakpoints.Mobile, value: 5 },
-                          ],
-                          position: [
-                            { minWidth: Breakpoints.Tablet, value: 'absolute' },
-                            { minWidth: Breakpoints.Mobile, value: 'absolute' },
-                          ],
-                          right: 5,
-                          top: [
-                            { minWidth: Breakpoints.Tablet, value: 5 },
-                            { minWidth: Breakpoints.Mobile, value: 5 },
-                          ],
-                          width: [
-                            { minWidth: Breakpoints.Laptop, value: '100%' },
+                          maxWidth: [
                             { minWidth: Breakpoints.Mobile, value: '100%' },
+                            { minWidth: Breakpoints.Tablet, value: '50%' },
+                            { minWidth: Breakpoints.Laptop, value: '33.33%' },
                           ],
+                          padding: 5,
+                          width: '100%',
                         },
                         dimensions.width
                       )}
-                    />
-                    <Pressable
-                      onPress={() => {
-                        try {
-                          navigation.push('AdvisorDetailsScreen', {
-                            advisor_id: listData?.id,
-                          });
-                        } catch (err) {
-                          console.error(err);
-                        }
-                      }}
                     >
-                      <View
+                      <Shadow
+                        showShadowCornerBottomEnd={true}
+                        showShadowCornerBottomStart={true}
+                        showShadowCornerTopEnd={true}
+                        showShadowCornerTopStart={true}
+                        showShadowSideBottom={true}
+                        showShadowSideEnd={true}
+                        showShadowSideStart={true}
+                        showShadowSideTop={true}
+                        distance={4}
+                        offsetX={0}
+                        offsetY={0}
+                        paintInside={true}
+                        stretch={true}
                         style={StyleSheet.applyWidth(
                           {
-                            alignContent: 'stretch',
-                            backgroundColor: palettes.Brand['Strong Inverse'],
-                            borderColor: palettes.Brand['Light Inverse'],
-                            borderRadius: 8,
-                            borderWidth: 0,
-                            flexDirection: 'column',
-                            gap: 4,
-                            justifyContent: 'flex-start',
-                            padding: 10,
+                            borderRadius: 12,
+                            bottom: 5,
+                            height: '100%',
+                            left: [
+                              { minWidth: Breakpoints.Tablet, value: 5 },
+                              { minWidth: Breakpoints.Mobile, value: 5 },
+                            ],
+                            position: [
+                              {
+                                minWidth: Breakpoints.Tablet,
+                                value: 'absolute',
+                              },
+                              {
+                                minWidth: Breakpoints.Mobile,
+                                value: 'absolute',
+                              },
+                            ],
+                            right: 5,
+                            top: [
+                              { minWidth: Breakpoints.Tablet, value: 5 },
+                              { minWidth: Breakpoints.Mobile, value: 5 },
+                            ],
+                            width: [
+                              { minWidth: Breakpoints.Laptop, value: '100%' },
+                              { minWidth: Breakpoints.Mobile, value: '100%' },
+                            ],
                           },
                           dimensions.width
                         )}
+                      />
+                      <Pressable
+                        onPress={() => {
+                          try {
+                            navigation.push('AdvisorDetailsScreen', {
+                              advisor_id: listData?.id,
+                            });
+                          } catch (err) {
+                            console.error(err);
+                          }
+                        }}
                       >
-                        <Text
-                          accessible={true}
-                          {...GlobalStyles.TextStyles(theme)['screen_title']
-                            .props}
-                          style={StyleSheet.applyWidth(
-                            StyleSheet.compose(
-                              GlobalStyles.TextStyles(theme)['screen_title']
-                                .style,
-                              {
-                                fontFamily: 'Quicksand_500Medium',
-                                marginBottom: 4,
-                              }
-                            ),
-                            dimensions.width
-                          )}
-                        >
-                          {listData?.name}
-                        </Text>
-                        {/* Text 2 */}
-                        <Text
-                          accessible={true}
-                          {...GlobalStyles.TextStyles(theme)['screen_title']
-                            .props}
-                          style={StyleSheet.applyWidth(
-                            StyleSheet.compose(
-                              GlobalStyles.TextStyles(theme)['screen_title']
-                                .style,
-                              {
-                                color: palettes.App.Orange,
-                                fontFamily: 'Quicksand_400Regular',
-                                fontSize: 12,
-                              }
-                            ),
-                            dimensions.width
-                          )}
-                        >
-                          {listData?.type}
-                        </Text>
-                        {/* Text 2 2 */}
-                        <Text
-                          accessible={true}
-                          {...GlobalStyles.TextStyles(theme)['screen_title']
-                            .props}
-                          style={StyleSheet.applyWidth(
-                            StyleSheet.compose(
-                              GlobalStyles.TextStyles(theme)['screen_title']
-                                .style,
-                              {
-                                fontFamily: [
-                                  {
-                                    minWidth: Breakpoints.Mobile,
-                                    value: 'Quicksand_400Regular',
-                                  },
-                                  {
-                                    minWidth: Breakpoints.Laptop,
-                                    value: 'Quicksand_500Medium',
-                                  },
-                                ],
-                                fontSize: 12,
-                              }
-                            ),
-                            dimensions.width
-                          )}
-                        >
-                          {typeAdvisor?.toUpperCase()}
-                          {' YTD: '}
-                          {setAdvisorRank(
-                            Variables,
-                            typeAdvisor,
-                            type,
-                            listData,
-                            'ytd',
-                            false
-                          )}
-                        </Text>
-
                         <View
                           style={StyleSheet.applyWidth(
                             {
-                              flexDirection: 'row',
-                              gap: 8,
-                              justifyContent: 'space-between',
+                              alignContent: 'stretch',
+                              backgroundColor: palettes.Brand['Strong Inverse'],
+                              borderColor: palettes.Brand['Light Inverse'],
+                              borderRadius: 8,
+                              borderWidth: 0,
+                              flexDirection: 'column',
+                              gap: 4,
+                              justifyContent: 'flex-start',
+                              padding: 10,
                             },
                             dimensions.width
                           )}
                         >
+                          <Text
+                            accessible={true}
+                            {...GlobalStyles.TextStyles(theme)['screen_title']
+                              .props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TextStyles(theme)['screen_title']
+                                  .style,
+                                {
+                                  fontFamily: 'Quicksand_500Medium',
+                                  marginBottom: 4,
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            {listData?.name}
+                          </Text>
+                          {/* Text 2 */}
+                          <Text
+                            accessible={true}
+                            {...GlobalStyles.TextStyles(theme)['screen_title']
+                              .props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TextStyles(theme)['screen_title']
+                                  .style,
+                                {
+                                  color: palettes.App.Orange,
+                                  fontFamily: 'Quicksand_400Regular',
+                                  fontSize: 12,
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            {listData?.type}
+                          </Text>
                           {/* Text 2 2 */}
                           <Text
                             accessible={true}
@@ -1066,54 +1081,104 @@ line two` ) and will not work with special characters inside of quotes ( example
                             )}
                           >
                             {typeAdvisor?.toUpperCase()}
-                            {' LY: '}
+                            {' YTD: '}
                             {setAdvisorRank(
                               Variables,
                               typeAdvisor,
                               type,
                               listData,
-                              'ly',
+                              'ytd',
                               false
                             )}
                           </Text>
+
+                          <View
+                            style={StyleSheet.applyWidth(
+                              {
+                                flexDirection: 'row',
+                                gap: 8,
+                                justifyContent: 'space-between',
+                              },
+                              dimensions.width
+                            )}
+                          >
+                            {/* Text 2 2 */}
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)['screen_title']
+                                .props}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.TextStyles(theme)['screen_title']
+                                    .style,
+                                  {
+                                    fontFamily: [
+                                      {
+                                        minWidth: Breakpoints.Mobile,
+                                        value: 'Quicksand_400Regular',
+                                      },
+                                      {
+                                        minWidth: Breakpoints.Laptop,
+                                        value: 'Quicksand_500Medium',
+                                      },
+                                    ],
+                                    fontSize: 12,
+                                  }
+                                ),
+                                dimensions.width
+                              )}
+                            >
+                              {typeAdvisor?.toUpperCase()}
+                              {' LY: '}
+                              {setAdvisorRank(
+                                Variables,
+                                typeAdvisor,
+                                type,
+                                listData,
+                                'ly',
+                                false
+                              )}
+                            </Text>
+                          </View>
                         </View>
-                      </View>
-                    </Pressable>
-                  </View>
-                );
-              }}
-              numColumns={
-                dimensions.width >= Breakpoints.Laptop
-                  ? 3
-                  : dimensions.width >= Breakpoints.Tablet
-                  ? 2
-                  : 1
-              }
-              showsHorizontalScrollIndicator={false}
-              showsVerticalScrollIndicator={false}
-              style={StyleSheet.applyWidth(
-                {
-                  gap: 8,
-                  marginBottom: dimensions.width >= Breakpoints.Laptop ? 0 : 65,
-                  maxHeight: [
-                    {
-                      minWidth: Breakpoints.Mobile,
-                      value: dimensions.height - 290,
-                    },
-                    {
-                      minWidth: Breakpoints.Laptop,
-                      value: dimensions.height - 220,
-                    },
-                  ],
-                  padding: 5,
-                  paddingLeft: setPadding(dimensions.width),
-                  paddingRight: setPadding(dimensions.width),
-                  width: '100%',
-                  zIndex: 1,
-                },
-                dimensions.width
-              )}
-            />
+                      </Pressable>
+                    </View>
+                  );
+                }}
+                numColumns={
+                  dimensions.width >= Breakpoints.Laptop
+                    ? 3
+                    : dimensions.width >= Breakpoints.Tablet
+                    ? 2
+                    : 1
+                }
+                showsHorizontalScrollIndicator={false}
+                showsVerticalScrollIndicator={false}
+                style={StyleSheet.applyWidth(
+                  {
+                    gap: 8,
+                    marginBottom:
+                      dimensions.width >= Breakpoints.Laptop ? 0 : 65,
+                    maxHeight: [
+                      {
+                        minWidth: Breakpoints.Mobile,
+                        value: dimensions.height - 290,
+                      },
+                      {
+                        minWidth: Breakpoints.Laptop,
+                        value: dimensions.height - 220,
+                      },
+                    ],
+                    padding: 5,
+                    paddingLeft: setPadding(dimensions.width),
+                    paddingRight: setPadding(dimensions.width),
+                    width: '100%',
+                    zIndex: 1,
+                  },
+                  dimensions.width
+                )}
+              />
+            </>
           );
         }}
       </XanoCollectionApi.FetchGetAdvisorsGET>

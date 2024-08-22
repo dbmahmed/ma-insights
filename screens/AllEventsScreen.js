@@ -793,6 +793,7 @@ const AllEventsScreen = props => {
                                     value: 5,
                                   },
                                   marginTop: 4,
+                                  textAlign: 'left',
                                 }
                               ),
                               dimensions.width
@@ -822,6 +823,8 @@ const AllEventsScreen = props => {
                       minWidth: Breakpoints.BigScreen,
                       value: 'center',
                     },
+                    marginBottom:
+                      dimensions.width >= Breakpoints.Laptop ? 0 : 65,
                     paddingLeft: [
                       { minWidth: Breakpoints.Mobile, value: 5 },
                       {
@@ -829,10 +832,13 @@ const AllEventsScreen = props => {
                         value: setPadding(dimensions.width),
                       },
                     ],
-                    paddingRight: {
-                      minWidth: Breakpoints.Desktop,
-                      value: setPadding(dimensions.width),
-                    },
+                    paddingRight: [
+                      { minWidth: Breakpoints.Mobile, value: 5 },
+                      {
+                        minWidth: Breakpoints.Desktop,
+                        value: setPadding(dimensions.width),
+                      },
+                    ],
                     width: '100%',
                   },
                   dimensions.width

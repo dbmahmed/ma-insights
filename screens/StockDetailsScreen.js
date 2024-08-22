@@ -6,12 +6,15 @@ import LoadingBlock from '../components/LoadingBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import assessAccess from '../global-functions/assessAccess';
 import removeGlobalScroll from '../global-functions/removeGlobalScroll';
+import transformEuroM from '../global-functions/transformEuroM';
+import transformNumber from '../global-functions/transformNumber';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import {
   Button,
+  HStack,
   IconButton,
   LinearGradient,
   Picker,
@@ -35,27 +38,11 @@ const StockDetailsScreen = props => {
   const [companyName, setCompanyName] = React.useState('');
   const [filterPressed, setFilterPressed] = React.useState(false);
   const [newPeerGroup, setNewPeerGroup] = React.useState('');
-  const [peerGroupId, setPeerGroupId] = React.useState(undefined);
+  const [peerGroupId, setPeerGroupId] = React.useState(0);
   const [selectedPeerGroup, setSelectedPeerGroup] = React.useState({});
   const [showModal, setShowModal] = React.useState(false);
   const [ticker, setTicker] = React.useState('');
   const [viewPeerGroup, setViewPeerGroup] = React.useState(false);
-  const prepperPeerGroupList = peerGroups => {
-    const defult = {
-      value: 0,
-      label: 'Select peer group...',
-    };
-    if (!Array.isArray(peerGroups)) {
-      return [];
-    }
-    return [
-      ...peerGroups.map(({ title, id }) => ({
-        value: id,
-        label: title,
-      })),
-    ];
-  };
-
   const setSeletedPeerGroup = peerGroups => {
     if (!Array.isArray(peerGroups)) {
       return;
@@ -66,9 +53,29 @@ const StockDetailsScreen = props => {
   };
 
   const resetForm = () => {
-    setSelectedPeerGroup(undefined);
-    setNewPeerGroup(undefined);
-    setPeerGroupId(undefined);
+    setSelectedPeerGroup(0);
+    setNewPeerGroup('');
+    setPeerGroupId(0);
+  };
+
+  const preparePeerGroupList = peerGroups => {
+    const defult = {
+      value: 0,
+      label: 'Select peer group...',
+    };
+    if (!Array.isArray(peerGroups)) {
+      return [];
+    }
+    return [
+      {
+        value: 0,
+        label: 'Select...',
+      },
+      ...peerGroups.map(({ title, id }) => ({
+        value: id,
+        label: title,
+      })),
+    ];
   };
   const isFocused = useIsFocused();
   React.useEffect(() => {
@@ -124,7 +131,7 @@ const StockDetailsScreen = props => {
             }
           },
         }}
-        stock_id={2}
+        stock_id={props.route?.params?.stock_id ?? 1}
       >
         {({ loading, error, data, refetchGetOneStock }) => {
           const fetchData = data?.json;
@@ -163,6 +170,8 @@ const StockDetailsScreen = props => {
               <View
                 style={StyleSheet.applyWidth(
                   {
+                    marginBottom:
+                      dimensions.width >= Breakpoints.Laptop ? 0 : 65,
                     maxWidth: [
                       { minWidth: Breakpoints.BigScreen, value: 1200 },
                       { minWidth: Breakpoints.Mobile, value: 1200 },
@@ -210,7 +219,10 @@ const StockDetailsScreen = props => {
                       accessible={true}
                       {...GlobalStyles.TextStyles(theme)['screen_title'].props}
                       style={StyleSheet.applyWidth(
-                        GlobalStyles.TextStyles(theme)['screen_title'].style,
+                        StyleSheet.compose(
+                          GlobalStyles.TextStyles(theme)['screen_title'].style,
+                          { fontFamily: 'Quicksand_400Regular' }
+                        ),
                         dimensions.width
                       )}
                     >
@@ -352,7 +364,7 @@ const StockDetailsScreen = props => {
                           dimensions.width
                         )}
                       >
-                        {fetchData?.ev_eur}
+                        {transformEuroM(fetchData?.ev_eur)}
                       </Text>
                     </View>
                     {/* View 2 */}
@@ -391,7 +403,7 @@ const StockDetailsScreen = props => {
                             dimensions.width
                           )}
                         >
-                          {'Enterprise value:\n'}
+                          {'Market capitalisation:\n'}
                         </Text>
                       </View>
 
@@ -412,7 +424,7 @@ const StockDetailsScreen = props => {
                           dimensions.width
                         )}
                       >
-                        {fetchData?.capitalisation_eur}
+                        {transformEuroM(fetchData?.capitalisation_eur)}
                       </Text>
                     </View>
                     {/* View 3 */}
@@ -802,7 +814,11 @@ const StockDetailsScreen = props => {
                         {...GlobalStyles.TextStyles(theme)['screen_title']
                           .props}
                         style={StyleSheet.applyWidth(
-                          GlobalStyles.TextStyles(theme)['screen_title'].style,
+                          StyleSheet.compose(
+                            GlobalStyles.TextStyles(theme)['screen_title']
+                              .style,
+                            { fontFamily: 'Quicksand_400Regular' }
+                          ),
                           dimensions.width
                         )}
                       >
@@ -874,7 +890,10 @@ const StockDetailsScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.fy0_end_date}
+                              {transformNumber(
+                                fetchData?.fy0_end_date,
+                                undefined
+                              )}
                             </Text>
                           </View>
                           {/* View 2 */}
@@ -901,7 +920,10 @@ const StockDetailsScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.tt_end_date}
+                              {transformNumber(
+                                fetchData?.tt_end_date,
+                                undefined
+                              )}
                               {'\n'}
                             </Text>
                           </View>
@@ -929,7 +951,10 @@ const StockDetailsScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.fy1_end_date}
+                              {transformNumber(
+                                fetchData?.fy1_end_date,
+                                undefined
+                              )}
                             </Text>
                           </View>
                           {/* View 4 */}
@@ -956,7 +981,10 @@ const StockDetailsScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.fy2_end_date}
+                              {transformNumber(
+                                fetchData?.fy2_end_date,
+                                undefined
+                              )}
                             </Text>
                           </View>
                           {/* View 4 */}
@@ -983,7 +1011,10 @@ const StockDetailsScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.fy3_end_date}
+                              {transformNumber(
+                                fetchData?.fy3_end_date,
+                                undefined
+                              )}
                             </Text>
                           </View>
                         </View>
@@ -1048,15 +1079,18 @@ const StockDetailsScreen = props => {
                                   {
                                     fontFamily: 'Quicksand_400Regular',
                                     fontSize: 12,
-                                    textAlign: 'center',
+                                    textAlign: 'right',
                                   }
                                 ),
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.revenue_fy0}
+                              {transformNumber(
+                                fetchData?.revenue_fy0,
+                                undefined
+                              )}
                               {'\n'}
-                              {fetchData?.growth_fy0}
+                              {transformNumber(fetchData?.growth_fy0, '%')}
                             </Text>
                           </View>
                           {/* View 2 */}
@@ -1081,15 +1115,18 @@ const StockDetailsScreen = props => {
                                       {
                                         fontFamily: 'Quicksand_400Regular',
                                         fontSize: 12,
-                                        textAlign: 'center',
+                                        textAlign: 'right',
                                       }
                                     ),
                                     dimensions.width
                                   )}
                                 >
-                                  {fetchData?.revenue_ttm}
+                                  {transformNumber(
+                                    fetchData?.revenue_ttm,
+                                    undefined
+                                  )}
                                   {'\n'}
-                                  {fetchData?.growth_ttm}
+                                  {transformNumber(fetchData?.growth_ttm, '%')}
                                 </Text>
                               )}
                             </>
@@ -1112,15 +1149,18 @@ const StockDetailsScreen = props => {
                                   {
                                     fontFamily: 'Quicksand_400Regular',
                                     fontSize: 12,
-                                    textAlign: 'center',
+                                    textAlign: 'right',
                                   }
                                 ),
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.revenue_fy1}
+                              {transformNumber(
+                                fetchData?.revenue_fy1,
+                                undefined
+                              )}
                               {'\n'}
-                              {fetchData?.growth_fy1}
+                              {transformNumber(fetchData?.growth_fy1, '%')}
                             </Text>
                           </View>
                           {/* View 4 */}
@@ -1141,15 +1181,18 @@ const StockDetailsScreen = props => {
                                   {
                                     fontFamily: 'Quicksand_400Regular',
                                     fontSize: 12,
-                                    textAlign: 'center',
+                                    textAlign: 'right',
                                   }
                                 ),
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.revenue_fy2}
+                              {transformNumber(
+                                fetchData?.revenue_fy2,
+                                undefined
+                              )}
                               {'\n'}
-                              {fetchData?.growth_fy2}
+                              {transformNumber(fetchData?.growth_fy2, '%')}
                             </Text>
                           </View>
                           {/* View 5 */}
@@ -1170,15 +1213,18 @@ const StockDetailsScreen = props => {
                                   {
                                     fontFamily: 'Quicksand_400Regular',
                                     fontSize: 12,
-                                    textAlign: 'center',
+                                    textAlign: 'right',
                                   }
                                 ),
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.revenue_fy3}
+                              {transformNumber(
+                                fetchData?.revenue_fy3,
+                                undefined
+                              )}
                               {'\n'}
-                              {fetchData?.growth_fy3}
+                              {transformNumber(fetchData?.growth_fy3, '%')}
                             </Text>
                           </View>
                         </View>
@@ -1239,15 +1285,18 @@ const StockDetailsScreen = props => {
                                   {
                                     fontFamily: 'Quicksand_400Regular',
                                     fontSize: 12,
-                                    textAlign: 'center',
+                                    textAlign: 'right',
                                   }
                                 ),
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.ebitda_fy0}
+                              {transformNumber(
+                                fetchData?.ebitda_fy0,
+                                undefined
+                              )}
                               {'\n'}
-                              {fetchData?.ebitda_margin_fy0}
+                              {transformNumber(fetchData?.ebit_margin_fy0, '%')}
                             </Text>
                           </View>
                           {/* View 2 */}
@@ -1268,15 +1317,21 @@ const StockDetailsScreen = props => {
                                   {
                                     fontFamily: 'Quicksand_400Regular',
                                     fontSize: 12,
-                                    textAlign: 'center',
+                                    textAlign: 'right',
                                   }
                                 ),
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.ebitda_ttm}
+                              {transformNumber(
+                                fetchData?.ebitda_ttm,
+                                undefined
+                              )}
                               {'\n'}
-                              {fetchData?.ebitda_margin_ttm}
+                              {transformNumber(
+                                fetchData?.ebitda_margin_ttm,
+                                '%'
+                              )}
                             </Text>
                           </View>
                           {/* View 3 */}
@@ -1297,15 +1352,21 @@ const StockDetailsScreen = props => {
                                   {
                                     fontFamily: 'Quicksand_400Regular',
                                     fontSize: 12,
-                                    textAlign: 'center',
+                                    textAlign: 'right',
                                   }
                                 ),
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.ebitda_fy1}
+                              {transformNumber(
+                                fetchData?.ebitda_fy1,
+                                undefined
+                              )}
                               {'\n'}
-                              {fetchData?.ebitda_margin_fy1}
+                              {transformNumber(
+                                fetchData?.ebitda_margin_fy1,
+                                '%'
+                              )}
                             </Text>
                           </View>
                           {/* View 4 */}
@@ -1326,15 +1387,21 @@ const StockDetailsScreen = props => {
                                   {
                                     fontFamily: 'Quicksand_400Regular',
                                     fontSize: 12,
-                                    textAlign: 'center',
+                                    textAlign: 'right',
                                   }
                                 ),
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.ebitda_fy2}
+                              {transformNumber(
+                                fetchData?.ebitda_fy2,
+                                undefined
+                              )}
                               {'\n'}
-                              {fetchData?.ebitda_margin_fy2}
+                              {transformNumber(
+                                fetchData?.ebitda_margin_fy2,
+                                '%'
+                              )}
                             </Text>
                           </View>
                           {/* View 5 */}
@@ -1355,15 +1422,21 @@ const StockDetailsScreen = props => {
                                   {
                                     fontFamily: 'Quicksand_400Regular',
                                     fontSize: 12,
-                                    textAlign: 'center',
+                                    textAlign: 'right',
                                   }
                                 ),
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.ebitda_fy3}
+                              {transformNumber(
+                                fetchData?.ebitda_fy3,
+                                undefined
+                              )}
                               {'\n'}
-                              {fetchData?.ebitda_margin_fy3}
+                              {transformNumber(
+                                fetchData?.ebitda_margin_fy3,
+                                '%'
+                              )}
                             </Text>
                           </View>
                         </View>
@@ -1424,15 +1497,15 @@ const StockDetailsScreen = props => {
                                   {
                                     fontFamily: 'Quicksand_400Regular',
                                     fontSize: 12,
-                                    textAlign: 'center',
+                                    textAlign: 'right',
                                   }
                                 ),
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.ebit_fy0}
+                              {transformNumber(fetchData?.ebit_fy0, undefined)}
                               {'\n'}
-                              {fetchData?.ebit_margin_fy0}
+                              {transformNumber(fetchData?.ebit_margin_fy0, '%')}
                             </Text>
                           </View>
                           {/* View 2 */}
@@ -1453,15 +1526,15 @@ const StockDetailsScreen = props => {
                                   {
                                     fontFamily: 'Quicksand_400Regular',
                                     fontSize: 12,
-                                    textAlign: 'center',
+                                    textAlign: 'right',
                                   }
                                 ),
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.ebit_ttm}
+                              {transformNumber(fetchData?.ebit_ttm, undefined)}
                               {'\n'}
-                              {fetchData?.ebit_margin_ttm}
+                              {transformNumber(fetchData?.ebit_margin_ttm, '%')}
                             </Text>
                           </View>
                           {/* View 3 */}
@@ -1488,9 +1561,9 @@ const StockDetailsScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.ebit_fy1}
+                              {transformNumber(fetchData?.ebit_fy1, undefined)}
                               {'\n'}
-                              {fetchData?.ebit_margin_fy1}
+                              {transformNumber(fetchData?.ebit_margin_ttm, '%')}
                             </Text>
                           </View>
                           {/* View 4 */}
@@ -1511,15 +1584,15 @@ const StockDetailsScreen = props => {
                                   {
                                     fontFamily: 'Quicksand_400Regular',
                                     fontSize: 12,
-                                    textAlign: 'center',
+                                    textAlign: 'right',
                                   }
                                 ),
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.ebit_fy2}
+                              {transformNumber(fetchData?.ebit_fy2, undefined)}
                               {'\n'}
-                              {fetchData?.ebit_margin_fy2}
+                              {transformNumber(fetchData?.ebit_margin_fy2, '%')}
                             </Text>
                           </View>
                           {/* View 5 */}
@@ -1540,15 +1613,15 @@ const StockDetailsScreen = props => {
                                   {
                                     fontFamily: 'Quicksand_400Regular',
                                     fontSize: 12,
-                                    textAlign: 'center',
+                                    textAlign: 'right',
                                   }
                                 ),
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.ebit_fy3}
+                              {transformNumber(fetchData?.ebit_fy3, undefined)}
                               {'\n'}
-                              {fetchData?.ebit_margin_fy3}
+                              {transformNumber(fetchData?.ebit_margin_fy3, '%')}
                             </Text>
                           </View>
                         </View>
@@ -1609,15 +1682,15 @@ const StockDetailsScreen = props => {
                                   {
                                     fontFamily: 'Quicksand_400Regular',
                                     fontSize: 12,
-                                    textAlign: 'center',
+                                    textAlign: 'right',
                                   }
                                 ),
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.np_fy0}
+                              {transformNumber(fetchData?.np_fy0, undefined)}
                               {'\n'}
-                              {fetchData?.np_margin_fy0}
+                              {transformNumber(fetchData?.np_margin_fy0, '%')}
                             </Text>
                           </View>
                           {/* View 2 */}
@@ -1638,15 +1711,15 @@ const StockDetailsScreen = props => {
                                   {
                                     fontFamily: 'Quicksand_400Regular',
                                     fontSize: 12,
-                                    textAlign: 'center',
+                                    textAlign: 'right',
                                   }
                                 ),
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.np_ttm}
+                              {transformNumber(fetchData?.np_ttm, undefined)}
                               {'\n'}
-                              {fetchData?.np_margin_ttm}
+                              {transformNumber(fetchData?.np_margin_ttm, '%')}
                             </Text>
                           </View>
                           {/* View 3 */}
@@ -1667,15 +1740,15 @@ const StockDetailsScreen = props => {
                                   {
                                     fontFamily: 'Quicksand_400Regular',
                                     fontSize: 12,
-                                    textAlign: 'center',
+                                    textAlign: 'right',
                                   }
                                 ),
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.np_fy1}
+                              {transformNumber(fetchData?.np_fy1, undefined)}
                               {'\n'}
-                              {fetchData?.np_margin_fy1}
+                              {transformNumber(fetchData?.np_margin_fy1, '%')}
                             </Text>
                           </View>
                           {/* View 4 */}
@@ -1696,15 +1769,15 @@ const StockDetailsScreen = props => {
                                   {
                                     fontFamily: 'Quicksand_400Regular',
                                     fontSize: 12,
-                                    textAlign: 'center',
+                                    textAlign: 'right',
                                   }
                                 ),
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.np_fy2}
+                              {transformNumber(fetchData?.np_fy2, undefined)}
                               {'\n'}
-                              {fetchData?.np_margin_fy2}
+                              {transformNumber(fetchData?.np_margin_fy2, '%')}
                             </Text>
                           </View>
                           {/* View 5 */}
@@ -1725,15 +1798,15 @@ const StockDetailsScreen = props => {
                                   {
                                     fontFamily: 'Quicksand_400Regular',
                                     fontSize: 12,
-                                    textAlign: 'center',
+                                    textAlign: 'right',
                                   }
                                 ),
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.np_fy3}
+                              {transformNumber(fetchData?.np_fy3, undefined)}
                               {'\n'}
-                              {fetchData?.np_margin_fy3}
+                              {transformNumber(fetchData?.np_margin_fy3, '%')}
                             </Text>
                           </View>
                         </View>
@@ -1840,7 +1913,10 @@ const StockDetailsScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.fy0_end_date}
+                              {transformNumber(
+                                fetchData?.fy0_end_date,
+                                undefined
+                              )}
                             </Text>
                           </View>
                           {/* View 2 */}
@@ -1867,7 +1943,10 @@ const StockDetailsScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.tt_end_date}
+                              {transformNumber(
+                                fetchData?.tt_end_date,
+                                undefined
+                              )}
                               {'\n'}
                             </Text>
                           </View>
@@ -1895,7 +1974,10 @@ const StockDetailsScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.fy1_end_date}
+                              {transformNumber(
+                                fetchData?.fy1_end_date,
+                                undefined
+                              )}
                             </Text>
                           </View>
                           {/* View 4 */}
@@ -1922,7 +2004,10 @@ const StockDetailsScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.fy2_end_date}
+                              {transformNumber(
+                                fetchData?.fy2_end_date,
+                                undefined
+                              )}
                             </Text>
                           </View>
                         </View>
@@ -1983,13 +2068,13 @@ const StockDetailsScreen = props => {
                                   {
                                     fontFamily: 'Quicksand_400Regular',
                                     fontSize: 12,
-                                    textAlign: 'center',
+                                    textAlign: 'right',
                                   }
                                 ),
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.ev_sales_fy0}
+                              {transformNumber(fetchData?.ev_sales_fy0, 'x')}
                             </Text>
                           </View>
                           {/* View 2 */}
@@ -2010,13 +2095,13 @@ const StockDetailsScreen = props => {
                                   {
                                     fontFamily: 'Quicksand_400Regular',
                                     fontSize: 12,
-                                    textAlign: 'center',
+                                    textAlign: 'right',
                                   }
                                 ),
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.ev_sales_ttm}
+                              {transformNumber(fetchData?.ev_sales_ttm, 'x')}
                             </Text>
                           </View>
                           {/* View 3 */}
@@ -2037,13 +2122,13 @@ const StockDetailsScreen = props => {
                                   {
                                     fontFamily: 'Quicksand_400Regular',
                                     fontSize: 12,
-                                    textAlign: 'center',
+                                    textAlign: 'right',
                                   }
                                 ),
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.ev_sales_fy1}
+                              {transformNumber(fetchData?.ev_sales_fy1, 'x')}
                             </Text>
                           </View>
                           {/* View 4 */}
@@ -2064,13 +2149,13 @@ const StockDetailsScreen = props => {
                                   {
                                     fontFamily: 'Quicksand_400Regular',
                                     fontSize: 12,
-                                    textAlign: 'center',
+                                    textAlign: 'right',
                                   }
                                 ),
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.ev_sales_fy2}
+                              {transformNumber(fetchData?.ev_sales_fy2, 'x')}
                             </Text>
                           </View>
                         </View>
@@ -2131,13 +2216,13 @@ const StockDetailsScreen = props => {
                                   {
                                     fontFamily: 'Quicksand_400Regular',
                                     fontSize: 12,
-                                    textAlign: 'center',
+                                    textAlign: 'right',
                                   }
                                 ),
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.ev_ebitda_fy0}
+                              {transformNumber(fetchData?.ev_ebitda_fy0, 'x')}
                             </Text>
                           </View>
                           {/* View 2 */}
@@ -2158,13 +2243,13 @@ const StockDetailsScreen = props => {
                                   {
                                     fontFamily: 'Quicksand_400Regular',
                                     fontSize: 12,
-                                    textAlign: 'center',
+                                    textAlign: 'right',
                                   }
                                 ),
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.ev_ebitda_ttm}
+                              {transformNumber(fetchData?.ev_ebitda_ttm, 'x')}
                             </Text>
                           </View>
                           {/* View 3 */}
@@ -2185,13 +2270,13 @@ const StockDetailsScreen = props => {
                                   {
                                     fontFamily: 'Quicksand_400Regular',
                                     fontSize: 12,
-                                    textAlign: 'center',
+                                    textAlign: 'right',
                                   }
                                 ),
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.ev_ebitda_fy1}
+                              {transformNumber(fetchData?.ev_ebitda_fy1, 'x')}
                             </Text>
                           </View>
                           {/* View 4 */}
@@ -2212,13 +2297,13 @@ const StockDetailsScreen = props => {
                                   {
                                     fontFamily: 'Quicksand_400Regular',
                                     fontSize: 12,
-                                    textAlign: 'center',
+                                    textAlign: 'right',
                                   }
                                 ),
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.ev_ebitda_fy2}
+                              {transformNumber(fetchData?.ev_ebitda_fy2, 'x')}
                             </Text>
                           </View>
                         </View>
@@ -2279,13 +2364,13 @@ const StockDetailsScreen = props => {
                                   {
                                     fontFamily: 'Quicksand_400Regular',
                                     fontSize: 12,
-                                    textAlign: 'center',
+                                    textAlign: 'right',
                                   }
                                 ),
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.ev_ebit_fy0}
+                              {transformNumber(fetchData?.ev_ebit_fy0, 'x')}
                             </Text>
                           </View>
                           {/* View 2 */}
@@ -2306,13 +2391,13 @@ const StockDetailsScreen = props => {
                                   {
                                     fontFamily: 'Quicksand_400Regular',
                                     fontSize: 12,
-                                    textAlign: 'center',
+                                    textAlign: 'right',
                                   }
                                 ),
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.ev_ebit_ttm}
+                              {transformNumber(fetchData?.ev_ebit_ttm, 'x')}
                             </Text>
                           </View>
                           {/* View 3 */}
@@ -2333,13 +2418,13 @@ const StockDetailsScreen = props => {
                                   {
                                     fontFamily: 'Quicksand_400Regular',
                                     fontSize: 12,
-                                    textAlign: 'center',
+                                    textAlign: 'right',
                                   }
                                 ),
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.ev_ebit_fy1}
+                              {transformNumber(fetchData?.ev_ebit_fy1, 'x')}
                             </Text>
                           </View>
                           {/* View 4 */}
@@ -2360,13 +2445,13 @@ const StockDetailsScreen = props => {
                                   {
                                     fontFamily: 'Quicksand_400Regular',
                                     fontSize: 12,
-                                    textAlign: 'center',
+                                    textAlign: 'right',
                                   }
                                 ),
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.ev_ebit_fy2}
+                              {transformNumber(fetchData?.ev_ebit_fy2, 'x')}
                             </Text>
                           </View>
                         </View>
@@ -2427,13 +2512,13 @@ const StockDetailsScreen = props => {
                                   {
                                     fontFamily: 'Quicksand_400Regular',
                                     fontSize: 12,
-                                    textAlign: 'center',
+                                    textAlign: 'right',
                                   }
                                 ),
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.pe_fy0}
+                              {transformNumber(fetchData?.pe_fy0, 'x')}
                             </Text>
                           </View>
                           {/* View 2 */}
@@ -2454,13 +2539,13 @@ const StockDetailsScreen = props => {
                                   {
                                     fontFamily: 'Quicksand_400Regular',
                                     fontSize: 12,
-                                    textAlign: 'center',
+                                    textAlign: 'right',
                                   }
                                 ),
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.pe_ttm}
+                              {transformNumber(fetchData?.pe_ttm, 'x')}
                             </Text>
                           </View>
                           {/* View 3 */}
@@ -2481,13 +2566,13 @@ const StockDetailsScreen = props => {
                                   {
                                     fontFamily: 'Quicksand_400Regular',
                                     fontSize: 12,
-                                    textAlign: 'center',
+                                    textAlign: 'right',
                                   }
                                 ),
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.pe_fy1}
+                              {transformNumber(fetchData?.pe_fy1, 'x')}
                             </Text>
                           </View>
                           {/* View 4 */}
@@ -2508,13 +2593,13 @@ const StockDetailsScreen = props => {
                                   {
                                     fontFamily: 'Quicksand_400Regular',
                                     fontSize: 12,
-                                    textAlign: 'center',
+                                    textAlign: 'right',
                                   }
                                 ),
                                 dimensions.width
                               )}
                             >
-                              {fetchData?.pe_fy2}
+                              {transformNumber(fetchData?.pe_fy2, 'x')}
                             </Text>
                           </View>
                         </View>
@@ -2548,6 +2633,13 @@ const StockDetailsScreen = props => {
               visible={showModal}
             >
               <View
+                onLayout={event => {
+                  try {
+                    console.log(newPeerGroup);
+                  } catch (err) {
+                    console.error(err);
+                  }
+                }}
                 style={StyleSheet.applyWidth(
                   {
                     alignItems: 'center',
@@ -2700,78 +2792,132 @@ const StockDetailsScreen = props => {
                           <View
                             style={StyleSheet.applyWidth(
                               {
+                                alignItems: {
+                                  minWidth: Breakpoints.BigScreen,
+                                  value: 'center',
+                                },
                                 flexDirection: 'row',
                                 gap: 8,
-                                justifyContent: 'space-between',
+                                justifyContent: [
+                                  {
+                                    minWidth: Breakpoints.Mobile,
+                                    value: 'space-between',
+                                  },
+                                  {
+                                    minWidth: Breakpoints.BigScreen,
+                                    value: 'center',
+                                  },
+                                  {
+                                    minWidth: Breakpoints.Tablet,
+                                    value: 'center',
+                                  },
+                                ],
                                 marginBottom: 20,
+                                width: {
+                                  minWidth: Breakpoints.BigScreen,
+                                  value: '100%',
+                                },
                               },
                               dimensions.width
                             )}
                           >
-                            <Picker
-                              autoDismissKeyboard={true}
-                              dropDownBorderColor={theme.colors.border.brand}
-                              dropDownBorderRadius={8}
-                              dropDownBorderWidth={1}
-                              iconSize={24}
-                              leftIconMode={'inset'}
-                              mode={'native'}
-                              onValueChange={newPickerValue => {
-                                try {
-                                  setPeerGroupId(newPickerValue);
-                                } catch (err) {
-                                  console.error(err);
-                                }
-                              }}
-                              placeholder={'Select an option'}
-                              selectedIconColor={theme.colors.text.strong}
-                              selectedIconName={'Feather/check'}
-                              selectedIconSize={20}
-                              type={'solid'}
-                              dropDownBackgroundColor={
-                                theme.colors.background.brand
-                              }
-                              dropDownTextColor={theme.colors.foreground.brand}
-                              options={prepperPeerGroupList(fetch2Data)}
-                              style={StyleSheet.applyWidth(
-                                {
-                                  color: theme.colors.foreground.brand,
-                                  padding: 7,
-                                  width: '60%',
-                                },
-                                dimensions.width
-                              )}
-                              value={peerGroupId}
-                            />
-                            {/* Button 2 */}
-                            <Button
-                              iconPosition={'left'}
-                              onPress={() => {
-                                try {
-                                  setViewPeerGroup(true);
-                                  setSeletedPeerGroup(fetch2Data);
-                                } catch (err) {
-                                  console.error(err);
-                                }
-                              }}
-                              {...GlobalStyles.ButtonStyles(theme)['Button']
+                            <HStack
+                              {...GlobalStyles.HStackStyles(theme)['H Stack']
                                 .props}
-                              disabled={!peerGroupId}
                               style={StyleSheet.applyWidth(
                                 StyleSheet.compose(
-                                  GlobalStyles.ButtonStyles(theme)['Button']
+                                  GlobalStyles.HStackStyles(theme)['H Stack']
                                     .style,
                                   {
-                                    backgroundColor: palettes.App.Orange,
-                                    fontFamily: 'Quicksand_500Medium',
-                                    textTransform: 'uppercase',
-                                    width: '37%',
+                                    gap: 10,
+                                    justifyContent: [
+                                      {
+                                        minWidth: Breakpoints.BigScreen,
+                                        value: 'center',
+                                      },
+                                      {
+                                        minWidth: Breakpoints.Tablet,
+                                        value: 'center',
+                                      },
+                                    ],
                                   }
                                 ),
                                 dimensions.width
                               )}
-                              title={'add'}
-                            />
+                            >
+                              <Picker
+                                autoDismissKeyboard={true}
+                                dropDownBorderColor={theme.colors.border.brand}
+                                dropDownBorderRadius={8}
+                                dropDownBorderWidth={1}
+                                iconSize={24}
+                                onValueChange={newPickerValue => {
+                                  try {
+                                    setPeerGroupId(newPickerValue);
+                                    console.log(peerGroupId);
+                                  } catch (err) {
+                                    console.error(err);
+                                  }
+                                }}
+                                placeholder={'Select an option'}
+                                selectedIconColor={theme.colors.text.strong}
+                                selectedIconName={'Feather/check'}
+                                selectedIconSize={20}
+                                disabled={
+                                  newPeerGroup !== ('' && newPeerGroup !== null)
+                                }
+                                dropDownBackgroundColor={
+                                  theme.colors.background.brand
+                                }
+                                dropDownTextColor={theme.colors.text.strong}
+                                leftIconMode={'outset'}
+                                mode={'dropdown-modal'}
+                                options={preparePeerGroupList(fetch2Data)}
+                                placeholderTextColor={
+                                  theme.colors.foreground.brand
+                                }
+                                style={StyleSheet.applyWidth(
+                                  {
+                                    color: palettes.Brand['Strong Inverse'],
+                                    fontFamily: 'Quicksand_400Regular',
+                                  },
+                                  dimensions.width
+                                )}
+                                type={'underline'}
+                                value={peerGroupId}
+                              />
+                              {/* Button 2 */}
+                              <Button
+                                iconPosition={'left'}
+                                onPress={() => {
+                                  try {
+                                    setViewPeerGroup(true);
+                                    setSeletedPeerGroup(fetch2Data);
+                                  } catch (err) {
+                                    console.error(err);
+                                  }
+                                }}
+                                {...GlobalStyles.ButtonStyles(theme)['Button']
+                                  .props}
+                                disabled={!peerGroupId}
+                                style={StyleSheet.applyWidth(
+                                  StyleSheet.compose(
+                                    GlobalStyles.ButtonStyles(theme)['Button']
+                                      .style,
+                                    {
+                                      backgroundColor: palettes.App.Orange,
+                                      fontFamily: 'Quicksand_500Medium',
+                                      marginRight: 7,
+                                      overflow: 'hidden',
+                                      textTransform: 'uppercase',
+                                      width: '47%',
+                                    }
+                                  ),
+                                  dimensions.width
+                                )}
+                                title={'add'}
+                              />
+                            </HStack>
                           </View>
                           {/* Text 2 */}
                           <Text
@@ -2823,7 +2969,11 @@ const StockDetailsScreen = props => {
                               {...GlobalStyles.TextInputStyles(theme)[
                                 'Text Input'
                               ].props}
+                              disabled={peerGroupId > 0}
                               placeholder={'Pree group name...'}
+                              placeholderTextColor={
+                                theme.colors.foreground.brand
+                              }
                               style={StyleSheet.applyWidth(
                                 StyleSheet.compose(
                                   GlobalStyles.TextInputStyles(theme)[
@@ -2831,7 +2981,7 @@ const StockDetailsScreen = props => {
                                   ].style,
                                   {
                                     borderColor: theme.colors.foreground.brand,
-                                    color: theme.colors.foreground.brand,
+                                    color: palettes.Brand['Strong Inverse'],
                                     fontFamily: 'Quicksand_500Medium',
                                     paddingLeft: 16,
                                     width: '60%',

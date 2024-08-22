@@ -697,6 +697,98 @@ const CustomHeaderBlock = props => {
                   </View>
                 </Pressable>
               </View>
+              {/* View 8 */}
+              <View
+                style={StyleSheet.applyWidth(
+                  {
+                    alignContent: 'center',
+                    alignItems: 'stretch',
+                    alignSelf: 'center',
+                    height: '100%',
+                    justifyContent: 'center',
+                    width: '25%',
+                  },
+                  dimensions.width
+                )}
+              >
+                {/* Pressable 2 */}
+                <Pressable
+                  onPress={() => {
+                    try {
+                      navigation.navigate('TransactionsScreen');
+                    } catch (err) {
+                      console.error(err);
+                    }
+                  }}
+                  style={StyleSheet.applyWidth(
+                    {
+                      borderColor: [
+                        {
+                          minWidth: Breakpoints.Tablet,
+                          value: theme.colors.foreground.brand,
+                        },
+                        {
+                          minWidth: Breakpoints.Mobile,
+                          value: theme.colors.foreground.brand,
+                        },
+                      ],
+                      borderRightWidth: [
+                        { minWidth: Breakpoints.Tablet, value: 0.5 },
+                        { minWidth: Breakpoints.Mobile, value: 0.5 },
+                      ],
+                      borderStyle: 'dashed',
+                      height: '100%',
+                      width: '100%',
+                    },
+                    dimensions.width
+                  )}
+                >
+                  <View
+                    style={StyleSheet.applyWidth(
+                      {
+                        alignItems: 'center',
+                        height: '100%',
+                        justifyContent: 'center',
+                      },
+                      dimensions.width
+                    )}
+                  >
+                    <Icon
+                      size={24}
+                      color={
+                        Constants['pageName'] === 'All events'
+                          ? palettes.Brand.Primary
+                          : palettes.Brand.Strong
+                      }
+                      name={'AntDesign/table'}
+                      style={StyleSheet.applyWidth(
+                        { width: '100%' },
+                        dimensions.width
+                      )}
+                    />
+                    <Text
+                      accessible={true}
+                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.TextStyles(theme)['screen_title'].style,
+                          {
+                            color:
+                              Constants['pageName'] === 'All events'
+                                ? palettes.Brand.Primary
+                                : palettes.Brand.Strong,
+                            fontFamily: 'Quicksand_400Regular',
+                            marginTop: 2,
+                          }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      {'Transactions'}
+                    </Text>
+                  </View>
+                </Pressable>
+              </View>
               {/* View 6 */}
               <View
                 style={StyleSheet.applyWidth(

@@ -894,7 +894,10 @@ const PEPFScreen = props => {
                               minWidth: Breakpoints.Desktop,
                               value: 'flex-start',
                             },
-                            { minWidth: Breakpoints.Mobile, value: 'center' },
+                            {
+                              minWidth: Breakpoints.Mobile,
+                              value: 'space-around',
+                            },
                           ],
                           padding: 2,
                           paddingTop: {
@@ -1144,11 +1147,6 @@ const PEPFScreen = props => {
                                   size={24}
                                   status={ebitda_small}
                                   uncheckedColor={
-                                    (ebitda_medium ||
-                                    ebitda_large ||
-                                    ebitda_giant
-                                      ? palettes.Brand.Light
-                                      : palettes.Brand['Strong Inverse']) ??
                                     palettes.Brand['Strong Inverse']
                                   }
                                 />
@@ -1240,11 +1238,6 @@ const PEPFScreen = props => {
                                   size={24}
                                   status={ebitda_medium}
                                   uncheckedColor={
-                                    (ebitda_small ||
-                                    ebitda_large ||
-                                    ebitda_giant
-                                      ? palettes.Brand.Light
-                                      : palettes.Brand['Strong Inverse']) ??
                                     palettes.Brand['Strong Inverse']
                                   }
                                 />
@@ -1336,11 +1329,6 @@ const PEPFScreen = props => {
                                   size={24}
                                   status={ebitda_large}
                                   uncheckedColor={
-                                    (ebitda_small ||
-                                    ebitda_medium ||
-                                    ebitda_giant
-                                      ? palettes.Brand.Light
-                                      : palettes.Brand['Strong Inverse']) ??
                                     palettes.Brand['Strong Inverse']
                                   }
                                 />
@@ -1432,11 +1420,6 @@ const PEPFScreen = props => {
                                   size={24}
                                   status={ebitda_giant}
                                   uncheckedColor={
-                                    (ebitda_small ||
-                                    ebitda_medium ||
-                                    ebitda_large
-                                      ? palettes.Brand.Light
-                                      : palettes.Brand['Strong Inverse']) ??
                                     palettes.Brand['Strong Inverse']
                                   }
                                 />
@@ -1577,9 +1560,6 @@ const PEPFScreen = props => {
                                   size={24}
                                   status={h_less_3}
                                   uncheckedColor={
-                                    (h_3_to_5 || h_5_to_7 || h_more_7
-                                      ? palettes.Brand.Light
-                                      : palettes.Brand['Strong Inverse']) ??
                                     palettes.Brand['Strong Inverse']
                                   }
                                 />
@@ -1667,9 +1647,6 @@ const PEPFScreen = props => {
                                   size={24}
                                   status={h_3_to_5}
                                   uncheckedColor={
-                                    (h_less_3 || h_5_to_7 || h_more_7
-                                      ? palettes.Brand.Light
-                                      : palettes.Brand['Strong Inverse']) ??
                                     palettes.Brand['Strong Inverse']
                                   }
                                 />
@@ -1757,9 +1734,6 @@ const PEPFScreen = props => {
                                   size={24}
                                   status={h_5_to_7}
                                   uncheckedColor={
-                                    (h_less_3 || h_3_to_5 || h_more_7
-                                      ? palettes.Brand.Light
-                                      : palettes.Brand['Strong Inverse']) ??
                                     palettes.Brand['Strong Inverse']
                                   }
                                 />
@@ -1983,9 +1957,6 @@ const PEPFScreen = props => {
                                   size={24}
                                   status={last_3}
                                   uncheckedColor={
-                                    (from_3_to_5 || from_5_to_7 || more_7
-                                      ? palettes.Brand.Light
-                                      : palettes.Brand['Strong Inverse']) ??
                                     palettes.Brand['Strong Inverse']
                                   }
                                 />
@@ -2075,9 +2046,6 @@ const PEPFScreen = props => {
                                   size={24}
                                   status={from_3_to_5}
                                   uncheckedColor={
-                                    (last_3 || from_5_to_7 || more_7
-                                      ? palettes.Brand.Light
-                                      : palettes.Brand['Strong Inverse']) ??
                                     palettes.Brand['Strong Inverse']
                                   }
                                 />
@@ -2151,9 +2119,6 @@ const PEPFScreen = props => {
                                   size={24}
                                   status={from_5_to_7}
                                   uncheckedColor={
-                                    (last_3 || from_3_to_5 || more_7
-                                      ? palettes.Brand.Light
-                                      : palettes.Brand['Strong Inverse']) ??
                                     palettes.Brand['Strong Inverse']
                                   }
                                 />
@@ -2243,9 +2208,6 @@ const PEPFScreen = props => {
                                   size={24}
                                   status={more_7}
                                   uncheckedColor={
-                                    (last_3 || from_3_to_5 || from_5_to_7
-                                      ? palettes.Brand.Light
-                                      : palettes.Brand['Strong Inverse']) ??
                                     palettes.Brand['Strong Inverse']
                                   }
                                 />

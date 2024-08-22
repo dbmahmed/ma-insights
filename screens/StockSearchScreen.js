@@ -9,6 +9,7 @@ import formatNumber from '../global-functions/formatNumber';
 import removeGlobalScroll from '../global-functions/removeGlobalScroll';
 import setPadding from '../global-functions/setPadding';
 import transformEuroM from '../global-functions/transformEuroM';
+import transformNumber from '../global-functions/transformNumber';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
@@ -40,51 +41,77 @@ const StockSearchScreen = props => {
   const Constants = GlobalVariables.useValues();
   const Variables = Constants;
   const setGlobalVariableValue = GlobalVariables.useSetValue();
-  const [RoW, setRoW] = React.useState(true);
-  const [austria, setAustria] = React.useState(true);
+  const [RoW, setRoW] = React.useState(false);
+  const [austria, setAustria] = React.useState(false);
   const [communication_services, setCommunication_services] =
-    React.useState(true);
+    React.useState(false);
   const [consumer_discretionary, setConsumer_discretionary] =
-    React.useState(true);
-  const [consumer_staples, setConsumer_staples] = React.useState(true);
-  const [dach, setDach] = React.useState(true);
-  const [denmark, setDenmark] = React.useState('ture');
-  const [energy, setEnergy] = React.useState(true);
+    React.useState(false);
+  const [consumer_staples, setConsumer_staples] = React.useState(false);
+  const [dach, setDach] = React.useState(false);
+  const [denmark, setDenmark] = React.useState(false);
+  const [energy, setEnergy] = React.useState(false);
   const [enterpriseValue, setEnterpriseValue] = React.useState([]);
-  const [ev_100_to_500, setEv_100_to_500] = React.useState(true);
-  const [ev_500_to_1000, setEv_500_to_1000] = React.useState(true);
-  const [ev_less_100, setEv_less_100] = React.useState(true);
-  const [ev_more_1000, setEv_more_1000] = React.useState(true);
+  const [ev_100_to_500, setEv_100_to_500] = React.useState(false);
+  const [ev_500_to_1000, setEv_500_to_1000] = React.useState(false);
+  const [ev_less_100, setEv_less_100] = React.useState(false);
+  const [ev_more_1000, setEv_more_1000] = React.useState(false);
   const [eventType, setEventType] = React.useState([]);
   const [filterPressed, setFilterPressed] = React.useState(false);
-  const [financials, setFinancials] = React.useState(true);
-  const [finland, setFinland] = React.useState(true);
-  const [from_3_to_5, setFrom_3_to_5] = React.useState(true);
-  const [from_5_to_7, setFrom_5_to_7] = React.useState(true);
-  const [future_opportunity, setFuture_opportunity] = React.useState(true);
-  const [germany, setGermany] = React.useState(true);
-  const [h_3_to_5, setH_3_to_5] = React.useState(true);
-  const [h_5_to_7, setH_5_to_7] = React.useState(true);
-  const [h_less_3, setH_less_3] = React.useState(true);
-  const [h_more_7, setH_more_7] = React.useState(true);
-  const [health_care, setHealth_care] = React.useState(true);
-  const [industrials, setIndustrials] = React.useState(true);
-  const [it_and_software, setIt_and_software] = React.useState(true);
+  const [financials, setFinancials] = React.useState(false);
+  const [finland, setFinland] = React.useState(false);
+  const [from_3_to_5, setFrom_3_to_5] = React.useState(false);
+  const [from_5_to_7, setFrom_5_to_7] = React.useState(false);
+  const [future_opportunity, setFuture_opportunity] = React.useState(false);
+  const [germany, setGermany] = React.useState(false);
+  const [h_3_to_5, setH_3_to_5] = React.useState(false);
+  const [h_5_to_7, setH_5_to_7] = React.useState(false);
+  const [h_less_3, setH_less_3] = React.useState(false);
+  const [h_more_7, setH_more_7] = React.useState(false);
+  const [health_care, setHealth_care] = React.useState(false);
+  const [industrials, setIndustrials] = React.useState(false);
+  const [it_and_software, setIt_and_software] = React.useState(false);
   const [keywordSearch, setKeywordSearch] = React.useState('');
-  const [last_3, setLast_3] = React.useState(true);
-  const [materials, setMaterials] = React.useState(true);
-  const [more_7, setMore_7] = React.useState(true);
-  const [nordic, setNordic] = React.useState(true);
-  const [norway, setNorway] = React.useState(true);
-  const [real_estate, setReal_estate] = React.useState(true);
+  const [lastPage, setLastPage] = React.useState(0);
+  const [last_3, setLast_3] = React.useState(false);
+  const [materials, setMaterials] = React.useState(false);
+  const [more_7, setMore_7] = React.useState(false);
+  const [nextPage, setNextPage] = React.useState(2);
+  const [nordic, setNordic] = React.useState(false);
+  const [norway, setNorway] = React.useState(false);
+  const [real_estate, setReal_estate] = React.useState(false);
   const [region, setRegion] = React.useState([]);
   const [sector, setSector] = React.useState([]);
   const [stockData, setStockData] = React.useState([]);
-  const [sweden, setSweden] = React.useState(true);
-  const [switzerland, setSwitzerland] = React.useState(true);
-  const [transaction, setTransaction] = React.useState(true);
-  const [utilities, setUtilities] = React.useState(true);
-  const applayFilters = () => {
+  const [stockItems, setStockItems] = React.useState([]);
+  const [sweden, setSweden] = React.useState(false);
+  const [switzerland, setSwitzerland] = React.useState(false);
+  const [transaction, setTransaction] = React.useState(false);
+  const [utilities, setUtilities] = React.useState(false);
+  const toggleAllFilters = flag => {
+    setCommunication_services(flag);
+    setIndustrials(flag);
+    setConsumer_discretionary(flag);
+    setIt_and_software(flag);
+    setConsumer_staples(flag);
+    setMaterials(flag);
+    setEnergy(flag);
+    setReal_estate(flag);
+    setFinancials(flag);
+    setUtilities(flag);
+    setHealth_care(flag);
+
+    setNordic(flag);
+    setDach(flag);
+    setRoW(flag);
+
+    setEv_less_100(flag);
+    setEv_100_to_500(flag);
+    setEv_500_to_1000(flag);
+    setEv_more_1000(flag);
+  };
+
+  const applyFilters = () => {
     //sector
     const sectors = [];
 
@@ -117,7 +144,7 @@ const StockSearchScreen = props => {
     ev_less_100 && enterpriseValue.push('EV ≤ €100m');
     ev_100_to_500 && enterpriseValue.push('€100m < EV ≤ €500m');
     ev_500_to_1000 && enterpriseValue.push('€500m < EV ≤ €1,000m');
-    ev_more_1000 && enterpriseValue.push('EV > €1,000m ');
+    ev_more_1000 && enterpriseValue.push('EV > €1,000m');
 
     setEnterpriseValue(() => enterpriseValue);
   };
@@ -146,30 +173,7 @@ const StockSearchScreen = props => {
     setEv_less_100((enterpriseValue || []).includes('EV ≤ €100m'));
     setEv_100_to_500((enterpriseValue || []).includes('€100m < EV ≤ €500m'));
     setEv_500_to_1000((enterpriseValue || []).includes('€500m < EV ≤ €1,000m'));
-    setEv_more_1000((enterpriseValue || []).includes('EV > €1,000m '));
-  };
-
-  const toggleAllFilters = flag => {
-    setCommunication_services(flag);
-    setIndustrials(flag);
-    setConsumer_discretionary(flag);
-    setIt_and_software(flag);
-    setConsumer_staples(flag);
-    setMaterials(flag);
-    setEnergy(flag);
-    setReal_estate(flag);
-    setFinancials(flag);
-    setUtilities(flag);
-    setHealth_care(flag);
-
-    setNordic(flag);
-    setDach(flag);
-    setRoW(flag);
-
-    setEv_less_100(flag);
-    setEv_100_to_500(flag);
-    setEv_500_to_1000(flag);
-    setEv_more_1000(flag);
+    setEv_more_1000((enterpriseValue || []).includes('EV > €1,000m'));
   };
   const isFocused = useIsFocused();
   React.useEffect(() => {
@@ -365,23 +369,30 @@ const StockSearchScreen = props => {
       </View>
 
       <XanoCollectionApi.FetchGetAllStocksGET
+        evIn={enterpriseValue}
         handlers={{
           on2xx: fetchData => {
             try {
               setStockData(fetchData?.json?.items);
+              setNextPage(nextPage);
+              setLastPage(fetchData?.json?.pageTotal);
             } catch (err) {
               console.error(err);
             }
           },
           onData: fetchData => {
             try {
-              console.log(fetchData);
+              /* hidden 'Log to Console' action */
+              setNextPage(fetchData?.nextPage);
             } catch (err) {
               console.error(err);
             }
           },
         }}
         page={1}
+        regionIn={region}
+        sectorIn={sector}
+        stockKeyword={keywordSearch}
       >
         {({ loading, error, data, refetchGetAllStocks }) => {
           const fetchData = data?.json;
@@ -440,13 +451,14 @@ const StockSearchScreen = props => {
                           ],
                           fontFamily: 'Quicksand_400Regular',
                           fontSize: 12,
+                          marginBottom: 10,
                         }
                       ),
                       dimensions.width
                     )}
                   >
                     {formatNumber(fetchData?.itemsTotal)}
-                    {' private equity firms matching filter'}
+                    {' stocks matching filter'}
                   </Text>
                 </View>
               </View>
@@ -458,7 +470,67 @@ const StockSearchScreen = props => {
                 keyboardShouldPersistTaps={'never'}
                 listKey={'g1gXcvVu'}
                 nestedScrollEnabled={false}
-                onEndReachedThreshold={0.5}
+                onEndReached={() => {
+                  const handler = async () => {
+                    console.log('List ON_END_REACHED Start');
+                    let error = null;
+                    try {
+                      console.log('Start ON_END_REACHED:0 SET_VARIABLE');
+                      setNextPage(fetchData?.nextPage);
+                      console.log('Complete ON_END_REACHED:0 SET_VARIABLE');
+                      console.log('Start ON_END_REACHED:1 CONDITIONAL_STOP');
+                      if (nextPage === null) {
+                        return console.log(
+                          'Complete ON_END_REACHED:1 CONDITIONAL_STOP'
+                        );
+                      } else {
+                        console.log(
+                          'Skipped ON_END_REACHED:1 CONDITIONAL_STOP: condition not met'
+                        );
+                      }
+                      console.log('Start ON_END_REACHED:2 FETCH_REQUEST');
+                      const newData = (
+                        await XanoCollectionApi.getAllStocksGET(Constants, {
+                          evIn: enterpriseValue,
+                          page: nextPage,
+                          regionIn: region,
+                          sectorIn: sector,
+                          stockKeyword: keywordSearch,
+                        })
+                      )?.json;
+                      console.log('Complete ON_END_REACHED:2 FETCH_REQUEST', {
+                        newData,
+                      });
+                      console.log('Start ON_END_REACHED:3 SET_VARIABLE');
+                      setNextPage(newData?.nextPage);
+                      console.log('Complete ON_END_REACHED:3 SET_VARIABLE');
+                      console.log('Start ON_END_REACHED:4 SET_VARIABLE');
+                      setLastPage(newData?.pageTotal);
+                      console.log('Complete ON_END_REACHED:4 SET_VARIABLE');
+                      console.log('Start ON_END_REACHED:5 CONDITIONAL_STOP');
+                      if (fetchData?.items === 0) {
+                        return console.log(
+                          'Complete ON_END_REACHED:5 CONDITIONAL_STOP'
+                        );
+                      } else {
+                        console.log(
+                          'Skipped ON_END_REACHED:5 CONDITIONAL_STOP: condition not met'
+                        );
+                      }
+                      console.log('Start ON_END_REACHED:6 SET_VARIABLE');
+                      setStockData(stockData.concat(newData?.items));
+                      console.log('Complete ON_END_REACHED:6 SET_VARIABLE');
+                    } catch (err) {
+                      console.error(err);
+                      error = err.message ?? err;
+                    }
+                    console.log(
+                      'List ON_END_REACHED Complete',
+                      error ? { error } : 'no error'
+                    );
+                  };
+                  handler();
+                }}
                 renderItem={({ item, index }) => {
                   const listData = item;
                   return (
@@ -509,7 +581,7 @@ const StockSearchScreen = props => {
                         onPress={() => {
                           try {
                             navigation.push('StockDetailsScreen', {
-                              stock_id: fetchData?.items?.id,
+                              stock_id: listData?.id,
                             });
                           } catch (err) {
                             console.error(err);
@@ -712,7 +784,7 @@ const StockSearchScreen = props => {
                                   dimensions.width
                                 )}
                               >
-                                {listData?.ev_sales_ttm}
+                                {transformNumber(listData?.ev_sales_ttm, 'x')}
                               </Text>
                             </View>
                             {/* View 2 */}
@@ -770,7 +842,7 @@ const StockSearchScreen = props => {
                                   dimensions.width
                                 )}
                               >
-                                {listData?.ev_ebitda_ttm}
+                                {transformNumber(listData?.ev_ebitda_ttm, 'x')}
                               </Text>
                             </View>
                             {/* View 3 */}
@@ -828,7 +900,7 @@ const StockSearchScreen = props => {
                                   dimensions.width
                                 )}
                               >
-                                {listData?.ev_ebit_ttm}
+                                {transformNumber(listData?.ev_ebit_ttm, 'x')}
                               </Text>
                             </View>
                           </LinearGradient>
@@ -844,12 +916,20 @@ const StockSearchScreen = props => {
                     ? 2
                     : 1
                 }
+                onEndReachedThreshold={0.5}
                 showsHorizontalScrollIndicator={false}
                 showsVerticalScrollIndicator={false}
                 style={StyleSheet.applyWidth(
                   {
                     gap: 0,
                     height: dimensions.height,
+                    marginBottom: [
+                      { minWidth: Breakpoints.Mobile, value: 0 },
+                      {
+                        minWidth: Breakpoints.Mobile,
+                        value: dimensions.width >= Breakpoints.Laptop ? 0 : 65,
+                      },
+                    ],
                     maxHeight: [
                       {
                         minWidth: Breakpoints.Laptop,
@@ -2215,9 +2295,6 @@ const StockSearchScreen = props => {
                                 }
                               }}
                               color={palettes.Brand['Strong Inverse']}
-                              disabled={
-                                ev_100_to_500 || ev_500_to_1000 || ev_more_1000
-                              }
                               size={24}
                               status={ev_less_100}
                               uncheckedColor={palettes.Brand['Strong Inverse']}
@@ -2230,9 +2307,6 @@ const StockSearchScreen = props => {
                                   console.error(err);
                                 }
                               }}
-                              disabled={
-                                ev_100_to_500 || ev_500_to_1000 || ev_more_1000
-                              }
                             >
                               <Text
                                 accessible={true}
@@ -2289,9 +2363,6 @@ const StockSearchScreen = props => {
                                 }
                               }}
                               color={palettes.Brand['Strong Inverse']}
-                              disabled={
-                                ev_less_100 || ev_500_to_1000 || ev_more_1000
-                              }
                               size={24}
                               status={ev_100_to_500}
                               uncheckedColor={palettes.Brand['Strong Inverse']}
@@ -2306,9 +2377,6 @@ const StockSearchScreen = props => {
                                   console.error(err);
                                 }
                               }}
-                              disabled={
-                                ev_less_100 || ev_500_to_1000 || ev_more_1000
-                              }
                             >
                               <Text
                                 accessible={true}
@@ -2365,9 +2433,6 @@ const StockSearchScreen = props => {
                                 }
                               }}
                               color={palettes.Brand['Strong Inverse']}
-                              disabled={
-                                ev_less_100 || ev_100_to_500 || ev_more_1000
-                              }
                               size={24}
                               status={ev_500_to_1000}
                               uncheckedColor={palettes.Brand['Strong Inverse']}
@@ -2382,9 +2447,6 @@ const StockSearchScreen = props => {
                                   console.error(err);
                                 }
                               }}
-                              disabled={
-                                ev_less_100 || ev_100_to_500 || ev_more_1000
-                              }
                             >
                               <Text
                                 accessible={true}
@@ -2441,9 +2503,6 @@ const StockSearchScreen = props => {
                                 }
                               }}
                               color={palettes.Brand['Strong Inverse']}
-                              disabled={
-                                ev_less_100 || ev_100_to_500 || ev_500_to_1000
-                              }
                               size={24}
                               status={ev_more_1000}
                               uncheckedColor={palettes.Brand['Strong Inverse']}
@@ -2456,9 +2515,6 @@ const StockSearchScreen = props => {
                                   console.error(err);
                                 }
                               }}
-                              disabled={
-                                ev_less_100 || ev_100_to_500 || ev_500_to_1000
-                              }
                             >
                               <Text
                                 accessible={true}
@@ -2577,7 +2633,7 @@ const StockSearchScreen = props => {
                             onPress={() => {
                               const handler = async () => {
                                 try {
-                                  applayFilters();
+                                  applyFilters();
                                   setFilterPressed(false);
                                   await waitUtil({ milliseconds: 500 });
                                   await refetchGetAllEvents();
