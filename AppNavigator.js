@@ -7,11 +7,6 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import palettes from './themes/palettes.js';
 import LinkingConfiguration from './LinkingConfiguration.js';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import React from 'react';
-import * as GlobalVariables from './config/GlobalVariableContext';
-import assessAccess from './global-functions/assessAccess';
-import Breakpoints from './utils/Breakpoints';
-import useWindowDimensions from './utils/useWindowDimensions';
 
 import AdvisorDetailsScreen from './screens/AdvisorDetailsScreen';
 import AdvisorsScreen from './screens/AdvisorsScreen';
@@ -38,6 +33,10 @@ import StockDetailsScreen from './screens/StockDetailsScreen';
 import StockSearchScreen from './screens/StockSearchScreen';
 import TermsAndConditionsScreen from './screens/TermsAndConditionsScreen';
 import TransactionsScreen from './screens/TransactionsScreen';
+import * as GlobalVariables from './config/GlobalVariableContext';
+import assessAccess from './global-functions/assessAccess';
+import Breakpoints from './utils/Breakpoints';
+import useWindowDimensions from './utils/useWindowDimensions';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -57,6 +56,7 @@ function DefaultAndroidBackIcon({ tintColor }) {
 
 export default function RootAppNavigator() {
   const theme = useTheme();
+
   const Constants = GlobalVariables.useValues();
   const setGlobalVariableValue = GlobalVariables.useSetValue();
   const dimensions = useWindowDimensions();

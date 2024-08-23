@@ -2274,7 +2274,7 @@ const PeerGroupDetailsScreen = props => {
                             >
                               {transformNumber(
                                 fetchData?.growth_fy2_median,
-                                '$'
+                                '%'
                               )}
                             </Text>
                           </View>
@@ -2660,7 +2660,6 @@ const PeerGroupDetailsScreen = props => {
                                 fetchData?.np_margin_fy0_median,
                                 '%'
                               )}
-                              {'%'}
                             </Text>
                           </View>
                           {/* View 2 */}
@@ -2722,7 +2721,6 @@ const PeerGroupDetailsScreen = props => {
                                 fetchData?.np_margin_fy1_median,
                                 '%'
                               )}
-                              {'%'}
                             </Text>
                           </View>
                           {/* View 4 */}
@@ -2753,7 +2751,6 @@ const PeerGroupDetailsScreen = props => {
                                 fetchData?.np_margin_fy2_median,
                                 '%'
                               )}
-                              {'%'}
                             </Text>
                           </View>
                         </View>

@@ -309,7 +309,7 @@ const StockSearchScreen = props => {
               style={StyleSheet.applyWidth(
                 StyleSheet.compose(
                   GlobalStyles.TextInputStyles(theme)['Text Input'].style,
-                  { width: '90%' }
+                  { fontFamily: 'Quicksand_400Regular', width: '90%' }
                 ),
                 dimensions.width
               )}
@@ -423,8 +423,8 @@ const StockSearchScreen = props => {
                       marginTop: { minWidth: Breakpoints.Tablet, value: 5 },
                       maxWidth: 1200,
                       paddingLeft: [
+                        { minWidth: Breakpoints.Mobile, value: 10 },
                         { minWidth: Breakpoints.Tablet, value: 15 },
-                        { minWidth: Breakpoints.Mobile, value: 15 },
                       ],
                       paddingRight: 10,
                       width: '100%',
@@ -458,7 +458,9 @@ const StockSearchScreen = props => {
                     )}
                   >
                     {formatNumber(fetchData?.itemsTotal)}
-                    {' stocks matching filter'}
+                    {
+                      ' stocks matching filter and sorted by market cap, high to low'
+                    }
                   </Text>
                 </View>
               </View>
@@ -784,7 +786,11 @@ const StockSearchScreen = props => {
                                   dimensions.width
                                 )}
                               >
-                                {transformNumber(listData?.ev_sales_ttm, 'x')}
+                                {transformNumber(
+                                  listData?.ev_sales_ttm,
+                                  'x',
+                                  true
+                                )}
                               </Text>
                             </View>
                             {/* View 2 */}
@@ -842,7 +848,11 @@ const StockSearchScreen = props => {
                                   dimensions.width
                                 )}
                               >
-                                {transformNumber(listData?.ev_ebitda_ttm, 'x')}
+                                {transformNumber(
+                                  listData?.ev_ebitda_ttm,
+                                  'x',
+                                  true
+                                )}
                               </Text>
                             </View>
                             {/* View 3 */}
@@ -900,7 +910,11 @@ const StockSearchScreen = props => {
                                   dimensions.width
                                 )}
                               >
-                                {transformNumber(listData?.ev_ebit_ttm, 'x')}
+                                {transformNumber(
+                                  listData?.ev_ebit_ttm,
+                                  'x',
+                                  true
+                                )}
                               </Text>
                             </View>
                           </LinearGradient>

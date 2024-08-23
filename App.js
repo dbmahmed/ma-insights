@@ -17,12 +17,13 @@ import {
 import { Provider as ThemeProvider } from '@draftbit/ui';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
-import AppNavigator from './AppNavigator';
 import Draftbit from './themes/Draftbit.js';
 import cacheAssetsAsync from './config/cacheAssetsAsync';
 import { GlobalVariableProvider } from './config/GlobalVariableContext';
 import { useFonts } from 'expo-font';
 import Fonts from './config/Fonts.js';
+import AppNavigator from './AppNavigator';
+
 SplashScreen.preventAutoHideAsync();
 
 Notifications.setNotificationHandler({

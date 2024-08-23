@@ -21,7 +21,15 @@ const linking = {
   enabled: Platform.OS === 'web' ? false : true,
   prefixes: [prefix],
   config: {
-    screens: {},
+    screens: {
+      StockDetailsScreen: {
+        screens: {
+          StockDetailsScreen: {
+            path: 'StockDetailsScreen/:stock_id?',
+          },
+        },
+      },
+    },
   },
 };
 

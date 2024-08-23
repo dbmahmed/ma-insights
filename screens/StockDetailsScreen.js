@@ -892,6 +892,7 @@ const StockDetailsScreen = props => {
                             >
                               {transformNumber(
                                 fetchData?.fy0_end_date,
+                                undefined,
                                 undefined
                               )}
                             </Text>
@@ -922,6 +923,7 @@ const StockDetailsScreen = props => {
                             >
                               {transformNumber(
                                 fetchData?.tt_end_date,
+                                undefined,
                                 undefined
                               )}
                               {'\n'}
@@ -953,6 +955,7 @@ const StockDetailsScreen = props => {
                             >
                               {transformNumber(
                                 fetchData?.fy1_end_date,
+                                undefined,
                                 undefined
                               )}
                             </Text>
@@ -983,6 +986,7 @@ const StockDetailsScreen = props => {
                             >
                               {transformNumber(
                                 fetchData?.fy2_end_date,
+                                undefined,
                                 undefined
                               )}
                             </Text>
@@ -1013,6 +1017,7 @@ const StockDetailsScreen = props => {
                             >
                               {transformNumber(
                                 fetchData?.fy3_end_date,
+                                undefined,
                                 undefined
                               )}
                             </Text>
@@ -1087,10 +1092,15 @@ const StockDetailsScreen = props => {
                             >
                               {transformNumber(
                                 fetchData?.revenue_fy0,
+                                undefined,
                                 undefined
                               )}
                               {'\n'}
-                              {transformNumber(fetchData?.growth_fy0, '%')}
+                              {transformNumber(
+                                fetchData?.growth_fy0,
+                                '%',
+                                undefined
+                              )}
                             </Text>
                           </View>
                           {/* View 2 */}
@@ -1123,10 +1133,15 @@ const StockDetailsScreen = props => {
                                 >
                                   {transformNumber(
                                     fetchData?.revenue_ttm,
+                                    undefined,
                                     undefined
                                   )}
                                   {'\n'}
-                                  {transformNumber(fetchData?.growth_ttm, '%')}
+                                  {transformNumber(
+                                    fetchData?.growth_ttm,
+                                    '%',
+                                    undefined
+                                  )}
                                 </Text>
                               )}
                             </>
@@ -1157,10 +1172,15 @@ const StockDetailsScreen = props => {
                             >
                               {transformNumber(
                                 fetchData?.revenue_fy1,
+                                undefined,
                                 undefined
                               )}
                               {'\n'}
-                              {transformNumber(fetchData?.growth_fy1, '%')}
+                              {transformNumber(
+                                fetchData?.growth_fy1,
+                                '%',
+                                undefined
+                              )}
                             </Text>
                           </View>
                           {/* View 4 */}
@@ -1189,10 +1209,15 @@ const StockDetailsScreen = props => {
                             >
                               {transformNumber(
                                 fetchData?.revenue_fy2,
+                                undefined,
                                 undefined
                               )}
                               {'\n'}
-                              {transformNumber(fetchData?.growth_fy2, '%')}
+                              {transformNumber(
+                                fetchData?.growth_fy2,
+                                '%',
+                                undefined
+                              )}
                             </Text>
                           </View>
                           {/* View 5 */}
@@ -1221,10 +1246,15 @@ const StockDetailsScreen = props => {
                             >
                               {transformNumber(
                                 fetchData?.revenue_fy3,
+                                undefined,
                                 undefined
                               )}
                               {'\n'}
-                              {transformNumber(fetchData?.growth_fy3, '%')}
+                              {transformNumber(
+                                fetchData?.growth_fy3,
+                                '%',
+                                undefined
+                              )}
                             </Text>
                           </View>
                         </View>
@@ -1293,10 +1323,15 @@ const StockDetailsScreen = props => {
                             >
                               {transformNumber(
                                 fetchData?.ebitda_fy0,
+                                undefined,
                                 undefined
                               )}
                               {'\n'}
-                              {transformNumber(fetchData?.ebit_margin_fy0, '%')}
+                              {transformNumber(
+                                fetchData?.ebit_margin_fy0,
+                                '%',
+                                undefined
+                              )}
                             </Text>
                           </View>
                           {/* View 2 */}
@@ -1325,12 +1360,14 @@ const StockDetailsScreen = props => {
                             >
                               {transformNumber(
                                 fetchData?.ebitda_ttm,
+                                undefined,
                                 undefined
                               )}
                               {'\n'}
                               {transformNumber(
                                 fetchData?.ebitda_margin_ttm,
-                                '%'
+                                '%',
+                                undefined
                               )}
                             </Text>
                           </View>
@@ -1360,12 +1397,14 @@ const StockDetailsScreen = props => {
                             >
                               {transformNumber(
                                 fetchData?.ebitda_fy1,
+                                undefined,
                                 undefined
                               )}
                               {'\n'}
                               {transformNumber(
                                 fetchData?.ebitda_margin_fy1,
-                                '%'
+                                '%',
+                                undefined
                               )}
                             </Text>
                           </View>
@@ -1395,12 +1434,14 @@ const StockDetailsScreen = props => {
                             >
                               {transformNumber(
                                 fetchData?.ebitda_fy2,
+                                undefined,
                                 undefined
                               )}
                               {'\n'}
                               {transformNumber(
                                 fetchData?.ebitda_margin_fy2,
-                                '%'
+                                '%',
+                                undefined
                               )}
                             </Text>
                           </View>
@@ -1430,12 +1471,14 @@ const StockDetailsScreen = props => {
                             >
                               {transformNumber(
                                 fetchData?.ebitda_fy3,
+                                undefined,
                                 undefined
                               )}
                               {'\n'}
                               {transformNumber(
                                 fetchData?.ebitda_margin_fy3,
-                                '%'
+                                '%',
+                                undefined
                               )}
                             </Text>
                           </View>
@@ -1503,9 +1546,17 @@ const StockDetailsScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {transformNumber(fetchData?.ebit_fy0, undefined)}
+                              {transformNumber(
+                                fetchData?.ebit_fy0,
+                                undefined,
+                                undefined
+                              )}
                               {'\n'}
-                              {transformNumber(fetchData?.ebit_margin_fy0, '%')}
+                              {transformNumber(
+                                fetchData?.ebit_margin_fy0,
+                                '%',
+                                undefined
+                              )}
                             </Text>
                           </View>
                           {/* View 2 */}
@@ -1532,9 +1583,17 @@ const StockDetailsScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {transformNumber(fetchData?.ebit_ttm, undefined)}
+                              {transformNumber(
+                                fetchData?.ebit_ttm,
+                                undefined,
+                                undefined
+                              )}
                               {'\n'}
-                              {transformNumber(fetchData?.ebit_margin_ttm, '%')}
+                              {transformNumber(
+                                fetchData?.ebit_margin_ttm,
+                                '%',
+                                undefined
+                              )}
                             </Text>
                           </View>
                           {/* View 3 */}
@@ -1561,9 +1620,17 @@ const StockDetailsScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {transformNumber(fetchData?.ebit_fy1, undefined)}
+                              {transformNumber(
+                                fetchData?.ebit_fy1,
+                                undefined,
+                                undefined
+                              )}
                               {'\n'}
-                              {transformNumber(fetchData?.ebit_margin_ttm, '%')}
+                              {transformNumber(
+                                fetchData?.ebit_margin_ttm,
+                                '%',
+                                undefined
+                              )}
                             </Text>
                           </View>
                           {/* View 4 */}
@@ -1590,9 +1657,17 @@ const StockDetailsScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {transformNumber(fetchData?.ebit_fy2, undefined)}
+                              {transformNumber(
+                                fetchData?.ebit_fy2,
+                                undefined,
+                                undefined
+                              )}
                               {'\n'}
-                              {transformNumber(fetchData?.ebit_margin_fy2, '%')}
+                              {transformNumber(
+                                fetchData?.ebit_margin_fy2,
+                                '%',
+                                undefined
+                              )}
                             </Text>
                           </View>
                           {/* View 5 */}
@@ -1619,9 +1694,17 @@ const StockDetailsScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {transformNumber(fetchData?.ebit_fy3, undefined)}
+                              {transformNumber(
+                                fetchData?.ebit_fy3,
+                                undefined,
+                                undefined
+                              )}
                               {'\n'}
-                              {transformNumber(fetchData?.ebit_margin_fy3, '%')}
+                              {transformNumber(
+                                fetchData?.ebit_margin_fy3,
+                                '%',
+                                undefined
+                              )}
                             </Text>
                           </View>
                         </View>
@@ -1688,9 +1771,17 @@ const StockDetailsScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {transformNumber(fetchData?.np_fy0, undefined)}
+                              {transformNumber(
+                                fetchData?.np_fy0,
+                                undefined,
+                                undefined
+                              )}
                               {'\n'}
-                              {transformNumber(fetchData?.np_margin_fy0, '%')}
+                              {transformNumber(
+                                fetchData?.np_margin_fy0,
+                                '%',
+                                undefined
+                              )}
                             </Text>
                           </View>
                           {/* View 2 */}
@@ -1717,9 +1808,17 @@ const StockDetailsScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {transformNumber(fetchData?.np_ttm, undefined)}
+                              {transformNumber(
+                                fetchData?.np_ttm,
+                                undefined,
+                                undefined
+                              )}
                               {'\n'}
-                              {transformNumber(fetchData?.np_margin_ttm, '%')}
+                              {transformNumber(
+                                fetchData?.np_margin_ttm,
+                                '%',
+                                undefined
+                              )}
                             </Text>
                           </View>
                           {/* View 3 */}
@@ -1746,9 +1845,17 @@ const StockDetailsScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {transformNumber(fetchData?.np_fy1, undefined)}
+                              {transformNumber(
+                                fetchData?.np_fy1,
+                                undefined,
+                                undefined
+                              )}
                               {'\n'}
-                              {transformNumber(fetchData?.np_margin_fy1, '%')}
+                              {transformNumber(
+                                fetchData?.np_margin_fy1,
+                                '%',
+                                undefined
+                              )}
                             </Text>
                           </View>
                           {/* View 4 */}
@@ -1775,9 +1882,17 @@ const StockDetailsScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {transformNumber(fetchData?.np_fy2, undefined)}
+                              {transformNumber(
+                                fetchData?.np_fy2,
+                                undefined,
+                                undefined
+                              )}
                               {'\n'}
-                              {transformNumber(fetchData?.np_margin_fy2, '%')}
+                              {transformNumber(
+                                fetchData?.np_margin_fy2,
+                                '%',
+                                undefined
+                              )}
                             </Text>
                           </View>
                           {/* View 5 */}
@@ -1804,9 +1919,17 @@ const StockDetailsScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {transformNumber(fetchData?.np_fy3, undefined)}
+                              {transformNumber(
+                                fetchData?.np_fy3,
+                                undefined,
+                                undefined
+                              )}
                               {'\n'}
-                              {transformNumber(fetchData?.np_margin_fy3, '%')}
+                              {transformNumber(
+                                fetchData?.np_margin_fy3,
+                                '%',
+                                undefined
+                              )}
                             </Text>
                           </View>
                         </View>
@@ -1915,6 +2038,7 @@ const StockDetailsScreen = props => {
                             >
                               {transformNumber(
                                 fetchData?.fy0_end_date,
+                                undefined,
                                 undefined
                               )}
                             </Text>
@@ -1945,6 +2069,7 @@ const StockDetailsScreen = props => {
                             >
                               {transformNumber(
                                 fetchData?.tt_end_date,
+                                undefined,
                                 undefined
                               )}
                               {'\n'}
@@ -1976,6 +2101,7 @@ const StockDetailsScreen = props => {
                             >
                               {transformNumber(
                                 fetchData?.fy1_end_date,
+                                undefined,
                                 undefined
                               )}
                             </Text>
@@ -2006,6 +2132,7 @@ const StockDetailsScreen = props => {
                             >
                               {transformNumber(
                                 fetchData?.fy2_end_date,
+                                undefined,
                                 undefined
                               )}
                             </Text>
@@ -2074,7 +2201,11 @@ const StockDetailsScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {transformNumber(fetchData?.ev_sales_fy0, 'x')}
+                              {transformNumber(
+                                fetchData?.ev_sales_fy0,
+                                'x',
+                                undefined
+                              )}
                             </Text>
                           </View>
                           {/* View 2 */}
@@ -2101,7 +2232,11 @@ const StockDetailsScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {transformNumber(fetchData?.ev_sales_ttm, 'x')}
+                              {transformNumber(
+                                fetchData?.ev_sales_ttm,
+                                'x',
+                                undefined
+                              )}
                             </Text>
                           </View>
                           {/* View 3 */}
@@ -2128,7 +2263,11 @@ const StockDetailsScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {transformNumber(fetchData?.ev_sales_fy1, 'x')}
+                              {transformNumber(
+                                fetchData?.ev_sales_fy1,
+                                'x',
+                                undefined
+                              )}
                             </Text>
                           </View>
                           {/* View 4 */}
@@ -2155,7 +2294,11 @@ const StockDetailsScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {transformNumber(fetchData?.ev_sales_fy2, 'x')}
+                              {transformNumber(
+                                fetchData?.ev_sales_fy2,
+                                'x',
+                                undefined
+                              )}
                             </Text>
                           </View>
                         </View>
@@ -2222,7 +2365,11 @@ const StockDetailsScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {transformNumber(fetchData?.ev_ebitda_fy0, 'x')}
+                              {transformNumber(
+                                fetchData?.ev_ebitda_fy0,
+                                'x',
+                                undefined
+                              )}
                             </Text>
                           </View>
                           {/* View 2 */}
@@ -2249,7 +2396,11 @@ const StockDetailsScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {transformNumber(fetchData?.ev_ebitda_ttm, 'x')}
+                              {transformNumber(
+                                fetchData?.ev_ebitda_ttm,
+                                'x',
+                                undefined
+                              )}
                             </Text>
                           </View>
                           {/* View 3 */}
@@ -2276,7 +2427,11 @@ const StockDetailsScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {transformNumber(fetchData?.ev_ebitda_fy1, 'x')}
+                              {transformNumber(
+                                fetchData?.ev_ebitda_fy1,
+                                'x',
+                                undefined
+                              )}
                             </Text>
                           </View>
                           {/* View 4 */}
@@ -2303,7 +2458,11 @@ const StockDetailsScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {transformNumber(fetchData?.ev_ebitda_fy2, 'x')}
+                              {transformNumber(
+                                fetchData?.ev_ebitda_fy2,
+                                'x',
+                                undefined
+                              )}
                             </Text>
                           </View>
                         </View>
@@ -2370,7 +2529,11 @@ const StockDetailsScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {transformNumber(fetchData?.ev_ebit_fy0, 'x')}
+                              {transformNumber(
+                                fetchData?.ev_ebit_fy0,
+                                'x',
+                                undefined
+                              )}
                             </Text>
                           </View>
                           {/* View 2 */}
@@ -2397,7 +2560,11 @@ const StockDetailsScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {transformNumber(fetchData?.ev_ebit_ttm, 'x')}
+                              {transformNumber(
+                                fetchData?.ev_ebit_ttm,
+                                'x',
+                                undefined
+                              )}
                             </Text>
                           </View>
                           {/* View 3 */}
@@ -2424,7 +2591,11 @@ const StockDetailsScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {transformNumber(fetchData?.ev_ebit_fy1, 'x')}
+                              {transformNumber(
+                                fetchData?.ev_ebit_fy1,
+                                'x',
+                                undefined
+                              )}
                             </Text>
                           </View>
                           {/* View 4 */}
@@ -2451,7 +2622,11 @@ const StockDetailsScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {transformNumber(fetchData?.ev_ebit_fy2, 'x')}
+                              {transformNumber(
+                                fetchData?.ev_ebit_fy2,
+                                'x',
+                                undefined
+                              )}
                             </Text>
                           </View>
                         </View>
@@ -2518,7 +2693,11 @@ const StockDetailsScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {transformNumber(fetchData?.pe_fy0, 'x')}
+                              {transformNumber(
+                                fetchData?.pe_fy0,
+                                'x',
+                                undefined
+                              )}
                             </Text>
                           </View>
                           {/* View 2 */}
@@ -2545,7 +2724,11 @@ const StockDetailsScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {transformNumber(fetchData?.pe_ttm, 'x')}
+                              {transformNumber(
+                                fetchData?.pe_ttm,
+                                'x',
+                                undefined
+                              )}
                             </Text>
                           </View>
                           {/* View 3 */}
@@ -2572,7 +2755,11 @@ const StockDetailsScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {transformNumber(fetchData?.pe_fy1, 'x')}
+                              {transformNumber(
+                                fetchData?.pe_fy1,
+                                'x',
+                                undefined
+                              )}
                             </Text>
                           </View>
                           {/* View 4 */}
@@ -2599,7 +2786,11 @@ const StockDetailsScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              {transformNumber(fetchData?.pe_fy2, 'x')}
+                              {transformNumber(
+                                fetchData?.pe_fy2,
+                                'x',
+                                undefined
+                              )}
                             </Text>
                           </View>
                         </View>
@@ -2617,7 +2808,7 @@ const StockDetailsScreen = props => {
         {({ loading, error, data, refetchGetPeersList }) => {
           const fetch2Data = data?.json;
           if (loading) {
-            return <ActivityIndicator />;
+            return <LoadingBlock />;
           }
 
           if (error || data?.status < 200 || data?.status >= 300) {
