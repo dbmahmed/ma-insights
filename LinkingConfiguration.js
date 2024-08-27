@@ -22,6 +22,22 @@ const linking = {
   prefixes: [prefix],
   config: {
     screens: {
+      NewsletterDetailsScreen: {
+        screens: {
+          NewsletterDetailsScreen: {
+            path: 'NewsletterDetailsScreen/:news_id?',
+          },
+        },
+      },
+
+      NewslettersScreen: {
+        screens: {
+          NewslettersScreen: {
+            path: 'NewslettersScreen',
+          },
+        },
+      },
+
       StockDetailsScreen: {
         screens: {
           StockDetailsScreen: {
