@@ -3,7 +3,10 @@ import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
 import CustomHeaderBlock from '../components/CustomHeaderBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
+import Images from '../config/Images';
 import assessAccess from '../global-functions/assessAccess';
+import hideNKPProp from '../global-functions/hideNKPProp';
+import isNKPProp from '../global-functions/isNKPProp';
 import removeGlobalScroll from '../global-functions/removeGlobalScroll';
 import resetAccess from '../global-functions/resetAccess';
 import palettes from '../themes/palettes';
@@ -11,19 +14,22 @@ import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import {
+  AudioPlayer,
   Button,
   CircularProgress,
+  HStack,
   LinearGradient,
   Pressable,
   ScreenContainer,
   Shadow,
   SimpleStyleFlatList,
   SimpleStyleScrollView,
+  WebView,
   withTheme,
 } from '@draftbit/ui';
 import { H1, H3, H5 } from '@expo/html-elements';
 import { useIsFocused } from '@react-navigation/native';
-import { ActivityIndicator, Text, View } from 'react-native';
+import { ActivityIndicator, Image, Text, View } from 'react-native';
 import { Fetch } from 'react-request';
 
 const NewsletterDetailsScreen = props => {
@@ -119,7 +125,7 @@ const NewsletterDetailsScreen = props => {
             }
           },
         }}
-        newsletter_id={props.route?.params?.news_id ?? 93}
+        newsletter_id={props.route?.params?.news_id ?? 85}
       >
         {({ loading, error, data, refetchNewsletterEach }) => {
           const fetchData = data?.json;
@@ -395,6 +401,43 @@ const NewsletterDetailsScreen = props => {
                       >
                         {fetchData?.date}
                       </Text>
+                      <>
+                        {!(fetchData?.audio_version_pvt !== null) ? null : (
+                          <AudioPlayer
+                            completedTrackColor={theme.colors.background.brand}
+                            hideDuration={false}
+                            hidePlaybackIcon={false}
+                            interruptionMode={'lower volume'}
+                            isLooping={false}
+                            playThroughEarpieceAndroid={false}
+                            playsInBackground={false}
+                            playsInSilentModeIOS={false}
+                            remainingTrackColor={theme.colors.border.brand}
+                            thumbColor={theme.colors.branding.primary}
+                            togglePlaybackIconColor={
+                              theme.colors.branding.primary
+                            }
+                            togglePlaybackIconSize={24}
+                            {...GlobalStyles.AudioPlayerStyles(theme)[
+                              'Audio Player'
+                            ].props}
+                            hideSlider={false}
+                            mode={'interface'}
+                            source={{
+                              uri: `${fetchData?.audio_version_pvt?.url}`,
+                            }}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.AudioPlayerStyles(theme)[
+                                  'Audio Player'
+                                ].style,
+                                { marginTop: 8 }
+                              ),
+                              dimensions.width
+                            )}
+                          />
+                        )}
+                      </>
                     </View>
                     {/* Section Name */}
                     <>
@@ -449,28 +492,61 @@ const NewsletterDetailsScreen = props => {
                         </View>
                       )}
                     </>
-                    <>
-                      {!(fetchData?.potd !== 0) ? null : (
-                        <H3
-                          selectable={false}
-                          {...GlobalStyles.H3Styles(theme)['H3'].props}
-                          style={StyleSheet.applyWidth(
-                            StyleSheet.compose(
-                              GlobalStyles.H3Styles(theme)['H3'].style,
-                              {
-                                fontSize: 16,
-                                marginBottom: 10,
-                                marginTop: 0,
-                                padding: 10,
-                              }
-                            ),
-                            dimensions.width
-                          )}
-                        >
-                          {fetchData?._potd?.headline}
-                        </H3>
+                    <View
+                      style={StyleSheet.applyWidth(
+                        {
+                          alignContent: 'space-around',
+                          flex: 1,
+                          flexWrap: 'wrap',
+                        },
+                        dimensions.width
                       )}
-                    </>
+                    >
+                      <>
+                        {!isNKPProp(fetchData?._potd?.headline) ? null : (
+                          <Image
+                            resizeMode={'cover'}
+                            {...GlobalStyles.ImageStyles(theme)['Image'].props}
+                            source={Images['mainsightsfaviconlogo1024new']}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.ImageStyles(theme)['Image'].style,
+                                {
+                                  bottom: 10,
+                                  height: 25,
+                                  position: 'absolute',
+                                  right: 10,
+                                  width: 25,
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          />
+                        )}
+                      </>
+                      <>
+                        {!(fetchData?.potd !== 0) ? null : (
+                          <H3
+                            selectable={false}
+                            {...GlobalStyles.H3Styles(theme)['H3'].props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.H3Styles(theme)['H3'].style,
+                                {
+                                  fontSize: 16,
+                                  marginBottom: 10,
+                                  marginTop: 0,
+                                  padding: 10,
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            {hideNKPProp(fetchData?._potd?.headline)}
+                          </H3>
+                        )}
+                      </>
+                    </View>
                     {/* potd settings */}
                     <>
                       {!(fetchData?.potd !== 0) ? null : (
@@ -2355,8 +2431,43 @@ const NewsletterDetailsScreen = props => {
                                                         dimensions.width
                                                       )}
                                                     >
-                                                      {listData?.headline}
+                                                      {hideNKPProp(
+                                                        listData?.headline
+                                                      )}
                                                     </Text>
+                                                    <>
+                                                      {!isNKPProp(
+                                                        listData?.headline
+                                                      ) ? null : (
+                                                        <Image
+                                                          resizeMode={'cover'}
+                                                          {...GlobalStyles.ImageStyles(
+                                                            theme
+                                                          )['Image'].props}
+                                                          source={
+                                                            Images[
+                                                              'mainsightsfaviconlogo1024new'
+                                                            ]
+                                                          }
+                                                          style={StyleSheet.applyWidth(
+                                                            StyleSheet.compose(
+                                                              GlobalStyles.ImageStyles(
+                                                                theme
+                                                              )['Image'].style,
+                                                              {
+                                                                bottom: 10,
+                                                                height: 25,
+                                                                position:
+                                                                  'absolute',
+                                                                right: 10,
+                                                                width: 25,
+                                                              }
+                                                            ),
+                                                            dimensions.width
+                                                          )}
+                                                        />
+                                                      )}
+                                                    </>
                                                   </View>
                                                   {/* View 2 */}
                                                   <View>
@@ -2400,22 +2511,28 @@ const NewsletterDetailsScreen = props => {
                                                     </Text>
                                                     {/* View 4 */}
                                                     <View>
-                                                      <Text
-                                                        accessible={true}
-                                                        style={StyleSheet.applyWidth(
-                                                          {
-                                                            color:
-                                                              palettes.App
-                                                                .Orange,
-                                                            fontFamily:
-                                                              'Quicksand_400Regular',
-                                                          },
-                                                          dimensions.width
+                                                      <>
+                                                        {isNKPProp(
+                                                          listData?.headline
+                                                        ) ? null : (
+                                                          <Text
+                                                            accessible={true}
+                                                            style={StyleSheet.applyWidth(
+                                                              {
+                                                                color:
+                                                                  palettes.App
+                                                                    .Orange,
+                                                                fontFamily:
+                                                                  'Quicksand_400Regular',
+                                                              },
+                                                              dimensions.width
+                                                            )}
+                                                          >
+                                                            {'Source: '}
+                                                            {listData?.source}
+                                                          </Text>
                                                         )}
-                                                      >
-                                                        {'Source: '}
-                                                        {listData?.source}
-                                                      </Text>
+                                                      </>
                                                     </View>
                                                   </View>
                                                 </View>
@@ -2586,11 +2703,43 @@ const NewsletterDetailsScreen = props => {
                                                       dimensions.width
                                                     )}
                                                   >
-                                                    {listData?.headline}
-                                                    {' ('}
-                                                    {listData?.source}
-                                                    {')'}
+                                                    {hideNKPProp(
+                                                      listData?.headline
+                                                    )}
                                                   </Text>
+                                                  <>
+                                                    {!isNKPProp(
+                                                      listData?.headline
+                                                    ) ? null : (
+                                                      <Image
+                                                        resizeMode={'cover'}
+                                                        {...GlobalStyles.ImageStyles(
+                                                          theme
+                                                        )['Image'].props}
+                                                        source={
+                                                          Images[
+                                                            'mainsightsfaviconlogo1024new'
+                                                          ]
+                                                        }
+                                                        style={StyleSheet.applyWidth(
+                                                          StyleSheet.compose(
+                                                            GlobalStyles.ImageStyles(
+                                                              theme
+                                                            )['Image'].style,
+                                                            {
+                                                              bottom: 10,
+                                                              height: 25,
+                                                              position:
+                                                                'absolute',
+                                                              right: 10,
+                                                              width: 25,
+                                                            }
+                                                          ),
+                                                          dimensions.width
+                                                        )}
+                                                      />
+                                                    )}
+                                                  </>
                                                 </View>
                                                 {/* View 2 */}
                                                 <View>
@@ -2635,21 +2784,28 @@ const NewsletterDetailsScreen = props => {
                                                 </View>
                                                 {/* View 5 */}
                                                 <View>
-                                                  <Text
-                                                    accessible={true}
-                                                    style={StyleSheet.applyWidth(
-                                                      {
-                                                        color:
-                                                          palettes.App.Orange,
-                                                        fontFamily:
-                                                          'Quicksand_400Regular',
-                                                      },
-                                                      dimensions.width
+                                                  <>
+                                                    {isNKPProp(
+                                                      listData?.headline
+                                                    ) ? null : (
+                                                      <Text
+                                                        accessible={true}
+                                                        style={StyleSheet.applyWidth(
+                                                          {
+                                                            color:
+                                                              palettes.App
+                                                                .Orange,
+                                                            fontFamily:
+                                                              'Quicksand_400Regular',
+                                                          },
+                                                          dimensions.width
+                                                        )}
+                                                      >
+                                                        {'Source: '}
+                                                        {listData?.source}
+                                                      </Text>
                                                     )}
-                                                  >
-                                                    {'Source: '}
-                                                    {listData?.source}
-                                                  </Text>
+                                                  </>
                                                 </View>
                                               </View>
                                             </Pressable>
@@ -2811,11 +2967,43 @@ const NewsletterDetailsScreen = props => {
                                                       dimensions.width
                                                     )}
                                                   >
-                                                    {listData?.headline}
-                                                    {' ('}
-                                                    {listData?.source}
-                                                    {')'}
+                                                    {hideNKPProp(
+                                                      listData?.headline
+                                                    )}
                                                   </Text>
+                                                  <>
+                                                    {!isNKPProp(
+                                                      listData?.headline
+                                                    ) ? null : (
+                                                      <Image
+                                                        resizeMode={'cover'}
+                                                        {...GlobalStyles.ImageStyles(
+                                                          theme
+                                                        )['Image'].props}
+                                                        source={
+                                                          Images[
+                                                            'mainsightsfaviconlogo1024new'
+                                                          ]
+                                                        }
+                                                        style={StyleSheet.applyWidth(
+                                                          StyleSheet.compose(
+                                                            GlobalStyles.ImageStyles(
+                                                              theme
+                                                            )['Image'].style,
+                                                            {
+                                                              bottom: 10,
+                                                              height: 25,
+                                                              position:
+                                                                'absolute',
+                                                              right: 10,
+                                                              width: 25,
+                                                            }
+                                                          ),
+                                                          dimensions.width
+                                                        )}
+                                                      />
+                                                    )}
+                                                  </>
                                                 </View>
                                                 {/* View 2 */}
                                                 <View>
@@ -2861,21 +3049,28 @@ const NewsletterDetailsScreen = props => {
                                                 </View>
                                                 {/* View 5 */}
                                                 <View>
-                                                  <Text
-                                                    accessible={true}
-                                                    style={StyleSheet.applyWidth(
-                                                      {
-                                                        color:
-                                                          palettes.App.Orange,
-                                                        fontFamily:
-                                                          'Quicksand_400Regular',
-                                                      },
-                                                      dimensions.width
+                                                  <>
+                                                    {isNKPProp(
+                                                      listData?.headline
+                                                    ) ? null : (
+                                                      <Text
+                                                        accessible={true}
+                                                        style={StyleSheet.applyWidth(
+                                                          {
+                                                            color:
+                                                              palettes.App
+                                                                .Orange,
+                                                            fontFamily:
+                                                              'Quicksand_400Regular',
+                                                          },
+                                                          dimensions.width
+                                                        )}
+                                                      >
+                                                        {'Source: '}
+                                                        {listData?.source}
+                                                      </Text>
                                                     )}
-                                                  >
-                                                    {'Source: '}
-                                                    {listData?.source}
-                                                  </Text>
+                                                  </>
                                                 </View>
                                               </View>
                                             </Pressable>

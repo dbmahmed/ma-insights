@@ -11,6 +11,27 @@ export const TextStyles = theme =>
       props: {},
     },
     screen_title: { style: { color: theme.colors.text.strong }, props: {} },
+    screen_title_stock: {
+      style: {
+        color: palettes.Brand['Strong Inverse'],
+        fontFamily: 'Quicksand_400Regular',
+        fontSize: 14,
+        textAlign: 'left',
+      },
+      props: {},
+    },
+    screen_title_stockH: {
+      style: {
+        color: palettes.Brand['Strong Inverse'],
+        fontFamily: 'Quicksand_500Medium',
+        fontSize: [
+          { minWidth: Breakpoints.Mobile, value: 14 },
+          { minWidth: Breakpoints.Laptop, value: 14 },
+          { minWidth: Breakpoints.Tablet, value: 14 },
+        ],
+      },
+      props: {},
+    },
     selected: {
       style: {
         color: {
@@ -343,5 +364,19 @@ export const ShadowStyles = theme =>
       props: {
         paintInside: false,
       },
+    },
+  });
+
+export const AudioPlayerStyles = theme =>
+  StyleSheet.create({
+    'Audio Player': {
+      style: {
+        alignItems: 'center',
+        borderRadius: 8,
+        borderWidth: 1,
+        flexDirection: 'row',
+        padding: 8,
+      },
+      props: {},
     },
   });

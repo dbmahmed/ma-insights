@@ -76,9 +76,7 @@ const TopNavBlock = props => {
           <Pressable
             onPress={() => {
               try {
-                navigation.navigate('MAInsights', {
-                  screen: 'NewslettersScreen',
-                });
+                navigation.navigate('RootNavigator');
               } catch (err) {
                 console.error(err);
               }
@@ -131,9 +129,7 @@ const TopNavBlock = props => {
           <Pressable
             onPress={() => {
               try {
-                navigation.navigate('MAInsights', {
-                  screen: 'AllEventsScreen',
-                });
+                navigation.navigate('RootNavigator');
               } catch (err) {
                 console.error(err);
               }
@@ -186,7 +182,7 @@ const TopNavBlock = props => {
           <Pressable
             onPress={() => {
               try {
-                navigation.navigate('MAInsights', { screen: 'CFSScreen' });
+                navigation.navigate('RootNavigator');
               } catch (err) {
                 console.error(err);
               }
@@ -239,7 +235,7 @@ const TopNavBlock = props => {
           <Pressable
             onPress={() => {
               try {
-                navigation.navigate('MAInsights', { screen: 'PEPFScreen' });
+                navigation.navigate('RootNavigator');
               } catch (err) {
                 console.error(err);
               }
@@ -387,15 +383,7 @@ const TopNavBlock = props => {
             dimensions.width
           )}
         >
-          <Pressable
-            onPress={() => {
-              try {
-                navigation.navigate('MAInsights');
-              } catch (err) {
-                console.error(err);
-              }
-            }}
-          >
+          <Pressable>
             <HStack
               {...GlobalStyles.HStackStyles(theme)['H Stack'].props}
               style={StyleSheet.applyWidth(

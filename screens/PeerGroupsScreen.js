@@ -4,6 +4,7 @@ import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
 import CustomHeaderBlock from '../components/CustomHeaderBlock';
 import LoadingBlock from '../components/LoadingBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
+import Images from '../config/Images';
 import removeGlobalScroll from '../global-functions/removeGlobalScroll';
 import setPadding from '../global-functions/setPadding';
 import palettes from '../themes/palettes';
@@ -24,7 +25,7 @@ import {
 } from '@draftbit/ui';
 import { H5 } from '@expo/html-elements';
 import { useIsFocused } from '@react-navigation/native';
-import { ActivityIndicator, Text, View } from 'react-native';
+import { ActivityIndicator, Image, Text, View } from 'react-native';
 import { Fetch } from 'react-request';
 
 const PeerGroupsScreen = props => {
@@ -203,18 +204,17 @@ const PeerGroupsScreen = props => {
               title={'STOCKS'}
             />
           </View>
-
-          <HStack
-            {...GlobalStyles.HStackStyles(theme)['H Stack'].props}
+          {/* View 2 */}
+          <View
             style={StyleSheet.applyWidth(
-              StyleSheet.compose(
-                GlobalStyles.HStackStyles(theme)['H Stack'].style,
-                {
-                  flexDirection: 'column',
-                  gap: 5,
-                  justifyContent: 'space-between',
-                }
-              ),
+              {
+                flexDirection: { minWidth: Breakpoints.Tablet, value: 'row' },
+                gap: { minWidth: Breakpoints.Tablet, value: 5 },
+                justifyContent: {
+                  minWidth: Breakpoints.Tablet,
+                  value: 'space-between',
+                },
+              },
               dimensions.width
             )}
           >
@@ -246,7 +246,18 @@ const PeerGroupsScreen = props => {
               style={StyleSheet.applyWidth(
                 StyleSheet.compose(
                   GlobalStyles.TextInputStyles(theme)['Text Input'].style,
-                  { width: '100%' }
+                  {
+                    width: [
+                      { minWidth: Breakpoints.Mobile, value: '100%' },
+                      {
+                        minWidth: Breakpoints.Mobile,
+                        value:
+                          dimensions.width >= Breakpoints.Tablet
+                            ? '50%'
+                            : '100%',
+                      },
+                    ],
+                  }
                 ),
                 dimensions.width
               )}
@@ -254,7 +265,18 @@ const PeerGroupsScreen = props => {
             />
             <View
               style={StyleSheet.applyWidth(
-                { flexDirection: 'row', width: '100%' },
+                {
+                  flexDirection: 'row',
+                  flexWrap: { minWidth: Breakpoints.Tablet, value: 'wrap' },
+                  width: [
+                    { minWidth: Breakpoints.Mobile, value: '100%' },
+                    {
+                      minWidth: Breakpoints.Tablet,
+                      value:
+                        dimensions.width >= Breakpoints.Tablet ? '50%' : '100%',
+                    },
+                  ],
+                },
                 dimensions.width
               )}
             >
@@ -373,7 +395,7 @@ const PeerGroupsScreen = props => {
                 </Pressable>
               </View>
             </View>
-          </HStack>
+          </View>
           <Spacer left={8} right={8} bottom={2.5} top={2.5} />
         </View>
       </View>
@@ -461,7 +483,9 @@ const PeerGroupsScreen = props => {
                     )}
                   >
                     {fetchData?.itemsTotal}
-                    {' peer groups matching filter'}
+                    {
+                      ' peer groups matching filter and sorted by date created, new to old'
+                    }
                   </Text>
                 </View>
               </View>
@@ -658,8 +682,10 @@ const PeerGroupsScreen = props => {
                                   GlobalStyles.TextStyles(theme)['screen_title']
                                     .style,
                                   {
+                                    alignSelf: 'flex-start',
                                     fontFamily: 'Quicksand_400Regular',
                                     fontSize: 12,
+                                    textAlign: 'left',
                                   }
                                 ),
                                 dimensions.width
@@ -687,6 +713,32 @@ const PeerGroupsScreen = props => {
                               {'Companies: '}
                               {listData?.number_of_stocks}
                             </Text>
+                            <>
+                              {listData?.access_type === 'Private' ? null : (
+                                <Image
+                                  resizeMode={'cover'}
+                                  {...GlobalStyles.ImageStyles(theme)['Image']
+                                    .props}
+                                  source={
+                                    Images['mainsightsfaviconlogo1024new']
+                                  }
+                                  style={StyleSheet.applyWidth(
+                                    StyleSheet.compose(
+                                      GlobalStyles.ImageStyles(theme)['Image']
+                                        .style,
+                                      {
+                                        bottom: 10,
+                                        height: 25,
+                                        position: 'absolute',
+                                        right: 10,
+                                        width: 25,
+                                      }
+                                    ),
+                                    dimensions.width
+                                  )}
+                                />
+                              )}
+                            </>
                           </View>
                         </View>
                       </Pressable>

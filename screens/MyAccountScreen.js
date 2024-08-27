@@ -44,16 +44,23 @@ const MyAccountScreen = props => {
   const [confirmPass, setConfirmPass] = React.useState('');
   const [currentPassword, setCurrentPassword] = React.useState('');
   const [ed_loading, setEd_loading] = React.useState(false);
-  const [emailDach, setEmailDach] = React.useState(false);
-  const [emailNordic, setEmailNordic] = React.useState(false);
+  const [emailDach, setEmailDach] = React.useState(
+    Constants['ME']?.email_notification_dach
+  );
+  const [emailNordic, setEmailNordic] = React.useState(
+    Constants['ME']?.email_notification_nordic
+  );
   const [en_loading, setEn_loading] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState('');
   const [newPass, setNewPass] = React.useState('');
   const [pd_loading, setPd_loading] = React.useState(false);
   const [pn_loading, setPn_loading] = React.useState(false);
-  const [pushNotificationDach, setPushNotificationDach] = React.useState(false);
-  const [pushNotificationNordic, setPushNotificationNordic] =
-    React.useState(false);
+  const [pushNotificationDach, setPushNotificationDach] = React.useState(
+    Constants['ME']?.push_notification_nl_dach
+  );
+  const [pushNotificationNordic, setPushNotificationNordic] = React.useState(
+    Constants['ME']?.push_notification_nl_nordic
+  );
   const [showModal, setShowModal] = React.useState(false);
   const resetPasswordsFields = () => {
     setConfirmPass('');
@@ -74,6 +81,7 @@ const MyAccountScreen = props => {
       if (!isFocused) {
         return;
       }
+      console.log(Constants['ME']);
       removeGlobalScroll();
       setGlobalVariableValue({
         key: 'pageName',
@@ -103,14 +111,14 @@ const MyAccountScreen = props => {
         handlers={{
           on2xx: fetchData => {
             try {
-              setPushNotificationNordic(
-                fetchData?.json?.push_notification_nl_nordic
-              );
-              setEmailNordic(fetchData?.json?.email_notification_nordic);
-              setPushNotificationDach(
-                fetchData?.json?.push_notification_nl_dach
-              );
-              setEmailDach(fetchData?.json?.email_notification_dach);
+              /* hidden 'Set Variable' action */
+              /* hidden 'Set Variable' action */
+              /* hidden 'Set Variable' action */
+              /* hidden 'Set Variable' action */
+              setGlobalVariableValue({
+                key: 'ME',
+                value: fetchData,
+              });
             } catch (err) {
               console.error(err);
             }
@@ -762,69 +770,35 @@ const MyAccountScreen = props => {
                             dimensions.width
                           )}
                         >
-                          <>
-                            {pn_loading ? null : (
-                              <Checkbox
-                                onPress={newCheckboxValue => {
-                                  const handler = async () => {
-                                    try {
-                                      setPushNotificationNordic(
-                                        newCheckboxValue
-                                      );
-                                      setPn_loading(true);
-                                      await waitUtil({ milliseconds: 100 });
-                                      (
-                                        await xanoCollectionUpdateNotificationPUT.mutateAsync(
-                                          {
-                                            email_dach: emailDach,
-                                            email_nordic: emailNordic,
-                                            push_dach: pushNotificationDach,
-                                            push_nordic: newCheckboxValue,
-                                          }
-                                        )
-                                      )?.json;
-                                      await refetchAuthMe();
-                                      setPn_loading(false);
-                                    } catch (err) {
-                                      console.error(err);
-                                    }
-                                  };
-                                  handler();
-                                }}
-                                color={theme.colors.text.medium}
-                                status={pushNotificationNordic}
-                                uncheckedColor={theme.colors.text.medium}
-                              />
-                            )}
-                          </>
-                          <>
-                            {!pn_loading ? null : (
-                              <CircularProgress
-                                animationDuration={500}
-                                color={theme.colors.branding.primary}
-                                isAnimated={true}
-                                lineCap={'round'}
-                                showTrack={true}
-                                startPosition={'top'}
-                                trackColor={theme.colors.border.brand}
-                                trackLineCap={'round'}
-                                indeterminate={true}
-                                maximumValue={100}
-                                minimumValue={0}
-                                style={StyleSheet.applyWidth(
-                                  {
-                                    width: {
-                                      minWidth: Breakpoints.Laptop,
-                                      value: 25,
-                                    },
-                                  },
-                                  dimensions.width
-                                )}
-                                thickness={5}
-                                value={25}
-                              />
-                            )}
-                          </>
+                          <Checkbox
+                            onPress={newCheckboxValue => {
+                              const handler = async () => {
+                                try {
+                                  setPushNotificationNordic(newCheckboxValue);
+                                  /* hidden 'Set Variable' action */
+                                  await waitUtil({ milliseconds: 100 });
+                                  (
+                                    await xanoCollectionUpdateNotificationPUT.mutateAsync(
+                                      {
+                                        email_dach: emailDach,
+                                        email_nordic: emailNordic,
+                                        push_dach: pushNotificationDach,
+                                        push_nordic: newCheckboxValue,
+                                      }
+                                    )
+                                  )?.json;
+                                  await refetchAuthMe();
+                                  /* hidden 'Set Variable' action */
+                                } catch (err) {
+                                  console.error(err);
+                                }
+                              };
+                              handler();
+                            }}
+                            color={theme.colors.text.medium}
+                            status={pushNotificationNordic}
+                            uncheckedColor={theme.colors.text.medium}
+                          />
                         </View>
                         {/* View 2 */}
                         <View
@@ -838,68 +812,35 @@ const MyAccountScreen = props => {
                             dimensions.width
                           )}
                         >
-                          <>
-                            {en_loading ? null : (
-                              <Checkbox
-                                onPress={newCheckboxValue => {
-                                  const handler = async () => {
-                                    try {
-                                      setEmailNordic(newCheckboxValue);
-                                      setEn_loading(true);
-                                      await waitUtil({ milliseconds: 100 });
-                                      (
-                                        await xanoCollectionUpdateNotificationPUT.mutateAsync(
-                                          {
-                                            email_dach: emailDach,
-                                            email_nordic: newCheckboxValue,
-                                            push_dach: pushNotificationDach,
-                                            push_nordic: pushNotificationNordic,
-                                          }
-                                        )
-                                      )?.json;
-                                      await refetchAuthMe();
-                                      setEn_loading(false);
-                                    } catch (err) {
-                                      console.error(err);
-                                    }
-                                  };
-                                  handler();
-                                }}
-                                color={theme.colors.text.medium}
-                                status={emailNordic}
-                                uncheckedColor={theme.colors.text.medium}
-                              />
-                            )}
-                          </>
-                          {/* Circular Progress 2 */}
-                          <>
-                            {!en_loading ? null : (
-                              <CircularProgress
-                                animationDuration={500}
-                                color={theme.colors.branding.primary}
-                                isAnimated={true}
-                                lineCap={'round'}
-                                showTrack={true}
-                                startPosition={'top'}
-                                trackColor={theme.colors.border.brand}
-                                trackLineCap={'round'}
-                                indeterminate={true}
-                                maximumValue={100}
-                                minimumValue={0}
-                                style={StyleSheet.applyWidth(
-                                  {
-                                    width: {
-                                      minWidth: Breakpoints.Laptop,
-                                      value: 25,
-                                    },
-                                  },
-                                  dimensions.width
-                                )}
-                                thickness={5}
-                                value={25}
-                              />
-                            )}
-                          </>
+                          <Checkbox
+                            onPress={newCheckboxValue => {
+                              const handler = async () => {
+                                try {
+                                  setEmailNordic(newCheckboxValue);
+                                  setEn_loading(true);
+                                  await waitUtil({ milliseconds: 100 });
+                                  (
+                                    await xanoCollectionUpdateNotificationPUT.mutateAsync(
+                                      {
+                                        email_dach: emailDach,
+                                        email_nordic: newCheckboxValue,
+                                        push_dach: pushNotificationDach,
+                                        push_nordic: pushNotificationNordic,
+                                      }
+                                    )
+                                  )?.json;
+                                  await refetchAuthMe();
+                                  setEn_loading(false);
+                                } catch (err) {
+                                  console.error(err);
+                                }
+                              };
+                              handler();
+                            }}
+                            color={theme.colors.text.medium}
+                            status={emailNordic}
+                            uncheckedColor={theme.colors.text.medium}
+                          />
                         </View>
                       </View>
                     </View>
@@ -954,68 +895,35 @@ const MyAccountScreen = props => {
                             dimensions.width
                           )}
                         >
-                          <>
-                            {pd_loading ? null : (
-                              <Checkbox
-                                onPress={newCheckboxValue => {
-                                  const handler = async () => {
-                                    try {
-                                      setPushNotificationDach(newCheckboxValue);
-                                      setPd_loading(true);
-                                      await waitUtil({ milliseconds: 100 });
-                                      (
-                                        await xanoCollectionUpdateNotificationPUT.mutateAsync(
-                                          {
-                                            email_dach: emailDach,
-                                            email_nordic: emailNordic,
-                                            push_dach: newCheckboxValue,
-                                            push_nordic: pushNotificationNordic,
-                                          }
-                                        )
-                                      )?.json;
-                                      await refetchAuthMe();
-                                      setPd_loading(false);
-                                    } catch (err) {
-                                      console.error(err);
-                                    }
-                                  };
-                                  handler();
-                                }}
-                                color={theme.colors.text.medium}
-                                status={pushNotificationDach}
-                                uncheckedColor={theme.colors.text.medium}
-                              />
-                            )}
-                          </>
-                          {/* Circular Progress 2 */}
-                          <>
-                            {!pd_loading ? null : (
-                              <CircularProgress
-                                animationDuration={500}
-                                color={theme.colors.branding.primary}
-                                isAnimated={true}
-                                lineCap={'round'}
-                                showTrack={true}
-                                startPosition={'top'}
-                                trackColor={theme.colors.border.brand}
-                                trackLineCap={'round'}
-                                indeterminate={true}
-                                maximumValue={100}
-                                minimumValue={0}
-                                style={StyleSheet.applyWidth(
-                                  {
-                                    width: {
-                                      minWidth: Breakpoints.Laptop,
-                                      value: 25,
-                                    },
-                                  },
-                                  dimensions.width
-                                )}
-                                thickness={5}
-                                value={25}
-                              />
-                            )}
-                          </>
+                          <Checkbox
+                            onPress={newCheckboxValue => {
+                              const handler = async () => {
+                                try {
+                                  setPushNotificationDach(newCheckboxValue);
+                                  setPd_loading(true);
+                                  await waitUtil({ milliseconds: 100 });
+                                  (
+                                    await xanoCollectionUpdateNotificationPUT.mutateAsync(
+                                      {
+                                        email_dach: emailDach,
+                                        email_nordic: emailNordic,
+                                        push_dach: newCheckboxValue,
+                                        push_nordic: pushNotificationNordic,
+                                      }
+                                    )
+                                  )?.json;
+                                  await refetchAuthMe();
+                                  setPd_loading(false);
+                                } catch (err) {
+                                  console.error(err);
+                                }
+                              };
+                              handler();
+                            }}
+                            color={theme.colors.text.medium}
+                            status={pushNotificationDach}
+                            uncheckedColor={theme.colors.text.medium}
+                          />
                         </View>
                         {/* View 2 */}
                         <View
@@ -1029,68 +937,35 @@ const MyAccountScreen = props => {
                             dimensions.width
                           )}
                         >
-                          <>
-                            {ed_loading ? null : (
-                              <Checkbox
-                                onPress={newCheckboxValue => {
-                                  const handler = async () => {
-                                    try {
-                                      setEmailDach(newCheckboxValue);
-                                      setEd_loading(true);
-                                      await waitUtil({ milliseconds: 100 });
-                                      (
-                                        await xanoCollectionUpdateNotificationPUT.mutateAsync(
-                                          {
-                                            email_dach: newCheckboxValue,
-                                            email_nordic: emailNordic,
-                                            push_dach: pushNotificationDach,
-                                            push_nordic: pushNotificationNordic,
-                                          }
-                                        )
-                                      )?.json;
-                                      await refetchAuthMe();
-                                      setEd_loading(false);
-                                    } catch (err) {
-                                      console.error(err);
-                                    }
-                                  };
-                                  handler();
-                                }}
-                                color={theme.colors.text.medium}
-                                status={emailDach}
-                                uncheckedColor={theme.colors.text.medium}
-                              />
-                            )}
-                          </>
-                          {/* Circular Progress 3 */}
-                          <>
-                            {!ed_loading ? null : (
-                              <CircularProgress
-                                animationDuration={500}
-                                color={theme.colors.branding.primary}
-                                isAnimated={true}
-                                lineCap={'round'}
-                                showTrack={true}
-                                startPosition={'top'}
-                                trackColor={theme.colors.border.brand}
-                                trackLineCap={'round'}
-                                indeterminate={true}
-                                maximumValue={100}
-                                minimumValue={0}
-                                style={StyleSheet.applyWidth(
-                                  {
-                                    width: {
-                                      minWidth: Breakpoints.Laptop,
-                                      value: 25,
-                                    },
-                                  },
-                                  dimensions.width
-                                )}
-                                thickness={5}
-                                value={25}
-                              />
-                            )}
-                          </>
+                          <Checkbox
+                            onPress={newCheckboxValue => {
+                              const handler = async () => {
+                                try {
+                                  setEmailDach(newCheckboxValue);
+                                  setEd_loading(true);
+                                  await waitUtil({ milliseconds: 100 });
+                                  (
+                                    await xanoCollectionUpdateNotificationPUT.mutateAsync(
+                                      {
+                                        email_dach: newCheckboxValue,
+                                        email_nordic: emailNordic,
+                                        push_dach: pushNotificationDach,
+                                        push_nordic: pushNotificationNordic,
+                                      }
+                                    )
+                                  )?.json;
+                                  await refetchAuthMe();
+                                  setEd_loading(false);
+                                } catch (err) {
+                                  console.error(err);
+                                }
+                              };
+                              handler();
+                            }}
+                            color={theme.colors.text.medium}
+                            status={emailDach}
+                            uncheckedColor={theme.colors.text.medium}
+                          />
                         </View>
                       </View>
                     </View>
@@ -1109,10 +984,16 @@ const MyAccountScreen = props => {
                       StyleSheet.compose(
                         GlobalStyles.LinkStyles(theme)['Link'].style,
                         {
-                          alignSelf: {
-                            minWidth: Breakpoints.Laptop,
-                            value: 'flex-start',
-                          },
+                          alignSelf: [
+                            {
+                              minWidth: Breakpoints.Mobile,
+                              value: 'flex-start',
+                            },
+                            {
+                              minWidth: Breakpoints.Laptop,
+                              value: 'flex-start',
+                            },
+                          ],
                           color: theme.colors.text.strong,
                           fontFamily: 'Quicksand_700Bold',
                           fontSize: 16,
@@ -1142,10 +1023,16 @@ const MyAccountScreen = props => {
                       StyleSheet.compose(
                         GlobalStyles.LinkStyles(theme)['Link'].style,
                         {
-                          alignSelf: {
-                            minWidth: Breakpoints.Laptop,
-                            value: 'flex-start',
-                          },
+                          alignSelf: [
+                            {
+                              minWidth: Breakpoints.Mobile,
+                              value: 'flex-start',
+                            },
+                            {
+                              minWidth: Breakpoints.Laptop,
+                              value: 'flex-start',
+                            },
+                          ],
                           color: theme.colors.text.strong,
                           fontFamily: 'Quicksand_700Bold',
                           fontSize: 16,
@@ -1182,10 +1069,16 @@ const MyAccountScreen = props => {
                       StyleSheet.compose(
                         GlobalStyles.LinkStyles(theme)['Link'].style,
                         {
-                          alignSelf: {
-                            minWidth: Breakpoints.Laptop,
-                            value: 'flex-start',
-                          },
+                          alignSelf: [
+                            {
+                              minWidth: Breakpoints.Mobile,
+                              value: 'flex-start',
+                            },
+                            {
+                              minWidth: Breakpoints.Laptop,
+                              value: 'flex-start',
+                            },
+                          ],
                           color: theme.colors.text.strong,
                           fontFamily: 'Quicksand_700Bold',
                           fontSize: 16,
@@ -1445,17 +1338,23 @@ const MyAccountScreen = props => {
                             StyleSheet.compose(
                               GlobalStyles.LinkStyles(theme)['Link'].style,
                               {
-                                color: {
-                                  minWidth: Breakpoints.Laptop,
-                                  value: palettes.App.Orange,
-                                },
-                                fontFamily: [
+                                color: [
                                   {
                                     minWidth: Breakpoints.Mobile,
-                                    value: 'Quicksand_400Regular',
+                                    value: palettes.App.Orange,
                                   },
                                   {
                                     minWidth: Breakpoints.Laptop,
+                                    value: palettes.App.Orange,
+                                  },
+                                ],
+                                fontFamily: [
+                                  {
+                                    minWidth: Breakpoints.Laptop,
+                                    value: 'Quicksand_500Medium',
+                                  },
+                                  {
+                                    minWidth: Breakpoints.Mobile,
                                     value: 'Quicksand_500Medium',
                                   },
                                 ],
@@ -1463,6 +1362,7 @@ const MyAccountScreen = props => {
                                 marginRight: 10,
                                 marginTop: 5,
                                 textAlign: 'right',
+                                textDecorationLine: 'underline',
                               }
                             ),
                             dimensions.width

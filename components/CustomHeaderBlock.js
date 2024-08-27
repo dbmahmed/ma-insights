@@ -697,98 +697,6 @@ const CustomHeaderBlock = props => {
                   </View>
                 </Pressable>
               </View>
-              {/* View 8 */}
-              <View
-                style={StyleSheet.applyWidth(
-                  {
-                    alignContent: 'center',
-                    alignItems: 'stretch',
-                    alignSelf: 'center',
-                    height: '100%',
-                    justifyContent: 'center',
-                    width: '25%',
-                  },
-                  dimensions.width
-                )}
-              >
-                {/* Pressable 2 */}
-                <Pressable
-                  onPress={() => {
-                    try {
-                      navigation.navigate('TransactionsScreen');
-                    } catch (err) {
-                      console.error(err);
-                    }
-                  }}
-                  style={StyleSheet.applyWidth(
-                    {
-                      borderColor: [
-                        {
-                          minWidth: Breakpoints.Tablet,
-                          value: theme.colors.foreground.brand,
-                        },
-                        {
-                          minWidth: Breakpoints.Mobile,
-                          value: theme.colors.foreground.brand,
-                        },
-                      ],
-                      borderRightWidth: [
-                        { minWidth: Breakpoints.Tablet, value: 0.5 },
-                        { minWidth: Breakpoints.Mobile, value: 0.5 },
-                      ],
-                      borderStyle: 'dashed',
-                      height: '100%',
-                      width: '100%',
-                    },
-                    dimensions.width
-                  )}
-                >
-                  <View
-                    style={StyleSheet.applyWidth(
-                      {
-                        alignItems: 'center',
-                        height: '100%',
-                        justifyContent: 'center',
-                      },
-                      dimensions.width
-                    )}
-                  >
-                    <Icon
-                      size={24}
-                      color={
-                        Constants['pageName'] === 'All events'
-                          ? palettes.Brand.Primary
-                          : palettes.Brand.Strong
-                      }
-                      name={'AntDesign/table'}
-                      style={StyleSheet.applyWidth(
-                        { width: '100%' },
-                        dimensions.width
-                      )}
-                    />
-                    <Text
-                      accessible={true}
-                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
-                      style={StyleSheet.applyWidth(
-                        StyleSheet.compose(
-                          GlobalStyles.TextStyles(theme)['screen_title'].style,
-                          {
-                            color:
-                              Constants['pageName'] === 'All events'
-                                ? palettes.Brand.Primary
-                                : palettes.Brand.Strong,
-                            fontFamily: 'Quicksand_400Regular',
-                            marginTop: 2,
-                          }
-                        ),
-                        dimensions.width
-                      )}
-                    >
-                      {'Transactions'}
-                    </Text>
-                  </View>
-                </Pressable>
-              </View>
               {/* View 6 */}
               <View
                 style={StyleSheet.applyWidth(
@@ -1227,6 +1135,85 @@ const CustomHeaderBlock = props => {
                     )}
                   >
                     {'ALL EVENTS'}
+                  </Text>
+                </HStack>
+              </Pressable>
+            </VStack>
+            {/* V Stack 10 */}
+            <VStack
+              {...GlobalStyles.VStackStyles(theme)['V Stack'].props}
+              style={StyleSheet.applyWidth(
+                StyleSheet.compose(
+                  GlobalStyles.VStackStyles(theme)['V Stack'].style,
+                  {
+                    borderBottomWidth: 0.5,
+                    borderColor: theme.colors.foreground.brand,
+                  }
+                ),
+                dimensions.width
+              )}
+            >
+              <Pressable
+                onPress={() => {
+                  try {
+                    navigation.navigate('TransactionsScreen');
+                    setGlobalVariableValue({
+                      key: 'top_nav_pressed',
+                      value: false,
+                    });
+                  } catch (err) {
+                    console.error(err);
+                  }
+                }}
+              >
+                <HStack
+                  {...GlobalStyles.HStackStyles(theme)['H Stack'].props}
+                  style={StyleSheet.applyWidth(
+                    StyleSheet.compose(
+                      GlobalStyles.HStackStyles(theme)['H Stack'].style,
+                      { gap: 10, padding: 10 }
+                    ),
+                    dimensions.width
+                  )}
+                >
+                  <Icon
+                    size={24}
+                    color={
+                      Constants['pageName'] === 'Transactions'
+                        ? palettes.App.Orange
+                        : palettes.Brand.Strong
+                    }
+                    name={'AntDesign/table'}
+                  />
+                  <Text
+                    accessible={true}
+                    {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.TextStyles(theme)['screen_title'].style,
+                        {
+                          color: [
+                            {
+                              minWidth: Breakpoints.Laptop,
+                              value:
+                                Constants['pageName'] === 'All events'
+                                  ? palettes.App.Orange
+                                  : palettes.Brand.Strong,
+                            },
+                            {
+                              minWidth: Breakpoints.Mobile,
+                              value:
+                                Constants['pageName'] === 'Transactions'
+                                  ? palettes.App.Orange
+                                  : palettes.Brand.Strong,
+                            },
+                          ],
+                        }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    {'TRANSACTIONS'}
                   </Text>
                 </HStack>
               </Pressable>

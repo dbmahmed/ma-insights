@@ -76,6 +76,89 @@ export const FetchAuthMeGET = ({
   return children({ loading, data, error, refetchAuthMe: refetch });
 };
 
+export const createNewPeerPOST = async (
+  Constants,
+  { access_type, stocks, title },
+  handlers = {}
+) => {
+  const url = `https://xne3-pdiu-8ysm.f2.xano.io/api:abjrBkC8/peer_group`;
+  const options = {
+    body: JSON.stringify({
+      title: title,
+      access_type: access_type,
+      stocks: stocks,
+    }),
+    headers: cleanHeaders({
+      Accept: 'application/json',
+      Authorization: Constants['AUTH_HEADER'],
+      'Content-Type': 'application/json',
+    }),
+    method: 'POST',
+  };
+  const res = await fetch(url, options);
+  return handleResponse(res, handlers);
+};
+
+export const useCreateNewPeerPOST = (
+  initialArgs = {},
+  { handlers = {} } = {}
+) => {
+  const queryClient = useQueryClient();
+  const Constants = GlobalVariables.useValues();
+  return useMutation(
+    args => createNewPeerPOST(Constants, { ...initialArgs, ...args }, handlers),
+    {
+      onError: (err, variables, { previousValue }) => {
+        if (previousValue) {
+          return queryClient.setQueryData('Peer Groups', previousValue);
+        }
+      },
+      onSettled: () => {
+        queryClient.invalidateQueries('Peer Group');
+        queryClient.invalidateQueries('Peer Groups');
+      },
+    }
+  );
+};
+
+export const FetchCreateNewPeerPOST = ({
+  children,
+  onData = () => {},
+  handlers = {},
+  refetchInterval,
+  access_type,
+  stocks,
+  title,
+}) => {
+  const Constants = GlobalVariables.useValues();
+  const isFocused = useIsFocused();
+  const prevIsFocused = usePrevious(isFocused);
+
+  const {
+    isLoading: loading,
+    data,
+    error,
+    mutate: refetch,
+  } = useCreateNewPeerPOST(
+    { access_type, stocks, title },
+    { refetchInterval, handlers: { onData, ...handlers } }
+  );
+
+  React.useEffect(() => {
+    if (!prevIsFocused && isFocused) {
+      refetch();
+    }
+  }, [isFocused, prevIsFocused]);
+
+  React.useEffect(() => {
+    if (error) {
+      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error(error);
+    }
+  }, [error]);
+  return children({ loading, data, error, refetchCreateNewPeer: refetch });
+};
+
 export const eventTransactionsGET = async (
   Constants,
   { keyword, page, region_in, sector_in },
@@ -428,6 +511,7 @@ export const getAllFundsGET = async (Constants, _args, handlers = {}) => {
   const options = {
     headers: cleanHeaders({
       Accept: 'application/json',
+      Authorization: Constants['AUTH_HEADER'],
       'Content-Type': 'application/json',
     }),
   };
@@ -489,6 +573,7 @@ export const getAllGICSGET = async (Constants, _args, handlers = {}) => {
   const options = {
     headers: cleanHeaders({
       Accept: 'application/json',
+      Authorization: Constants['AUTH_HEADER'],
       'Content-Type': 'application/json',
     }),
   };
@@ -550,6 +635,7 @@ export const getAllInvestorsGET = async (Constants, _args, handlers = {}) => {
   const options = {
     headers: cleanHeaders({
       Accept: 'application/json',
+      Authorization: Constants['AUTH_HEADER'],
       'Content-Type': 'application/json',
     }),
   };
@@ -1123,6 +1209,7 @@ export const getOneFundGET = async (Constants, { fund_id }, handlers = {}) => {
   const options = {
     headers: cleanHeaders({
       Accept: 'application/json',
+      Authorization: Constants['AUTH_HEADER'],
       'Content-Type': 'application/json',
     }),
   };
@@ -1189,6 +1276,7 @@ export const getOneGiCSGET = async (Constants, { gics_id }, handlers = {}) => {
   const options = {
     headers: cleanHeaders({
       Accept: 'application/json',
+      Authorization: Constants['AUTH_HEADER'],
       'Content-Type': 'application/json',
     }),
   };
@@ -1259,6 +1347,7 @@ export const getOneInvestorGET = async (
   const options = {
     headers: cleanHeaders({
       Accept: 'application/json',
+      Authorization: Constants['AUTH_HEADER'],
       'Content-Type': 'application/json',
     }),
   };
@@ -1325,6 +1414,7 @@ export const getOnePEPFGET = async (Constants, { pepf_id }, handlers = {}) => {
   const options = {
     headers: cleanHeaders({
       Accept: 'application/json',
+      Authorization: Constants['AUTH_HEADER'],
       'Content-Type': 'application/json',
     }),
   };
@@ -1395,6 +1485,7 @@ export const getOnePeerGET = async (
   const options = {
     headers: cleanHeaders({
       Accept: 'application/json',
+      Authorization: Constants['AUTH_HEADER'],
       'Content-Type': 'application/json',
     }),
   };
@@ -1597,6 +1688,7 @@ export const loginPOST = async (
     body: JSON.stringify({ email: email, password: password }),
     headers: cleanHeaders({
       Accept: 'application/json',
+      Authorization: Constants['AUTH_HEADER'],
       'Content-Type': 'application/json',
     }),
     method: 'POST',
@@ -1903,6 +1995,7 @@ export const requestDemoPOST = async (
     }),
     headers: cleanHeaders({
       Accept: 'application/json',
+      Authorization: Constants['AUTH_HEADER'],
       'Content-Type': 'application/json',
     }),
     method: 'POST',
@@ -2075,6 +2168,58 @@ export const useUpdateNotificationPUT = (
       onSettled: () => {
         queryClient.invalidateQueries('User');
         queryClient.invalidateQueries('Users');
+      },
+    }
+  );
+};
+
+export const updatePeerGroupPATCH = async (
+  Constants,
+  { peer_id, stocksList, type },
+  handlers = {}
+) => {
+  const paramsDict = {};
+  if (type !== undefined) {
+    paramsDict['type'] = renderParam(type);
+  }
+  const url = `https://xne3-pdiu-8ysm.f2.xano.io/api:abjrBkC8/peer_group/${encodeQueryParam(
+    peer_id
+  )}${renderQueryString(paramsDict)}`;
+  const options = {
+    body: JSON.stringify({
+      peer_group_id: peer_id,
+      stocks: stocksList,
+      tyoe: type,
+    }),
+    headers: cleanHeaders({
+      Accept: 'application/json',
+      Authorization: Constants['AUTH_HEADER'],
+      'Content-Type': 'application/json',
+    }),
+    method: 'PATCH',
+  };
+  const res = await fetch(url, options);
+  return handleResponse(res, handlers);
+};
+
+export const useUpdatePeerGroupPATCH = (
+  initialArgs = {},
+  { handlers = {} } = {}
+) => {
+  const queryClient = useQueryClient();
+  const Constants = GlobalVariables.useValues();
+  return useMutation(
+    args =>
+      updatePeerGroupPATCH(Constants, { ...initialArgs, ...args }, handlers),
+    {
+      onError: (err, variables, { previousValue }) => {
+        if (previousValue) {
+          return queryClient.setQueryData('Peer Groups', previousValue);
+        }
+      },
+      onSettled: () => {
+        queryClient.invalidateQueries('Peer Group');
+        queryClient.invalidateQueries('Peer Groups');
       },
     }
   );

@@ -480,8 +480,8 @@ const CFSScreen = props => {
                       marginTop: { minWidth: Breakpoints.Tablet, value: 5 },
                       maxWidth: 1200,
                       paddingLeft: [
+                        { minWidth: Breakpoints.Mobile, value: 10 },
                         { minWidth: Breakpoints.Tablet, value: 15 },
-                        { minWidth: Breakpoints.Mobile, value: 15 },
                       ],
                       paddingRight: 10,
                       width: '100%',

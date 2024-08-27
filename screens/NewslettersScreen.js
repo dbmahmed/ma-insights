@@ -141,7 +141,13 @@ const NewslettersScreen = props => {
         {/* container */}
         <View
           style={StyleSheet.applyWidth(
-            { maxWidth: 1200, padding: 15, width: '100%' },
+            {
+              maxWidth: 1200,
+              padding: 10,
+              paddingBottom: 10,
+              paddingTop: 15,
+              width: '100%',
+            },
             dimensions.width
           )}
         >

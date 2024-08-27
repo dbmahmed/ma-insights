@@ -74,7 +74,7 @@ const PEPFDetailsScreen = props => {
     <ScreenContainer hasSafeArea={false} scrollable={false}>
       <CustomHeaderBlock />
       <XanoCollectionApi.FetchGetOnePEPFGET
-        pepf_id={props.route?.params?.pepf_id ?? 1304}
+        pepf_id={props.route?.params?.pepf_id ?? 1}
       >
         {({ loading, error, data, refetchGetOnePEPF }) => {
           const fetchData = data?.json;
@@ -783,19 +783,7 @@ const PEPFDetailsScreen = props => {
                 {!'.evetns.lenth' ? null : (
                   <View
                     style={StyleSheet.applyWidth(
-                      {
-                        maxWidth: 1200,
-                        padding: 10,
-                        paddingLeft: {
-                          minWidth: Breakpoints.Desktop,
-                          value: 5,
-                        },
-                        paddingRight: {
-                          minWidth: Breakpoints.Desktop,
-                          value: 5,
-                        },
-                        width: '100%',
-                      },
+                      { maxWidth: 1200, padding: 10, width: '100%' },
                       dimensions.width
                     )}
                   >
@@ -826,7 +814,10 @@ const PEPFDetailsScreen = props => {
                           GlobalStyles.TextStyles(theme)['screen_title'].style,
                           {
                             fontFamily: 'Quicksand_400Regular',
-                            marginBottom: 20,
+                            marginBottom: [
+                              { minWidth: Breakpoints.Laptop, value: 15 },
+                              { minWidth: Breakpoints.Mobile, value: 20 },
+                            ],
                           }
                         ),
                         dimensions.width
@@ -940,10 +931,6 @@ const PEPFDetailsScreen = props => {
                                         flex: {
                                           minWidth: Breakpoints.Laptop,
                                           value: 1,
-                                        },
-                                        padding: {
-                                          minWidth: Breakpoints.Laptop,
-                                          value: 5,
                                         },
                                         paddingLeft: {
                                           minWidth: Breakpoints.Desktop,

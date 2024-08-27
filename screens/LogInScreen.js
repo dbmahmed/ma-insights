@@ -85,12 +85,6 @@ const LogInScreen = props => {
           'Skipped ON_SCREEN_FOCUS:2 CONDITIONAL_STOP: condition not met'
         );
       }
-      console.log('Start ON_SCREEN_FOCUS:3 NAVIGATE');
-      if (navigation.canGoBack()) {
-        navigation.popToTop();
-      }
-      navigation.replace('MAInsights');
-      console.log('Complete ON_SCREEN_FOCUS:3 NAVIGATE');
       console.log('Start ON_SCREEN_FOCUS:4 CUSTOM_FUNCTION');
       removeGlobalScroll();
       console.log('Complete ON_SCREEN_FOCUS:4 CUSTOM_FUNCTION');

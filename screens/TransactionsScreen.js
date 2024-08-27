@@ -753,8 +753,16 @@ const TransactionsScreen = props => {
                                   dimensions.width
                                 )}
                               >
-                                {transformNumber(listData?.ev_sales)}{' '}
-                                {transformNumber(listData?.ev_sales) !== '-'
+                                {transformNumber(
+                                  listData?.ev_sales,
+                                  undefined,
+                                  undefined
+                                )}{' '}
+                                {transformNumber(
+                                  listData?.ev_sales,
+                                  undefined,
+                                  undefined
+                                ) !== '-'
                                   ? '(' + (listData?.fy_end + ')')
                                   : undefined}
                               </Text>
@@ -814,7 +822,11 @@ const TransactionsScreen = props => {
                                   dimensions.width
                                 )}
                               >
-                                {transformNumber(listData?.ev_ebitda)}{' '}
+                                {transformNumber(
+                                  listData?.ev_ebitda,
+                                  undefined,
+                                  undefined
+                                )}{' '}
                                 {showDate(
                                   listData?.ev_ebitda,
                                   listData?.fy_end
@@ -876,7 +888,11 @@ const TransactionsScreen = props => {
                                   dimensions.width
                                 )}
                               >
-                                {transformNumber(listData?.ev_ebit)}{' '}
+                                {transformNumber(
+                                  listData?.ev_ebit,
+                                  undefined,
+                                  undefined
+                                )}{' '}
                                 {showDate(listData?.ev_ebit, listData?.fy_end)}
                               </Text>
                             </View>

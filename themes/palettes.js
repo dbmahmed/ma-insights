@@ -11,6 +11,8 @@ export default {
     Strong2: 'rgb(33, 37, 41)',
   },
   Brand: {
+    primary2: 'rgb(27, 98, 248)',
+    'Primary 2': 'rgb(27, 98, 248)',
     secondary: 'rgb(221, 231, 254)',
     Secondary: 'rgb(221, 231, 254)',
     background: 'rgb(255, 255, 255)',

@@ -1,3 +1,4 @@
+import React from 'react';
 import { I18nManager, Platform, StyleSheet, Text, View } from 'react-native';
 import { systemWeights } from 'react-native-typography';
 import { Icon, Touchable, useTheme } from '@draftbit/ui';
@@ -17,9 +18,7 @@ import EventDetailsScreen from './screens/EventDetailsScreen';
 import ForgotPasswordScreen from './screens/ForgotPasswordScreen';
 import LogInScreen from './screens/LogInScreen';
 import MyAccountScreen from './screens/MyAccountScreen';
-import NewsletterDetails2DraftbitSupportScreen from './screens/NewsletterDetails2DraftbitSupportScreen';
 import NewsletterDetailsScreen from './screens/NewsletterDetailsScreen';
-import NewslettersDraftbitSupportScreen from './screens/NewslettersDraftbitSupportScreen';
 import NewslettersScreen from './screens/NewslettersScreen';
 import PEPFDetailsScreen from './screens/PEPFDetailsScreen';
 import PEPFScreen from './screens/PEPFScreen';
@@ -118,11 +117,9 @@ export default function RootAppNavigator() {
                     'Complete ON_RIGHT_ICON_PRESS:0 NAVIGATE'
                   );
                   console.log('Start ON_RIGHT_ICON_PRESS:1 SET_VARIABLE');
-                  setGlobalVariableValue({
-                    key: 'acc_pressed',
-                    value: true,
-                  });
-                  console.log('Complete ON_RIGHT_ICON_PRESS:1 SET_VARIABLE');
+                  /* hidden 'Set Variable' action */ console.log(
+                    'Complete ON_RIGHT_ICON_PRESS:1 SET_VARIABLE'
+                  );
                 } catch (err) {
                   console.error(err);
                   error = err.message ?? err;
@@ -370,13 +367,6 @@ export default function RootAppNavigator() {
           })}
         />
         <Stack.Screen
-          name="NewslettersDraftbitSupportScreen"
-          component={NewslettersDraftbitSupportScreen}
-          options={({ navigation }) => ({
-            title: 'Newsletters- Draftbit Support',
-          })}
-        />
-        <Stack.Screen
           name="StockSearchScreen"
           component={StockSearchScreen}
           options={({ navigation }) => ({
@@ -395,13 +385,6 @@ export default function RootAppNavigator() {
           component={StockDetailsScreen}
           options={({ navigation }) => ({
             title: 'Stock Details',
-          })}
-        />
-        <Stack.Screen
-          name="NewsletterDetails2DraftbitSupportScreen"
-          component={NewsletterDetails2DraftbitSupportScreen}
-          options={({ navigation }) => ({
-            title: 'Newsletter Details 2 - Draftbit Support',
           })}
         />
         <Stack.Screen

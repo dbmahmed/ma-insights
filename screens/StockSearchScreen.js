@@ -946,12 +946,12 @@ const StockSearchScreen = props => {
                     ],
                     maxHeight: [
                       {
-                        minWidth: Breakpoints.Laptop,
-                        value: dimensions.height - 250,
-                      },
-                      {
                         minWidth: Breakpoints.Mobile,
                         value: dimensions.height - 200,
+                      },
+                      {
+                        minWidth: Breakpoints.Laptop,
+                        value: dimensions.height - 250,
                       },
                     ],
                     paddingLeft: [

@@ -15,7 +15,7 @@ export const DeviceVariables = {
     newsletter: true,
   },
   AUTH_HEADER:
-    'eyJhbGciOiJBMjU2S1ciLCJlbmMiOiJBMjU2Q0JDLUhTNTEyIiwiemlwIjoiREVGIn0.rkVTCACNTPNXUECpRT_6zKqYS84Gg8gCcx8SYSUUqn-_18oYwU2bp0D7Rq9YZFX8O-x0XLS1sQ51Rt6QOneTa0T03CmyuWnu.tDpnjRjjxt8uYlwdIVy_bA.KqYsHq6saM8_XIj4SVxsP4Q7iXe54tSkjFINmHHJ7L-BdjUim9I47SEnsesx_ccR36PvqyQIZFTm3Tnv7thCpBHVhjSG6c4f8n3u3JPMKxktMpWmPSl-SI-EskXoe27B7sEz5qQEx0p-q1CogEwZzg.2wkv9u0-ny9rGx2ImU-ds_7B2Ur7GfEAnNYEtBsKKMI',
+    'eyJhbGciOiJBMjU2S1ciLCJlbmMiOiJBMjU2Q0JDLUhTNTEyIiwiemlwIjoiREVGIn0.wcJ67yKFsPVw2MkaI-7qEVFCyLeLbGVazkF46jRgPSHXyTIsCL2vtYPC94oP2DVpgX_wje0JXsK_yTuQ9sXLc4NKukoYTsTl.eE3XsMmPM3JrqvQ7AEwGwA.o-McSSeRw6bc1wnENK1gme5qMbr_PGozEGDP7vKyXlcIc-aypILRcXkVUJMMCTe-pfMl5BkBA1IMRdOB6W7iijCiF0Z7ZUQqmpzk-x-HrfQCwrMecE7-yh_fE121qaYgQ2lCVasbkZQygSJL3LWDXg.NaZsq-yXtqQjLW0Kx3GCNLGsDnk-pgVeenfso3Y4aJ4',
   ME: {
     id: 0,
     name: '',
@@ -34,7 +34,7 @@ export const DeviceVariables = {
   top_nav_pressed: false,
   __env__: 'Development',
 };
-export const AppVariables = {};
+export const AppVariables = { 'Bearer Token': 'UNSET' };
 const GlobalVariableContext = React.createContext();
 const GlobalVariableUpdater = React.createContext();
 const keySuffix = '';

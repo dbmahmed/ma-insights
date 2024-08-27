@@ -71,7 +71,7 @@ const CFSDetailsScreen = props => {
     <ScreenContainer hasSafeArea={false} scrollable={false}>
       <CustomHeaderBlock />
       <XanoCollectionApi.FetchGetOneCFSGET
-        cfs_id={props.route?.params?.cfs_id ?? 3}
+        cfs_id={props.route?.params?.cfs_id ?? 276}
       >
         {({ loading, error, data, refetchGetOneCFS }) => {
           const fetchData = data?.json;
@@ -266,7 +266,11 @@ const CFSDetailsScreen = props => {
                         dimensions.width
                       )}
                     >
-                      {transformNumber(fetchData?._advisors)}
+                      {transformNumber(
+                        fetchData?._advisors,
+                        undefined,
+                        undefined
+                      )}
                     </Text>
                   </View>
                   {/* View 9 */}
@@ -316,7 +320,11 @@ const CFSDetailsScreen = props => {
                         dimensions.width
                       )}
                     >
-                      {transformNumber(fetchData?._ownersList)}
+                      {transformNumber(
+                        fetchData?._ownersList,
+                        undefined,
+                        undefined
+                      )}
                     </Text>
                   </View>
                   {/* View 10 */}
@@ -743,10 +751,7 @@ const CFSDetailsScreen = props => {
                             dimensions.width
                           )}
                         >
-                          {DateUtils.format(
-                            fetchData?._main_event?.published,
-                            'dd/MM/yyyy'
-                          )}
+                          {fetchData?._main_event?.published}
                           {' ('}
                           {fetchData?._main_event?.source}
                           {')'}
@@ -780,6 +785,8 @@ const CFSDetailsScreen = props => {
                       {
                         alignContent: 'center',
                         alignItems: 'center',
+                        marginBottom:
+                          dimensions.width >= Breakpoints.Laptop ? 0 : 65,
                         width: '100%',
                       },
                       dimensions.width
