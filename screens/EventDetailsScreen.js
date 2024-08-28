@@ -1,18 +1,6 @@
 import React from 'react';
-import * as GlobalStyles from '../GlobalStyles.js';
-import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
-import CustomHeaderBlock from '../components/CustomHeaderBlock';
-import LoadingBlock from '../components/LoadingBlock';
-import * as GlobalVariables from '../config/GlobalVariableContext';
-import assessAccess from '../global-functions/assessAccess';
-import cutTextByWidth from '../global-functions/cutTextByWidth';
-import removeGlobalScroll from '../global-functions/removeGlobalScroll';
-import transformEuroM from '../global-functions/transformEuroM';
-import palettes from '../themes/palettes';
-import Breakpoints from '../utils/Breakpoints';
-import * as StyleSheet from '../utils/StyleSheet';
-import useWindowDimensions from '../utils/useWindowDimensions';
 import {
+  HStack,
   LinearGradient,
   Link,
   ScreenContainer,
@@ -22,8 +10,25 @@ import {
 import { H3 } from '@expo/html-elements';
 import { useIsFocused } from '@react-navigation/native';
 import * as WebBrowser from 'expo-web-browser';
-import { ActivityIndicator, Text, View } from 'react-native';
+import { ActivityIndicator, Image, Text, View } from 'react-native';
 import { Fetch } from 'react-request';
+import * as GlobalStyles from '../GlobalStyles.js';
+import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
+import CustomHeaderBlock from '../components/CustomHeaderBlock';
+import LoadingBlock from '../components/LoadingBlock';
+import * as GlobalVariables from '../config/GlobalVariableContext';
+import Images from '../config/Images';
+import assessAccess from '../global-functions/assessAccess';
+import cutTextByWidth from '../global-functions/cutTextByWidth';
+import isNKPProp from '../global-functions/isNKPProp';
+import removeGlobalScroll from '../global-functions/removeGlobalScroll';
+import showNKPProp from '../global-functions/showNKPProp';
+import transformEuroM from '../global-functions/transformEuroM';
+import transformNumber from '../global-functions/transformNumber';
+import palettes from '../themes/palettes';
+import Breakpoints from '../utils/Breakpoints';
+import * as StyleSheet from '../utils/StyleSheet';
+import useWindowDimensions from '../utils/useWindowDimensions';
 
 const EventDetailsScreen = props => {
   const { theme, navigation } = props;
@@ -70,7 +75,7 @@ const EventDetailsScreen = props => {
     >
       <CustomHeaderBlock />
       <XanoCollectionApi.FetchGetOneEventGET
-        event_id={props.route?.params?.event_id ?? 169}
+        event_id={props.route?.params?.event_id ?? 42843}
       >
         {({ loading, error, data, refetchGetOneEvent }) => {
           const fetchData = data?.json;
@@ -114,19 +119,46 @@ const EventDetailsScreen = props => {
                   dimensions.width
                 )}
               >
-                <H3
-                  selectable={false}
-                  {...GlobalStyles.H3Styles(theme)['H3'].props}
+                <HStack
+                  {...GlobalStyles.HStackStyles(theme)['H Stack'].props}
                   style={StyleSheet.applyWidth(
                     StyleSheet.compose(
-                      GlobalStyles.H3Styles(theme)['H3'].style,
-                      { fontFamily: 'Quicksand_700Bold', fontSize: 20 }
+                      GlobalStyles.HStackStyles(theme)['H Stack'].style,
+                      { alignItems: 'flex-start' }
                     ),
                     dimensions.width
                   )}
                 >
-                  {fetchData?.headline}
-                </H3>
+                  <H3
+                    selectable={false}
+                    {...GlobalStyles.H3Styles(theme)['H3'].props}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.H3Styles(theme)['H3'].style,
+                        { fontFamily: 'Quicksand_700Bold', fontSize: 20 }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    {showNKPProp(fetchData?.headline, fetchData?.source)}
+                  </H3>
+                  <>
+                    {!isNKPProp(fetchData?.source) ? null : (
+                      <Image
+                        resizeMode={'cover'}
+                        {...GlobalStyles.ImageStyles(theme)['Image'].props}
+                        source={Images['mainsightsfaviconlogo1024new']}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.ImageStyles(theme)['Image'].style,
+                            { height: 25, marginTop: 20, width: 25 }
+                          ),
+                          dimensions.width
+                        )}
+                      />
+                    )}
+                  </>
+                </HStack>
 
                 <View
                   style={StyleSheet.applyWidth(
@@ -352,36 +384,62 @@ const EventDetailsScreen = props => {
                           {'Source link:'}
                         </Text>
                       </View>
-                      <Link
-                        accessible={true}
-                        onPress={() => {
-                          const handler = async () => {
-                            try {
-                              await WebBrowser.openBrowserAsync(
-                                `${fetchData?.source_link}`
-                              );
-                            } catch (err) {
-                              console.error(err);
-                            }
-                          };
-                          handler();
-                        }}
-                        {...GlobalStyles.LinkStyles(theme)['Link'].props}
-                        ellipsizeMode={'tail'}
-                        numberOfLines={1}
-                        style={StyleSheet.applyWidth(
-                          StyleSheet.compose(
-                            GlobalStyles.LinkStyles(theme)['Link'].style,
-                            { color: palettes.App.Orange }
-                          ),
-                          dimensions.width
+                      <>
+                        {!(fetchData?.source_link !== '') ? null : (
+                          <Link
+                            accessible={true}
+                            onPress={() => {
+                              const handler = async () => {
+                                try {
+                                  await WebBrowser.openBrowserAsync(
+                                    `${fetchData?.source_link}`
+                                  );
+                                } catch (err) {
+                                  console.error(err);
+                                }
+                              };
+                              handler();
+                            }}
+                            {...GlobalStyles.LinkStyles(theme)['Link'].props}
+                            ellipsizeMode={'tail'}
+                            numberOfLines={1}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.LinkStyles(theme)['Link'].style,
+                                { color: palettes.App.Orange }
+                              ),
+                              dimensions.width
+                            )}
+                            title={`${cutTextByWidth(
+                              fetchData?.source_link,
+                              dimensions.width,
+                              190
+                            )}`}
+                          />
                         )}
-                        title={`${cutTextByWidth(
-                          fetchData?.source_link,
-                          dimensions.width,
-                          190
-                        )}`}
-                      />
+                      </>
+                      <>
+                        {!(fetchData?.source_link === '') ? null : (
+                          <Text
+                            accessible={true}
+                            {...GlobalStyles.TextStyles(theme)['screen_title']
+                              .props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TextStyles(theme)['screen_title']
+                                  .style,
+                                {
+                                  color: palettes.Brand['Strong Inverse'],
+                                  fontFamily: 'Quicksand_500Medium',
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            {'-'}
+                          </Text>
+                        )}
+                      </>
                     </View>
                     {/* View 4 */}
                     <View
@@ -608,7 +666,11 @@ const EventDetailsScreen = props => {
                           dimensions.width
                         )}
                       >
-                        {getListNameFormArray(fetchData?.seller)}
+                        {transformNumber(
+                          getListNameFormArray(fetchData?.seller),
+                          undefined,
+                          undefined
+                        )}
                       </Text>
                     </View>
                     {/* View 8 */}
@@ -665,180 +727,214 @@ const EventDetailsScreen = props => {
                           dimensions.width
                         )}
                       >
-                        {getListNameFormArray(fetchData?.buyer)}
+                        {transformNumber(
+                          getListNameFormArray(fetchData?.buyer),
+                          undefined,
+                          undefined
+                        )}
                       </Text>
                     </View>
                     {/* View 9 */}
-                    <View
-                      style={StyleSheet.applyWidth(
-                        { flexDirection: 'row', gap: 8 },
-                        dimensions.width
-                      )}
-                    >
-                      <View
-                        style={StyleSheet.applyWidth(
-                          {
-                            width: [
-                              { minWidth: Breakpoints.Tablet, value: 160 },
-                              { minWidth: Breakpoints.Mobile, value: 150 },
-                            ],
-                          },
-                          dimensions.width
-                        )}
-                      >
-                        <Text
-                          accessible={true}
-                          {...GlobalStyles.TextStyles(theme)['screen_title']
-                            .props}
+                    <>
+                      {!(
+                        transformNumber(
+                          fetchData?.revenue_eur,
+                          undefined,
+                          undefined
+                        ) !== '-'
+                      ) ? null : (
+                        <View
                           style={StyleSheet.applyWidth(
-                            StyleSheet.compose(
-                              GlobalStyles.TextStyles(theme)['screen_title']
-                                .style,
-                              {
-                                color: palettes.Brand['Strong Inverse'],
-                                fontFamily: 'Quicksand_500Medium',
-                              }
-                            ),
+                            { flexDirection: 'row', gap: 8 },
                             dimensions.width
                           )}
                         >
-                          {'Revenue:'}
-                        </Text>
-                      </View>
+                          <View
+                            style={StyleSheet.applyWidth(
+                              {
+                                width: [
+                                  { minWidth: Breakpoints.Tablet, value: 160 },
+                                  { minWidth: Breakpoints.Mobile, value: 150 },
+                                ],
+                              },
+                              dimensions.width
+                            )}
+                          >
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)['screen_title']
+                                .props}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.TextStyles(theme)['screen_title']
+                                    .style,
+                                  {
+                                    color: palettes.Brand['Strong Inverse'],
+                                    fontFamily: 'Quicksand_500Medium',
+                                  }
+                                ),
+                                dimensions.width
+                              )}
+                            >
+                              {'Revenue:'}
+                            </Text>
+                          </View>
 
-                      <Text
-                        accessible={true}
-                        {...GlobalStyles.TextStyles(theme)['screen_title']
-                          .props}
-                        style={StyleSheet.applyWidth(
-                          StyleSheet.compose(
-                            GlobalStyles.TextStyles(theme)['screen_title']
-                              .style,
-                            {
-                              color: palettes.Brand['Strong Inverse'],
-                              fontFamily: 'Quicksand_500Medium',
-                            }
-                          ),
-                          dimensions.width
-                        )}
-                      >
-                        {transformEuroM(fetchData?.revenue_eur)}
-                      </Text>
-                    </View>
+                          <Text
+                            accessible={true}
+                            {...GlobalStyles.TextStyles(theme)['screen_title']
+                              .props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TextStyles(theme)['screen_title']
+                                  .style,
+                                {
+                                  color: palettes.Brand['Strong Inverse'],
+                                  fontFamily: 'Quicksand_500Medium',
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            {transformEuroM(fetchData?.revenue_eur)}
+                          </Text>
+                        </View>
+                      )}
+                    </>
                     {/* View 10 */}
-                    <View
-                      style={StyleSheet.applyWidth(
-                        { flexDirection: 'row', gap: 8 },
-                        dimensions.width
-                      )}
-                    >
-                      <View
-                        style={StyleSheet.applyWidth(
-                          {
-                            width: [
-                              { minWidth: Breakpoints.Tablet, value: 160 },
-                              { minWidth: Breakpoints.Mobile, value: 150 },
-                            ],
-                          },
-                          dimensions.width
-                        )}
-                      >
-                        <Text
-                          accessible={true}
-                          {...GlobalStyles.TextStyles(theme)['screen_title']
-                            .props}
+                    <>
+                      {!(
+                        transformNumber(
+                          fetchData?.ebitda_eur,
+                          undefined,
+                          undefined
+                        ) !== '-'
+                      ) ? null : (
+                        <View
                           style={StyleSheet.applyWidth(
-                            StyleSheet.compose(
-                              GlobalStyles.TextStyles(theme)['screen_title']
-                                .style,
-                              {
-                                color: palettes.Brand['Strong Inverse'],
-                                fontFamily: 'Quicksand_500Medium',
-                              }
-                            ),
+                            { flexDirection: 'row', gap: 8 },
                             dimensions.width
                           )}
                         >
-                          {'EBITDA:'}
-                        </Text>
-                      </View>
+                          <View
+                            style={StyleSheet.applyWidth(
+                              {
+                                width: [
+                                  { minWidth: Breakpoints.Tablet, value: 160 },
+                                  { minWidth: Breakpoints.Mobile, value: 150 },
+                                ],
+                              },
+                              dimensions.width
+                            )}
+                          >
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)['screen_title']
+                                .props}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.TextStyles(theme)['screen_title']
+                                    .style,
+                                  {
+                                    color: palettes.Brand['Strong Inverse'],
+                                    fontFamily: 'Quicksand_500Medium',
+                                  }
+                                ),
+                                dimensions.width
+                              )}
+                            >
+                              {'EBITDA:'}
+                            </Text>
+                          </View>
 
-                      <Text
-                        accessible={true}
-                        {...GlobalStyles.TextStyles(theme)['screen_title']
-                          .props}
-                        style={StyleSheet.applyWidth(
-                          StyleSheet.compose(
-                            GlobalStyles.TextStyles(theme)['screen_title']
-                              .style,
-                            {
-                              color: palettes.Brand['Strong Inverse'],
-                              fontFamily: 'Quicksand_500Medium',
-                            }
-                          ),
-                          dimensions.width
-                        )}
-                      >
-                        {transformEuroM(fetchData?.ebitda_eur)}
-                      </Text>
-                    </View>
+                          <Text
+                            accessible={true}
+                            {...GlobalStyles.TextStyles(theme)['screen_title']
+                              .props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TextStyles(theme)['screen_title']
+                                  .style,
+                                {
+                                  color: palettes.Brand['Strong Inverse'],
+                                  fontFamily: 'Quicksand_500Medium',
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            {transformEuroM(fetchData?.ebitda_eur)}
+                          </Text>
+                        </View>
+                      )}
+                    </>
                     {/* View 15 */}
-                    <View
-                      style={StyleSheet.applyWidth(
-                        { flexDirection: 'row', gap: 8 },
-                        dimensions.width
-                      )}
-                    >
-                      <View
-                        style={StyleSheet.applyWidth(
-                          {
-                            width: [
-                              { minWidth: Breakpoints.Tablet, value: 160 },
-                              { minWidth: Breakpoints.Mobile, value: 150 },
-                            ],
-                          },
-                          dimensions.width
-                        )}
-                      >
-                        <Text
-                          accessible={true}
-                          {...GlobalStyles.TextStyles(theme)['screen_title']
-                            .props}
+                    <>
+                      {!(
+                        transformNumber(
+                          fetchData?.gross_profit_eur,
+                          undefined,
+                          undefined
+                        ) !== '-'
+                      ) ? null : (
+                        <View
                           style={StyleSheet.applyWidth(
-                            StyleSheet.compose(
-                              GlobalStyles.TextStyles(theme)['screen_title']
-                                .style,
-                              {
-                                color: palettes.Brand['Strong Inverse'],
-                                fontFamily: 'Quicksand_500Medium',
-                              }
-                            ),
+                            { flexDirection: 'row', gap: 8 },
                             dimensions.width
                           )}
                         >
-                          {'Gross Profit:'}
-                        </Text>
-                      </View>
+                          <View
+                            style={StyleSheet.applyWidth(
+                              {
+                                width: [
+                                  { minWidth: Breakpoints.Tablet, value: 160 },
+                                  { minWidth: Breakpoints.Mobile, value: 150 },
+                                ],
+                              },
+                              dimensions.width
+                            )}
+                          >
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)['screen_title']
+                                .props}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.TextStyles(theme)['screen_title']
+                                    .style,
+                                  {
+                                    color: palettes.Brand['Strong Inverse'],
+                                    fontFamily: 'Quicksand_500Medium',
+                                  }
+                                ),
+                                dimensions.width
+                              )}
+                            >
+                              {'Gross Profit:'}
+                            </Text>
+                          </View>
 
-                      <Text
-                        accessible={true}
-                        {...GlobalStyles.TextStyles(theme)['screen_title']
-                          .props}
-                        style={StyleSheet.applyWidth(
-                          StyleSheet.compose(
-                            GlobalStyles.TextStyles(theme)['screen_title']
-                              .style,
-                            {
-                              color: palettes.Brand['Strong Inverse'],
-                              fontFamily: 'Quicksand_500Medium',
-                            }
-                          ),
-                          dimensions.width
-                        )}
-                      >
-                        {transformEuroM(fetchData?.gross_profit_eur)}
-                      </Text>
-                    </View>
+                          <Text
+                            accessible={true}
+                            {...GlobalStyles.TextStyles(theme)['screen_title']
+                              .props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TextStyles(theme)['screen_title']
+                                  .style,
+                                {
+                                  color: palettes.Brand['Strong Inverse'],
+                                  fontFamily: 'Quicksand_500Medium',
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            {transformEuroM(fetchData?.gross_profit_eur)}
+                          </Text>
+                        </View>
+                      )}
+                    </>
                     {/* View 11 */}
                     <>
                       {!(fetchData?.ev_eur !== '0.0') ? null : (

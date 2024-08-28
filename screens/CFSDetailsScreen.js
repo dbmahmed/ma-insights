@@ -1,4 +1,16 @@
 import React from 'react';
+import {
+  LinearGradient,
+  ScreenContainer,
+  SimpleStyleFlatList,
+  SimpleStyleScrollView,
+  Touchable,
+  withTheme,
+} from '@draftbit/ui';
+import { H3, H5, H6 } from '@expo/html-elements';
+import { useIsFocused } from '@react-navigation/native';
+import { ActivityIndicator, Text, View } from 'react-native';
+import { Fetch } from 'react-request';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
 import CustomHeaderBlock from '../components/CustomHeaderBlock';
@@ -13,18 +25,6 @@ import Breakpoints from '../utils/Breakpoints';
 import * as DateUtils from '../utils/DateUtils';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
-import {
-  LinearGradient,
-  ScreenContainer,
-  SimpleStyleFlatList,
-  SimpleStyleScrollView,
-  Touchable,
-  withTheme,
-} from '@draftbit/ui';
-import { H3, H5, H6 } from '@expo/html-elements';
-import { useIsFocused } from '@react-navigation/native';
-import { ActivityIndicator, Text, View } from 'react-native';
-import { Fetch } from 'react-request';
 
 const CFSDetailsScreen = props => {
   const { theme, navigation } = props;
@@ -71,7 +71,7 @@ const CFSDetailsScreen = props => {
     <ScreenContainer hasSafeArea={false} scrollable={false}>
       <CustomHeaderBlock />
       <XanoCollectionApi.FetchGetOneCFSGET
-        cfs_id={props.route?.params?.cfs_id ?? 276}
+        cfs_id={props.route?.params?.cfs_id ?? 1989}
       >
         {({ loading, error, data, refetchGetOneCFS }) => {
           const fetchData = data?.json;
@@ -689,29 +689,20 @@ const CFSDetailsScreen = props => {
                       dimensions.width
                     )}
                   >
-                    {/* H3 3 */}
-                    <H3
-                      selectable={false}
-                      {...GlobalStyles.H3Styles(theme)['H3'].props}
+                    {/* Text 3 */}
+                    <Text
+                      accessible={true}
+                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
                       style={StyleSheet.applyWidth(
                         StyleSheet.compose(
-                          GlobalStyles.H3Styles(theme)['H3'].style,
-                          {
-                            alignSelf: {
-                              minWidth: Breakpoints.Laptop,
-                              value: 'flex-start',
-                            },
-                            fontFamily: 'Quicksand_700Bold',
-                            fontSize: 20,
-                            marginBottom: 10,
-                            marginTop: 0,
-                          }
+                          GlobalStyles.TextStyles(theme)['screen_title'].style,
+                          { paddingBottom: 5 }
                         ),
                         dimensions.width
                       )}
                     >
                       {'Latest Update:'}
-                    </H3>
+                    </Text>
 
                     <H3
                       selectable={false}

@@ -1,18 +1,4 @@
 import React from 'react';
-import * as GlobalStyles from '../GlobalStyles.js';
-import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
-import CustomHeaderBlock from '../components/CustomHeaderBlock';
-import * as GlobalVariables from '../config/GlobalVariableContext';
-import Images from '../config/Images';
-import assessAccess from '../global-functions/assessAccess';
-import hideNKPProp from '../global-functions/hideNKPProp';
-import isNKPProp from '../global-functions/isNKPProp';
-import removeGlobalScroll from '../global-functions/removeGlobalScroll';
-import resetAccess from '../global-functions/resetAccess';
-import palettes from '../themes/palettes';
-import Breakpoints from '../utils/Breakpoints';
-import * as StyleSheet from '../utils/StyleSheet';
-import useWindowDimensions from '../utils/useWindowDimensions';
 import {
   AudioPlayer,
   Button,
@@ -24,13 +10,26 @@ import {
   Shadow,
   SimpleStyleFlatList,
   SimpleStyleScrollView,
-  WebView,
   withTheme,
 } from '@draftbit/ui';
 import { H1, H3, H5 } from '@expo/html-elements';
 import { useIsFocused } from '@react-navigation/native';
 import { ActivityIndicator, Image, Text, View } from 'react-native';
 import { Fetch } from 'react-request';
+import * as GlobalStyles from '../GlobalStyles.js';
+import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
+import CustomHeaderBlock from '../components/CustomHeaderBlock';
+import * as GlobalVariables from '../config/GlobalVariableContext';
+import Images from '../config/Images';
+import assessAccess from '../global-functions/assessAccess';
+import isNKPProp from '../global-functions/isNKPProp';
+import removeGlobalScroll from '../global-functions/removeGlobalScroll';
+import resetAccess from '../global-functions/resetAccess';
+import showNKPProp from '../global-functions/showNKPProp';
+import palettes from '../themes/palettes';
+import Breakpoints from '../utils/Breakpoints';
+import * as StyleSheet from '../utils/StyleSheet';
+import useWindowDimensions from '../utils/useWindowDimensions';
 
 const NewsletterDetailsScreen = props => {
   const { theme, navigation } = props;
@@ -125,7 +124,7 @@ const NewsletterDetailsScreen = props => {
             }
           },
         }}
-        newsletter_id={props.route?.params?.news_id ?? 85}
+        newsletter_id={props.route?.params?.news_id ?? 103}
       >
         {({ loading, error, data, refetchNewsletterEach }) => {
           const fetchData = data?.json;
@@ -492,38 +491,28 @@ const NewsletterDetailsScreen = props => {
                         </View>
                       )}
                     </>
-                    <View
+                    {/* H Stack 2 */}
+                    <HStack
+                      {...GlobalStyles.HStackStyles(theme)['H Stack'].props}
                       style={StyleSheet.applyWidth(
-                        {
-                          alignContent: 'space-around',
-                          flex: 1,
-                          flexWrap: 'wrap',
-                        },
+                        StyleSheet.compose(
+                          GlobalStyles.HStackStyles(theme)['H Stack'].style,
+                          {
+                            alignItems: [
+                              {
+                                minWidth: Breakpoints.Tablet,
+                                value: 'flex-start',
+                              },
+                              {
+                                minWidth: Breakpoints.Mobile,
+                                value: 'flex-start',
+                              },
+                            ],
+                          }
+                        ),
                         dimensions.width
                       )}
                     >
-                      <>
-                        {!isNKPProp(fetchData?._potd?.headline) ? null : (
-                          <Image
-                            resizeMode={'cover'}
-                            {...GlobalStyles.ImageStyles(theme)['Image'].props}
-                            source={Images['mainsightsfaviconlogo1024new']}
-                            style={StyleSheet.applyWidth(
-                              StyleSheet.compose(
-                                GlobalStyles.ImageStyles(theme)['Image'].style,
-                                {
-                                  bottom: 10,
-                                  height: 25,
-                                  position: 'absolute',
-                                  right: 10,
-                                  width: 25,
-                                }
-                              ),
-                              dimensions.width
-                            )}
-                          />
-                        )}
-                      </>
                       <>
                         {!(fetchData?.potd !== 0) ? null : (
                           <H3
@@ -542,11 +531,42 @@ const NewsletterDetailsScreen = props => {
                               dimensions.width
                             )}
                           >
-                            {hideNKPProp(fetchData?._potd?.headline)}
+                            {showNKPProp(fetchData?._potd?.headline, undefined)}
                           </H3>
                         )}
                       </>
-                    </View>
+                      <>
+                        {!isNKPProp(fetchData?._potd?.headline) ? null : (
+                          <Image
+                            resizeMode={'cover'}
+                            {...GlobalStyles.ImageStyles(theme)['Image'].props}
+                            source={Images['mainsightsfaviconlogo1024new']}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.ImageStyles(theme)['Image'].style,
+                                {
+                                  height: 25,
+                                  marginRight: {
+                                    minWidth: Breakpoints.Tablet,
+                                    value: 5,
+                                  },
+                                  position: {
+                                    minWidth: Breakpoints.Tablet,
+                                    value: 'relative',
+                                  },
+                                  top: {
+                                    minWidth: Breakpoints.Tablet,
+                                    value: 0,
+                                  },
+                                  width: 25,
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          />
+                        )}
+                      </>
+                    </HStack>
                     {/* potd settings */}
                     <>
                       {!(fetchData?.potd !== 0) ? null : (
@@ -1454,6 +1474,7 @@ const NewsletterDetailsScreen = props => {
                               )}
                             >
                               {fetchData?.country_order?.[0]}
+                              {':'}
                             </H3>
                             <SimpleStyleFlatList
                               data={fetchData?.events_list?.first}
@@ -1542,7 +1563,26 @@ const NewsletterDetailsScreen = props => {
                                               dimensions.width
                                             )}
                                           >
-                                            <View>
+                                            <HStack
+                                              {...GlobalStyles.HStackStyles(
+                                                theme
+                                              )['H Stack'].props}
+                                              style={StyleSheet.applyWidth(
+                                                StyleSheet.compose(
+                                                  GlobalStyles.HStackStyles(
+                                                    theme
+                                                  )['H Stack'].style,
+                                                  {
+                                                    alignItems: {
+                                                      minWidth:
+                                                        Breakpoints.Tablet,
+                                                      value: 'flex-start',
+                                                    },
+                                                  }
+                                                ),
+                                                dimensions.width
+                                              )}
+                                            >
                                               <Text
                                                 accessible={true}
                                                 style={StyleSheet.applyWidth(
@@ -1574,10 +1614,64 @@ const NewsletterDetailsScreen = props => {
                                                   )}
                                                 >
                                                   {'| '}
-                                                  {listData?.headline}
+                                                  {showNKPProp(
+                                                    listData?.headline,
+                                                    listData?.source
+                                                  )}
                                                 </Text>
                                               </Text>
-                                            </View>
+                                              <>
+                                                {!isNKPProp(
+                                                  listData?.source
+                                                ) ? null : (
+                                                  <Image
+                                                    resizeMode={'cover'}
+                                                    {...GlobalStyles.ImageStyles(
+                                                      theme
+                                                    )['Image'].props}
+                                                    source={
+                                                      Images[
+                                                        'mainsightsfaviconlogo1024new'
+                                                      ]
+                                                    }
+                                                    style={StyleSheet.applyWidth(
+                                                      StyleSheet.compose(
+                                                        GlobalStyles.ImageStyles(
+                                                          theme
+                                                        )['Image'].style,
+                                                        {
+                                                          height: [
+                                                            {
+                                                              minWidth:
+                                                                Breakpoints.Tablet,
+                                                              value: 25,
+                                                            },
+                                                            {
+                                                              minWidth:
+                                                                Breakpoints.Mobile,
+                                                              value: 25,
+                                                            },
+                                                          ],
+                                                          width: [
+                                                            {
+                                                              minWidth:
+                                                                Breakpoints.Tablet,
+                                                              value: 25,
+                                                            },
+                                                            {
+                                                              minWidth:
+                                                                Breakpoints.Mobile,
+                                                              value: 25,
+                                                            },
+                                                          ],
+                                                        }
+                                                      ),
+                                                      dimensions.width
+                                                    )}
+                                                  />
+                                                )}
+                                              </>
+                                            </HStack>
                                             {/* View 3 */}
                                             <View>
                                               <Text
@@ -1763,7 +1857,26 @@ const NewsletterDetailsScreen = props => {
                                               dimensions.width
                                             )}
                                           >
-                                            <View>
+                                            <HStack
+                                              {...GlobalStyles.HStackStyles(
+                                                theme
+                                              )['H Stack'].props}
+                                              style={StyleSheet.applyWidth(
+                                                StyleSheet.compose(
+                                                  GlobalStyles.HStackStyles(
+                                                    theme
+                                                  )['H Stack'].style,
+                                                  {
+                                                    alignItems: {
+                                                      minWidth:
+                                                        Breakpoints.Tablet,
+                                                      value: 'flex-start',
+                                                    },
+                                                  }
+                                                ),
+                                                dimensions.width
+                                              )}
+                                            >
                                               <Text
                                                 accessible={true}
                                                 style={StyleSheet.applyWidth(
@@ -1795,10 +1908,64 @@ const NewsletterDetailsScreen = props => {
                                                   )}
                                                 >
                                                   {'| '}
-                                                  {listData?.headline}
+                                                  {showNKPProp(
+                                                    listData?.headline,
+                                                    listData?.source
+                                                  )}
                                                 </Text>
                                               </Text>
-                                            </View>
+                                              <>
+                                                {!isNKPProp(
+                                                  listData?.source
+                                                ) ? null : (
+                                                  <Image
+                                                    resizeMode={'cover'}
+                                                    {...GlobalStyles.ImageStyles(
+                                                      theme
+                                                    )['Image'].props}
+                                                    source={
+                                                      Images[
+                                                        'mainsightsfaviconlogo1024new'
+                                                      ]
+                                                    }
+                                                    style={StyleSheet.applyWidth(
+                                                      StyleSheet.compose(
+                                                        GlobalStyles.ImageStyles(
+                                                          theme
+                                                        )['Image'].style,
+                                                        {
+                                                          height: [
+                                                            {
+                                                              minWidth:
+                                                                Breakpoints.Tablet,
+                                                              value: 25,
+                                                            },
+                                                            {
+                                                              minWidth:
+                                                                Breakpoints.Mobile,
+                                                              value: 25,
+                                                            },
+                                                          ],
+                                                          width: [
+                                                            {
+                                                              minWidth:
+                                                                Breakpoints.Tablet,
+                                                              value: 25,
+                                                            },
+                                                            {
+                                                              minWidth:
+                                                                Breakpoints.Mobile,
+                                                              value: 25,
+                                                            },
+                                                          ],
+                                                        }
+                                                      ),
+                                                      dimensions.width
+                                                    )}
+                                                  />
+                                                )}
+                                              </>
+                                            </HStack>
                                             {/* View 3 */}
                                             <View>
                                               <Text
@@ -1968,7 +2135,26 @@ const NewsletterDetailsScreen = props => {
                                               dimensions.width
                                             )}
                                           >
-                                            <View>
+                                            <HStack
+                                              {...GlobalStyles.HStackStyles(
+                                                theme
+                                              )['H Stack'].props}
+                                              style={StyleSheet.applyWidth(
+                                                StyleSheet.compose(
+                                                  GlobalStyles.HStackStyles(
+                                                    theme
+                                                  )['H Stack'].style,
+                                                  {
+                                                    alignItems: {
+                                                      minWidth:
+                                                        Breakpoints.Tablet,
+                                                      value: 'flex-start',
+                                                    },
+                                                  }
+                                                ),
+                                                dimensions.width
+                                              )}
+                                            >
                                               {/* Text 2 */}
                                               <Text
                                                 accessible={true}
@@ -2001,10 +2187,64 @@ const NewsletterDetailsScreen = props => {
                                                   )}
                                                 >
                                                   {'| '}
-                                                  {listData?.headline}
+                                                  {showNKPProp(
+                                                    listData?.headline,
+                                                    undefined
+                                                  )}
                                                 </Text>
                                               </Text>
-                                            </View>
+                                              <>
+                                                {!isNKPProp(
+                                                  listData?.source
+                                                ) ? null : (
+                                                  <Image
+                                                    resizeMode={'cover'}
+                                                    {...GlobalStyles.ImageStyles(
+                                                      theme
+                                                    )['Image'].props}
+                                                    source={
+                                                      Images[
+                                                        'mainsightsfaviconlogo1024new'
+                                                      ]
+                                                    }
+                                                    style={StyleSheet.applyWidth(
+                                                      StyleSheet.compose(
+                                                        GlobalStyles.ImageStyles(
+                                                          theme
+                                                        )['Image'].style,
+                                                        {
+                                                          height: [
+                                                            {
+                                                              minWidth:
+                                                                Breakpoints.Tablet,
+                                                              value: 25,
+                                                            },
+                                                            {
+                                                              minWidth:
+                                                                Breakpoints.Mobile,
+                                                              value: 25,
+                                                            },
+                                                          ],
+                                                          width: [
+                                                            {
+                                                              minWidth:
+                                                                Breakpoints.Tablet,
+                                                              value: 25,
+                                                            },
+                                                            {
+                                                              minWidth:
+                                                                Breakpoints.Mobile,
+                                                              value: 25,
+                                                            },
+                                                          ],
+                                                        }
+                                                      ),
+                                                      dimensions.width
+                                                    )}
+                                                  />
+                                                )}
+                                              </>
+                                            </HStack>
                                             {/* View 3 */}
                                             <View>
                                               <Text
@@ -2172,7 +2412,33 @@ const NewsletterDetailsScreen = props => {
                                               dimensions.width
                                             )}
                                           >
-                                            <View>
+                                            <HStack
+                                              {...GlobalStyles.HStackStyles(
+                                                theme
+                                              )['H Stack'].props}
+                                              style={StyleSheet.applyWidth(
+                                                StyleSheet.compose(
+                                                  GlobalStyles.HStackStyles(
+                                                    theme
+                                                  )['H Stack'].style,
+                                                  {
+                                                    alignItems: [
+                                                      {
+                                                        minWidth:
+                                                          Breakpoints.Tablet,
+                                                        value: 'flex-start',
+                                                      },
+                                                      {
+                                                        minWidth:
+                                                          Breakpoints.Mobile,
+                                                        value: 'flex-start',
+                                                      },
+                                                    ],
+                                                  }
+                                                ),
+                                                dimensions.width
+                                              )}
+                                            >
                                               {/* Text 2 */}
                                               <Text
                                                 accessible={true}
@@ -2218,10 +2484,64 @@ const NewsletterDetailsScreen = props => {
                                                   )}
                                                 >
                                                   {'| '}
-                                                  {listData?.headline}
+                                                  {showNKPProp(
+                                                    listData?.headline,
+                                                    listData?.source
+                                                  )}
                                                 </Text>
                                               </Text>
-                                            </View>
+                                              <>
+                                                {!isNKPProp(
+                                                  listData?.source
+                                                ) ? null : (
+                                                  <Image
+                                                    resizeMode={'cover'}
+                                                    {...GlobalStyles.ImageStyles(
+                                                      theme
+                                                    )['Image'].props}
+                                                    source={
+                                                      Images[
+                                                        'mainsightsfaviconlogo1024new'
+                                                      ]
+                                                    }
+                                                    style={StyleSheet.applyWidth(
+                                                      StyleSheet.compose(
+                                                        GlobalStyles.ImageStyles(
+                                                          theme
+                                                        )['Image'].style,
+                                                        {
+                                                          height: [
+                                                            {
+                                                              minWidth:
+                                                                Breakpoints.Tablet,
+                                                              value: 25,
+                                                            },
+                                                            {
+                                                              minWidth:
+                                                                Breakpoints.Mobile,
+                                                              value: 25,
+                                                            },
+                                                          ],
+                                                          width: [
+                                                            {
+                                                              minWidth:
+                                                                Breakpoints.Tablet,
+                                                              value: 25,
+                                                            },
+                                                            {
+                                                              minWidth:
+                                                                Breakpoints.Mobile,
+                                                              value: 25,
+                                                            },
+                                                          ],
+                                                        }
+                                                      ),
+                                                      dimensions.width
+                                                    )}
+                                                  />
+                                                )}
+                                              </>
+                                            </HStack>
                                             {/* View 3 */}
                                             <View>
                                               <Text
@@ -2419,7 +2739,35 @@ const NewsletterDetailsScreen = props => {
                                                     dimensions.width
                                                   )}
                                                 >
-                                                  <View>
+                                                  <HStack
+                                                    {...GlobalStyles.HStackStyles(
+                                                      theme
+                                                    )['H Stack'].props}
+                                                    style={StyleSheet.applyWidth(
+                                                      StyleSheet.compose(
+                                                        GlobalStyles.HStackStyles(
+                                                          theme
+                                                        )['H Stack'].style,
+                                                        {
+                                                          alignItems: [
+                                                            {
+                                                              minWidth:
+                                                                Breakpoints.Tablet,
+                                                              value:
+                                                                'flex-start',
+                                                            },
+                                                            {
+                                                              minWidth:
+                                                                Breakpoints.Mobile,
+                                                              value:
+                                                                'flex-start',
+                                                            },
+                                                          ],
+                                                        }
+                                                      ),
+                                                      dimensions.width
+                                                    )}
+                                                  >
                                                     <Text
                                                       accessible={true}
                                                       style={StyleSheet.applyWidth(
@@ -2431,8 +2779,9 @@ const NewsletterDetailsScreen = props => {
                                                         dimensions.width
                                                       )}
                                                     >
-                                                      {hideNKPProp(
-                                                        listData?.headline
+                                                      {showNKPProp(
+                                                        listData?.headline,
+                                                        listData?.source
                                                       )}
                                                     </Text>
                                                     <>
@@ -2455,11 +2804,7 @@ const NewsletterDetailsScreen = props => {
                                                                 theme
                                                               )['Image'].style,
                                                               {
-                                                                bottom: 10,
                                                                 height: 25,
-                                                                position:
-                                                                  'absolute',
-                                                                right: 10,
                                                                 width: 25,
                                                               }
                                                             ),
@@ -2468,7 +2813,7 @@ const NewsletterDetailsScreen = props => {
                                                         />
                                                       )}
                                                     </>
-                                                  </View>
+                                                  </HStack>
                                                   {/* View 2 */}
                                                   <View>
                                                     <Text
@@ -2511,28 +2856,22 @@ const NewsletterDetailsScreen = props => {
                                                     </Text>
                                                     {/* View 4 */}
                                                     <View>
-                                                      <>
-                                                        {isNKPProp(
-                                                          listData?.headline
-                                                        ) ? null : (
-                                                          <Text
-                                                            accessible={true}
-                                                            style={StyleSheet.applyWidth(
-                                                              {
-                                                                color:
-                                                                  palettes.App
-                                                                    .Orange,
-                                                                fontFamily:
-                                                                  'Quicksand_400Regular',
-                                                              },
-                                                              dimensions.width
-                                                            )}
-                                                          >
-                                                            {'Source: '}
-                                                            {listData?.source}
-                                                          </Text>
+                                                      <Text
+                                                        accessible={true}
+                                                        style={StyleSheet.applyWidth(
+                                                          {
+                                                            color:
+                                                              palettes.App
+                                                                .Orange,
+                                                            fontFamily:
+                                                              'Quicksand_400Regular',
+                                                          },
+                                                          dimensions.width
                                                         )}
-                                                      </>
+                                                      >
+                                                        {'Source: '}
+                                                        {listData?.source}
+                                                      </Text>
                                                     </View>
                                                   </View>
                                                 </View>
@@ -2691,7 +3030,33 @@ const NewsletterDetailsScreen = props => {
                                                   dimensions.width
                                                 )}
                                               >
-                                                <View>
+                                                <HStack
+                                                  {...GlobalStyles.HStackStyles(
+                                                    theme
+                                                  )['H Stack'].props}
+                                                  style={StyleSheet.applyWidth(
+                                                    StyleSheet.compose(
+                                                      GlobalStyles.HStackStyles(
+                                                        theme
+                                                      )['H Stack'].style,
+                                                      {
+                                                        alignItems: [
+                                                          {
+                                                            minWidth:
+                                                              Breakpoints.Tablet,
+                                                            value: 'flex-start',
+                                                          },
+                                                          {
+                                                            minWidth:
+                                                              Breakpoints.Mobile,
+                                                            value: 'flex-start',
+                                                          },
+                                                        ],
+                                                      }
+                                                    ),
+                                                    dimensions.width
+                                                  )}
+                                                >
                                                   <Text
                                                     accessible={true}
                                                     style={StyleSheet.applyWidth(
@@ -2703,8 +3068,9 @@ const NewsletterDetailsScreen = props => {
                                                       dimensions.width
                                                     )}
                                                   >
-                                                    {hideNKPProp(
-                                                      listData?.headline
+                                                    {showNKPProp(
+                                                      listData?.headline,
+                                                      listData?.source
                                                     )}
                                                   </Text>
                                                   <>
@@ -2727,11 +3093,7 @@ const NewsletterDetailsScreen = props => {
                                                               theme
                                                             )['Image'].style,
                                                             {
-                                                              bottom: 10,
                                                               height: 25,
-                                                              position:
-                                                                'absolute',
-                                                              right: 10,
                                                               width: 25,
                                                             }
                                                           ),
@@ -2740,7 +3102,7 @@ const NewsletterDetailsScreen = props => {
                                                       />
                                                     )}
                                                   </>
-                                                </View>
+                                                </HStack>
                                                 {/* View 2 */}
                                                 <View>
                                                   <Text
@@ -2784,28 +3146,21 @@ const NewsletterDetailsScreen = props => {
                                                 </View>
                                                 {/* View 5 */}
                                                 <View>
-                                                  <>
-                                                    {isNKPProp(
-                                                      listData?.headline
-                                                    ) ? null : (
-                                                      <Text
-                                                        accessible={true}
-                                                        style={StyleSheet.applyWidth(
-                                                          {
-                                                            color:
-                                                              palettes.App
-                                                                .Orange,
-                                                            fontFamily:
-                                                              'Quicksand_400Regular',
-                                                          },
-                                                          dimensions.width
-                                                        )}
-                                                      >
-                                                        {'Source: '}
-                                                        {listData?.source}
-                                                      </Text>
+                                                  <Text
+                                                    accessible={true}
+                                                    style={StyleSheet.applyWidth(
+                                                      {
+                                                        color:
+                                                          palettes.App.Orange,
+                                                        fontFamily:
+                                                          'Quicksand_400Regular',
+                                                      },
+                                                      dimensions.width
                                                     )}
-                                                  </>
+                                                  >
+                                                    {'Source: '}
+                                                    {listData?.source}
+                                                  </Text>
                                                 </View>
                                               </View>
                                             </Pressable>
@@ -2955,7 +3310,33 @@ const NewsletterDetailsScreen = props => {
                                                   dimensions.width
                                                 )}
                                               >
-                                                <View>
+                                                <HStack
+                                                  {...GlobalStyles.HStackStyles(
+                                                    theme
+                                                  )['H Stack'].props}
+                                                  style={StyleSheet.applyWidth(
+                                                    StyleSheet.compose(
+                                                      GlobalStyles.HStackStyles(
+                                                        theme
+                                                      )['H Stack'].style,
+                                                      {
+                                                        alignItems: [
+                                                          {
+                                                            minWidth:
+                                                              Breakpoints.Tablet,
+                                                            value: 'flex-start',
+                                                          },
+                                                          {
+                                                            minWidth:
+                                                              Breakpoints.Mobile,
+                                                            value: 'flex-start',
+                                                          },
+                                                        ],
+                                                      }
+                                                    ),
+                                                    dimensions.width
+                                                  )}
+                                                >
                                                   <Text
                                                     accessible={true}
                                                     style={StyleSheet.applyWidth(
@@ -2967,8 +3348,9 @@ const NewsletterDetailsScreen = props => {
                                                       dimensions.width
                                                     )}
                                                   >
-                                                    {hideNKPProp(
-                                                      listData?.headline
+                                                    {showNKPProp(
+                                                      listData?.headline,
+                                                      listData?.source
                                                     )}
                                                   </Text>
                                                   <>
@@ -2991,11 +3373,7 @@ const NewsletterDetailsScreen = props => {
                                                               theme
                                                             )['Image'].style,
                                                             {
-                                                              bottom: 10,
                                                               height: 25,
-                                                              position:
-                                                                'absolute',
-                                                              right: 10,
                                                               width: 25,
                                                             }
                                                           ),
@@ -3004,7 +3382,8 @@ const NewsletterDetailsScreen = props => {
                                                       />
                                                     )}
                                                   </>
-                                                </View>
+                                                </HStack>
+                                                <View />
                                                 {/* View 2 */}
                                                 <View>
                                                   <Text
@@ -3049,28 +3428,21 @@ const NewsletterDetailsScreen = props => {
                                                 </View>
                                                 {/* View 5 */}
                                                 <View>
-                                                  <>
-                                                    {isNKPProp(
-                                                      listData?.headline
-                                                    ) ? null : (
-                                                      <Text
-                                                        accessible={true}
-                                                        style={StyleSheet.applyWidth(
-                                                          {
-                                                            color:
-                                                              palettes.App
-                                                                .Orange,
-                                                            fontFamily:
-                                                              'Quicksand_400Regular',
-                                                          },
-                                                          dimensions.width
-                                                        )}
-                                                      >
-                                                        {'Source: '}
-                                                        {listData?.source}
-                                                      </Text>
+                                                  <Text
+                                                    accessible={true}
+                                                    style={StyleSheet.applyWidth(
+                                                      {
+                                                        color:
+                                                          palettes.App.Orange,
+                                                        fontFamily:
+                                                          'Quicksand_400Regular',
+                                                      },
+                                                      dimensions.width
                                                     )}
-                                                  </>
+                                                  >
+                                                    {'Source: '}
+                                                    {listData?.source}
+                                                  </Text>
                                                 </View>
                                               </View>
                                             </Pressable>

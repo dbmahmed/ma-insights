@@ -1,19 +1,19 @@
-const showDate = (value, date, onlyPositive) => {
+const showNKPProp = (string, source) => {
   // Type the code for the body of your function or hook here.
   // Functions can be triggered via Button/Touchable actions.
   // Hooks are run per ReactJS rules.
 
   /* String line breaks are accomplished with backticks ( example: `line one
 line two` ) and will not work with special characters inside of quotes ( example: "line one line two" ) */
-  if (
-    !value ||
-    value == '0.0' ||
-    (onlyPositive === true && parseFloat(value) < 0)
-  ) {
-    return '';
-  }
 
-  return `(${date})`;
+  if (
+    source === 'NKP Proprietary' &&
+    string.indexOf('NKP Proprietary') === -1
+  ) {
+    return `${string.trim()} (NKP Proprietary)`;
+  } else {
+    return string.trim();
+  }
 };
 
-export default showDate;
+export default showNKPProp;

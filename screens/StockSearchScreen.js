@@ -1,20 +1,4 @@
 import React from 'react';
-import * as GlobalStyles from '../GlobalStyles.js';
-import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
-import CustomHeaderBlock from '../components/CustomHeaderBlock';
-import LoadingBlock from '../components/LoadingBlock';
-import * as GlobalVariables from '../config/GlobalVariableContext';
-import assessAccess from '../global-functions/assessAccess';
-import formatNumber from '../global-functions/formatNumber';
-import removeGlobalScroll from '../global-functions/removeGlobalScroll';
-import setPadding from '../global-functions/setPadding';
-import transformEuroM from '../global-functions/transformEuroM';
-import transformNumber from '../global-functions/transformNumber';
-import palettes from '../themes/palettes';
-import Breakpoints from '../utils/Breakpoints';
-import * as StyleSheet from '../utils/StyleSheet';
-import useWindowDimensions from '../utils/useWindowDimensions';
-import waitUtil from '../utils/wait';
 import {
   Button,
   Checkbox,
@@ -34,6 +18,22 @@ import { H5 } from '@expo/html-elements';
 import { useIsFocused } from '@react-navigation/native';
 import { ActivityIndicator, Modal, Text, View } from 'react-native';
 import { Fetch } from 'react-request';
+import * as GlobalStyles from '../GlobalStyles.js';
+import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
+import CustomHeaderBlock from '../components/CustomHeaderBlock';
+import LoadingBlock from '../components/LoadingBlock';
+import * as GlobalVariables from '../config/GlobalVariableContext';
+import assessAccess from '../global-functions/assessAccess';
+import formatNumber from '../global-functions/formatNumber';
+import removeGlobalScroll from '../global-functions/removeGlobalScroll';
+import setPadding from '../global-functions/setPadding';
+import transformEuroM from '../global-functions/transformEuroM';
+import transformNumber from '../global-functions/transformNumber';
+import palettes from '../themes/palettes';
+import Breakpoints from '../utils/Breakpoints';
+import * as StyleSheet from '../utils/StyleSheet';
+import useWindowDimensions from '../utils/useWindowDimensions';
+import waitUtil from '../utils/wait';
 
 const StockSearchScreen = props => {
   const { theme, navigation } = props;
@@ -72,6 +72,7 @@ const StockSearchScreen = props => {
   const [industrials, setIndustrials] = React.useState(false);
   const [it_and_software, setIt_and_software] = React.useState(false);
   const [keywordSearch, setKeywordSearch] = React.useState('');
+  const [keywordSearchRaw, setKeywordSearchRaw] = React.useState('');
   const [lastPage, setLastPage] = React.useState(0);
   const [last_3, setLast_3] = React.useState(false);
   const [materials, setMaterials] = React.useState(false);
@@ -286,16 +287,16 @@ const StockSearchScreen = props => {
               changeTextDelay={500}
               onChangeText={newTextInputValue => {
                 try {
-                  setKeywordSearch(newTextInputValue);
+                  setKeywordSearchRaw(newTextInputValue);
                 } catch (err) {
                   console.error(err);
                 }
               }}
               onSubmitEditing={() => {
                 try {
-                  /* hidden 'Set Variable' action */
+                  setKeywordSearch(keywordSearchRaw);
                   /* hidden 'API Request' action */
-                  /* 'Refetch Data' action requires configuration: choose an API endpoint */
+                  /* hidden 'Refetch Data' action */
                 } catch (err) {
                   console.error(err);
                 }
@@ -313,7 +314,7 @@ const StockSearchScreen = props => {
                 ),
                 dimensions.width
               )}
-              value={keywordSearch}
+              value={keywordSearchRaw}
             />
             <Shadow
               offsetX={0}
@@ -334,7 +335,7 @@ const StockSearchScreen = props => {
                   {
                     alignItems: 'center',
                     backgroundColor:
-                      sector[0] || region[0]
+                      sector[0] || region[0] || enterpriseValue[0]
                         ? palettes.App.Orange
                         : palettes.Brand.Background,
                     borderRadius: 50,
@@ -354,7 +355,7 @@ const StockSearchScreen = props => {
                     }
                   }}
                   color={
-                    (sector[0] || region[0]
+                    (sector[0] || region[0] || enterpriseValue[0]
                       ? palettes.Brand['Strong Inverse']
                       : palettes.App.Strong2) ?? palettes.App.Strong2
                   }
@@ -497,7 +498,7 @@ const StockSearchScreen = props => {
                           page: nextPage,
                           regionIn: region,
                           sectorIn: sector,
-                          stockKeyword: keywordSearch,
+                          stockKeyword: keywordSearchRaw,
                         })
                       )?.json;
                       console.log('Complete ON_END_REACHED:2 FETCH_REQUEST', {

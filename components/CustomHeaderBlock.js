@@ -1,12 +1,4 @@
 import React from 'react';
-import * as GlobalStyles from '../GlobalStyles.js';
-import * as GlobalVariables from '../config/GlobalVariableContext';
-import Images from '../config/Images';
-import resetAccess from '../global-functions/resetAccess';
-import palettes from '../themes/palettes';
-import Breakpoints from '../utils/Breakpoints';
-import * as StyleSheet from '../utils/StyleSheet';
-import useWindowDimensions from '../utils/useWindowDimensions';
 import {
   Button,
   HStack,
@@ -20,6 +12,14 @@ import {
 } from '@draftbit/ui';
 import { useNavigation } from '@react-navigation/native';
 import { Image, Modal, Text, View } from 'react-native';
+import * as GlobalStyles from '../GlobalStyles.js';
+import * as GlobalVariables from '../config/GlobalVariableContext';
+import Images from '../config/Images';
+import resetAccess from '../global-functions/resetAccess';
+import palettes from '../themes/palettes';
+import Breakpoints from '../utils/Breakpoints';
+import * as StyleSheet from '../utils/StyleSheet';
+import useWindowDimensions from '../utils/useWindowDimensions';
 
 const CustomHeaderBlock = props => {
   const { theme } = props;
@@ -1179,7 +1179,7 @@ const CustomHeaderBlock = props => {
                   <Icon
                     size={24}
                     color={
-                      Constants['pageName'] === 'Transactions'
+                      Constants['pageName'] === 'Multiples database'
                         ? palettes.App.Orange
                         : palettes.Brand.Strong
                     }
@@ -1203,7 +1203,7 @@ const CustomHeaderBlock = props => {
                             {
                               minWidth: Breakpoints.Mobile,
                               value:
-                                Constants['pageName'] === 'Transactions'
+                                Constants['pageName'] === 'Multiples database'
                                   ? palettes.App.Orange
                                   : palettes.Brand.Strong,
                             },
@@ -1213,7 +1213,7 @@ const CustomHeaderBlock = props => {
                       dimensions.width
                     )}
                   >
-                    {'TRANSACTIONS'}
+                    {'MULTIPLES'}
                   </Text>
                 </HStack>
               </Pressable>

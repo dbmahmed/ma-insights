@@ -1,22 +1,4 @@
 import React from 'react';
-import * as GlobalStyles from '../GlobalStyles.js';
-import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
-import CustomHeaderBlock from '../components/CustomHeaderBlock';
-import LoadingBlock from '../components/LoadingBlock';
-import * as GlobalVariables from '../config/GlobalVariableContext';
-import assessAccess from '../global-functions/assessAccess';
-import cutText from '../global-functions/cutText';
-import formatNumber from '../global-functions/formatNumber';
-import modifyArrays from '../global-functions/modifyArrays';
-import removeGlobalScroll from '../global-functions/removeGlobalScroll';
-import setPadding from '../global-functions/setPadding';
-import showDate from '../global-functions/showDate';
-import transformNumber from '../global-functions/transformNumber';
-import palettes from '../themes/palettes';
-import Breakpoints from '../utils/Breakpoints';
-import * as StyleSheet from '../utils/StyleSheet';
-import useWindowDimensions from '../utils/useWindowDimensions';
-import waitUtil from '../utils/wait';
 import {
   Button,
   Checkbox,
@@ -36,6 +18,24 @@ import { H5 } from '@expo/html-elements';
 import { useIsFocused } from '@react-navigation/native';
 import { ActivityIndicator, Modal, Text, View } from 'react-native';
 import { Fetch } from 'react-request';
+import * as GlobalStyles from '../GlobalStyles.js';
+import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
+import CustomHeaderBlock from '../components/CustomHeaderBlock';
+import LoadingBlock from '../components/LoadingBlock';
+import * as GlobalVariables from '../config/GlobalVariableContext';
+import assessAccess from '../global-functions/assessAccess';
+import cutText from '../global-functions/cutText';
+import formatNumber from '../global-functions/formatNumber';
+import modifyArrays from '../global-functions/modifyArrays';
+import removeGlobalScroll from '../global-functions/removeGlobalScroll';
+import setPadding from '../global-functions/setPadding';
+import showDate from '../global-functions/showDate';
+import transformNumber from '../global-functions/transformNumber';
+import palettes from '../themes/palettes';
+import Breakpoints from '../utils/Breakpoints';
+import * as StyleSheet from '../utils/StyleSheet';
+import useWindowDimensions from '../utils/useWindowDimensions';
+import waitUtil from '../utils/wait';
 
 const TransactionsScreen = props => {
   const { theme, navigation } = props;
@@ -167,7 +167,7 @@ const TransactionsScreen = props => {
       removeGlobalScroll();
       setGlobalVariableValue({
         key: 'pageName',
-        value: 'Transactions',
+        value: 'Multiples database',
       });
       setGlobalVariableValue({
         key: 'subPage',
@@ -257,7 +257,7 @@ const TransactionsScreen = props => {
               iconPosition={'left'}
               onPress={() => {
                 try {
-                  navigation.push('RootNavigator');
+                  navigation.push('AllEventsScreen');
                 } catch (err) {
                   console.error(err);
                 }
@@ -753,18 +753,12 @@ const TransactionsScreen = props => {
                                   dimensions.width
                                 )}
                               >
-                                {transformNumber(
+                                {transformNumber(listData?.ev_sales, 'x', true)}{' '}
+                                {showDate(
                                   listData?.ev_sales,
-                                  undefined,
-                                  undefined
-                                )}{' '}
-                                {transformNumber(
-                                  listData?.ev_sales,
-                                  undefined,
-                                  undefined
-                                ) !== '-'
-                                  ? '(' + (listData?.fy_end + ')')
-                                  : undefined}
+                                  listData?.fy_end,
+                                  true
+                                )}
                               </Text>
                             </View>
                             {/* View 2 */}
@@ -824,12 +818,13 @@ const TransactionsScreen = props => {
                               >
                                 {transformNumber(
                                   listData?.ev_ebitda,
-                                  undefined,
-                                  undefined
+                                  'x',
+                                  true
                                 )}{' '}
                                 {showDate(
                                   listData?.ev_ebitda,
-                                  listData?.fy_end
+                                  listData?.fy_end,
+                                  true
                                 )}
                               </Text>
                             </View>
@@ -893,7 +888,11 @@ const TransactionsScreen = props => {
                                   undefined,
                                   undefined
                                 )}{' '}
-                                {showDate(listData?.ev_ebit, listData?.fy_end)}
+                                {showDate(
+                                  listData?.ev_ebit,
+                                  listData?.fy_end,
+                                  true
+                                )}
                               </Text>
                             </View>
                           </LinearGradient>
@@ -921,7 +920,8 @@ const TransactionsScreen = props => {
                         value: dimensions.height,
                       },
                     ],
-                    maxHeight: dimensions.height - 240,
+                    marginBottom:
+                      dimensions.width >= Breakpoints.Laptop ? 0 : 65,
                     padding: 5,
                     paddingLeft: setPadding(dimensions.width),
                     paddingRight: setPadding(dimensions.width),

@@ -1,19 +1,4 @@
 import React from 'react';
-import * as GlobalStyles from '../GlobalStyles.js';
-import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
-import CustomHeaderBlock from '../components/CustomHeaderBlock';
-import LoadingBlock from '../components/LoadingBlock';
-import * as GlobalVariables from '../config/GlobalVariableContext';
-import assessAccess from '../global-functions/assessAccess';
-import formatNumber from '../global-functions/formatNumber';
-import modifyArrays from '../global-functions/modifyArrays';
-import removeGlobalScroll from '../global-functions/removeGlobalScroll';
-import setPadding from '../global-functions/setPadding';
-import palettes from '../themes/palettes';
-import Breakpoints from '../utils/Breakpoints';
-import * as StyleSheet from '../utils/StyleSheet';
-import useWindowDimensions from '../utils/useWindowDimensions';
-import waitUtil from '../utils/wait';
 import {
   Button,
   Checkbox,
@@ -32,8 +17,26 @@ import {
 } from '@draftbit/ui';
 import { H5, H6 } from '@expo/html-elements';
 import { useIsFocused } from '@react-navigation/native';
-import { ActivityIndicator, Modal, Text, View } from 'react-native';
+import { ActivityIndicator, Image, Modal, Text, View } from 'react-native';
 import { Fetch } from 'react-request';
+import * as GlobalStyles from '../GlobalStyles.js';
+import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
+import CustomHeaderBlock from '../components/CustomHeaderBlock';
+import LoadingBlock from '../components/LoadingBlock';
+import * as GlobalVariables from '../config/GlobalVariableContext';
+import Images from '../config/Images';
+import assessAccess from '../global-functions/assessAccess';
+import formatNumber from '../global-functions/formatNumber';
+import isNKPProp from '../global-functions/isNKPProp';
+import modifyArrays from '../global-functions/modifyArrays';
+import removeGlobalScroll from '../global-functions/removeGlobalScroll';
+import setPadding from '../global-functions/setPadding';
+import showNKPProp from '../global-functions/showNKPProp';
+import palettes from '../themes/palettes';
+import Breakpoints from '../utils/Breakpoints';
+import * as StyleSheet from '../utils/StyleSheet';
+import useWindowDimensions from '../utils/useWindowDimensions';
+import waitUtil from '../utils/wait';
 
 const AllEventsScreen = props => {
   const { theme, navigation } = props;
@@ -720,30 +723,72 @@ const AllEventsScreen = props => {
                             dimensions.width
                           )}
                         >
-                          <H6
-                            selectable={false}
-                            {...GlobalStyles.H6Styles(theme)['H6'].props}
+                          <HStack
+                            {...GlobalStyles.HStackStyles(theme)['H Stack']
+                              .props}
                             style={StyleSheet.applyWidth(
                               StyleSheet.compose(
-                                GlobalStyles.H6Styles(theme)['H6'].style,
-                                {
-                                  fontFamily: 'Quicksand_700Bold',
-                                  fontSize: [
-                                    { minWidth: Breakpoints.Mobile, value: 14 },
-                                    { minWidth: Breakpoints.Laptop, value: 16 },
-                                  ],
-                                  margin: 0,
-                                  marginBottom: {
-                                    minWidth: Breakpoints.Laptop,
-                                    value: 5,
-                                  },
-                                }
+                                GlobalStyles.HStackStyles(theme)['H Stack']
+                                  .style,
+                                { alignItems: 'flex-start' }
                               ),
                               dimensions.width
                             )}
                           >
-                            {listData?.headline}
-                          </H6>
+                            <H6
+                              selectable={false}
+                              {...GlobalStyles.H6Styles(theme)['H6'].props}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.H6Styles(theme)['H6'].style,
+                                  {
+                                    fontFamily: 'Quicksand_700Bold',
+                                    fontSize: [
+                                      {
+                                        minWidth: Breakpoints.Mobile,
+                                        value: 14,
+                                      },
+                                      {
+                                        minWidth: Breakpoints.Laptop,
+                                        value: 16,
+                                      },
+                                    ],
+                                    margin: 0,
+                                    marginBottom: {
+                                      minWidth: Breakpoints.Laptop,
+                                      value: 5,
+                                    },
+                                  }
+                                ),
+                                dimensions.width
+                              )}
+                            >
+                              {showNKPProp(
+                                listData?.headline,
+                                listData?.source
+                              )}
+                            </H6>
+                            <>
+                              {!isNKPProp(listData?.source) ? null : (
+                                <Image
+                                  resizeMode={'cover'}
+                                  {...GlobalStyles.ImageStyles(theme)['Image']
+                                    .props}
+                                  source={
+                                    Images['mainsightsfaviconlogo1024new']
+                                  }
+                                  style={StyleSheet.applyWidth(
+                                    StyleSheet.compose(
+                                      GlobalStyles.ImageStyles(theme)['Image']
+                                        .style,
+                                      { height: 25, width: 25 }
+                                    ),
+                                    dimensions.width
+                                  )}
+                                />
+                              )}
+                            </>
+                          </HStack>
 
                           <Text
                             accessible={true}
