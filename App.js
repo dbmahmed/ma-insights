@@ -1,28 +1,27 @@
 import * as React from 'react';
+import { Provider as ThemeProvider } from '@draftbit/ui';
+import { useFonts } from 'expo-font';
 import * as Notifications from 'expo-notifications';
 import * as SplashScreen from 'expo-splash-screen';
 import {
-  SafeAreaProvider,
-  initialWindowMetrics,
-} from 'react-native-safe-area-context';
-import {
-  View,
-  Text,
-  TextInput,
   ActivityIndicator,
   AppState,
   Platform,
   StatusBar,
+  Text,
+  TextInput,
+  View,
 } from 'react-native';
-import { Provider as ThemeProvider } from '@draftbit/ui';
+import {
+  SafeAreaProvider,
+  initialWindowMetrics,
+} from 'react-native-safe-area-context';
 import { QueryClient, QueryClientProvider } from 'react-query';
-
-import Draftbit from './themes/Draftbit.js';
-import cacheAssetsAsync from './config/cacheAssetsAsync';
-import { GlobalVariableProvider } from './config/GlobalVariableContext';
-import { useFonts } from 'expo-font';
-import Fonts from './config/Fonts.js';
 import AppNavigator from './AppNavigator';
+import Fonts from './config/Fonts.js';
+import { GlobalVariableProvider } from './config/GlobalVariableContext';
+import cacheAssetsAsync from './config/cacheAssetsAsync';
+import Draftbit from './themes/Draftbit';
 
 SplashScreen.preventAutoHideAsync();
 

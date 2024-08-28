@@ -4,23 +4,23 @@ import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
 import CustomHeaderBlock from '../components/CustomHeaderBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import removeGlobalScroll from '../global-functions/removeGlobalScroll';
+import setPadding from '../global-functions/setPadding';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as DateUtils from '../utils/DateUtils';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import {
-  HStack,
+  LinearGradient,
   Link,
   ScreenContainer,
-  SimpleStyleFlatList,
-  Touchable,
+  Table,
+  TableCell,
+  TableRow,
   withTheme,
 } from '@draftbit/ui';
 import { H5 } from '@expo/html-elements';
 import { useIsFocused } from '@react-navigation/native';
-import * as Linking from 'expo-linking';
-import * as WebBrowser from 'expo-web-browser';
 import { ActivityIndicator, Text, View } from 'react-native';
 import { Fetch } from 'react-request';
 
@@ -56,271 +56,367 @@ const ReportsScreen = props => {
       hasLeftSafeArea={true}
     >
       <CustomHeaderBlock />
+      {/* View 2 */}
       <View
         style={StyleSheet.applyWidth(
-          { maxWidth: 1200, padding: 10, paddingTop: 5, width: '100%' },
+          {
+            alignSelf: { minWidth: Breakpoints.Desktop, value: 'center' },
+            width: '100%',
+          },
           dimensions.width
         )}
       >
-        <>
-          {!(dimensions.width >= Breakpoints.Laptop) ? null : (
-            <H5
-              selectable={false}
-              {...GlobalStyles.H5Styles(theme)['H5'].props}
-              style={StyleSheet.applyWidth(
-                StyleSheet.compose(GlobalStyles.H5Styles(theme)['H5'].style, {
-                  fontFamily: 'Quicksand_600SemiBold',
-                  fontSize: 25,
-                  marginBottom: 20,
-                  marginTop: [
-                    { minWidth: Breakpoints.Mobile, value: 0 },
-                    { minWidth: Breakpoints.Laptop, value: 20 },
-                  ],
-                  paddingLeft: 5,
-                  textDecorationLine: 'none',
-                }),
-                dimensions.width
-              )}
-            >
-              {'Reports'}
-            </H5>
-          )}
-        </>
         <View
           style={StyleSheet.applyWidth(
-            { gap: 10, marginBottom: 10 },
+            {
+              alignSelf: { minWidth: Breakpoints.Desktop, value: 'center' },
+              maxWidth: 1200,
+              padding: 10,
+              paddingTop: 5,
+              width: '100%',
+            },
             dimensions.width
           )}
         >
-          <Text
-            accessible={true}
-            {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+          <>
+            {!(dimensions.width >= Breakpoints.Laptop) ? null : (
+              <H5
+                selectable={false}
+                {...GlobalStyles.H5Styles(theme)['H5'].props}
+                style={StyleSheet.applyWidth(
+                  StyleSheet.compose(GlobalStyles.H5Styles(theme)['H5'].style, {
+                    fontFamily: 'Quicksand_600SemiBold',
+                    fontSize: 25,
+                    marginBottom: 20,
+                    marginTop: [
+                      { minWidth: Breakpoints.Mobile, value: 0 },
+                      { minWidth: Breakpoints.Laptop, value: 20 },
+                    ],
+                    paddingLeft: 5,
+                    textDecorationLine: 'none',
+                  }),
+                  dimensions.width
+                )}
+              >
+                {'Reports'}
+              </H5>
+            )}
+          </>
+          <View
             style={StyleSheet.applyWidth(
-              StyleSheet.compose(
-                GlobalStyles.TextStyles(theme)['screen_title'].style,
-                { fontFamily: 'Quicksand_400Regular' }
-              ),
+              { gap: 10, marginBottom: 10 },
               dimensions.width
             )}
           >
-            {
-              'Our monthly advisor reports and rankings as well as periodic and ad-hoc special reports.'
-            }
-          </Text>
-          {/* Text 2 */}
-          <Text
-            accessible={true}
-            {...GlobalStyles.TextStyles(theme)['screen_title'].props}
-            style={StyleSheet.applyWidth(
-              StyleSheet.compose(
-                GlobalStyles.TextStyles(theme)['screen_title'].style,
-                { fontFamily: 'Quicksand_400Regular' }
-              ),
-              dimensions.width
-            )}
-          >
-            {
-              'Note: the weekly reports with opportunity-related headlines from a given week are found in the “Newsletters” tab.'
-            }
-          </Text>
+            <Text
+              accessible={true}
+              {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+              style={StyleSheet.applyWidth(
+                StyleSheet.compose(
+                  GlobalStyles.TextStyles(theme)['screen_title'].style,
+                  { fontFamily: 'Quicksand_400Regular' }
+                ),
+                dimensions.width
+              )}
+            >
+              {
+                'Repository of the Monthly Advisor Report, Quarterly Survey Report, and other special reports'
+              }
+            </Text>
+            {/* Text 2 */}
+            <Text
+              accessible={true}
+              {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+              style={StyleSheet.applyWidth(
+                StyleSheet.compose(
+                  GlobalStyles.TextStyles(theme)['screen_title'].style,
+                  { fontFamily: 'Quicksand_400Regular' }
+                ),
+                dimensions.width
+              )}
+            >
+              {
+                'Note: the weekly reports with opportunity-related headlines from a given week are found in the “Newsletters” tab.'
+              }
+            </Text>
+          </View>
         </View>
-      </View>
 
-      <XanoCollectionApi.FetchReportsGET
-        handlers={{
-          onData: fetchData => {
-            try {
-              setReportItems(fetchData?.items);
-              setNextPage(fetchData?.nextPage);
-              setLastPage(fetchData?.pageTotal);
-              console.log(fetchData);
-            } catch (err) {
-              console.error(err);
+        <XanoCollectionApi.FetchReportsGET
+          handlers={{
+            onData: fetchData => {
+              try {
+                setReportItems(fetchData?.items);
+                setNextPage(fetchData?.nextPage);
+                setLastPage(fetchData?.pageTotal);
+                console.log(fetchData);
+              } catch (err) {
+                console.error(err);
+              }
+            },
+          }}
+          page={1}
+        >
+          {({ loading, error, data, refetchReports }) => {
+            const fetchData = data?.json;
+            if (loading) {
+              return <ActivityIndicator />;
             }
-          },
-        }}
-      >
-        {({ loading, error, data, refetchReports }) => {
-          const fetchData = data?.json;
-          if (loading) {
-            return <ActivityIndicator />;
-          }
 
-          if (error || data?.status < 200 || data?.status >= 300) {
-            return <ActivityIndicator />;
-          }
+            if (error || data?.status < 200 || data?.status >= 300) {
+              return <ActivityIndicator />;
+            }
 
-          return (
-            <>
-              {/* View 2 */}
+            return (
               <View
                 style={StyleSheet.applyWidth(
                   {
-                    backgroundColor: theme.colors.foreground.brand,
-                    maxWidth: 1200,
-                    padding: 5,
-                    width: '100%',
+                    paddingLeft: {
+                      minWidth: Breakpoints.Desktop,
+                      value: setPadding(dimensions.width),
+                    },
+                    paddingRight: {
+                      minWidth: Breakpoints.Desktop,
+                      value: setPadding(dimensions.width),
+                    },
+                    width: { minWidth: Breakpoints.Desktop, value: '100%' },
                   },
                   dimensions.width
                 )}
               >
-                <View
+                {/* Reports */}
+                <LinearGradient
+                  endX={100}
+                  endY={100}
+                  startX={0}
+                  startY={0}
+                  {...GlobalStyles.LinearGradientStyles(theme)[
+                    'Linear Gradient'
+                  ].props}
+                  color1={theme.colors.text.strong}
+                  color2={theme.colors.branding.primary}
+                  color3={null}
                   style={StyleSheet.applyWidth(
-                    { alignItems: 'center', flexDirection: 'row' },
+                    StyleSheet.compose(
+                      GlobalStyles.LinearGradientStyles(theme)[
+                        'Linear Gradient'
+                      ].style,
+                      {
+                        borderRadius: 0,
+                        borderWidth: 0,
+                        flex: null,
+                        margin: [
+                          { minWidth: Breakpoints.Tablet, value: 0 },
+                          { minWidth: Breakpoints.Mobile, value: 0 },
+                        ],
+                      }
+                    ),
                     dimensions.width
                   )}
                 >
-                  <View
-                    style={StyleSheet.applyWidth(
-                      { padding: 2, paddingRight: 5, width: 100 },
-                      dimensions.width
-                    )}
-                  >
-                    <Text
-                      accessible={true}
-                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
-                      style={StyleSheet.applyWidth(
-                        StyleSheet.compose(
-                          GlobalStyles.TextStyles(theme)['screen_title'].style,
-                          { fontFamily: 'Quicksand_600SemiBold' }
-                        ),
-                        dimensions.width
-                      )}
-                    >
-                      {'Published'}
-                    </Text>
-                  </View>
-                  {/* View 2 */}
-                  <View
-                    style={StyleSheet.applyWidth(
-                      { padding: 2, paddingLeft: 5 },
-                      dimensions.width
-                    )}
-                  >
-                    <Text
-                      accessible={true}
-                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
-                      style={StyleSheet.applyWidth(
-                        StyleSheet.compose(
-                          GlobalStyles.TextStyles(theme)['screen_title'].style,
-                          { fontFamily: 'Quicksand_600SemiBold' }
-                        ),
-                        dimensions.width
-                      )}
-                    >
-                      {'Title (PDF download)'}
-                    </Text>
-                  </View>
-                </View>
-                {/* View 2 */}
-                <View
-                  style={StyleSheet.applyWidth(
-                    { alignItems: 'center', flexDirection: 'row' },
-                    dimensions.width
-                  )}
-                >
-                  <SimpleStyleFlatList
+                  <Table
+                    borderColor={theme.colors.border.brand}
+                    borderStyle={'solid'}
+                    borderWidth={1}
+                    cellHorizontalPadding={10}
+                    cellVerticalPadding={10}
                     data={reportItems}
-                    horizontal={false}
-                    inverted={false}
-                    keyExtractor={(listData, index) => index}
-                    keyboardShouldPersistTaps={'never'}
-                    listKey={'Vmku37z4'}
-                    nestedScrollEnabled={false}
-                    numColumns={1}
-                    onEndReachedThreshold={0.5}
+                    drawBottomBorder={false}
+                    drawEndBorder={false}
+                    drawStartBorder={false}
+                    keyExtractor={(tableData, index) =>
+                      tableData?.id ??
+                      tableData?.uuid ??
+                      index?.toString() ??
+                      JSON.stringify(tableData)
+                    }
+                    listKey={'It6pLxEO'}
                     renderItem={({ item, index }) => {
-                      const listData = item;
+                      const tableData = item;
                       return (
                         <>
-                          <HStack
-                            {...GlobalStyles.HStackStyles(theme)['H Stack']
-                              .props}
+                          <TableRow
+                            drawBottomBorder={true}
+                            drawEndBorder={false}
+                            drawTopBorder={false}
+                            drawStartBorder={false}
+                            isTableHeader={true}
                             style={StyleSheet.applyWidth(
-                              GlobalStyles.HStackStyles(theme)['H Stack'].style,
+                              { backgroundColor: 'rgba(0, 0, 0, 0)' },
                               dimensions.width
                             )}
                           >
-                            <View
+                            <TableCell
+                              drawBottomBorder={false}
+                              drawStartBorder={false}
+                              drawTopBorder={false}
+                              {...GlobalStyles.TableCellStyles(theme)[
+                                'Table Cell'
+                              ].props}
+                              drawEndBorder={false}
                               style={StyleSheet.applyWidth(
-                                { padding: 2, paddingRight: 5, width: 100 },
+                                StyleSheet.compose(
+                                  GlobalStyles.TableCellStyles(theme)[
+                                    'Table Cell'
+                                  ].style,
+                                  { alignItems: 'flex-start', width: '20%' }
+                                ),
                                 dimensions.width
                               )}
                             >
                               <Text
                                 accessible={true}
                                 {...GlobalStyles.TextStyles(theme)[
-                                  'screen_title'
+                                  'screen_title_stockH'
                                 ].props}
                                 style={StyleSheet.applyWidth(
-                                  StyleSheet.compose(
-                                    GlobalStyles.TextStyles(theme)[
-                                      'screen_title'
-                                    ].style,
-                                    { fontFamily: 'Quicksand_400Regular' }
-                                  ),
+                                  GlobalStyles.TextStyles(theme)[
+                                    'screen_title_stockH'
+                                  ].style,
+                                  dimensions.width
+                                )}
+                              >
+                                {' Published'}
+                              </Text>
+                            </TableCell>
+                            {/* Table Cell 2 */}
+                            <TableCell
+                              drawBottomBorder={false}
+                              drawStartBorder={false}
+                              drawTopBorder={false}
+                              {...GlobalStyles.TableCellStyles(theme)[
+                                'Table Cell'
+                              ].props}
+                              drawEndBorder={false}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.TableCellStyles(theme)[
+                                    'Table Cell'
+                                  ].style,
+                                  {
+                                    flex: 2,
+                                    justifyContent: 'flex-start',
+                                    width: '80%',
+                                  }
+                                ),
+                                dimensions.width
+                              )}
+                            >
+                              <Text
+                                accessible={true}
+                                {...GlobalStyles.TextStyles(theme)[
+                                  'screen_title_stockH'
+                                ].props}
+                                style={StyleSheet.applyWidth(
+                                  GlobalStyles.TextStyles(theme)[
+                                    'screen_title_stockH'
+                                  ].style,
+                                  dimensions.width
+                                )}
+                              >
+                                {'Title (PDF download)'}
+                              </Text>
+                            </TableCell>
+                          </TableRow>
+                          {/* reports */}
+                          <TableRow
+                            drawBottomBorder={true}
+                            drawEndBorder={false}
+                            drawTopBorder={false}
+                            isTableHeader={false}
+                            drawStartBorder={false}
+                          >
+                            <TableCell
+                              drawBottomBorder={false}
+                              drawStartBorder={false}
+                              drawTopBorder={false}
+                              {...GlobalStyles.TableCellStyles(theme)[
+                                'Table Cell'
+                              ].props}
+                              drawEndBorder={false}
+                              style={StyleSheet.applyWidth(
+                                GlobalStyles.TableCellStyles(theme)[
+                                  'Table Cell'
+                                ].style,
+                                dimensions.width
+                              )}
+                            >
+                              <Text
+                                accessible={true}
+                                {...GlobalStyles.TextStyles(theme)[
+                                  'screen_title_stock'
+                                ].props}
+                                style={StyleSheet.applyWidth(
+                                  GlobalStyles.TextStyles(theme)[
+                                    'screen_title_stock'
+                                  ].style,
                                   dimensions.width
                                 )}
                               >
                                 {DateUtils.format(
-                                  listData?.published,
+                                  tableData?.published,
                                   'dd/MM/yyyy'
                                 )}
                               </Text>
-                            </View>
-                            {/* View 2 */}
-                            <View
+                            </TableCell>
+                            {/* Table Cell 2 */}
+                            <TableCell
+                              drawBottomBorder={false}
+                              drawStartBorder={false}
+                              drawTopBorder={false}
+                              {...GlobalStyles.TableCellStyles(theme)[
+                                'Table Cell'
+                              ].props}
+                              drawEndBorder={false}
                               style={StyleSheet.applyWidth(
-                                {
-                                  overflow: 'hidden',
-                                  padding: 2,
-                                  paddingLeft: 5,
-                                  width: '100%',
-                                },
+                                StyleSheet.compose(
+                                  GlobalStyles.TableCellStyles(theme)[
+                                    'Table Cell'
+                                  ].style,
+                                  { flex: 2, justifyContent: 'flex-start' }
+                                ),
                                 dimensions.width
                               )}
                             >
                               <Link
                                 accessible={true}
-                                onPress={() => {
-                                  const handler = async () => {
-                                    try {
-                                      /* hidden 'Open App Link' action */
-                                      await WebBrowser.openBrowserAsync(
-                                        `${listData?.file?.url}`
-                                      );
-                                    } catch (err) {
-                                      console.error(err);
-                                    }
-                                  };
-                                  handler();
-                                }}
                                 {...GlobalStyles.LinkStyles(theme)['Link']
                                   .props}
+                                adjustsFontSizeToFit={true}
+                                ellipsizeMode={'clip'}
+                                numberOfLines={1}
                                 style={StyleSheet.applyWidth(
                                   StyleSheet.compose(
                                     GlobalStyles.LinkStyles(theme)['Link']
                                       .style,
-                                    { fontFamily: 'Quicksand_400Regular' }
+                                    {
+                                      color: palettes.App.Orange,
+                                      textDecorationLine: 'underline',
+                                    }
                                   ),
                                   dimensions.width
                                 )}
-                                title={`${listData?.title}`}
+                                title={`${tableData?.file?.name}`}
                               />
-                            </View>
-                          </HStack>
+                            </TableCell>
+                          </TableRow>
                         </>
                       );
                     }}
-                    showsHorizontalScrollIndicator={false}
-                    showsVerticalScrollIndicator={false}
+                    showsVerticalScrollIndicator={true}
+                    {...GlobalStyles.TableStyles(theme)['Table'].props}
+                    drawTopBorder={false}
+                    style={StyleSheet.applyWidth(
+                      GlobalStyles.TableStyles(theme)['Table'].style,
+                      dimensions.width
+                    )}
                   />
-                </View>
+                </LinearGradient>
               </View>
-            </>
-          );
-        }}
-      </XanoCollectionApi.FetchReportsGET>
+            );
+          }}
+        </XanoCollectionApi.FetchReportsGET>
+      </View>
     </ScreenContainer>
   );
 };

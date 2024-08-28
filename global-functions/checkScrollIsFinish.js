@@ -1,5 +1,3 @@
-import React from 'react';
-
 const checkScrollIsFinish = eventScroll => {
   const { nativeEvent = {} } = eventScroll || {};
   const {

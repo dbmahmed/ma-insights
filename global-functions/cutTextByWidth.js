@@ -1,5 +1,3 @@
-import React from 'react';
-
 const cutTextByWidth = (text, blockWidth, offset) => {
   if (!text || !blockWidth) {
     return '-';

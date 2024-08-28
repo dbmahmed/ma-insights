@@ -2629,7 +2629,7 @@ const TransactionsScreen = props => {
                                   applyFilters();
                                   setFilterPressed(false);
                                   await waitUtil({ milliseconds: 500 });
-                                  await refetchGetAllEvents();
+                                  await refetchEventTransactions();
                                 } catch (err) {
                                   console.error(err);
                                 }

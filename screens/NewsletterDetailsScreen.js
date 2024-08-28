@@ -407,10 +407,10 @@ const NewsletterDetailsScreen = props => {
                             completedTrackColor={theme.colors.background.brand}
                             hideDuration={false}
                             hidePlaybackIcon={false}
+                            hideSlider={false}
                             interruptionMode={'lower volume'}
                             isLooping={false}
                             playThroughEarpieceAndroid={false}
-                            playsInBackground={false}
                             playsInSilentModeIOS={false}
                             remainingTrackColor={theme.colors.border.brand}
                             thumbColor={theme.colors.branding.primary}
@@ -421,8 +421,8 @@ const NewsletterDetailsScreen = props => {
                             {...GlobalStyles.AudioPlayerStyles(theme)[
                               'Audio Player'
                             ].props}
-                            hideSlider={false}
                             mode={'interface'}
+                            playsInBackground={true}
                             source={{
                               uri: `${fetchData?.audio_version_pvt?.url}`,
                             }}

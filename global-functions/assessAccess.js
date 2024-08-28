@@ -1,5 +1,3 @@
-import React from 'react';
-
 const assessAccess = (Variables, setGlobalVariableValue) => {
   // Type the code for the body of your function or hook here.
   // Functions can be triggered via Button/Touchable actions.

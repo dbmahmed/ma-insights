@@ -1,14 +1,15 @@
 import React from 'react';
-import { I18nManager, Platform, StyleSheet, Text, View } from 'react-native';
-import { systemWeights } from 'react-native-typography';
 import { Icon, Touchable, useTheme } from '@draftbit/ui';
-import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import palettes from './themes/palettes.js';
-import LinkingConfiguration from './LinkingConfiguration.js';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { I18nManager, Platform, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-
+import { systemWeights } from 'react-native-typography';
+import LinkingConfiguration from './LinkingConfiguration';
+import * as GlobalVariables from './config/GlobalVariableContext';
+import assessAccess from './global-functions/assessAccess';
 import AdvisorDetailsScreen from './screens/AdvisorDetailsScreen';
 import AdvisorsScreen from './screens/AdvisorsScreen';
 import AllEventsScreen from './screens/AllEventsScreen';
@@ -32,13 +33,13 @@ import StockDetailsScreen from './screens/StockDetailsScreen';
 import StockSearchScreen from './screens/StockSearchScreen';
 import TermsAndConditionsScreen from './screens/TermsAndConditionsScreen';
 import TransactionsScreen from './screens/TransactionsScreen';
-import * as GlobalVariables from './config/GlobalVariableContext';
-import assessAccess from './global-functions/assessAccess';
+import palettes from './themes/palettes';
 import Breakpoints from './utils/Breakpoints';
 import useWindowDimensions from './utils/useWindowDimensions';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
+const Drawer = createDrawerNavigator();
 
 function DefaultAndroidBackIcon({ tintColor }) {
   return (
@@ -50,6 +51,22 @@ function DefaultAndroidBackIcon({ tintColor }) {
         style={[styles.headerIcon, styles.headerIconLeft]}
       />
     </View>
+  );
+}
+
+function DefaultDrawerIcon({ tintColor, navigation }) {
+  return (
+    <Touchable
+      onPress={() => navigation.toggleDrawer()}
+      style={[styles.headerContainer, styles.headerContainerLeft]}
+    >
+      <Icon
+        name="EvilIcons/navicon"
+        size={27}
+        color={tintColor}
+        style={[styles.headerIcon, styles.headerIconLeft]}
+      />
+    </Touchable>
   );
 }
 

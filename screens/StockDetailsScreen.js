@@ -1,17 +1,4 @@
 import React from 'react';
-import * as GlobalStyles from '../GlobalStyles.js';
-import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
-import CustomHeaderBlock from '../components/CustomHeaderBlock';
-import LoadingBlock from '../components/LoadingBlock';
-import * as GlobalVariables from '../config/GlobalVariableContext';
-import assessAccess from '../global-functions/assessAccess';
-import removeGlobalScroll from '../global-functions/removeGlobalScroll';
-import transformEuroM from '../global-functions/transformEuroM';
-import transformNumber from '../global-functions/transformNumber';
-import palettes from '../themes/palettes';
-import Breakpoints from '../utils/Breakpoints';
-import * as StyleSheet from '../utils/StyleSheet';
-import useWindowDimensions from '../utils/useWindowDimensions';
 import {
   Button,
   HStack,
@@ -31,6 +18,19 @@ import { H3 } from '@expo/html-elements';
 import { useIsFocused } from '@react-navigation/native';
 import { ActivityIndicator, Modal, Text, View } from 'react-native';
 import { Fetch } from 'react-request';
+import * as GlobalStyles from '../GlobalStyles.js';
+import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
+import CustomHeaderBlock from '../components/CustomHeaderBlock';
+import LoadingBlock from '../components/LoadingBlock';
+import * as GlobalVariables from '../config/GlobalVariableContext';
+import assessAccess from '../global-functions/assessAccess';
+import removeGlobalScroll from '../global-functions/removeGlobalScroll';
+import transformEuroM from '../global-functions/transformEuroM';
+import transformNumber from '../global-functions/transformNumber';
+import palettes from '../themes/palettes';
+import Breakpoints from '../utils/Breakpoints';
+import * as StyleSheet from '../utils/StyleSheet';
+import useWindowDimensions from '../utils/useWindowDimensions';
 
 const StockDetailsScreen = props => {
   const { theme, navigation } = props;
@@ -803,6 +803,7 @@ const StockDetailsScreen = props => {
                         dimensions.width
                       )}
                     >
+                      {/* Table 3 */}
                       <Table
                         borderColor={theme.colors.border.brand}
                         borderStyle={'solid'}
@@ -821,11 +822,15 @@ const StockDetailsScreen = props => {
                         )}
                       >
                         <TableRow
-                          drawTopBorder={false}
-                          isTableHeader={false}
-                          drawBottomBorder={false}
+                          drawBottomBorder={true}
                           drawEndBorder={false}
+                          drawTopBorder={false}
                           drawStartBorder={false}
+                          isTableHeader={true}
+                          style={StyleSheet.applyWidth(
+                            { backgroundColor: 'rgba(0, 0, 0, 0)' },
+                            dimensions.width
+                          )}
                         >
                           <TableCell
                             drawBottomBorder={false}
@@ -834,14 +839,10 @@ const StockDetailsScreen = props => {
                             {...GlobalStyles.TableCellStyles(theme)[
                               'Table Cell'
                             ].props}
-                            drawEndBorder={true}
+                            drawEndBorder={false}
                             style={StyleSheet.applyWidth(
-                              StyleSheet.compose(
-                                GlobalStyles.TableCellStyles(theme)[
-                                  'Table Cell'
-                                ].style,
-                                { width: '16%' }
-                              ),
+                              GlobalStyles.TableCellStyles(theme)['Table Cell']
+                                .style,
                               dimensions.width
                             )}
                           >
@@ -868,18 +869,13 @@ const StockDetailsScreen = props => {
                             {...GlobalStyles.TableCellStyles(theme)[
                               'Table Cell'
                             ].props}
-                            drawEndBorder={true}
+                            drawEndBorder={false}
                             style={StyleSheet.applyWidth(
                               StyleSheet.compose(
                                 GlobalStyles.TableCellStyles(theme)[
                                   'Table Cell'
                                 ].style,
-                                {
-                                  margin: 0,
-                                  overflow: 'hidden',
-                                  padding: 0,
-                                  width: '16%',
-                                }
+                                { justifyContent: 'flex-end' }
                               ),
                               dimensions.width
                             )}
@@ -889,13 +885,12 @@ const StockDetailsScreen = props => {
                               {...GlobalStyles.TextStyles(theme)[
                                 'screen_title_stockH'
                               ].props}
-                              adjustsFontSizeToFit={true}
                               style={StyleSheet.applyWidth(
                                 StyleSheet.compose(
                                   GlobalStyles.TextStyles(theme)[
                                     'screen_title_stockH'
                                   ].style,
-                                  { fontSize: 12, margin: 0, padding: 0 }
+                                  { fontSize: 10 }
                                 ),
                                 dimensions.width
                               )}
@@ -903,44 +898,6 @@ const StockDetailsScreen = props => {
                               {transformNumber(
                                 fetchData?.fy0_end_date,
                                 undefined,
-                                undefined
-                              )}
-                            </Text>
-                          </TableCell>
-                          {/* Table Cell 4 */}
-                          <TableCell
-                            drawBottomBorder={false}
-                            drawStartBorder={false}
-                            drawTopBorder={false}
-                            {...GlobalStyles.TableCellStyles(theme)[
-                              'Table Cell'
-                            ].props}
-                            drawEndBorder={true}
-                            style={StyleSheet.applyWidth(
-                              StyleSheet.compose(
-                                GlobalStyles.TableCellStyles(theme)[
-                                  'Table Cell'
-                                ].style,
-                                { width: '16%' }
-                              ),
-                              dimensions.width
-                            )}
-                          >
-                            <Text
-                              accessible={true}
-                              {...GlobalStyles.TextStyles(theme)[
-                                'screen_title_stockH'
-                              ].props}
-                              style={StyleSheet.applyWidth(
-                                GlobalStyles.TextStyles(theme)[
-                                  'screen_title_stockH'
-                                ].style,
-                                dimensions.width
-                              )}
-                            >
-                              {transformNumber(
-                                fetchData?.tt_end_date,
-                                '(TTM)',
                                 undefined
                               )}
                             </Text>
@@ -953,13 +910,13 @@ const StockDetailsScreen = props => {
                             {...GlobalStyles.TableCellStyles(theme)[
                               'Table Cell'
                             ].props}
-                            drawEndBorder={true}
+                            drawEndBorder={false}
                             style={StyleSheet.applyWidth(
                               StyleSheet.compose(
                                 GlobalStyles.TableCellStyles(theme)[
                                   'Table Cell'
                                 ].style,
-                                { width: '16%' }
+                                { justifyContent: 'flex-end' }
                               ),
                               dimensions.width
                             )}
@@ -970,9 +927,59 @@ const StockDetailsScreen = props => {
                                 'screen_title_stockH'
                               ].props}
                               style={StyleSheet.applyWidth(
-                                GlobalStyles.TextStyles(theme)[
-                                  'screen_title_stockH'
+                                StyleSheet.compose(
+                                  GlobalStyles.TextStyles(theme)[
+                                    'screen_title_stockH'
+                                  ].style,
+                                  {
+                                    alignSelf: 'flex-end',
+                                    fontSize: 10,
+                                    textAlign: 'right',
+                                  }
+                                ),
+                                dimensions.width
+                              )}
+                            >
+                              {transformNumber(
+                                fetchData?.tt_end_date,
+                                dimensions.width >= Breakpoints.Tablet
+                                  ? '(TTM)'
+                                  : '\n(TTM)',
+                                undefined
+                              )}
+                            </Text>
+                          </TableCell>
+                          {/* Table Cell 4 */}
+                          <TableCell
+                            drawBottomBorder={false}
+                            drawStartBorder={false}
+                            drawTopBorder={false}
+                            {...GlobalStyles.TableCellStyles(theme)[
+                              'Table Cell'
+                            ].props}
+                            drawEndBorder={false}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TableCellStyles(theme)[
+                                  'Table Cell'
                                 ].style,
+                                { justifyContent: 'flex-end' }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)[
+                                'screen_title_stockH'
+                              ].props}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.TextStyles(theme)[
+                                    'screen_title_stockH'
+                                  ].style,
+                                  { fontSize: 10 }
+                                ),
                                 dimensions.width
                               )}
                             >
@@ -991,13 +998,13 @@ const StockDetailsScreen = props => {
                             {...GlobalStyles.TableCellStyles(theme)[
                               'Table Cell'
                             ].props}
-                            drawEndBorder={true}
+                            drawEndBorder={false}
                             style={StyleSheet.applyWidth(
                               StyleSheet.compose(
                                 GlobalStyles.TableCellStyles(theme)[
                                   'Table Cell'
                                 ].style,
-                                { width: '16%' }
+                                { justifyContent: 'flex-end' }
                               ),
                               dimensions.width
                             )}
@@ -1008,9 +1015,12 @@ const StockDetailsScreen = props => {
                                 'screen_title_stockH'
                               ].props}
                               style={StyleSheet.applyWidth(
-                                GlobalStyles.TextStyles(theme)[
-                                  'screen_title_stockH'
-                                ].style,
+                                StyleSheet.compose(
+                                  GlobalStyles.TextStyles(theme)[
+                                    'screen_title_stockH'
+                                  ].style,
+                                  { fontSize: 10 }
+                                ),
                                 dimensions.width
                               )}
                             >
@@ -1021,7 +1031,15 @@ const StockDetailsScreen = props => {
                               )}
                             </Text>
                           </TableCell>
-                          {/* Table Cell 6 */}
+                        </TableRow>
+                        {/* Revenue */}
+                        <TableRow
+                          drawEndBorder={false}
+                          drawTopBorder={false}
+                          isTableHeader={false}
+                          drawBottomBorder={false}
+                          drawStartBorder={false}
+                        >
                           <TableCell
                             drawBottomBorder={false}
                             drawStartBorder={false}
@@ -1029,13 +1047,22 @@ const StockDetailsScreen = props => {
                             {...GlobalStyles.TableCellStyles(theme)[
                               'Table Cell'
                             ].props}
-                            drawEndBorder={true}
+                            drawEndBorder={false}
                             style={StyleSheet.applyWidth(
                               StyleSheet.compose(
                                 GlobalStyles.TableCellStyles(theme)[
                                   'Table Cell'
                                 ].style,
-                                { width: '16%' }
+                                {
+                                  alignItems: {
+                                    minWidth: Breakpoints.Tablet,
+                                    value: 'flex-start',
+                                  },
+                                  paddingBottom: [
+                                    { minWidth: Breakpoints.Tablet, value: 0 },
+                                    { minWidth: Breakpoints.Mobile, value: 0 },
+                                  ],
+                                }
                               ),
                               dimensions.width
                             )}
@@ -1043,18 +1070,1577 @@ const StockDetailsScreen = props => {
                             <Text
                               accessible={true}
                               {...GlobalStyles.TextStyles(theme)[
-                                'screen_title_stockH'
+                                'screen_title_stock'
                               ].props}
                               style={StyleSheet.applyWidth(
                                 GlobalStyles.TextStyles(theme)[
-                                  'screen_title_stockH'
+                                  'screen_title_stock'
+                                ].style,
+                                dimensions.width
+                              )}
+                            >
+                              {'Revenue'}
+                            </Text>
+                          </TableCell>
+                          {/* Table Cell 2 */}
+                          <TableCell
+                            drawBottomBorder={false}
+                            drawStartBorder={false}
+                            drawTopBorder={false}
+                            {...GlobalStyles.TableCellStyles(theme)[
+                              'Table Cell'
+                            ].props}
+                            drawEndBorder={false}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TableCellStyles(theme)[
+                                  'Table Cell'
+                                ].style,
+                                {
+                                  justifyContent: 'flex-end',
+                                  paddingBottom: [
+                                    { minWidth: Breakpoints.Tablet, value: 0 },
+                                    { minWidth: Breakpoints.Mobile, value: 0 },
+                                  ],
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)[
+                                'screen_title_stock'
+                              ].props}
+                              style={StyleSheet.applyWidth(
+                                GlobalStyles.TextStyles(theme)[
+                                  'screen_title_stock'
                                 ].style,
                                 dimensions.width
                               )}
                             >
                               {transformNumber(
-                                fetchData?.fy3_end_date,
-                                'E',
+                                fetchData?.revenue_fy0,
+                                undefined,
+                                undefined
+                              )}
+                            </Text>
+                          </TableCell>
+                          {/* Table Cell 3 */}
+                          <TableCell
+                            drawBottomBorder={false}
+                            drawStartBorder={false}
+                            drawTopBorder={false}
+                            {...GlobalStyles.TableCellStyles(theme)[
+                              'Table Cell'
+                            ].props}
+                            drawEndBorder={false}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TableCellStyles(theme)[
+                                  'Table Cell'
+                                ].style,
+                                {
+                                  justifyContent: 'flex-end',
+                                  paddingBottom: [
+                                    { minWidth: Breakpoints.Tablet, value: 0 },
+                                    { minWidth: Breakpoints.Mobile, value: 0 },
+                                  ],
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)[
+                                'screen_title_stock'
+                              ].props}
+                              style={StyleSheet.applyWidth(
+                                GlobalStyles.TextStyles(theme)[
+                                  'screen_title_stock'
+                                ].style,
+                                dimensions.width
+                              )}
+                            >
+                              {transformNumber(
+                                fetchData?.revenue_ttm,
+                                undefined,
+                                undefined
+                              )}
+                            </Text>
+                          </TableCell>
+                          {/* Table Cell 4 */}
+                          <TableCell
+                            drawBottomBorder={false}
+                            drawStartBorder={false}
+                            drawTopBorder={false}
+                            {...GlobalStyles.TableCellStyles(theme)[
+                              'Table Cell'
+                            ].props}
+                            drawEndBorder={false}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TableCellStyles(theme)[
+                                  'Table Cell'
+                                ].style,
+                                {
+                                  justifyContent: 'flex-end',
+                                  paddingBottom: [
+                                    { minWidth: Breakpoints.Tablet, value: 0 },
+                                    { minWidth: Breakpoints.Mobile, value: 0 },
+                                  ],
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)[
+                                'screen_title_stock'
+                              ].props}
+                              style={StyleSheet.applyWidth(
+                                GlobalStyles.TextStyles(theme)[
+                                  'screen_title_stock'
+                                ].style,
+                                dimensions.width
+                              )}
+                            >
+                              {transformNumber(
+                                fetchData?.revenue_fy1,
+                                undefined,
+                                undefined
+                              )}
+                            </Text>
+                          </TableCell>
+                          {/* Table Cell 5 */}
+                          <TableCell
+                            drawBottomBorder={false}
+                            drawStartBorder={false}
+                            drawTopBorder={false}
+                            {...GlobalStyles.TableCellStyles(theme)[
+                              'Table Cell'
+                            ].props}
+                            drawEndBorder={false}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TableCellStyles(theme)[
+                                  'Table Cell'
+                                ].style,
+                                {
+                                  justifyContent: 'flex-end',
+                                  paddingBottom: [
+                                    { minWidth: Breakpoints.Tablet, value: 0 },
+                                    { minWidth: Breakpoints.Mobile, value: 0 },
+                                  ],
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)[
+                                'screen_title_stock'
+                              ].props}
+                              style={StyleSheet.applyWidth(
+                                GlobalStyles.TextStyles(theme)[
+                                  'screen_title_stock'
+                                ].style,
+                                dimensions.width
+                              )}
+                            >
+                              {transformNumber(
+                                fetchData?.revenue_fy2,
+                                undefined,
+                                undefined
+                              )}
+                            </Text>
+                          </TableCell>
+                        </TableRow>
+                        {/* Growth */}
+                        <TableRow
+                          drawBottomBorder={true}
+                          drawEndBorder={false}
+                          drawTopBorder={false}
+                          isTableHeader={false}
+                          drawStartBorder={false}
+                        >
+                          <TableCell
+                            drawBottomBorder={false}
+                            drawStartBorder={false}
+                            drawTopBorder={false}
+                            {...GlobalStyles.TableCellStyles(theme)[
+                              'Table Cell'
+                            ].props}
+                            drawEndBorder={false}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TableCellStyles(theme)[
+                                  'Table Cell'
+                                ].style,
+                                {
+                                  paddingTop: [
+                                    { minWidth: Breakpoints.Tablet, value: 0 },
+                                    { minWidth: Breakpoints.Mobile, value: 0 },
+                                  ],
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)[
+                                'screen_title_stock'
+                              ].props}
+                              style={StyleSheet.applyWidth(
+                                GlobalStyles.TextStyles(theme)[
+                                  'screen_title_stock'
+                                ].style,
+                                dimensions.width
+                              )}
+                            >
+                              {'Growth'}
+                            </Text>
+                          </TableCell>
+                          {/* Table Cell 2 */}
+                          <TableCell
+                            drawBottomBorder={false}
+                            drawStartBorder={false}
+                            drawTopBorder={false}
+                            {...GlobalStyles.TableCellStyles(theme)[
+                              'Table Cell'
+                            ].props}
+                            drawEndBorder={false}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TableCellStyles(theme)[
+                                  'Table Cell'
+                                ].style,
+                                {
+                                  justifyContent: 'flex-end',
+                                  paddingTop: [
+                                    { minWidth: Breakpoints.Tablet, value: 0 },
+                                    { minWidth: Breakpoints.Mobile, value: 0 },
+                                  ],
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)[
+                                'screen_title_stock'
+                              ].props}
+                              style={StyleSheet.applyWidth(
+                                GlobalStyles.TextStyles(theme)[
+                                  'screen_title_stock'
+                                ].style,
+                                dimensions.width
+                              )}
+                            >
+                              {transformNumber(
+                                fetchData?.growth_fy0,
+                                '%',
+                                undefined
+                              )}
+                            </Text>
+                          </TableCell>
+                          {/* Table Cell 3 */}
+                          <TableCell
+                            drawBottomBorder={false}
+                            drawStartBorder={false}
+                            drawTopBorder={false}
+                            {...GlobalStyles.TableCellStyles(theme)[
+                              'Table Cell'
+                            ].props}
+                            drawEndBorder={false}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TableCellStyles(theme)[
+                                  'Table Cell'
+                                ].style,
+                                {
+                                  justifyContent: 'flex-end',
+                                  paddingTop: [
+                                    { minWidth: Breakpoints.Tablet, value: 0 },
+                                    { minWidth: Breakpoints.Mobile, value: 0 },
+                                  ],
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)[
+                                'screen_title_stock'
+                              ].props}
+                              style={StyleSheet.applyWidth(
+                                GlobalStyles.TextStyles(theme)[
+                                  'screen_title_stock'
+                                ].style,
+                                dimensions.width
+                              )}
+                            >
+                              {transformNumber(
+                                fetchData?.growth_ttm,
+                                '%',
+                                undefined
+                              )}
+                            </Text>
+                          </TableCell>
+                          {/* Table Cell 4 */}
+                          <TableCell
+                            drawBottomBorder={false}
+                            drawStartBorder={false}
+                            drawTopBorder={false}
+                            {...GlobalStyles.TableCellStyles(theme)[
+                              'Table Cell'
+                            ].props}
+                            drawEndBorder={false}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TableCellStyles(theme)[
+                                  'Table Cell'
+                                ].style,
+                                {
+                                  justifyContent: 'flex-end',
+                                  paddingTop: [
+                                    { minWidth: Breakpoints.Tablet, value: 0 },
+                                    { minWidth: Breakpoints.Mobile, value: 0 },
+                                  ],
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)[
+                                'screen_title_stock'
+                              ].props}
+                              style={StyleSheet.applyWidth(
+                                GlobalStyles.TextStyles(theme)[
+                                  'screen_title_stock'
+                                ].style,
+                                dimensions.width
+                              )}
+                            >
+                              {transformNumber(
+                                fetchData?.growth_fy1,
+                                '%',
+                                undefined
+                              )}
+                            </Text>
+                          </TableCell>
+                          {/* Table Cell 5 */}
+                          <TableCell
+                            drawBottomBorder={false}
+                            drawStartBorder={false}
+                            drawTopBorder={false}
+                            {...GlobalStyles.TableCellStyles(theme)[
+                              'Table Cell'
+                            ].props}
+                            drawEndBorder={false}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TableCellStyles(theme)[
+                                  'Table Cell'
+                                ].style,
+                                {
+                                  justifyContent: 'flex-end',
+                                  paddingTop: [
+                                    { minWidth: Breakpoints.Tablet, value: 0 },
+                                    { minWidth: Breakpoints.Mobile, value: 0 },
+                                  ],
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)[
+                                'screen_title_stock'
+                              ].props}
+                              style={StyleSheet.applyWidth(
+                                GlobalStyles.TextStyles(theme)[
+                                  'screen_title_stock'
+                                ].style,
+                                dimensions.width
+                              )}
+                            >
+                              {transformNumber(
+                                fetchData?.growth_fy2,
+                                '%',
+                                undefined
+                              )}
+                            </Text>
+                          </TableCell>
+                        </TableRow>
+                        {/* ebitda */}
+                        <TableRow
+                          drawEndBorder={false}
+                          drawTopBorder={false}
+                          isTableHeader={false}
+                          drawBottomBorder={false}
+                          drawStartBorder={false}
+                        >
+                          <TableCell
+                            drawBottomBorder={false}
+                            drawStartBorder={false}
+                            drawTopBorder={false}
+                            {...GlobalStyles.TableCellStyles(theme)[
+                              'Table Cell'
+                            ].props}
+                            drawEndBorder={false}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TableCellStyles(theme)[
+                                  'Table Cell'
+                                ].style,
+                                { paddingBottom: 0 }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)[
+                                'screen_title_stock'
+                              ].props}
+                              style={StyleSheet.applyWidth(
+                                GlobalStyles.TextStyles(theme)[
+                                  'screen_title_stock'
+                                ].style,
+                                dimensions.width
+                              )}
+                            >
+                              {'EBITDA'}
+                            </Text>
+                          </TableCell>
+                          {/* Table Cell 2 */}
+                          <TableCell
+                            drawBottomBorder={false}
+                            drawStartBorder={false}
+                            drawTopBorder={false}
+                            {...GlobalStyles.TableCellStyles(theme)[
+                              'Table Cell'
+                            ].props}
+                            drawEndBorder={false}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TableCellStyles(theme)[
+                                  'Table Cell'
+                                ].style,
+                                { justifyContent: 'flex-end', paddingBottom: 0 }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)[
+                                'screen_title_stock'
+                              ].props}
+                              style={StyleSheet.applyWidth(
+                                GlobalStyles.TextStyles(theme)[
+                                  'screen_title_stock'
+                                ].style,
+                                dimensions.width
+                              )}
+                            >
+                              {transformNumber(
+                                fetchData?.ebitda_fy0,
+                                undefined,
+                                undefined
+                              )}
+                            </Text>
+                          </TableCell>
+                          {/* Table Cell 3 */}
+                          <TableCell
+                            drawBottomBorder={false}
+                            drawStartBorder={false}
+                            drawTopBorder={false}
+                            {...GlobalStyles.TableCellStyles(theme)[
+                              'Table Cell'
+                            ].props}
+                            drawEndBorder={false}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TableCellStyles(theme)[
+                                  'Table Cell'
+                                ].style,
+                                { justifyContent: 'flex-end', paddingBottom: 0 }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)[
+                                'screen_title_stock'
+                              ].props}
+                              style={StyleSheet.applyWidth(
+                                GlobalStyles.TextStyles(theme)[
+                                  'screen_title_stock'
+                                ].style,
+                                dimensions.width
+                              )}
+                            >
+                              {transformNumber(
+                                fetchData?.ebitda_ttm,
+                                undefined,
+                                undefined
+                              )}
+                            </Text>
+                          </TableCell>
+                          {/* Table Cell 4 */}
+                          <TableCell
+                            drawBottomBorder={false}
+                            drawStartBorder={false}
+                            drawTopBorder={false}
+                            {...GlobalStyles.TableCellStyles(theme)[
+                              'Table Cell'
+                            ].props}
+                            drawEndBorder={false}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TableCellStyles(theme)[
+                                  'Table Cell'
+                                ].style,
+                                { justifyContent: 'flex-end', paddingBottom: 0 }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)[
+                                'screen_title_stock'
+                              ].props}
+                              style={StyleSheet.applyWidth(
+                                GlobalStyles.TextStyles(theme)[
+                                  'screen_title_stock'
+                                ].style,
+                                dimensions.width
+                              )}
+                            >
+                              {transformNumber(
+                                fetchData?.ebitda_fy1,
+                                undefined,
+                                undefined
+                              )}
+                            </Text>
+                          </TableCell>
+                          {/* Table Cell 5 */}
+                          <TableCell
+                            drawBottomBorder={false}
+                            drawStartBorder={false}
+                            drawTopBorder={false}
+                            {...GlobalStyles.TableCellStyles(theme)[
+                              'Table Cell'
+                            ].props}
+                            drawEndBorder={false}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TableCellStyles(theme)[
+                                  'Table Cell'
+                                ].style,
+                                { justifyContent: 'flex-end', paddingBottom: 0 }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)[
+                                'screen_title_stock'
+                              ].props}
+                              style={StyleSheet.applyWidth(
+                                GlobalStyles.TextStyles(theme)[
+                                  'screen_title_stock'
+                                ].style,
+                                dimensions.width
+                              )}
+                            >
+                              {transformNumber(
+                                fetchData?.ebitda_fy2,
+                                undefined,
+                                undefined
+                              )}
+                            </Text>
+                          </TableCell>
+                        </TableRow>
+                        {/* ebitda_margin */}
+                        <TableRow
+                          drawBottomBorder={true}
+                          drawEndBorder={false}
+                          drawTopBorder={false}
+                          isTableHeader={false}
+                          drawStartBorder={false}
+                        >
+                          <TableCell
+                            drawBottomBorder={false}
+                            drawStartBorder={false}
+                            drawTopBorder={false}
+                            {...GlobalStyles.TableCellStyles(theme)[
+                              'Table Cell'
+                            ].props}
+                            drawEndBorder={false}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TableCellStyles(theme)[
+                                  'Table Cell'
+                                ].style,
+                                { paddingTop: 0 }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)[
+                                'screen_title_stock'
+                              ].props}
+                              style={StyleSheet.applyWidth(
+                                GlobalStyles.TextStyles(theme)[
+                                  'screen_title_stock'
+                                ].style,
+                                dimensions.width
+                              )}
+                            >
+                              {'Margin'}
+                            </Text>
+                          </TableCell>
+                          {/* Table Cell 2 */}
+                          <TableCell
+                            drawBottomBorder={false}
+                            drawStartBorder={false}
+                            drawTopBorder={false}
+                            {...GlobalStyles.TableCellStyles(theme)[
+                              'Table Cell'
+                            ].props}
+                            drawEndBorder={false}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TableCellStyles(theme)[
+                                  'Table Cell'
+                                ].style,
+                                { justifyContent: 'flex-end', paddingTop: 0 }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)[
+                                'screen_title_stock'
+                              ].props}
+                              style={StyleSheet.applyWidth(
+                                GlobalStyles.TextStyles(theme)[
+                                  'screen_title_stock'
+                                ].style,
+                                dimensions.width
+                              )}
+                            >
+                              {transformNumber(
+                                fetchData?.ebitda_margin_fy0,
+                                undefined,
+                                undefined
+                              )}
+                            </Text>
+                          </TableCell>
+                          {/* Table Cell 3 */}
+                          <TableCell
+                            drawBottomBorder={false}
+                            drawStartBorder={false}
+                            drawTopBorder={false}
+                            {...GlobalStyles.TableCellStyles(theme)[
+                              'Table Cell'
+                            ].props}
+                            drawEndBorder={false}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TableCellStyles(theme)[
+                                  'Table Cell'
+                                ].style,
+                                { justifyContent: 'flex-end', paddingTop: 0 }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)[
+                                'screen_title_stock'
+                              ].props}
+                              style={StyleSheet.applyWidth(
+                                GlobalStyles.TextStyles(theme)[
+                                  'screen_title_stock'
+                                ].style,
+                                dimensions.width
+                              )}
+                            >
+                              {transformNumber(
+                                fetchData?.ebitda_margin_ttm,
+                                undefined,
+                                undefined
+                              )}
+                            </Text>
+                          </TableCell>
+                          {/* Table Cell 4 */}
+                          <TableCell
+                            drawBottomBorder={false}
+                            drawStartBorder={false}
+                            drawTopBorder={false}
+                            {...GlobalStyles.TableCellStyles(theme)[
+                              'Table Cell'
+                            ].props}
+                            drawEndBorder={false}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TableCellStyles(theme)[
+                                  'Table Cell'
+                                ].style,
+                                { justifyContent: 'flex-end', paddingTop: 0 }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)[
+                                'screen_title_stock'
+                              ].props}
+                              style={StyleSheet.applyWidth(
+                                GlobalStyles.TextStyles(theme)[
+                                  'screen_title_stock'
+                                ].style,
+                                dimensions.width
+                              )}
+                            >
+                              {transformNumber(
+                                fetchData?.ebitda_margin_fy1,
+                                undefined,
+                                undefined
+                              )}
+                            </Text>
+                          </TableCell>
+                          {/* Table Cell 5 */}
+                          <TableCell
+                            drawBottomBorder={false}
+                            drawStartBorder={false}
+                            drawTopBorder={false}
+                            {...GlobalStyles.TableCellStyles(theme)[
+                              'Table Cell'
+                            ].props}
+                            drawEndBorder={false}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TableCellStyles(theme)[
+                                  'Table Cell'
+                                ].style,
+                                { justifyContent: 'flex-end', paddingTop: 0 }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)[
+                                'screen_title_stock'
+                              ].props}
+                              style={StyleSheet.applyWidth(
+                                GlobalStyles.TextStyles(theme)[
+                                  'screen_title_stock'
+                                ].style,
+                                dimensions.width
+                              )}
+                            >
+                              {transformNumber(
+                                fetchData?.ebitda_margin_fy2,
+                                undefined,
+                                undefined
+                              )}
+                            </Text>
+                          </TableCell>
+                        </TableRow>
+                        {/* ebit */}
+                        <TableRow
+                          drawEndBorder={false}
+                          drawTopBorder={false}
+                          isTableHeader={false}
+                          drawBottomBorder={false}
+                          drawStartBorder={false}
+                        >
+                          <TableCell
+                            drawBottomBorder={false}
+                            drawStartBorder={false}
+                            drawTopBorder={false}
+                            {...GlobalStyles.TableCellStyles(theme)[
+                              'Table Cell'
+                            ].props}
+                            drawEndBorder={false}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TableCellStyles(theme)[
+                                  'Table Cell'
+                                ].style,
+                                { paddingBottom: 0 }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)[
+                                'screen_title_stock'
+                              ].props}
+                              style={StyleSheet.applyWidth(
+                                GlobalStyles.TextStyles(theme)[
+                                  'screen_title_stock'
+                                ].style,
+                                dimensions.width
+                              )}
+                            >
+                              {'EBIT'}
+                            </Text>
+                          </TableCell>
+                          {/* Table Cell 2 */}
+                          <TableCell
+                            drawBottomBorder={false}
+                            drawStartBorder={false}
+                            drawTopBorder={false}
+                            {...GlobalStyles.TableCellStyles(theme)[
+                              'Table Cell'
+                            ].props}
+                            drawEndBorder={false}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TableCellStyles(theme)[
+                                  'Table Cell'
+                                ].style,
+                                { justifyContent: 'flex-end', paddingBottom: 0 }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)[
+                                'screen_title_stock'
+                              ].props}
+                              style={StyleSheet.applyWidth(
+                                GlobalStyles.TextStyles(theme)[
+                                  'screen_title_stock'
+                                ].style,
+                                dimensions.width
+                              )}
+                            >
+                              {transformNumber(
+                                fetchData?.ebit_fy0,
+                                undefined,
+                                undefined
+                              )}
+                            </Text>
+                          </TableCell>
+                          {/* Table Cell 3 */}
+                          <TableCell
+                            drawBottomBorder={false}
+                            drawStartBorder={false}
+                            drawTopBorder={false}
+                            {...GlobalStyles.TableCellStyles(theme)[
+                              'Table Cell'
+                            ].props}
+                            drawEndBorder={false}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TableCellStyles(theme)[
+                                  'Table Cell'
+                                ].style,
+                                { justifyContent: 'flex-end', paddingBottom: 0 }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)[
+                                'screen_title_stock'
+                              ].props}
+                              style={StyleSheet.applyWidth(
+                                GlobalStyles.TextStyles(theme)[
+                                  'screen_title_stock'
+                                ].style,
+                                dimensions.width
+                              )}
+                            >
+                              {transformNumber(
+                                fetchData?.ebit_ttm,
+                                undefined,
+                                undefined
+                              )}
+                            </Text>
+                          </TableCell>
+                          {/* Table Cell 4 */}
+                          <TableCell
+                            drawBottomBorder={false}
+                            drawStartBorder={false}
+                            drawTopBorder={false}
+                            {...GlobalStyles.TableCellStyles(theme)[
+                              'Table Cell'
+                            ].props}
+                            drawEndBorder={false}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TableCellStyles(theme)[
+                                  'Table Cell'
+                                ].style,
+                                { justifyContent: 'flex-end', paddingBottom: 0 }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)[
+                                'screen_title_stock'
+                              ].props}
+                              style={StyleSheet.applyWidth(
+                                GlobalStyles.TextStyles(theme)[
+                                  'screen_title_stock'
+                                ].style,
+                                dimensions.width
+                              )}
+                            >
+                              {transformNumber(
+                                fetchData?.ebit_fy1,
+                                undefined,
+                                undefined
+                              )}
+                            </Text>
+                          </TableCell>
+                          {/* Table Cell 5 */}
+                          <TableCell
+                            drawBottomBorder={false}
+                            drawStartBorder={false}
+                            drawTopBorder={false}
+                            {...GlobalStyles.TableCellStyles(theme)[
+                              'Table Cell'
+                            ].props}
+                            drawEndBorder={false}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TableCellStyles(theme)[
+                                  'Table Cell'
+                                ].style,
+                                { justifyContent: 'flex-end', paddingBottom: 0 }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)[
+                                'screen_title_stock'
+                              ].props}
+                              style={StyleSheet.applyWidth(
+                                GlobalStyles.TextStyles(theme)[
+                                  'screen_title_stock'
+                                ].style,
+                                dimensions.width
+                              )}
+                            >
+                              {transformNumber(
+                                fetchData?.ebit_fy2,
+                                undefined,
+                                undefined
+                              )}
+                            </Text>
+                          </TableCell>
+                        </TableRow>
+                        {/* ebit_margin */}
+                        <TableRow
+                          drawBottomBorder={true}
+                          drawEndBorder={false}
+                          drawTopBorder={false}
+                          isTableHeader={false}
+                          drawStartBorder={false}
+                        >
+                          <TableCell
+                            drawBottomBorder={false}
+                            drawStartBorder={false}
+                            drawTopBorder={false}
+                            {...GlobalStyles.TableCellStyles(theme)[
+                              'Table Cell'
+                            ].props}
+                            drawEndBorder={false}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TableCellStyles(theme)[
+                                  'Table Cell'
+                                ].style,
+                                { paddingTop: 0 }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)[
+                                'screen_title_stock'
+                              ].props}
+                              style={StyleSheet.applyWidth(
+                                GlobalStyles.TextStyles(theme)[
+                                  'screen_title_stock'
+                                ].style,
+                                dimensions.width
+                              )}
+                            >
+                              {'Margin'}
+                            </Text>
+                          </TableCell>
+                          {/* Table Cell 2 */}
+                          <TableCell
+                            drawBottomBorder={false}
+                            drawStartBorder={false}
+                            drawTopBorder={false}
+                            {...GlobalStyles.TableCellStyles(theme)[
+                              'Table Cell'
+                            ].props}
+                            drawEndBorder={false}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TableCellStyles(theme)[
+                                  'Table Cell'
+                                ].style,
+                                { justifyContent: 'flex-end', paddingTop: 0 }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)[
+                                'screen_title_stock'
+                              ].props}
+                              style={StyleSheet.applyWidth(
+                                GlobalStyles.TextStyles(theme)[
+                                  'screen_title_stock'
+                                ].style,
+                                dimensions.width
+                              )}
+                            >
+                              {transformNumber(
+                                fetchData?.ebit_margin_fy0,
+                                undefined,
+                                undefined
+                              )}
+                            </Text>
+                          </TableCell>
+                          {/* Table Cell 3 */}
+                          <TableCell
+                            drawBottomBorder={false}
+                            drawStartBorder={false}
+                            drawTopBorder={false}
+                            {...GlobalStyles.TableCellStyles(theme)[
+                              'Table Cell'
+                            ].props}
+                            drawEndBorder={false}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TableCellStyles(theme)[
+                                  'Table Cell'
+                                ].style,
+                                { justifyContent: 'flex-end', paddingTop: 0 }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)[
+                                'screen_title_stock'
+                              ].props}
+                              style={StyleSheet.applyWidth(
+                                GlobalStyles.TextStyles(theme)[
+                                  'screen_title_stock'
+                                ].style,
+                                dimensions.width
+                              )}
+                            >
+                              {transformNumber(
+                                fetchData?.ebit_margin_ttm,
+                                undefined,
+                                undefined
+                              )}
+                            </Text>
+                          </TableCell>
+                          {/* Table Cell 4 */}
+                          <TableCell
+                            drawBottomBorder={false}
+                            drawStartBorder={false}
+                            drawTopBorder={false}
+                            {...GlobalStyles.TableCellStyles(theme)[
+                              'Table Cell'
+                            ].props}
+                            drawEndBorder={false}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TableCellStyles(theme)[
+                                  'Table Cell'
+                                ].style,
+                                { justifyContent: 'flex-end', paddingTop: 0 }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)[
+                                'screen_title_stock'
+                              ].props}
+                              style={StyleSheet.applyWidth(
+                                GlobalStyles.TextStyles(theme)[
+                                  'screen_title_stock'
+                                ].style,
+                                dimensions.width
+                              )}
+                            >
+                              {transformNumber(
+                                fetchData?.ebit_margin_fy1,
+                                undefined,
+                                undefined
+                              )}
+                            </Text>
+                          </TableCell>
+                          {/* Table Cell 5 */}
+                          <TableCell
+                            drawBottomBorder={false}
+                            drawStartBorder={false}
+                            drawTopBorder={false}
+                            {...GlobalStyles.TableCellStyles(theme)[
+                              'Table Cell'
+                            ].props}
+                            drawEndBorder={false}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TableCellStyles(theme)[
+                                  'Table Cell'
+                                ].style,
+                                { justifyContent: 'flex-end', paddingTop: 0 }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)[
+                                'screen_title_stock'
+                              ].props}
+                              style={StyleSheet.applyWidth(
+                                GlobalStyles.TextStyles(theme)[
+                                  'screen_title_stock'
+                                ].style,
+                                dimensions.width
+                              )}
+                            >
+                              {transformNumber(
+                                fetchData?.ebit_margin_fy2,
+                                undefined,
+                                undefined
+                              )}
+                            </Text>
+                          </TableCell>
+                        </TableRow>
+                        {/* netprofit */}
+                        <TableRow
+                          drawEndBorder={false}
+                          drawTopBorder={false}
+                          isTableHeader={false}
+                          drawBottomBorder={false}
+                          drawStartBorder={false}
+                        >
+                          <TableCell
+                            drawBottomBorder={false}
+                            drawStartBorder={false}
+                            drawTopBorder={false}
+                            {...GlobalStyles.TableCellStyles(theme)[
+                              'Table Cell'
+                            ].props}
+                            drawEndBorder={false}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TableCellStyles(theme)[
+                                  'Table Cell'
+                                ].style,
+                                { paddingBottom: 0 }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)[
+                                'screen_title_stock'
+                              ].props}
+                              style={StyleSheet.applyWidth(
+                                GlobalStyles.TextStyles(theme)[
+                                  'screen_title_stock'
+                                ].style,
+                                dimensions.width
+                              )}
+                            >
+                              {'Net Profit'}
+                            </Text>
+                          </TableCell>
+                          {/* Table Cell 2 */}
+                          <TableCell
+                            drawBottomBorder={false}
+                            drawStartBorder={false}
+                            drawTopBorder={false}
+                            {...GlobalStyles.TableCellStyles(theme)[
+                              'Table Cell'
+                            ].props}
+                            drawEndBorder={false}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TableCellStyles(theme)[
+                                  'Table Cell'
+                                ].style,
+                                { justifyContent: 'flex-end', paddingBottom: 0 }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)[
+                                'screen_title_stock'
+                              ].props}
+                              style={StyleSheet.applyWidth(
+                                GlobalStyles.TextStyles(theme)[
+                                  'screen_title_stock'
+                                ].style,
+                                dimensions.width
+                              )}
+                            >
+                              {transformNumber(
+                                fetchData?.np_fy0,
+                                undefined,
+                                undefined
+                              )}
+                            </Text>
+                          </TableCell>
+                          {/* Table Cell 3 */}
+                          <TableCell
+                            drawBottomBorder={false}
+                            drawStartBorder={false}
+                            drawTopBorder={false}
+                            {...GlobalStyles.TableCellStyles(theme)[
+                              'Table Cell'
+                            ].props}
+                            drawEndBorder={false}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TableCellStyles(theme)[
+                                  'Table Cell'
+                                ].style,
+                                { justifyContent: 'flex-end', paddingBottom: 0 }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)[
+                                'screen_title_stock'
+                              ].props}
+                              style={StyleSheet.applyWidth(
+                                GlobalStyles.TextStyles(theme)[
+                                  'screen_title_stock'
+                                ].style,
+                                dimensions.width
+                              )}
+                            >
+                              {transformNumber(
+                                fetchData?.np_ttm,
+                                undefined,
+                                undefined
+                              )}
+                            </Text>
+                          </TableCell>
+                          {/* Table Cell 4 */}
+                          <TableCell
+                            drawBottomBorder={false}
+                            drawStartBorder={false}
+                            drawTopBorder={false}
+                            {...GlobalStyles.TableCellStyles(theme)[
+                              'Table Cell'
+                            ].props}
+                            drawEndBorder={false}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TableCellStyles(theme)[
+                                  'Table Cell'
+                                ].style,
+                                { justifyContent: 'flex-end', paddingBottom: 0 }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)[
+                                'screen_title_stock'
+                              ].props}
+                              style={StyleSheet.applyWidth(
+                                GlobalStyles.TextStyles(theme)[
+                                  'screen_title_stock'
+                                ].style,
+                                dimensions.width
+                              )}
+                            >
+                              {transformNumber(
+                                fetchData?.np_fy1,
+                                undefined,
+                                undefined
+                              )}
+                            </Text>
+                          </TableCell>
+                          {/* Table Cell 5 */}
+                          <TableCell
+                            drawBottomBorder={false}
+                            drawStartBorder={false}
+                            drawTopBorder={false}
+                            {...GlobalStyles.TableCellStyles(theme)[
+                              'Table Cell'
+                            ].props}
+                            drawEndBorder={false}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TableCellStyles(theme)[
+                                  'Table Cell'
+                                ].style,
+                                { justifyContent: 'flex-end', paddingBottom: 0 }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)[
+                                'screen_title_stock'
+                              ].props}
+                              style={StyleSheet.applyWidth(
+                                GlobalStyles.TextStyles(theme)[
+                                  'screen_title_stock'
+                                ].style,
+                                dimensions.width
+                              )}
+                            >
+                              {transformNumber(
+                                fetchData?.np_fy2,
+                                undefined,
+                                undefined
+                              )}
+                            </Text>
+                          </TableCell>
+                        </TableRow>
+                        {/* netprofit_margin */}
+                        <TableRow
+                          drawBottomBorder={true}
+                          drawEndBorder={false}
+                          drawTopBorder={false}
+                          isTableHeader={false}
+                          drawStartBorder={false}
+                        >
+                          <TableCell
+                            drawBottomBorder={false}
+                            drawStartBorder={false}
+                            drawTopBorder={false}
+                            {...GlobalStyles.TableCellStyles(theme)[
+                              'Table Cell'
+                            ].props}
+                            drawEndBorder={false}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TableCellStyles(theme)[
+                                  'Table Cell'
+                                ].style,
+                                { paddingTop: 0 }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)[
+                                'screen_title_stock'
+                              ].props}
+                              style={StyleSheet.applyWidth(
+                                GlobalStyles.TextStyles(theme)[
+                                  'screen_title_stock'
+                                ].style,
+                                dimensions.width
+                              )}
+                            >
+                              {'Margin'}
+                            </Text>
+                          </TableCell>
+                          {/* Table Cell 2 */}
+                          <TableCell
+                            drawBottomBorder={false}
+                            drawStartBorder={false}
+                            drawTopBorder={false}
+                            {...GlobalStyles.TableCellStyles(theme)[
+                              'Table Cell'
+                            ].props}
+                            drawEndBorder={false}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TableCellStyles(theme)[
+                                  'Table Cell'
+                                ].style,
+                                { justifyContent: 'flex-end', paddingTop: 0 }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)[
+                                'screen_title_stock'
+                              ].props}
+                              style={StyleSheet.applyWidth(
+                                GlobalStyles.TextStyles(theme)[
+                                  'screen_title_stock'
+                                ].style,
+                                dimensions.width
+                              )}
+                            >
+                              {transformNumber(
+                                fetchData?.np_margin_fy0,
+                                undefined,
+                                undefined
+                              )}
+                            </Text>
+                          </TableCell>
+                          {/* Table Cell 3 */}
+                          <TableCell
+                            drawBottomBorder={false}
+                            drawStartBorder={false}
+                            drawTopBorder={false}
+                            {...GlobalStyles.TableCellStyles(theme)[
+                              'Table Cell'
+                            ].props}
+                            drawEndBorder={false}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TableCellStyles(theme)[
+                                  'Table Cell'
+                                ].style,
+                                { justifyContent: 'flex-end', paddingTop: 0 }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)[
+                                'screen_title_stock'
+                              ].props}
+                              style={StyleSheet.applyWidth(
+                                GlobalStyles.TextStyles(theme)[
+                                  'screen_title_stock'
+                                ].style,
+                                dimensions.width
+                              )}
+                            >
+                              {transformNumber(
+                                fetchData?.np_margin_ttm,
+                                undefined,
+                                undefined
+                              )}
+                            </Text>
+                          </TableCell>
+                          {/* Table Cell 4 */}
+                          <TableCell
+                            drawBottomBorder={false}
+                            drawStartBorder={false}
+                            drawTopBorder={false}
+                            {...GlobalStyles.TableCellStyles(theme)[
+                              'Table Cell'
+                            ].props}
+                            drawEndBorder={false}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TableCellStyles(theme)[
+                                  'Table Cell'
+                                ].style,
+                                { justifyContent: 'flex-end', paddingTop: 0 }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)[
+                                'screen_title_stock'
+                              ].props}
+                              style={StyleSheet.applyWidth(
+                                GlobalStyles.TextStyles(theme)[
+                                  'screen_title_stock'
+                                ].style,
+                                dimensions.width
+                              )}
+                            >
+                              {transformNumber(
+                                fetchData?.np_margin_fy1,
+                                undefined,
+                                undefined
+                              )}
+                            </Text>
+                          </TableCell>
+                          {/* Table Cell 5 */}
+                          <TableCell
+                            drawBottomBorder={false}
+                            drawStartBorder={false}
+                            drawTopBorder={false}
+                            {...GlobalStyles.TableCellStyles(theme)[
+                              'Table Cell'
+                            ].props}
+                            drawEndBorder={false}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TableCellStyles(theme)[
+                                  'Table Cell'
+                                ].style,
+                                { justifyContent: 'flex-end', paddingTop: 0 }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)[
+                                'screen_title_stock'
+                              ].props}
+                              style={StyleSheet.applyWidth(
+                                GlobalStyles.TextStyles(theme)[
+                                  'screen_title_stock'
+                                ].style,
+                                dimensions.width
+                              )}
+                            >
+                              {transformNumber(
+                                fetchData?.np_margin_fy2,
+                                undefined,
                                 undefined
                               )}
                             </Text>
@@ -1098,67 +2684,133 @@ const StockDetailsScreen = props => {
                         {'Valuation metrics:'}
                       </H3>
                     </View>
-                    {/* table */}
-                    <View
+
+                    <LinearGradient
+                      endX={100}
+                      endY={100}
+                      startX={0}
+                      startY={0}
+                      {...GlobalStyles.LinearGradientStyles(theme)[
+                        'Linear Gradient'
+                      ].props}
+                      color1={theme.colors.text.strong}
+                      color2={theme.colors.branding.primary}
+                      color3={null}
                       style={StyleSheet.applyWidth(
-                        {
-                          backgroundColor: theme.colors.text.light,
-                          padding: 10,
-                        },
+                        StyleSheet.compose(
+                          GlobalStyles.LinearGradientStyles(theme)[
+                            'Linear Gradient'
+                          ].style,
+                          {
+                            borderRadius: [
+                              { minWidth: Breakpoints.Tablet, value: 0 },
+                              { minWidth: Breakpoints.Mobile, value: 0 },
+                            ],
+                            borderWidth: [
+                              { minWidth: Breakpoints.Tablet, value: 0 },
+                              { minWidth: Breakpoints.Mobile, value: 0 },
+                            ],
+                            margin: [
+                              { minWidth: Breakpoints.Tablet, value: 0 },
+                              { minWidth: Breakpoints.Mobile, value: 0 },
+                            ],
+                            padding: [
+                              { minWidth: Breakpoints.Tablet, value: 10 },
+                              { minWidth: Breakpoints.Mobile, value: 10 },
+                            ],
+                          }
+                        ),
                         dimensions.width
                       )}
                     >
-                      <View
+                      {/* Table 3 */}
+                      <Table
+                        borderColor={theme.colors.border.brand}
+                        borderStyle={'solid'}
+                        borderWidth={1}
+                        cellHorizontalPadding={10}
+                        cellVerticalPadding={10}
+                        drawBottomBorder={false}
+                        drawEndBorder={false}
+                        drawStartBorder={false}
+                        showsVerticalScrollIndicator={true}
+                        {...GlobalStyles.TableStyles(theme)['Table'].props}
+                        drawTopBorder={false}
                         style={StyleSheet.applyWidth(
-                          {
-                            alignItems: 'center',
-                            borderColor: palettes.App.green,
-                            flexDirection: 'row',
-                            gap: 5,
-                            justifyContent: 'space-between',
-                            padding: 5,
-                          },
+                          GlobalStyles.TableStyles(theme)['Table'].style,
                           dimensions.width
                         )}
                       >
-                        <Text
-                          accessible={true}
-                          {...GlobalStyles.TextStyles(theme)['screen_title']
-                            .props}
+                        <TableRow
+                          drawBottomBorder={true}
+                          drawEndBorder={false}
+                          drawTopBorder={false}
+                          drawStartBorder={false}
+                          isTableHeader={true}
                           style={StyleSheet.applyWidth(
-                            GlobalStyles.TextStyles(theme)['screen_title']
-                              .style,
+                            { backgroundColor: 'rgba(0, 0, 0, 0)' },
                             dimensions.width
                           )}
                         >
-                          {' '}
-                        </Text>
-
-                        <View
-                          style={StyleSheet.applyWidth(
-                            { flexDirection: 'row', gap: 0, width: '80%' },
-                            dimensions.width
-                          )}
-                        >
-                          <View
+                          <TableCell
+                            drawBottomBorder={false}
+                            drawStartBorder={false}
+                            drawTopBorder={false}
+                            {...GlobalStyles.TableCellStyles(theme)[
+                              'Table Cell'
+                            ].props}
+                            drawEndBorder={false}
                             style={StyleSheet.applyWidth(
-                              { padding: 2, width: '25%' },
+                              GlobalStyles.TableCellStyles(theme)['Table Cell']
+                                .style,
                               dimensions.width
                             )}
                           >
                             <Text
                               accessible={true}
-                              {...GlobalStyles.TextStyles(theme)['screen_title']
-                                .props}
+                              {...GlobalStyles.TextStyles(theme)[
+                                'screen_title_stockH'
+                              ].props}
+                              style={StyleSheet.applyWidth(
+                                GlobalStyles.TextStyles(theme)[
+                                  'screen_title_stockH'
+                                ].style,
+                                dimensions.width
+                              )}
+                            >
+                              {' '}
+                            </Text>
+                          </TableCell>
+                          {/* Table Cell 2 */}
+                          <TableCell
+                            drawBottomBorder={false}
+                            drawStartBorder={false}
+                            drawTopBorder={false}
+                            {...GlobalStyles.TableCellStyles(theme)[
+                              'Table Cell'
+                            ].props}
+                            drawEndBorder={false}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TableCellStyles(theme)[
+                                  'Table Cell'
+                                ].style,
+                                { justifyContent: 'flex-end' }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)[
+                                'screen_title_stockH'
+                              ].props}
                               style={StyleSheet.applyWidth(
                                 StyleSheet.compose(
-                                  GlobalStyles.TextStyles(theme)['screen_title']
-                                    .style,
-                                  {
-                                    fontFamily: 'Quicksand_400Regular',
-                                    fontSize: 12,
-                                    textAlign: 'center',
-                                  }
+                                  GlobalStyles.TextStyles(theme)[
+                                    'screen_title_stockH'
+                                  ].style,
+                                  { fontSize: 10 }
                                 ),
                                 dimensions.width
                               )}
@@ -1169,26 +2821,40 @@ const StockDetailsScreen = props => {
                                 undefined
                               )}
                             </Text>
-                          </View>
-                          {/* View 2 */}
-                          <View
+                          </TableCell>
+                          {/* Table Cell 3 */}
+                          <TableCell
+                            drawBottomBorder={false}
+                            drawStartBorder={false}
+                            drawTopBorder={false}
+                            {...GlobalStyles.TableCellStyles(theme)[
+                              'Table Cell'
+                            ].props}
+                            drawEndBorder={false}
                             style={StyleSheet.applyWidth(
-                              { padding: 2, width: '25%' },
+                              StyleSheet.compose(
+                                GlobalStyles.TableCellStyles(theme)[
+                                  'Table Cell'
+                                ].style,
+                                { justifyContent: 'flex-end' }
+                              ),
                               dimensions.width
                             )}
                           >
                             <Text
                               accessible={true}
-                              {...GlobalStyles.TextStyles(theme)['screen_title']
-                                .props}
+                              {...GlobalStyles.TextStyles(theme)[
+                                'screen_title_stockH'
+                              ].props}
                               style={StyleSheet.applyWidth(
                                 StyleSheet.compose(
-                                  GlobalStyles.TextStyles(theme)['screen_title']
-                                    .style,
+                                  GlobalStyles.TextStyles(theme)[
+                                    'screen_title_stockH'
+                                  ].style,
                                   {
-                                    fontFamily: 'Quicksand_400Regular',
-                                    fontSize: 12,
-                                    textAlign: 'center',
+                                    alignSelf: 'flex-end',
+                                    fontSize: 10,
+                                    textAlign: 'right',
                                   }
                                 ),
                                 dimensions.width
@@ -1196,733 +2862,842 @@ const StockDetailsScreen = props => {
                             >
                               {transformNumber(
                                 fetchData?.tt_end_date,
-                                undefined,
+                                dimensions.width >= Breakpoints.Tablet
+                                  ? '(TTM)'
+                                  : '\n(TTM)',
                                 undefined
                               )}
-                              {'\n'}
                             </Text>
-                          </View>
-                          {/* View 3 */}
-                          <View
+                          </TableCell>
+                          {/* Table Cell 4 */}
+                          <TableCell
+                            drawBottomBorder={false}
+                            drawStartBorder={false}
+                            drawTopBorder={false}
+                            {...GlobalStyles.TableCellStyles(theme)[
+                              'Table Cell'
+                            ].props}
+                            drawEndBorder={false}
                             style={StyleSheet.applyWidth(
-                              { padding: 2, width: '25%' },
+                              StyleSheet.compose(
+                                GlobalStyles.TableCellStyles(theme)[
+                                  'Table Cell'
+                                ].style,
+                                { justifyContent: 'flex-end' }
+                              ),
                               dimensions.width
                             )}
                           >
                             <Text
                               accessible={true}
-                              {...GlobalStyles.TextStyles(theme)['screen_title']
-                                .props}
+                              {...GlobalStyles.TextStyles(theme)[
+                                'screen_title_stockH'
+                              ].props}
                               style={StyleSheet.applyWidth(
                                 StyleSheet.compose(
-                                  GlobalStyles.TextStyles(theme)['screen_title']
-                                    .style,
-                                  {
-                                    fontFamily: 'Quicksand_400Regular',
-                                    fontSize: 12,
-                                    textAlign: 'center',
-                                  }
+                                  GlobalStyles.TextStyles(theme)[
+                                    'screen_title_stockH'
+                                  ].style,
+                                  { fontSize: 10 }
                                 ),
                                 dimensions.width
                               )}
                             >
                               {transformNumber(
                                 fetchData?.fy1_end_date,
-                                undefined,
+                                'E',
                                 undefined
                               )}
                             </Text>
-                          </View>
-                          {/* View 4 */}
-                          <View
+                          </TableCell>
+                          {/* Table Cell 5 */}
+                          <TableCell
+                            drawBottomBorder={false}
+                            drawStartBorder={false}
+                            drawTopBorder={false}
+                            {...GlobalStyles.TableCellStyles(theme)[
+                              'Table Cell'
+                            ].props}
+                            drawEndBorder={false}
                             style={StyleSheet.applyWidth(
-                              { padding: 2, width: '25%' },
+                              StyleSheet.compose(
+                                GlobalStyles.TableCellStyles(theme)[
+                                  'Table Cell'
+                                ].style,
+                                { justifyContent: 'flex-end' }
+                              ),
                               dimensions.width
                             )}
                           >
                             <Text
                               accessible={true}
-                              {...GlobalStyles.TextStyles(theme)['screen_title']
-                                .props}
+                              {...GlobalStyles.TextStyles(theme)[
+                                'screen_title_stockH'
+                              ].props}
                               style={StyleSheet.applyWidth(
                                 StyleSheet.compose(
-                                  GlobalStyles.TextStyles(theme)['screen_title']
-                                    .style,
-                                  {
-                                    fontFamily: 'Quicksand_400Regular',
-                                    fontSize: 12,
-                                    textAlign: 'center',
-                                  }
+                                  GlobalStyles.TextStyles(theme)[
+                                    'screen_title_stockH'
+                                  ].style,
+                                  { fontSize: 10 }
                                 ),
                                 dimensions.width
                               )}
                             >
                               {transformNumber(
                                 fetchData?.fy2_end_date,
-                                undefined,
+                                'E',
                                 undefined
                               )}
                             </Text>
-                          </View>
-                        </View>
-                      </View>
-                      {/* View 2 */}
-                      <View
-                        style={StyleSheet.applyWidth(
-                          {
-                            alignItems: 'center',
-                            borderColor: palettes.App.green,
-                            flexDirection: 'row',
-                            gap: 5,
-                            justifyContent: 'space-between',
-                            padding: 5,
-                          },
-                          dimensions.width
-                        )}
-                      >
-                        <Text
-                          accessible={true}
-                          {...GlobalStyles.TextStyles(theme)['screen_title']
-                            .props}
-                          style={StyleSheet.applyWidth(
-                            StyleSheet.compose(
-                              GlobalStyles.TextStyles(theme)['screen_title']
-                                .style,
-                              {
-                                fontFamily: 'Quicksand_500Medium',
-                                fontSize: 12,
-                              }
-                            ),
-                            dimensions.width
-                          )}
+                          </TableCell>
+                        </TableRow>
+                        {/* ev_sales */}
+                        <TableRow
+                          drawBottomBorder={true}
+                          drawEndBorder={false}
+                          drawTopBorder={false}
+                          isTableHeader={false}
+                          drawStartBorder={false}
                         >
-                          {' EV/Sales'}
-                        </Text>
-
-                        <View
-                          style={StyleSheet.applyWidth(
-                            { flexDirection: 'row', gap: 0, width: '80%' },
-                            dimensions.width
-                          )}
-                        >
-                          <View
+                          <TableCell
+                            drawBottomBorder={false}
+                            drawStartBorder={false}
+                            drawTopBorder={false}
+                            {...GlobalStyles.TableCellStyles(theme)[
+                              'Table Cell'
+                            ].props}
+                            drawEndBorder={false}
                             style={StyleSheet.applyWidth(
-                              { padding: 2, width: '25%' },
+                              GlobalStyles.TableCellStyles(theme)['Table Cell']
+                                .style,
                               dimensions.width
                             )}
                           >
                             <Text
                               accessible={true}
-                              {...GlobalStyles.TextStyles(theme)['screen_title']
-                                .props}
+                              {...GlobalStyles.TextStyles(theme)[
+                                'screen_title_stock'
+                              ].props}
                               style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.TextStyles(theme)['screen_title']
-                                    .style,
-                                  {
-                                    fontFamily: 'Quicksand_400Regular',
-                                    fontSize: 12,
-                                    textAlign: 'right',
-                                  }
-                                ),
+                                GlobalStyles.TextStyles(theme)[
+                                  'screen_title_stock'
+                                ].style,
+                                dimensions.width
+                              )}
+                            >
+                              {'EV/Sales'}
+                            </Text>
+                          </TableCell>
+                          {/* Table Cell 2 */}
+                          <TableCell
+                            drawBottomBorder={false}
+                            drawStartBorder={false}
+                            drawTopBorder={false}
+                            {...GlobalStyles.TableCellStyles(theme)[
+                              'Table Cell'
+                            ].props}
+                            drawEndBorder={false}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TableCellStyles(theme)[
+                                  'Table Cell'
+                                ].style,
+                                { justifyContent: 'flex-end' }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)[
+                                'screen_title_stock'
+                              ].props}
+                              style={StyleSheet.applyWidth(
+                                GlobalStyles.TextStyles(theme)[
+                                  'screen_title_stock'
+                                ].style,
                                 dimensions.width
                               )}
                             >
                               {transformNumber(
                                 fetchData?.ev_sales_fy0,
                                 'x',
-                                undefined
+                                true
                               )}
                             </Text>
-                          </View>
-                          {/* View 2 */}
-                          <View
+                          </TableCell>
+                          {/* Table Cell 3 */}
+                          <TableCell
+                            drawBottomBorder={false}
+                            drawStartBorder={false}
+                            drawTopBorder={false}
+                            {...GlobalStyles.TableCellStyles(theme)[
+                              'Table Cell'
+                            ].props}
+                            drawEndBorder={false}
                             style={StyleSheet.applyWidth(
-                              { padding: 2, width: '25%' },
+                              StyleSheet.compose(
+                                GlobalStyles.TableCellStyles(theme)[
+                                  'Table Cell'
+                                ].style,
+                                { justifyContent: 'flex-end' }
+                              ),
                               dimensions.width
                             )}
                           >
                             <Text
                               accessible={true}
-                              {...GlobalStyles.TextStyles(theme)['screen_title']
-                                .props}
+                              {...GlobalStyles.TextStyles(theme)[
+                                'screen_title_stock'
+                              ].props}
                               style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.TextStyles(theme)['screen_title']
-                                    .style,
-                                  {
-                                    fontFamily: 'Quicksand_400Regular',
-                                    fontSize: 12,
-                                    textAlign: 'right',
-                                  }
-                                ),
+                                GlobalStyles.TextStyles(theme)[
+                                  'screen_title_stock'
+                                ].style,
                                 dimensions.width
                               )}
                             >
                               {transformNumber(
                                 fetchData?.ev_sales_ttm,
                                 'x',
-                                undefined
+                                true
                               )}
                             </Text>
-                          </View>
-                          {/* View 3 */}
-                          <View
+                          </TableCell>
+                          {/* Table Cell 4 */}
+                          <TableCell
+                            drawBottomBorder={false}
+                            drawStartBorder={false}
+                            drawTopBorder={false}
+                            {...GlobalStyles.TableCellStyles(theme)[
+                              'Table Cell'
+                            ].props}
+                            drawEndBorder={false}
                             style={StyleSheet.applyWidth(
-                              { padding: 2, width: '25%' },
+                              StyleSheet.compose(
+                                GlobalStyles.TableCellStyles(theme)[
+                                  'Table Cell'
+                                ].style,
+                                { justifyContent: 'flex-end' }
+                              ),
                               dimensions.width
                             )}
                           >
                             <Text
                               accessible={true}
-                              {...GlobalStyles.TextStyles(theme)['screen_title']
-                                .props}
+                              {...GlobalStyles.TextStyles(theme)[
+                                'screen_title_stock'
+                              ].props}
                               style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.TextStyles(theme)['screen_title']
-                                    .style,
-                                  {
-                                    fontFamily: 'Quicksand_400Regular',
-                                    fontSize: 12,
-                                    textAlign: 'right',
-                                  }
-                                ),
+                                GlobalStyles.TextStyles(theme)[
+                                  'screen_title_stock'
+                                ].style,
                                 dimensions.width
                               )}
                             >
                               {transformNumber(
                                 fetchData?.ev_sales_fy1,
                                 'x',
-                                undefined
+                                true
                               )}
                             </Text>
-                          </View>
-                          {/* View 4 */}
-                          <View
+                          </TableCell>
+                          {/* Table Cell 5 */}
+                          <TableCell
+                            drawBottomBorder={false}
+                            drawStartBorder={false}
+                            drawTopBorder={false}
+                            {...GlobalStyles.TableCellStyles(theme)[
+                              'Table Cell'
+                            ].props}
+                            drawEndBorder={false}
                             style={StyleSheet.applyWidth(
-                              { padding: 2, width: '25%' },
+                              StyleSheet.compose(
+                                GlobalStyles.TableCellStyles(theme)[
+                                  'Table Cell'
+                                ].style,
+                                { justifyContent: 'flex-end' }
+                              ),
                               dimensions.width
                             )}
                           >
                             <Text
                               accessible={true}
-                              {...GlobalStyles.TextStyles(theme)['screen_title']
-                                .props}
+                              {...GlobalStyles.TextStyles(theme)[
+                                'screen_title_stock'
+                              ].props}
                               style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.TextStyles(theme)['screen_title']
-                                    .style,
-                                  {
-                                    fontFamily: 'Quicksand_400Regular',
-                                    fontSize: 12,
-                                    textAlign: 'right',
-                                  }
-                                ),
+                                GlobalStyles.TextStyles(theme)[
+                                  'screen_title_stock'
+                                ].style,
                                 dimensions.width
                               )}
                             >
                               {transformNumber(
                                 fetchData?.ev_sales_fy2,
                                 'x',
-                                undefined
+                                true
                               )}
                             </Text>
-                          </View>
-                        </View>
-                      </View>
-                      {/* View 3 */}
-                      <View
-                        style={StyleSheet.applyWidth(
-                          {
-                            alignItems: 'center',
-                            borderColor: palettes.App.green,
-                            flexDirection: 'row',
-                            gap: 5,
-                            justifyContent: 'space-between',
-                            padding: 5,
-                          },
-                          dimensions.width
-                        )}
-                      >
-                        <Text
-                          accessible={true}
-                          {...GlobalStyles.TextStyles(theme)['screen_title']
-                            .props}
-                          style={StyleSheet.applyWidth(
-                            StyleSheet.compose(
-                              GlobalStyles.TextStyles(theme)['screen_title']
-                                .style,
-                              {
-                                fontFamily: 'Quicksand_500Medium',
-                                fontSize: 12,
-                              }
-                            ),
-                            dimensions.width
-                          )}
+                          </TableCell>
+                        </TableRow>
+                        {/* ev_ebitda */}
+                        <TableRow
+                          drawBottomBorder={true}
+                          drawEndBorder={false}
+                          drawTopBorder={false}
+                          isTableHeader={false}
+                          drawStartBorder={false}
                         >
-                          {' EV/EBITDA'}
-                        </Text>
-
-                        <View
-                          style={StyleSheet.applyWidth(
-                            { flexDirection: 'row', gap: 0, width: '80%' },
-                            dimensions.width
-                          )}
-                        >
-                          <View
+                          <TableCell
+                            drawBottomBorder={false}
+                            drawStartBorder={false}
+                            drawTopBorder={false}
+                            {...GlobalStyles.TableCellStyles(theme)[
+                              'Table Cell'
+                            ].props}
+                            drawEndBorder={false}
                             style={StyleSheet.applyWidth(
-                              { padding: 2, width: '25%' },
+                              GlobalStyles.TableCellStyles(theme)['Table Cell']
+                                .style,
                               dimensions.width
                             )}
                           >
                             <Text
                               accessible={true}
-                              {...GlobalStyles.TextStyles(theme)['screen_title']
-                                .props}
+                              {...GlobalStyles.TextStyles(theme)[
+                                'screen_title_stock'
+                              ].props}
                               style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.TextStyles(theme)['screen_title']
-                                    .style,
-                                  {
-                                    fontFamily: 'Quicksand_400Regular',
-                                    fontSize: 12,
-                                    textAlign: 'right',
-                                  }
-                                ),
+                                GlobalStyles.TextStyles(theme)[
+                                  'screen_title_stock'
+                                ].style,
+                                dimensions.width
+                              )}
+                            >
+                              {'EV/EBITDA'}
+                            </Text>
+                          </TableCell>
+                          {/* Table Cell 2 */}
+                          <TableCell
+                            drawBottomBorder={false}
+                            drawStartBorder={false}
+                            drawTopBorder={false}
+                            {...GlobalStyles.TableCellStyles(theme)[
+                              'Table Cell'
+                            ].props}
+                            drawEndBorder={false}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TableCellStyles(theme)[
+                                  'Table Cell'
+                                ].style,
+                                { justifyContent: 'flex-end' }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)[
+                                'screen_title_stock'
+                              ].props}
+                              style={StyleSheet.applyWidth(
+                                GlobalStyles.TextStyles(theme)[
+                                  'screen_title_stock'
+                                ].style,
                                 dimensions.width
                               )}
                             >
                               {transformNumber(
                                 fetchData?.ev_ebitda_fy0,
                                 'x',
-                                undefined
+                                true
                               )}
                             </Text>
-                          </View>
-                          {/* View 2 */}
-                          <View
+                          </TableCell>
+                          {/* Table Cell 3 */}
+                          <TableCell
+                            drawBottomBorder={false}
+                            drawStartBorder={false}
+                            drawTopBorder={false}
+                            {...GlobalStyles.TableCellStyles(theme)[
+                              'Table Cell'
+                            ].props}
+                            drawEndBorder={false}
                             style={StyleSheet.applyWidth(
-                              { padding: 2, width: '25%' },
+                              StyleSheet.compose(
+                                GlobalStyles.TableCellStyles(theme)[
+                                  'Table Cell'
+                                ].style,
+                                { justifyContent: 'flex-end' }
+                              ),
                               dimensions.width
                             )}
                           >
                             <Text
                               accessible={true}
-                              {...GlobalStyles.TextStyles(theme)['screen_title']
-                                .props}
+                              {...GlobalStyles.TextStyles(theme)[
+                                'screen_title_stock'
+                              ].props}
                               style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.TextStyles(theme)['screen_title']
-                                    .style,
-                                  {
-                                    fontFamily: 'Quicksand_400Regular',
-                                    fontSize: 12,
-                                    textAlign: 'right',
-                                  }
-                                ),
+                                GlobalStyles.TextStyles(theme)[
+                                  'screen_title_stock'
+                                ].style,
                                 dimensions.width
                               )}
                             >
                               {transformNumber(
                                 fetchData?.ev_ebitda_ttm,
                                 'x',
-                                undefined
+                                true
                               )}
                             </Text>
-                          </View>
-                          {/* View 3 */}
-                          <View
+                          </TableCell>
+                          {/* Table Cell 4 */}
+                          <TableCell
+                            drawBottomBorder={false}
+                            drawStartBorder={false}
+                            drawTopBorder={false}
+                            {...GlobalStyles.TableCellStyles(theme)[
+                              'Table Cell'
+                            ].props}
+                            drawEndBorder={false}
                             style={StyleSheet.applyWidth(
-                              { padding: 2, width: '25%' },
+                              StyleSheet.compose(
+                                GlobalStyles.TableCellStyles(theme)[
+                                  'Table Cell'
+                                ].style,
+                                { justifyContent: 'flex-end' }
+                              ),
                               dimensions.width
                             )}
                           >
                             <Text
                               accessible={true}
-                              {...GlobalStyles.TextStyles(theme)['screen_title']
-                                .props}
+                              {...GlobalStyles.TextStyles(theme)[
+                                'screen_title_stock'
+                              ].props}
                               style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.TextStyles(theme)['screen_title']
-                                    .style,
-                                  {
-                                    fontFamily: 'Quicksand_400Regular',
-                                    fontSize: 12,
-                                    textAlign: 'right',
-                                  }
-                                ),
+                                GlobalStyles.TextStyles(theme)[
+                                  'screen_title_stock'
+                                ].style,
                                 dimensions.width
                               )}
                             >
                               {transformNumber(
                                 fetchData?.ev_ebitda_fy1,
                                 'x',
-                                undefined
+                                true
                               )}
                             </Text>
-                          </View>
-                          {/* View 4 */}
-                          <View
+                          </TableCell>
+                          {/* Table Cell 5 */}
+                          <TableCell
+                            drawBottomBorder={false}
+                            drawStartBorder={false}
+                            drawTopBorder={false}
+                            {...GlobalStyles.TableCellStyles(theme)[
+                              'Table Cell'
+                            ].props}
+                            drawEndBorder={false}
                             style={StyleSheet.applyWidth(
-                              { padding: 2, width: '25%' },
+                              StyleSheet.compose(
+                                GlobalStyles.TableCellStyles(theme)[
+                                  'Table Cell'
+                                ].style,
+                                { justifyContent: 'flex-end' }
+                              ),
                               dimensions.width
                             )}
                           >
                             <Text
                               accessible={true}
-                              {...GlobalStyles.TextStyles(theme)['screen_title']
-                                .props}
+                              {...GlobalStyles.TextStyles(theme)[
+                                'screen_title_stock'
+                              ].props}
                               style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.TextStyles(theme)['screen_title']
-                                    .style,
-                                  {
-                                    fontFamily: 'Quicksand_400Regular',
-                                    fontSize: 12,
-                                    textAlign: 'right',
-                                  }
-                                ),
+                                GlobalStyles.TextStyles(theme)[
+                                  'screen_title_stock'
+                                ].style,
                                 dimensions.width
                               )}
                             >
                               {transformNumber(
                                 fetchData?.ev_ebitda_fy2,
                                 'x',
-                                undefined
+                                true
                               )}
                             </Text>
-                          </View>
-                        </View>
-                      </View>
-                      {/* View 4 */}
-                      <View
-                        style={StyleSheet.applyWidth(
-                          {
-                            alignItems: 'center',
-                            borderColor: palettes.App.green,
-                            flexDirection: 'row',
-                            gap: 5,
-                            justifyContent: 'space-between',
-                            padding: 5,
-                          },
-                          dimensions.width
-                        )}
-                      >
-                        <Text
-                          accessible={true}
-                          {...GlobalStyles.TextStyles(theme)['screen_title']
-                            .props}
-                          style={StyleSheet.applyWidth(
-                            StyleSheet.compose(
-                              GlobalStyles.TextStyles(theme)['screen_title']
-                                .style,
-                              {
-                                fontFamily: 'Quicksand_500Medium',
-                                fontSize: 12,
-                              }
-                            ),
-                            dimensions.width
-                          )}
+                          </TableCell>
+                        </TableRow>
+                        {/* ev_ebit */}
+                        <TableRow
+                          drawBottomBorder={true}
+                          drawEndBorder={false}
+                          drawTopBorder={false}
+                          isTableHeader={false}
+                          drawStartBorder={false}
                         >
-                          {' EV/EBIT'}
-                        </Text>
-
-                        <View
-                          style={StyleSheet.applyWidth(
-                            { flexDirection: 'row', gap: 0, width: '80%' },
-                            dimensions.width
-                          )}
-                        >
-                          <View
+                          <TableCell
+                            drawBottomBorder={false}
+                            drawStartBorder={false}
+                            drawTopBorder={false}
+                            {...GlobalStyles.TableCellStyles(theme)[
+                              'Table Cell'
+                            ].props}
+                            drawEndBorder={false}
                             style={StyleSheet.applyWidth(
-                              { padding: 2, width: '25%' },
+                              GlobalStyles.TableCellStyles(theme)['Table Cell']
+                                .style,
                               dimensions.width
                             )}
                           >
                             <Text
                               accessible={true}
-                              {...GlobalStyles.TextStyles(theme)['screen_title']
-                                .props}
+                              {...GlobalStyles.TextStyles(theme)[
+                                'screen_title_stock'
+                              ].props}
                               style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.TextStyles(theme)['screen_title']
-                                    .style,
-                                  {
-                                    fontFamily: 'Quicksand_400Regular',
-                                    fontSize: 12,
-                                    textAlign: 'right',
-                                  }
-                                ),
+                                GlobalStyles.TextStyles(theme)[
+                                  'screen_title_stock'
+                                ].style,
+                                dimensions.width
+                              )}
+                            >
+                              {'EV/EBIT'}
+                            </Text>
+                          </TableCell>
+                          {/* Table Cell 2 */}
+                          <TableCell
+                            drawBottomBorder={false}
+                            drawStartBorder={false}
+                            drawTopBorder={false}
+                            {...GlobalStyles.TableCellStyles(theme)[
+                              'Table Cell'
+                            ].props}
+                            drawEndBorder={false}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TableCellStyles(theme)[
+                                  'Table Cell'
+                                ].style,
+                                { justifyContent: 'flex-end' }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)[
+                                'screen_title_stock'
+                              ].props}
+                              style={StyleSheet.applyWidth(
+                                GlobalStyles.TextStyles(theme)[
+                                  'screen_title_stock'
+                                ].style,
                                 dimensions.width
                               )}
                             >
                               {transformNumber(
                                 fetchData?.ev_ebit_fy0,
                                 'x',
-                                undefined
+                                true
                               )}
                             </Text>
-                          </View>
-                          {/* View 2 */}
-                          <View
+                          </TableCell>
+                          {/* Table Cell 3 */}
+                          <TableCell
+                            drawBottomBorder={false}
+                            drawStartBorder={false}
+                            drawTopBorder={false}
+                            {...GlobalStyles.TableCellStyles(theme)[
+                              'Table Cell'
+                            ].props}
+                            drawEndBorder={false}
                             style={StyleSheet.applyWidth(
-                              { padding: 2, width: '25%' },
+                              StyleSheet.compose(
+                                GlobalStyles.TableCellStyles(theme)[
+                                  'Table Cell'
+                                ].style,
+                                { justifyContent: 'flex-end' }
+                              ),
                               dimensions.width
                             )}
                           >
                             <Text
                               accessible={true}
-                              {...GlobalStyles.TextStyles(theme)['screen_title']
-                                .props}
+                              {...GlobalStyles.TextStyles(theme)[
+                                'screen_title_stock'
+                              ].props}
                               style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.TextStyles(theme)['screen_title']
-                                    .style,
-                                  {
-                                    fontFamily: 'Quicksand_400Regular',
-                                    fontSize: 12,
-                                    textAlign: 'right',
-                                  }
-                                ),
+                                GlobalStyles.TextStyles(theme)[
+                                  'screen_title_stock'
+                                ].style,
                                 dimensions.width
                               )}
                             >
                               {transformNumber(
                                 fetchData?.ev_ebit_ttm,
                                 'x',
-                                undefined
+                                true
                               )}
                             </Text>
-                          </View>
-                          {/* View 3 */}
-                          <View
+                          </TableCell>
+                          {/* Table Cell 4 */}
+                          <TableCell
+                            drawBottomBorder={false}
+                            drawStartBorder={false}
+                            drawTopBorder={false}
+                            {...GlobalStyles.TableCellStyles(theme)[
+                              'Table Cell'
+                            ].props}
+                            drawEndBorder={false}
                             style={StyleSheet.applyWidth(
-                              { padding: 2, width: '25%' },
+                              StyleSheet.compose(
+                                GlobalStyles.TableCellStyles(theme)[
+                                  'Table Cell'
+                                ].style,
+                                { justifyContent: 'flex-end' }
+                              ),
                               dimensions.width
                             )}
                           >
                             <Text
                               accessible={true}
-                              {...GlobalStyles.TextStyles(theme)['screen_title']
-                                .props}
+                              {...GlobalStyles.TextStyles(theme)[
+                                'screen_title_stock'
+                              ].props}
                               style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.TextStyles(theme)['screen_title']
-                                    .style,
-                                  {
-                                    fontFamily: 'Quicksand_400Regular',
-                                    fontSize: 12,
-                                    textAlign: 'right',
-                                  }
-                                ),
+                                GlobalStyles.TextStyles(theme)[
+                                  'screen_title_stock'
+                                ].style,
                                 dimensions.width
                               )}
                             >
                               {transformNumber(
                                 fetchData?.ev_ebit_fy1,
                                 'x',
-                                undefined
+                                true
                               )}
                             </Text>
-                          </View>
-                          {/* View 4 */}
-                          <View
+                          </TableCell>
+                          {/* Table Cell 5 */}
+                          <TableCell
+                            drawBottomBorder={false}
+                            drawStartBorder={false}
+                            drawTopBorder={false}
+                            {...GlobalStyles.TableCellStyles(theme)[
+                              'Table Cell'
+                            ].props}
+                            drawEndBorder={false}
                             style={StyleSheet.applyWidth(
-                              { padding: 2, width: '25%' },
+                              StyleSheet.compose(
+                                GlobalStyles.TableCellStyles(theme)[
+                                  'Table Cell'
+                                ].style,
+                                { justifyContent: 'flex-end' }
+                              ),
                               dimensions.width
                             )}
                           >
                             <Text
                               accessible={true}
-                              {...GlobalStyles.TextStyles(theme)['screen_title']
-                                .props}
+                              {...GlobalStyles.TextStyles(theme)[
+                                'screen_title_stock'
+                              ].props}
                               style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.TextStyles(theme)['screen_title']
-                                    .style,
-                                  {
-                                    fontFamily: 'Quicksand_400Regular',
-                                    fontSize: 12,
-                                    textAlign: 'right',
-                                  }
-                                ),
+                                GlobalStyles.TextStyles(theme)[
+                                  'screen_title_stock'
+                                ].style,
                                 dimensions.width
                               )}
                             >
                               {transformNumber(
                                 fetchData?.ev_ebit_fy2,
                                 'x',
-                                undefined
+                                true
                               )}
                             </Text>
-                          </View>
-                        </View>
-                      </View>
-                      {/* View 5 */}
-                      <View
-                        style={StyleSheet.applyWidth(
-                          {
-                            alignItems: 'center',
-                            borderColor: palettes.App.green,
-                            flexDirection: 'row',
-                            gap: 5,
-                            justifyContent: 'space-between',
-                            padding: 5,
-                          },
-                          dimensions.width
-                        )}
-                      >
-                        <Text
-                          accessible={true}
-                          {...GlobalStyles.TextStyles(theme)['screen_title']
-                            .props}
-                          style={StyleSheet.applyWidth(
-                            StyleSheet.compose(
-                              GlobalStyles.TextStyles(theme)['screen_title']
+                          </TableCell>
+                        </TableRow>
+                        {/* p_e */}
+                        <TableRow
+                          drawBottomBorder={true}
+                          drawEndBorder={false}
+                          drawTopBorder={false}
+                          isTableHeader={false}
+                          drawStartBorder={false}
+                        >
+                          <TableCell
+                            drawBottomBorder={false}
+                            drawStartBorder={false}
+                            drawTopBorder={false}
+                            {...GlobalStyles.TableCellStyles(theme)[
+                              'Table Cell'
+                            ].props}
+                            drawEndBorder={false}
+                            style={StyleSheet.applyWidth(
+                              GlobalStyles.TableCellStyles(theme)['Table Cell']
                                 .style,
-                              {
-                                fontFamily: 'Quicksand_500Medium',
-                                fontSize: 12,
-                              }
-                            ),
-                            dimensions.width
-                          )}
-                        >
-                          {' P/E'}
-                        </Text>
-
-                        <View
-                          style={StyleSheet.applyWidth(
-                            { flexDirection: 'row', gap: 0, width: '80%' },
-                            dimensions.width
-                          )}
-                        >
-                          <View
-                            style={StyleSheet.applyWidth(
-                              { padding: 2, width: '25%' },
                               dimensions.width
                             )}
                           >
                             <Text
                               accessible={true}
-                              {...GlobalStyles.TextStyles(theme)['screen_title']
-                                .props}
+                              {...GlobalStyles.TextStyles(theme)[
+                                'screen_title_stock'
+                              ].props}
                               style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.TextStyles(theme)['screen_title']
-                                    .style,
-                                  {
-                                    fontFamily: 'Quicksand_400Regular',
-                                    fontSize: 12,
-                                    textAlign: 'right',
-                                  }
-                                ),
+                                GlobalStyles.TextStyles(theme)[
+                                  'screen_title_stock'
+                                ].style,
                                 dimensions.width
                               )}
                             >
-                              {transformNumber(
-                                fetchData?.pe_fy0,
-                                'x',
-                                undefined
-                              )}
+                              {'P/E'}
                             </Text>
-                          </View>
-                          {/* View 2 */}
-                          <View
+                          </TableCell>
+                          {/* Table Cell 2 */}
+                          <TableCell
+                            drawBottomBorder={false}
+                            drawStartBorder={false}
+                            drawTopBorder={false}
+                            {...GlobalStyles.TableCellStyles(theme)[
+                              'Table Cell'
+                            ].props}
+                            drawEndBorder={false}
                             style={StyleSheet.applyWidth(
-                              { padding: 2, width: '25%' },
+                              StyleSheet.compose(
+                                GlobalStyles.TableCellStyles(theme)[
+                                  'Table Cell'
+                                ].style,
+                                { justifyContent: 'flex-end' }
+                              ),
                               dimensions.width
                             )}
                           >
                             <Text
                               accessible={true}
-                              {...GlobalStyles.TextStyles(theme)['screen_title']
-                                .props}
+                              {...GlobalStyles.TextStyles(theme)[
+                                'screen_title_stock'
+                              ].props}
                               style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.TextStyles(theme)['screen_title']
-                                    .style,
-                                  {
-                                    fontFamily: 'Quicksand_400Regular',
-                                    fontSize: 12,
-                                    textAlign: 'right',
-                                  }
-                                ),
+                                GlobalStyles.TextStyles(theme)[
+                                  'screen_title_stock'
+                                ].style,
                                 dimensions.width
                               )}
                             >
-                              {transformNumber(
-                                fetchData?.pe_ttm,
-                                'x',
-                                undefined
-                              )}
+                              {transformNumber(fetchData?.pe_fy0, 'x', true)}
                             </Text>
-                          </View>
-                          {/* View 3 */}
-                          <View
+                          </TableCell>
+                          {/* Table Cell 3 */}
+                          <TableCell
+                            drawBottomBorder={false}
+                            drawStartBorder={false}
+                            drawTopBorder={false}
+                            {...GlobalStyles.TableCellStyles(theme)[
+                              'Table Cell'
+                            ].props}
+                            drawEndBorder={false}
                             style={StyleSheet.applyWidth(
-                              { padding: 2, width: '25%' },
+                              StyleSheet.compose(
+                                GlobalStyles.TableCellStyles(theme)[
+                                  'Table Cell'
+                                ].style,
+                                { justifyContent: 'flex-end' }
+                              ),
                               dimensions.width
                             )}
                           >
                             <Text
                               accessible={true}
-                              {...GlobalStyles.TextStyles(theme)['screen_title']
-                                .props}
+                              {...GlobalStyles.TextStyles(theme)[
+                                'screen_title_stock'
+                              ].props}
                               style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.TextStyles(theme)['screen_title']
-                                    .style,
-                                  {
-                                    fontFamily: 'Quicksand_400Regular',
-                                    fontSize: 12,
-                                    textAlign: 'right',
-                                  }
-                                ),
+                                GlobalStyles.TextStyles(theme)[
+                                  'screen_title_stock'
+                                ].style,
                                 dimensions.width
                               )}
                             >
-                              {transformNumber(
-                                fetchData?.pe_fy1,
-                                'x',
-                                undefined
-                              )}
+                              {transformNumber(fetchData?.pe_ttm, 'x', true)}
                             </Text>
-                          </View>
-                          {/* View 4 */}
-                          <View
+                          </TableCell>
+                          {/* Table Cell 4 */}
+                          <TableCell
+                            drawBottomBorder={false}
+                            drawStartBorder={false}
+                            drawTopBorder={false}
+                            {...GlobalStyles.TableCellStyles(theme)[
+                              'Table Cell'
+                            ].props}
+                            drawEndBorder={false}
                             style={StyleSheet.applyWidth(
-                              { padding: 2, width: '25%' },
+                              StyleSheet.compose(
+                                GlobalStyles.TableCellStyles(theme)[
+                                  'Table Cell'
+                                ].style,
+                                { justifyContent: 'flex-end' }
+                              ),
                               dimensions.width
                             )}
                           >
                             <Text
                               accessible={true}
-                              {...GlobalStyles.TextStyles(theme)['screen_title']
-                                .props}
+                              {...GlobalStyles.TextStyles(theme)[
+                                'screen_title_stock'
+                              ].props}
                               style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.TextStyles(theme)['screen_title']
-                                    .style,
-                                  {
-                                    fontFamily: 'Quicksand_400Regular',
-                                    fontSize: 12,
-                                    textAlign: 'right',
-                                  }
-                                ),
+                                GlobalStyles.TextStyles(theme)[
+                                  'screen_title_stock'
+                                ].style,
                                 dimensions.width
                               )}
                             >
-                              {transformNumber(
-                                fetchData?.pe_fy2,
-                                'x',
-                                undefined
-                              )}
+                              {transformNumber(fetchData?.pe_fy1, 'x', true)}
                             </Text>
-                          </View>
-                        </View>
-                      </View>
-                    </View>
+                          </TableCell>
+                          {/* Table Cell 5 */}
+                          <TableCell
+                            drawBottomBorder={false}
+                            drawStartBorder={false}
+                            drawTopBorder={false}
+                            {...GlobalStyles.TableCellStyles(theme)[
+                              'Table Cell'
+                            ].props}
+                            drawEndBorder={false}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TableCellStyles(theme)[
+                                  'Table Cell'
+                                ].style,
+                                { justifyContent: 'flex-end' }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)[
+                                'screen_title_stock'
+                              ].props}
+                              style={StyleSheet.applyWidth(
+                                GlobalStyles.TextStyles(theme)[
+                                  'screen_title_stock'
+                                ].style,
+                                dimensions.width
+                              )}
+                            >
+                              {transformNumber(fetchData?.pe_fy2, 'x', true)}
+                            </Text>
+                          </TableCell>
+                        </TableRow>
+                      </Table>
+                    </LinearGradient>
                   </View>
                 </View>
               </View>
@@ -1964,6 +3739,7 @@ const StockDetailsScreen = props => {
                     backgroundColor: 'rgba(0, 0, 0, 0.6)',
                     height: '100%',
                     justifyContent: 'center',
+                    zIndex: { minWidth: Breakpoints.Desktop, value: 10 },
                   },
                   dimensions.width
                 )}
@@ -2098,7 +3874,16 @@ const StockDetailsScreen = props => {
                                   padding: 10,
                                   paddingLeft: 20,
                                   paddingRight: 20,
-                                  textAlign: 'center',
+                                  textAlign: [
+                                    {
+                                      minWidth: Breakpoints.Mobile,
+                                      value: 'center',
+                                    },
+                                    {
+                                      minWidth: Breakpoints.Desktop,
+                                      value: 'left',
+                                    },
+                                  ],
                                 }
                               ),
                               dimensions.width
@@ -2126,8 +3911,12 @@ const StockDetailsScreen = props => {
                                     value: 'center',
                                   },
                                   {
+                                    minWidth: Breakpoints.Desktop,
+                                    value: 'flex-start',
+                                  },
+                                  {
                                     minWidth: Breakpoints.Tablet,
-                                    value: 'center',
+                                    value: 'flex-start',
                                   },
                                 ],
                                 marginBottom: 20,
@@ -2154,8 +3943,12 @@ const StockDetailsScreen = props => {
                                         value: 'center',
                                       },
                                       {
+                                        minWidth: Breakpoints.Desktop,
+                                        value: 'flex-start',
+                                      },
+                                      {
                                         minWidth: Breakpoints.Tablet,
-                                        value: 'center',
+                                        value: 'space-between',
                                       },
                                     ],
                                   }
@@ -2201,6 +3994,16 @@ const StockDetailsScreen = props => {
                                   {
                                     color: palettes.Brand['Strong Inverse'],
                                     fontFamily: 'Quicksand_400Regular',
+                                    width: [
+                                      {
+                                        minWidth: Breakpoints.Desktop,
+                                        value: '80%',
+                                      },
+                                      {
+                                        minWidth: Breakpoints.Tablet,
+                                        value: '100%',
+                                      },
+                                    ],
                                   },
                                   dimensions.width
                                 )}
@@ -2248,10 +4051,18 @@ const StockDetailsScreen = props => {
                                     {
                                       backgroundColor: palettes.App.Orange,
                                       fontFamily: 'Quicksand_500Medium',
-                                      marginRight: 7,
                                       overflow: 'hidden',
                                       textTransform: 'uppercase',
-                                      width: '47%',
+                                      width: [
+                                        {
+                                          minWidth: Breakpoints.Mobile,
+                                          value: '47%',
+                                        },
+                                        {
+                                          minWidth: Breakpoints.Desktop,
+                                          value: '37%',
+                                        },
+                                      ],
                                     }
                                   ),
                                   dimensions.width
@@ -2311,17 +4122,24 @@ const StockDetailsScreen = props => {
                                 'Text Input'
                               ].props}
                               disabled={peerGroupId > 0}
-                              placeholder={'Pree group name...'}
+                              placeholder={'Peer group name...'}
                               placeholderTextColor={
                                 theme.colors.foreground.brand
                               }
+                              selectionColor={'rgba(0, 0, 0, 0)'}
                               style={StyleSheet.applyWidth(
                                 StyleSheet.compose(
                                   GlobalStyles.TextInputStyles(theme)[
                                     'Text Input'
                                   ].style,
                                   {
+                                    backgroundColor: 'rgba(0, 0, 0, 0)',
+                                    borderBottomWidth: null,
                                     borderColor: theme.colors.foreground.brand,
+                                    borderLeftWidth: null,
+                                    borderRightWidth: null,
+                                    borderTopWidth: null,
+                                    borderWidth: 1,
                                     color: palettes.Brand['Strong Inverse'],
                                     fontFamily: 'Quicksand_500Medium',
                                     paddingLeft: 16,

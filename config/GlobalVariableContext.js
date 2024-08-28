@@ -32,7 +32,7 @@ export const DeviceVariables = {
   RESET_AUTH_HEADER: '',
   subPage: false,
   top_nav_pressed: false,
-  __env__: 'Production',
+  __env__: 'Development',
 };
 export const AppVariables = { 'Bearer Token': 'UNSET' };
 const GlobalVariableContext = React.createContext();

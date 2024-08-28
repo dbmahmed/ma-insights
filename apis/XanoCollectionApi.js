@@ -2175,7 +2175,7 @@ export const useUpdateNotificationPUT = (
 
 export const updatePeerGroupPATCH = async (
   Constants,
-  { peer_id, stocksList, type },
+  { peer_id, stocksList, title, type },
   handlers = {}
 ) => {
   const paramsDict = {};
@@ -2190,6 +2190,7 @@ export const updatePeerGroupPATCH = async (
       peer_group_id: peer_id,
       stocks: stocksList,
       tyoe: type,
+      title: title,
     }),
     headers: cleanHeaders({
       Accept: 'application/json',

@@ -1,5 +1,3 @@
-import React from 'react';
-
 // Function to push or remove data from arrays
 const modifyArrays = (array, value, action) => {
   // Type the code for the body of your function or hook here.
