@@ -22,9 +22,9 @@ line two` ) and will not work with special characters inside of quotes ( example
     params[Variables.screenParamName] = Variables.screenParamValue;
   }
 
+  console.log(params);
+  console.log(location);
   navigation.navigate(Variables.currentScreen + 'Screen', params);
-  console.log(URL);
-  console.log(URLSearchParams);
 };
 
 export default customRouting;
