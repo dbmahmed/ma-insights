@@ -24,7 +24,10 @@ line two` ) and will not work with special characters inside of quotes ( example
 
   console.log(routeParams);
   console.log(location);
-  navigation.navigate(Variables.currentScreen + 'Screen', routeParams);
+  navigation.navigate(
+    Variables.currentScreen.replace(/ /g, '') + 'Screen',
+    routeParams
+  );
 };
 
 export default customRouting;

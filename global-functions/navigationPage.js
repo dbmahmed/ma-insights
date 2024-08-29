@@ -5,10 +5,13 @@ const navigationPage = (navigation, Variables) => {
 
   /* String line breaks are accomplished with backticks ( example: `line one
 line two` ) and will not work with special characters inside of quotes ( example: "line one line two" ) */
-  console.log(navigation);
-  console.log(Variables);
+  // console.log(navigation);
+  // console.log(Variables);
   // return props.navigation
-  return 'Some text to show';
+
+  navigation.navigate('EventDetailsScreen', { event_id: 1 });
+
+  // return "Some text to show";
 };
 
 export default navigationPage;
