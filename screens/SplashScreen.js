@@ -1,4 +1,12 @@
 import React from 'react';
+import {
+  CircularProgress,
+  HStack,
+  ScreenContainer,
+  withTheme,
+} from '@draftbit/ui';
+import { useIsFocused } from '@react-navigation/native';
+import { Image, Text, View } from 'react-native';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
 import * as GlobalVariables from '../config/GlobalVariableContext';
@@ -8,14 +16,6 @@ import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
-import {
-  CircularProgress,
-  HStack,
-  ScreenContainer,
-  withTheme,
-} from '@draftbit/ui';
-import { useIsFocused } from '@react-navigation/native';
-import { Image, Text, View } from 'react-native';
 
 const SplashScreen = props => {
   const { theme, navigation } = props;
@@ -62,7 +62,7 @@ const SplashScreen = props => {
           }
           navigation.replace('LogInScreen', { message: get_me?.message });
         } else {
-          navigation.navigate('NewslettersScreen');
+          navigation.navigate('CFSScreen');
         }
         console.log('Complete ON_SCREEN_FOCUS:6 IF');
       } catch (err) {
