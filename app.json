@@ -9,7 +9,7 @@
           "audio"
         ]
       },
-      "buildNumber": "1.143.0",
+      "buildNumber": "1.144.0",
       "isTabletOnly": false,
       "supportsTablet": true,
       "bundleIdentifier": "com.draftbit.untitledapp",
@@ -67,7 +67,7 @@
     "android": {
       "package": "com.draftbit.untitledapp",
       "permissions": [],
-      "versionCode": 143,
+      "versionCode": 144,
       "adaptiveIcon": {},
       "userInterfaceStyle": "light"
     },
@@ -80,7 +80,7 @@
       ]
     ],
     "privacy": "unlisted",
-    "version": "1.143.0",
+    "version": "1.144.0",
     "platforms": [
       "ios",
       "android",

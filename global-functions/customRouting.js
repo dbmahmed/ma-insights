@@ -12,19 +12,19 @@ const customRouting = (
   /* String line breaks are accomplished with backticks ( example: `line one
 line two` ) and will not work with special characters inside of quotes ( example: "line one line two" ) */
 
-  let params = {};
+  let routeParams = {};
 
   if (
     Variables.screenParamName !== '' &&
     Variables.screenParamValue !== '' &&
     Variables.screenParamValue !== 0
   ) {
-    params[Variables.screenParamName] = Variables.screenParamValue;
+    routeParams[Variables.screenParamName] = Variables.screenParamValue;
   }
 
-  console.log(params);
+  console.log(routeParams);
   console.log(location);
-  navigation.navigate(Variables.currentScreen + 'Screen', params);
+  navigation.navigate(Variables.currentScreen + 'Screen', routeParams);
 };
 
 export default customRouting;
