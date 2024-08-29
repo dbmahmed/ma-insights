@@ -1,20 +1,4 @@
 import React from 'react';
-import * as GlobalStyles from '../GlobalStyles.js';
-import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
-import CustomHeaderBlock from '../components/CustomHeaderBlock';
-import LoadingBlock from '../components/LoadingBlock';
-import * as GlobalVariables from '../config/GlobalVariableContext';
-import assessAccess from '../global-functions/assessAccess';
-import formatNumber from '../global-functions/formatNumber';
-import modifyArrays from '../global-functions/modifyArrays';
-import removeGlobalScroll from '../global-functions/removeGlobalScroll';
-import setPadding from '../global-functions/setPadding';
-import transformEuroM from '../global-functions/transformEuroM';
-import palettes from '../themes/palettes';
-import Breakpoints from '../utils/Breakpoints';
-import * as StyleSheet from '../utils/StyleSheet';
-import useWindowDimensions from '../utils/useWindowDimensions';
-import waitUtil from '../utils/wait';
 import {
   Button,
   Checkbox,
@@ -34,6 +18,22 @@ import { H4, H5 } from '@expo/html-elements';
 import { useIsFocused } from '@react-navigation/native';
 import { ActivityIndicator, Modal, Text, View } from 'react-native';
 import { Fetch } from 'react-request';
+import * as GlobalStyles from '../GlobalStyles.js';
+import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
+import CustomHeaderBlock from '../components/CustomHeaderBlock';
+import LoadingBlock from '../components/LoadingBlock';
+import * as GlobalVariables from '../config/GlobalVariableContext';
+import assessAccess from '../global-functions/assessAccess';
+import formatNumber from '../global-functions/formatNumber';
+import modifyArrays from '../global-functions/modifyArrays';
+import removeGlobalScroll from '../global-functions/removeGlobalScroll';
+import setPadding from '../global-functions/setPadding';
+import transformEuroM from '../global-functions/transformEuroM';
+import palettes from '../themes/palettes';
+import Breakpoints from '../utils/Breakpoints';
+import * as StyleSheet from '../utils/StyleSheet';
+import useWindowDimensions from '../utils/useWindowDimensions';
+import waitUtil from '../utils/wait';
 
 const CFSScreen = props => {
   const { theme, navigation } = props;
@@ -233,6 +233,10 @@ const CFSScreen = props => {
         return;
       }
       removeGlobalScroll();
+      setGlobalVariableValue({
+        key: 'currentScreen',
+        value: 'CFS',
+      });
       setGlobalVariableValue({
         key: 'pageName',
         value: 'Companies For Sale',

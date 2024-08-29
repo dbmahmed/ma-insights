@@ -15,6 +15,7 @@ export const DeviceVariables = {
     newsletter: true,
   },
   AUTH_HEADER: '',
+  currentScreen: '',
   ME: {
     id: 0,
     name: '',
