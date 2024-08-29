@@ -201,7 +201,7 @@ const AllEventsScreen = props => {
       removeGlobalScroll();
       setGlobalVariableValue({
         key: 'currentScreen',
-        value: 'All Events',
+        value: 'AllEvents',
       });
       setGlobalVariableValue({
         key: 'pageName',
