@@ -89,6 +89,7 @@ export default function RootAppNavigator() {
       linking={LinkingConfiguration}
     >
       <Stack.Navigator
+        initialRouteName="NewslettersScreen"
         screenOptions={({ navigation }) => ({
           cardStyle: { flex: 1 },
           headerLeft: ({ tintColor, canGoBack }) =>
