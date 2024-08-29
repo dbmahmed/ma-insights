@@ -67,53 +67,65 @@ const NewslettersScreen = props => {
         value: 'Newsletters',
       });
       console.log('Complete ON_SCREEN_FOCUS:0 SET_VARIABLE');
-      console.log('Start ON_SCREEN_FOCUS:1 CUSTOM_FUNCTION');
+      console.log('Start ON_SCREEN_FOCUS:1 SET_VARIABLE');
+      setGlobalVariableValue({
+        key: 'screenParamName',
+        value: '',
+      });
+      console.log('Complete ON_SCREEN_FOCUS:1 SET_VARIABLE');
+      console.log('Start ON_SCREEN_FOCUS:2 SET_VARIABLE');
+      setGlobalVariableValue({
+        key: 'screenParamValue',
+        value: 0,
+      });
+      console.log('Complete ON_SCREEN_FOCUS:2 SET_VARIABLE');
+      console.log('Start ON_SCREEN_FOCUS:3 CUSTOM_FUNCTION');
       removeGlobalScroll();
-      console.log('Complete ON_SCREEN_FOCUS:1 CUSTOM_FUNCTION');
-      console.log('Start ON_SCREEN_FOCUS:2 CONSOLE_LOG');
+      console.log('Complete ON_SCREEN_FOCUS:3 CUSTOM_FUNCTION');
+      console.log('Start ON_SCREEN_FOCUS:4 CONSOLE_LOG');
       /* hidden 'Log to Console' action */ console.log(
-        'Complete ON_SCREEN_FOCUS:2 CONSOLE_LOG'
+        'Complete ON_SCREEN_FOCUS:4 CONSOLE_LOG'
       );
-      console.log('Start ON_SCREEN_FOCUS:3 CONSOLE_LOG');
+      console.log('Start ON_SCREEN_FOCUS:5 CONSOLE_LOG');
       /* hidden 'Log to Console' action */ console.log(
-        'Complete ON_SCREEN_FOCUS:3 CONSOLE_LOG'
+        'Complete ON_SCREEN_FOCUS:5 CONSOLE_LOG'
       );
-      console.log('Start ON_SCREEN_FOCUS:4 SET_VARIABLE');
+      console.log('Start ON_SCREEN_FOCUS:6 SET_VARIABLE');
       setGlobalVariableValue({
         key: 'pageName',
         value: 'Newsletters',
       });
-      console.log('Complete ON_SCREEN_FOCUS:4 SET_VARIABLE');
-      console.log('Start ON_SCREEN_FOCUS:5 SET_VARIABLE');
+      console.log('Complete ON_SCREEN_FOCUS:6 SET_VARIABLE');
+      console.log('Start ON_SCREEN_FOCUS:7 SET_VARIABLE');
       setGlobalVariableValue({
         key: 'subPage',
         value: false,
       });
-      console.log('Complete ON_SCREEN_FOCUS:5 SET_VARIABLE');
-      console.log('Start ON_SCREEN_FOCUS:6 CONDITIONAL_STOP');
+      console.log('Complete ON_SCREEN_FOCUS:7 SET_VARIABLE');
+      console.log('Start ON_SCREEN_FOCUS:8 CONDITIONAL_STOP');
       if (assessAccess(Variables, setGlobalVariableValue) === true) {
-        return console.log('Complete ON_SCREEN_FOCUS:6 CONDITIONAL_STOP');
+        return console.log('Complete ON_SCREEN_FOCUS:8 CONDITIONAL_STOP');
       } else {
         console.log(
-          'Skipped ON_SCREEN_FOCUS:6 CONDITIONAL_STOP: condition not met'
+          'Skipped ON_SCREEN_FOCUS:8 CONDITIONAL_STOP: condition not met'
         );
       }
-      console.log('Start ON_SCREEN_FOCUS:7 CONSOLE_LOG');
+      console.log('Start ON_SCREEN_FOCUS:9 CONSOLE_LOG');
       console.log(
         'testing conditional stop',
         assessAccess(Variables, setGlobalVariableValue)
       );
-      console.log('Complete ON_SCREEN_FOCUS:7 CONSOLE_LOG');
-      console.log('Start ON_SCREEN_FOCUS:8 CUSTOM_FUNCTION');
+      console.log('Complete ON_SCREEN_FOCUS:9 CONSOLE_LOG');
+      console.log('Start ON_SCREEN_FOCUS:10 CUSTOM_FUNCTION');
       resetAccess(navigation, Variables, setGlobalVariableValue);
-      console.log('Complete ON_SCREEN_FOCUS:8 CUSTOM_FUNCTION');
-      console.log('Start ON_SCREEN_FOCUS:9 NAVIGATE');
+      console.log('Complete ON_SCREEN_FOCUS:10 CUSTOM_FUNCTION');
+      console.log('Start ON_SCREEN_FOCUS:11 NAVIGATE');
       /* hidden 'Navigate' action */ console.log(
-        'Complete ON_SCREEN_FOCUS:9 NAVIGATE'
+        'Complete ON_SCREEN_FOCUS:11 NAVIGATE'
       );
-      console.log('Start ON_SCREEN_FOCUS:10 SET_VARIABLE');
+      console.log('Start ON_SCREEN_FOCUS:12 SET_VARIABLE');
       /* hidden 'Set Variable' action */ console.log(
-        'Complete ON_SCREEN_FOCUS:10 SET_VARIABLE'
+        'Complete ON_SCREEN_FOCUS:12 SET_VARIABLE'
       );
     } catch (err) {
       console.error(err);
@@ -127,9 +139,9 @@ const NewslettersScreen = props => {
 
   return (
     <ScreenContainer
-      hasBottomSafeArea={true}
-      hasLeftSafeArea={true}
-      hasRightSafeArea={true}
+      hasBottomSafeArea={false}
+      hasLeftSafeArea={false}
+      hasRightSafeArea={false}
       hasSafeArea={true}
       hasTopSafeArea={true}
       scrollable={false}

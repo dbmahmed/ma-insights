@@ -55,7 +55,10 @@ const CustomHeaderBlock = props => {
         paintInside={false}
         style={StyleSheet.applyWidth(
           {
-            width: '100%',
+            width: [
+              { minWidth: Breakpoints.Mobile, value: '100%' },
+              { minWidth: Breakpoints.Mobile, value: dimensions.width },
+            ],
             zIndex: { minWidth: Breakpoints.Desktop, value: 1000 },
           },
           dimensions.width
@@ -73,7 +76,10 @@ const CustomHeaderBlock = props => {
                 justifyContent: 'space-between',
                 paddingLeft: 15,
                 paddingRight: 15,
-                width: '100%',
+                width: [
+                  { minWidth: Breakpoints.Mobile, value: '100%' },
+                  { minWidth: Breakpoints.Mobile, value: dimensions.width },
+                ],
               }
             ),
             dimensions.width

@@ -22,6 +22,7 @@ import assessAccess from '../global-functions/assessAccess';
 import cutTextByWidth from '../global-functions/cutTextByWidth';
 import isNKPProp from '../global-functions/isNKPProp';
 import removeGlobalScroll from '../global-functions/removeGlobalScroll';
+import resetAccess from '../global-functions/resetAccess';
 import showNKPProp from '../global-functions/showNKPProp';
 import transformEuroM from '../global-functions/transformEuroM';
 import transformNumber from '../global-functions/transformNumber';
@@ -47,6 +48,18 @@ const EventDetailsScreen = props => {
       }
       removeGlobalScroll();
       setGlobalVariableValue({
+        key: 'currentScreen',
+        value: 'Event Details',
+      });
+      setGlobalVariableValue({
+        key: 'screenParamName',
+        value: 'event_id',
+      });
+      setGlobalVariableValue({
+        key: 'screenParamValue',
+        value: props.route?.params?.event_id ?? 42843,
+      });
+      setGlobalVariableValue({
         key: 'pageName',
         value: 'Event Details',
       });
@@ -57,10 +70,8 @@ const EventDetailsScreen = props => {
       if (assessAccess(Variables, setGlobalVariableValue) === true) {
         return;
       }
-      if (navigation.canGoBack()) {
-        navigation.popToTop();
-      }
-      navigation.replace('LogInScreen');
+      /* hidden 'Navigate' action */
+      resetAccess(navigation, Variables, setGlobalVariableValue);
     } catch (err) {
       console.error(err);
     }

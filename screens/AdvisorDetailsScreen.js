@@ -183,7 +183,7 @@ const AdvisorDetailsScreen = props => {
   }, [isFocused]);
 
   return (
-    <ScreenContainer hasSafeArea={false} scrollable={false}>
+    <ScreenContainer scrollable={false} hasSafeArea={true}>
       <CustomHeaderBlock />
       <XanoCollectionApi.FetchGetAdvisorGET
         advisor_id={props.route?.params?.advisor_id ?? 1}
