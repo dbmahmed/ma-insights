@@ -90,7 +90,6 @@ export default function RootAppNavigator() {
       linking={LinkingConfiguration}
     >
       <Stack.Navigator
-        initialRouteName="SplashScreen"
         presentation="transparentModal"
         screenOptions={({ navigation }) => ({
           cardStyle: { flex: 1 },
