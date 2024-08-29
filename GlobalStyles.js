@@ -123,6 +123,25 @@ export const TextInputStyles = theme =>
       },
       props: {},
     },
+    peerTextInput: {
+      style: {
+        backgroundColor: 'rgba(0, 0, 0, 0)',
+        borderColor: theme.colors.foreground.brand,
+        borderRadius: 8,
+        borderWidth: 1,
+        color: palettes.Brand['Strong Inverse'],
+        fontFamily: 'Quicksand_500Medium',
+        paddingBottom: 8,
+        paddingLeft: 16,
+        paddingRight: 8,
+        paddingTop: 8,
+        width: '60%',
+      },
+      props: {
+        placeholderTextColor: theme.colors.foreground.brand,
+        selectionColor: 'rgba(0, 0, 0, 0)',
+      },
+    },
   });
 
 export const LinkStyles = theme =>

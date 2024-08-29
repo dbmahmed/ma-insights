@@ -1,4 +1,18 @@
 import React from 'react';
+import {
+  LinearGradient,
+  Link,
+  Pressable,
+  ScreenContainer,
+  SimpleStyleFlatList,
+  SimpleStyleScrollView,
+  withTheme,
+} from '@draftbit/ui';
+import { H3, H5, H6 } from '@expo/html-elements';
+import { useIsFocused } from '@react-navigation/native';
+import * as WebBrowser from 'expo-web-browser';
+import { ActivityIndicator, Text, View } from 'react-native';
+import { Fetch } from 'react-request';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
 import CustomHeaderBlock from '../components/CustomHeaderBlock';
@@ -13,19 +27,6 @@ import Breakpoints from '../utils/Breakpoints';
 import * as DateUtils from '../utils/DateUtils';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
-import {
-  LinearGradient,
-  Link,
-  ScreenContainer,
-  SimpleStyleFlatList,
-  SimpleStyleScrollView,
-  withTheme,
-} from '@draftbit/ui';
-import { H3, H5, H6 } from '@expo/html-elements';
-import { useIsFocused } from '@react-navigation/native';
-import * as WebBrowser from 'expo-web-browser';
-import { ActivityIndicator, Text, View } from 'react-native';
-import { Fetch } from 'react-request';
 
 const PEPFDetailsScreen = props => {
   const { theme, navigation } = props;
@@ -923,7 +924,18 @@ const PEPFDetailsScreen = props => {
                             renderItem={({ item, index }) => {
                               const listData = item;
                               return (
-                                <>
+                                <Pressable
+                                  onPress={() => {
+                                    try {
+                                      navigation.navigate(
+                                        'EventDetailsScreen',
+                                        { event_id: listData?.id }
+                                      );
+                                    } catch (err) {
+                                      console.error(err);
+                                    }
+                                  }}
+                                >
                                   {/* View 2 */}
                                   <View
                                     style={StyleSheet.applyWidth(
@@ -1005,7 +1017,7 @@ const PEPFDetailsScreen = props => {
                                       </Text>
                                     </View>
                                   </View>
-                                </>
+                                </Pressable>
                               );
                             }}
                             onEndReachedThreshold={0.8}

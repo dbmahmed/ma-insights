@@ -1,18 +1,4 @@
 import React from 'react';
-import * as GlobalStyles from '../GlobalStyles.js';
-import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
-import CustomHeaderBlock from '../components/CustomHeaderBlock';
-import LoadingBlock from '../components/LoadingBlock';
-import * as GlobalVariables from '../config/GlobalVariableContext';
-import assessAccess from '../global-functions/assessAccess';
-import passwordValidate from '../global-functions/passwordValidate';
-import removeGlobalScroll from '../global-functions/removeGlobalScroll';
-import transformEuroM from '../global-functions/transformEuroM';
-import transformNumber from '../global-functions/transformNumber';
-import palettes from '../themes/palettes';
-import Breakpoints from '../utils/Breakpoints';
-import * as StyleSheet from '../utils/StyleSheet';
-import useWindowDimensions from '../utils/useWindowDimensions';
 import {
   Button,
   HStack,
@@ -34,6 +20,20 @@ import { H3, H5 } from '@expo/html-elements';
 import { useIsFocused } from '@react-navigation/native';
 import { ActivityIndicator, Modal, Text, View } from 'react-native';
 import { Fetch } from 'react-request';
+import * as GlobalStyles from '../GlobalStyles.js';
+import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
+import CustomHeaderBlock from '../components/CustomHeaderBlock';
+import LoadingBlock from '../components/LoadingBlock';
+import * as GlobalVariables from '../config/GlobalVariableContext';
+import assessAccess from '../global-functions/assessAccess';
+import passwordValidate from '../global-functions/passwordValidate';
+import removeGlobalScroll from '../global-functions/removeGlobalScroll';
+import transformEuroM from '../global-functions/transformEuroM';
+import transformNumber from '../global-functions/transformNumber';
+import palettes from '../themes/palettes';
+import Breakpoints from '../utils/Breakpoints';
+import * as StyleSheet from '../utils/StyleSheet';
+import useWindowDimensions from '../utils/useWindowDimensions';
 
 const PeerGroupDetailsScreen = props => {
   const { theme, navigation } = props;
@@ -530,6 +530,55 @@ const PeerGroupDetailsScreen = props => {
                                     </TableCell>
                                   )}
                                 </>
+                                {/* Table Cell 6 */}
+                                <>
+                                  {NKP_Comp ? null : (
+                                    <TableCell
+                                      drawBottomBorder={false}
+                                      drawStartBorder={false}
+                                      drawTopBorder={false}
+                                      {...GlobalStyles.TableCellStyles(theme)[
+                                        'Table Cell'
+                                      ].props}
+                                      drawEndBorder={false}
+                                      style={StyleSheet.applyWidth(
+                                        StyleSheet.compose(
+                                          GlobalStyles.TableCellStyles(theme)[
+                                            'Table Cell'
+                                          ].style,
+                                          {
+                                            justifyContent: [
+                                              {
+                                                minWidth: Breakpoints.Tablet,
+                                                value: 'center',
+                                              },
+                                              {
+                                                minWidth: Breakpoints.Mobile,
+                                                value: 'center',
+                                              },
+                                            ],
+                                          }
+                                        ),
+                                        dimensions.width
+                                      )}
+                                    >
+                                      <Text
+                                        accessible={true}
+                                        {...GlobalStyles.TextStyles(theme)[
+                                          'screen_title_stockH'
+                                        ].props}
+                                        style={StyleSheet.applyWidth(
+                                          GlobalStyles.TextStyles(theme)[
+                                            'screen_title_stockH'
+                                          ].style,
+                                          dimensions.width
+                                        )}
+                                      >
+                                        {'Remove'}
+                                      </Text>
+                                    </TableCell>
+                                  )}
+                                </>
                               </TableRow>
 
                               <TableRow
@@ -750,6 +799,68 @@ const PeerGroupDetailsScreen = props => {
                                           undefined
                                         )}
                                       </Text>
+                                    </TableCell>
+                                  )}
+                                </>
+                                {/* Table Cell 6 */}
+                                <>
+                                  {NKP_Comp ? null : (
+                                    <TableCell
+                                      drawBottomBorder={false}
+                                      drawStartBorder={false}
+                                      drawTopBorder={false}
+                                      {...GlobalStyles.TableCellStyles(theme)[
+                                        'Table Cell'
+                                      ].props}
+                                      drawEndBorder={false}
+                                      style={StyleSheet.applyWidth(
+                                        StyleSheet.compose(
+                                          GlobalStyles.TableCellStyles(theme)[
+                                            'Table Cell'
+                                          ].style,
+                                          {
+                                            justifyContent: [
+                                              {
+                                                minWidth: Breakpoints.Mobile,
+                                                value: 'center',
+                                              },
+                                              {
+                                                minWidth: Breakpoints.Tablet,
+                                                value: 'center',
+                                              },
+                                            ],
+                                          }
+                                        ),
+                                        dimensions.width
+                                      )}
+                                    >
+                                      <IconButton
+                                        onPress={() => {
+                                          const handler = async () => {
+                                            try {
+                                              (
+                                                await xanoCollectionUpdatePeerGroupPATCH.mutateAsync(
+                                                  {
+                                                    peer_id:
+                                                      props.route?.params
+                                                        ?.peer_group_id ?? 788,
+                                                    stocksList: [].concat([
+                                                      tableData?.id,
+                                                    ]),
+                                                    type: 'Remove',
+                                                  }
+                                                )
+                                              )?.json;
+                                            } catch (err) {
+                                              console.error(err);
+                                            }
+                                          };
+                                          handler();
+                                        }}
+                                        color={theme.colors.background.danger}
+                                        icon={'MaterialIcons/close'}
+                                        size={20}
+                                      />
                                     </TableCell>
                                   )}
                                 </>
@@ -3035,12 +3146,13 @@ const PeerGroupDetailsScreen = props => {
                             ],
                             justifyContent: [
                               {
-                                minWidth: Breakpoints.Laptop,
-                                value: 'flex-end',
-                              },
-                              {
                                 minWidth: Breakpoints.Mobile,
                                 value: 'flex-end',
+                              },
+                              { minWidth: Breakpoints.Laptop, value: 'center' },
+                              {
+                                minWidth: Breakpoints.Desktop,
+                                value: 'center',
                               },
                             ],
                             marginBottom: 10,

@@ -4,7 +4,9 @@ import {
   HStack,
   IconButton,
   LinearGradient,
+  Link,
   Picker,
+  Pressable,
   ScreenContainer,
   Shadow,
   SimpleStyleFlatList,
@@ -30,10 +32,10 @@ import removeGlobalScroll from '../global-functions/removeGlobalScroll';
 import transformEuroM from '../global-functions/transformEuroM';
 import transformNumber from '../global-functions/transformNumber';
 import palettes from '../themes/palettes';
-import * as Utils from '../utils';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
+import waitUtil from '../utils/wait';
 
 const StockDetailsScreen = props => {
   const { theme, navigation } = props;
@@ -46,10 +48,14 @@ const StockDetailsScreen = props => {
   const [loading_button, setLoading_button] = React.useState('');
   const [newPeerGroup, setNewPeerGroup] = React.useState('');
   const [peerGroupId, setPeerGroupId] = React.useState(0);
+  const [peerGroupList, setPeerGroupList] = React.useState([]);
+  const [peerQuery, setPeerQuery] = React.useState('');
+  const [peerQueryRaw, setPeerQueryRaw] = React.useState('');
   const [peer_id, setPeer_id] = React.useState(0);
   const [peer_name, setPeer_name] = React.useState('');
   const [selectedPeerGroup, setSelectedPeerGroup] = React.useState({});
   const [selectedPeerGroupID, setSelectedPeerGroupID] = React.useState(0);
+  const [showDropdown, setShowDropdown] = React.useState(false);
   const [showModal, setShowModal] = React.useState(false);
   const [ticker, setTicker] = React.useState('');
   const [viewPeerGroup, setViewPeerGroup] = React.useState(false);
@@ -3709,27 +3715,45 @@ const StockDetailsScreen = props => {
           );
         }}
       </XanoCollectionApi.FetchGetOneStockGET>
-      {/* Fetch 2 */}
-      <XanoCollectionApi.FetchGetPeersListGET>
-        {({ loading, error, data, refetchGetPeersList }) => {
-          const fetch2Data = data?.json;
-          if (loading) {
-            return <LoadingBlock />;
-          }
+      <Modal
+        animationType={'none'}
+        supportedOrientations={['portrait', 'landscape']}
+        presentationStyle={'fullScreen'}
+        transparent={true}
+        visible={showModal}
+      >
+        {/* Fetch 2 */}
+        <XanoCollectionApi.FetchGetPeersListGET
+          handlers={{
+            on2xx: fetch2Data => {
+              try {
+                setPeerGroupList(fetch2Data?.json);
+              } catch (err) {
+                console.error(err);
+              }
+            },
+            onData: fetch2Data => {
+              try {
+                /* hidden 'Set Variable' action */
+                console.log(fetch2Data);
+              } catch (err) {
+                console.error(err);
+              }
+            },
+          }}
+        >
+          {({ loading, error, data, refetchGetPeersList }) => {
+            const fetch2Data = data?.json;
+            if (loading) {
+              return <ActivityIndicator />;
+            }
 
-          if (error || data?.status < 200 || data?.status >= 300) {
-            return <ActivityIndicator />;
-          }
+            if (error || data?.status < 200 || data?.status >= 300) {
+              return <ActivityIndicator />;
+            }
 
-          return (
-            <>
-              <Modal
-                supportedOrientations={['portrait', 'landscape']}
-                animationType={'fade'}
-                presentationStyle={'pageSheet'}
-                transparent={true}
-                visible={showModal}
-              >
+            return (
+              <>
                 <View
                   onLayout={event => {
                     try {
@@ -3755,6 +3779,7 @@ const StockDetailsScreen = props => {
                         alignItems: 'stretch',
                         justifyContent: 'flex-start',
                         maxWidth: 450,
+                        minHeight: 300,
                         width: '100%',
                       },
                       dimensions.width
@@ -3930,7 +3955,6 @@ const StockDetailsScreen = props => {
                                       value: 'flex-start',
                                     },
                                   ],
-                                  marginBottom: 20,
                                   width: {
                                     minWidth: Breakpoints.BigScreen,
                                     value: '100%',
@@ -3939,6 +3963,161 @@ const StockDetailsScreen = props => {
                                 dimensions.width
                               )}
                             >
+                              <TextInput
+                                autoCapitalize={'none'}
+                                autoCorrect={true}
+                                changeTextDelay={500}
+                                onBlur={() => {
+                                  const handler = async () => {
+                                    try {
+                                      await waitUtil({ milliseconds: 1000 });
+                                      setShowDropdown(false);
+                                    } catch (err) {
+                                      console.error(err);
+                                    }
+                                  };
+                                  handler();
+                                }}
+                                onChangeText={newTextInputValue => {
+                                  const handler = async () => {
+                                    try {
+                                      setPeerQueryRaw(newTextInputValue);
+                                      const newData = (
+                                        await XanoCollectionApi.getPeersListGET(
+                                          Constants,
+                                          { query: newTextInputValue }
+                                        )
+                                      )?.json;
+                                      setPeerGroupList(newData);
+                                    } catch (err) {
+                                      console.error(err);
+                                    }
+                                  };
+                                  handler();
+                                }}
+                                onFocus={() => {
+                                  try {
+                                    setShowDropdown(true);
+                                  } catch (err) {
+                                    console.error(err);
+                                  }
+                                }}
+                                onSubmitEditing={() => {
+                                  try {
+                                    /* hidden 'Set Variable' action */
+                                    /* hidden 'Refetch Data' action */
+                                    /* hidden 'API Request' action */
+                                    /* hidden 'Set Variable' action */
+                                  } catch (err) {
+                                    console.error(err);
+                                  }
+                                }}
+                                webShowOutline={true}
+                                {...GlobalStyles.TextInputStyles(theme)[
+                                  'peerTextInput'
+                                ].props}
+                                clearButtonMode={'while-editing'}
+                                placeholder={'Search for existing peer'}
+                                style={StyleSheet.applyWidth(
+                                  GlobalStyles.TextInputStyles(theme)[
+                                    'peerTextInput'
+                                  ].style,
+                                  dimensions.width
+                                )}
+                                value={peerQueryRaw}
+                              />
+                              <>
+                                {!showDropdown ? null : (
+                                  <View
+                                    style={StyleSheet.applyWidth(
+                                      {
+                                        backgroundColor: palettes.Brand.Surface,
+                                        borderBottomLeftRadius: 10,
+                                        borderBottomRightRadius: 10,
+                                        flex: 1,
+                                        maxHeight: 200,
+                                        maxWidth: '60%',
+                                        position: 'absolute',
+                                        top: 40,
+                                        width: '60%',
+                                        zIndex: 999,
+                                      },
+                                      dimensions.width
+                                    )}
+                                  >
+                                    <SimpleStyleFlatList
+                                      data={peerGroupList}
+                                      horizontal={false}
+                                      inverted={false}
+                                      keyExtractor={(listData, index) =>
+                                        listData?.id
+                                      }
+                                      keyboardShouldPersistTaps={'never'}
+                                      listKey={'pMFeLWae'}
+                                      nestedScrollEnabled={false}
+                                      numColumns={1}
+                                      onEndReachedThreshold={0.5}
+                                      renderItem={({ item, index }) => {
+                                        const listData = item;
+                                        return (
+                                          <Pressable
+                                            onPress={() => {
+                                              try {
+                                                /* hidden 'Log to Console' action */
+                                                setPeerQueryRaw(
+                                                  listData?.title
+                                                );
+                                                setShowDropdown(false);
+                                                setSelectedPeerGroupID(
+                                                  listData?.id
+                                                );
+                                              } catch (err) {
+                                                console.error(err);
+                                              }
+                                            }}
+                                          >
+                                            <View
+                                              style={StyleSheet.applyWidth(
+                                                { zIndex: 12 },
+                                                dimensions.width
+                                              )}
+                                            >
+                                              <Text
+                                                accessible={true}
+                                                {...GlobalStyles.TextStyles(
+                                                  theme
+                                                )['screen_title_stockH'].props}
+                                                style={StyleSheet.applyWidth(
+                                                  StyleSheet.compose(
+                                                    GlobalStyles.TextStyles(
+                                                      theme
+                                                    )['screen_title_stockH']
+                                                      .style,
+                                                    {
+                                                      color:
+                                                        theme.colors.text
+                                                          .strong,
+                                                    }
+                                                  ),
+                                                  dimensions.width
+                                                )}
+                                              >
+                                                {listData?.title}
+                                              </Text>
+                                            </View>
+                                          </Pressable>
+                                        );
+                                      }}
+                                      showsHorizontalScrollIndicator={true}
+                                      showsVerticalScrollIndicator={true}
+                                      style={StyleSheet.applyWidth(
+                                        { padding: 3, zIndex: 11 },
+                                        dimensions.width
+                                      )}
+                                    />
+                                  </View>
+                                )}
+                              </>
                               {/* Button 2 */}
                               <Button
                                 iconPosition={'left'}
@@ -3946,7 +4125,7 @@ const StockDetailsScreen = props => {
                                   const handler = async () => {
                                     try {
                                       setLoading_button('add');
-                                      setSeletedPeerGroup(fetch2Data);
+                                      /* hidden 'Run a Custom Function' action */
                                       const newData = (
                                         await xanoCollectionUpdatePeerGroupPATCH.mutateAsync(
                                           {
@@ -3971,7 +4150,7 @@ const StockDetailsScreen = props => {
                                 }}
                                 {...GlobalStyles.ButtonStyles(theme)['Button']
                                   .props}
-                                disabled={!peerGroupId}
+                                disabled={!selectedPeerGroupID}
                                 loading={loading_button === 'add'}
                                 style={StyleSheet.applyWidth(
                                   StyleSheet.compose(
@@ -3988,15 +4167,15 @@ const StockDetailsScreen = props => {
                                       textTransform: 'uppercase',
                                       width: [
                                         {
-                                          minWidth: Breakpoints.Mobile,
-                                          value: '47%',
-                                        },
-                                        {
                                           minWidth: Breakpoints.Desktop,
                                           value: '37%',
                                         },
                                         {
                                           minWidth: Breakpoints.Tablet,
+                                          value: '37%',
+                                        },
+                                        {
+                                          minWidth: Breakpoints.Mobile,
                                           value: '37%',
                                         },
                                       ],
@@ -4007,153 +4186,180 @@ const StockDetailsScreen = props => {
                                 title={'add'}
                               />
                             </View>
-                            {/* Text 2 */}
-                            <Text
-                              accessible={true}
-                              {...GlobalStyles.TextStyles(theme)['screen_title']
-                                .props}
-                              style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.TextStyles(theme)['screen_title']
-                                    .style,
-                                  {
-                                    color: palettes.Brand['Strong Inverse'],
-                                    fontFamily: 'Quicksand_400Regular',
-                                    padding: 10,
-                                    paddingLeft: [
-                                      {
-                                        minWidth: Breakpoints.Mobile,
-                                        value: 20,
-                                      },
-                                      {
-                                        minWidth: Breakpoints.Tablet,
-                                        value: 0,
-                                      },
-                                    ],
-                                    paddingRight: 20,
-                                    textAlign: [
-                                      {
-                                        minWidth: Breakpoints.Mobile,
-                                        value: 'center',
-                                      },
-                                      {
-                                        minWidth: Breakpoints.Tablet,
-                                        value: 'left',
-                                      },
-                                    ],
-                                  }
-                                ),
-                                dimensions.width
-                              )}
-                            >
-                              {'...or create and add to a new peer group'}
-                            </Text>
-                            {/* View 2 */}
-                            <View
-                              style={StyleSheet.applyWidth(
-                                {
-                                  flexDirection: 'row',
-                                  gap: 8,
-                                  justifyContent: 'space-between',
-                                  marginBottom: 20,
-                                },
-                                dimensions.width
-                              )}
-                            >
-                              <TextInput
-                                autoCapitalize={'none'}
-                                autoCorrect={true}
-                                changeTextDelay={500}
-                                onChangeText={newTextInputValue => {
-                                  try {
-                                    setNewPeerGroup(newTextInputValue);
-                                  } catch (err) {
-                                    console.error(err);
-                                  }
-                                }}
-                                webShowOutline={true}
-                                {...GlobalStyles.TextInputStyles(theme)[
-                                  'Text Input'
-                                ].props}
-                                disabled={peerGroupId > 0}
-                                placeholder={'Peer group name...'}
-                                placeholderTextColor={
-                                  theme.colors.foreground.brand
-                                }
-                                selectionColor={'rgba(0, 0, 0, 0)'}
-                                style={StyleSheet.applyWidth(
-                                  StyleSheet.compose(
-                                    GlobalStyles.TextInputStyles(theme)[
-                                      'Text Input'
-                                    ].style,
-                                    {
-                                      backgroundColor: 'rgba(0, 0, 0, 0)',
-                                      borderBottomWidth: null,
-                                      borderColor:
-                                        theme.colors.foreground.brand,
-                                      borderLeftWidth: null,
-                                      borderRightWidth: null,
-                                      borderTopWidth: null,
-                                      borderWidth: 1,
-                                      color: palettes.Brand['Strong Inverse'],
-                                      fontFamily: 'Quicksand_500Medium',
-                                      paddingLeft: 16,
-                                      width: '60%',
-                                    }
-                                  ),
-                                  dimensions.width
-                                )}
-                                value={newPeerGroup}
-                              />
-                              {/* Button 2 */}
-                              <Button
-                                iconPosition={'left'}
-                                onPress={() => {
-                                  const handler = async () => {
+                            <>
+                              {!(selectedPeerGroupID > 0) ? null : (
+                                <Link
+                                  accessible={true}
+                                  onPress={() => {
                                     try {
-                                      setLoading_button('create');
-                                      const newData = (
-                                        await xanoCollectionCreateNewPeerPOST.mutateAsync(
-                                          {
-                                            access_type: 'Private',
-                                            stocks: [].concat([
-                                              props.route?.params?.stock_id ??
-                                                1527,
-                                            ]),
-                                            title: newPeerGroup,
-                                          }
-                                        )
-                                      )?.json;
-                                      setPeer_name(newData?.title);
-                                      setPeer_id(newData?.id);
-                                      setViewPeerGroup(true);
-                                      setLoading_button('');
+                                      setSelectedPeerGroupID(0);
+                                      setPeerQueryRaw('');
+                                      setShowDropdown(false);
                                     } catch (err) {
                                       console.error(err);
                                     }
-                                  };
-                                  handler();
-                                }}
-                                {...GlobalStyles.ButtonStyles(theme)['Button']
-                                  .props}
-                                disabled={!newPeerGroup}
-                                loading={loading_button === 'create'}
-                                style={StyleSheet.applyWidth(
-                                  StyleSheet.compose(
-                                    GlobalStyles.ButtonStyles(theme)['Button']
-                                      .style,
+                                  }}
+                                  {...GlobalStyles.LinkStyles(theme)['Link']
+                                    .props}
+                                  style={StyleSheet.applyWidth(
+                                    StyleSheet.compose(
+                                      GlobalStyles.LinkStyles(theme)['Link']
+                                        .style,
+                                      {
+                                        color: palettes.App.Orange,
+                                        fontFamily: 'Quicksand_500Medium',
+                                        marginTop: 5,
+                                        paddingTop: 0,
+                                        textAlign: 'left',
+                                        textDecorationLine: 'underline',
+                                      }
+                                    ),
+                                    dimensions.width
+                                  )}
+                                  title={'Clear'}
+                                />
+                              )}
+                            </>
+                            {/* Text 2 */}
+                            <>
+                              {showDropdown ? null : (
+                                <Text
+                                  accessible={true}
+                                  {...GlobalStyles.TextStyles(theme)[
+                                    'screen_title'
+                                  ].props}
+                                  style={StyleSheet.applyWidth(
+                                    StyleSheet.compose(
+                                      GlobalStyles.TextStyles(theme)[
+                                        'screen_title'
+                                      ].style,
+                                      {
+                                        color: palettes.Brand['Strong Inverse'],
+                                        fontFamily: 'Quicksand_400Regular',
+                                        marginTop: 20,
+                                        padding: 10,
+                                        paddingLeft: [
+                                          {
+                                            minWidth: Breakpoints.Mobile,
+                                            value: 0,
+                                          },
+                                          {
+                                            minWidth: Breakpoints.Tablet,
+                                            value: 0,
+                                          },
+                                        ],
+                                        paddingRight: 20,
+                                        textAlign: [
+                                          {
+                                            minWidth: Breakpoints.Tablet,
+                                            value: 'left',
+                                          },
+                                          {
+                                            minWidth: Breakpoints.Mobile,
+                                            value: 'left',
+                                          },
+                                        ],
+                                      }
+                                    ),
+                                    dimensions.width
+                                  )}
+                                >
+                                  {'...or create and add to a new peer group'}
+                                </Text>
+                              )}
+                            </>
+                            {/* View 2 */}
+                            <>
+                              {showDropdown ? null : (
+                                <View
+                                  style={StyleSheet.applyWidth(
                                     {
-                                      backgroundColor: palettes.App.Orange,
-                                      fontFamily: 'Quicksand_500Medium',
-                                      textTransform: 'uppercase',
-                                      width: '37%',
-                                    }
-                                  ),
-                                  dimensions.width
-                                )}
-                                title={'create'}
-                              />
-                            </View>
+                                      flexDirection: 'row',
+                                      gap: 8,
+                                      justifyContent: 'space-between',
+                                      marginBottom: 20,
+                                    },
+                                    dimensions.width
+                                  )}
+                                >
+                                  <TextInput
+                                    autoCapitalize={'none'}
+                                    autoCorrect={true}
+                                    changeTextDelay={500}
+                                    onChangeText={newTextInputValue => {
+                                      try {
+                                        setNewPeerGroup(newTextInputValue);
+                                      } catch (err) {
+                                        console.error(err);
+                                      }
+                                    }}
+                                    webShowOutline={true}
+                                    {...GlobalStyles.TextInputStyles(theme)[
+                                      'peerTextInput'
+                                    ].props}
+                                    disabled={selectedPeerGroupID > 0}
+                                    placeholder={'Peer group name...'}
+                                    style={StyleSheet.applyWidth(
+                                      GlobalStyles.TextInputStyles(theme)[
+                                        'peerTextInput'
+                                      ].style,
+                                      dimensions.width
+                                    )}
+                                    value={newPeerGroup}
+                                  />
+                                  {/* Button 2 */}
+                                  <Button
+                                    iconPosition={'left'}
+                                    onPress={() => {
+                                      const handler = async () => {
+                                        try {
+                                          setLoading_button('create');
+                                          const newData = (
+                                            await xanoCollectionCreateNewPeerPOST.mutateAsync(
+                                              {
+                                                access_type: 'Private',
+                                                stocks: [].concat([
+                                                  props.route?.params
+                                                    ?.stock_id ?? 1527,
+                                                ]),
+                                                title: newPeerGroup,
+                                              }
+                                            )
+                                          )?.json;
+                                          setPeer_name(newData?.title);
+                                          setPeer_id(newData?.id);
+                                          setViewPeerGroup(true);
+                                          setLoading_button('');
+                                        } catch (err) {
+                                          console.error(err);
+                                        }
+                                      };
+                                      handler();
+                                    }}
+                                    {...GlobalStyles.ButtonStyles(theme)[
+                                      'Button'
+                                    ].props}
+                                    disabled={!newPeerGroup}
+                                    loading={loading_button === 'create'}
+                                    style={StyleSheet.applyWidth(
+                                      StyleSheet.compose(
+                                        GlobalStyles.ButtonStyles(theme)[
+                                          'Button'
+                                        ].style,
+                                        {
+                                          backgroundColor: palettes.App.Orange,
+                                          fontFamily: 'Quicksand_500Medium',
+                                          textTransform: 'uppercase',
+                                          width: '37%',
+                                        }
+                                      ),
+                                      dimensions.width
+                                    )}
+                                    title={'create'}
+                                  />
+                                </View>
+                              )}
+                            </>
                           </View>
                         )}
                       </>
@@ -4248,621 +4454,11 @@ const StockDetailsScreen = props => {
                     </LinearGradient>
                   </View>
                 </View>
-              </Modal>
-
-              <View
-                onLayout={event => {
-                  try {
-                    console.log(newPeerGroup);
-                  } catch (err) {
-                    console.error(err);
-                  }
-                }}
-                style={StyleSheet.applyWidth(
-                  {
-                    alignItems: 'center',
-                    backgroundColor: 'rgba(0, 0, 0, 0.6)',
-                    height: '100%',
-                    justifyContent: 'center',
-                    zIndex: { minWidth: Breakpoints.Desktop, value: 10 },
-                  },
-                  dimensions.width
-                )}
-              >
-                <View
-                  style={StyleSheet.applyWidth(
-                    {
-                      alignItems: 'stretch',
-                      justifyContent: 'flex-start',
-                      maxWidth: 450,
-                      width: '100%',
-                    },
-                    dimensions.width
-                  )}
-                >
-                  <LinearGradient
-                    endX={100}
-                    endY={100}
-                    startX={0}
-                    startY={0}
-                    {...GlobalStyles.LinearGradientStyles(theme)[
-                      'Linear Gradient'
-                    ].props}
-                    color1={theme.colors.text.strong}
-                    color2={theme.colors.branding.primary}
-                    color3={null}
-                    style={StyleSheet.applyWidth(
-                      StyleSheet.compose(
-                        GlobalStyles.LinearGradientStyles(theme)[
-                          'Linear Gradient'
-                        ].style,
-                        {
-                          borderColor: null,
-                          borderWidth: null,
-                          margin: null,
-                          padding: 10,
-                        }
-                      ),
-                      dimensions.width
-                    )}
-                  >
-                    {/* View 2 */}
-                    <View
-                      style={StyleSheet.applyWidth(
-                        { alignItems: 'flex-end' },
-                        dimensions.width
-                      )}
-                    >
-                      <Shadow
-                        offsetX={0}
-                        paintInside={true}
-                        showShadowCornerBottomEnd={true}
-                        showShadowCornerBottomStart={true}
-                        showShadowCornerTopEnd={true}
-                        showShadowCornerTopStart={true}
-                        showShadowSideBottom={true}
-                        showShadowSideEnd={true}
-                        showShadowSideStart={true}
-                        showShadowSideTop={true}
-                        distance={3}
-                        offsetY={2}
-                      >
-                        <View
-                          style={StyleSheet.applyWidth(
-                            {
-                              alignItems: 'center',
-                              backgroundColor: theme.colors.background.brand,
-                              borderRadius: 50,
-                              height: 36,
-                              justifyContent: 'center',
-                              width: 36,
-                            },
-                            dimensions.width
-                          )}
-                        >
-                          <IconButton
-                            onPress={() => {
-                              try {
-                                setShowModal(false);
-                              } catch (err) {
-                                console.error(err);
-                              }
-                            }}
-                            color={palettes.App.Strong2}
-                            icon={'AntDesign/close'}
-                            size={24}
-                          />
-                        </View>
-                      </Shadow>
-                    </View>
-                    {/* View 3 */}
-                    <View>
-                      <Text
-                        accessible={true}
-                        {...GlobalStyles.TextStyles(theme)['screen_title']
-                          .props}
-                        style={StyleSheet.applyWidth(
-                          StyleSheet.compose(
-                            GlobalStyles.TextStyles(theme)['screen_title']
-                              .style,
-                            {
-                              color: palettes.Brand['Strong Inverse'],
-                              fontFamily: 'Quicksand_700Bold',
-                              fontSize: 16,
-                              textAlign: 'left',
-                            }
-                          ),
-                          dimensions.width
-                        )}
-                      >
-                        {companyName}
-                        {' ('}
-                        {ticker}
-                        {')'}
-                      </Text>
-                    </View>
-                    {/* Form */}
-                    <>
-                      {!(viewPeerGroup === false) ? null : (
-                        <View>
-                          <Text
-                            accessible={true}
-                            {...GlobalStyles.TextStyles(theme)['screen_title']
-                              .props}
-                            style={StyleSheet.applyWidth(
-                              StyleSheet.compose(
-                                GlobalStyles.TextStyles(theme)['screen_title']
-                                  .style,
-                                {
-                                  color: palettes.Brand['Strong Inverse'],
-                                  fontFamily: 'Quicksand_400Regular',
-                                  padding: 10,
-                                  paddingLeft: 0,
-                                  paddingRight: 20,
-                                  textAlign: [
-                                    {
-                                      minWidth: Breakpoints.Desktop,
-                                      value: 'left',
-                                    },
-                                    {
-                                      minWidth: Breakpoints.Mobile,
-                                      value: 'left',
-                                    },
-                                  ],
-                                }
-                              ),
-                              dimensions.width
-                            )}
-                          >
-                            {'add to the following peer group'}
-                          </Text>
-
-                          <View
-                            style={StyleSheet.applyWidth(
-                              {
-                                alignItems: [
-                                  {
-                                    minWidth: Breakpoints.BigScreen,
-                                    value: 'center',
-                                  },
-                                  {
-                                    minWidth: Breakpoints.Tablet,
-                                    value: 'center',
-                                  },
-                                ],
-                                flexDirection: 'row',
-                                gap: 8,
-                                justifyContent: [
-                                  {
-                                    minWidth: Breakpoints.Mobile,
-                                    value: 'space-between',
-                                  },
-                                  {
-                                    minWidth: Breakpoints.Desktop,
-                                    value: 'flex-start',
-                                  },
-                                  {
-                                    minWidth: Breakpoints.Tablet,
-                                    value: 'space-between',
-                                  },
-                                  {
-                                    minWidth: Breakpoints.BigScreen,
-                                    value: 'flex-start',
-                                  },
-                                ],
-                                marginBottom: 20,
-                                width: {
-                                  minWidth: Breakpoints.BigScreen,
-                                  value: '100%',
-                                },
-                              },
-                              dimensions.width
-                            )}
-                          >
-                            <TextInput
-                              autoCapitalize={'none'}
-                              autoCorrect={true}
-                              changeTextDelay={500}
-                              onChangeText={newTextInputValue => {
-                                const textInputValue = newTextInputValue;
-                                try {
-                                  setTextInputValue(textInputValue);
-                                } catch (err) {
-                                  console.error(err);
-                                }
-                              }}
-                              placeholder={'Enter a value...'}
-                              webShowOutline={true}
-                              {...GlobalStyles.TextInputStyles(theme)[
-                                'Text Input'
-                              ].props}
-                              style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.TextInputStyles(theme)[
-                                    'Text Input'
-                                  ].style,
-                                  { width: '60%' }
-                                ),
-                                dimensions.width
-                              )}
-                              value={textInputValue}
-                            />
-                            <View
-                              style={StyleSheet.applyWidth(
-                                {
-                                  backgroundColor: palettes.App.Orange,
-                                  maxHeight: 200,
-                                  maxWidth: '60%',
-                                  position: 'absolute',
-                                  top: 44,
-                                  width: '60%',
-                                  zIndex: 999,
-                                },
-                                dimensions.width
-                              )}
-                            >
-                              <SimpleStyleFlatList
-                                data={fetch2Data}
-                                horizontal={false}
-                                inverted={false}
-                                keyExtractor={(listData, index) =>
-                                  listData?.id ??
-                                  listData?.uuid ??
-                                  index?.toString() ??
-                                  JSON.stringify(listData)
-                                }
-                                keyboardShouldPersistTaps={'never'}
-                                listKey={'6PBmTRrU'}
-                                nestedScrollEnabled={false}
-                                numColumns={1}
-                                onEndReachedThreshold={0.5}
-                                renderItem={({ item, index }) => {
-                                  const listData = item;
-                                  return (
-                                    <Touchable>
-                                      <View>
-                                        <Text
-                                          accessible={true}
-                                          {...GlobalStyles.TextStyles(theme)[
-                                            'screen_title_stockH'
-                                          ].props}
-                                          style={StyleSheet.applyWidth(
-                                            StyleSheet.compose(
-                                              GlobalStyles.TextStyles(theme)[
-                                                'screen_title_stockH'
-                                              ].style,
-                                              {
-                                                color: theme.colors.text.strong,
-                                              }
-                                            ),
-                                            dimensions.width
-                                          )}
-                                        >
-                                          {listData?.title}
-                                        </Text>
-                                      </View>
-                                    </Touchable>
-                                  );
-                                }}
-                                showsHorizontalScrollIndicator={true}
-                                showsVerticalScrollIndicator={true}
-                              />
-                            </View>
-                            {/* Button 2 */}
-                            <Button
-                              iconPosition={'left'}
-                              onPress={() => {
-                                const handler = async () => {
-                                  try {
-                                    setLoading_button('add');
-                                    const newData = (
-                                      await xanoCollectionUpdatePeerGroupPATCH.mutateAsync(
-                                        {
-                                          peer_id: selectedPeerGroupID,
-                                          stocksList: [
-                                            props.route?.params?.stock_id ??
-                                              1527,
-                                          ].concat([]),
-                                          type: 'Add',
-                                        }
-                                      )
-                                    )?.json;
-                                    setPeer_name(newData?.title);
-                                    setPeer_id(newData?.id);
-                                    setViewPeerGroup(true);
-                                    setLoading_button('');
-                                  } catch (err) {
-                                    console.error(err);
-                                  }
-                                };
-                                handler();
-                              }}
-                              {...GlobalStyles.ButtonStyles(theme)['Button']
-                                .props}
-                              disabled={!peerGroupId}
-                              loading={loading_button === 'add'}
-                              style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.ButtonStyles(theme)['Button']
-                                    .style,
-                                  {
-                                    backgroundColor: palettes.App.Orange,
-                                    fontFamily: 'Quicksand_500Medium',
-                                    height: [
-                                      {
-                                        minWidth: Breakpoints.Tablet,
-                                        value: '80%',
-                                      },
-                                      {
-                                        minWidth: Breakpoints.Mobile,
-                                        value: '80%',
-                                      },
-                                    ],
-                                    overflow: 'hidden',
-                                    textTransform: 'uppercase',
-                                    width: [
-                                      {
-                                        minWidth: Breakpoints.Desktop,
-                                        value: '37%',
-                                      },
-                                      {
-                                        minWidth: Breakpoints.Tablet,
-                                        value: '37%',
-                                      },
-                                      {
-                                        minWidth: Breakpoints.Mobile,
-                                        value: '37%',
-                                      },
-                                    ],
-                                  }
-                                ),
-                                dimensions.width
-                              )}
-                              title={'add'}
-                            />
-                          </View>
-                          {/* Text 2 */}
-                          <Text
-                            accessible={true}
-                            {...GlobalStyles.TextStyles(theme)['screen_title']
-                              .props}
-                            style={StyleSheet.applyWidth(
-                              StyleSheet.compose(
-                                GlobalStyles.TextStyles(theme)['screen_title']
-                                  .style,
-                                {
-                                  color: palettes.Brand['Strong Inverse'],
-                                  fontFamily: 'Quicksand_400Regular',
-                                  padding: 10,
-                                  paddingLeft: {
-                                    minWidth: Breakpoints.Tablet,
-                                    value: 0,
-                                  },
-                                  paddingRight: 20,
-                                  textAlign: [
-                                    {
-                                      minWidth: Breakpoints.Mobile,
-                                      value: 'center',
-                                    },
-                                    {
-                                      minWidth: Breakpoints.Tablet,
-                                      value: 'left',
-                                    },
-                                  ],
-                                }
-                              ),
-                              dimensions.width
-                            )}
-                          >
-                            {'...or create and add to a new peer group'}
-                          </Text>
-                          {/* View 2 */}
-                          <View
-                            style={StyleSheet.applyWidth(
-                              {
-                                flexDirection: 'row',
-                                gap: 8,
-                                justifyContent: 'space-between',
-                                marginBottom: 20,
-                                paddingLeft: {
-                                  minWidth: Breakpoints.Tablet,
-                                  value: 0,
-                                },
-                              },
-                              dimensions.width
-                            )}
-                          >
-                            <TextInput
-                              autoCapitalize={'none'}
-                              autoCorrect={true}
-                              changeTextDelay={500}
-                              onChangeText={newTextInputValue => {
-                                try {
-                                  setNewPeerGroup(newTextInputValue);
-                                } catch (err) {
-                                  console.error(err);
-                                }
-                              }}
-                              webShowOutline={true}
-                              {...GlobalStyles.TextInputStyles(theme)[
-                                'Text Input'
-                              ].props}
-                              disabled={peerGroupId > 0}
-                              placeholder={'Peer group name...'}
-                              placeholderTextColor={
-                                theme.colors.foreground.brand
-                              }
-                              selectionColor={palettes.App.Orange}
-                              style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.TextInputStyles(theme)[
-                                    'Text Input'
-                                  ].style,
-                                  {
-                                    backgroundColor: 'rgba(0, 0, 0, 0)',
-                                    borderBottomWidth: null,
-                                    borderColor: theme.colors.foreground.brand,
-                                    borderLeftWidth: null,
-                                    borderRightWidth: null,
-                                    borderTopWidth: null,
-                                    borderWidth: 1,
-                                    color: palettes.Brand['Strong Inverse'],
-                                    fontFamily: 'Quicksand_500Medium',
-                                    paddingLeft: 16,
-                                    width: '60%',
-                                  }
-                                ),
-                                dimensions.width
-                              )}
-                              value={newPeerGroup}
-                            />
-                            {/* Button 2 */}
-                            <Button
-                              iconPosition={'left'}
-                              onPress={() => {
-                                const handler = async () => {
-                                  try {
-                                    setLoading_button('create');
-                                    const newData = (
-                                      await xanoCollectionCreateNewPeerPOST.mutateAsync(
-                                        {
-                                          access_type: 'Private',
-                                          stocks: [].concat([
-                                            props.route?.params?.stock_id ??
-                                              1527,
-                                          ]),
-                                          title: newPeerGroup,
-                                        }
-                                      )
-                                    )?.json;
-                                    setPeer_name(newData?.title);
-                                    setPeer_id(newData?.id);
-                                    setViewPeerGroup(true);
-                                    setLoading_button('');
-                                  } catch (err) {
-                                    console.error(err);
-                                  }
-                                };
-                                handler();
-                              }}
-                              {...GlobalStyles.ButtonStyles(theme)['Button']
-                                .props}
-                              disabled={!newPeerGroup}
-                              loading={loading_button === 'create'}
-                              style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.ButtonStyles(theme)['Button']
-                                    .style,
-                                  {
-                                    backgroundColor: palettes.App.Orange,
-                                    fontFamily: 'Quicksand_500Medium',
-                                    textTransform: 'uppercase',
-                                    width: '37%',
-                                  }
-                                ),
-                                dimensions.width
-                              )}
-                              title={'create'}
-                            />
-                          </View>
-                        </View>
-                      )}
-                    </>
-                    <>
-                      {!viewPeerGroup ? null : (
-                        <View
-                          style={StyleSheet.applyWidth(
-                            { alignItems: 'center', gap: 10, paddingTop: 10 },
-                            dimensions.width
-                          )}
-                        >
-                          {/* Text 2 */}
-                          <Text
-                            accessible={true}
-                            {...GlobalStyles.TextStyles(theme)['screen_title']
-                              .props}
-                            style={StyleSheet.applyWidth(
-                              StyleSheet.compose(
-                                GlobalStyles.TextStyles(theme)['screen_title']
-                                  .style,
-                                {
-                                  color: palettes.Brand['Strong Inverse'],
-                                  fontFamily: 'Quicksand_400Regular',
-                                  padding: 10,
-                                  paddingLeft: 20,
-                                  paddingRight: 20,
-                                  textAlign: 'center',
-                                }
-                              ),
-                              dimensions.width
-                            )}
-                          >
-                            {companyName}
-                            {' was added to the following peer group'}
-                          </Text>
-
-                          <Text
-                            accessible={true}
-                            {...GlobalStyles.TextStyles(theme)['screen_title']
-                              .props}
-                            style={StyleSheet.applyWidth(
-                              StyleSheet.compose(
-                                GlobalStyles.TextStyles(theme)['screen_title']
-                                  .style,
-                                {
-                                  color: palettes.Brand['Strong Inverse'],
-                                  fontFamily: 'Quicksand_700Bold',
-                                  fontSize: 16,
-                                  paddingBottom: 5,
-                                  textAlign: 'center',
-                                }
-                              ),
-                              dimensions.width
-                            )}
-                          >
-                            {peer_name}
-                          </Text>
-                          {/* Button 2 */}
-                          <Button
-                            iconPosition={'left'}
-                            onPress={() => {
-                              try {
-                                navigation.push('PeerGroupDetailsScreen', {
-                                  peer_group_id: peer_id,
-                                });
-                                setShowModal(false);
-                              } catch (err) {
-                                console.error(err);
-                              }
-                            }}
-                            {...GlobalStyles.ButtonStyles(theme)['Button']
-                              .props}
-                            style={StyleSheet.applyWidth(
-                              StyleSheet.compose(
-                                GlobalStyles.ButtonStyles(theme)['Button']
-                                  .style,
-                                {
-                                  backgroundColor: palettes.App.Orange,
-                                  fontFamily: 'Quicksand_500Medium',
-                                  marginBottom: 20,
-                                  textTransform: 'uppercase',
-                                  width: '37%',
-                                }
-                              ),
-                              dimensions.width
-                            )}
-                            title={'VIEW'}
-                          />
-                        </View>
-                      )}
-                    </>
-                  </LinearGradient>
-                </View>
-              </View>
-            </>
-          );
-        }}
-      </XanoCollectionApi.FetchGetPeersListGET>
+              </>
+            );
+          }}
+        </XanoCollectionApi.FetchGetPeersListGET>
+      </Modal>
     </ScreenContainer>
   );
 };

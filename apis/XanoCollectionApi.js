@@ -1616,8 +1616,14 @@ export const FetchGetOneStockGET = ({
   return children({ loading, data, error, refetchGetOneStock: refetch });
 };
 
-export const getPeersListGET = async (Constants, _args, handlers = {}) => {
-  const url = `https://xne3-pdiu-8ysm.f2.xano.io/api:abjrBkC8/peer_group_user`;
+export const getPeersListGET = async (Constants, { query }, handlers = {}) => {
+  const paramsDict = {};
+  if (query !== undefined) {
+    paramsDict['query'] = renderParam(query);
+  }
+  const url = `https://xne3-pdiu-8ysm.f2.xano.io/api:abjrBkC8/peer_group_user${renderQueryString(
+    paramsDict
+  )}`;
   const options = {
     headers: cleanHeaders({
       Accept: 'application/json',
@@ -1648,6 +1654,7 @@ export const FetchGetPeersListGET = ({
   onData = () => {},
   handlers = {},
   refetchInterval,
+  query,
 }) => {
   const Constants = GlobalVariables.useValues();
   const isFocused = useIsFocused();
@@ -1659,7 +1666,7 @@ export const FetchGetPeersListGET = ({
     error,
     refetch,
   } = useGetPeersListGET(
-    {},
+    { query },
     { refetchInterval, handlers: { onData, ...handlers } }
   );
 

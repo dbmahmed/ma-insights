@@ -439,7 +439,7 @@ const CustomHeaderBlock = props => {
             <Pressable
               onPress={() => {
                 try {
-                  navigation.navigate('RootNavigator');
+                  navigation.navigate('NewslettersScreen');
                 } catch (err) {
                   console.error(err);
                 }
