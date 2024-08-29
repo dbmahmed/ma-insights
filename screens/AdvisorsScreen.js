@@ -1,19 +1,4 @@
 import React from 'react';
-import * as GlobalStyles from '../GlobalStyles.js';
-import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
-import CustomHeaderBlock from '../components/CustomHeaderBlock';
-import LoadingBlock from '../components/LoadingBlock';
-import * as GlobalVariables from '../config/GlobalVariableContext';
-import assessAccess from '../global-functions/assessAccess';
-import modifyArrays from '../global-functions/modifyArrays';
-import removeGlobalScroll from '../global-functions/removeGlobalScroll';
-import resetAccess from '../global-functions/resetAccess';
-import setPadding from '../global-functions/setPadding';
-import palettes from '../themes/palettes';
-import Breakpoints from '../utils/Breakpoints';
-import * as StyleSheet from '../utils/StyleSheet';
-import useWindowDimensions from '../utils/useWindowDimensions';
-import waitUtil from '../utils/wait';
 import {
   Button,
   Checkbox,
@@ -35,6 +20,21 @@ import { useIsFocused } from '@react-navigation/native';
 import * as WebBrowser from 'expo-web-browser';
 import { ActivityIndicator, Modal, Text, View } from 'react-native';
 import { Fetch } from 'react-request';
+import * as GlobalStyles from '../GlobalStyles.js';
+import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
+import CustomHeaderBlock from '../components/CustomHeaderBlock';
+import LoadingBlock from '../components/LoadingBlock';
+import * as GlobalVariables from '../config/GlobalVariableContext';
+import assessAccess from '../global-functions/assessAccess';
+import modifyArrays from '../global-functions/modifyArrays';
+import removeGlobalScroll from '../global-functions/removeGlobalScroll';
+import resetAccess from '../global-functions/resetAccess';
+import setPadding from '../global-functions/setPadding';
+import palettes from '../themes/palettes';
+import Breakpoints from '../utils/Breakpoints';
+import * as StyleSheet from '../utils/StyleSheet';
+import useWindowDimensions from '../utils/useWindowDimensions';
+import waitUtil from '../utils/wait';
 
 const AdvisorsScreen = props => {
   const { theme, navigation } = props;
@@ -120,6 +120,18 @@ line two` ) and will not work with special characters inside of quotes ( example
       }
       removeGlobalScroll();
       setGlobalVariableValue({
+        key: 'currentScreen',
+        value: 'Advisors',
+      });
+      setGlobalVariableValue({
+        key: 'screenParamName',
+        value: '',
+      });
+      setGlobalVariableValue({
+        key: 'screenParamValue',
+        value: 0,
+      });
+      setGlobalVariableValue({
         key: 'pageName',
         value: 'Advisors',
       });
@@ -127,7 +139,10 @@ line two` ) and will not work with special characters inside of quotes ( example
         key: 'subPage',
         value: false,
       });
-      /* hidden 'Conditional Stop' action */
+      if (assessAccess(Variables, setGlobalVariableValue) === true) {
+        return;
+      }
+      resetAccess(navigation, Variables, setGlobalVariableValue);
       /* hidden 'Navigate' action */
     } catch (err) {
       console.error(err);

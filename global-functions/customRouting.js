@@ -13,8 +13,8 @@ const customRouting = (
 line two` ) and will not work with special characters inside of quotes ( example: "line one line two" ) */
 
   navigation.navigate(Variables.currentScreen + 'Screen');
-  console.log(screenName);
-  console.log(Variables.currentScreen);
+  console.log(URL);
+  console.log(URLSearchParams);
 };
 
 export default customRouting;

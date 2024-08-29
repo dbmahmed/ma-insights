@@ -18,6 +18,7 @@ import LoadingBlock from '../components/LoadingBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import assessAccess from '../global-functions/assessAccess';
 import removeGlobalScroll from '../global-functions/removeGlobalScroll';
+import resetAccess from '../global-functions/resetAccess';
 import transformEuroM from '../global-functions/transformEuroM';
 import transformNumber from '../global-functions/transformNumber';
 import palettes from '../themes/palettes';
@@ -48,6 +49,18 @@ const CFSDetailsScreen = props => {
       }
       removeGlobalScroll();
       setGlobalVariableValue({
+        key: 'currentScreen',
+        value: 'CFS Details',
+      });
+      setGlobalVariableValue({
+        key: 'screenParamName',
+        value: 'cfs_id',
+      });
+      setGlobalVariableValue({
+        key: 'screenParamValue',
+        value: props.route?.params?.cfs_id ?? 1989,
+      });
+      setGlobalVariableValue({
         key: 'pageName',
         value: 'Company For Sale Details',
       });
@@ -58,10 +71,8 @@ const CFSDetailsScreen = props => {
       if (assessAccess(Variables, setGlobalVariableValue) === true) {
         return;
       }
-      if (navigation.canGoBack()) {
-        navigation.popToTop();
-      }
-      navigation.replace('LogInScreen');
+      resetAccess(navigation, Variables, setGlobalVariableValue);
+      /* hidden 'Navigate' action */
     } catch (err) {
       console.error(err);
     }

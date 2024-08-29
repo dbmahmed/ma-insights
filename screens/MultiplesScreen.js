@@ -14,7 +14,7 @@ import {
   TextInput,
   withTheme,
 } from '@draftbit/ui';
-import { H3, H5 } from '@expo/html-elements';
+import { H5 } from '@expo/html-elements';
 import { useIsFocused } from '@react-navigation/native';
 import { ActivityIndicator, Modal, Text, View } from 'react-native';
 import { Fetch } from 'react-request';
@@ -24,60 +24,86 @@ import CustomHeaderBlock from '../components/CustomHeaderBlock';
 import LoadingBlock from '../components/LoadingBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import assessAccess from '../global-functions/assessAccess';
+import cutText from '../global-functions/cutText';
+import formatNumber from '../global-functions/formatNumber';
+import modifyArrays from '../global-functions/modifyArrays';
 import removeGlobalScroll from '../global-functions/removeGlobalScroll';
 import setPadding from '../global-functions/setPadding';
+import showDate from '../global-functions/showDate';
+import transformNumber from '../global-functions/transformNumber';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import waitUtil from '../utils/wait';
 
-const AdvisorDetailsScreen = props => {
+const MultiplesScreen = props => {
   const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
   const Constants = GlobalVariables.useValues();
   const Variables = Constants;
   const setGlobalVariableValue = GlobalVariables.useSetValue();
-  const [austria, setAustria] = React.useState(true);
+  const [RoW, setRoW] = React.useState(true);
   const [communication_services, setCommunication_services] =
     React.useState(true);
   const [consumer_discretionary, setConsumer_discretionary] =
     React.useState(true);
   const [consumer_staples, setConsumer_staples] = React.useState(true);
-  const [country, setCountry] = React.useState([]);
-  const [denmark, setDenmark] = React.useState(true);
+  const [dach, setDach] = React.useState(true);
   const [ebitdaRange, setEbitdaRange] = React.useState([]);
+  const [ebitda_giant, setEbitda_giant] = React.useState(false);
+  const [ebitda_large, setEbitda_large] = React.useState(false);
+  const [ebitda_medium, setEbitda_medium] = React.useState(false);
+  const [ebitda_small, setEbitda_small] = React.useState(false);
   const [energy, setEnergy] = React.useState(true);
   const [filterPressed, setFilterPressed] = React.useState(false);
   const [financials, setFinancials] = React.useState(true);
-  const [finland, setFinland] = React.useState(true);
   const [germany, setGermany] = React.useState(true);
   const [health_care, setHealth_care] = React.useState(true);
   const [industrials, setIndustrials] = React.useState(true);
   const [it_and_software, setIt_and_software] = React.useState(true);
   const [keywordSearch, setKeywordSearch] = React.useState('');
-  const [keywordSearch_raw, setKeywordSearch_raw] = React.useState('');
   const [materials, setMaterials] = React.useState(true);
-  const [nextPage, setNextPage] = React.useState(0);
-  const [norway, setNorway] = React.useState(true);
+  const [nordic, setNordic] = React.useState(true);
+  const [norgic, setNorgic] = React.useState(true);
   const [real_estate, setReal_estate] = React.useState(true);
+  const [region, setRegion] = React.useState([]);
   const [sector, setSector] = React.useState([]);
-  const [sweden, setSweden] = React.useState(true);
-  const [switzerland, setSwitzerland] = React.useState(true);
+  const [transaction, setTransaction] = React.useState(true);
   const [utilities, setUtilities] = React.useState(true);
+  const toggleAllFilters = flag => {
+    setEbitda_large(flag);
+    setEbitda_medium(flag);
+    setEbitda_small(flag);
+    setEbitda_giant(flag);
+
+    setCommunication_services(flag);
+    setIndustrials(flag);
+    setConsumer_discretionary(flag);
+    setIt_and_software(flag);
+    setConsumer_staples(flag);
+    setMaterials(flag);
+    setEnergy(flag);
+    setReal_estate(flag);
+    setFinancials(flag);
+    setUtilities(flag);
+    setHealth_care(flag);
+
+    setNordic(flag);
+    setDach(flag);
+    setRoW(flag);
+  };
+
   const applyFilters = () => {
-    //country
-    const countries = [];
+    //EBITDA Range
+    const ebitdaRange = [];
 
-    sweden && countries.push('Sweden');
-    germany && countries.push('Germany');
-    denmark && countries.push('Denmark');
-    switzerland && countries.push('Switzerland');
-    norway && countries.push('Norway');
-    austria && countries.push('Austria');
-    finland && countries.push('Finland');
+    ebitda_giant && ebitdaRange.push('EBITDA > €50m');
+    ebitda_large && ebitdaRange.push('€20m < EBITDA ≤ €50m');
+    ebitda_medium && ebitdaRange.push('€5m < EBITDA ≤ €20m');
+    ebitda_small && ebitdaRange.push('EBITDA ≤ €5m');
 
-    setCountry(() => countries);
+    setEbitdaRange(() => ebitdaRange);
 
     //sector
     const sectors = [];
@@ -95,37 +121,22 @@ const AdvisorDetailsScreen = props => {
     health_care && sectors.push('Health Care');
 
     setSector(() => sectors);
-  };
 
-  const toggleAllFilters = flag => {
-    setSweden(flag);
-    setGermany(flag);
-    setDenmark(flag);
-    setSwitzerland(flag);
-    setNorway(flag);
-    setAustria(flag);
-    setFinland(flag);
-    setCommunication_services(flag);
-    setIndustrials(flag);
-    setConsumer_discretionary(flag);
-    setIt_and_software(flag);
-    setConsumer_staples(flag);
-    setMaterials(flag);
-    setEnergy(flag);
-    setReal_estate(flag);
-    setFinancials(flag);
-    setUtilities(flag);
-    setHealth_care(flag);
+    //region
+    const region = [];
+
+    nordic && region.push('Nordic');
+    dach && region.push('DACH');
+    RoW && region.push('RoW');
+
+    setRegion(() => region);
   };
 
   const matchingFilters = () => {
-    setSweden((country || []).includes('Sweden'));
-    setGermany((country || []).includes('Germany'));
-    setDenmark((country || []).includes('Denmark'));
-    setSwitzerland((country || []).includes('Switzerland'));
-    setNorway((country || []).includes('Norway'));
-    setAustria((country || []).includes('Austria'));
-    setFinland((country || []).includes('Finland'));
+    setEbitda_giant((ebitdaRange || []).includes('EBITDA > €50m'));
+    setEbitda_large((ebitdaRange || []).includes('€20m < EBITDA ≤ €50m'));
+    setEbitda_medium((ebitdaRange || []).includes('€5m < EBITDA ≤ €20m'));
+    setEbitda_small((ebitdaRange || []).includes('EBITDA ≤ €5m'));
 
     setCommunication_services(
       (sector || []).includes('Communication Services')
@@ -142,6 +153,10 @@ const AdvisorDetailsScreen = props => {
     setFinancials((sector || []).includes('Financials'));
     setUtilities((sector || []).includes('Utilities'));
     setHealth_care((sector || []).includes('Health Care'));
+
+    setNordic((region || []).includes('Nordic'));
+    setDach((region || []).includes('DACH'));
+    setRoW((region || []).includes('RoW'));
   };
   const isFocused = useIsFocused();
   React.useEffect(() => {
@@ -149,26 +164,14 @@ const AdvisorDetailsScreen = props => {
       if (!isFocused) {
         return;
       }
-      setGlobalVariableValue({
-        key: 'currentScreen',
-        value: 'Advisor Details',
-      });
-      setGlobalVariableValue({
-        key: 'screenParamName',
-        value: 'advisor_id',
-      });
-      setGlobalVariableValue({
-        key: 'screenParamValue',
-        value: props.route?.params?.advisor_id ?? 1,
-      });
       removeGlobalScroll();
       setGlobalVariableValue({
         key: 'pageName',
-        value: 'Advisor details',
+        value: 'Multiples database',
       });
       setGlobalVariableValue({
         key: 'subPage',
-        value: true,
+        value: false,
       });
       if (assessAccess(Variables, setGlobalVariableValue) === true) {
         return;
@@ -185,12 +188,234 @@ const AdvisorDetailsScreen = props => {
   return (
     <ScreenContainer hasSafeArea={false} scrollable={false}>
       <CustomHeaderBlock />
-      <XanoCollectionApi.FetchGetAdvisorGET
-        advisor_id={props.route?.params?.advisor_id ?? 1}
-        country_in={country}
+      {/* box */}
+      <View
+        style={StyleSheet.applyWidth(
+          { alignItems: 'center', width: '100%' },
+          dimensions.width
+        )}
+      >
+        <View
+          style={StyleSheet.applyWidth(
+            {
+              margin: 0,
+              maxWidth: 1200,
+              padding: 10,
+              paddingTop: [
+                { minWidth: Breakpoints.Mobile, value: 20 },
+                { minWidth: Breakpoints.Laptop, value: 0 },
+              ],
+              width: '100%',
+            },
+            dimensions.width
+          )}
+        >
+          <View
+            style={StyleSheet.applyWidth(
+              {
+                alignContent: 'space-between',
+                alignItems: { minWidth: Breakpoints.Laptop, value: 'center' },
+                flexDirection: { minWidth: Breakpoints.Laptop, value: 'row' },
+                gap: { minWidth: Breakpoints.Laptop, value: 10 },
+                justifyContent: {
+                  minWidth: Breakpoints.Laptop,
+                  value: 'space-between',
+                },
+                marginBottom: 10,
+              },
+              dimensions.width
+            )}
+          >
+            <>
+              {!(dimensions.width >= Breakpoints.Laptop) ? null : (
+                <H5
+                  selectable={false}
+                  {...GlobalStyles.H5Styles(theme)['H5'].props}
+                  style={StyleSheet.applyWidth(
+                    StyleSheet.compose(
+                      GlobalStyles.H5Styles(theme)['H5'].style,
+                      {
+                        fontFamily: 'Quicksand_600SemiBold',
+                        fontSize: 25,
+                        marginBottom: 20,
+                        marginLeft: 20,
+                        marginTop: [
+                          { minWidth: Breakpoints.Mobile, value: 0 },
+                          { minWidth: Breakpoints.Laptop, value: 20 },
+                        ],
+                        textDecorationLine: 'none',
+                      }
+                    ),
+                    dimensions.width
+                  )}
+                >
+                  {'Multiples database'}
+                </H5>
+              )}
+            </>
+            <Button
+              iconPosition={'left'}
+              onPress={() => {
+                try {
+                  navigation.push('AllEventsScreen');
+                } catch (err) {
+                  console.error(err);
+                }
+              }}
+              {...GlobalStyles.ButtonStyles(theme)['Header menu'].props}
+              icon={'AntDesign/left'}
+              style={StyleSheet.applyWidth(
+                StyleSheet.compose(
+                  GlobalStyles.ButtonStyles(theme)['Header menu'].style,
+                  {
+                    backgroundColor: [
+                      {
+                        minWidth: Breakpoints.Mobile,
+                        value: theme.colors.text.strong,
+                      },
+                      {
+                        minWidth: Breakpoints.Laptop,
+                        value: theme.colors.text.strong,
+                      },
+                    ],
+                    borderColor: {
+                      minWidth: Breakpoints.Laptop,
+                      value: theme.colors.text.strong,
+                    },
+                    color: [
+                      {
+                        minWidth: Breakpoints.Mobile,
+                        value: palettes.Brand['Strong Inverse'],
+                      },
+                      {
+                        minWidth: Breakpoints.Laptop,
+                        value: palettes.Brand['Strong Inverse'],
+                      },
+                    ],
+                    fontFamily: [
+                      {
+                        minWidth: Breakpoints.Mobile,
+                        value: 'Quicksand_500Medium',
+                      },
+                      {
+                        minWidth: Breakpoints.Laptop,
+                        value: 'Quicksand_500Medium',
+                      },
+                    ],
+                    maxWidth: { minWidth: Breakpoints.Tablet, value: 200 },
+                  }
+                ),
+                dimensions.width
+              )}
+              title={'All EVENTS'}
+            />
+          </View>
+
+          <HStack
+            {...GlobalStyles.HStackStyles(theme)['H Stack'].props}
+            style={StyleSheet.applyWidth(
+              StyleSheet.compose(
+                GlobalStyles.HStackStyles(theme)['H Stack'].style,
+                { gap: 10, justifyContent: 'space-between' }
+              ),
+              dimensions.width
+            )}
+          >
+            <TextInput
+              autoCorrect={true}
+              changeTextDelay={500}
+              onChangeText={newTextInputValue => {
+                try {
+                  setKeywordSearch(newTextInputValue);
+                } catch (err) {
+                  console.error(err);
+                }
+              }}
+              onSubmitEditing={() => {
+                try {
+                  /* hidden 'Set Variable' action */
+                  /* hidden 'API Request' action */
+                  /* 'Refetch Data' action requires configuration: choose an API endpoint */
+                } catch (err) {
+                  console.error(err);
+                }
+              }}
+              webShowOutline={true}
+              {...GlobalStyles.TextInputStyles(theme)['Text Input'].props}
+              autoCapitalize={'sentences'}
+              clearButtonMode={'while-editing'}
+              placeholder={'Search...'}
+              returnKeyType={'search'}
+              style={StyleSheet.applyWidth(
+                StyleSheet.compose(
+                  GlobalStyles.TextInputStyles(theme)['Text Input'].style,
+                  { width: '90%' }
+                ),
+                dimensions.width
+              )}
+              value={keywordSearch}
+            />
+            <Shadow
+              offsetX={0}
+              paintInside={true}
+              showShadowCornerBottomEnd={true}
+              showShadowCornerBottomStart={true}
+              showShadowCornerTopEnd={true}
+              showShadowCornerTopStart={true}
+              showShadowSideBottom={true}
+              showShadowSideEnd={true}
+              showShadowSideStart={true}
+              showShadowSideTop={true}
+              distance={3}
+              offsetY={2}
+            >
+              <View
+                style={StyleSheet.applyWidth(
+                  {
+                    alignItems: 'center',
+                    backgroundColor:
+                      sector[0] || region[0]
+                        ? palettes.App.Orange
+                        : palettes.Brand.Background,
+                    borderRadius: 50,
+                    height: 36,
+                    justifyContent: 'center',
+                    width: 36,
+                  },
+                  dimensions.width
+                )}
+              >
+                <IconButton
+                  onPress={() => {
+                    try {
+                      matchingFilters();
+                      setFilterPressed(true);
+                    } catch (err) {
+                      console.error(err);
+                    }
+                  }}
+                  color={
+                    (sector[0] || region[0]
+                      ? palettes.Brand['Strong Inverse']
+                      : palettes.App.Strong2) ?? palettes.App.Strong2
+                  }
+                  icon={'MaterialIcons/filter-alt'}
+                  size={24}
+                />
+              </View>
+            </Shadow>
+          </HStack>
+          <Spacer left={8} right={8} bottom={2.5} top={2.5} />
+        </View>
+      </View>
+
+      <XanoCollectionApi.FetchEventTransactionsGET
+        keyword={keywordSearch}
+        page={1}
+        region_in={region}
         sector_in={sector}
       >
-        {({ loading, error, data, refetchGetAdvisor }) => {
+        {({ loading, error, data, refetchEventTransactions }) => {
           const fetchData = data?.json;
           if (loading) {
             return <LoadingBlock />;
@@ -204,51 +429,25 @@ const AdvisorDetailsScreen = props => {
             <>
               <View
                 style={StyleSheet.applyWidth(
-                  { alignItems: 'center', paddingTop: 5 },
+                  { alignItems: 'center' },
                   dimensions.width
                 )}
               >
-                <View
-                  style={StyleSheet.applyWidth(
-                    {
-                      alignItems: 'center',
-                      flexDirection: 'row',
-                      justifyContent: 'space-between',
-                      maxWidth: 1200,
-                      padding: 10,
-                      width: '100%',
-                    },
-                    dimensions.width
-                  )}
-                >
-                  <H3
-                    selectable={false}
-                    style={StyleSheet.applyWidth(
-                      {
-                        alignSelf: {
-                          minWidth: Breakpoints.Laptop,
-                          value: 'stretch',
-                        },
-                        fontFamily: 'Quicksand_700Bold',
-                        marginBottom: 0,
-                        marginTop: 0,
-                        paddingLeft: 5,
-                      },
-                      dimensions.width
-                    )}
-                  >
-                    {fetchData?.name}
-                  </H3>
-                </View>
                 {/* View 2 */}
                 <View
                   style={StyleSheet.applyWidth(
                     {
-                      alignItems: 'center',
-                      flexDirection: 'row',
-                      justifyContent: 'space-between',
+                      alignItems: 'stretch',
+                      alignSelf: 'auto',
+                      flexDirection: 'column',
+                      marginBottom: 5,
+                      marginTop: { minWidth: Breakpoints.Tablet, value: 5 },
                       maxWidth: 1200,
-                      padding: 10,
+                      paddingLeft: [
+                        { minWidth: Breakpoints.Tablet, value: 15 },
+                        { minWidth: Breakpoints.Mobile, value: 15 },
+                      ],
+                      paddingRight: 10,
                       width: '100%',
                     },
                     dimensions.width
@@ -261,326 +460,280 @@ const AdvisorDetailsScreen = props => {
                       StyleSheet.compose(
                         GlobalStyles.TextStyles(theme)['screen_title'].style,
                         {
-                          alignSelf: {
-                            minWidth: Breakpoints.Laptop,
-                            value: 'flex-start',
-                          },
+                          color: [
+                            {
+                              minWidth: Breakpoints.Tablet,
+                              value: theme.colors.text.strong,
+                            },
+                            {
+                              minWidth: Breakpoints.Mobile,
+                              value: theme.colors.text.strong,
+                            },
+                          ],
+                          fontFamily: 'Quicksand_400Regular',
+                          fontSize: 12,
                         }
                       ),
                       dimensions.width
                     )}
                   >
-                    {fetchData?.type}
+                    {formatNumber(fetchData?.itemsTotal)}
+                    {' transactions matching filter'}
                   </Text>
                 </View>
               </View>
-              {/* View 2 2 */}
-              <View
-                style={StyleSheet.applyWidth(
-                  {
-                    alignItems: [
-                      { minWidth: Breakpoints.Desktop, value: 'center' },
-                      { minWidth: Breakpoints.Mobile, value: 'center' },
-                    ],
-                  },
-                  dimensions.width
-                )}
-              >
-                <View
-                  style={StyleSheet.applyWidth(
-                    {
-                      alignItems: 'stretch',
-                      maxWidth: [
-                        { minWidth: Breakpoints.Desktop, value: 1200 },
-                        { minWidth: Breakpoints.Mobile, value: 1200 },
-                      ],
-                      padding: 10,
-                      width: [
-                        { minWidth: Breakpoints.Desktop, value: '100%' },
-                        { minWidth: Breakpoints.Mobile, value: '100%' },
-                      ],
-                    },
-                    dimensions.width
-                  )}
-                >
-                  <HStack
-                    {...GlobalStyles.HStackStyles(theme)['H Stack'].props}
-                    style={StyleSheet.applyWidth(
-                      StyleSheet.compose(
-                        GlobalStyles.HStackStyles(theme)['H Stack'].style,
-                        { gap: 10, justifyContent: 'space-between' }
-                      ),
-                      dimensions.width
-                    )}
-                  >
-                    <TextInput
-                      autoCorrect={true}
-                      changeTextDelay={500}
-                      onChangeText={newTextInputValue => {
-                        try {
-                          setKeywordSearch_raw(newTextInputValue);
-                        } catch (err) {
-                          console.error(err);
-                        }
-                      }}
-                      onSubmitEditing={() => {
-                        try {
-                          setKeywordSearch(keywordSearch_raw);
-                          /* hidden 'API Request' action */
-                          /* hidden 'Refetch Data' action */
-                        } catch (err) {
-                          console.error(err);
-                        }
-                      }}
-                      webShowOutline={true}
-                      {...GlobalStyles.TextInputStyles(theme)['Text Input']
-                        .props}
-                      autoCapitalize={'sentences'}
-                      clearButtonMode={'while-editing'}
-                      placeholder={'Search...'}
-                      returnKeyType={'search'}
-                      style={StyleSheet.applyWidth(
-                        StyleSheet.compose(
-                          GlobalStyles.TextInputStyles(theme)['Text Input']
-                            .style,
-                          { width: '90%' }
-                        ),
-                        dimensions.width
-                      )}
-                      value={keywordSearch_raw}
-                    />
-                    <Shadow
-                      offsetX={0}
-                      paintInside={true}
-                      showShadowCornerBottomEnd={true}
-                      showShadowCornerBottomStart={true}
-                      showShadowCornerTopEnd={true}
-                      showShadowCornerTopStart={true}
-                      showShadowSideBottom={true}
-                      showShadowSideEnd={true}
-                      showShadowSideStart={true}
-                      showShadowSideTop={true}
-                      distance={3}
-                      offsetY={2}
-                    >
-                      <View
-                        style={StyleSheet.applyWidth(
-                          {
-                            alignItems: 'center',
-                            backgroundColor:
-                              ebitdaRange[0] || country[0] || sector[0]
-                                ? palettes.App.Orange
-                                : palettes.Brand.Background,
-                            borderRadius: 50,
-                            height: 36,
-                            justifyContent: 'center',
-                            width: 36,
-                          },
-                          dimensions.width
-                        )}
-                      >
-                        <IconButton
-                          onPress={() => {
-                            try {
-                              matchingFilters();
-                              setFilterPressed(true);
-                            } catch (err) {
-                              console.error(err);
-                            }
-                          }}
-                          color={
-                            (ebitdaRange[0] || country[0] || sector[0]
-                              ? palettes.Brand['Strong Inverse']
-                              : palettes.App.Strong2) ?? palettes.App.Strong2
-                          }
-                          icon={'MaterialIcons/filter-alt'}
-                          size={24}
-                        />
-                      </View>
-                    </Shadow>
-                  </HStack>
-                </View>
-              </View>
               <SimpleStyleFlatList
-                data={fetchData?._events}
+                data={fetchData?.items}
                 horizontal={false}
                 inverted={false}
                 keyExtractor={(listData, index) => listData?.id}
                 keyboardShouldPersistTaps={'never'}
-                listKey={'aDfVzu4Y'}
+                listKey={'SfOccPiT'}
                 nestedScrollEnabled={false}
-                onEndReached={() => {
-                  const handler = async () => {
-                    console.log('List ON_END_REACHED Start');
-                    let error = null;
-                    try {
-                      console.log('Start ON_END_REACHED:0 CONSOLE_LOG');
-                      /* hidden 'Log to Console' action */ console.log(
-                        'Complete ON_END_REACHED:0 CONSOLE_LOG'
-                      );
-                      console.log('Start ON_END_REACHED:1 CONDITIONAL_STOP');
-                      if (nextPage > undefined) {
-                        return console.log(
-                          'Complete ON_END_REACHED:1 CONDITIONAL_STOP'
-                        );
-                      } else {
-                        console.log(
-                          'Skipped ON_END_REACHED:1 CONDITIONAL_STOP: condition not met'
-                        );
-                      }
-                      console.log('Start ON_END_REACHED:2 SET_VARIABLE');
-                      const valueohqI6hAQ = parseInt(nextPage + 1, 10);
-                      setNextPage(valueohqI6hAQ);
-                      const nextPageSet = valueohqI6hAQ;
-                      console.log('Complete ON_END_REACHED:2 SET_VARIABLE');
-                      console.log('Start ON_END_REACHED:3 CONSOLE_LOG');
-                      console.log(nextPage);
-                      console.log('Complete ON_END_REACHED:3 CONSOLE_LOG');
-                      console.log('Start ON_END_REACHED:4 FETCH_REQUEST');
-                      const newData = (
-                        await XanoCollectionApi.getAllEventsGET(Constants, {
-                          countryIn: country,
-                          page: nextPage,
-                          sectorIn: sector,
-                        })
-                      )?.json;
-                      console.log('Complete ON_END_REACHED:4 FETCH_REQUEST', {
-                        newData,
-                      });
-                    } catch (err) {
-                      console.error(err);
-                      error = err.message ?? err;
-                    }
-                    console.log(
-                      'List ON_END_REACHED Complete',
-                      error ? { error } : 'no error'
-                    );
-                  };
-                  handler();
-                }}
+                onEndReachedThreshold={0.5}
                 renderItem={({ item, index }) => {
                   const listData = item;
                   return (
-                    <>
-                      {/* View 2 */}
-                      <View
+                    <View
+                      style={StyleSheet.applyWidth(
+                        {
+                          maxWidth: [
+                            { minWidth: Breakpoints.Laptop, value: '33.33%' },
+                            { minWidth: Breakpoints.Tablet, value: '50%' },
+                          ],
+                          padding: 5,
+                          width: '100%',
+                        },
+                        dimensions.width
+                      )}
+                    >
+                      <Shadow
+                        showShadowCornerBottomEnd={true}
+                        showShadowCornerBottomStart={true}
+                        showShadowCornerTopEnd={true}
+                        showShadowCornerTopStart={true}
+                        showShadowSideBottom={true}
+                        showShadowSideEnd={true}
+                        showShadowSideStart={true}
+                        showShadowSideTop={true}
+                        distance={4}
+                        offsetX={0}
+                        offsetY={0}
+                        paintInside={true}
+                        stretch={true}
                         style={StyleSheet.applyWidth(
                           {
-                            maxWidth: [
-                              { minWidth: Breakpoints.Laptop, value: '33.33%' },
-                              { minWidth: Breakpoints.Tablet, value: '50%' },
-                            ],
-                            padding: 5,
-                            width: '100%',
+                            borderRadius: 12,
+                            bottom: 5,
+                            height: '100%',
+                            left: 5,
+                            position: 'absolute',
+                            right: 5,
+                            top: 5,
+                            width: {
+                              minWidth: Breakpoints.Laptop,
+                              value: '100%',
+                            },
                           },
                           dimensions.width
                         )}
+                      />
+                      <Pressable
+                        onPress={() => {
+                          try {
+                            navigation.push('EventDetailsScreen', {
+                              event_id: listData?.id,
+                            });
+                          } catch (err) {
+                            console.error(err);
+                          }
+                        }}
+                        style={StyleSheet.applyWidth(
+                          { height: '100%', width: '100%' },
+                          dimensions.width
+                        )}
                       >
-                        <Shadow
-                          showShadowCornerBottomEnd={true}
-                          showShadowCornerBottomStart={true}
-                          showShadowCornerTopEnd={true}
-                          showShadowCornerTopStart={true}
-                          showShadowSideBottom={true}
-                          showShadowSideEnd={true}
-                          showShadowSideStart={true}
-                          showShadowSideTop={true}
-                          distance={4}
-                          offsetX={0}
-                          offsetY={0}
-                          paintInside={true}
-                          stretch={true}
+                        <View
                           style={StyleSheet.applyWidth(
                             {
-                              borderRadius: 12,
-                              bottom: 5,
+                              alignContent: 'stretch',
+                              backgroundColor: palettes.Brand['Strong Inverse'],
+                              borderColor: palettes.Brand['Light Inverse'],
+                              borderRadius: 8,
+                              borderWidth: 0,
+                              flexDirection: 'row',
                               height: '100%',
-                              left: 5,
-                              position: 'absolute',
-                              right: 5,
-                              top: 5,
-                              width: {
-                                minWidth: Breakpoints.Laptop,
-                                value: '100%',
-                              },
+                              justifyContent: 'space-between',
+                              padding: 0,
+                              width: '100%',
                             },
-                            dimensions.width
-                          )}
-                        />
-                        <Pressable
-                          onPress={() => {
-                            try {
-                              navigation.push('EventDetailsScreen');
-                            } catch (err) {
-                              console.error(err);
-                            }
-                          }}
-                          style={StyleSheet.applyWidth(
-                            { height: '100%', width: '100%' },
                             dimensions.width
                           )}
                         >
                           <View
                             style={StyleSheet.applyWidth(
                               {
-                                alignContent: 'stretch',
-                                backgroundColor:
-                                  palettes.Brand['Strong Inverse'],
-                                borderColor: palettes.Brand['Light Inverse'],
-                                borderRadius: 8,
-                                borderWidth: 0,
-                                flexDirection: 'row',
-                                height: '100%',
+                                gap: 4,
                                 justifyContent: 'space-between',
-                                padding: 0,
-                                width: '100%',
+                                padding: 10,
+                                width: [
+                                  {
+                                    minWidth: Breakpoints.Laptop,
+                                    value: '50%',
+                                  },
+                                  {
+                                    minWidth: Breakpoints.Mobile,
+                                    value: '55%',
+                                  },
+                                ],
                               },
+                              dimensions.width
+                            )}
+                          >
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)['screen_title']
+                                .props}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.TextStyles(theme)['screen_title']
+                                    .style,
+                                  {
+                                    fontFamily: 'Quicksand_700Bold',
+                                    fontSize: 12,
+                                  }
+                                ),
+                                dimensions.width
+                              )}
+                            >
+                              {cutText(listData?.target, 24)}
+                            </Text>
+                            {/* Text 2 */}
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)['screen_title']
+                                .props}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.TextStyles(theme)['screen_title']
+                                    .style,
+                                  {
+                                    fontFamily: 'Quicksand_400Regular',
+                                    fontSize: 12,
+                                  }
+                                ),
+                                dimensions.width
+                              )}
+                            >
+                              {listData?.published}
+                            </Text>
+                            {/* Text 2 2 */}
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)['screen_title']
+                                .props}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.TextStyles(theme)['screen_title']
+                                    .style,
+                                  {
+                                    fontFamily: 'Quicksand_400Regular',
+                                    fontSize: 12,
+                                  }
+                                ),
+                                dimensions.width
+                              )}
+                            >
+                              {'Acquiror: '}
+                              {listData?._buyers}
+                            </Text>
+                            {/* Text 2 3 */}
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)['screen_title']
+                                .props}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.TextStyles(theme)['screen_title']
+                                    .style,
+                                  {
+                                    fontFamily: 'Quicksand_400Regular',
+                                    fontSize: 12,
+                                  }
+                                ),
+                                dimensions.width
+                              )}
+                            >
+                              {listData?._gics.GICS_Sector}
+                            </Text>
+                          </View>
+
+                          <LinearGradient
+                            endX={100}
+                            endY={100}
+                            startX={0}
+                            startY={0}
+                            {...GlobalStyles.LinearGradientStyles(theme)[
+                              'Linear Gradient'
+                            ].props}
+                            color1={theme.colors.text.strong}
+                            color2={theme.colors.branding.primary}
+                            color3={null}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.LinearGradientStyles(theme)[
+                                  'Linear Gradient'
+                                ].style,
+                                {
+                                  borderBottomRightRadius: 8,
+                                  borderColor: null,
+                                  borderRadius: null,
+                                  borderTopRightRadius: 8,
+                                  borderWidth: null,
+                                  gap: 4,
+                                  justifyContent: 'space-between',
+                                  margin: null,
+                                  padding: 10,
+                                }
+                              ),
                               dimensions.width
                             )}
                           >
                             <View
                               style={StyleSheet.applyWidth(
-                                {
-                                  gap: 4,
-                                  justifyContent: 'space-between',
-                                  padding: 10,
-                                  width: '100%',
-                                },
+                                { flexDirection: 'row', gap: 4 },
                                 dimensions.width
                               )}
                             >
-                              <Text
-                                accessible={true}
-                                {...GlobalStyles.TextStyles(theme)[
-                                  'screen_title'
-                                ].props}
+                              <View
                                 style={StyleSheet.applyWidth(
-                                  StyleSheet.compose(
-                                    GlobalStyles.TextStyles(theme)[
-                                      'screen_title'
-                                    ].style,
-                                    {
-                                      fontFamily: 'Quicksand_700Bold',
-                                      fontSize: 12,
-                                      paddingTop: [
-                                        {
-                                          minWidth: Breakpoints.Laptop,
-                                          value: 2.5,
-                                        },
-                                        {
-                                          minWidth: Breakpoints.Mobile,
-                                          value: 2.5,
-                                        },
-                                      ],
-                                    }
-                                  ),
+                                  { width: 70 },
                                   dimensions.width
                                 )}
                               >
-                                {'Target: '}
-                                {listData?.target}
-                              </Text>
-                              {/* Text 2 */}
+                                <Text
+                                  accessible={true}
+                                  {...GlobalStyles.TextStyles(theme)[
+                                    'screen_title'
+                                  ].props}
+                                  style={StyleSheet.applyWidth(
+                                    StyleSheet.compose(
+                                      GlobalStyles.TextStyles(theme)[
+                                        'screen_title'
+                                      ].style,
+                                      {
+                                        color: palettes.Brand['Strong Inverse'],
+                                        fontFamily: 'Quicksand_400Regular',
+                                        fontSize: 12,
+                                      }
+                                    ),
+                                    dimensions.width
+                                  )}
+                                >
+                                  {'EV/Sales:'}
+                                </Text>
+                              </View>
+
                               <Text
                                 accessible={true}
                                 {...GlobalStyles.TextStyles(theme)[
@@ -592,112 +745,160 @@ const AdvisorDetailsScreen = props => {
                                       'screen_title'
                                     ].style,
                                     {
+                                      color: palettes.Brand['Strong Inverse'],
                                       fontFamily: 'Quicksand_400Regular',
                                       fontSize: 12,
-                                      paddingTop: [
-                                        {
-                                          minWidth: Breakpoints.Laptop,
-                                          value: 2.5,
-                                        },
-                                        {
-                                          minWidth: Breakpoints.Mobile,
-                                          value: 2.5,
-                                        },
-                                      ],
                                     }
                                   ),
                                   dimensions.width
                                 )}
                               >
-                                {listData?.published}
-                                {' | '}
-                                {listData?.country}
-                                {' | '}
-                                {listData?.event_type}
-                              </Text>
-                              {/* Text 2 2 */}
-                              <Text
-                                accessible={true}
-                                {...GlobalStyles.TextStyles(theme)[
-                                  'screen_title'
-                                ].props}
-                                adjustsFontSizeToFit={true}
-                                ellipsizeMode={'clip'}
-                                numberOfLines={1}
-                                style={StyleSheet.applyWidth(
-                                  StyleSheet.compose(
-                                    GlobalStyles.TextStyles(theme)[
-                                      'screen_title'
-                                    ].style,
-                                    {
-                                      fontFamily: 'Quicksand_400Regular',
-                                      fontSize: 12,
-                                      paddingTop: [
-                                        {
-                                          minWidth: Breakpoints.Laptop,
-                                          value: 2.5,
-                                        },
-                                        {
-                                          minWidth: Breakpoints.Mobile,
-                                          value: 2.5,
-                                        },
-                                      ],
-                                    }
-                                  ),
-                                  dimensions.width
+                                {transformNumber(listData?.ev_sales, 'x', true)}{' '}
+                                {showDate(
+                                  listData?.ev_sales,
+                                  listData?.fy_end,
+                                  true
                                 )}
-                                textBreakStrategy={'highQuality'}
-                              >
-                                {'Headline: '}
-                                {listData?.headline}
-                              </Text>
-                              {/* Text 2 3 */}
-                              <Text
-                                accessible={true}
-                                {...GlobalStyles.TextStyles(theme)[
-                                  'screen_title'
-                                ].props}
-                                style={StyleSheet.applyWidth(
-                                  StyleSheet.compose(
-                                    GlobalStyles.TextStyles(theme)[
-                                      'screen_title'
-                                    ].style,
-                                    {
-                                      fontFamily: 'Quicksand_400Regular',
-                                      fontSize: 12,
-                                      paddingBottom: [
-                                        {
-                                          minWidth: Breakpoints.Laptop,
-                                          value: 2.5,
-                                        },
-                                        {
-                                          minWidth: Breakpoints.Mobile,
-                                          value: 2.5,
-                                        },
-                                      ],
-                                      paddingTop: [
-                                        {
-                                          minWidth: Breakpoints.Laptop,
-                                          value: 2.5,
-                                        },
-                                        {
-                                          minWidth: Breakpoints.Mobile,
-                                          value: 2.5,
-                                        },
-                                      ],
-                                    }
-                                  ),
-                                  dimensions.width
-                                )}
-                              >
-                                {'Role: '}
-                                {listData?.type}
                               </Text>
                             </View>
-                          </View>
-                        </Pressable>
-                      </View>
-                    </>
+                            {/* View 2 */}
+                            <View
+                              style={StyleSheet.applyWidth(
+                                { flexDirection: 'row', gap: 4 },
+                                dimensions.width
+                              )}
+                            >
+                              <View
+                                style={StyleSheet.applyWidth(
+                                  { width: 70 },
+                                  dimensions.width
+                                )}
+                              >
+                                <Text
+                                  accessible={true}
+                                  {...GlobalStyles.TextStyles(theme)[
+                                    'screen_title'
+                                  ].props}
+                                  style={StyleSheet.applyWidth(
+                                    StyleSheet.compose(
+                                      GlobalStyles.TextStyles(theme)[
+                                        'screen_title'
+                                      ].style,
+                                      {
+                                        color: palettes.Brand['Strong Inverse'],
+                                        fontFamily: 'Quicksand_400Regular',
+                                        fontSize: 12,
+                                      }
+                                    ),
+                                    dimensions.width
+                                  )}
+                                >
+                                  {'EV/EBITDA:'}
+                                </Text>
+                              </View>
+
+                              <Text
+                                accessible={true}
+                                {...GlobalStyles.TextStyles(theme)[
+                                  'screen_title'
+                                ].props}
+                                style={StyleSheet.applyWidth(
+                                  StyleSheet.compose(
+                                    GlobalStyles.TextStyles(theme)[
+                                      'screen_title'
+                                    ].style,
+                                    {
+                                      color: palettes.Brand['Strong Inverse'],
+                                      fontFamily: 'Quicksand_400Regular',
+                                      fontSize: 12,
+                                    }
+                                  ),
+                                  dimensions.width
+                                )}
+                              >
+                                {transformNumber(
+                                  listData?.ev_ebitda,
+                                  'x',
+                                  true
+                                )}{' '}
+                                {showDate(
+                                  listData?.ev_ebitda,
+                                  listData?.fy_end,
+                                  true
+                                )}
+                              </Text>
+                            </View>
+                            {/* View 3 */}
+                            <View
+                              style={StyleSheet.applyWidth(
+                                { flexDirection: 'row', gap: 4 },
+                                dimensions.width
+                              )}
+                            >
+                              <View
+                                style={StyleSheet.applyWidth(
+                                  { width: 70 },
+                                  dimensions.width
+                                )}
+                              >
+                                <Text
+                                  accessible={true}
+                                  {...GlobalStyles.TextStyles(theme)[
+                                    'screen_title'
+                                  ].props}
+                                  style={StyleSheet.applyWidth(
+                                    StyleSheet.compose(
+                                      GlobalStyles.TextStyles(theme)[
+                                        'screen_title'
+                                      ].style,
+                                      {
+                                        color: palettes.Brand['Strong Inverse'],
+                                        fontFamily: 'Quicksand_400Regular',
+                                        fontSize: 12,
+                                      }
+                                    ),
+                                    dimensions.width
+                                  )}
+                                >
+                                  {'EV/EBIT:'}
+                                </Text>
+                              </View>
+
+                              <Text
+                                accessible={true}
+                                {...GlobalStyles.TextStyles(theme)[
+                                  'screen_title'
+                                ].props}
+                                style={StyleSheet.applyWidth(
+                                  StyleSheet.compose(
+                                    GlobalStyles.TextStyles(theme)[
+                                      'screen_title'
+                                    ].style,
+                                    {
+                                      color: palettes.Brand['Strong Inverse'],
+                                      fontFamily: 'Quicksand_400Regular',
+                                      fontSize: 12,
+                                    }
+                                  ),
+                                  dimensions.width
+                                )}
+                              >
+                                {transformNumber(
+                                  listData?.ev_ebit,
+                                  undefined,
+                                  undefined
+                                )}{' '}
+                                {showDate(
+                                  listData?.ev_ebit,
+                                  listData?.fy_end,
+                                  true
+                                )}
+                              </Text>
+                            </View>
+                          </LinearGradient>
+                        </View>
+                      </Pressable>
+                    </View>
                   );
                 }}
                 numColumns={
@@ -707,29 +908,23 @@ const AdvisorDetailsScreen = props => {
                     ? 2
                     : 1
                 }
-                onEndReachedThreshold={0.2}
                 showsHorizontalScrollIndicator={false}
                 showsVerticalScrollIndicator={false}
                 style={StyleSheet.applyWidth(
                   {
-                    height: '100%',
+                    alignItems: 'stretch',
+                    height: [
+                      { minWidth: Breakpoints.Mobile, value: '100%' },
+                      {
+                        minWidth: Breakpoints.Mobile,
+                        value: dimensions.height,
+                      },
+                    ],
                     marginBottom:
                       dimensions.width >= Breakpoints.Laptop ? 0 : 65,
-                    maxHeight: dimensions.height - 130,
-                    paddingLeft: [
-                      { minWidth: Breakpoints.Mobile, value: 5 },
-                      {
-                        minWidth: Breakpoints.Mobile,
-                        value: setPadding(dimensions.width),
-                      },
-                    ],
-                    paddingRight: [
-                      { minWidth: Breakpoints.Mobile, value: 5 },
-                      {
-                        minWidth: Breakpoints.Mobile,
-                        value: setPadding(dimensions.width),
-                      },
-                    ],
+                    padding: 5,
+                    paddingLeft: setPadding(dimensions.width),
+                    paddingRight: setPadding(dimensions.width),
                     width: '100%',
                   },
                   dimensions.width
@@ -759,7 +954,7 @@ const AdvisorDetailsScreen = props => {
                         { minWidth: Breakpoints.Desktop, value: 'flex-start' },
                         { minWidth: Breakpoints.Mobile, value: 'center' },
                       ],
-                      paddingTop: { minWidth: Breakpoints.Desktop, value: 100 },
+                      paddingTop: { minWidth: Breakpoints.Desktop, value: 150 },
                       width: '100%',
                     },
                     dimensions.width
@@ -775,9 +970,9 @@ const AdvisorDetailsScreen = props => {
                         borderRadius: 8,
                         justifyContent: 'center',
                         maxWidth: [
-                          { minWidth: Breakpoints.Laptop, value: 750 },
                           { minWidth: Breakpoints.Mobile, value: 380 },
                           { minWidth: Breakpoints.Tablet, value: 600 },
+                          { minWidth: Breakpoints.Laptop, value: 750 },
                         ],
                         width: '100%',
                       },
@@ -835,7 +1030,7 @@ const AdvisorDetailsScreen = props => {
                             dimensions.width
                           )}
                         >
-                          {'Filtering events list'}
+                          {'Filtering transactions'}
                         </H5>
 
                         <Shadow
@@ -880,12 +1075,15 @@ const AdvisorDetailsScreen = props => {
                           </View>
                         </Shadow>
                       </HStack>
-                      {/* Country */}
+                      {/* EBITDA */}
                       <View
                         style={StyleSheet.applyWidth(
                           {
-                            alignItems: 'stretch',
-                            flexDirection: 'column',
+                            alignItems: 'flex-start',
+                            flexDirection: [
+                              { minWidth: Breakpoints.Mobile, value: 'column' },
+                              { minWidth: Breakpoints.Tablet, value: 'column' },
+                            ],
                             gap: 8,
                             padding: 10,
                           },
@@ -908,25 +1106,22 @@ const AdvisorDetailsScreen = props => {
                             dimensions.width
                           )}
                         >
-                          {'Country'}
+                          {'Target EBITDA'}
                         </H5>
 
                         <View
+                          {...GlobalStyles.ViewStyles(theme)['split_options']
+                            .props}
                           style={StyleSheet.applyWidth(
-                            {
-                              alignItems: 'flex-start',
-                              flex: 0,
-                              flexDirection: 'row',
-                              flexWrap: 'wrap',
-                              gap: 0,
-                              justifyContent: 'flex-start',
-                              margin: -4,
-                              width: '100%',
-                            },
+                            StyleSheet.compose(
+                              GlobalStyles.ViewStyles(theme)['split_options']
+                                .style,
+                              { gap: 0, margin: -4, width: '100%' }
+                            ),
                             dimensions.width
                           )}
                         >
-                          {/* Austria */}
+                          {/* EBTDA ≤ €5m */}
                           <View
                             style={StyleSheet.applyWidth(
                               {
@@ -941,14 +1136,6 @@ const AdvisorDetailsScreen = props => {
                                     value: '50%',
                                   },
                                   {
-                                    minWidth: Breakpoints.Tablet,
-                                    value: '33.33%',
-                                  },
-                                  {
-                                    minWidth: Breakpoints.Desktop,
-                                    value: '25%',
-                                  },
-                                  {
                                     minWidth: Breakpoints.Laptop,
                                     value: '25%',
                                   },
@@ -959,31 +1146,49 @@ const AdvisorDetailsScreen = props => {
                           >
                             <Checkbox
                               onPress={newCheckboxValue => {
-                                try {
-                                  setAustria(newCheckboxValue);
-                                } catch (err) {
-                                  console.error(err);
-                                }
+                                const handler = async () => {
+                                  console.log('Checkbox ON_PRESS Start');
+                                  let error = null;
+                                  try {
+                                    console.log(
+                                      'Start ON_PRESS:0 SET_VARIABLE'
+                                    );
+                                    setEbitda_small(newCheckboxValue);
+                                    console.log(
+                                      'Complete ON_PRESS:0 SET_VARIABLE'
+                                    );
+                                    console.log('Start ON_PRESS:1 WAIT');
+                                    await waitUtil({ milliseconds: 1000 });
+                                    console.log('Complete ON_PRESS:1 WAIT');
+                                    console.log('Start ON_PRESS:2 CONSOLE_LOG');
+                                    console.log(ebitda_small);
+                                    console.log(
+                                      'Complete ON_PRESS:2 CONSOLE_LOG'
+                                    );
+                                  } catch (err) {
+                                    console.error(err);
+                                    error = err.message ?? err;
+                                  }
+                                  console.log(
+                                    'Checkbox ON_PRESS Complete',
+                                    error ? { error } : 'no error'
+                                  );
+                                };
+                                handler();
                               }}
                               color={palettes.Brand['Strong Inverse']}
-                              disabled={
-                                Constants['ME']?.access_regions === 'Nordic'
-                              }
                               size={24}
-                              status={austria}
+                              status={ebitda_small}
                               uncheckedColor={palettes.Brand['Strong Inverse']}
                             />
                             <Pressable
                               onPress={() => {
                                 try {
-                                  setAustria(austria ? false : true);
+                                  setEbitda_small(ebitda_small ? false : true);
                                 } catch (err) {
                                   console.error(err);
                                 }
                               }}
-                              disabled={
-                                Constants['ME']?.access_regions === 'Nordic'
-                              }
                             >
                               <Text
                                 accessible={true}
@@ -1004,11 +1209,11 @@ const AdvisorDetailsScreen = props => {
                                   dimensions.width
                                 )}
                               >
-                                {'Austria'}
+                                {'EBITDA ≤ €5m'}
                               </Text>
                             </Pressable>
                           </View>
-                          {/* Denmark */}
+                          {/* €5m < EBITDA ≤ €20m */}
                           <View
                             style={StyleSheet.applyWidth(
                               {
@@ -1023,14 +1228,6 @@ const AdvisorDetailsScreen = props => {
                                     value: '50%',
                                   },
                                   {
-                                    minWidth: Breakpoints.Tablet,
-                                    value: '33.33%',
-                                  },
-                                  {
-                                    minWidth: Breakpoints.Desktop,
-                                    value: '25%',
-                                  },
-                                  {
                                     minWidth: Breakpoints.Laptop,
                                     value: '25%',
                                   },
@@ -1042,30 +1239,26 @@ const AdvisorDetailsScreen = props => {
                             <Checkbox
                               onPress={newCheckboxValue => {
                                 try {
-                                  setDenmark(newCheckboxValue);
+                                  setEbitda_medium(newCheckboxValue);
                                 } catch (err) {
                                   console.error(err);
                                 }
                               }}
                               color={palettes.Brand['Strong Inverse']}
-                              disabled={
-                                Constants['ME']?.access_regions === 'DACH'
-                              }
                               size={24}
-                              status={denmark}
+                              status={ebitda_medium}
                               uncheckedColor={palettes.Brand['Strong Inverse']}
                             />
                             <Pressable
                               onPress={() => {
                                 try {
-                                  setDenmark(denmark ? false : true);
+                                  setEbitda_medium(
+                                    ebitda_medium ? false : true
+                                  );
                                 } catch (err) {
                                   console.error(err);
                                 }
                               }}
-                              disabled={
-                                Constants['ME']?.access_regions === 'DACH'
-                              }
                             >
                               <Text
                                 accessible={true}
@@ -1086,11 +1279,11 @@ const AdvisorDetailsScreen = props => {
                                   dimensions.width
                                 )}
                               >
-                                {'Denmark'}
+                                {'€5m < EBITDA ≤ €20m'}
                               </Text>
                             </Pressable>
                           </View>
-                          {/* Finland */}
+                          {/* €20m < EBITDA ≤ €50m */}
                           <View
                             style={StyleSheet.applyWidth(
                               {
@@ -1105,14 +1298,6 @@ const AdvisorDetailsScreen = props => {
                                     value: '50%',
                                   },
                                   {
-                                    minWidth: Breakpoints.Tablet,
-                                    value: '33.33%',
-                                  },
-                                  {
-                                    minWidth: Breakpoints.Desktop,
-                                    value: '25%',
-                                  },
-                                  {
                                     minWidth: Breakpoints.Laptop,
                                     value: '25%',
                                   },
@@ -1124,30 +1309,24 @@ const AdvisorDetailsScreen = props => {
                             <Checkbox
                               onPress={newCheckboxValue => {
                                 try {
-                                  setFinland(newCheckboxValue);
+                                  setEbitda_large(newCheckboxValue);
                                 } catch (err) {
                                   console.error(err);
                                 }
                               }}
                               color={palettes.Brand['Strong Inverse']}
-                              disabled={
-                                Constants['ME']?.access_regions === 'DACH'
-                              }
                               size={24}
-                              status={finland}
+                              status={ebitda_large}
                               uncheckedColor={palettes.Brand['Strong Inverse']}
                             />
                             <Pressable
                               onPress={() => {
                                 try {
-                                  setFinland(finland ? false : true);
+                                  setEbitda_large(ebitda_large ? false : true);
                                 } catch (err) {
                                   console.error(err);
                                 }
                               }}
-                              disabled={
-                                Constants['ME']?.access_regions === 'DACH'
-                              }
                             >
                               <Text
                                 accessible={true}
@@ -1168,11 +1347,11 @@ const AdvisorDetailsScreen = props => {
                                   dimensions.width
                                 )}
                               >
-                                {'Finland'}
+                                {'€20m < EBITDA ≤ €50m'}
                               </Text>
                             </Pressable>
                           </View>
-                          {/* Germany */}
+                          {/* EBITDA >  €50m */}
                           <View
                             style={StyleSheet.applyWidth(
                               {
@@ -1187,14 +1366,6 @@ const AdvisorDetailsScreen = props => {
                                     value: '50%',
                                   },
                                   {
-                                    minWidth: Breakpoints.Tablet,
-                                    value: '33.33%',
-                                  },
-                                  {
-                                    minWidth: Breakpoints.Desktop,
-                                    value: '25%',
-                                  },
-                                  {
                                     minWidth: Breakpoints.Laptop,
                                     value: '25%',
                                   },
@@ -1206,30 +1377,24 @@ const AdvisorDetailsScreen = props => {
                             <Checkbox
                               onPress={newCheckboxValue => {
                                 try {
-                                  setGermany(newCheckboxValue);
+                                  setEbitda_giant(newCheckboxValue);
                                 } catch (err) {
                                   console.error(err);
                                 }
                               }}
                               color={palettes.Brand['Strong Inverse']}
-                              disabled={
-                                Constants['ME']?.access_regions === 'Nordic'
-                              }
                               size={24}
-                              status={germany}
+                              status={ebitda_giant}
                               uncheckedColor={palettes.Brand['Strong Inverse']}
                             />
                             <Pressable
                               onPress={() => {
                                 try {
-                                  setGermany(germany ? false : true);
+                                  setEbitda_giant(ebitda_giant ? false : true);
                                 } catch (err) {
                                   console.error(err);
                                 }
                               }}
-                              disabled={
-                                Constants['ME']?.access_regions === 'Nordic'
-                              }
                             >
                               <Text
                                 accessible={true}
@@ -1250,253 +1415,7 @@ const AdvisorDetailsScreen = props => {
                                   dimensions.width
                                 )}
                               >
-                                {'Germany'}
-                              </Text>
-                            </Pressable>
-                          </View>
-                          {/* Norway */}
-                          <View
-                            style={StyleSheet.applyWidth(
-                              {
-                                alignContent: 'center',
-                                alignItems: 'center',
-                                flexDirection: 'row',
-                                gap: 4,
-                                padding: 4,
-                                width: [
-                                  {
-                                    minWidth: Breakpoints.Mobile,
-                                    value: '50%',
-                                  },
-                                  {
-                                    minWidth: Breakpoints.Tablet,
-                                    value: '33.33%',
-                                  },
-                                  {
-                                    minWidth: Breakpoints.Desktop,
-                                    value: '25%',
-                                  },
-                                  {
-                                    minWidth: Breakpoints.Laptop,
-                                    value: '25%',
-                                  },
-                                ],
-                              },
-                              dimensions.width
-                            )}
-                          >
-                            <Checkbox
-                              onPress={newCheckboxValue => {
-                                try {
-                                  setNorway(newCheckboxValue);
-                                } catch (err) {
-                                  console.error(err);
-                                }
-                              }}
-                              color={palettes.Brand['Strong Inverse']}
-                              disabled={
-                                Constants['ME']?.access_regions === 'DACH'
-                              }
-                              size={24}
-                              status={norway}
-                              uncheckedColor={palettes.Brand['Strong Inverse']}
-                            />
-                            <Pressable
-                              onPress={() => {
-                                try {
-                                  setNorway(norway ? false : true);
-                                } catch (err) {
-                                  console.error(err);
-                                }
-                              }}
-                              disabled={
-                                Constants['ME']?.access_regions === 'DACH'
-                              }
-                            >
-                              <Text
-                                accessible={true}
-                                {...GlobalStyles.TextStyles(theme)[
-                                  'screen_title'
-                                ].props}
-                                style={StyleSheet.applyWidth(
-                                  StyleSheet.compose(
-                                    GlobalStyles.TextStyles(theme)[
-                                      'screen_title'
-                                    ].style,
-                                    {
-                                      color: palettes.Brand['Strong Inverse'],
-                                      fontFamily: 'Quicksand_400Regular',
-                                      fontSize: 12,
-                                    }
-                                  ),
-                                  dimensions.width
-                                )}
-                              >
-                                {'Norway'}
-                              </Text>
-                            </Pressable>
-                          </View>
-                          {/* Sweden */}
-                          <View
-                            style={StyleSheet.applyWidth(
-                              {
-                                alignContent: 'center',
-                                alignItems: 'center',
-                                flexDirection: 'row',
-                                gap: 4,
-                                padding: 4,
-                                width: [
-                                  {
-                                    minWidth: Breakpoints.Tablet,
-                                    value: '33.33%',
-                                  },
-                                  {
-                                    minWidth: Breakpoints.Desktop,
-                                    value: '25%',
-                                  },
-                                  {
-                                    minWidth: Breakpoints.Mobile,
-                                    value: '50%',
-                                  },
-                                  {
-                                    minWidth: Breakpoints.Laptop,
-                                    value: '25%',
-                                  },
-                                ],
-                              },
-                              dimensions.width
-                            )}
-                          >
-                            <Checkbox
-                              onPress={newCheckboxValue => {
-                                try {
-                                  setSweden(newCheckboxValue);
-                                } catch (err) {
-                                  console.error(err);
-                                }
-                              }}
-                              color={palettes.Brand['Strong Inverse']}
-                              disabled={
-                                Constants['ME']?.access_regions === 'DACH'
-                              }
-                              size={24}
-                              status={sweden}
-                              uncheckedColor={palettes.Brand['Strong Inverse']}
-                            />
-                            <Pressable
-                              onPress={() => {
-                                try {
-                                  setSweden(sweden ? false : true);
-                                } catch (err) {
-                                  console.error(err);
-                                }
-                              }}
-                              disabled={
-                                Constants['ME']?.access_regions === 'DACH'
-                              }
-                            >
-                              <Text
-                                accessible={true}
-                                {...GlobalStyles.TextStyles(theme)[
-                                  'screen_title'
-                                ].props}
-                                style={StyleSheet.applyWidth(
-                                  StyleSheet.compose(
-                                    GlobalStyles.TextStyles(theme)[
-                                      'screen_title'
-                                    ].style,
-                                    {
-                                      color: palettes.Brand['Strong Inverse'],
-                                      fontFamily: 'Quicksand_400Regular',
-                                      fontSize: 12,
-                                    }
-                                  ),
-                                  dimensions.width
-                                )}
-                              >
-                                {'Sweden'}
-                              </Text>
-                            </Pressable>
-                          </View>
-                          {/* Switzerland */}
-                          <View
-                            style={StyleSheet.applyWidth(
-                              {
-                                alignContent: 'center',
-                                alignItems: 'center',
-                                flexDirection: 'row',
-                                gap: 4,
-                                padding: 4,
-                                width: [
-                                  {
-                                    minWidth: Breakpoints.Mobile,
-                                    value: '50%',
-                                  },
-                                  {
-                                    minWidth: Breakpoints.Tablet,
-                                    value: '33.33%',
-                                  },
-                                  {
-                                    minWidth: Breakpoints.Desktop,
-                                    value: '25%',
-                                  },
-                                  {
-                                    minWidth: Breakpoints.Laptop,
-                                    value: '25%',
-                                  },
-                                ],
-                              },
-                              dimensions.width
-                            )}
-                          >
-                            <Checkbox
-                              onPress={newCheckboxValue => {
-                                try {
-                                  setSwitzerland(newCheckboxValue);
-                                } catch (err) {
-                                  console.error(err);
-                                }
-                              }}
-                              color={palettes.Brand['Strong Inverse']}
-                              disabled={
-                                Constants['ME']?.access_regions === 'Nordic'
-                              }
-                              size={24}
-                              status={switzerland}
-                              uncheckedColor={palettes.Brand['Strong Inverse']}
-                            />
-                            <Pressable
-                              onPress={() => {
-                                try {
-                                  setSwitzerland(switzerland ? false : true);
-                                } catch (err) {
-                                  console.error(err);
-                                }
-                              }}
-                              disabled={
-                                Constants['ME']?.access_regions === 'Nordic'
-                              }
-                            >
-                              <Text
-                                accessible={true}
-                                {...GlobalStyles.TextStyles(theme)[
-                                  'screen_title'
-                                ].props}
-                                style={StyleSheet.applyWidth(
-                                  StyleSheet.compose(
-                                    GlobalStyles.TextStyles(theme)[
-                                      'screen_title'
-                                    ].style,
-                                    {
-                                      color: palettes.Brand['Strong Inverse'],
-                                      fontFamily: 'Quicksand_400Regular',
-                                      fontSize: 12,
-                                    }
-                                  ),
-                                  dimensions.width
-                                )}
-                              >
-                                {'Switzerland'}
+                                {'EBITDA >  €50m'}
                               </Text>
                             </Pressable>
                           </View>
@@ -1530,9 +1449,9 @@ const AdvisorDetailsScreen = props => {
                             dimensions.width
                           )}
                         >
-                          {'Sector'}
+                          {'GICS sector'}
                         </H5>
-
+                        {/* View 2 */}
                         <View
                           style={StyleSheet.applyWidth(
                             {
@@ -2319,7 +2238,7 @@ const AdvisorDetailsScreen = props => {
                             <Pressable
                               onPress={() => {
                                 try {
-                                  setHealth_care(undefined ? false : true);
+                                  setHealth_care(transaction ? false : true);
                                 } catch (err) {
                                   console.error(err);
                                 }
@@ -2350,7 +2269,7 @@ const AdvisorDetailsScreen = props => {
                           </View>
                         </View>
                       </View>
-                      {/* Period */}
+                      {/* Target region */}
                       <View
                         style={StyleSheet.applyWidth(
                           {
@@ -2378,8 +2297,241 @@ const AdvisorDetailsScreen = props => {
                             dimensions.width
                           )}
                         >
-                          {'Period'}
+                          {'Target region'}
                         </H5>
+
+                        <View
+                          style={StyleSheet.applyWidth(
+                            {
+                              alignItems: 'flex-start',
+                              flex: 0,
+                              flexDirection: 'row',
+                              flexWrap: 'wrap',
+                              gap: 0,
+                              justifyContent: 'flex-start',
+                              margin: -4,
+                              width: '100%',
+                            },
+                            dimensions.width
+                          )}
+                        >
+                          {/* Nordic */}
+                          <View
+                            style={StyleSheet.applyWidth(
+                              {
+                                alignContent: 'center',
+                                alignItems: 'center',
+                                flexDirection: 'row',
+                                gap: 4,
+                                padding: 4,
+                                width: [
+                                  {
+                                    minWidth: Breakpoints.Mobile,
+                                    value: '50%',
+                                  },
+                                  {
+                                    minWidth: Breakpoints.Tablet,
+                                    value: '33.33%',
+                                  },
+                                  {
+                                    minWidth: Breakpoints.Laptop,
+                                    value: '25%',
+                                  },
+                                ],
+                              },
+                              dimensions.width
+                            )}
+                          >
+                            <Checkbox
+                              onPress={newCheckboxValue => {
+                                try {
+                                  setNordic(newCheckboxValue);
+                                } catch (err) {
+                                  console.error(err);
+                                }
+                              }}
+                              color={palettes.Brand['Strong Inverse']}
+                              size={24}
+                              status={nordic}
+                              uncheckedColor={palettes.Brand['Strong Inverse']}
+                            />
+                            <Pressable
+                              onPress={() => {
+                                try {
+                                  setNordic(nordic ? false : true);
+                                } catch (err) {
+                                  console.error(err);
+                                }
+                              }}
+                            >
+                              <Text
+                                accessible={true}
+                                {...GlobalStyles.TextStyles(theme)[
+                                  'screen_title'
+                                ].props}
+                                style={StyleSheet.applyWidth(
+                                  StyleSheet.compose(
+                                    GlobalStyles.TextStyles(theme)[
+                                      'screen_title'
+                                    ].style,
+                                    {
+                                      color: palettes.Brand['Strong Inverse'],
+                                      fontFamily: 'Quicksand_400Regular',
+                                      fontSize: 12,
+                                    }
+                                  ),
+                                  dimensions.width
+                                )}
+                              >
+                                {'Nordic'}
+                              </Text>
+                            </Pressable>
+                          </View>
+                          {/* Rest of World (RoW) */}
+                          <View
+                            style={StyleSheet.applyWidth(
+                              {
+                                alignContent: 'center',
+                                alignItems: 'center',
+                                flexDirection: 'row',
+                                gap: 4,
+                                padding: 4,
+                                width: [
+                                  {
+                                    minWidth: Breakpoints.Mobile,
+                                    value: '50%',
+                                  },
+                                  {
+                                    minWidth: Breakpoints.Tablet,
+                                    value: '33.33%',
+                                  },
+                                  {
+                                    minWidth: Breakpoints.Laptop,
+                                    value: '25%',
+                                  },
+                                ],
+                              },
+                              dimensions.width
+                            )}
+                          >
+                            <Checkbox
+                              onPress={newCheckboxValue => {
+                                try {
+                                  setRoW(newCheckboxValue);
+                                } catch (err) {
+                                  console.error(err);
+                                }
+                              }}
+                              color={palettes.Brand['Strong Inverse']}
+                              size={24}
+                              status={RoW}
+                              uncheckedColor={palettes.Brand['Strong Inverse']}
+                            />
+                            <Pressable
+                              onPress={() => {
+                                try {
+                                  setRoW(RoW ? false : true);
+                                } catch (err) {
+                                  console.error(err);
+                                }
+                              }}
+                            >
+                              <Text
+                                accessible={true}
+                                {...GlobalStyles.TextStyles(theme)[
+                                  'screen_title'
+                                ].props}
+                                style={StyleSheet.applyWidth(
+                                  StyleSheet.compose(
+                                    GlobalStyles.TextStyles(theme)[
+                                      'screen_title'
+                                    ].style,
+                                    {
+                                      color: palettes.Brand['Strong Inverse'],
+                                      fontFamily: 'Quicksand_400Regular',
+                                      fontSize: 12,
+                                    }
+                                  ),
+                                  dimensions.width
+                                )}
+                              >
+                                {'Rest of World (RoW)'}
+                              </Text>
+                            </Pressable>
+                          </View>
+                          {/* DACH */}
+                          <View
+                            style={StyleSheet.applyWidth(
+                              {
+                                alignContent: 'center',
+                                alignItems: 'center',
+                                flexDirection: 'row',
+                                gap: 4,
+                                padding: 4,
+                                width: [
+                                  {
+                                    minWidth: Breakpoints.Mobile,
+                                    value: '50%',
+                                  },
+                                  {
+                                    minWidth: Breakpoints.Tablet,
+                                    value: '33.33%',
+                                  },
+                                  {
+                                    minWidth: Breakpoints.Laptop,
+                                    value: '25%',
+                                  },
+                                ],
+                              },
+                              dimensions.width
+                            )}
+                          >
+                            <Checkbox
+                              onPress={newCheckboxValue => {
+                                try {
+                                  setDach(newCheckboxValue);
+                                } catch (err) {
+                                  console.error(err);
+                                }
+                              }}
+                              color={palettes.Brand['Strong Inverse']}
+                              size={24}
+                              status={dach}
+                              uncheckedColor={palettes.Brand['Strong Inverse']}
+                            />
+                            <Pressable
+                              onPress={() => {
+                                try {
+                                  setDach(dach ? false : true);
+                                } catch (err) {
+                                  console.error(err);
+                                }
+                              }}
+                            >
+                              <Text
+                                accessible={true}
+                                {...GlobalStyles.TextStyles(theme)[
+                                  'screen_title'
+                                ].props}
+                                style={StyleSheet.applyWidth(
+                                  StyleSheet.compose(
+                                    GlobalStyles.TextStyles(theme)[
+                                      'screen_title'
+                                    ].style,
+                                    {
+                                      color: palettes.Brand['Strong Inverse'],
+                                      fontFamily: 'Quicksand_400Regular',
+                                      fontSize: 12,
+                                    }
+                                  ),
+                                  dimensions.width
+                                )}
+                              >
+                                {'DACH'}
+                              </Text>
+                            </Pressable>
+                          </View>
+                        </View>
                       </View>
                       <Spacer bottom={10} left={0} right={0} top={10} />
                       {/* Buttons */}
@@ -2390,13 +2542,13 @@ const AdvisorDetailsScreen = props => {
                             flexDirection: 'row',
                             flexGrow: 1,
                             gap: [
-                              { minWidth: Breakpoints.Laptop, value: 10 },
                               { minWidth: Breakpoints.Mobile, value: 0 },
+                              { minWidth: Breakpoints.Laptop, value: 10 },
                             ],
                             justifyContent: [
                               {
                                 minWidth: Breakpoints.Mobile,
-                                value: 'space-between',
+                                value: 'flex-start',
                               },
                               {
                                 minWidth: Breakpoints.Laptop,
@@ -2473,10 +2625,11 @@ const AdvisorDetailsScreen = props => {
                             onPress={() => {
                               const handler = async () => {
                                 try {
+                                  /* hidden 'API Request' action */
                                   applyFilters();
                                   setFilterPressed(false);
-                                  await waitUtil({ milliseconds: 1000 });
-                                  await refetchGetAdvisor();
+                                  await waitUtil({ milliseconds: 500 });
+                                  await refetchEventTransactions();
                                 } catch (err) {
                                   console.error(err);
                                 }
@@ -2509,9 +2662,9 @@ const AdvisorDetailsScreen = props => {
             </>
           );
         }}
-      </XanoCollectionApi.FetchGetAdvisorGET>
+      </XanoCollectionApi.FetchEventTransactionsGET>
     </ScreenContainer>
   );
 };
 
-export default withTheme(AdvisorDetailsScreen);
+export default withTheme(MultiplesScreen);

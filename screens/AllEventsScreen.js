@@ -30,6 +30,7 @@ import formatNumber from '../global-functions/formatNumber';
 import isNKPProp from '../global-functions/isNKPProp';
 import modifyArrays from '../global-functions/modifyArrays';
 import removeGlobalScroll from '../global-functions/removeGlobalScroll';
+import resetAccess from '../global-functions/resetAccess';
 import setPadding from '../global-functions/setPadding';
 import showNKPProp from '../global-functions/showNKPProp';
 import palettes from '../themes/palettes';
@@ -201,6 +202,18 @@ const AllEventsScreen = props => {
       removeGlobalScroll();
       setGlobalVariableValue({
         key: 'currentScreen',
+        value: 'All Events',
+      });
+      setGlobalVariableValue({
+        key: 'screenParamName',
+        value: '',
+      });
+      setGlobalVariableValue({
+        key: 'screenParamValue',
+        value: 0,
+      });
+      setGlobalVariableValue({
+        key: 'currentScreen',
         value: 'AllEvents',
       });
       setGlobalVariableValue({
@@ -217,10 +230,8 @@ const AllEventsScreen = props => {
       if (assessAccess(Variables, setGlobalVariableValue) === true) {
         return;
       }
-      if (navigation.canGoBack()) {
-        navigation.popToTop();
-      }
-      navigation.replace('LogInScreen');
+      /* hidden 'Navigate' action */
+      resetAccess(navigation, Variables, setGlobalVariableValue);
     } catch (err) {
       console.error(err);
     }
@@ -307,7 +318,7 @@ const AllEventsScreen = props => {
               iconPosition={'left'}
               onPress={() => {
                 try {
-                  navigation.push('TransactionsScreen');
+                  navigation.push('MultiplesScreen');
                 } catch (err) {
                   console.error(err);
                 }

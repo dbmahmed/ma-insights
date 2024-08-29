@@ -19,6 +19,7 @@ import CFSScreen from './screens/CFSScreen';
 import EventDetailsScreen from './screens/EventDetailsScreen';
 import ForgotPasswordScreen from './screens/ForgotPasswordScreen';
 import LogInScreen from './screens/LogInScreen';
+import MultiplesScreen from './screens/MultiplesScreen';
 import MyAccountScreen from './screens/MyAccountScreen';
 import NewsletterDetailsScreen from './screens/NewsletterDetailsScreen';
 import NewslettersScreen from './screens/NewslettersScreen';
@@ -33,7 +34,6 @@ import SplashScreen from './screens/SplashScreen';
 import StockDetailsScreen from './screens/StockDetailsScreen';
 import StockSearchScreen from './screens/StockSearchScreen';
 import TermsAndConditionsScreen from './screens/TermsAndConditionsScreen';
-import TransactionsScreen from './screens/TransactionsScreen';
 import palettes from './themes/palettes';
 import Breakpoints from './utils/Breakpoints';
 import useWindowDimensions from './utils/useWindowDimensions';
@@ -91,6 +91,7 @@ export default function RootAppNavigator() {
     >
       <Stack.Navigator
         initialRouteName="SplashScreen"
+        presentation="transparentModal"
         screenOptions={({ navigation }) => ({
           cardStyle: { flex: 1 },
           headerLeft: ({ tintColor, canGoBack }) =>
@@ -393,10 +394,10 @@ export default function RootAppNavigator() {
           })}
         />
         <Stack.Screen
-          name="TransactionsScreen"
-          component={TransactionsScreen}
+          name="MultiplesScreen"
+          component={MultiplesScreen}
           options={({ navigation }) => ({
-            title: 'Transactions',
+            title: 'Multiples',
           })}
         />
         <Stack.Screen

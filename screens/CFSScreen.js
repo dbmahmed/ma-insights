@@ -27,6 +27,7 @@ import assessAccess from '../global-functions/assessAccess';
 import formatNumber from '../global-functions/formatNumber';
 import modifyArrays from '../global-functions/modifyArrays';
 import removeGlobalScroll from '../global-functions/removeGlobalScroll';
+import resetAccess from '../global-functions/resetAccess';
 import setPadding from '../global-functions/setPadding';
 import transformEuroM from '../global-functions/transformEuroM';
 import palettes from '../themes/palettes';
@@ -238,6 +239,14 @@ const CFSScreen = props => {
         value: 'CFS',
       });
       setGlobalVariableValue({
+        key: 'screenParamName',
+        value: '',
+      });
+      setGlobalVariableValue({
+        key: 'screenParamValue',
+        value: 0,
+      });
+      setGlobalVariableValue({
         key: 'pageName',
         value: 'Companies For Sale',
       });
@@ -248,10 +257,8 @@ const CFSScreen = props => {
       if (assessAccess(Variables, setGlobalVariableValue) === true) {
         return;
       }
-      if (navigation.canGoBack()) {
-        navigation.popToTop();
-      }
-      navigation.replace('LogInScreen');
+      resetAccess(navigation, Variables, setGlobalVariableValue);
+      /* hidden 'Navigate' action */
     } catch (err) {
       console.error(err);
     }

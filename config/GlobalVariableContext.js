@@ -31,6 +31,8 @@ export const DeviceVariables = {
   },
   pageName: 'M&A Insights',
   RESET_AUTH_HEADER: '',
+  screenParamName: '',
+  screenParamValue: '',
   subPage: false,
   top_nav_pressed: false,
   __env__: 'Development',
