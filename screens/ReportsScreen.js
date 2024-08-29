@@ -1,15 +1,4 @@
 import React from 'react';
-import * as GlobalStyles from '../GlobalStyles.js';
-import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
-import CustomHeaderBlock from '../components/CustomHeaderBlock';
-import * as GlobalVariables from '../config/GlobalVariableContext';
-import removeGlobalScroll from '../global-functions/removeGlobalScroll';
-import setPadding from '../global-functions/setPadding';
-import palettes from '../themes/palettes';
-import Breakpoints from '../utils/Breakpoints';
-import * as DateUtils from '../utils/DateUtils';
-import * as StyleSheet from '../utils/StyleSheet';
-import useWindowDimensions from '../utils/useWindowDimensions';
 import {
   LinearGradient,
   Link,
@@ -21,8 +10,20 @@ import {
 } from '@draftbit/ui';
 import { H5 } from '@expo/html-elements';
 import { useIsFocused } from '@react-navigation/native';
+import * as WebBrowser from 'expo-web-browser';
 import { ActivityIndicator, Text, View } from 'react-native';
 import { Fetch } from 'react-request';
+import * as GlobalStyles from '../GlobalStyles.js';
+import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
+import CustomHeaderBlock from '../components/CustomHeaderBlock';
+import * as GlobalVariables from '../config/GlobalVariableContext';
+import removeGlobalScroll from '../global-functions/removeGlobalScroll';
+import setPadding from '../global-functions/setPadding';
+import palettes from '../themes/palettes';
+import Breakpoints from '../utils/Breakpoints';
+import * as DateUtils from '../utils/DateUtils';
+import * as StyleSheet from '../utils/StyleSheet';
+import useWindowDimensions from '../utils/useWindowDimensions';
 
 const ReportsScreen = props => {
   const { theme } = props;
@@ -380,6 +381,18 @@ const ReportsScreen = props => {
                             >
                               <Link
                                 accessible={true}
+                                onPress={() => {
+                                  const handler = async () => {
+                                    try {
+                                      await WebBrowser.openBrowserAsync(
+                                        `${tableData?.file?.url}`
+                                      );
+                                    } catch (err) {
+                                      console.error(err);
+                                    }
+                                  };
+                                  handler();
+                                }}
                                 {...GlobalStyles.LinkStyles(theme)['Link']
                                   .props}
                                 adjustsFontSizeToFit={true}

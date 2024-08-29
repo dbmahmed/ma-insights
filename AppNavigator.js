@@ -10,6 +10,7 @@ import { systemWeights } from 'react-native-typography';
 import LinkingConfiguration from './LinkingConfiguration';
 import * as GlobalVariables from './config/GlobalVariableContext';
 import assessAccess from './global-functions/assessAccess';
+import customRouting from './global-functions/customRouting';
 import AdvisorDetailsScreen from './screens/AdvisorDetailsScreen';
 import AdvisorsScreen from './screens/AdvisorsScreen';
 import AllEventsScreen from './screens/AllEventsScreen';
