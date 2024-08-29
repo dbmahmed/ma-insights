@@ -250,6 +250,7 @@ export default function RootAppNavigator() {
           name="NewslettersScreen"
           component={NewslettersScreen}
           options={({ navigation }) => ({
+            headerShown: false,
             headerTitleStyle: { fontFamily: 'Quicksand_400Regular' },
             title: 'Newsletters',
           })}

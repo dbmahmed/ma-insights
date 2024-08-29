@@ -1156,7 +1156,7 @@ const CustomHeaderBlock = props => {
               <Pressable
                 onPress={() => {
                   try {
-                    navigation.navigate('TransactionsScreen');
+                    navigation.navigate('MultiplesScreen');
                     setGlobalVariableValue({
                       key: 'top_nav_pressed',
                       value: false,

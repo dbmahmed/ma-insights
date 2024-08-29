@@ -127,9 +127,11 @@ const NewslettersScreen = props => {
 
   return (
     <ScreenContainer
-      hasSafeArea={false}
+      hasBottomSafeArea={true}
       hasLeftSafeArea={true}
       hasRightSafeArea={true}
+      hasSafeArea={true}
+      hasTopSafeArea={true}
       scrollable={false}
       style={StyleSheet.applyWidth(
         { overflow: { minWidth: Breakpoints.Desktop, value: 'hidden' } },
