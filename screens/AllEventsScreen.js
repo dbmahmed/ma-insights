@@ -236,6 +236,19 @@ const AllEventsScreen = props => {
       console.error(err);
     }
   }, [isFocused]);
+  React.useEffect(() => {
+    try {
+      if (isFocused) {
+        return;
+      }
+      setGlobalVariableValue({
+        key: 'originPage',
+        value: 'AllEvents',
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  }, [isFocused]);
 
   return (
     <ScreenContainer
@@ -547,9 +560,9 @@ const AllEventsScreen = props => {
                         minWidth: Breakpoints.Desktop,
                         value: 'center',
                       },
-                      alignItems: 'stretch',
+                      alignItems: 'center',
                       alignSelf: 'auto',
-                      flexDirection: 'column',
+                      flexDirection: 'row',
                       marginBottom: 5,
                       marginTop: { minWidth: Breakpoints.Tablet, value: 5 },
                       maxWidth: 1200,
@@ -571,6 +584,7 @@ const AllEventsScreen = props => {
                       StyleSheet.compose(
                         GlobalStyles.TextStyles(theme)['screen_title'].style,
                         {
+                          alignSelf: 'flex-start',
                           color: [
                             {
                               minWidth: Breakpoints.Tablet,
@@ -738,6 +752,31 @@ const AllEventsScreen = props => {
                             dimensions.width
                           )}
                         >
+                          <H6
+                            selectable={false}
+                            {...GlobalStyles.H6Styles(theme)['H6'].props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.H6Styles(theme)['H6'].style,
+                                {
+                                  fontFamily: 'Quicksand_700Bold',
+                                  fontSize: [
+                                    { minWidth: Breakpoints.Mobile, value: 14 },
+                                    { minWidth: Breakpoints.Laptop, value: 16 },
+                                  ],
+                                  margin: 0,
+                                  marginBottom: {
+                                    minWidth: Breakpoints.Laptop,
+                                    value: 5,
+                                  },
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            {showNKPProp(listData?.headline, listData?.source)}
+                          </H6>
+
                           <HStack
                             {...GlobalStyles.HStackStyles(theme)['H Stack']
                               .props}
@@ -745,44 +784,45 @@ const AllEventsScreen = props => {
                               StyleSheet.compose(
                                 GlobalStyles.HStackStyles(theme)['H Stack']
                                   .style,
-                                { alignItems: 'flex-start' }
+                                { gap: 10 }
                               ),
                               dimensions.width
                             )}
                           >
-                            <H6
-                              selectable={false}
-                              {...GlobalStyles.H6Styles(theme)['H6'].props}
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)['screen_title']
+                                .props}
                               style={StyleSheet.applyWidth(
                                 StyleSheet.compose(
-                                  GlobalStyles.H6Styles(theme)['H6'].style,
+                                  GlobalStyles.TextStyles(theme)['screen_title']
+                                    .style,
                                   {
-                                    fontFamily: 'Quicksand_700Bold',
+                                    fontFamily: 'Quicksand_400Regular',
                                     fontSize: [
                                       {
                                         minWidth: Breakpoints.Mobile,
-                                        value: 14,
+                                        value: 12,
                                       },
                                       {
                                         minWidth: Breakpoints.Laptop,
-                                        value: 16,
+                                        value: 14,
                                       },
                                     ],
-                                    margin: 0,
                                     marginBottom: {
                                       minWidth: Breakpoints.Laptop,
                                       value: 5,
                                     },
+                                    marginTop: 4,
                                   }
                                 ),
                                 dimensions.width
                               )}
                             >
-                              {showNKPProp(
-                                listData?.headline,
-                                listData?.source
-                              )}
-                            </H6>
+                              {listData?.published}
+                              {' | Source: '}
+                              {listData?.source}
+                            </Text>
                             <>
                               {!isNKPProp(listData?.source) ? null : (
                                 <Image
@@ -796,7 +836,7 @@ const AllEventsScreen = props => {
                                     StyleSheet.compose(
                                       GlobalStyles.ImageStyles(theme)['Image']
                                         .style,
-                                      { height: 25, width: 25 }
+                                      { height: 18, width: 18 }
                                     ),
                                     dimensions.width
                                   )}
@@ -804,35 +844,6 @@ const AllEventsScreen = props => {
                               )}
                             </>
                           </HStack>
-
-                          <Text
-                            accessible={true}
-                            {...GlobalStyles.TextStyles(theme)['screen_title']
-                              .props}
-                            style={StyleSheet.applyWidth(
-                              StyleSheet.compose(
-                                GlobalStyles.TextStyles(theme)['screen_title']
-                                  .style,
-                                {
-                                  fontFamily: 'Quicksand_400Regular',
-                                  fontSize: [
-                                    { minWidth: Breakpoints.Mobile, value: 12 },
-                                    { minWidth: Breakpoints.Laptop, value: 14 },
-                                  ],
-                                  marginBottom: {
-                                    minWidth: Breakpoints.Laptop,
-                                    value: 5,
-                                  },
-                                  marginTop: 4,
-                                }
-                              ),
-                              dimensions.width
-                            )}
-                          >
-                            {listData?.published}
-                            {' | Source: '}
-                            {listData?.source}
-                          </Text>
                           {/* Text 2 */}
                           <Text
                             accessible={true}

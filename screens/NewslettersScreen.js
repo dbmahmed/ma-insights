@@ -646,7 +646,10 @@ const NewslettersScreen = props => {
                     )?.json;
                     setNextPage(newData?.nextPage);
                     setLastPage(newData?.pageTotal);
-                    if (fetchData?.items === 0) {
+                    if (
+                      fetchData?.items ===
+                      (0 && newslettersList !== fetchData?.items)
+                    ) {
                       return;
                     }
                     setNewslettersList(newslettersList.concat(newData?.items));

@@ -491,25 +491,16 @@ const NewsletterDetailsScreen = props => {
                         </View>
                       )}
                     </>
-                    {/* H Stack 2 */}
-                    <HStack
-                      {...GlobalStyles.HStackStyles(theme)['H Stack'].props}
+                    <View
                       style={StyleSheet.applyWidth(
-                        StyleSheet.compose(
-                          GlobalStyles.HStackStyles(theme)['H Stack'].style,
-                          {
-                            alignItems: [
-                              {
-                                minWidth: Breakpoints.Tablet,
-                                value: 'flex-start',
-                              },
-                              {
-                                minWidth: Breakpoints.Mobile,
-                                value: 'flex-start',
-                              },
-                            ],
-                          }
-                        ),
+                        {
+                          alignContent: 'space-around',
+                          alignItems: 'flex-start',
+                          alignSelf: 'flex-start',
+                          flex: 1,
+                          flexDirection: 'column',
+                          justifyContent: 'space-evenly',
+                        },
                         dimensions.width
                       )}
                     >
@@ -522,10 +513,12 @@ const NewsletterDetailsScreen = props => {
                               StyleSheet.compose(
                                 GlobalStyles.H3Styles(theme)['H3'].style,
                                 {
+                                  alignSelf: 'flex-start',
                                   fontSize: 16,
                                   marginBottom: 10,
                                   marginTop: 0,
                                   padding: 10,
+                                  textAlign: 'left',
                                 }
                               ),
                               dimensions.width
@@ -535,6 +528,7 @@ const NewsletterDetailsScreen = props => {
                           </H3>
                         )}
                       </>
+                      {/* nkpPropImg */}
                       <>
                         {!isNKPProp(fetchData?._potd?.headline) ? null : (
                           <Image
@@ -545,20 +539,27 @@ const NewsletterDetailsScreen = props => {
                               StyleSheet.compose(
                                 GlobalStyles.ImageStyles(theme)['Image'].style,
                                 {
-                                  height: 25,
+                                  bottom: 20,
+                                  height: 20,
                                   marginRight: {
                                     minWidth: Breakpoints.Tablet,
                                     value: 5,
                                   },
-                                  position: {
-                                    minWidth: Breakpoints.Tablet,
-                                    value: 'relative',
-                                  },
+                                  position: [
+                                    {
+                                      minWidth: Breakpoints.Tablet,
+                                      value: 'relative',
+                                    },
+                                    {
+                                      minWidth: Breakpoints.Mobile,
+                                      value: 'absolute',
+                                    },
+                                  ],
                                   top: {
                                     minWidth: Breakpoints.Tablet,
                                     value: 0,
                                   },
-                                  width: 25,
+                                  width: 20,
                                 }
                               ),
                               dimensions.width
@@ -566,7 +567,7 @@ const NewsletterDetailsScreen = props => {
                           />
                         )}
                       </>
-                    </HStack>
+                    </View>
                     {/* potd settings */}
                     <>
                       {!(fetchData?.potd !== 0) ? null : (
@@ -3061,6 +3062,7 @@ const NewsletterDetailsScreen = props => {
                                                     accessible={true}
                                                     style={StyleSheet.applyWidth(
                                                       {
+                                                        alignSelf: 'flex-start',
                                                         fontFamily:
                                                           'Quicksand_600SemiBold',
                                                         fontSize: 16,
@@ -3093,8 +3095,11 @@ const NewsletterDetailsScreen = props => {
                                                               theme
                                                             )['Image'].style,
                                                             {
-                                                              height: 25,
-                                                              width: 25,
+                                                              bottom: 0,
+                                                              height: 20,
+                                                              position:
+                                                                'absolute',
+                                                              width: 20,
                                                             }
                                                           ),
                                                           dimensions.width

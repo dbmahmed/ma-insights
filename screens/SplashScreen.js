@@ -69,7 +69,7 @@ const SplashScreen = props => {
               navigation,
               Variables,
               setGlobalVariableValue,
-              Constants['currentScreen'] + 'Screen',
+              undefined,
               undefined
             )
           );

@@ -15,7 +15,7 @@ export const DeviceVariables = {
     newsletter: true,
   },
   AUTH_HEADER:
-    'eyJhbGciOiJBMjU2S1ciLCJlbmMiOiJBMjU2Q0JDLUhTNTEyIiwiemlwIjoiREVGIn0.lEj_KmQTCH4MqToO6dhQ3JTb95fR2f9hk1jCaLHQc5c667ujSNc-KpRULZjpOvWrHHZxnrSEWU-F2gTwh7LKOLvN2zqeNLcJ.qOTirb_jq7tLq-IIkCOp9Q.1BrFcs-0m4RF24Cuc7WyCIKJWaT9VPnReJtnyAdP3wah12VGq8WSkcfiOwS8zqDqiS7kwhiH1izTnUfecET4-0np-C7myvYpcJBGF2_YJlMM0R9nhvTyFr8KeNM1yPBKOoi6FWO5J74e2ZVcVafGVQ.2jNTumPU_EHUOhOpshX48q8cRTxnJ3jir4DR3kGIF7g',
+    'eyJhbGciOiJBMjU2S1ciLCJlbmMiOiJBMjU2Q0JDLUhTNTEyIiwiemlwIjoiREVGIn0.Lcienf2ZzvpYlAyRIVEwSqge5fU7kpop5yrjK5WmUvuvyt0Ey5h3oGMgMRrRQs2PXKcz7EY9cDeME1KkhzOQeTrrAgYCPXsS.JAbC32adIafYsDlXSW9rsA.DQerDJGgIlteWDH6K5fIhNXlIAc8pJ9m7BoQ77b4U9zasV36Vvy8yUMQedkX7Rdd61PBFX2aoP7tZQnyldrrzBdwIF9qvD7XXAM4wH-bLsz2g0upnVinbcPOVa8Mm0gRzqRDprDcyTu7I0ZSrlD5Hw.4gX1ZE1qrBYz2A9Q7zw563uLhdFuPF7KGlO4flGb30c',
   currentScreen: 'Newsletters',
   ME: {
     id: 0,
@@ -29,6 +29,7 @@ export const DeviceVariables = {
     user_status: '',
     subscription_type: '',
   },
+  originPage: '',
   pageName: 'M&A Insights',
   RESET_AUTH_HEADER: '',
   screenParamName: '',

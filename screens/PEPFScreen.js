@@ -1,22 +1,4 @@
 import React from 'react';
-import * as GlobalStyles from '../GlobalStyles.js';
-import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
-import CustomHeaderBlock from '../components/CustomHeaderBlock';
-import LoadingBlock from '../components/LoadingBlock';
-import * as GlobalVariables from '../config/GlobalVariableContext';
-import assessAccess from '../global-functions/assessAccess';
-import cutText from '../global-functions/cutText';
-import formatNumber from '../global-functions/formatNumber';
-import modifyArrays from '../global-functions/modifyArrays';
-import removeGlobalScroll from '../global-functions/removeGlobalScroll';
-import setPadding from '../global-functions/setPadding';
-import transformEuroM from '../global-functions/transformEuroM';
-import palettes from '../themes/palettes';
-import Breakpoints from '../utils/Breakpoints';
-import * as DateUtils from '../utils/DateUtils';
-import * as StyleSheet from '../utils/StyleSheet';
-import useWindowDimensions from '../utils/useWindowDimensions';
-import waitUtil from '../utils/wait';
 import {
   Button,
   Checkbox,
@@ -36,6 +18,24 @@ import { H4, H5 } from '@expo/html-elements';
 import { useIsFocused } from '@react-navigation/native';
 import { ActivityIndicator, Modal, Text, View } from 'react-native';
 import { Fetch } from 'react-request';
+import * as GlobalStyles from '../GlobalStyles.js';
+import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
+import CustomHeaderBlock from '../components/CustomHeaderBlock';
+import LoadingBlock from '../components/LoadingBlock';
+import * as GlobalVariables from '../config/GlobalVariableContext';
+import assessAccess from '../global-functions/assessAccess';
+import cutText from '../global-functions/cutText';
+import formatNumber from '../global-functions/formatNumber';
+import modifyArrays from '../global-functions/modifyArrays';
+import removeGlobalScroll from '../global-functions/removeGlobalScroll';
+import setPadding from '../global-functions/setPadding';
+import transformEuroM from '../global-functions/transformEuroM';
+import palettes from '../themes/palettes';
+import Breakpoints from '../utils/Breakpoints';
+import * as DateUtils from '../utils/DateUtils';
+import * as StyleSheet from '../utils/StyleSheet';
+import useWindowDimensions from '../utils/useWindowDimensions';
+import waitUtil from '../utils/wait';
 
 const PEPFScreen = props => {
   const { theme, navigation } = props;
@@ -1172,26 +1172,8 @@ const PEPFScreen = props => {
                                           'screen_title'
                                         ].style,
                                         {
-                                          color: [
-                                            {
-                                              minWidth: Breakpoints.Mobile,
-                                              value:
-                                                palettes.Brand[
-                                                  'Strong Inverse'
-                                                ],
-                                            },
-                                            {
-                                              minWidth: Breakpoints.Desktop,
-                                              value:
-                                                ebitda_medium ||
-                                                ebitda_large ||
-                                                ebitda_giant
-                                                  ? palettes.Brand.Light
-                                                  : palettes.Brand[
-                                                      'Strong Inverse'
-                                                    ],
-                                            },
-                                          ],
+                                          color:
+                                            palettes.Brand['Strong Inverse'],
                                           fontFamily: 'Quicksand_400Regular',
                                           fontSize: 12,
                                         }
@@ -1263,26 +1245,8 @@ const PEPFScreen = props => {
                                           'screen_title'
                                         ].style,
                                         {
-                                          color: [
-                                            {
-                                              minWidth: Breakpoints.Mobile,
-                                              value:
-                                                palettes.Brand[
-                                                  'Strong Inverse'
-                                                ],
-                                            },
-                                            {
-                                              minWidth: Breakpoints.Desktop,
-                                              value:
-                                                ebitda_small ||
-                                                ebitda_large ||
-                                                ebitda_giant
-                                                  ? palettes.Brand.Light
-                                                  : palettes.Brand[
-                                                      'Strong Inverse'
-                                                    ],
-                                            },
-                                          ],
+                                          color:
+                                            palettes.Brand['Strong Inverse'],
                                           fontFamily: 'Quicksand_400Regular',
                                           fontSize: 12,
                                         }
@@ -1354,26 +1318,8 @@ const PEPFScreen = props => {
                                           'screen_title'
                                         ].style,
                                         {
-                                          color: [
-                                            {
-                                              minWidth: Breakpoints.Mobile,
-                                              value:
-                                                palettes.Brand[
-                                                  'Strong Inverse'
-                                                ],
-                                            },
-                                            {
-                                              minWidth: Breakpoints.Desktop,
-                                              value:
-                                                ebitda_small ||
-                                                ebitda_medium ||
-                                                ebitda_giant
-                                                  ? palettes.Brand.Light
-                                                  : palettes.Brand[
-                                                      'Strong Inverse'
-                                                    ],
-                                            },
-                                          ],
+                                          color:
+                                            palettes.Brand['Strong Inverse'],
                                           fontFamily: 'Quicksand_400Regular',
                                           fontSize: 12,
                                         }
@@ -1445,26 +1391,8 @@ const PEPFScreen = props => {
                                           'screen_title'
                                         ].style,
                                         {
-                                          color: [
-                                            {
-                                              minWidth: Breakpoints.Mobile,
-                                              value:
-                                                palettes.Brand[
-                                                  'Strong Inverse'
-                                                ],
-                                            },
-                                            {
-                                              minWidth: Breakpoints.Desktop,
-                                              value:
-                                                ebitda_small ||
-                                                ebitda_medium ||
-                                                ebitda_large
-                                                  ? palettes.Brand.Light
-                                                  : palettes.Brand[
-                                                      'Strong Inverse'
-                                                    ],
-                                            },
-                                          ],
+                                          color:
+                                            palettes.Brand['Strong Inverse'],
                                           fontFamily: 'Quicksand_400Regular',
                                           fontSize: 12,
                                         }
@@ -1583,24 +1511,11 @@ const PEPFScreen = props => {
                                           'screen_title'
                                         ].style,
                                         {
-                                          color: [
-                                            {
-                                              minWidth: Breakpoints.Mobile,
-                                              value:
-                                                palettes.Brand[
-                                                  'Strong Inverse'
-                                                ],
-                                            },
-                                            {
-                                              minWidth: Breakpoints.Laptop,
-                                              value:
-                                                h_3_to_5 || h_5_to_7 || h_more_7
-                                                  ? palettes.Brand.Light
-                                                  : palettes.Brand[
-                                                      'Strong Inverse'
-                                                    ],
-                                            },
-                                          ],
+                                          color: {
+                                            minWidth: Breakpoints.Desktop,
+                                            value:
+                                              palettes.Brand['Strong Inverse'],
+                                          },
                                           fontFamily: 'Quicksand_400Regular',
                                           fontSize: 12,
                                         }
@@ -1670,24 +1585,8 @@ const PEPFScreen = props => {
                                           'screen_title'
                                         ].style,
                                         {
-                                          color: [
-                                            {
-                                              minWidth: Breakpoints.Mobile,
-                                              value:
-                                                palettes.Brand[
-                                                  'Strong Inverse'
-                                                ],
-                                            },
-                                            {
-                                              minWidth: Breakpoints.Laptop,
-                                              value:
-                                                h_less_3 || h_5_to_7 || h_more_7
-                                                  ? palettes.Brand.Light
-                                                  : palettes.Brand[
-                                                      'Strong Inverse'
-                                                    ],
-                                            },
-                                          ],
+                                          color:
+                                            palettes.Brand['Strong Inverse'],
                                           fontFamily: 'Quicksand_400Regular',
                                           fontSize: 12,
                                         }
@@ -1757,24 +1656,8 @@ const PEPFScreen = props => {
                                           'screen_title'
                                         ].style,
                                         {
-                                          color: [
-                                            {
-                                              minWidth: Breakpoints.Mobile,
-                                              value:
-                                                palettes.Brand[
-                                                  'Strong Inverse'
-                                                ],
-                                            },
-                                            {
-                                              minWidth: Breakpoints.Laptop,
-                                              value:
-                                                h_less_3 || h_3_to_5 || h_more_7
-                                                  ? palettes.Brand.Light
-                                                  : palettes.Brand[
-                                                      'Strong Inverse'
-                                                    ],
-                                            },
-                                          ],
+                                          color:
+                                            palettes.Brand['Strong Inverse'],
                                           fontFamily: 'Quicksand_400Regular',
                                           fontSize: 12,
                                         }
@@ -1844,24 +1727,8 @@ const PEPFScreen = props => {
                                           'screen_title'
                                         ].style,
                                         {
-                                          color: [
-                                            {
-                                              minWidth: Breakpoints.Mobile,
-                                              value:
-                                                palettes.Brand[
-                                                  'Strong Inverse'
-                                                ],
-                                            },
-                                            {
-                                              minWidth: Breakpoints.Laptop,
-                                              value:
-                                                h_less_3 || h_3_to_5 || h_5_to_7
-                                                  ? palettes.Brand.Light
-                                                  : palettes.Brand[
-                                                      'Strong Inverse'
-                                                    ],
-                                            },
-                                          ],
+                                          color:
+                                            palettes.Brand['Strong Inverse'],
                                           fontFamily: 'Quicksand_400Regular',
                                           fontSize: 12,
                                         }
@@ -1980,26 +1847,8 @@ const PEPFScreen = props => {
                                           'screen_title'
                                         ].style,
                                         {
-                                          color: [
-                                            {
-                                              minWidth: Breakpoints.Mobile,
-                                              value:
-                                                palettes.Brand[
-                                                  'Strong Inverse'
-                                                ],
-                                            },
-                                            {
-                                              minWidth: Breakpoints.Laptop,
-                                              value:
-                                                from_3_to_5 ||
-                                                from_5_to_7 ||
-                                                more_7
-                                                  ? palettes.Brand.Light
-                                                  : palettes.Brand[
-                                                      'Strong Inverse'
-                                                    ],
-                                            },
-                                          ],
+                                          color:
+                                            palettes.Brand['Strong Inverse'],
                                           fontFamily: 'Quicksand_400Regular',
                                           fontSize: 12,
                                         }
@@ -2144,24 +1993,8 @@ const PEPFScreen = props => {
                                           'screen_title'
                                         ].style,
                                         {
-                                          color: [
-                                            {
-                                              minWidth: Breakpoints.Mobile,
-                                              value:
-                                                palettes.Brand[
-                                                  'Strong Inverse'
-                                                ],
-                                            },
-                                            {
-                                              minWidth: Breakpoints.Laptop,
-                                              value:
-                                                last_3 || from_3_to_5 || more_7
-                                                  ? palettes.Brand.Light
-                                                  : palettes.Brand[
-                                                      'Strong Inverse'
-                                                    ],
-                                            },
-                                          ],
+                                          color:
+                                            palettes.Brand['Strong Inverse'],
                                           fontFamily: 'Quicksand_400Regular',
                                           fontSize: 12,
                                         }
@@ -2231,26 +2064,8 @@ const PEPFScreen = props => {
                                           'screen_title'
                                         ].style,
                                         {
-                                          color: [
-                                            {
-                                              minWidth: Breakpoints.Mobile,
-                                              value:
-                                                palettes.Brand[
-                                                  'Strong Inverse'
-                                                ],
-                                            },
-                                            {
-                                              minWidth: Breakpoints.Laptop,
-                                              value:
-                                                last_3 ||
-                                                from_3_to_5 ||
-                                                from_5_to_7
-                                                  ? palettes.Brand.Light
-                                                  : palettes.Brand[
-                                                      'Strong Inverse'
-                                                    ],
-                                            },
-                                          ],
+                                          color:
+                                            palettes.Brand['Strong Inverse'],
                                           fontFamily: 'Quicksand_400Regular',
                                           fontSize: 12,
                                         }
@@ -3767,7 +3582,7 @@ const PEPFScreen = props => {
                                   onPress={() => {
                                     try {
                                       setHealth_care(
-                                        transaction ? false : true
+                                        health_care ? false : true
                                       );
                                     } catch (err) {
                                       console.error(err);

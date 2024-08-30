@@ -873,977 +873,985 @@ const CustomHeaderBlock = props => {
           </Shadow>
         )}
       </>
-      {/* Side Menu */}
-      <Modal
-        supportedOrientations={['portrait', 'landscape']}
-        animationType={'fade'}
-        presentationStyle={'pageSheet'}
-        transparent={true}
-        visible={Constants['top_nav_pressed']}
-      >
-        {/* View 3 */}
-        <View
-          style={StyleSheet.applyWidth(
-            {
-              alignContent: 'center',
-              alignItems: 'center',
-              alignSelf: 'center',
-              flexDirection: 'row',
-              height: 65,
-              paddingLeft: 15,
-              width: '100%',
-            },
-            dimensions.width
-          )}
+      <View style={StyleSheet.applyWidth({ minWidth: 300 }, dimensions.width)}>
+        {/* Side Menu */}
+        <Modal
+          supportedOrientations={['portrait', 'landscape']}
+          animationType={'fade'}
+          presentationStyle={'pageSheet'}
+          transparent={true}
+          visible={Constants['top_nav_pressed']}
         >
-          {/* Back */}
-          <>
-            {!Constants['subPage'] ? null : (
-              <IconButton
-                onPress={() => {
-                  try {
-                    navigation.goBack();
-                    setGlobalVariableValue({
-                      key: 'top_nav_pressed',
-                      value: false,
-                    });
-                  } catch (err) {
-                    console.error(err);
-                  }
-                }}
-                size={32}
-                color={theme.colors.text.strong}
-                icon={'Entypo/chevron-thin-left'}
-              />
-            )}
-          </>
-          {/* MENU */}
-          <IconButton
-            onPress={() => {
-              try {
-                setGlobalVariableValue({
-                  key: 'top_nav_pressed',
-                  value: false,
-                });
-              } catch (err) {
-                console.error(err);
-              }
-            }}
-            size={32}
-            color={theme.colors.text.strong}
-            icon={'Feather/menu'}
-          />
-        </View>
-
-        <View
-          collapsable={true}
-          style={StyleSheet.applyWidth(
-            {
-              alignItems: [
-                { minWidth: Breakpoints.Mobile, value: 'flex-start' },
-                { minWidth: Breakpoints.Laptop, value: 'flex-start' },
-              ],
-              backgroundColor: theme.colors.background.brand,
-              borderBottomWidth: 0,
-              borderColor: [
-                {
-                  minWidth: Breakpoints.Mobile,
-                  value: theme.colors.border.brand,
-                },
-                {
-                  minWidth: Breakpoints.Laptop,
-                  value: theme.colors.border.brand,
-                },
-              ],
-              borderLeftWidth: 0,
-              borderTopWidth: 0,
-              borderWidth: [
-                { minWidth: Breakpoints.Mobile, value: 0.5 },
-                { minWidth: Breakpoints.Laptop, value: 0.5 },
-              ],
-              flex: 1,
-              gap: 0,
-              height: '100%',
-              justifyContent: 'space-between',
-              maxWidth: 300,
-              padding: 10,
-              paddingTop: 5,
-              width: '100%',
-              zIndex: 10,
-            },
-            dimensions.width
-          )}
-        >
-          {/* View 2 */}
+          {/* View 3 */}
           <View
             style={StyleSheet.applyWidth(
               {
-                width: [
-                  { minWidth: Breakpoints.Mobile, value: '100%' },
-                  { minWidth: Breakpoints.Laptop, value: '100%' },
-                ],
+                alignContent: 'center',
+                alignItems: 'center',
+                alignSelf: 'center',
+                flexDirection: 'row',
+                height: 65,
+                minWidth: 300,
+                paddingLeft: 15,
+                width: '100%',
               },
               dimensions.width
             )}
           >
-            <VStack
-              {...GlobalStyles.VStackStyles(theme)['V Stack'].props}
-              style={StyleSheet.applyWidth(
-                StyleSheet.compose(
-                  GlobalStyles.VStackStyles(theme)['V Stack'].style,
-                  {
-                    borderBottomWidth: 0.5,
-                    borderColor: theme.colors.foreground.brand,
-                    borderTopWidth: 0.5,
-                    width: '100%',
-                  }
-                ),
-                dimensions.width
-              )}
-            >
-              <Pressable
-                onPress={() => {
-                  try {
-                    navigation.navigate('NewslettersScreen');
-                    setGlobalVariableValue({
-                      key: 'top_nav_pressed',
-                      value: false,
-                    });
-                  } catch (err) {
-                    console.error(err);
-                  }
-                }}
-              >
-                <HStack
-                  {...GlobalStyles.HStackStyles(theme)['H Stack'].props}
-                  style={StyleSheet.applyWidth(
-                    StyleSheet.compose(
-                      GlobalStyles.HStackStyles(theme)['H Stack'].style,
-                      { gap: 10, padding: 10 }
-                    ),
-                    dimensions.width
-                  )}
-                >
-                  <Icon
-                    size={24}
-                    color={
-                      Constants['pageName'] === 'Newsletters'
-                        ? palettes.App.Orange
-                        : palettes.Brand.Strong
+            {/* Back */}
+            <>
+              {!Constants['subPage'] ? null : (
+                <IconButton
+                  onPress={() => {
+                    try {
+                      navigation.goBack();
+                      setGlobalVariableValue({
+                        key: 'top_nav_pressed',
+                        value: false,
+                      });
+                    } catch (err) {
+                      console.error(err);
                     }
-                    name={'Ionicons/newspaper'}
-                  />
-                  <Text
-                    accessible={true}
-                    {...GlobalStyles.TextStyles(theme)['screen_title'].props}
-                    style={StyleSheet.applyWidth(
-                      StyleSheet.compose(
-                        GlobalStyles.TextStyles(theme)['screen_title'].style,
-                        {
-                          color: [
-                            {
-                              minWidth: Breakpoints.Laptop,
-                              value:
-                                Constants['pageName'] === 'Newsletters'
-                                  ? palettes.App.Orange
-                                  : palettes.Brand.Strong,
-                            },
-                            {
-                              minWidth: Breakpoints.Mobile,
-                              value:
-                                Constants['pageName'] === 'Newsletters'
-                                  ? palettes.App.Orange
-                                  : palettes.Brand.Strong,
-                            },
-                          ],
-                        }
-                      ),
-                      dimensions.width
-                    )}
-                  >
-                    {'NEWSLETTERS'}
-                  </Text>
-                </HStack>
-              </Pressable>
-            </VStack>
-            {/* V Stack 2 */}
-            <VStack
-              {...GlobalStyles.VStackStyles(theme)['V Stack'].props}
-              style={StyleSheet.applyWidth(
-                StyleSheet.compose(
-                  GlobalStyles.VStackStyles(theme)['V Stack'].style,
-                  {
-                    borderBottomWidth: 0.5,
-                    borderColor: theme.colors.foreground.brand,
-                  }
-                ),
-                dimensions.width
+                  }}
+                  size={32}
+                  color={theme.colors.text.strong}
+                  icon={'Entypo/chevron-thin-left'}
+                />
               )}
-            >
-              <Pressable
-                onPress={() => {
-                  try {
-                    navigation.navigate('AllEventsScreen');
-                    setGlobalVariableValue({
-                      key: 'top_nav_pressed',
-                      value: false,
-                    });
-                  } catch (err) {
-                    console.error(err);
-                  }
-                }}
-              >
-                <HStack
-                  {...GlobalStyles.HStackStyles(theme)['H Stack'].props}
-                  style={StyleSheet.applyWidth(
-                    StyleSheet.compose(
-                      GlobalStyles.HStackStyles(theme)['H Stack'].style,
-                      { gap: 10, padding: 10 }
-                    ),
-                    dimensions.width
-                  )}
-                >
-                  <Icon
-                    size={24}
-                    color={
-                      Constants['pageName'] === 'All events'
-                        ? palettes.App.Orange
-                        : palettes.Brand.Strong
-                    }
-                    name={'MaterialIcons/search'}
-                  />
-                  <Text
-                    accessible={true}
-                    {...GlobalStyles.TextStyles(theme)['screen_title'].props}
-                    style={StyleSheet.applyWidth(
-                      StyleSheet.compose(
-                        GlobalStyles.TextStyles(theme)['screen_title'].style,
-                        {
-                          color: [
-                            {
-                              minWidth: Breakpoints.Laptop,
-                              value:
-                                Constants['pageName'] === 'All events'
-                                  ? palettes.App.Orange
-                                  : palettes.Brand.Strong,
-                            },
-                            {
-                              minWidth: Breakpoints.Mobile,
-                              value:
-                                Constants['pageName'] === 'All events'
-                                  ? palettes.App.Orange
-                                  : palettes.Brand.Strong,
-                            },
-                          ],
-                        }
-                      ),
-                      dimensions.width
-                    )}
-                  >
-                    {'ALL EVENTS'}
-                  </Text>
-                </HStack>
-              </Pressable>
-            </VStack>
-            {/* V Stack 10 */}
-            <VStack
-              {...GlobalStyles.VStackStyles(theme)['V Stack'].props}
-              style={StyleSheet.applyWidth(
-                StyleSheet.compose(
-                  GlobalStyles.VStackStyles(theme)['V Stack'].style,
-                  {
-                    borderBottomWidth: 0.5,
-                    borderColor: theme.colors.foreground.brand,
-                  }
-                ),
-                dimensions.width
-              )}
-            >
-              <Pressable
-                onPress={() => {
-                  try {
-                    navigation.navigate('MultiplesScreen');
-                    setGlobalVariableValue({
-                      key: 'top_nav_pressed',
-                      value: false,
-                    });
-                  } catch (err) {
-                    console.error(err);
-                  }
-                }}
-              >
-                <HStack
-                  {...GlobalStyles.HStackStyles(theme)['H Stack'].props}
-                  style={StyleSheet.applyWidth(
-                    StyleSheet.compose(
-                      GlobalStyles.HStackStyles(theme)['H Stack'].style,
-                      { gap: 10, padding: 10 }
-                    ),
-                    dimensions.width
-                  )}
-                >
-                  <Icon
-                    size={24}
-                    color={
-                      Constants['pageName'] === 'Multiples database'
-                        ? palettes.App.Orange
-                        : palettes.Brand.Strong
-                    }
-                    name={'AntDesign/table'}
-                  />
-                  <Text
-                    accessible={true}
-                    {...GlobalStyles.TextStyles(theme)['screen_title'].props}
-                    style={StyleSheet.applyWidth(
-                      StyleSheet.compose(
-                        GlobalStyles.TextStyles(theme)['screen_title'].style,
-                        {
-                          color: [
-                            {
-                              minWidth: Breakpoints.Laptop,
-                              value:
-                                Constants['pageName'] === 'All events'
-                                  ? palettes.App.Orange
-                                  : palettes.Brand.Strong,
-                            },
-                            {
-                              minWidth: Breakpoints.Mobile,
-                              value:
-                                Constants['pageName'] === 'Multiples database'
-                                  ? palettes.App.Orange
-                                  : palettes.Brand.Strong,
-                            },
-                          ],
-                        }
-                      ),
-                      dimensions.width
-                    )}
-                  >
-                    {'MULTIPLES'}
-                  </Text>
-                </HStack>
-              </Pressable>
-            </VStack>
-            {/* V Stack 3 */}
-            <VStack
-              {...GlobalStyles.VStackStyles(theme)['V Stack'].props}
-              style={StyleSheet.applyWidth(
-                StyleSheet.compose(
-                  GlobalStyles.VStackStyles(theme)['V Stack'].style,
-                  {
-                    borderBottomWidth: 0.5,
-                    borderColor: theme.colors.foreground.brand,
-                  }
-                ),
-                dimensions.width
-              )}
-            >
-              <Pressable
-                onPress={() => {
-                  try {
-                    navigation.navigate('CFSScreen');
-                    setGlobalVariableValue({
-                      key: 'top_nav_pressed',
-                      value: false,
-                    });
-                  } catch (err) {
-                    console.error(err);
-                  }
-                }}
-              >
-                <HStack
-                  {...GlobalStyles.HStackStyles(theme)['H Stack'].props}
-                  style={StyleSheet.applyWidth(
-                    StyleSheet.compose(
-                      GlobalStyles.HStackStyles(theme)['H Stack'].style,
-                      { gap: 10, padding: 10 }
-                    ),
-                    dimensions.width
-                  )}
-                >
-                  <Icon
-                    size={24}
-                    color={
-                      Constants['pageName'] === 'Companies For Sale'
-                        ? palettes.App.Orange
-                        : palettes.Brand.Strong
-                    }
-                    name={'MaterialIcons/business'}
-                  />
-                  <Text
-                    accessible={true}
-                    {...GlobalStyles.TextStyles(theme)['screen_title'].props}
-                    style={StyleSheet.applyWidth(
-                      StyleSheet.compose(
-                        GlobalStyles.TextStyles(theme)['screen_title'].style,
-                        {
-                          color: [
-                            {
-                              minWidth: Breakpoints.Laptop,
-                              value:
-                                Constants['pageName'] === 'Companies For Sale'
-                                  ? palettes.App.Orange
-                                  : palettes.Brand.Strong,
-                            },
-                            {
-                              minWidth: Breakpoints.Mobile,
-                              value:
-                                Constants['pageName'] === 'Companies For Sale'
-                                  ? palettes.App.Orange
-                                  : palettes.Brand.Strong,
-                            },
-                          ],
-                        }
-                      ),
-                      dimensions.width
-                    )}
-                  >
-                    {'CFS'}
-                  </Text>
-                </HStack>
-              </Pressable>
-            </VStack>
-            {/* V Stack 4 */}
-            <VStack
-              {...GlobalStyles.VStackStyles(theme)['V Stack'].props}
-              style={StyleSheet.applyWidth(
-                StyleSheet.compose(
-                  GlobalStyles.VStackStyles(theme)['V Stack'].style,
-                  {
-                    borderBottomWidth: 0.5,
-                    borderColor: theme.colors.foreground.brand,
-                  }
-                ),
-                dimensions.width
-              )}
-            >
-              <Pressable
-                onPress={() => {
-                  try {
-                    navigation.navigate('PEPFScreen');
-                    setGlobalVariableValue({
-                      key: 'top_nav_pressed',
-                      value: false,
-                    });
-                  } catch (err) {
-                    console.error(err);
-                  }
-                }}
-              >
-                <HStack
-                  {...GlobalStyles.HStackStyles(theme)['H Stack'].props}
-                  style={StyleSheet.applyWidth(
-                    StyleSheet.compose(
-                      GlobalStyles.HStackStyles(theme)['H Stack'].style,
-                      { gap: 10, padding: 10 }
-                    ),
-                    dimensions.width
-                  )}
-                >
-                  <Icon
-                    size={24}
-                    color={
-                      Constants['pageName'] === 'PEPF'
-                        ? palettes.App.Orange
-                        : palettes.Brand.Strong
-                    }
-                    name={'MaterialIcons/waterfall-chart'}
-                  />
-                  <Text
-                    accessible={true}
-                    {...GlobalStyles.TextStyles(theme)['screen_title'].props}
-                    style={StyleSheet.applyWidth(
-                      StyleSheet.compose(
-                        GlobalStyles.TextStyles(theme)['screen_title'].style,
-                        {
-                          color: [
-                            {
-                              minWidth: Breakpoints.Laptop,
-                              value:
-                                Constants['pageName'] === 'PEPF'
-                                  ? palettes.App.Orange
-                                  : palettes.Brand.Strong,
-                            },
-                            {
-                              minWidth: Breakpoints.Mobile,
-                              value:
-                                Constants['pageName'] === 'PEPF'
-                                  ? palettes.App.Orange
-                                  : palettes.Brand.Strong,
-                            },
-                          ],
-                        }
-                      ),
-                      dimensions.width
-                    )}
-                  >
-                    {'PE PORTFOLIOS'}
-                  </Text>
-                </HStack>
-              </Pressable>
-            </VStack>
-            {/* V Stack 5 */}
-            <VStack
-              {...GlobalStyles.VStackStyles(theme)['V Stack'].props}
-              style={StyleSheet.applyWidth(
-                StyleSheet.compose(
-                  GlobalStyles.VStackStyles(theme)['V Stack'].style,
-                  {
-                    borderBottomWidth: 0.5,
-                    borderColor: theme.colors.foreground.brand,
-                    width: '100%',
-                  }
-                ),
-                dimensions.width
-              )}
-            >
-              <Pressable
-                onPress={() => {
-                  try {
-                    navigation.navigate('AdvisorsScreen');
-                    setGlobalVariableValue({
-                      key: 'top_nav_pressed',
-                      value: false,
-                    });
-                  } catch (err) {
-                    console.error(err);
-                  }
-                }}
-              >
-                <HStack
-                  {...GlobalStyles.HStackStyles(theme)['H Stack'].props}
-                  style={StyleSheet.applyWidth(
-                    StyleSheet.compose(
-                      GlobalStyles.HStackStyles(theme)['H Stack'].style,
-                      { gap: 10, padding: 10 }
-                    ),
-                    dimensions.width
-                  )}
-                >
-                  <Icon
-                    size={24}
-                    color={
-                      Constants['pageName'] === 'Advisors'
-                        ? palettes.App.Orange
-                        : palettes.Brand.Strong
-                    }
-                    name={'MaterialCommunityIcons/bank'}
-                  />
-                  <Text
-                    accessible={true}
-                    {...GlobalStyles.TextStyles(theme)['screen_title'].props}
-                    style={StyleSheet.applyWidth(
-                      StyleSheet.compose(
-                        GlobalStyles.TextStyles(theme)['screen_title'].style,
-                        {
-                          color: [
-                            {
-                              minWidth: Breakpoints.Laptop,
-                              value:
-                                Constants['pageName'] === 'Advisors'
-                                  ? palettes.App.Orange
-                                  : palettes.Brand.Strong,
-                            },
-                            {
-                              minWidth: Breakpoints.Mobile,
-                              value:
-                                Constants['pageName'] === 'Advisors'
-                                  ? palettes.App.Orange
-                                  : palettes.Brand.Strong,
-                            },
-                          ],
-                        }
-                      ),
-                      dimensions.width
-                    )}
-                  >
-                    {'ADVISORS'}
-                  </Text>
-                </HStack>
-              </Pressable>
-            </VStack>
-            {/* V Stack 6 */}
-            <VStack
-              {...GlobalStyles.VStackStyles(theme)['V Stack'].props}
-              style={StyleSheet.applyWidth(
-                StyleSheet.compose(
-                  GlobalStyles.VStackStyles(theme)['V Stack'].style,
-                  {
-                    borderBottomWidth: 0.5,
-                    borderColor: theme.colors.foreground.brand,
-                    width: '100%',
-                  }
-                ),
-                dimensions.width
-              )}
-            >
-              <Pressable
-                onPress={() => {
-                  try {
-                    navigation.navigate('StockSearchScreen');
-                    setGlobalVariableValue({
-                      key: 'top_nav_pressed',
-                      value: false,
-                    });
-                  } catch (err) {
-                    console.error(err);
-                  }
-                }}
-              >
-                <HStack
-                  {...GlobalStyles.HStackStyles(theme)['H Stack'].props}
-                  style={StyleSheet.applyWidth(
-                    StyleSheet.compose(
-                      GlobalStyles.HStackStyles(theme)['H Stack'].style,
-                      { gap: 10, padding: 10 }
-                    ),
-                    dimensions.width
-                  )}
-                >
-                  <Icon
-                    size={24}
-                    color={
-                      Constants['pageName'] === 'Stock Search'
-                        ? palettes.App.Orange
-                        : palettes.Brand.Strong
-                    }
-                    name={'Entypo/line-graph'}
-                  />
-                  <Text
-                    accessible={true}
-                    {...GlobalStyles.TextStyles(theme)['screen_title'].props}
-                    style={StyleSheet.applyWidth(
-                      StyleSheet.compose(
-                        GlobalStyles.TextStyles(theme)['screen_title'].style,
-                        {
-                          color:
-                            Constants['pageName'] === 'Stock Search'
-                              ? palettes.App.Orange
-                              : palettes.Brand.Strong,
-                        }
-                      ),
-                      dimensions.width
-                    )}
-                  >
-                    {'STOCK SEARCH'}
-                  </Text>
-                </HStack>
-              </Pressable>
-            </VStack>
-            {/* V Stack 7 */}
-            <VStack
-              {...GlobalStyles.VStackStyles(theme)['V Stack'].props}
-              style={StyleSheet.applyWidth(
-                StyleSheet.compose(
-                  GlobalStyles.VStackStyles(theme)['V Stack'].style,
-                  {
-                    borderBottomWidth: 0.5,
-                    borderColor: theme.colors.foreground.brand,
-                    width: '100%',
-                  }
-                ),
-                dimensions.width
-              )}
-            >
-              <Pressable
-                onPress={() => {
-                  try {
-                    navigation.navigate('PeerGroupsScreen');
-                    setGlobalVariableValue({
-                      key: 'top_nav_pressed',
-                      value: false,
-                    });
-                  } catch (err) {
-                    console.error(err);
-                  }
-                }}
-              >
-                <HStack
-                  {...GlobalStyles.HStackStyles(theme)['H Stack'].props}
-                  style={StyleSheet.applyWidth(
-                    StyleSheet.compose(
-                      GlobalStyles.HStackStyles(theme)['H Stack'].style,
-                      { gap: 10, padding: 10 }
-                    ),
-                    dimensions.width
-                  )}
-                >
-                  <Icon
-                    size={24}
-                    color={
-                      Constants['pageName'] === 'Peer Groups'
-                        ? palettes.App.Orange
-                        : palettes.Brand.Strong
-                    }
-                    name={'FontAwesome/bar-chart'}
-                  />
-                  <Text
-                    accessible={true}
-                    {...GlobalStyles.TextStyles(theme)['screen_title'].props}
-                    style={StyleSheet.applyWidth(
-                      StyleSheet.compose(
-                        GlobalStyles.TextStyles(theme)['screen_title'].style,
-                        {
-                          color: [
-                            {
-                              minWidth: Breakpoints.Laptop,
-                              value:
-                                Constants['pageName'] === 'Peer Groups'
-                                  ? palettes.App.Orange
-                                  : palettes.Brand.Strong,
-                            },
-                            {
-                              minWidth: Breakpoints.Mobile,
-                              value:
-                                Constants['pageName'] === 'Peer Groups'
-                                  ? palettes.App.Orange
-                                  : palettes.Brand.Strong,
-                            },
-                          ],
-                        }
-                      ),
-                      dimensions.width
-                    )}
-                  >
-                    {'PEER GROUPS'}
-                  </Text>
-                </HStack>
-              </Pressable>
-            </VStack>
-            {/* V Stack 9 */}
-            <VStack
-              {...GlobalStyles.VStackStyles(theme)['V Stack'].props}
-              style={StyleSheet.applyWidth(
-                StyleSheet.compose(
-                  GlobalStyles.VStackStyles(theme)['V Stack'].style,
-                  {
-                    borderBottomWidth: 0.5,
-                    borderColor: theme.colors.foreground.brand,
-                    width: '100%',
-                  }
-                ),
-                dimensions.width
-              )}
-            >
-              <Pressable
-                onPress={() => {
-                  try {
-                    navigation.navigate('ReportsScreen');
-                    setGlobalVariableValue({
-                      key: 'top_nav_pressed',
-                      value: false,
-                    });
-                  } catch (err) {
-                    console.error(err);
-                  }
-                }}
-              >
-                <HStack
-                  {...GlobalStyles.HStackStyles(theme)['H Stack'].props}
-                  style={StyleSheet.applyWidth(
-                    StyleSheet.compose(
-                      GlobalStyles.HStackStyles(theme)['H Stack'].style,
-                      { gap: 10, padding: 10 }
-                    ),
-                    dimensions.width
-                  )}
-                >
-                  <Icon
-                    size={24}
-                    color={
-                      Constants['pageName'] === 'Reports'
-                        ? palettes.App.Orange
-                        : palettes.Brand.Strong
-                    }
-                    name={'FontAwesome/file-pdf-o'}
-                  />
-                  <Text
-                    accessible={true}
-                    {...GlobalStyles.TextStyles(theme)['screen_title'].props}
-                    style={StyleSheet.applyWidth(
-                      StyleSheet.compose(
-                        GlobalStyles.TextStyles(theme)['screen_title'].style,
-                        {
-                          color: [
-                            {
-                              minWidth: Breakpoints.Laptop,
-                              value:
-                                Constants['pageName'] === 'Reports'
-                                  ? palettes.App.Orange
-                                  : palettes.Brand.Strong,
-                            },
-                            {
-                              minWidth: Breakpoints.Mobile,
-                              value:
-                                Constants['pageName'] === 'Reports'
-                                  ? palettes.App.Orange
-                                  : palettes.Brand.Strong,
-                            },
-                          ],
-                        }
-                      ),
-                      dimensions.width
-                    )}
-                  >
-                    {'REPORTS'}
-                  </Text>
-                </HStack>
-              </Pressable>
-            </VStack>
+            </>
+            {/* MENU */}
+            <IconButton
+              onPress={() => {
+                try {
+                  setGlobalVariableValue({
+                    key: 'top_nav_pressed',
+                    value: false,
+                  });
+                } catch (err) {
+                  console.error(err);
+                }
+              }}
+              size={32}
+              color={theme.colors.text.strong}
+              icon={'Feather/menu'}
+            />
           </View>
 
           <View
+            collapsable={true}
             style={StyleSheet.applyWidth(
               {
-                alignItems: { minWidth: Breakpoints.Laptop, value: 'center' },
-                justifyContent: {
-                  minWidth: Breakpoints.Laptop,
-                  value: 'flex-end',
-                },
-                paddingBottom: 10,
-                width: [
-                  { minWidth: Breakpoints.Mobile, value: '100%' },
-                  { minWidth: Breakpoints.Laptop, value: '100%' },
+                alignItems: [
+                  { minWidth: Breakpoints.Mobile, value: 'flex-start' },
+                  { minWidth: Breakpoints.Laptop, value: 'flex-start' },
                 ],
+                backgroundColor: theme.colors.background.brand,
+                borderBottomWidth: 0,
+                borderColor: [
+                  {
+                    minWidth: Breakpoints.Mobile,
+                    value: theme.colors.border.brand,
+                  },
+                  {
+                    minWidth: Breakpoints.Laptop,
+                    value: theme.colors.border.brand,
+                  },
+                ],
+                borderLeftWidth: 0,
+                borderTopWidth: 0,
+                borderWidth: [
+                  { minWidth: Breakpoints.Mobile, value: 0.5 },
+                  { minWidth: Breakpoints.Laptop, value: 0.5 },
+                ],
+                flex: 1,
+                gap: 0,
+                height: '100%',
+                justifyContent: 'space-between',
+                maxWidth: 300,
+                padding: 10,
+                paddingTop: 5,
+                width: '100%',
+                zIndex: 10,
               },
               dimensions.width
             )}
           >
-            {/* V Stack 8 */}
-            <VStack
-              {...GlobalStyles.VStackStyles(theme)['V Stack'].props}
+            {/* View 2 */}
+            <View
               style={StyleSheet.applyWidth(
-                StyleSheet.compose(
-                  GlobalStyles.VStackStyles(theme)['V Stack'].style,
-                  { width: '100%' }
-                ),
+                {
+                  maxWidth: 300,
+                  width: [
+                    { minWidth: Breakpoints.Mobile, value: '100%' },
+                    { minWidth: Breakpoints.Laptop, value: '100%' },
+                  ],
+                },
                 dimensions.width
               )}
             >
-              <Pressable
-                onPress={() => {
-                  try {
-                    setGlobalVariableValue({
-                      key: 'top_nav_pressed',
-                      value: false,
-                    });
-                    /* hidden 'Set Variable' action */
-                    navigation.navigate('MyAccountScreen');
-                  } catch (err) {
-                    console.error(err);
-                  }
-                }}
-              >
-                <HStack
-                  {...GlobalStyles.HStackStyles(theme)['H Stack'].props}
-                  style={StyleSheet.applyWidth(
-                    StyleSheet.compose(
-                      GlobalStyles.HStackStyles(theme)['H Stack'].style,
-                      {
-                        gap: { minWidth: Breakpoints.Laptop, value: 10 },
-                        justifyContent: 'flex-start',
-                        padding: 10,
-                      }
-                    ),
-                    dimensions.width
-                  )}
-                >
-                  <Icon
-                    size={24}
-                    color={
-                      Constants['pageName'] === 'My account'
-                        ? palettes.App.Orange
-                        : palettes.Brand.Strong
+              <VStack
+                {...GlobalStyles.VStackStyles(theme)['V Stack'].props}
+                style={StyleSheet.applyWidth(
+                  StyleSheet.compose(
+                    GlobalStyles.VStackStyles(theme)['V Stack'].style,
+                    {
+                      borderBottomWidth: 0.5,
+                      borderColor: theme.colors.foreground.brand,
+                      borderTopWidth: 0.5,
+                      width: '100%',
                     }
-                    name={'MaterialCommunityIcons/account'}
-                  />
-                  <Text
-                    accessible={true}
-                    {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                  ),
+                  dimensions.width
+                )}
+              >
+                <Pressable
+                  onPress={() => {
+                    try {
+                      navigation.navigate('NewslettersScreen');
+                      setGlobalVariableValue({
+                        key: 'top_nav_pressed',
+                        value: false,
+                      });
+                    } catch (err) {
+                      console.error(err);
+                    }
+                  }}
+                >
+                  <HStack
+                    {...GlobalStyles.HStackStyles(theme)['H Stack'].props}
                     style={StyleSheet.applyWidth(
                       StyleSheet.compose(
-                        GlobalStyles.TextStyles(theme)['screen_title'].style,
-                        {
-                          color:
-                            Constants['pageName'] === 'My account'
-                              ? palettes.App.Orange
-                              : palettes.Brand.Strong,
-                          textAlign: 'center',
-                        }
+                        GlobalStyles.HStackStyles(theme)['H Stack'].style,
+                        { gap: 10, padding: 10 }
                       ),
                       dimensions.width
                     )}
                   >
-                    {'MY ACCOUNT'}
-                  </Text>
-                </HStack>
-              </Pressable>
-            </VStack>
-            {/* V Stack 10 */}
-            <VStack
-              {...GlobalStyles.VStackStyles(theme)['V Stack'].props}
+                    <Icon
+                      size={24}
+                      color={
+                        Constants['pageName'] === 'Newsletters'
+                          ? palettes.App.Orange
+                          : palettes.Brand.Strong
+                      }
+                      name={'Ionicons/newspaper'}
+                    />
+                    <Text
+                      accessible={true}
+                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.TextStyles(theme)['screen_title'].style,
+                          {
+                            color: [
+                              {
+                                minWidth: Breakpoints.Laptop,
+                                value:
+                                  Constants['pageName'] === 'Newsletters'
+                                    ? palettes.App.Orange
+                                    : palettes.Brand.Strong,
+                              },
+                              {
+                                minWidth: Breakpoints.Mobile,
+                                value:
+                                  Constants['pageName'] === 'Newsletters'
+                                    ? palettes.App.Orange
+                                    : palettes.Brand.Strong,
+                              },
+                            ],
+                          }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      {'NEWSLETTERS'}
+                    </Text>
+                  </HStack>
+                </Pressable>
+              </VStack>
+              {/* V Stack 2 */}
+              <VStack
+                {...GlobalStyles.VStackStyles(theme)['V Stack'].props}
+                style={StyleSheet.applyWidth(
+                  StyleSheet.compose(
+                    GlobalStyles.VStackStyles(theme)['V Stack'].style,
+                    {
+                      borderBottomWidth: 0.5,
+                      borderColor: theme.colors.foreground.brand,
+                    }
+                  ),
+                  dimensions.width
+                )}
+              >
+                <Pressable
+                  onPress={() => {
+                    try {
+                      navigation.navigate('AllEventsScreen');
+                      setGlobalVariableValue({
+                        key: 'top_nav_pressed',
+                        value: false,
+                      });
+                    } catch (err) {
+                      console.error(err);
+                    }
+                  }}
+                >
+                  <HStack
+                    {...GlobalStyles.HStackStyles(theme)['H Stack'].props}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.HStackStyles(theme)['H Stack'].style,
+                        { gap: 10, padding: 10 }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    <Icon
+                      size={24}
+                      color={
+                        Constants['pageName'] === 'All events'
+                          ? palettes.App.Orange
+                          : palettes.Brand.Strong
+                      }
+                      name={'MaterialIcons/search'}
+                    />
+                    <Text
+                      accessible={true}
+                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.TextStyles(theme)['screen_title'].style,
+                          {
+                            color: [
+                              {
+                                minWidth: Breakpoints.Laptop,
+                                value:
+                                  Constants['pageName'] === 'All events'
+                                    ? palettes.App.Orange
+                                    : palettes.Brand.Strong,
+                              },
+                              {
+                                minWidth: Breakpoints.Mobile,
+                                value:
+                                  Constants['pageName'] === 'All events'
+                                    ? palettes.App.Orange
+                                    : palettes.Brand.Strong,
+                              },
+                            ],
+                          }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      {'ALL EVENTS'}
+                    </Text>
+                  </HStack>
+                </Pressable>
+              </VStack>
+              {/* V Stack 10 */}
+              <VStack
+                {...GlobalStyles.VStackStyles(theme)['V Stack'].props}
+                style={StyleSheet.applyWidth(
+                  StyleSheet.compose(
+                    GlobalStyles.VStackStyles(theme)['V Stack'].style,
+                    {
+                      borderBottomWidth: 0.5,
+                      borderColor: theme.colors.foreground.brand,
+                    }
+                  ),
+                  dimensions.width
+                )}
+              >
+                <Pressable
+                  onPress={() => {
+                    try {
+                      navigation.navigate('MultiplesScreen');
+                      setGlobalVariableValue({
+                        key: 'top_nav_pressed',
+                        value: false,
+                      });
+                    } catch (err) {
+                      console.error(err);
+                    }
+                  }}
+                >
+                  <HStack
+                    {...GlobalStyles.HStackStyles(theme)['H Stack'].props}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.HStackStyles(theme)['H Stack'].style,
+                        { gap: 10, padding: 10 }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    <Icon
+                      size={24}
+                      color={
+                        Constants['pageName'] === 'Multiples database'
+                          ? palettes.App.Orange
+                          : palettes.Brand.Strong
+                      }
+                      name={'AntDesign/table'}
+                    />
+                    <Text
+                      accessible={true}
+                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.TextStyles(theme)['screen_title'].style,
+                          {
+                            color: [
+                              {
+                                minWidth: Breakpoints.Laptop,
+                                value:
+                                  Constants['pageName'] === 'All events'
+                                    ? palettes.App.Orange
+                                    : palettes.Brand.Strong,
+                              },
+                              {
+                                minWidth: Breakpoints.Mobile,
+                                value:
+                                  Constants['pageName'] === 'Multiples database'
+                                    ? palettes.App.Orange
+                                    : palettes.Brand.Strong,
+                              },
+                            ],
+                          }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      {'MULTIPLES'}
+                    </Text>
+                  </HStack>
+                </Pressable>
+              </VStack>
+              {/* V Stack 3 */}
+              <VStack
+                {...GlobalStyles.VStackStyles(theme)['V Stack'].props}
+                style={StyleSheet.applyWidth(
+                  StyleSheet.compose(
+                    GlobalStyles.VStackStyles(theme)['V Stack'].style,
+                    {
+                      borderBottomWidth: 0.5,
+                      borderColor: theme.colors.foreground.brand,
+                    }
+                  ),
+                  dimensions.width
+                )}
+              >
+                <Pressable
+                  onPress={() => {
+                    try {
+                      navigation.navigate('CFSScreen');
+                      setGlobalVariableValue({
+                        key: 'top_nav_pressed',
+                        value: false,
+                      });
+                    } catch (err) {
+                      console.error(err);
+                    }
+                  }}
+                >
+                  <HStack
+                    {...GlobalStyles.HStackStyles(theme)['H Stack'].props}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.HStackStyles(theme)['H Stack'].style,
+                        { gap: 10, padding: 10 }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    <Icon
+                      size={24}
+                      color={
+                        Constants['pageName'] === 'Companies For Sale'
+                          ? palettes.App.Orange
+                          : palettes.Brand.Strong
+                      }
+                      name={'MaterialIcons/business'}
+                    />
+                    <Text
+                      accessible={true}
+                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.TextStyles(theme)['screen_title'].style,
+                          {
+                            color: [
+                              {
+                                minWidth: Breakpoints.Laptop,
+                                value:
+                                  Constants['pageName'] === 'Companies For Sale'
+                                    ? palettes.App.Orange
+                                    : palettes.Brand.Strong,
+                              },
+                              {
+                                minWidth: Breakpoints.Mobile,
+                                value:
+                                  Constants['pageName'] === 'Companies For Sale'
+                                    ? palettes.App.Orange
+                                    : palettes.Brand.Strong,
+                              },
+                            ],
+                          }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      {'CFS'}
+                    </Text>
+                  </HStack>
+                </Pressable>
+              </VStack>
+              {/* V Stack 4 */}
+              <VStack
+                {...GlobalStyles.VStackStyles(theme)['V Stack'].props}
+                style={StyleSheet.applyWidth(
+                  StyleSheet.compose(
+                    GlobalStyles.VStackStyles(theme)['V Stack'].style,
+                    {
+                      borderBottomWidth: 0.5,
+                      borderColor: theme.colors.foreground.brand,
+                    }
+                  ),
+                  dimensions.width
+                )}
+              >
+                <Pressable
+                  onPress={() => {
+                    try {
+                      navigation.navigate('PEPFScreen');
+                      setGlobalVariableValue({
+                        key: 'top_nav_pressed',
+                        value: false,
+                      });
+                    } catch (err) {
+                      console.error(err);
+                    }
+                  }}
+                >
+                  <HStack
+                    {...GlobalStyles.HStackStyles(theme)['H Stack'].props}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.HStackStyles(theme)['H Stack'].style,
+                        { gap: 10, padding: 10 }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    <Icon
+                      size={24}
+                      color={
+                        Constants['pageName'] === 'PEPF'
+                          ? palettes.App.Orange
+                          : palettes.Brand.Strong
+                      }
+                      name={'MaterialIcons/waterfall-chart'}
+                    />
+                    <Text
+                      accessible={true}
+                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.TextStyles(theme)['screen_title'].style,
+                          {
+                            color: [
+                              {
+                                minWidth: Breakpoints.Laptop,
+                                value:
+                                  Constants['pageName'] === 'PEPF'
+                                    ? palettes.App.Orange
+                                    : palettes.Brand.Strong,
+                              },
+                              {
+                                minWidth: Breakpoints.Mobile,
+                                value:
+                                  Constants['pageName'] === 'PEPF'
+                                    ? palettes.App.Orange
+                                    : palettes.Brand.Strong,
+                              },
+                            ],
+                          }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      {'PE PORTFOLIOS'}
+                    </Text>
+                  </HStack>
+                </Pressable>
+              </VStack>
+              {/* V Stack 5 */}
+              <VStack
+                {...GlobalStyles.VStackStyles(theme)['V Stack'].props}
+                style={StyleSheet.applyWidth(
+                  StyleSheet.compose(
+                    GlobalStyles.VStackStyles(theme)['V Stack'].style,
+                    {
+                      borderBottomWidth: 0.5,
+                      borderColor: theme.colors.foreground.brand,
+                      width: '100%',
+                    }
+                  ),
+                  dimensions.width
+                )}
+              >
+                <Pressable
+                  onPress={() => {
+                    try {
+                      navigation.navigate('AdvisorsScreen');
+                      setGlobalVariableValue({
+                        key: 'top_nav_pressed',
+                        value: false,
+                      });
+                    } catch (err) {
+                      console.error(err);
+                    }
+                  }}
+                >
+                  <HStack
+                    {...GlobalStyles.HStackStyles(theme)['H Stack'].props}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.HStackStyles(theme)['H Stack'].style,
+                        { gap: 10, padding: 10 }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    <Icon
+                      size={24}
+                      color={
+                        Constants['pageName'] === 'Advisors'
+                          ? palettes.App.Orange
+                          : palettes.Brand.Strong
+                      }
+                      name={'MaterialCommunityIcons/bank'}
+                    />
+                    <Text
+                      accessible={true}
+                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.TextStyles(theme)['screen_title'].style,
+                          {
+                            color: [
+                              {
+                                minWidth: Breakpoints.Laptop,
+                                value:
+                                  Constants['pageName'] === 'Advisors'
+                                    ? palettes.App.Orange
+                                    : palettes.Brand.Strong,
+                              },
+                              {
+                                minWidth: Breakpoints.Mobile,
+                                value:
+                                  Constants['pageName'] === 'Advisors'
+                                    ? palettes.App.Orange
+                                    : palettes.Brand.Strong,
+                              },
+                            ],
+                          }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      {'ADVISORS'}
+                    </Text>
+                  </HStack>
+                </Pressable>
+              </VStack>
+              {/* V Stack 6 */}
+              <VStack
+                {...GlobalStyles.VStackStyles(theme)['V Stack'].props}
+                style={StyleSheet.applyWidth(
+                  StyleSheet.compose(
+                    GlobalStyles.VStackStyles(theme)['V Stack'].style,
+                    {
+                      borderBottomWidth: 0.5,
+                      borderColor: theme.colors.foreground.brand,
+                      width: '100%',
+                    }
+                  ),
+                  dimensions.width
+                )}
+              >
+                <Pressable
+                  onPress={() => {
+                    try {
+                      navigation.navigate('StockSearchScreen');
+                      setGlobalVariableValue({
+                        key: 'top_nav_pressed',
+                        value: false,
+                      });
+                    } catch (err) {
+                      console.error(err);
+                    }
+                  }}
+                >
+                  <HStack
+                    {...GlobalStyles.HStackStyles(theme)['H Stack'].props}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.HStackStyles(theme)['H Stack'].style,
+                        { gap: 10, padding: 10 }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    <Icon
+                      size={24}
+                      color={
+                        Constants['pageName'] === 'Stock Search'
+                          ? palettes.App.Orange
+                          : palettes.Brand.Strong
+                      }
+                      name={'Entypo/line-graph'}
+                    />
+                    <Text
+                      accessible={true}
+                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.TextStyles(theme)['screen_title'].style,
+                          {
+                            color:
+                              Constants['pageName'] === 'Stock Search'
+                                ? palettes.App.Orange
+                                : palettes.Brand.Strong,
+                          }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      {'STOCK SEARCH'}
+                    </Text>
+                  </HStack>
+                </Pressable>
+              </VStack>
+              {/* V Stack 7 */}
+              <VStack
+                {...GlobalStyles.VStackStyles(theme)['V Stack'].props}
+                style={StyleSheet.applyWidth(
+                  StyleSheet.compose(
+                    GlobalStyles.VStackStyles(theme)['V Stack'].style,
+                    {
+                      borderBottomWidth: 0.5,
+                      borderColor: theme.colors.foreground.brand,
+                      width: '100%',
+                    }
+                  ),
+                  dimensions.width
+                )}
+              >
+                <Pressable
+                  onPress={() => {
+                    try {
+                      navigation.navigate('PeerGroupsScreen');
+                      setGlobalVariableValue({
+                        key: 'top_nav_pressed',
+                        value: false,
+                      });
+                    } catch (err) {
+                      console.error(err);
+                    }
+                  }}
+                >
+                  <HStack
+                    {...GlobalStyles.HStackStyles(theme)['H Stack'].props}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.HStackStyles(theme)['H Stack'].style,
+                        { gap: 10, padding: 10 }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    <Icon
+                      size={24}
+                      color={
+                        Constants['pageName'] === 'Peer Groups'
+                          ? palettes.App.Orange
+                          : palettes.Brand.Strong
+                      }
+                      name={'FontAwesome/bar-chart'}
+                    />
+                    <Text
+                      accessible={true}
+                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.TextStyles(theme)['screen_title'].style,
+                          {
+                            color: [
+                              {
+                                minWidth: Breakpoints.Laptop,
+                                value:
+                                  Constants['pageName'] === 'Peer Groups'
+                                    ? palettes.App.Orange
+                                    : palettes.Brand.Strong,
+                              },
+                              {
+                                minWidth: Breakpoints.Mobile,
+                                value:
+                                  Constants['pageName'] === 'Peer Groups'
+                                    ? palettes.App.Orange
+                                    : palettes.Brand.Strong,
+                              },
+                            ],
+                          }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      {'PEER GROUPS'}
+                    </Text>
+                  </HStack>
+                </Pressable>
+              </VStack>
+              {/* V Stack 9 */}
+              <VStack
+                {...GlobalStyles.VStackStyles(theme)['V Stack'].props}
+                style={StyleSheet.applyWidth(
+                  StyleSheet.compose(
+                    GlobalStyles.VStackStyles(theme)['V Stack'].style,
+                    {
+                      borderBottomWidth: 0.5,
+                      borderColor: theme.colors.foreground.brand,
+                      width: '100%',
+                    }
+                  ),
+                  dimensions.width
+                )}
+              >
+                <Pressable
+                  onPress={() => {
+                    try {
+                      navigation.navigate('ReportsScreen');
+                      setGlobalVariableValue({
+                        key: 'top_nav_pressed',
+                        value: false,
+                      });
+                    } catch (err) {
+                      console.error(err);
+                    }
+                  }}
+                >
+                  <HStack
+                    {...GlobalStyles.HStackStyles(theme)['H Stack'].props}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.HStackStyles(theme)['H Stack'].style,
+                        { gap: 10, padding: 10 }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    <Icon
+                      size={24}
+                      color={
+                        Constants['pageName'] === 'Reports'
+                          ? palettes.App.Orange
+                          : palettes.Brand.Strong
+                      }
+                      name={'FontAwesome/file-pdf-o'}
+                    />
+                    <Text
+                      accessible={true}
+                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.TextStyles(theme)['screen_title'].style,
+                          {
+                            color: [
+                              {
+                                minWidth: Breakpoints.Laptop,
+                                value:
+                                  Constants['pageName'] === 'Reports'
+                                    ? palettes.App.Orange
+                                    : palettes.Brand.Strong,
+                              },
+                              {
+                                minWidth: Breakpoints.Mobile,
+                                value:
+                                  Constants['pageName'] === 'Reports'
+                                    ? palettes.App.Orange
+                                    : palettes.Brand.Strong,
+                              },
+                            ],
+                          }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      {'REPORTS'}
+                    </Text>
+                  </HStack>
+                </Pressable>
+              </VStack>
+            </View>
+
+            <View
               style={StyleSheet.applyWidth(
-                StyleSheet.compose(
-                  GlobalStyles.VStackStyles(theme)['V Stack'].style,
-                  { width: '100%' }
-                ),
+                {
+                  alignItems: { minWidth: Breakpoints.Laptop, value: 'center' },
+                  justifyContent: {
+                    minWidth: Breakpoints.Laptop,
+                    value: 'flex-end',
+                  },
+                  paddingBottom: 10,
+                  width: [
+                    { minWidth: Breakpoints.Mobile, value: '100%' },
+                    { minWidth: Breakpoints.Laptop, value: '100%' },
+                  ],
+                },
                 dimensions.width
               )}
             >
-              <Pressable
-                onPress={() => {
-                  try {
-                    setGlobalVariableValue({
-                      key: 'top_nav_pressed',
-                      value: false,
-                    });
-                    resetAccess(navigation, Variables, setGlobalVariableValue);
-                  } catch (err) {
-                    console.error(err);
-                  }
-                }}
+              {/* V Stack 8 */}
+              <VStack
+                {...GlobalStyles.VStackStyles(theme)['V Stack'].props}
+                style={StyleSheet.applyWidth(
+                  StyleSheet.compose(
+                    GlobalStyles.VStackStyles(theme)['V Stack'].style,
+                    { width: '100%' }
+                  ),
+                  dimensions.width
+                )}
               >
-                <HStack
-                  {...GlobalStyles.HStackStyles(theme)['H Stack'].props}
-                  style={StyleSheet.applyWidth(
-                    StyleSheet.compose(
-                      GlobalStyles.HStackStyles(theme)['H Stack'].style,
-                      {
-                        gap: { minWidth: Breakpoints.Laptop, value: 10 },
-                        justifyContent: 'flex-start',
-                        padding: 10,
-                      }
-                    ),
-                    dimensions.width
-                  )}
+                <Pressable
+                  onPress={() => {
+                    try {
+                      setGlobalVariableValue({
+                        key: 'top_nav_pressed',
+                        value: false,
+                      });
+                      /* hidden 'Set Variable' action */
+                      navigation.navigate('MyAccountScreen');
+                    } catch (err) {
+                      console.error(err);
+                    }
+                  }}
                 >
-                  <Icon size={24} name={'SimpleLineIcons/logout'} />
-                  <Text
-                    accessible={true}
-                    {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                  <HStack
+                    {...GlobalStyles.HStackStyles(theme)['H Stack'].props}
                     style={StyleSheet.applyWidth(
                       StyleSheet.compose(
-                        GlobalStyles.TextStyles(theme)['screen_title'].style,
+                        GlobalStyles.HStackStyles(theme)['H Stack'].style,
                         {
-                          color: {
-                            minWidth: Breakpoints.Laptop,
-                            value: palettes.Brand.Strong,
-                          },
-                          paddingLeft: 4,
-                          textAlign: 'center',
+                          gap: { minWidth: Breakpoints.Laptop, value: 10 },
+                          justifyContent: 'flex-start',
+                          padding: 10,
                         }
                       ),
                       dimensions.width
                     )}
                   >
-                    {'LOGOUT'}
-                  </Text>
-                </HStack>
-              </Pressable>
-            </VStack>
+                    <Icon
+                      size={24}
+                      color={
+                        Constants['pageName'] === 'My account'
+                          ? palettes.App.Orange
+                          : palettes.Brand.Strong
+                      }
+                      name={'MaterialCommunityIcons/account'}
+                    />
+                    <Text
+                      accessible={true}
+                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.TextStyles(theme)['screen_title'].style,
+                          {
+                            color:
+                              Constants['pageName'] === 'My account'
+                                ? palettes.App.Orange
+                                : palettes.Brand.Strong,
+                            textAlign: 'center',
+                          }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      {'MY ACCOUNT'}
+                    </Text>
+                  </HStack>
+                </Pressable>
+              </VStack>
+              {/* V Stack 10 */}
+              <VStack
+                {...GlobalStyles.VStackStyles(theme)['V Stack'].props}
+                style={StyleSheet.applyWidth(
+                  StyleSheet.compose(
+                    GlobalStyles.VStackStyles(theme)['V Stack'].style,
+                    { width: '100%' }
+                  ),
+                  dimensions.width
+                )}
+              >
+                <Pressable
+                  onPress={() => {
+                    try {
+                      setGlobalVariableValue({
+                        key: 'top_nav_pressed',
+                        value: false,
+                      });
+                      resetAccess(
+                        navigation,
+                        Variables,
+                        setGlobalVariableValue
+                      );
+                    } catch (err) {
+                      console.error(err);
+                    }
+                  }}
+                >
+                  <HStack
+                    {...GlobalStyles.HStackStyles(theme)['H Stack'].props}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.HStackStyles(theme)['H Stack'].style,
+                        {
+                          gap: { minWidth: Breakpoints.Laptop, value: 10 },
+                          justifyContent: 'flex-start',
+                          padding: 10,
+                        }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    <Icon size={24} name={'SimpleLineIcons/logout'} />
+                    <Text
+                      accessible={true}
+                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.TextStyles(theme)['screen_title'].style,
+                          {
+                            color: {
+                              minWidth: Breakpoints.Laptop,
+                              value: palettes.Brand.Strong,
+                            },
+                            paddingLeft: 4,
+                            textAlign: 'center',
+                          }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      {'LOGOUT'}
+                    </Text>
+                  </HStack>
+                </Pressable>
+              </VStack>
+            </View>
           </View>
-        </View>
-      </Modal>
+        </Modal>
+      </View>
     </View>
   );
 };

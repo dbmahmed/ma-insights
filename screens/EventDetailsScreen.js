@@ -57,7 +57,7 @@ const EventDetailsScreen = props => {
       });
       setGlobalVariableValue({
         key: 'screenParamValue',
-        value: props.route?.params?.event_id ?? 42843,
+        value: props.route?.params?.event_id ?? 42839,
       });
       setGlobalVariableValue({
         key: 'pageName',
@@ -86,7 +86,7 @@ const EventDetailsScreen = props => {
     >
       <CustomHeaderBlock />
       <XanoCollectionApi.FetchGetOneEventGET
-        event_id={props.route?.params?.event_id ?? 42843}
+        event_id={props.route?.params?.event_id ?? 42839}
       >
         {({ loading, error, data, refetchGetOneEvent }) => {
           const fetchData = data?.json;
@@ -184,6 +184,7 @@ const EventDetailsScreen = props => {
                       GlobalStyles.TextStyles(theme)['screen_title'].style,
                       dimensions.width
                     )}
+                    suppressHighlighting={false}
                   >
                     {fetchData?.description}
                   </Text>
@@ -1244,6 +1245,8 @@ const EventDetailsScreen = props => {
                         accessible={true}
                         {...GlobalStyles.TextStyles(theme)['screen_title']
                           .props}
+                        ellipsizeMode={'clip'}
+                        numberOfLines={50}
                         style={StyleSheet.applyWidth(
                           StyleSheet.compose(
                             GlobalStyles.TextStyles(theme)['screen_title']
