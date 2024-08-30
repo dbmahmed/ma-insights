@@ -309,6 +309,7 @@ export const ScreenContainerStyles = theme =>
 
 export const ViewStyles = theme =>
   StyleSheet.create({
+    side_menu_modal: { style: { minWidth: 300 }, props: {} },
     split_options: {
       style: {
         alignItems: 'flex-start',

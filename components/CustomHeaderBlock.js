@@ -873,7 +873,14 @@ const CustomHeaderBlock = props => {
           </Shadow>
         )}
       </>
-      <View style={StyleSheet.applyWidth({ minWidth: 300 }, dimensions.width)}>
+      <View
+        {...GlobalStyles.ViewStyles(theme)['side_menu_modal'].props}
+        collapsable={true}
+        style={StyleSheet.applyWidth(
+          GlobalStyles.ViewStyles(theme)['side_menu_modal'].style,
+          dimensions.width
+        )}
+      >
         {/* Side Menu */}
         <Modal
           supportedOrientations={['portrait', 'landscape']}
