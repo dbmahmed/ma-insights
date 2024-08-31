@@ -11,7 +11,6 @@ import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import Images from '../config/Images';
-import customRouting from '../global-functions/customRouting';
 import removeGlobalScroll from '../global-functions/removeGlobalScroll';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
@@ -63,16 +62,8 @@ const SplashScreen = props => {
           }
           navigation.replace('LogInScreen', { message: get_me?.message });
         } else {
-          console.log(Constants['currentScreen']);
-          navigation.navigate(
-            customRouting(
-              navigation,
-              Variables,
-              setGlobalVariableValue,
-              undefined,
-              undefined
-            )
-          );
+          /* hidden 'Log to Console' action */
+          navigation.navigate('NewslettersScreen');
         }
         console.log('Complete ON_SCREEN_FOCUS:6 IF');
       } catch (err) {

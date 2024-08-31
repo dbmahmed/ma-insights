@@ -10,7 +10,6 @@ import { systemWeights } from 'react-native-typography';
 import LinkingConfiguration from './LinkingConfiguration';
 import * as GlobalVariables from './config/GlobalVariableContext';
 import assessAccess from './global-functions/assessAccess';
-import customRouting from './global-functions/customRouting';
 import AdvisorDetailsScreen from './screens/AdvisorDetailsScreen';
 import AdvisorsScreen from './screens/AdvisorsScreen';
 import AllEventsScreen from './screens/AllEventsScreen';
@@ -90,8 +89,7 @@ export default function RootAppNavigator() {
       linking={LinkingConfiguration}
     >
       <Stack.Navigator
-        initialRouteName="NewslettersScreen"
-        presentation="transparentModal"
+        initialRouteName="SplashScreen"
         screenOptions={({ navigation }) => ({
           cardStyle: { flex: 1 },
           headerLeft: ({ tintColor, canGoBack }) =>

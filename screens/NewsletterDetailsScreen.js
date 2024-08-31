@@ -503,6 +503,13 @@ const NewsletterDetailsScreen = props => {
                         },
                         dimensions.width
                       )}
+                    />
+                    {/* View 7 */}
+                    <View
+                      style={StyleSheet.applyWidth(
+                        { flexDirection: 'row', gap: 8 },
+                        dimensions.width
+                      )}
                     >
                       <>
                         {!(fetchData?.potd !== 0) ? null : (
@@ -539,22 +546,15 @@ const NewsletterDetailsScreen = props => {
                               StyleSheet.compose(
                                 GlobalStyles.ImageStyles(theme)['Image'].style,
                                 {
-                                  bottom: 20,
                                   height: 20,
                                   marginRight: {
                                     minWidth: Breakpoints.Tablet,
                                     value: 5,
                                   },
-                                  position: [
-                                    {
-                                      minWidth: Breakpoints.Tablet,
-                                      value: 'relative',
-                                    },
-                                    {
-                                      minWidth: Breakpoints.Mobile,
-                                      value: 'absolute',
-                                    },
-                                  ],
+                                  position: {
+                                    minWidth: Breakpoints.Tablet,
+                                    value: 'relative',
+                                  },
                                   top: {
                                     minWidth: Breakpoints.Tablet,
                                     value: 0,

@@ -55,10 +55,7 @@ const CustomHeaderBlock = props => {
         paintInside={false}
         style={StyleSheet.applyWidth(
           {
-            width: [
-              { minWidth: Breakpoints.Mobile, value: '100%' },
-              { minWidth: Breakpoints.Mobile, value: dimensions.width },
-            ],
+            width: '100%',
             zIndex: { minWidth: Breakpoints.Desktop, value: 1000 },
           },
           dimensions.width
