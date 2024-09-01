@@ -213,7 +213,8 @@ const LogInScreen = props => {
           <KeyboardAvoidingView
             behavior={'padding'}
             enabled={true}
-            keyboardVerticalOffset={0}
+            iosBehavior={'height'}
+            keyboardVerticalOffset={150}
           >
             {/* Login Window */}
             <View

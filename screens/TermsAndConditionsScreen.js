@@ -1,13 +1,4 @@
 import React from 'react';
-import * as GlobalStyles from '../GlobalStyles.js';
-import CustomHeaderBlock from '../components/CustomHeaderBlock';
-import * as GlobalVariables from '../config/GlobalVariableContext';
-import removeGlobalScroll from '../global-functions/removeGlobalScroll';
-import setPadding from '../global-functions/setPadding';
-import palettes from '../themes/palettes';
-import Breakpoints from '../utils/Breakpoints';
-import * as StyleSheet from '../utils/StyleSheet';
-import useWindowDimensions from '../utils/useWindowDimensions';
 import {
   ScreenContainer,
   SimpleStyleScrollView,
@@ -16,6 +7,16 @@ import {
 import { H5, H6 } from '@expo/html-elements';
 import { useIsFocused } from '@react-navigation/native';
 import { Text, View } from 'react-native';
+import * as GlobalStyles from '../GlobalStyles.js';
+import CustomBottomNavBlock from '../components/CustomBottomNavBlock';
+import CustomHeaderBlock from '../components/CustomHeaderBlock';
+import * as GlobalVariables from '../config/GlobalVariableContext';
+import removeGlobalScroll from '../global-functions/removeGlobalScroll';
+import setPadding from '../global-functions/setPadding';
+import palettes from '../themes/palettes';
+import Breakpoints from '../utils/Breakpoints';
+import * as StyleSheet from '../utils/StyleSheet';
+import useWindowDimensions from '../utils/useWindowDimensions';
 
 const TermsAndConditionsScreen = props => {
   const { theme } = props;
@@ -44,7 +45,11 @@ const TermsAndConditionsScreen = props => {
   }, [isFocused]);
 
   return (
-    <ScreenContainer hasSafeArea={false} scrollable={false}>
+    <ScreenContainer
+      hasSafeArea={false}
+      scrollable={false}
+      hasTopSafeArea={true}
+    >
       <CustomHeaderBlock />
       {/* View 2 */}
       <>
@@ -319,6 +324,7 @@ const TermsAndConditionsScreen = props => {
           </View>
         </View>
       </SimpleStyleScrollView>
+      <CustomBottomNavBlock />
     </ScreenContainer>
   );
 };

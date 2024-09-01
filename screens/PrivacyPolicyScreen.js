@@ -1,12 +1,4 @@
 import React from 'react';
-import * as GlobalStyles from '../GlobalStyles.js';
-import CustomHeaderBlock from '../components/CustomHeaderBlock';
-import * as GlobalVariables from '../config/GlobalVariableContext';
-import removeGlobalScroll from '../global-functions/removeGlobalScroll';
-import palettes from '../themes/palettes';
-import Breakpoints from '../utils/Breakpoints';
-import * as StyleSheet from '../utils/StyleSheet';
-import useWindowDimensions from '../utils/useWindowDimensions';
 import {
   ScreenContainer,
   SimpleStyleScrollView,
@@ -15,6 +7,15 @@ import {
 import { H5, H6 } from '@expo/html-elements';
 import { useIsFocused } from '@react-navigation/native';
 import { Text, View } from 'react-native';
+import * as GlobalStyles from '../GlobalStyles.js';
+import CustomBottomNavBlock from '../components/CustomBottomNavBlock';
+import CustomHeaderBlock from '../components/CustomHeaderBlock';
+import * as GlobalVariables from '../config/GlobalVariableContext';
+import removeGlobalScroll from '../global-functions/removeGlobalScroll';
+import palettes from '../themes/palettes';
+import Breakpoints from '../utils/Breakpoints';
+import * as StyleSheet from '../utils/StyleSheet';
+import useWindowDimensions from '../utils/useWindowDimensions';
 
 const PrivacyPolicyScreen = props => {
   const { theme } = props;
@@ -48,7 +49,11 @@ const PrivacyPolicyScreen = props => {
   }, [isFocused]);
 
   return (
-    <ScreenContainer hasSafeArea={false} scrollable={false}>
+    <ScreenContainer
+      hasSafeArea={false}
+      hasTopSafeArea={true}
+      scrollable={false}
+    >
       <CustomHeaderBlock />
       <>
         {!(dimensions.width >= Breakpoints.Laptop) ? null : (
@@ -79,7 +84,13 @@ const PrivacyPolicyScreen = props => {
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}
         style={StyleSheet.applyWidth(
-          { alignItems: 'center', maxWidth: 1200, padding: 10, width: '100%' },
+          {
+            alignItems: 'center',
+            maxWidth: 1200,
+            padding: 10,
+            paddingBottom: dimensions.width >= Breakpoints.Laptop ? 0 : 75,
+            width: '100%',
+          },
           dimensions.width
         )}
       >
@@ -539,6 +550,7 @@ const PrivacyPolicyScreen = props => {
           </Text>
         </View>
       </SimpleStyleScrollView>
+      <CustomBottomNavBlock />
     </ScreenContainer>
   );
 };

@@ -509,7 +509,12 @@ const NewsletterDetailsScreen = props => {
                     {/* View 7 */}
                     <View
                       style={StyleSheet.applyWidth(
-                        { flexDirection: 'row', gap: 8, width: '100%' },
+                        {
+                          alignItems: 'flex-end',
+                          flexDirection: 'row',
+                          gap: 8,
+                          width: '100%',
+                        },
                         dimensions.width
                       )}
                     >
@@ -553,7 +558,12 @@ const NewsletterDetailsScreen = props => {
                       </>
                       <>
                         {!isNKPProp(fetchData?._potd?.headline) ? null : (
-                          <View>
+                          <View
+                            style={StyleSheet.applyWidth(
+                              { paddingBottom: 10 },
+                              dimensions.width
+                            )}
+                          >
                             {/* nkpPropImg */}
                             <>
                               {!isNKPProp(fetchData?._potd?.headline) ? null : (
@@ -570,6 +580,7 @@ const NewsletterDetailsScreen = props => {
                                         .style,
                                       {
                                         height: 20,
+                                        marginBottom: 10,
                                         marginRight: {
                                           minWidth: Breakpoints.Tablet,
                                           value: 5,

@@ -20,6 +20,7 @@ import { ActivityIndicator, Modal, Text, View } from 'react-native';
 import { Fetch } from 'react-request';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
+import CustomBottomNavBlock from '../components/CustomBottomNavBlock';
 import CustomHeaderBlock from '../components/CustomHeaderBlock';
 import LoadingBlock from '../components/LoadingBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
@@ -183,7 +184,11 @@ const AdvisorDetailsScreen = props => {
   }, [isFocused]);
 
   return (
-    <ScreenContainer scrollable={false} hasSafeArea={true}>
+    <ScreenContainer
+      scrollable={false}
+      hasSafeArea={false}
+      hasTopSafeArea={true}
+    >
       <CustomHeaderBlock />
       <XanoCollectionApi.FetchGetAdvisorGET
         advisor_id={props.route?.params?.advisor_id ?? 1}
@@ -313,42 +318,50 @@ const AdvisorDetailsScreen = props => {
                       dimensions.width
                     )}
                   >
-                    <TextInput
-                      autoCorrect={true}
-                      changeTextDelay={500}
-                      onChangeText={newTextInputValue => {
-                        try {
-                          setKeywordSearch_raw(newTextInputValue);
-                        } catch (err) {
-                          console.error(err);
-                        }
-                      }}
-                      onSubmitEditing={() => {
-                        try {
-                          setKeywordSearch(keywordSearch_raw);
-                          /* hidden 'API Request' action */
-                          /* hidden 'Refetch Data' action */
-                        } catch (err) {
-                          console.error(err);
-                        }
-                      }}
-                      webShowOutline={true}
-                      {...GlobalStyles.TextInputStyles(theme)['Text Input']
-                        .props}
-                      autoCapitalize={'sentences'}
-                      clearButtonMode={'while-editing'}
-                      placeholder={'Search...'}
-                      returnKeyType={'search'}
+                    <View
                       style={StyleSheet.applyWidth(
-                        StyleSheet.compose(
-                          GlobalStyles.TextInputStyles(theme)['Text Input']
-                            .style,
-                          { width: '90%' }
-                        ),
+                        { flex: 1, justifyContent: 'center' },
                         dimensions.width
                       )}
-                      value={keywordSearch_raw}
-                    />
+                    >
+                      <TextInput
+                        autoCorrect={true}
+                        changeTextDelay={500}
+                        onChangeText={newTextInputValue => {
+                          try {
+                            setKeywordSearch_raw(newTextInputValue);
+                          } catch (err) {
+                            console.error(err);
+                          }
+                        }}
+                        onSubmitEditing={() => {
+                          try {
+                            setKeywordSearch(keywordSearch_raw);
+                            /* hidden 'API Request' action */
+                            /* hidden 'Refetch Data' action */
+                          } catch (err) {
+                            console.error(err);
+                          }
+                        }}
+                        webShowOutline={true}
+                        {...GlobalStyles.TextInputStyles(theme)['Text Input']
+                          .props}
+                        autoCapitalize={'sentences'}
+                        clearButtonMode={'while-editing'}
+                        placeholder={'Search...'}
+                        returnKeyType={'search'}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.TextInputStyles(theme)['Text Input']
+                              .style,
+                            { width: '100%' }
+                          ),
+                          dimensions.width
+                        )}
+                        value={keywordSearch_raw}
+                      />
+                    </View>
+
                     <Shadow
                       offsetX={0}
                       paintInside={true}
@@ -515,10 +528,6 @@ const AdvisorDetailsScreen = props => {
                               console.error(err);
                             }
                           }}
-                          style={StyleSheet.applyWidth(
-                            { height: '100%', width: '100%' },
-                            dimensions.width
-                          )}
                         >
                           <View
                             style={StyleSheet.applyWidth(
@@ -530,7 +539,6 @@ const AdvisorDetailsScreen = props => {
                                 borderRadius: 8,
                                 borderWidth: 0,
                                 flexDirection: 'row',
-                                height: '100%',
                                 justifyContent: 'space-between',
                                 padding: 0,
                                 width: '100%',
@@ -712,10 +720,8 @@ const AdvisorDetailsScreen = props => {
                 showsVerticalScrollIndicator={false}
                 style={StyleSheet.applyWidth(
                   {
-                    height: '100%',
                     marginBottom:
-                      dimensions.width >= Breakpoints.Laptop ? 0 : 65,
-                    maxHeight: dimensions.height - 130,
+                      dimensions.width >= Breakpoints.Laptop ? 0 : 75,
                     paddingLeft: [
                       { minWidth: Breakpoints.Mobile, value: 5 },
                       {
@@ -2510,6 +2516,7 @@ const AdvisorDetailsScreen = props => {
           );
         }}
       </XanoCollectionApi.FetchGetAdvisorGET>
+      <CustomBottomNavBlock />
     </ScreenContainer>
   );
 };
