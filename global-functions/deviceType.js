@@ -8,7 +8,7 @@ line two` ) and will not work with special characters inside of quotes ( example
 
   if (isWeb === true) {
     return 'web';
-  } else if (isiOs === true) {
+  } else if (isiOS === true) {
     return 'ios';
   } else if (isAndroid === true) {
     return 'android';
