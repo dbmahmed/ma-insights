@@ -18,6 +18,7 @@ import { ActivityIndicator, Image, Text, View } from 'react-native';
 import { Fetch } from 'react-request';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
+import CustomBottomNavBlock from '../components/CustomBottomNavBlock';
 import CustomHeaderBlock from '../components/CustomHeaderBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import Images from '../config/Images';
@@ -79,6 +80,7 @@ const NewsletterDetailsScreen = props => {
       hasSafeArea={false}
       hasLeftSafeArea={true}
       hasRightSafeArea={true}
+      hasTopSafeArea={true}
       scrollable={false}
     >
       <CustomHeaderBlock />
@@ -403,7 +405,6 @@ const NewsletterDetailsScreen = props => {
                       <>
                         {!(fetchData?.audio_version_pvt !== null) ? null : (
                           <AudioPlayer
-                            completedTrackColor={theme.colors.background.brand}
                             hideDuration={false}
                             hidePlaybackIcon={false}
                             hideSlider={false}
@@ -420,6 +421,7 @@ const NewsletterDetailsScreen = props => {
                             {...GlobalStyles.AudioPlayerStyles(theme)[
                               'Audio Player'
                             ].props}
+                            completedTrackColor={theme.colors.branding.primary}
                             mode={'interface'}
                             playsInBackground={true}
                             source={{
@@ -507,64 +509,88 @@ const NewsletterDetailsScreen = props => {
                     {/* View 7 */}
                     <View
                       style={StyleSheet.applyWidth(
-                        { flexDirection: 'row', gap: 8 },
+                        { flexDirection: 'row', gap: 8, width: '100%' },
                         dimensions.width
                       )}
                     >
                       <>
                         {!(fetchData?.potd !== 0) ? null : (
-                          <H3
-                            selectable={false}
-                            {...GlobalStyles.H3Styles(theme)['H3'].props}
+                          <View
                             style={StyleSheet.applyWidth(
-                              StyleSheet.compose(
-                                GlobalStyles.H3Styles(theme)['H3'].style,
-                                {
-                                  alignSelf: 'flex-start',
-                                  fontSize: 16,
-                                  marginBottom: 10,
-                                  marginTop: 0,
-                                  padding: 10,
-                                  textAlign: 'left',
-                                }
-                              ),
+                              { flex: 1 },
                               dimensions.width
                             )}
                           >
-                            {showNKPProp(fetchData?._potd?.headline, undefined)}
-                          </H3>
+                            <>
+                              {!(fetchData?.potd !== 0) ? null : (
+                                <H3
+                                  selectable={false}
+                                  {...GlobalStyles.H3Styles(theme)['H3'].props}
+                                  style={StyleSheet.applyWidth(
+                                    StyleSheet.compose(
+                                      GlobalStyles.H3Styles(theme)['H3'].style,
+                                      {
+                                        alignSelf: 'flex-start',
+                                        fontSize: 16,
+                                        marginBottom: 10,
+                                        marginTop: 0,
+                                        padding: 10,
+                                        textAlign: 'left',
+                                      }
+                                    ),
+                                    dimensions.width
+                                  )}
+                                >
+                                  {showNKPProp(
+                                    fetchData?._potd?.headline,
+                                    undefined
+                                  )}
+                                </H3>
+                              )}
+                            </>
+                          </View>
                         )}
                       </>
-                      {/* nkpPropImg */}
                       <>
                         {!isNKPProp(fetchData?._potd?.headline) ? null : (
-                          <Image
-                            resizeMode={'cover'}
-                            {...GlobalStyles.ImageStyles(theme)['Image'].props}
-                            source={Images['mainsightsfaviconlogo1024new']}
-                            style={StyleSheet.applyWidth(
-                              StyleSheet.compose(
-                                GlobalStyles.ImageStyles(theme)['Image'].style,
-                                {
-                                  height: 20,
-                                  marginRight: {
-                                    minWidth: Breakpoints.Tablet,
-                                    value: 5,
-                                  },
-                                  position: {
-                                    minWidth: Breakpoints.Tablet,
-                                    value: 'relative',
-                                  },
-                                  top: {
-                                    minWidth: Breakpoints.Tablet,
-                                    value: 0,
-                                  },
-                                  width: 20,
-                                }
-                              ),
-                              dimensions.width
-                            )}
-                          />
+                          <View>
+                            {/* nkpPropImg */}
+                            <>
+                              {!isNKPProp(fetchData?._potd?.headline) ? null : (
+                                <Image
+                                  resizeMode={'cover'}
+                                  {...GlobalStyles.ImageStyles(theme)['Image']
+                                    .props}
+                                  source={
+                                    Images['mainsightsfaviconlogo1024new']
+                                  }
+                                  style={StyleSheet.applyWidth(
+                                    StyleSheet.compose(
+                                      GlobalStyles.ImageStyles(theme)['Image']
+                                        .style,
+                                      {
+                                        height: 20,
+                                        marginRight: {
+                                          minWidth: Breakpoints.Tablet,
+                                          value: 5,
+                                        },
+                                        position: {
+                                          minWidth: Breakpoints.Tablet,
+                                          value: 'relative',
+                                        },
+                                        top: {
+                                          minWidth: Breakpoints.Tablet,
+                                          value: 0,
+                                        },
+                                        width: 20,
+                                      }
+                                    ),
+                                    dimensions.width
+                                  )}
+                                />
+                              )}
+                            </>
+                          </View>
                         )}
                       </>
                     </View>
@@ -573,13 +599,18 @@ const NewsletterDetailsScreen = props => {
                       {!(fetchData?.potd !== 0) ? null : (
                         <View
                           style={StyleSheet.applyWidth(
-                            { gap: 4, marginBottom: 20, padding: 10 },
+                            {
+                              gap: 4,
+                              marginBottom: 20,
+                              padding: 10,
+                              width: '100%',
+                            },
                             dimensions.width
                           )}
                         >
                           <View
                             style={StyleSheet.applyWidth(
-                              { flexDirection: 'row', gap: 8 },
+                              { flexDirection: 'row', gap: 8, width: '100%' },
                               dimensions.width
                             )}
                           >
@@ -608,27 +639,37 @@ const NewsletterDetailsScreen = props => {
                                 {'Target:'}
                               </Text>
                             </View>
-                            {/* Value */}
-                            <Text
-                              accessible={true}
-                              {...GlobalStyles.TextStyles(theme)['screen_title']
-                                .props}
+
+                            <View
                               style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.TextStyles(theme)['screen_title']
-                                    .style,
-                                  { fontFamily: 'Quicksand_400Regular' }
-                                ),
+                                { flex: 1 },
                                 dimensions.width
                               )}
                             >
-                              {fetchData?._potd?.target}
-                            </Text>
+                              {/* Value */}
+                              <Text
+                                accessible={true}
+                                {...GlobalStyles.TextStyles(theme)[
+                                  'screen_title'
+                                ].props}
+                                style={StyleSheet.applyWidth(
+                                  StyleSheet.compose(
+                                    GlobalStyles.TextStyles(theme)[
+                                      'screen_title'
+                                    ].style,
+                                    { fontFamily: 'Quicksand_400Regular' }
+                                  ),
+                                  dimensions.width
+                                )}
+                              >
+                                {fetchData?._potd?.target}
+                              </Text>
+                            </View>
                           </View>
                           {/* View 2 */}
                           <View
                             style={StyleSheet.applyWidth(
-                              { flexDirection: 'row', gap: 8 },
+                              { flexDirection: 'row', gap: 8, width: '100%' },
                               dimensions.width
                             )}
                           >
@@ -657,27 +698,37 @@ const NewsletterDetailsScreen = props => {
                                 {'Advisor:'}
                               </Text>
                             </View>
-                            {/* Value */}
-                            <Text
-                              accessible={true}
-                              {...GlobalStyles.TextStyles(theme)['screen_title']
-                                .props}
+
+                            <View
                               style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.TextStyles(theme)['screen_title']
-                                    .style,
-                                  { fontFamily: 'Quicksand_400Regular' }
-                                ),
+                                { flex: 1 },
                                 dimensions.width
                               )}
                             >
-                              {fetchData?._potd?.advisor}
-                            </Text>
+                              {/* Value */}
+                              <Text
+                                accessible={true}
+                                {...GlobalStyles.TextStyles(theme)[
+                                  'screen_title'
+                                ].props}
+                                style={StyleSheet.applyWidth(
+                                  StyleSheet.compose(
+                                    GlobalStyles.TextStyles(theme)[
+                                      'screen_title'
+                                    ].style,
+                                    { fontFamily: 'Quicksand_400Regular' }
+                                  ),
+                                  dimensions.width
+                                )}
+                              >
+                                {fetchData?._potd?.advisor}
+                              </Text>
+                            </View>
                           </View>
                           {/* View 3 */}
                           <View
                             style={StyleSheet.applyWidth(
-                              { flexDirection: 'row', gap: 8 },
+                              { flexDirection: 'row', gap: 8, width: '100%' },
                               dimensions.width
                             )}
                           >
@@ -706,27 +757,37 @@ const NewsletterDetailsScreen = props => {
                                 {'Stage:'}
                               </Text>
                             </View>
-                            {/* Value */}
-                            <Text
-                              accessible={true}
-                              {...GlobalStyles.TextStyles(theme)['screen_title']
-                                .props}
+
+                            <View
                               style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.TextStyles(theme)['screen_title']
-                                    .style,
-                                  { fontFamily: 'Quicksand_400Regular' }
-                                ),
+                                { flex: 1 },
                                 dimensions.width
                               )}
                             >
-                              {fetchData?._potd?.stage}
-                            </Text>
+                              {/* Value */}
+                              <Text
+                                accessible={true}
+                                {...GlobalStyles.TextStyles(theme)[
+                                  'screen_title'
+                                ].props}
+                                style={StyleSheet.applyWidth(
+                                  StyleSheet.compose(
+                                    GlobalStyles.TextStyles(theme)[
+                                      'screen_title'
+                                    ].style,
+                                    { fontFamily: 'Quicksand_400Regular' }
+                                  ),
+                                  dimensions.width
+                                )}
+                              >
+                                {fetchData?._potd?.stage}
+                              </Text>
+                            </View>
                           </View>
                           {/* View 4 */}
                           <View
                             style={StyleSheet.applyWidth(
-                              { flexDirection: 'row', gap: 8 },
+                              { flexDirection: 'row', gap: 8, width: '100%' },
                               dimensions.width
                             )}
                           >
@@ -755,27 +816,37 @@ const NewsletterDetailsScreen = props => {
                                 {'Financials:'}
                               </Text>
                             </View>
-                            {/* Value */}
-                            <Text
-                              accessible={true}
-                              {...GlobalStyles.TextStyles(theme)['screen_title']
-                                .props}
+
+                            <View
                               style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.TextStyles(theme)['screen_title']
-                                    .style,
-                                  { fontFamily: 'Quicksand_400Regular' }
-                                ),
+                                { flex: 1 },
                                 dimensions.width
                               )}
                             >
-                              {fetchData?._potd?.financials}
-                            </Text>
+                              {/* Value */}
+                              <Text
+                                accessible={true}
+                                {...GlobalStyles.TextStyles(theme)[
+                                  'screen_title'
+                                ].props}
+                                style={StyleSheet.applyWidth(
+                                  StyleSheet.compose(
+                                    GlobalStyles.TextStyles(theme)[
+                                      'screen_title'
+                                    ].style,
+                                    { fontFamily: 'Quicksand_400Regular' }
+                                  ),
+                                  dimensions.width
+                                )}
+                              >
+                                {fetchData?._potd?.financials}
+                              </Text>
+                            </View>
                           </View>
                           {/* View 5 */}
                           <View
                             style={StyleSheet.applyWidth(
-                              { flexDirection: 'row', gap: 8 },
+                              { flexDirection: 'row', gap: 8, width: '100%' },
                               dimensions.width
                             )}
                           >
@@ -804,27 +875,37 @@ const NewsletterDetailsScreen = props => {
                                 {'GICS:'}
                               </Text>
                             </View>
-                            {/* Value */}
-                            <Text
-                              accessible={true}
-                              {...GlobalStyles.TextStyles(theme)['screen_title']
-                                .props}
+
+                            <View
                               style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.TextStyles(theme)['screen_title']
-                                    .style,
-                                  { fontFamily: 'Quicksand_400Regular' }
-                                ),
+                                { flex: 1 },
                                 dimensions.width
                               )}
                             >
-                              {fetchData?._potd?.gics}
-                            </Text>
+                              {/* Value */}
+                              <Text
+                                accessible={true}
+                                {...GlobalStyles.TextStyles(theme)[
+                                  'screen_title'
+                                ].props}
+                                style={StyleSheet.applyWidth(
+                                  StyleSheet.compose(
+                                    GlobalStyles.TextStyles(theme)[
+                                      'screen_title'
+                                    ].style,
+                                    { fontFamily: 'Quicksand_400Regular' }
+                                  ),
+                                  dimensions.width
+                                )}
+                              >
+                                {fetchData?._potd?.gics}
+                              </Text>
+                            </View>
                           </View>
                           {/* View 6 */}
                           <View
                             style={StyleSheet.applyWidth(
-                              { flexDirection: 'row', gap: 8 },
+                              { flexDirection: 'row', gap: 8, width: '100%' },
                               dimensions.width
                             )}
                           >
@@ -853,22 +934,32 @@ const NewsletterDetailsScreen = props => {
                                 {'HQ:'}
                               </Text>
                             </View>
-                            {/* Value */}
-                            <Text
-                              accessible={true}
-                              {...GlobalStyles.TextStyles(theme)['screen_title']
-                                .props}
+
+                            <View
                               style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.TextStyles(theme)['screen_title']
-                                    .style,
-                                  { fontFamily: 'Quicksand_400Regular' }
-                                ),
+                                { flex: 1 },
                                 dimensions.width
                               )}
                             >
-                              {fetchData?._potd?.hq}
-                            </Text>
+                              {/* Value */}
+                              <Text
+                                accessible={true}
+                                {...GlobalStyles.TextStyles(theme)[
+                                  'screen_title'
+                                ].props}
+                                style={StyleSheet.applyWidth(
+                                  StyleSheet.compose(
+                                    GlobalStyles.TextStyles(theme)[
+                                      'screen_title'
+                                    ].style,
+                                    { fontFamily: 'Quicksand_400Regular' }
+                                  ),
+                                  dimensions.width
+                                )}
+                              >
+                                {fetchData?._potd?.hq}
+                              </Text>
+                            </View>
                           </View>
                         </View>
                       )}
@@ -1450,7 +1541,12 @@ const NewsletterDetailsScreen = props => {
                     {/* Nordic Newsflow */}
                     <>
                       {!(fetchData?.version === 'Nordic') ? null : (
-                        <View>
+                        <View
+                          style={StyleSheet.applyWidth(
+                            { paddingBottom: 40 },
+                            dimensions.width
+                          )}
+                        >
                           {/* DK */}
                           <View
                             style={StyleSheet.applyWidth(
@@ -1783,11 +1879,7 @@ const NewsletterDetailsScreen = props => {
                                     {!listData?.headline ? null : (
                                       <View
                                         style={StyleSheet.applyWidth(
-                                          {
-                                            height: '100%',
-                                            padding: 5,
-                                            width: '100%',
-                                          },
+                                          { padding: 5 },
                                           dimensions.width
                                         )}
                                       >
@@ -2617,7 +2709,12 @@ const NewsletterDetailsScreen = props => {
                     {/* DACH newsflow */}
                     <>
                       {!(fetchData?.version === 'DACH') ? null : (
-                        <View>
+                        <View
+                          style={StyleSheet.applyWidth(
+                            { paddingBottom: 40 },
+                            dimensions.width
+                          )}
+                        >
                           {/* Large Cap */}
                           <>
                             {!(
@@ -2706,7 +2803,7 @@ const NewsletterDetailsScreen = props => {
                                           {!listData?.headline ? null : (
                                             <View
                                               style={StyleSheet.applyWidth(
-                                                { padding: 5 },
+                                                { padding: 5, width: '100%' },
                                                 dimensions.width
                                               )}
                                             >
@@ -2769,22 +2866,29 @@ const NewsletterDetailsScreen = props => {
                                                       dimensions.width
                                                     )}
                                                   >
-                                                    <Text
-                                                      accessible={true}
+                                                    <View
                                                       style={StyleSheet.applyWidth(
-                                                        {
-                                                          fontFamily:
-                                                            'Quicksand_600SemiBold',
-                                                          fontSize: 16,
-                                                        },
+                                                        { flex: 1 },
                                                         dimensions.width
                                                       )}
                                                     >
-                                                      {showNKPProp(
-                                                        listData?.headline,
-                                                        listData?.source
-                                                      )}
-                                                    </Text>
+                                                      <Text
+                                                        accessible={true}
+                                                        style={StyleSheet.applyWidth(
+                                                          {
+                                                            fontFamily:
+                                                              'Quicksand_600SemiBold',
+                                                            fontSize: 16,
+                                                          },
+                                                          dimensions.width
+                                                        )}
+                                                      >
+                                                        {showNKPProp(
+                                                          listData?.headline,
+                                                          listData?.source
+                                                        )}
+                                                      </Text>
+                                                    </View>
                                                     <>
                                                       {!isNKPProp(
                                                         listData?.headline
@@ -2958,7 +3062,7 @@ const NewsletterDetailsScreen = props => {
                                         {!listData ? null : (
                                           <View
                                             style={StyleSheet.applyWidth(
-                                              { padding: 5 },
+                                              { padding: 5, width: '100%' },
                                               dimensions.width
                                             )}
                                           >
@@ -3058,23 +3162,31 @@ const NewsletterDetailsScreen = props => {
                                                     dimensions.width
                                                   )}
                                                 >
-                                                  <Text
-                                                    accessible={true}
+                                                  <View
                                                     style={StyleSheet.applyWidth(
-                                                      {
-                                                        alignSelf: 'flex-start',
-                                                        fontFamily:
-                                                          'Quicksand_600SemiBold',
-                                                        fontSize: 16,
-                                                      },
+                                                      { flex: 1 },
                                                       dimensions.width
                                                     )}
                                                   >
-                                                    {showNKPProp(
-                                                      listData?.headline,
-                                                      listData?.source
-                                                    )}
-                                                  </Text>
+                                                    <Text
+                                                      accessible={true}
+                                                      style={StyleSheet.applyWidth(
+                                                        {
+                                                          alignSelf:
+                                                            'flex-start',
+                                                          fontFamily:
+                                                            'Quicksand_600SemiBold',
+                                                          fontSize: 16,
+                                                        },
+                                                        dimensions.width
+                                                      )}
+                                                    >
+                                                      {showNKPProp(
+                                                        listData?.headline,
+                                                        listData?.source
+                                                      )}
+                                                    </Text>
+                                                  </View>
                                                   <>
                                                     {!isNKPProp(
                                                       listData?.headline
@@ -3095,10 +3207,7 @@ const NewsletterDetailsScreen = props => {
                                                               theme
                                                             )['Image'].style,
                                                             {
-                                                              bottom: 0,
                                                               height: 20,
-                                                              position:
-                                                                'absolute',
                                                               width: 20,
                                                             }
                                                           ),
@@ -3242,7 +3351,7 @@ const NewsletterDetailsScreen = props => {
                                         {!listData?.headline ? null : (
                                           <View
                                             style={StyleSheet.applyWidth(
-                                              { padding: 5 },
+                                              { padding: 5, width: '100%' },
                                               dimensions.width
                                             )}
                                           >
@@ -3342,22 +3451,29 @@ const NewsletterDetailsScreen = props => {
                                                     dimensions.width
                                                   )}
                                                 >
-                                                  <Text
-                                                    accessible={true}
+                                                  <View
                                                     style={StyleSheet.applyWidth(
-                                                      {
-                                                        fontFamily:
-                                                          'Quicksand_600SemiBold',
-                                                        fontSize: 16,
-                                                      },
+                                                      { flex: 1 },
                                                       dimensions.width
                                                     )}
                                                   >
-                                                    {showNKPProp(
-                                                      listData?.headline,
-                                                      listData?.source
-                                                    )}
-                                                  </Text>
+                                                    <Text
+                                                      accessible={true}
+                                                      style={StyleSheet.applyWidth(
+                                                        {
+                                                          fontFamily:
+                                                            'Quicksand_600SemiBold',
+                                                          fontSize: 16,
+                                                        },
+                                                        dimensions.width
+                                                      )}
+                                                    >
+                                                      {showNKPProp(
+                                                        listData?.headline,
+                                                        listData?.source
+                                                      )}
+                                                    </Text>
+                                                  </View>
                                                   <>
                                                     {!isNKPProp(
                                                       listData?.headline
@@ -3486,6 +3602,7 @@ const NewsletterDetailsScreen = props => {
           );
         }}
       </XanoCollectionApi.FetchNewsletterEachGET>
+      <CustomBottomNavBlock />
     </ScreenContainer>
   );
 };

@@ -1687,12 +1687,16 @@ export const FetchGetPeersListGET = ({
 
 export const loginPOST = async (
   Constants,
-  { email, password },
+  { deviceType, email, password },
   handlers = {}
 ) => {
   const url = `https://xne3-pdiu-8ysm.f2.xano.io/api:abjrBkC8/auth/login`;
   const options = {
-    body: JSON.stringify({ email: email, password: password }),
+    body: JSON.stringify({
+      email: email,
+      password: password,
+      Device: deviceType,
+    }),
     headers: cleanHeaders({
       Accept: 'application/json',
       Authorization: Constants['AUTH_HEADER'],
@@ -1721,6 +1725,7 @@ export const FetchLoginPOST = ({
   onData = () => {},
   handlers = {},
   refetchInterval,
+  deviceType,
   email,
   password,
 }) => {
@@ -1734,7 +1739,7 @@ export const FetchLoginPOST = ({
     error,
     mutate: refetch,
   } = useLoginPOST(
-    { email, password },
+    { deviceType, email, password },
     { refetchInterval, handlers: { onData, ...handlers } }
   );
 

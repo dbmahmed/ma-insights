@@ -1,17 +1,4 @@
 import React from 'react';
-import * as GlobalStyles from '../GlobalStyles.js';
-import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
-import * as XanoResetPassApi from '../apis/XanoResetPassApi.js';
-import * as GlobalVariables from '../config/GlobalVariableContext';
-import Images from '../config/Images';
-import assessAccess from '../global-functions/assessAccess';
-import removeGlobalScroll from '../global-functions/removeGlobalScroll';
-import setAccessToken from '../global-functions/setAccessToken';
-import palettes from '../themes/palettes';
-import Breakpoints from '../utils/Breakpoints';
-import * as StyleSheet from '../utils/StyleSheet';
-import parseBoolean from '../utils/parseBoolean';
-import useWindowDimensions from '../utils/useWindowDimensions';
 import {
   Button,
   HStack,
@@ -24,7 +11,21 @@ import {
   withTheme,
 } from '@draftbit/ui';
 import { useIsFocused } from '@react-navigation/native';
-import { Image, Keyboard, Modal, Text, View } from 'react-native';
+import { Image, Keyboard, Modal, Platform, Text, View } from 'react-native';
+import * as GlobalStyles from '../GlobalStyles.js';
+import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
+import * as XanoResetPassApi from '../apis/XanoResetPassApi.js';
+import * as GlobalVariables from '../config/GlobalVariableContext';
+import Images from '../config/Images';
+import assessAccess from '../global-functions/assessAccess';
+import deviceType from '../global-functions/deviceType';
+import removeGlobalScroll from '../global-functions/removeGlobalScroll';
+import setAccessToken from '../global-functions/setAccessToken';
+import palettes from '../themes/palettes';
+import Breakpoints from '../utils/Breakpoints';
+import * as StyleSheet from '../utils/StyleSheet';
+import parseBoolean from '../utils/parseBoolean';
+import useWindowDimensions from '../utils/useWindowDimensions';
 
 const LogInScreen = props => {
   const { theme, navigation } = props;
@@ -486,86 +487,40 @@ const LogInScreen = props => {
                       iconPosition={'left'}
                       onPress={() => {
                         const handler = async () => {
-                          console.log('Login ON_PRESS Start');
-                          let error = null;
                           try {
-                            console.log('Start ON_PRESS:0 SET_VARIABLE');
                             setLogInPressed(true);
-                            console.log('Complete ON_PRESS:0 SET_VARIABLE');
-                            console.log('Start ON_PRESS:1 CONDITIONAL_STOP');
                             if (!loginFormValidator()) {
-                              return console.log(
-                                'Complete ON_PRESS:1 CONDITIONAL_STOP'
-                              );
-                            } else {
-                              console.log(
-                                'Skipped ON_PRESS:1 CONDITIONAL_STOP: condition not met'
-                              );
+                              return;
                             }
-                            console.log('Start ON_PRESS:2 FETCH_REQUEST');
                             const Xano_Auth = (
                               await XanoCollectionApi.loginPOST(Constants, {
+                                deviceType: deviceType(
+                                  Platform.OS === 'web',
+                                  Platform.OS === 'ios',
+                                  Platform.OS === 'android'
+                                ),
                                 email: emailVarl,
                                 password: passwordVarl,
                               })
                             )?.json;
-                            console.log('Complete ON_PRESS:2 FETCH_REQUEST', {
-                              Xano_Auth,
-                            });
-                            console.log('Start ON_PRESS:3 CONSOLE_LOG');
                             console.log('XANO_AUTH', Xano_Auth);
-                            console.log('Complete ON_PRESS:3 CONSOLE_LOG');
-                            console.log('Start ON_PRESS:4 CUSTOM_FUNCTION');
-                            /* hidden 'Run a Custom Function' action */ console.log(
-                              'Complete ON_PRESS:4 CUSTOM_FUNCTION'
-                            );
-                            console.log('Start ON_PRESS:5 EXTRACT_KEY');
+                            /* hidden 'Run a Custom Function' action */
                             const savedToken = Xano_Auth?.authToken;
-                            console.log('Complete ON_PRESS:5 EXTRACT_KEY', {
-                              savedToken,
-                            });
-                            console.log('Start ON_PRESS:6 EXTRACT_KEY');
                             const message = Xano_Auth?.message;
-                            console.log('Complete ON_PRESS:6 EXTRACT_KEY', {
-                              message,
-                            });
-                            console.log('Start ON_PRESS:7 SET_VARIABLE');
                             setErrorMessage(message);
-                            console.log('Complete ON_PRESS:7 SET_VARIABLE');
-                            console.log('Start ON_PRESS:8 SET_VARIABLE');
                             setLogInPressed(false);
-                            console.log('Complete ON_PRESS:8 SET_VARIABLE');
-                            console.log('Start ON_PRESS:9 CONDITIONAL_STOP');
                             if (!savedToken) {
-                              return console.log(
-                                'Complete ON_PRESS:9 CONDITIONAL_STOP'
-                              );
-                            } else {
-                              console.log(
-                                'Skipped ON_PRESS:9 CONDITIONAL_STOP: condition not met'
-                              );
+                              return;
                             }
-                            console.log('Start ON_PRESS:10 SET_VARIABLE');
                             setGlobalVariableValue({
                               key: 'AUTH_HEADER',
                               value: 'Bearer ' + savedToken,
                             });
-                            console.log('Complete ON_PRESS:10 SET_VARIABLE');
-                            console.log('Start ON_PRESS:11 FETCH_REQUEST');
-                            /* hidden 'API Request' action */ console.log(
-                              'Complete ON_PRESS:11 FETCH_REQUEST'
-                            );
-                            console.log('Start ON_PRESS:12 NAVIGATE');
+                            /* hidden 'API Request' action */
                             navigation.navigate('SplashScreen');
-                            console.log('Complete ON_PRESS:12 NAVIGATE');
                           } catch (err) {
                             console.error(err);
-                            error = err.message ?? err;
                           }
-                          console.log(
-                            'Login ON_PRESS Complete',
-                            error ? { error } : 'no error'
-                          );
                         };
                         handler();
                       }}

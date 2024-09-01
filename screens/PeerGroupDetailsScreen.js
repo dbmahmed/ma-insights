@@ -22,6 +22,7 @@ import { ActivityIndicator, Modal, Text, View } from 'react-native';
 import { Fetch } from 'react-request';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
+import CustomBottomNavBlock from '../components/CustomBottomNavBlock';
 import CustomHeaderBlock from '../components/CustomHeaderBlock';
 import LoadingBlock from '../components/LoadingBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
@@ -80,7 +81,11 @@ const PeerGroupDetailsScreen = props => {
   const peerNamemPOnMmmKRef = React.useRef();
 
   return (
-    <ScreenContainer hasSafeArea={false} scrollable={false}>
+    <ScreenContainer
+      hasSafeArea={false}
+      hasTopSafeArea={true}
+      scrollable={false}
+    >
       <CustomHeaderBlock />
       <XanoCollectionApi.FetchGetOnePeerGET
         handlers={{
@@ -237,7 +242,7 @@ const PeerGroupDetailsScreen = props => {
                       </Text>
                       {/* Text 3 */}
                       <>
-                        {!NKP_Comp ? null : (
+                        {!(NKP_Comp && fetchData?.description) ? null : (
                           <Text
                             accessible={true}
                             style={StyleSheet.applyWidth(
@@ -257,6 +262,7 @@ const PeerGroupDetailsScreen = props => {
                     style={StyleSheet.applyWidth(
                       {
                         alignItems: 'flex-start',
+                        flex: 1,
                         flexDirection: 'row',
                         flexWrap: 'wrap',
                         gap: [
@@ -286,7 +292,12 @@ const PeerGroupDetailsScreen = props => {
                           GlobalStyles.LinearGradientStyles(theme)[
                             'Linear Gradient'
                           ].style,
-                          { borderRadius: 0, margin: null }
+                          {
+                            borderRadius: 0,
+                            flex: null,
+                            margin: null,
+                            width: '100%',
+                          }
                         ),
                         dimensions.width
                       )}
@@ -872,7 +883,10 @@ const PeerGroupDetailsScreen = props => {
                         drawTopBorder={false}
                         showsVerticalScrollIndicator={false}
                         style={StyleSheet.applyWidth(
-                          GlobalStyles.TableStyles(theme)['Table'].style,
+                          StyleSheet.compose(
+                            GlobalStyles.TableStyles(theme)['Table'].style,
+                            { flex: null }
+                          ),
                           dimensions.width
                         )}
                       />
@@ -920,10 +934,12 @@ const PeerGroupDetailsScreen = props => {
                             {
                               borderRadius: 0,
                               borderWidth: 0,
+                              flex: null,
                               margin: [
                                 { minWidth: Breakpoints.Tablet, value: 0 },
                                 { minWidth: Breakpoints.Mobile, value: 0 },
                               ],
+                              width: '100%',
                             }
                           ),
                           dimensions.width
@@ -933,13 +949,13 @@ const PeerGroupDetailsScreen = props => {
                           borderColor={theme.colors.border.brand}
                           borderStyle={'solid'}
                           borderWidth={1}
-                          cellHorizontalPadding={10}
                           cellVerticalPadding={10}
                           drawBottomBorder={false}
                           drawEndBorder={false}
                           drawStartBorder={false}
                           showsVerticalScrollIndicator={true}
                           {...GlobalStyles.TableStyles(theme)['Table'].props}
+                          cellHorizontalPadding={5}
                           drawTopBorder={false}
                           style={StyleSheet.applyWidth(
                             GlobalStyles.TableStyles(theme)['Table'].style,
@@ -1934,10 +1950,12 @@ const PeerGroupDetailsScreen = props => {
                             {
                               borderRadius: 0,
                               borderWidth: 0,
+                              flex: null,
                               margin: [
                                 { minWidth: Breakpoints.Tablet, value: 0 },
                                 { minWidth: Breakpoints.Mobile, value: 0 },
                               ],
+                              width: '100%',
                             }
                           ),
                           dimensions.width
@@ -1947,13 +1965,13 @@ const PeerGroupDetailsScreen = props => {
                           borderColor={theme.colors.border.brand}
                           borderStyle={'solid'}
                           borderWidth={1}
-                          cellHorizontalPadding={10}
                           cellVerticalPadding={10}
                           drawBottomBorder={false}
                           drawEndBorder={false}
                           drawStartBorder={false}
                           showsVerticalScrollIndicator={true}
                           {...GlobalStyles.TableStyles(theme)['Table'].props}
+                          cellHorizontalPadding={5}
                           drawTopBorder={false}
                           style={StyleSheet.applyWidth(
                             GlobalStyles.TableStyles(theme)['Table'].style,
@@ -3219,6 +3237,7 @@ const PeerGroupDetailsScreen = props => {
           );
         }}
       </XanoCollectionApi.FetchGetOnePeerGET>
+      <CustomBottomNavBlock />
     </ScreenContainer>
   );
 };

@@ -20,6 +20,7 @@ import { ActivityIndicator, Modal, Text, View } from 'react-native';
 import { Fetch } from 'react-request';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
+import CustomBottomNavBlock from '../components/CustomBottomNavBlock';
 import CustomHeaderBlock from '../components/CustomHeaderBlock';
 import LoadingBlock from '../components/LoadingBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
@@ -255,7 +256,11 @@ const PEPFScreen = props => {
   }, [isFocused]);
 
   return (
-    <ScreenContainer hasSafeArea={false} scrollable={false}>
+    <ScreenContainer
+      hasSafeArea={false}
+      scrollable={false}
+      hasTopSafeArea={true}
+    >
       <CustomHeaderBlock />
       {/* View 2 */}
       <View
@@ -309,40 +314,43 @@ const PEPFScreen = props => {
               dimensions.width
             )}
           >
-            <TextInput
-              autoCorrect={true}
-              changeTextDelay={500}
-              onChangeText={newTextInputValue => {
-                try {
-                  setKeywordSearchRaw(newTextInputValue);
-                } catch (err) {
-                  console.error(err);
-                }
-              }}
-              onSubmitEditing={() => {
-                try {
-                  setKeywordSearch(keywordSearchRaw);
-                  /* hidden 'API Request' action */
-                  /* hidden 'Refetch Data' action */
-                } catch (err) {
-                  console.error(err);
-                }
-              }}
-              webShowOutline={true}
-              {...GlobalStyles.TextInputStyles(theme)['Text Input'].props}
-              autoCapitalize={'sentences'}
-              clearButtonMode={'while-editing'}
-              placeholder={'Search...'}
-              returnKeyType={'search'}
-              style={StyleSheet.applyWidth(
-                StyleSheet.compose(
-                  GlobalStyles.TextInputStyles(theme)['Text Input'].style,
-                  { width: '90%' }
-                ),
-                dimensions.width
-              )}
-              value={keywordSearchRaw}
-            />
+            <View style={StyleSheet.applyWidth({ flex: 1 }, dimensions.width)}>
+              <TextInput
+                autoCorrect={true}
+                changeTextDelay={500}
+                onChangeText={newTextInputValue => {
+                  try {
+                    setKeywordSearchRaw(newTextInputValue);
+                  } catch (err) {
+                    console.error(err);
+                  }
+                }}
+                onSubmitEditing={() => {
+                  try {
+                    setKeywordSearch(keywordSearchRaw);
+                    /* hidden 'API Request' action */
+                    /* hidden 'Refetch Data' action */
+                  } catch (err) {
+                    console.error(err);
+                  }
+                }}
+                webShowOutline={true}
+                {...GlobalStyles.TextInputStyles(theme)['Text Input'].props}
+                autoCapitalize={'sentences'}
+                clearButtonMode={'while-editing'}
+                placeholder={'Search...'}
+                returnKeyType={'search'}
+                style={StyleSheet.applyWidth(
+                  StyleSheet.compose(
+                    GlobalStyles.TextInputStyles(theme)['Text Input'].style,
+                    { width: '100%' }
+                  ),
+                  dimensions.width
+                )}
+                value={keywordSearchRaw}
+              />
+            </View>
+
             <Shadow
               offsetX={0}
               paintInside={true}
@@ -3749,7 +3757,7 @@ const PEPFScreen = props => {
                                   ),
                                   dimensions.width
                                 )}
-                                title={'Filter\n'}
+                                title={'Filter'}
                               />
                             </View>
                           </View>
@@ -3763,6 +3771,7 @@ const PEPFScreen = props => {
           );
         }}
       </XanoCollectionApi.FetchGetAllPEPFGET>
+      <CustomBottomNavBlock />
     </ScreenContainer>
   );
 };

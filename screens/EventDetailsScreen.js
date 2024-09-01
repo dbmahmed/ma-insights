@@ -14,6 +14,7 @@ import { ActivityIndicator, Image, Text, View } from 'react-native';
 import { Fetch } from 'react-request';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
+import CustomBottomNavBlock from '../components/CustomBottomNavBlock';
 import CustomHeaderBlock from '../components/CustomHeaderBlock';
 import LoadingBlock from '../components/LoadingBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
@@ -83,6 +84,7 @@ const EventDetailsScreen = props => {
       scrollable={false}
       hasLeftSafeArea={false}
       hasRightSafeArea={false}
+      hasTopSafeArea={true}
     >
       <CustomHeaderBlock />
       <XanoCollectionApi.FetchGetOneEventGET
@@ -212,6 +214,7 @@ const EventDetailsScreen = props => {
                         { minWidth: Breakpoints.BigScreen, value: 8 },
                         { minWidth: Breakpoints.Laptop, value: 8 },
                       ],
+                      width: '100%',
                     },
                     dimensions.width
                   )}
@@ -248,7 +251,7 @@ const EventDetailsScreen = props => {
                   >
                     <View
                       style={StyleSheet.applyWidth(
-                        { flexDirection: 'row', gap: 8 },
+                        { flexDirection: 'row', gap: 8, width: '100%' },
                         dimensions.width
                       )}
                     >
@@ -282,30 +285,37 @@ const EventDetailsScreen = props => {
                           {'Event type:'}
                         </Text>
                       </View>
-
-                      <Text
-                        accessible={true}
-                        {...GlobalStyles.TextStyles(theme)['screen_title']
-                          .props}
+                      {/* View 2 */}
+                      <View
                         style={StyleSheet.applyWidth(
-                          StyleSheet.compose(
-                            GlobalStyles.TextStyles(theme)['screen_title']
-                              .style,
-                            {
-                              color: palettes.Brand['Strong Inverse'],
-                              fontFamily: 'Quicksand_500Medium',
-                            }
-                          ),
+                          { flex: 1 },
                           dimensions.width
                         )}
                       >
-                        {fetchData?.event_type}
-                      </Text>
+                        <Text
+                          accessible={true}
+                          {...GlobalStyles.TextStyles(theme)['screen_title']
+                            .props}
+                          style={StyleSheet.applyWidth(
+                            StyleSheet.compose(
+                              GlobalStyles.TextStyles(theme)['screen_title']
+                                .style,
+                              {
+                                color: palettes.Brand['Strong Inverse'],
+                                fontFamily: 'Quicksand_500Medium',
+                              }
+                            ),
+                            dimensions.width
+                          )}
+                        >
+                          {fetchData?.event_type}
+                        </Text>
+                      </View>
                     </View>
                     {/* View 2 */}
                     <View
                       style={StyleSheet.applyWidth(
-                        { flexDirection: 'row', gap: 8 },
+                        { flexDirection: 'row', gap: 8, width: '100%' },
                         dimensions.width
                       )}
                     >
@@ -339,30 +349,37 @@ const EventDetailsScreen = props => {
                           {'Source:'}
                         </Text>
                       </View>
-
-                      <Text
-                        accessible={true}
-                        {...GlobalStyles.TextStyles(theme)['screen_title']
-                          .props}
+                      {/* View 2 */}
+                      <View
                         style={StyleSheet.applyWidth(
-                          StyleSheet.compose(
-                            GlobalStyles.TextStyles(theme)['screen_title']
-                              .style,
-                            {
-                              color: palettes.Brand['Strong Inverse'],
-                              fontFamily: 'Quicksand_500Medium',
-                            }
-                          ),
+                          { flex: 1 },
                           dimensions.width
                         )}
                       >
-                        {fetchData?.source}
-                      </Text>
+                        <Text
+                          accessible={true}
+                          {...GlobalStyles.TextStyles(theme)['screen_title']
+                            .props}
+                          style={StyleSheet.applyWidth(
+                            StyleSheet.compose(
+                              GlobalStyles.TextStyles(theme)['screen_title']
+                                .style,
+                              {
+                                color: palettes.Brand['Strong Inverse'],
+                                fontFamily: 'Quicksand_500Medium',
+                              }
+                            ),
+                            dimensions.width
+                          )}
+                        >
+                          {fetchData?.source}
+                        </Text>
+                      </View>
                     </View>
                     {/* View 3 */}
                     <View
                       style={StyleSheet.applyWidth(
-                        { flexDirection: 'row', gap: 8 },
+                        { flexDirection: 'row', gap: 8, width: '100%' },
                         dimensions.width
                       )}
                     >
@@ -396,67 +413,75 @@ const EventDetailsScreen = props => {
                           {'Source link:'}
                         </Text>
                       </View>
-                      <>
-                        {!(fetchData?.source_link !== '') ? null : (
-                          <Link
-                            accessible={true}
-                            onPress={() => {
-                              const handler = async () => {
-                                try {
-                                  await WebBrowser.openBrowserAsync(
-                                    `${fetchData?.source_link}`
-                                  );
-                                } catch (err) {
-                                  console.error(err);
-                                }
-                              };
-                              handler();
-                            }}
-                            {...GlobalStyles.LinkStyles(theme)['Link'].props}
-                            ellipsizeMode={'tail'}
-                            numberOfLines={1}
-                            style={StyleSheet.applyWidth(
-                              StyleSheet.compose(
-                                GlobalStyles.LinkStyles(theme)['Link'].style,
-                                { color: palettes.App.Orange }
-                              ),
-                              dimensions.width
-                            )}
-                            title={`${cutTextByWidth(
-                              fetchData?.source_link,
-                              dimensions.width,
-                              190
-                            )}`}
-                          />
+                      {/* View 2 */}
+                      <View
+                        style={StyleSheet.applyWidth(
+                          { flex: 1 },
+                          dimensions.width
                         )}
-                      </>
-                      <>
-                        {!(fetchData?.source_link === '') ? null : (
-                          <Text
-                            accessible={true}
-                            {...GlobalStyles.TextStyles(theme)['screen_title']
-                              .props}
-                            style={StyleSheet.applyWidth(
-                              StyleSheet.compose(
-                                GlobalStyles.TextStyles(theme)['screen_title']
-                                  .style,
-                                {
-                                  color: palettes.Brand['Strong Inverse'],
-                                  fontFamily: 'Quicksand_500Medium',
-                                }
-                              ),
-                              dimensions.width
-                            )}
-                          >
-                            {'-'}
-                          </Text>
-                        )}
-                      </>
+                      >
+                        <>
+                          {!(fetchData?.source_link !== '') ? null : (
+                            <Link
+                              accessible={true}
+                              onPress={() => {
+                                const handler = async () => {
+                                  try {
+                                    await WebBrowser.openBrowserAsync(
+                                      `${fetchData?.source_link}`
+                                    );
+                                  } catch (err) {
+                                    console.error(err);
+                                  }
+                                };
+                                handler();
+                              }}
+                              {...GlobalStyles.LinkStyles(theme)['Link'].props}
+                              ellipsizeMode={'tail'}
+                              numberOfLines={1}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.LinkStyles(theme)['Link'].style,
+                                  { color: palettes.App.Orange }
+                                ),
+                                dimensions.width
+                              )}
+                              title={`${cutTextByWidth(
+                                fetchData?.source_link,
+                                dimensions.width,
+                                190
+                              )}`}
+                            />
+                          )}
+                        </>
+                        <>
+                          {!(fetchData?.source_link === '') ? null : (
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)['screen_title']
+                                .props}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.TextStyles(theme)['screen_title']
+                                    .style,
+                                  {
+                                    color: palettes.Brand['Strong Inverse'],
+                                    fontFamily: 'Quicksand_500Medium',
+                                  }
+                                ),
+                                dimensions.width
+                              )}
+                            >
+                              {'-'}
+                            </Text>
+                          )}
+                        </>
+                      </View>
                     </View>
                     {/* View 4 */}
                     <View
                       style={StyleSheet.applyWidth(
-                        { flexDirection: 'row', gap: 8 },
+                        { flexDirection: 'row', gap: 8, width: '100%' },
                         dimensions.width
                       )}
                     >
@@ -490,30 +515,37 @@ const EventDetailsScreen = props => {
                           {'Target:'}
                         </Text>
                       </View>
-
-                      <Text
-                        accessible={true}
-                        {...GlobalStyles.TextStyles(theme)['screen_title']
-                          .props}
+                      {/* View 2 */}
+                      <View
                         style={StyleSheet.applyWidth(
-                          StyleSheet.compose(
-                            GlobalStyles.TextStyles(theme)['screen_title']
-                              .style,
-                            {
-                              color: palettes.Brand['Strong Inverse'],
-                              fontFamily: 'Quicksand_500Medium',
-                            }
-                          ),
+                          { flex: 1 },
                           dimensions.width
                         )}
                       >
-                        {fetchData?.target}
-                      </Text>
+                        <Text
+                          accessible={true}
+                          {...GlobalStyles.TextStyles(theme)['screen_title']
+                            .props}
+                          style={StyleSheet.applyWidth(
+                            StyleSheet.compose(
+                              GlobalStyles.TextStyles(theme)['screen_title']
+                                .style,
+                              {
+                                color: palettes.Brand['Strong Inverse'],
+                                fontFamily: 'Quicksand_500Medium',
+                              }
+                            ),
+                            dimensions.width
+                          )}
+                        >
+                          {fetchData?.target}
+                        </Text>
+                      </View>
                     </View>
                     {/* View 5 */}
                     <View
                       style={StyleSheet.applyWidth(
-                        { flexDirection: 'row', gap: 8 },
+                        { flexDirection: 'row', gap: 8, width: '100%' },
                         dimensions.width
                       )}
                     >
@@ -547,30 +579,37 @@ const EventDetailsScreen = props => {
                           {'Target Country:'}
                         </Text>
                       </View>
-
-                      <Text
-                        accessible={true}
-                        {...GlobalStyles.TextStyles(theme)['screen_title']
-                          .props}
+                      {/* View 2 */}
+                      <View
                         style={StyleSheet.applyWidth(
-                          StyleSheet.compose(
-                            GlobalStyles.TextStyles(theme)['screen_title']
-                              .style,
-                            {
-                              color: palettes.Brand['Strong Inverse'],
-                              fontFamily: 'Quicksand_500Medium',
-                            }
-                          ),
+                          { flex: 1 },
                           dimensions.width
                         )}
                       >
-                        {fetchData?.country}
-                      </Text>
+                        <Text
+                          accessible={true}
+                          {...GlobalStyles.TextStyles(theme)['screen_title']
+                            .props}
+                          style={StyleSheet.applyWidth(
+                            StyleSheet.compose(
+                              GlobalStyles.TextStyles(theme)['screen_title']
+                                .style,
+                              {
+                                color: palettes.Brand['Strong Inverse'],
+                                fontFamily: 'Quicksand_500Medium',
+                              }
+                            ),
+                            dimensions.width
+                          )}
+                        >
+                          {fetchData?.country}
+                        </Text>
+                      </View>
                     </View>
                     {/* View 6 */}
                     <View
                       style={StyleSheet.applyWidth(
-                        { flexDirection: 'row', gap: 8 },
+                        { flexDirection: 'row', gap: 8, width: '100%' },
                         dimensions.width
                       )}
                     >
@@ -604,30 +643,37 @@ const EventDetailsScreen = props => {
                           {'Target GICS:'}
                         </Text>
                       </View>
-
-                      <Text
-                        accessible={true}
-                        {...GlobalStyles.TextStyles(theme)['screen_title']
-                          .props}
+                      {/* View 2 */}
+                      <View
                         style={StyleSheet.applyWidth(
-                          StyleSheet.compose(
-                            GlobalStyles.TextStyles(theme)['screen_title']
-                              .style,
-                            {
-                              color: palettes.Brand['Strong Inverse'],
-                              fontFamily: 'Quicksand_500Medium',
-                            }
-                          ),
+                          { flex: 1 },
                           dimensions.width
                         )}
                       >
-                        {fetchData?._gics?.GICS_Sub_Industry}
-                      </Text>
+                        <Text
+                          accessible={true}
+                          {...GlobalStyles.TextStyles(theme)['screen_title']
+                            .props}
+                          style={StyleSheet.applyWidth(
+                            StyleSheet.compose(
+                              GlobalStyles.TextStyles(theme)['screen_title']
+                                .style,
+                              {
+                                color: palettes.Brand['Strong Inverse'],
+                                fontFamily: 'Quicksand_500Medium',
+                              }
+                            ),
+                            dimensions.width
+                          )}
+                        >
+                          {fetchData?._gics?.GICS_Sub_Industry}
+                        </Text>
+                      </View>
                     </View>
                     {/* View 7 */}
                     <View
                       style={StyleSheet.applyWidth(
-                        { flexDirection: 'row', gap: 8 },
+                        { flexDirection: 'row', gap: 8, width: '100%' },
                         dimensions.width
                       )}
                     >
@@ -661,34 +707,41 @@ const EventDetailsScreen = props => {
                           {'Seller:'}
                         </Text>
                       </View>
-
-                      <Text
-                        accessible={true}
-                        {...GlobalStyles.TextStyles(theme)['screen_title']
-                          .props}
+                      {/* View 2 */}
+                      <View
                         style={StyleSheet.applyWidth(
-                          StyleSheet.compose(
-                            GlobalStyles.TextStyles(theme)['screen_title']
-                              .style,
-                            {
-                              color: palettes.Brand['Strong Inverse'],
-                              fontFamily: 'Quicksand_500Medium',
-                            }
-                          ),
+                          { flex: 1 },
                           dimensions.width
                         )}
                       >
-                        {transformNumber(
-                          getListNameFormArray(fetchData?.seller),
-                          undefined,
-                          undefined
-                        )}
-                      </Text>
+                        <Text
+                          accessible={true}
+                          {...GlobalStyles.TextStyles(theme)['screen_title']
+                            .props}
+                          style={StyleSheet.applyWidth(
+                            StyleSheet.compose(
+                              GlobalStyles.TextStyles(theme)['screen_title']
+                                .style,
+                              {
+                                color: palettes.Brand['Strong Inverse'],
+                                fontFamily: 'Quicksand_500Medium',
+                              }
+                            ),
+                            dimensions.width
+                          )}
+                        >
+                          {transformNumber(
+                            getListNameFormArray(fetchData?.seller),
+                            undefined,
+                            undefined
+                          )}
+                        </Text>
+                      </View>
                     </View>
                     {/* View 8 */}
                     <View
                       style={StyleSheet.applyWidth(
-                        { flexDirection: 'row', gap: 8 },
+                        { flexDirection: 'row', gap: 8, width: '100%' },
                         dimensions.width
                       )}
                     >
@@ -722,29 +775,36 @@ const EventDetailsScreen = props => {
                           {'Buyer:'}
                         </Text>
                       </View>
-
-                      <Text
-                        accessible={true}
-                        {...GlobalStyles.TextStyles(theme)['screen_title']
-                          .props}
+                      {/* View 2 */}
+                      <View
                         style={StyleSheet.applyWidth(
-                          StyleSheet.compose(
-                            GlobalStyles.TextStyles(theme)['screen_title']
-                              .style,
-                            {
-                              color: palettes.Brand['Strong Inverse'],
-                              fontFamily: 'Quicksand_500Medium',
-                            }
-                          ),
+                          { flex: 1 },
                           dimensions.width
                         )}
                       >
-                        {transformNumber(
-                          getListNameFormArray(fetchData?.buyer),
-                          undefined,
-                          undefined
-                        )}
-                      </Text>
+                        <Text
+                          accessible={true}
+                          {...GlobalStyles.TextStyles(theme)['screen_title']
+                            .props}
+                          style={StyleSheet.applyWidth(
+                            StyleSheet.compose(
+                              GlobalStyles.TextStyles(theme)['screen_title']
+                                .style,
+                              {
+                                color: palettes.Brand['Strong Inverse'],
+                                fontFamily: 'Quicksand_500Medium',
+                              }
+                            ),
+                            dimensions.width
+                          )}
+                        >
+                          {transformNumber(
+                            getListNameFormArray(fetchData?.buyer),
+                            undefined,
+                            undefined
+                          )}
+                        </Text>
+                      </View>
                     </View>
                     {/* View 9 */}
                     <>
@@ -757,7 +817,7 @@ const EventDetailsScreen = props => {
                       ) ? null : (
                         <View
                           style={StyleSheet.applyWidth(
-                            { flexDirection: 'row', gap: 8 },
+                            { flexDirection: 'row', gap: 8, width: '100%' },
                             dimensions.width
                           )}
                         >
@@ -791,25 +851,32 @@ const EventDetailsScreen = props => {
                               {'Revenue:'}
                             </Text>
                           </View>
-
-                          <Text
-                            accessible={true}
-                            {...GlobalStyles.TextStyles(theme)['screen_title']
-                              .props}
+                          {/* View 2 */}
+                          <View
                             style={StyleSheet.applyWidth(
-                              StyleSheet.compose(
-                                GlobalStyles.TextStyles(theme)['screen_title']
-                                  .style,
-                                {
-                                  color: palettes.Brand['Strong Inverse'],
-                                  fontFamily: 'Quicksand_500Medium',
-                                }
-                              ),
+                              { flex: 1 },
                               dimensions.width
                             )}
                           >
-                            {transformEuroM(fetchData?.revenue_eur)}
-                          </Text>
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)['screen_title']
+                                .props}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.TextStyles(theme)['screen_title']
+                                    .style,
+                                  {
+                                    color: palettes.Brand['Strong Inverse'],
+                                    fontFamily: 'Quicksand_500Medium',
+                                  }
+                                ),
+                                dimensions.width
+                              )}
+                            >
+                              {transformEuroM(fetchData?.revenue_eur)}
+                            </Text>
+                          </View>
                         </View>
                       )}
                     </>
@@ -824,7 +891,7 @@ const EventDetailsScreen = props => {
                       ) ? null : (
                         <View
                           style={StyleSheet.applyWidth(
-                            { flexDirection: 'row', gap: 8 },
+                            { flexDirection: 'row', gap: 8, width: '100%' },
                             dimensions.width
                           )}
                         >
@@ -858,25 +925,32 @@ const EventDetailsScreen = props => {
                               {'EBITDA:'}
                             </Text>
                           </View>
-
-                          <Text
-                            accessible={true}
-                            {...GlobalStyles.TextStyles(theme)['screen_title']
-                              .props}
+                          {/* View 2 */}
+                          <View
                             style={StyleSheet.applyWidth(
-                              StyleSheet.compose(
-                                GlobalStyles.TextStyles(theme)['screen_title']
-                                  .style,
-                                {
-                                  color: palettes.Brand['Strong Inverse'],
-                                  fontFamily: 'Quicksand_500Medium',
-                                }
-                              ),
+                              { flex: 1 },
                               dimensions.width
                             )}
                           >
-                            {transformEuroM(fetchData?.ebitda_eur)}
-                          </Text>
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)['screen_title']
+                                .props}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.TextStyles(theme)['screen_title']
+                                    .style,
+                                  {
+                                    color: palettes.Brand['Strong Inverse'],
+                                    fontFamily: 'Quicksand_500Medium',
+                                  }
+                                ),
+                                dimensions.width
+                              )}
+                            >
+                              {transformEuroM(fetchData?.ebitda_eur)}
+                            </Text>
+                          </View>
                         </View>
                       )}
                     </>
@@ -891,7 +965,7 @@ const EventDetailsScreen = props => {
                       ) ? null : (
                         <View
                           style={StyleSheet.applyWidth(
-                            { flexDirection: 'row', gap: 8 },
+                            { flexDirection: 'row', gap: 8, width: 100 },
                             dimensions.width
                           )}
                         >
@@ -925,25 +999,32 @@ const EventDetailsScreen = props => {
                               {'Gross Profit:'}
                             </Text>
                           </View>
-
-                          <Text
-                            accessible={true}
-                            {...GlobalStyles.TextStyles(theme)['screen_title']
-                              .props}
+                          {/* View 2 */}
+                          <View
                             style={StyleSheet.applyWidth(
-                              StyleSheet.compose(
-                                GlobalStyles.TextStyles(theme)['screen_title']
-                                  .style,
-                                {
-                                  color: palettes.Brand['Strong Inverse'],
-                                  fontFamily: 'Quicksand_500Medium',
-                                }
-                              ),
+                              { flex: 1 },
                               dimensions.width
                             )}
                           >
-                            {transformEuroM(fetchData?.gross_profit_eur)}
-                          </Text>
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)['screen_title']
+                                .props}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.TextStyles(theme)['screen_title']
+                                    .style,
+                                  {
+                                    color: palettes.Brand['Strong Inverse'],
+                                    fontFamily: 'Quicksand_500Medium',
+                                  }
+                                ),
+                                dimensions.width
+                              )}
+                            >
+                              {transformEuroM(fetchData?.gross_profit_eur)}
+                            </Text>
+                          </View>
                         </View>
                       )}
                     </>
@@ -952,7 +1033,7 @@ const EventDetailsScreen = props => {
                       {!(fetchData?.ev_eur !== '0.0') ? null : (
                         <View
                           style={StyleSheet.applyWidth(
-                            { flexDirection: 'row', gap: 8 },
+                            { flexDirection: 'row', gap: 8, width: '100%' },
                             dimensions.width
                           )}
                         >
@@ -986,25 +1067,32 @@ const EventDetailsScreen = props => {
                               {'Enterprise value (EV):'}
                             </Text>
                           </View>
-
-                          <Text
-                            accessible={true}
-                            {...GlobalStyles.TextStyles(theme)['screen_title']
-                              .props}
+                          {/* View 2 */}
+                          <View
                             style={StyleSheet.applyWidth(
-                              StyleSheet.compose(
-                                GlobalStyles.TextStyles(theme)['screen_title']
-                                  .style,
-                                {
-                                  color: palettes.Brand['Strong Inverse'],
-                                  fontFamily: 'Quicksand_500Medium',
-                                }
-                              ),
+                              { flex: 1 },
                               dimensions.width
                             )}
                           >
-                            {transformEuroM(fetchData?.ev_eur)}
-                          </Text>
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)['screen_title']
+                                .props}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.TextStyles(theme)['screen_title']
+                                    .style,
+                                  {
+                                    color: palettes.Brand['Strong Inverse'],
+                                    fontFamily: 'Quicksand_500Medium',
+                                  }
+                                ),
+                                dimensions.width
+                              )}
+                            >
+                              {transformEuroM(fetchData?.ev_eur)}
+                            </Text>
+                          </View>
                         </View>
                       )}
                     </>
@@ -1013,7 +1101,7 @@ const EventDetailsScreen = props => {
                       {!(fetchData?.ev_eur !== '0.0') ? null : (
                         <View
                           style={StyleSheet.applyWidth(
-                            { flexDirection: 'row', gap: 8 },
+                            { flexDirection: 'row', gap: 8, width: '100%' },
                             dimensions.width
                           )}
                         >
@@ -1049,27 +1137,34 @@ const EventDetailsScreen = props => {
                               {'):'}
                             </Text>
                           </View>
-
-                          <Text
-                            accessible={true}
-                            {...GlobalStyles.TextStyles(theme)['screen_title']
-                              .props}
+                          {/* View 2 */}
+                          <View
                             style={StyleSheet.applyWidth(
-                              StyleSheet.compose(
-                                GlobalStyles.TextStyles(theme)['screen_title']
-                                  .style,
-                                {
-                                  color: palettes.Brand['Strong Inverse'],
-                                  fontFamily: 'Quicksand_500Medium',
-                                }
-                              ),
+                              { flex: 1 },
                               dimensions.width
                             )}
                           >
-                            {fetchData?.ev_sales !== '0.0'
-                              ? fetchData?.ev_sales
-                              : '-'}
-                          </Text>
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)['screen_title']
+                                .props}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.TextStyles(theme)['screen_title']
+                                    .style,
+                                  {
+                                    color: palettes.Brand['Strong Inverse'],
+                                    fontFamily: 'Quicksand_500Medium',
+                                  }
+                                ),
+                                dimensions.width
+                              )}
+                            >
+                              {fetchData?.ev_sales !== '0.0'
+                                ? fetchData?.ev_sales
+                                : '-'}
+                            </Text>
+                          </View>
                         </View>
                       )}
                     </>
@@ -1078,7 +1173,7 @@ const EventDetailsScreen = props => {
                       {!(fetchData?.ev_eur !== '0.0') ? null : (
                         <View
                           style={StyleSheet.applyWidth(
-                            { flexDirection: 'row', gap: 8 },
+                            { flexDirection: 'row', gap: 8, width: '100%' },
                             dimensions.width
                           )}
                         >
@@ -1114,27 +1209,34 @@ const EventDetailsScreen = props => {
                               {'):'}
                             </Text>
                           </View>
-
-                          <Text
-                            accessible={true}
-                            {...GlobalStyles.TextStyles(theme)['screen_title']
-                              .props}
+                          {/* View 2 */}
+                          <View
                             style={StyleSheet.applyWidth(
-                              StyleSheet.compose(
-                                GlobalStyles.TextStyles(theme)['screen_title']
-                                  .style,
-                                {
-                                  color: palettes.Brand['Strong Inverse'],
-                                  fontFamily: 'Quicksand_500Medium',
-                                }
-                              ),
+                              { flex: 1 },
                               dimensions.width
                             )}
                           >
-                            {fetchData?.ev_ebitda !== '0.0'
-                              ? fetchData?.ev_ebitda
-                              : '-'}
-                          </Text>
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)['screen_title']
+                                .props}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.TextStyles(theme)['screen_title']
+                                    .style,
+                                  {
+                                    color: palettes.Brand['Strong Inverse'],
+                                    fontFamily: 'Quicksand_500Medium',
+                                  }
+                                ),
+                                dimensions.width
+                              )}
+                            >
+                              {fetchData?.ev_ebitda !== '0.0'
+                                ? fetchData?.ev_ebitda
+                                : '-'}
+                            </Text>
+                          </View>
                         </View>
                       )}
                     </>
@@ -1143,7 +1245,7 @@ const EventDetailsScreen = props => {
                       {!(fetchData?.ev_eur !== '0.0') ? null : (
                         <View
                           style={StyleSheet.applyWidth(
-                            { flexDirection: 'row', gap: 8 },
+                            { flexDirection: 'row', gap: 8, width: '100%' },
                             dimensions.width
                           )}
                         >
@@ -1179,34 +1281,41 @@ const EventDetailsScreen = props => {
                               {'):'}
                             </Text>
                           </View>
-
-                          <Text
-                            accessible={true}
-                            {...GlobalStyles.TextStyles(theme)['screen_title']
-                              .props}
+                          {/* View 2 */}
+                          <View
                             style={StyleSheet.applyWidth(
-                              StyleSheet.compose(
-                                GlobalStyles.TextStyles(theme)['screen_title']
-                                  .style,
-                                {
-                                  color: palettes.Brand['Strong Inverse'],
-                                  fontFamily: 'Quicksand_500Medium',
-                                }
-                              ),
+                              { flex: 1 },
                               dimensions.width
                             )}
                           >
-                            {fetchData?.ev_ebit !== '0.0'
-                              ? fetchData?.ev_ebit
-                              : '-'}
-                          </Text>
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)['screen_title']
+                                .props}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.TextStyles(theme)['screen_title']
+                                    .style,
+                                  {
+                                    color: palettes.Brand['Strong Inverse'],
+                                    fontFamily: 'Quicksand_500Medium',
+                                  }
+                                ),
+                                dimensions.width
+                              )}
+                            >
+                              {fetchData?.ev_ebit !== '0.0'
+                                ? fetchData?.ev_ebit
+                                : '-'}
+                            </Text>
+                          </View>
                         </View>
                       )}
                     </>
                     {/* View 16 */}
                     <View
                       style={StyleSheet.applyWidth(
-                        { flexDirection: 'row', gap: 8 },
+                        { flexDirection: 'row', gap: 8, width: '100%' },
                         dimensions.width
                       )}
                     >
@@ -1240,29 +1349,36 @@ const EventDetailsScreen = props => {
                           {'Comment to financials:'}
                         </Text>
                       </View>
-
-                      <Text
-                        accessible={true}
-                        {...GlobalStyles.TextStyles(theme)['screen_title']
-                          .props}
-                        ellipsizeMode={'clip'}
-                        numberOfLines={50}
+                      {/* View 2 */}
+                      <View
                         style={StyleSheet.applyWidth(
-                          StyleSheet.compose(
-                            GlobalStyles.TextStyles(theme)['screen_title']
-                              .style,
-                            {
-                              color: palettes.Brand['Strong Inverse'],
-                              fontFamily: 'Quicksand_500Medium',
-                            }
-                          ),
+                          { flex: 1 },
                           dimensions.width
                         )}
                       >
-                        {fetchData?.note_financials
-                          ? fetchData?.note_financials
-                          : '-'}
-                      </Text>
+                        <Text
+                          accessible={true}
+                          {...GlobalStyles.TextStyles(theme)['screen_title']
+                            .props}
+                          ellipsizeMode={'clip'}
+                          numberOfLines={50}
+                          style={StyleSheet.applyWidth(
+                            StyleSheet.compose(
+                              GlobalStyles.TextStyles(theme)['screen_title']
+                                .style,
+                              {
+                                color: palettes.Brand['Strong Inverse'],
+                                fontFamily: 'Quicksand_500Medium',
+                              }
+                            ),
+                            dimensions.width
+                          )}
+                        >
+                          {fetchData?.note_financials
+                            ? fetchData?.note_financials
+                            : '-'}
+                        </Text>
+                      </View>
                     </View>
                   </LinearGradient>
 
@@ -1502,6 +1618,7 @@ const EventDetailsScreen = props => {
           );
         }}
       </XanoCollectionApi.FetchGetOneEventGET>
+      <CustomBottomNavBlock />
     </ScreenContainer>
   );
 };

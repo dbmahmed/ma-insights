@@ -11,7 +11,7 @@ import {
   withTheme,
 } from '@draftbit/ui';
 import { useNavigation } from '@react-navigation/native';
-import { Image, Modal, Text, View } from 'react-native';
+import { Image, Modal, Platform, Text, View } from 'react-native';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import Images from '../config/Images';
@@ -34,8 +34,8 @@ const CustomHeaderBlock = props => {
       style={StyleSheet.applyWidth(
         {
           backgroundColor: theme.colors.background.brand,
-          height: 65,
           position: { minWidth: Breakpoints.Desktop, value: 'relative' },
+          width: '100%',
           zIndex: 10,
         },
         dimensions.width
@@ -55,6 +55,7 @@ const CustomHeaderBlock = props => {
         paintInside={false}
         style={StyleSheet.applyWidth(
           {
+            height: 65,
             width: '100%',
             zIndex: { minWidth: Breakpoints.Desktop, value: 1000 },
           },
@@ -67,16 +68,11 @@ const CustomHeaderBlock = props => {
             StyleSheet.compose(
               GlobalStyles.HStackStyles(theme)['H Stack'].style,
               {
-                alignContent: 'center',
-                alignSelf: 'center',
                 height: 65,
                 justifyContent: 'space-between',
                 paddingLeft: 15,
                 paddingRight: 15,
-                width: [
-                  { minWidth: Breakpoints.Mobile, value: '100%' },
-                  { minWidth: Breakpoints.Mobile, value: dimensions.width },
-                ],
+                width: dimensions.width,
               }
             ),
             dimensions.width
@@ -139,7 +135,6 @@ const CustomHeaderBlock = props => {
                     StyleSheet.compose(
                       GlobalStyles.TextStyles(theme)['screen_title'].style,
                       {
-                        flex: 1,
                         fontFamily: 'Poppins_400Regular',
                         fontSize: { minWidth: Breakpoints.Laptop, value: 16 },
                         paddingLeft: 5,
@@ -431,11 +426,7 @@ const CustomHeaderBlock = props => {
           {/* View 3 */}
           <View
             style={StyleSheet.applyWidth(
-              {
-                alignItems: 'stretch',
-                justifyContent: 'center',
-                position: 'relative',
-              },
+              { alignItems: 'stretch', justifyContent: 'center' },
               dimensions.width
             )}
           >
@@ -464,481 +455,87 @@ const CustomHeaderBlock = props => {
           </View>
         </HStack>
       </Shadow>
-      {/* Shadow 2 */}
-      <>
-        {dimensions.width >= Breakpoints.Laptop ? null : (
-          <Shadow
-            offsetX={0}
-            offsetY={0}
-            paintInside={true}
-            showShadowCornerBottomEnd={true}
-            showShadowCornerBottomStart={true}
-            showShadowCornerTopEnd={true}
-            showShadowCornerTopStart={true}
-            showShadowSideBottom={true}
-            showShadowSideEnd={true}
-            showShadowSideStart={true}
-            showShadowSideTop={true}
-            {...GlobalStyles.ShadowStyles(theme)['bot_nav'].props}
+      {/* Side Menu */}
+      <Modal
+        supportedOrientations={['portrait', 'landscape']}
+        animationType={'fade'}
+        presentationStyle={'overFullScreen'}
+        transparent={true}
+        visible={Constants['top_nav_pressed']}
+      >
+        {/* Container */}
+        <View
+          style={StyleSheet.applyWidth(
+            {
+              alignItems: 'flex-start',
+              backgroundColor: palettes.App['Transparent Menu BG'],
+              flex: 1,
+            },
+            dimensions.width
+          )}
+        >
+          {/* View 2 */}
+          <View
             style={StyleSheet.applyWidth(
-              StyleSheet.compose(
-                GlobalStyles.ShadowStyles(theme)['bot_nav'].style,
-                {
-                  marginBottom: 25,
-                  top: [
-                    {
-                      minWidth: Breakpoints.Laptop,
-                      value: dimensions.height - 65,
-                    },
-                    {
-                      minWidth: Breakpoints.Mobile,
-                      value: dimensions.height - 130,
-                    },
-                  ],
-                  zIndex: 10,
-                }
-              ),
+              { alignItems: 'flex-start', maxWidth: 300, width: '100%' },
               dimensions.width
             )}
           >
-            <HStack
-              {...GlobalStyles.HStackStyles(theme)['H Stack'].props}
+            {/* View 3 */}
+            <View
               style={StyleSheet.applyWidth(
-                StyleSheet.compose(
-                  GlobalStyles.HStackStyles(theme)['H Stack'].style,
-                  {
-                    alignContent: 'center',
-                    alignSelf: 'center',
-                    backgroundColor: theme.colors.background.brand,
-                    height: 65,
-                    justifyContent: 'space-between',
-                    overflow: { minWidth: Breakpoints.Laptop, value: 'hidden' },
-                    width: '100%',
-                  }
-                ),
+                {
+                  alignContent: 'center',
+                  alignItems: 'center',
+                  alignSelf: 'center',
+                  flexDirection: 'row',
+                  height: Platform.OS === 'ios' ? undefined : 65,
+                  maxWidth: 300,
+                  paddingLeft: 15,
+                  paddingTop: Platform.OS === 'ios' ? 65 : undefined,
+                  width: '100%',
+                },
                 dimensions.width
               )}
             >
-              {/* View 4 */}
-              <View
-                style={StyleSheet.applyWidth(
-                  {
-                    alignContent: 'center',
-                    alignItems: 'stretch',
-                    alignSelf: 'center',
-                    borderColor: [
-                      {
-                        minWidth: Breakpoints.Tablet,
-                        value: theme.colors.foreground.brand,
-                      },
-                      {
-                        minWidth: Breakpoints.Mobile,
-                        value: theme.colors.foreground.brand,
-                      },
-                    ],
-                    borderRightWidth: [
-                      { minWidth: Breakpoints.Tablet, value: 0.5 },
-                      { minWidth: Breakpoints.Mobile, value: 0.5 },
-                    ],
-                    borderStyle: 'dashed',
-                    height: '100%',
-                    justifyContent: 'center',
-                    width: '25%',
-                  },
-                  dimensions.width
-                )}
-              >
-                {/* Pressable 2 */}
-                <Pressable
-                  onPress={() => {
-                    try {
-                      navigation.navigate('NewslettersScreen');
-                    } catch (err) {
-                      console.error(err);
-                    }
-                  }}
-                  style={StyleSheet.applyWidth(
-                    { height: '100%', width: '100%' },
-                    dimensions.width
-                  )}
-                >
-                  <View
-                    style={StyleSheet.applyWidth(
-                      {
-                        alignItems: 'center',
-                        height: '100%',
-                        justifyContent: 'center',
-                      },
-                      dimensions.width
-                    )}
-                  >
-                    <Icon
-                      size={24}
-                      color={
-                        Constants['pageName'] === 'Newsletters'
-                          ? palettes.Brand.Primary
-                          : palettes.Brand.Strong
+              {/* Back */}
+              <>
+                {!Constants['subPage'] ? null : (
+                  <IconButton
+                    onPress={() => {
+                      try {
+                        navigation.goBack();
+                        setGlobalVariableValue({
+                          key: 'top_nav_pressed',
+                          value: false,
+                        });
+                      } catch (err) {
+                        console.error(err);
                       }
-                      name={'Ionicons/newspaper-outline'}
-                      style={StyleSheet.applyWidth(
-                        { width: '100%' },
-                        dimensions.width
-                      )}
-                    />
-                    <Text
-                      accessible={true}
-                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
-                      style={StyleSheet.applyWidth(
-                        StyleSheet.compose(
-                          GlobalStyles.TextStyles(theme)['screen_title'].style,
-                          {
-                            color:
-                              Constants['pageName'] === 'Newsletters'
-                                ? palettes.Brand.Primary
-                                : palettes.Brand.Strong,
-                            fontFamily: 'Quicksand_400Regular',
-                            marginTop: 2,
-                          }
-                        ),
-                        dimensions.width
-                      )}
-                    >
-                      {'Newsletters'}
-                    </Text>
-                  </View>
-                </Pressable>
-              </View>
-              {/* View 5 */}
-              <View
-                style={StyleSheet.applyWidth(
-                  {
-                    alignContent: 'center',
-                    alignItems: 'stretch',
-                    alignSelf: 'center',
-                    height: '100%',
-                    justifyContent: 'center',
-                    width: '25%',
-                  },
-                  dimensions.width
+                    }}
+                    size={32}
+                    color={theme.colors.text.strong}
+                    icon={'Entypo/chevron-thin-left'}
+                  />
                 )}
-              >
-                {/* Pressable 2 */}
-                <Pressable
-                  onPress={() => {
-                    try {
-                      navigation.navigate('AllEventsScreen');
-                    } catch (err) {
-                      console.error(err);
-                    }
-                  }}
-                  style={StyleSheet.applyWidth(
-                    {
-                      borderColor: [
-                        {
-                          minWidth: Breakpoints.Tablet,
-                          value: theme.colors.foreground.brand,
-                        },
-                        {
-                          minWidth: Breakpoints.Mobile,
-                          value: theme.colors.foreground.brand,
-                        },
-                      ],
-                      borderRightWidth: [
-                        { minWidth: Breakpoints.Tablet, value: 0.5 },
-                        { minWidth: Breakpoints.Mobile, value: 0.5 },
-                      ],
-                      borderStyle: 'dashed',
-                      height: '100%',
-                      width: '100%',
-                    },
-                    dimensions.width
-                  )}
-                >
-                  <View
-                    style={StyleSheet.applyWidth(
-                      {
-                        alignItems: 'center',
-                        height: '100%',
-                        justifyContent: 'center',
-                      },
-                      dimensions.width
-                    )}
-                  >
-                    <Icon
-                      size={24}
-                      color={
-                        Constants['pageName'] === 'All events'
-                          ? palettes.Brand.Primary
-                          : palettes.Brand.Strong
-                      }
-                      name={'AntDesign/search1'}
-                      style={StyleSheet.applyWidth(
-                        { width: '100%' },
-                        dimensions.width
-                      )}
-                    />
-                    <Text
-                      accessible={true}
-                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
-                      style={StyleSheet.applyWidth(
-                        StyleSheet.compose(
-                          GlobalStyles.TextStyles(theme)['screen_title'].style,
-                          {
-                            color:
-                              Constants['pageName'] === 'All events'
-                                ? palettes.Brand.Primary
-                                : palettes.Brand.Strong,
-                            fontFamily: 'Quicksand_400Regular',
-                            marginTop: 2,
-                          }
-                        ),
-                        dimensions.width
-                      )}
-                    >
-                      {'All events'}
-                    </Text>
-                  </View>
-                </Pressable>
-              </View>
-              {/* View 6 */}
-              <View
-                style={StyleSheet.applyWidth(
-                  {
-                    alignContent: 'center',
-                    alignItems: 'stretch',
-                    alignSelf: 'center',
-                    height: '100%',
-                    justifyContent: 'center',
-                    width: '25%',
-                  },
-                  dimensions.width
-                )}
-              >
-                {/* Pressable 2 */}
-                <Pressable
-                  onPress={() => {
-                    try {
-                      navigation.navigate('CFSScreen');
-                    } catch (err) {
-                      console.error(err);
-                    }
-                  }}
-                  style={StyleSheet.applyWidth(
-                    {
-                      borderColor: [
-                        {
-                          minWidth: Breakpoints.Tablet,
-                          value: theme.colors.foreground.brand,
-                        },
-                        {
-                          minWidth: Breakpoints.Mobile,
-                          value: theme.colors.foreground.brand,
-                        },
-                      ],
-                      borderRightWidth: [
-                        { minWidth: Breakpoints.Tablet, value: 0.5 },
-                        { minWidth: Breakpoints.Mobile, value: 0.5 },
-                      ],
-                      borderStyle: 'dashed',
-                      height: '100%',
-                      width: '100%',
-                    },
-                    dimensions.width
-                  )}
-                >
-                  <View
-                    style={StyleSheet.applyWidth(
-                      {
-                        alignItems: 'center',
-                        height: '100%',
-                        justifyContent: 'center',
-                      },
-                      dimensions.width
-                    )}
-                  >
-                    <Icon
-                      size={24}
-                      color={
-                        Constants['pageName'] === 'Companies For Sale'
-                          ? palettes.Brand.Primary
-                          : palettes.Brand.Strong
-                      }
-                      name={'MaterialIcons/business'}
-                      style={StyleSheet.applyWidth(
-                        { width: '100%' },
-                        dimensions.width
-                      )}
-                    />
-                    <Text
-                      accessible={true}
-                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
-                      style={StyleSheet.applyWidth(
-                        StyleSheet.compose(
-                          GlobalStyles.TextStyles(theme)['screen_title'].style,
-                          {
-                            color:
-                              Constants['pageName'] === 'Companies For Sale'
-                                ? palettes.Brand.Primary
-                                : palettes.Brand.Strong,
-                            fontFamily: 'Quicksand_400Regular',
-                            marginTop: 2,
-                          }
-                        ),
-                        dimensions.width
-                      )}
-                    >
-                      {'CFS'}
-                    </Text>
-                  </View>
-                </Pressable>
-              </View>
-              {/* View 7 */}
-              <View
-                style={StyleSheet.applyWidth(
-                  {
-                    alignContent: 'center',
-                    alignItems: 'stretch',
-                    alignSelf: 'center',
-                    height: '100%',
-                    justifyContent: 'center',
-                    width: '25%',
-                  },
-                  dimensions.width
-                )}
-              >
-                {/* Pressable 2 */}
-                <Pressable
-                  onPress={() => {
-                    try {
-                      navigation.navigate('PEPFScreen');
-                    } catch (err) {
-                      console.error(err);
-                    }
-                  }}
-                  style={StyleSheet.applyWidth(
-                    { height: '100%', width: '100%' },
-                    dimensions.width
-                  )}
-                >
-                  <View
-                    style={StyleSheet.applyWidth(
-                      {
-                        alignItems: 'center',
-                        height: '100%',
-                        justifyContent: 'center',
-                      },
-                      dimensions.width
-                    )}
-                  >
-                    <Icon
-                      size={24}
-                      color={
-                        Constants['pageName'] === 'PEPF'
-                          ? palettes.Brand.Primary
-                          : palettes.Brand.Strong
-                      }
-                      name={'MaterialIcons/waterfall-chart'}
-                      style={StyleSheet.applyWidth(
-                        { width: '100%' },
-                        dimensions.width
-                      )}
-                    />
-                    <Text
-                      accessible={true}
-                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
-                      style={StyleSheet.applyWidth(
-                        StyleSheet.compose(
-                          GlobalStyles.TextStyles(theme)['screen_title'].style,
-                          {
-                            color:
-                              Constants['pageName'] === 'PEPF'
-                                ? palettes.Brand.Primary
-                                : palettes.Brand.Strong,
-                            fontFamily: 'Quicksand_400Regular',
-                            marginTop: 2,
-                          }
-                        ),
-                        dimensions.width
-                      )}
-                    >
-                      {'PEPF'}
-                    </Text>
-                  </View>
-                </Pressable>
-              </View>
-            </HStack>
-          </Shadow>
-        )}
-      </>
-      <View
-        {...GlobalStyles.ViewStyles(theme)['side_menu_modal'].props}
-        collapsable={true}
-        style={StyleSheet.applyWidth(
-          GlobalStyles.ViewStyles(theme)['side_menu_modal'].style,
-          dimensions.width
-        )}
-      >
-        {/* Side Menu */}
-        <Modal
-          supportedOrientations={['portrait', 'landscape']}
-          animationType={'fade'}
-          presentationStyle={'pageSheet'}
-          transparent={true}
-          visible={Constants['top_nav_pressed']}
-        >
-          {/* View 3 */}
-          <View
-            style={StyleSheet.applyWidth(
-              {
-                alignContent: 'center',
-                alignItems: 'center',
-                alignSelf: 'center',
-                flexDirection: 'row',
-                height: 65,
-                minWidth: 300,
-                paddingLeft: 15,
-                width: '100%',
-              },
-              dimensions.width
-            )}
-          >
-            {/* Back */}
-            <>
-              {!Constants['subPage'] ? null : (
-                <IconButton
-                  onPress={() => {
-                    try {
-                      navigation.goBack();
-                      setGlobalVariableValue({
-                        key: 'top_nav_pressed',
-                        value: false,
-                      });
-                    } catch (err) {
-                      console.error(err);
-                    }
-                  }}
-                  size={32}
-                  color={theme.colors.text.strong}
-                  icon={'Entypo/chevron-thin-left'}
-                />
-              )}
-            </>
-            {/* MENU */}
-            <IconButton
-              onPress={() => {
-                try {
-                  setGlobalVariableValue({
-                    key: 'top_nav_pressed',
-                    value: false,
-                  });
-                } catch (err) {
-                  console.error(err);
-                }
-              }}
-              size={32}
-              color={theme.colors.text.strong}
-              icon={'Feather/menu'}
-            />
+              </>
+              {/* MENU */}
+              <IconButton
+                onPress={() => {
+                  try {
+                    setGlobalVariableValue({
+                      key: 'top_nav_pressed',
+                      value: false,
+                    });
+                  } catch (err) {
+                    console.error(err);
+                  }
+                }}
+                size={32}
+                color={theme.colors.text.strong}
+                icon={'Feather/menu'}
+              />
+            </View>
           </View>
 
           <View
@@ -969,7 +566,6 @@ const CustomHeaderBlock = props => {
                 ],
                 flex: 1,
                 gap: 0,
-                height: '100%',
                 justifyContent: 'space-between',
                 maxWidth: 300,
                 padding: 10,
@@ -1854,8 +1450,8 @@ const CustomHeaderBlock = props => {
               </VStack>
             </View>
           </View>
-        </Modal>
-      </View>
+        </View>
+      </Modal>
     </View>
   );
 };

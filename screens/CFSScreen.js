@@ -20,6 +20,7 @@ import { ActivityIndicator, Modal, Text, View } from 'react-native';
 import { Fetch } from 'react-request';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
+import CustomBottomNavBlock from '../components/CustomBottomNavBlock';
 import CustomHeaderBlock from '../components/CustomHeaderBlock';
 import LoadingBlock from '../components/LoadingBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
@@ -265,7 +266,11 @@ const CFSScreen = props => {
   }, [isFocused]);
 
   return (
-    <ScreenContainer hasSafeArea={false} scrollable={false}>
+    <ScreenContainer
+      hasSafeArea={false}
+      scrollable={false}
+      hasTopSafeArea={true}
+    >
       <CustomHeaderBlock />
       {/* View 2 */}
       <View
@@ -854,7 +859,7 @@ const CFSScreen = props => {
                   <Modal
                     supportedOrientations={['portrait', 'landscape']}
                     animationType={'fade'}
-                    presentationStyle={'pageSheet'}
+                    presentationStyle={'overFullScreen'}
                     transparent={true}
                   >
                     <SimpleStyleScrollView
@@ -3476,6 +3481,7 @@ const CFSScreen = props => {
           );
         }}
       </XanoCollectionApi.FetchGetCFSGET>
+      <CustomBottomNavBlock />
     </ScreenContainer>
   );
 };

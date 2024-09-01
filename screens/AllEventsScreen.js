@@ -21,6 +21,7 @@ import { ActivityIndicator, Image, Modal, Text, View } from 'react-native';
 import { Fetch } from 'react-request';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
+import CustomBottomNavBlock from '../components/CustomBottomNavBlock';
 import CustomHeaderBlock from '../components/CustomHeaderBlock';
 import LoadingBlock from '../components/LoadingBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
@@ -255,6 +256,7 @@ const AllEventsScreen = props => {
       hasSafeArea={false}
       hasLeftSafeArea={true}
       hasRightSafeArea={true}
+      hasTopSafeArea={true}
       scrollable={false}
       style={StyleSheet.applyWidth(
         { overflow: { minWidth: Breakpoints.Desktop, value: 'hidden' } },
@@ -765,10 +767,11 @@ const AllEventsScreen = props => {
                                     { minWidth: Breakpoints.Laptop, value: 16 },
                                   ],
                                   margin: 0,
-                                  marginBottom: {
-                                    minWidth: Breakpoints.Laptop,
-                                    value: 5,
-                                  },
+                                  marginBottom: [
+                                    { minWidth: Breakpoints.Laptop, value: 5 },
+                                    { minWidth: Breakpoints.Mobile, value: 0 },
+                                  ],
+                                  marginTop: 0,
                                 }
                               ),
                               dimensions.width
@@ -919,7 +922,7 @@ const AllEventsScreen = props => {
               <Modal
                 supportedOrientations={['portrait', 'landscape']}
                 animationType={'fade'}
-                presentationStyle={'pageSheet'}
+                presentationStyle={'overFullScreen'}
                 transparent={true}
                 visible={filterPressed}
               >
@@ -3322,6 +3325,7 @@ const AllEventsScreen = props => {
           );
         }}
       </XanoCollectionApi.FetchGetAllEventsGET>
+      <CustomBottomNavBlock />
     </ScreenContainer>
   );
 };

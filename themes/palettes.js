@@ -2,6 +2,8 @@ export default {
   App: {
     custom_rgb0_0_0: 'rgb(0, 0, 0)',
     'Custom Color': 'rgb(0, 0, 0)',
+    transparentMenuBG: 'rgba(255, 255, 255, 0.1)',
+    'Transparent Menu BG': 'rgba(255, 255, 255, 0.1)',
     orange: 'rgb(255, 77, 1)',
     Orange: 'rgb(255, 77, 1)',
     purple: 'rgb(111, 66, 193)',

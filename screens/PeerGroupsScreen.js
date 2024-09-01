@@ -1,16 +1,4 @@
 import React from 'react';
-import * as GlobalStyles from '../GlobalStyles.js';
-import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
-import CustomHeaderBlock from '../components/CustomHeaderBlock';
-import LoadingBlock from '../components/LoadingBlock';
-import * as GlobalVariables from '../config/GlobalVariableContext';
-import Images from '../config/Images';
-import removeGlobalScroll from '../global-functions/removeGlobalScroll';
-import setPadding from '../global-functions/setPadding';
-import palettes from '../themes/palettes';
-import Breakpoints from '../utils/Breakpoints';
-import * as StyleSheet from '../utils/StyleSheet';
-import useWindowDimensions from '../utils/useWindowDimensions';
 import {
   Button,
   Checkbox,
@@ -27,6 +15,19 @@ import { H5 } from '@expo/html-elements';
 import { useIsFocused } from '@react-navigation/native';
 import { ActivityIndicator, Image, Text, View } from 'react-native';
 import { Fetch } from 'react-request';
+import * as GlobalStyles from '../GlobalStyles.js';
+import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
+import CustomBottomNavBlock from '../components/CustomBottomNavBlock';
+import CustomHeaderBlock from '../components/CustomHeaderBlock';
+import LoadingBlock from '../components/LoadingBlock';
+import * as GlobalVariables from '../config/GlobalVariableContext';
+import Images from '../config/Images';
+import removeGlobalScroll from '../global-functions/removeGlobalScroll';
+import setPadding from '../global-functions/setPadding';
+import palettes from '../themes/palettes';
+import Breakpoints from '../utils/Breakpoints';
+import * as StyleSheet from '../utils/StyleSheet';
+import useWindowDimensions from '../utils/useWindowDimensions';
 
 const PeerGroupsScreen = props => {
   const { theme, navigation } = props;
@@ -81,7 +82,11 @@ const PeerGroupsScreen = props => {
   }, [isFocused]);
 
   return (
-    <ScreenContainer hasSafeArea={false} scrollable={false}>
+    <ScreenContainer
+      hasSafeArea={false}
+      scrollable={false}
+      hasTopSafeArea={true}
+    >
       <CustomHeaderBlock />
       {/* box */}
       <View
@@ -780,6 +785,7 @@ const PeerGroupsScreen = props => {
           );
         }}
       </XanoCollectionApi.FetchGetAllPeersGET>
+      <CustomBottomNavBlock />
     </ScreenContainer>
   );
 };

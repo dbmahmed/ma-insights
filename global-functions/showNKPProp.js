@@ -6,14 +6,16 @@ const showNKPProp = (string, source) => {
   /* String line breaks are accomplished with backticks ( example: `line one
 line two` ) and will not work with special characters inside of quotes ( example: "line one line two" ) */
 
-  if (
-    source === 'NKP Proprietary' &&
-    string.indexOf('NKP Proprietary') === -1
-  ) {
-    return `${string.trim()} (NKP Proprietary)`;
-  } else {
-    return string.trim();
-  }
+  if (string) {
+    if (
+      source === 'NKP Proprietary' &&
+      string.indexOf('NKP Proprietary') === -1
+    ) {
+      return `${string.trim()} (NKP Proprietary)`;
+    } else {
+      return string.trim();
+    }
+  } else return '';
 };
 
 export default showNKPProp;

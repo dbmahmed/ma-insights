@@ -15,6 +15,7 @@ import { ActivityIndicator, Text, View } from 'react-native';
 import { Fetch } from 'react-request';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
+import CustomBottomNavBlock from '../components/CustomBottomNavBlock';
 import CustomHeaderBlock from '../components/CustomHeaderBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import removeGlobalScroll from '../global-functions/removeGlobalScroll';
@@ -55,6 +56,7 @@ const ReportsScreen = props => {
       hasSafeArea={false}
       scrollable={false}
       hasLeftSafeArea={true}
+      hasTopSafeArea={true}
     >
       <CustomHeaderBlock />
       {/* View 2 */}
@@ -210,6 +212,7 @@ const ReportsScreen = props => {
                           { minWidth: Breakpoints.Tablet, value: 0 },
                           { minWidth: Breakpoints.Mobile, value: 0 },
                         ],
+                        width: '100%',
                       }
                     ),
                     dimensions.width
@@ -374,7 +377,11 @@ const ReportsScreen = props => {
                                   GlobalStyles.TableCellStyles(theme)[
                                     'Table Cell'
                                   ].style,
-                                  { flex: 2, justifyContent: 'flex-start' }
+                                  {
+                                    flex: 2,
+                                    flexWrap: 'wrap',
+                                    justifyContent: 'flex-start',
+                                  }
                                 ),
                                 dimensions.width
                               )}
@@ -420,7 +427,10 @@ const ReportsScreen = props => {
                     {...GlobalStyles.TableStyles(theme)['Table'].props}
                     drawTopBorder={false}
                     style={StyleSheet.applyWidth(
-                      GlobalStyles.TableStyles(theme)['Table'].style,
+                      StyleSheet.compose(
+                        GlobalStyles.TableStyles(theme)['Table'].style,
+                        { flex: null }
+                      ),
                       dimensions.width
                     )}
                   />
@@ -430,6 +440,7 @@ const ReportsScreen = props => {
           }}
         </XanoCollectionApi.FetchReportsGET>
       </View>
+      <CustomBottomNavBlock />
     </ScreenContainer>
   );
 };

@@ -13,6 +13,7 @@ import { ActivityIndicator, Text, View } from 'react-native';
 import { Fetch } from 'react-request';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
+import CustomBottomNavBlock from '../components/CustomBottomNavBlock';
 import CustomHeaderBlock from '../components/CustomHeaderBlock';
 import LoadingBlock from '../components/LoadingBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
@@ -79,7 +80,11 @@ const CFSDetailsScreen = props => {
   }, [isFocused]);
 
   return (
-    <ScreenContainer hasSafeArea={false} scrollable={false}>
+    <ScreenContainer
+      hasSafeArea={false}
+      scrollable={false}
+      hasTopSafeArea={true}
+    >
       <CustomHeaderBlock />
       <XanoCollectionApi.FetchGetOneCFSGET
         cfs_id={props.route?.params?.cfs_id ?? 1989}
@@ -183,7 +188,7 @@ const CFSDetailsScreen = props => {
                 >
                   <View
                     style={StyleSheet.applyWidth(
-                      { flexDirection: 'row', gap: 8 },
+                      { flexDirection: 'row', gap: 8, width: '100%' },
                       dimensions.width
                     )}
                   >
@@ -212,28 +217,37 @@ const CFSDetailsScreen = props => {
                         {'Target:'}
                       </Text>
                     </View>
-
-                    <Text
-                      accessible={true}
-                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                    {/* View 2 */}
+                    <View
                       style={StyleSheet.applyWidth(
-                        StyleSheet.compose(
-                          GlobalStyles.TextStyles(theme)['screen_title'].style,
-                          {
-                            color: palettes.Brand['Strong Inverse'],
-                            fontFamily: 'Quicksand_500Medium',
-                          }
-                        ),
+                        { flex: 1 },
                         dimensions.width
                       )}
                     >
-                      {fetchData?.company}
-                    </Text>
+                      <Text
+                        accessible={true}
+                        {...GlobalStyles.TextStyles(theme)['screen_title']
+                          .props}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.TextStyles(theme)['screen_title']
+                              .style,
+                            {
+                              color: palettes.Brand['Strong Inverse'],
+                              fontFamily: 'Quicksand_500Medium',
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {fetchData?.company}
+                      </Text>
+                    </View>
                   </View>
                   {/* View 2 */}
                   <View
                     style={StyleSheet.applyWidth(
-                      { flexDirection: 'row', gap: 8 },
+                      { flexDirection: 'row', gap: 8, width: '100%' },
                       dimensions.width
                     )}
                   >
@@ -262,32 +276,41 @@ const CFSDetailsScreen = props => {
                         {'Advisor:'}
                       </Text>
                     </View>
-
-                    <Text
-                      accessible={true}
-                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                    {/* View 2 */}
+                    <View
                       style={StyleSheet.applyWidth(
-                        StyleSheet.compose(
-                          GlobalStyles.TextStyles(theme)['screen_title'].style,
-                          {
-                            color: palettes.Brand['Strong Inverse'],
-                            fontFamily: 'Quicksand_500Medium',
-                          }
-                        ),
+                        { flex: 1 },
                         dimensions.width
                       )}
                     >
-                      {transformNumber(
-                        fetchData?._advisors,
-                        undefined,
-                        undefined
-                      )}
-                    </Text>
+                      <Text
+                        accessible={true}
+                        {...GlobalStyles.TextStyles(theme)['screen_title']
+                          .props}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.TextStyles(theme)['screen_title']
+                              .style,
+                            {
+                              color: palettes.Brand['Strong Inverse'],
+                              fontFamily: 'Quicksand_500Medium',
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {transformNumber(
+                          fetchData?._advisors,
+                          undefined,
+                          undefined
+                        )}
+                      </Text>
+                    </View>
                   </View>
                   {/* View 9 */}
                   <View
                     style={StyleSheet.applyWidth(
-                      { flexDirection: 'row', gap: 8 },
+                      { flexDirection: 'row', gap: 8, width: '100%' },
                       dimensions.width
                     )}
                   >
@@ -316,32 +339,41 @@ const CFSDetailsScreen = props => {
                         {'Owners:'}
                       </Text>
                     </View>
-
-                    <Text
-                      accessible={true}
-                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                    {/* View 2 */}
+                    <View
                       style={StyleSheet.applyWidth(
-                        StyleSheet.compose(
-                          GlobalStyles.TextStyles(theme)['screen_title'].style,
-                          {
-                            color: palettes.Brand['Strong Inverse'],
-                            fontFamily: 'Quicksand_500Medium',
-                          }
-                        ),
+                        { flex: 1 },
                         dimensions.width
                       )}
                     >
-                      {transformNumber(
-                        fetchData?._ownersList,
-                        undefined,
-                        undefined
-                      )}
-                    </Text>
+                      <Text
+                        accessible={true}
+                        {...GlobalStyles.TextStyles(theme)['screen_title']
+                          .props}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.TextStyles(theme)['screen_title']
+                              .style,
+                            {
+                              color: palettes.Brand['Strong Inverse'],
+                              fontFamily: 'Quicksand_500Medium',
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {transformNumber(
+                          fetchData?._ownersList,
+                          undefined,
+                          undefined
+                        )}
+                      </Text>
+                    </View>
                   </View>
                   {/* View 10 */}
                   <View
                     style={StyleSheet.applyWidth(
-                      { flexDirection: 'row', gap: 8 },
+                      { flexDirection: 'row', gap: 8, width: '100%' },
                       dimensions.width
                     )}
                   >
@@ -370,28 +402,37 @@ const CFSDetailsScreen = props => {
                         {'Org. source:'}
                       </Text>
                     </View>
-
-                    <Text
-                      accessible={true}
-                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                    {/* View 2 */}
+                    <View
                       style={StyleSheet.applyWidth(
-                        StyleSheet.compose(
-                          GlobalStyles.TextStyles(theme)['screen_title'].style,
-                          {
-                            color: palettes.Brand['Strong Inverse'],
-                            fontFamily: 'Quicksand_500Medium',
-                          }
-                        ),
+                        { flex: 1 },
                         dimensions.width
                       )}
                     >
-                      {fetchData?.source}
-                    </Text>
+                      <Text
+                        accessible={true}
+                        {...GlobalStyles.TextStyles(theme)['screen_title']
+                          .props}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.TextStyles(theme)['screen_title']
+                              .style,
+                            {
+                              color: palettes.Brand['Strong Inverse'],
+                              fontFamily: 'Quicksand_500Medium',
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {fetchData?.source}
+                      </Text>
+                    </View>
                   </View>
                   {/* View 3 */}
                   <View
                     style={StyleSheet.applyWidth(
-                      { flexDirection: 'row', gap: 8 },
+                      { flexDirection: 'row', gap: 8, width: '100%' },
                       dimensions.width
                     )}
                   >
@@ -420,28 +461,37 @@ const CFSDetailsScreen = props => {
                         {'Stage:'}
                       </Text>
                     </View>
-
-                    <Text
-                      accessible={true}
-                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                    {/* View 2 */}
+                    <View
                       style={StyleSheet.applyWidth(
-                        StyleSheet.compose(
-                          GlobalStyles.TextStyles(theme)['screen_title'].style,
-                          {
-                            color: palettes.Brand['Strong Inverse'],
-                            fontFamily: 'Quicksand_500Medium',
-                          }
-                        ),
+                        { flex: 1 },
                         dimensions.width
                       )}
                     >
-                      {fetchData?.stage}
-                    </Text>
+                      <Text
+                        accessible={true}
+                        {...GlobalStyles.TextStyles(theme)['screen_title']
+                          .props}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.TextStyles(theme)['screen_title']
+                              .style,
+                            {
+                              color: palettes.Brand['Strong Inverse'],
+                              fontFamily: 'Quicksand_500Medium',
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {fetchData?.stage}
+                      </Text>
+                    </View>
                   </View>
                   {/* View 4 */}
                   <View
                     style={StyleSheet.applyWidth(
-                      { flexDirection: 'row', gap: 8 },
+                      { flexDirection: 'row', gap: 8, width: '100%' },
                       dimensions.width
                     )}
                   >
@@ -470,28 +520,37 @@ const CFSDetailsScreen = props => {
                         {'Revenue:'}
                       </Text>
                     </View>
-
-                    <Text
-                      accessible={true}
-                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                    {/* View 2 */}
+                    <View
                       style={StyleSheet.applyWidth(
-                        StyleSheet.compose(
-                          GlobalStyles.TextStyles(theme)['screen_title'].style,
-                          {
-                            color: palettes.Brand['Strong Inverse'],
-                            fontFamily: 'Quicksand_500Medium',
-                          }
-                        ),
+                        { flex: 1 },
                         dimensions.width
                       )}
                     >
-                      {transformEuroM(fetchData?.revenue_eur)}
-                    </Text>
+                      <Text
+                        accessible={true}
+                        {...GlobalStyles.TextStyles(theme)['screen_title']
+                          .props}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.TextStyles(theme)['screen_title']
+                              .style,
+                            {
+                              color: palettes.Brand['Strong Inverse'],
+                              fontFamily: 'Quicksand_500Medium',
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {transformEuroM(fetchData?.revenue_eur)}
+                      </Text>
+                    </View>
                   </View>
                   {/* View 5 */}
                   <View
                     style={StyleSheet.applyWidth(
-                      { flexDirection: 'row', gap: 8 },
+                      { flexDirection: 'row', gap: 8, width: '100%' },
                       dimensions.width
                     )}
                   >
@@ -520,28 +579,37 @@ const CFSDetailsScreen = props => {
                         {'EBITDA:'}
                       </Text>
                     </View>
-
-                    <Text
-                      accessible={true}
-                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                    {/* View 2 */}
+                    <View
                       style={StyleSheet.applyWidth(
-                        StyleSheet.compose(
-                          GlobalStyles.TextStyles(theme)['screen_title'].style,
-                          {
-                            color: palettes.Brand['Strong Inverse'],
-                            fontFamily: 'Quicksand_500Medium',
-                          }
-                        ),
+                        { flex: 1 },
                         dimensions.width
                       )}
                     >
-                      {transformEuroM(fetchData?.ebitda_eur)}
-                    </Text>
+                      <Text
+                        accessible={true}
+                        {...GlobalStyles.TextStyles(theme)['screen_title']
+                          .props}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.TextStyles(theme)['screen_title']
+                              .style,
+                            {
+                              color: palettes.Brand['Strong Inverse'],
+                              fontFamily: 'Quicksand_500Medium',
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {transformEuroM(fetchData?.ebitda_eur)}
+                      </Text>
+                    </View>
                   </View>
                   {/* View 6 */}
                   <View
                     style={StyleSheet.applyWidth(
-                      { flexDirection: 'row', gap: 8 },
+                      { flexDirection: 'row', gap: 8, width: '100%' },
                       dimensions.width
                     )}
                   >
@@ -570,28 +638,37 @@ const CFSDetailsScreen = props => {
                         {'Fiscal year:'}
                       </Text>
                     </View>
-
-                    <Text
-                      accessible={true}
-                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                    {/* View 2 */}
+                    <View
                       style={StyleSheet.applyWidth(
-                        StyleSheet.compose(
-                          GlobalStyles.TextStyles(theme)['screen_title'].style,
-                          {
-                            color: palettes.Brand['Strong Inverse'],
-                            fontFamily: 'Quicksand_500Medium',
-                          }
-                        ),
+                        { flex: 1 },
                         dimensions.width
                       )}
                     >
-                      {fetchData?.fy_end}
-                    </Text>
+                      <Text
+                        accessible={true}
+                        {...GlobalStyles.TextStyles(theme)['screen_title']
+                          .props}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.TextStyles(theme)['screen_title']
+                              .style,
+                            {
+                              color: palettes.Brand['Strong Inverse'],
+                              fontFamily: 'Quicksand_500Medium',
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {fetchData?.fy_end}
+                      </Text>
+                    </View>
                   </View>
                   {/* View 7 */}
                   <View
                     style={StyleSheet.applyWidth(
-                      { flexDirection: 'row', gap: 8 },
+                      { flexDirection: 'row', gap: 8, width: '100%' },
                       dimensions.width
                     )}
                   >
@@ -620,30 +697,39 @@ const CFSDetailsScreen = props => {
                         {'GICS:'}
                       </Text>
                     </View>
-
-                    <Text
-                      accessible={true}
-                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                    {/* View 2 */}
+                    <View
                       style={StyleSheet.applyWidth(
-                        StyleSheet.compose(
-                          GlobalStyles.TextStyles(theme)['screen_title'].style,
-                          {
-                            color: palettes.Brand['Strong Inverse'],
-                            fontFamily: 'Quicksand_500Medium',
-                          }
-                        ),
+                        { flex: 1 },
                         dimensions.width
                       )}
                     >
-                      {fetchData?._gics?.GICS_Industry}
-                      {' - '}
-                      {fetchData?._gics?.GICS_Sub_Industry}
-                    </Text>
+                      <Text
+                        accessible={true}
+                        {...GlobalStyles.TextStyles(theme)['screen_title']
+                          .props}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.TextStyles(theme)['screen_title']
+                              .style,
+                            {
+                              color: palettes.Brand['Strong Inverse'],
+                              fontFamily: 'Quicksand_500Medium',
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {fetchData?._gics?.GICS_Industry}
+                        {' - '}
+                        {fetchData?._gics?.GICS_Sub_Industry}
+                      </Text>
+                    </View>
                   </View>
                   {/* View 8 */}
                   <View
                     style={StyleSheet.applyWidth(
-                      { flexDirection: 'row', gap: 8 },
+                      { flexDirection: 'row', gap: 8, width: '100%' },
                       dimensions.width
                     )}
                   >
@@ -672,23 +758,32 @@ const CFSDetailsScreen = props => {
                         {'Country:'}
                       </Text>
                     </View>
-
-                    <Text
-                      accessible={true}
-                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                    {/* View 2 */}
+                    <View
                       style={StyleSheet.applyWidth(
-                        StyleSheet.compose(
-                          GlobalStyles.TextStyles(theme)['screen_title'].style,
-                          {
-                            color: palettes.Brand['Strong Inverse'],
-                            fontFamily: 'Quicksand_500Medium',
-                          }
-                        ),
+                        { flex: 1 },
                         dimensions.width
                       )}
                     >
-                      {fetchData?.country}
-                    </Text>
+                      <Text
+                        accessible={true}
+                        {...GlobalStyles.TextStyles(theme)['screen_title']
+                          .props}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.TextStyles(theme)['screen_title']
+                              .style,
+                            {
+                              color: palettes.Brand['Strong Inverse'],
+                              fontFamily: 'Quicksand_500Medium',
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {fetchData?.country}
+                      </Text>
+                    </View>
                   </View>
                 </LinearGradient>
               </View>
@@ -696,7 +791,12 @@ const CFSDetailsScreen = props => {
                 {!fetchData?._main_event ? null : (
                   <View
                     style={StyleSheet.applyWidth(
-                      { maxWidth: 1200, padding: 10, width: '100%' },
+                      {
+                        maxWidth: 1200,
+                        padding: 10,
+                        paddingBottom: 40,
+                        width: '100%',
+                      },
                       dimensions.width
                     )}
                   >
@@ -760,7 +860,12 @@ const CFSDetailsScreen = props => {
                         </Text>
                       )}
                     </>
-                    <View>
+                    <View
+                      style={StyleSheet.applyWidth(
+                        { paddingBottom: 40 },
+                        dimensions.width
+                      )}
+                    >
                       {/* Text 2 */}
                       <Text
                         accessible={true}
@@ -789,6 +894,7 @@ const CFSDetailsScreen = props => {
                         alignItems: 'center',
                         marginBottom:
                           dimensions.width >= Breakpoints.Laptop ? 0 : 65,
+                        paddingBottom: 40,
                         width: '100%',
                       },
                       dimensions.width
@@ -1041,6 +1147,7 @@ const CFSDetailsScreen = props => {
           );
         }}
       </XanoCollectionApi.FetchGetOneCFSGET>
+      <CustomBottomNavBlock />
     </ScreenContainer>
   );
 };

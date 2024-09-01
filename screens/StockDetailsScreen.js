@@ -24,6 +24,7 @@ import { ActivityIndicator, Modal, Text, View } from 'react-native';
 import { Fetch } from 'react-request';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
+import CustomBottomNavBlock from '../components/CustomBottomNavBlock';
 import CustomHeaderBlock from '../components/CustomHeaderBlock';
 import LoadingBlock from '../components/LoadingBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
@@ -129,6 +130,7 @@ const StockDetailsScreen = props => {
     <ScreenContainer
       hasSafeArea={false}
       hasLeftSafeArea={true}
+      hasTopSafeArea={true}
       scrollable={false}
     >
       <CustomHeaderBlock />
@@ -290,7 +292,7 @@ const StockDetailsScreen = props => {
                 {/* View 2 */}
                 <View
                   style={StyleSheet.applyWidth(
-                    { marginBottom: 20 },
+                    { marginBottom: 20, width: '100%' },
                     dimensions.width
                   )}
                 >
@@ -344,7 +346,7 @@ const StockDetailsScreen = props => {
                     {/* table */}
                     <View
                       style={StyleSheet.applyWidth(
-                        { padding: 10 },
+                        { padding: 10, width: '100%' },
                         dimensions.width
                       )}
                     >
@@ -356,6 +358,7 @@ const StockDetailsScreen = props => {
                             gap: 5,
                             justifyContent: 'flex-start',
                             padding: 5,
+                            width: '100%',
                           },
                           dimensions.width
                         )}
@@ -379,23 +382,31 @@ const StockDetailsScreen = props => {
                               dimensions.width
                             )}
                           >
-                            {'Enterprise value:\n'}
+                            {'Enterprise value:'}
                           </Text>
                         </View>
 
-                        <Text
-                          accessible={true}
-                          {...GlobalStyles.TextStyles(theme)[
-                            'screen_title_stock'
-                          ].props}
+                        <View
                           style={StyleSheet.applyWidth(
-                            GlobalStyles.TextStyles(theme)['screen_title_stock']
-                              .style,
+                            { flex: 1 },
                             dimensions.width
                           )}
                         >
-                          {transformEuroM(fetchData?.ev_eur)}
-                        </Text>
+                          <Text
+                            accessible={true}
+                            {...GlobalStyles.TextStyles(theme)[
+                              'screen_title_stock'
+                            ].props}
+                            style={StyleSheet.applyWidth(
+                              GlobalStyles.TextStyles(theme)[
+                                'screen_title_stock'
+                              ].style,
+                              dimensions.width
+                            )}
+                          >
+                            {transformEuroM(fetchData?.ev_eur)}
+                          </Text>
+                        </View>
                       </View>
                       {/* View 2 */}
                       <View
@@ -406,6 +417,7 @@ const StockDetailsScreen = props => {
                             gap: 5,
                             justifyContent: 'flex-start',
                             padding: 5,
+                            width: '100%',
                           },
                           dimensions.width
                         )}
@@ -429,23 +441,31 @@ const StockDetailsScreen = props => {
                               dimensions.width
                             )}
                           >
-                            {'Market capitalisation:\n'}
+                            {'Market capitalisation:'}
                           </Text>
                         </View>
 
-                        <Text
-                          accessible={true}
-                          {...GlobalStyles.TextStyles(theme)[
-                            'screen_title_stock'
-                          ].props}
+                        <View
                           style={StyleSheet.applyWidth(
-                            GlobalStyles.TextStyles(theme)['screen_title_stock']
-                              .style,
+                            { flex: 1 },
                             dimensions.width
                           )}
                         >
-                          {transformEuroM(fetchData?.capitalisation_eur)}
-                        </Text>
+                          <Text
+                            accessible={true}
+                            {...GlobalStyles.TextStyles(theme)[
+                              'screen_title_stock'
+                            ].props}
+                            style={StyleSheet.applyWidth(
+                              GlobalStyles.TextStyles(theme)[
+                                'screen_title_stock'
+                              ].style,
+                              dimensions.width
+                            )}
+                          >
+                            {transformEuroM(fetchData?.capitalisation_eur)}
+                          </Text>
+                        </View>
                       </View>
                       {/* View 3 */}
                       <View
@@ -456,6 +476,7 @@ const StockDetailsScreen = props => {
                             gap: 5,
                             justifyContent: 'flex-start',
                             padding: 5,
+                            width: '100%',
                           },
                           dimensions.width
                         )}
@@ -479,23 +500,31 @@ const StockDetailsScreen = props => {
                               dimensions.width
                             )}
                           >
-                            {'Country (HQ):\n'}
+                            {'Country (HQ):'}
                           </Text>
                         </View>
 
-                        <Text
-                          accessible={true}
-                          {...GlobalStyles.TextStyles(theme)[
-                            'screen_title_stock'
-                          ].props}
+                        <View
                           style={StyleSheet.applyWidth(
-                            GlobalStyles.TextStyles(theme)['screen_title_stock']
-                              .style,
+                            { flex: 1 },
                             dimensions.width
                           )}
                         >
-                          {fetchData?.country}
-                        </Text>
+                          <Text
+                            accessible={true}
+                            {...GlobalStyles.TextStyles(theme)[
+                              'screen_title_stock'
+                            ].props}
+                            style={StyleSheet.applyWidth(
+                              GlobalStyles.TextStyles(theme)[
+                                'screen_title_stock'
+                              ].style,
+                              dimensions.width
+                            )}
+                          >
+                            {fetchData?.country}
+                          </Text>
+                        </View>
                       </View>
                       {/* View 4 */}
                       <View
@@ -506,6 +535,7 @@ const StockDetailsScreen = props => {
                             gap: 5,
                             justifyContent: 'flex-start',
                             padding: 5,
+                            width: '100%',
                           },
                           dimensions.width
                         )}
@@ -529,23 +559,31 @@ const StockDetailsScreen = props => {
                               dimensions.width
                             )}
                           >
-                            {'GICS Sector:\n'}
+                            {'GICS Sector:'}
                           </Text>
                         </View>
 
-                        <Text
-                          accessible={true}
-                          {...GlobalStyles.TextStyles(theme)[
-                            'screen_title_stock'
-                          ].props}
+                        <View
                           style={StyleSheet.applyWidth(
-                            GlobalStyles.TextStyles(theme)['screen_title_stock']
-                              .style,
+                            { flex: 1 },
                             dimensions.width
                           )}
                         >
-                          {fetchData?._gics_sub_industry?.GICS_Sector}
-                        </Text>
+                          <Text
+                            accessible={true}
+                            {...GlobalStyles.TextStyles(theme)[
+                              'screen_title_stock'
+                            ].props}
+                            style={StyleSheet.applyWidth(
+                              GlobalStyles.TextStyles(theme)[
+                                'screen_title_stock'
+                              ].style,
+                              dimensions.width
+                            )}
+                          >
+                            {fetchData?._gics_sub_industry?.GICS_Sector}
+                          </Text>
+                        </View>
                       </View>
                       {/* View 5 */}
                       <View
@@ -556,6 +594,7 @@ const StockDetailsScreen = props => {
                             gap: 5,
                             justifyContent: 'flex-start',
                             padding: 5,
+                            width: '100%',
                           },
                           dimensions.width
                         )}
@@ -579,23 +618,31 @@ const StockDetailsScreen = props => {
                               dimensions.width
                             )}
                           >
-                            {'GICS Industry Group:\n'}
+                            {'GICS Industry Group:'}
                           </Text>
                         </View>
 
-                        <Text
-                          accessible={true}
-                          {...GlobalStyles.TextStyles(theme)[
-                            'screen_title_stock'
-                          ].props}
+                        <View
                           style={StyleSheet.applyWidth(
-                            GlobalStyles.TextStyles(theme)['screen_title_stock']
-                              .style,
+                            { flex: 1 },
                             dimensions.width
                           )}
                         >
-                          {fetchData?._gics_sub_industry?.GICS_Industry_Group}
-                        </Text>
+                          <Text
+                            accessible={true}
+                            {...GlobalStyles.TextStyles(theme)[
+                              'screen_title_stock'
+                            ].props}
+                            style={StyleSheet.applyWidth(
+                              GlobalStyles.TextStyles(theme)[
+                                'screen_title_stock'
+                              ].style,
+                              dimensions.width
+                            )}
+                          >
+                            {fetchData?._gics_sub_industry?.GICS_Industry_Group}
+                          </Text>
+                        </View>
                       </View>
                       {/* View 6 */}
                       <View
@@ -606,6 +653,7 @@ const StockDetailsScreen = props => {
                             gap: 5,
                             justifyContent: 'flex-start',
                             padding: 5,
+                            width: '100%',
                           },
                           dimensions.width
                         )}
@@ -629,23 +677,31 @@ const StockDetailsScreen = props => {
                               dimensions.width
                             )}
                           >
-                            {'GISC Industry:\n'}
+                            {'GISC Industry:'}
                           </Text>
                         </View>
 
-                        <Text
-                          accessible={true}
-                          {...GlobalStyles.TextStyles(theme)[
-                            'screen_title_stock'
-                          ].props}
+                        <View
                           style={StyleSheet.applyWidth(
-                            GlobalStyles.TextStyles(theme)['screen_title_stock']
-                              .style,
+                            { flex: 1 },
                             dimensions.width
                           )}
                         >
-                          {fetchData?._gics_sub_industry?.GICS_Industry}
-                        </Text>
+                          <Text
+                            accessible={true}
+                            {...GlobalStyles.TextStyles(theme)[
+                              'screen_title_stock'
+                            ].props}
+                            style={StyleSheet.applyWidth(
+                              GlobalStyles.TextStyles(theme)[
+                                'screen_title_stock'
+                              ].style,
+                              dimensions.width
+                            )}
+                          >
+                            {fetchData?._gics_sub_industry?.GICS_Industry}
+                          </Text>
+                        </View>
                       </View>
                       {/* View 7 */}
                       <View
@@ -656,6 +712,7 @@ const StockDetailsScreen = props => {
                             gap: 5,
                             justifyContent: 'flex-start',
                             padding: 5,
+                            width: '100%',
                           },
                           dimensions.width
                         )}
@@ -679,23 +736,31 @@ const StockDetailsScreen = props => {
                               dimensions.width
                             )}
                           >
-                            {'GISC Sub industry:\n'}
+                            {'GISC Sub industry:'}
                           </Text>
                         </View>
 
-                        <Text
-                          accessible={true}
-                          {...GlobalStyles.TextStyles(theme)[
-                            'screen_title_stock'
-                          ].props}
+                        <View
                           style={StyleSheet.applyWidth(
-                            GlobalStyles.TextStyles(theme)['screen_title_stock']
-                              .style,
+                            { flex: 1 },
                             dimensions.width
                           )}
                         >
-                          {fetchData?._gics_sub_industry?.GICS_Sub_Industry}
-                        </Text>
+                          <Text
+                            accessible={true}
+                            {...GlobalStyles.TextStyles(theme)[
+                              'screen_title_stock'
+                            ].props}
+                            style={StyleSheet.applyWidth(
+                              GlobalStyles.TextStyles(theme)[
+                                'screen_title_stock'
+                              ].style,
+                              dimensions.width
+                            )}
+                          >
+                            {fetchData?._gics_sub_industry?.GICS_Sub_Industry}
+                          </Text>
+                        </View>
                       </View>
                       {/* View 2 */}
                       <View
@@ -705,6 +770,7 @@ const StockDetailsScreen = props => {
                               minWidth: Breakpoints.BigScreen,
                               value: 10,
                             },
+                            width: '100%',
                           },
                           dimensions.width
                         )}
@@ -818,13 +884,13 @@ const StockDetailsScreen = props => {
                         borderColor={theme.colors.border.brand}
                         borderStyle={'solid'}
                         borderWidth={1}
-                        cellHorizontalPadding={10}
                         cellVerticalPadding={10}
                         drawBottomBorder={false}
                         drawEndBorder={false}
                         drawStartBorder={false}
                         showsVerticalScrollIndicator={true}
                         {...GlobalStyles.TableStyles(theme)['Table'].props}
+                        cellHorizontalPadding={5}
                         drawTopBorder={false}
                         style={StyleSheet.applyWidth(
                           GlobalStyles.TableStyles(theme)['Table'].style,
@@ -2720,10 +2786,12 @@ const StockDetailsScreen = props => {
                               { minWidth: Breakpoints.Tablet, value: 0 },
                               { minWidth: Breakpoints.Mobile, value: 0 },
                             ],
+                            flex: null,
                             margin: [
                               { minWidth: Breakpoints.Tablet, value: 0 },
                               { minWidth: Breakpoints.Mobile, value: 0 },
                             ],
+                            marginBottom: 10,
                             padding: [
                               { minWidth: Breakpoints.Tablet, value: 10 },
                               { minWidth: Breakpoints.Mobile, value: 10 },
@@ -2738,13 +2806,13 @@ const StockDetailsScreen = props => {
                         borderColor={theme.colors.border.brand}
                         borderStyle={'solid'}
                         borderWidth={1}
-                        cellHorizontalPadding={10}
                         cellVerticalPadding={10}
                         drawBottomBorder={false}
                         drawEndBorder={false}
                         drawStartBorder={false}
                         showsVerticalScrollIndicator={true}
                         {...GlobalStyles.TableStyles(theme)['Table'].props}
+                        cellHorizontalPadding={5}
                         drawTopBorder={false}
                         style={StyleSheet.applyWidth(
                           GlobalStyles.TableStyles(theme)['Table'].style,
@@ -4459,6 +4527,7 @@ const StockDetailsScreen = props => {
           }}
         </XanoCollectionApi.FetchGetPeersListGET>
       </Modal>
+      <CustomBottomNavBlock />
     </ScreenContainer>
   );
 };

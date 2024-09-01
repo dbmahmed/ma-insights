@@ -1,19 +1,4 @@
 import React from 'react';
-import * as GlobalStyles from '../GlobalStyles.js';
-import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
-import CustomHeaderBlock from '../components/CustomHeaderBlock';
-import LoadingBlock from '../components/LoadingBlock';
-import * as GlobalVariables from '../config/GlobalVariableContext';
-import assessAccess from '../global-functions/assessAccess';
-import linkGen from '../global-functions/linkGen';
-import passwordValidate from '../global-functions/passwordValidate';
-import removeGlobalScroll from '../global-functions/removeGlobalScroll';
-import resetAccess from '../global-functions/resetAccess';
-import palettes from '../themes/palettes';
-import Breakpoints from '../utils/Breakpoints';
-import * as StyleSheet from '../utils/StyleSheet';
-import useWindowDimensions from '../utils/useWindowDimensions';
-import waitUtil from '../utils/wait';
 import {
   Button,
   Checkbox,
@@ -33,6 +18,22 @@ import { useIsFocused } from '@react-navigation/native';
 import * as WebBrowser from 'expo-web-browser';
 import { ActivityIndicator, Modal, Text, View } from 'react-native';
 import { Fetch } from 'react-request';
+import * as GlobalStyles from '../GlobalStyles.js';
+import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
+import CustomBottomNavBlock from '../components/CustomBottomNavBlock';
+import CustomHeaderBlock from '../components/CustomHeaderBlock';
+import LoadingBlock from '../components/LoadingBlock';
+import * as GlobalVariables from '../config/GlobalVariableContext';
+import assessAccess from '../global-functions/assessAccess';
+import linkGen from '../global-functions/linkGen';
+import passwordValidate from '../global-functions/passwordValidate';
+import removeGlobalScroll from '../global-functions/removeGlobalScroll';
+import resetAccess from '../global-functions/resetAccess';
+import palettes from '../themes/palettes';
+import Breakpoints from '../utils/Breakpoints';
+import * as StyleSheet from '../utils/StyleSheet';
+import useWindowDimensions from '../utils/useWindowDimensions';
+import waitUtil from '../utils/wait';
 
 const MyAccountScreen = props => {
   const { theme, navigation } = props;
@@ -105,7 +106,11 @@ const MyAccountScreen = props => {
   const password6FVhvLAWRef = React.useRef();
 
   return (
-    <ScreenContainer hasSafeArea={false} scrollable={false}>
+    <ScreenContainer
+      hasSafeArea={false}
+      scrollable={false}
+      hasTopSafeArea={true}
+    >
       <CustomHeaderBlock />
       <XanoCollectionApi.FetchAuthMeGET
         handlers={{
@@ -1664,6 +1669,7 @@ const MyAccountScreen = props => {
           );
         }}
       </XanoCollectionApi.FetchAuthMeGET>
+      <CustomBottomNavBlock />
     </ScreenContainer>
   );
 };
