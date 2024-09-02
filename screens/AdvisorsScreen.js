@@ -819,6 +819,7 @@ line two` ) and will not work with special characters inside of quotes ( example
         <View style={StyleSheet.applyWidth({ flex: 1 }, dimensions.width)}>
           {/* Fetch  */}
           <XanoCollectionApi.FetchGetAdvisorsGET
+            device={'ios'}
             eventType_in={[]}
             handlers={{
               on2xx: fetchData => {
@@ -940,6 +941,7 @@ line two` ) and will not work with special characters inside of quotes ( example
                           }
                           const newData = (
                             await XanoCollectionApi.getAdvisorsGET(Constants, {
+                              device: 'ios',
                               eventType_in: [],
                               keyword: keywordSearch,
                               page: nextPage,

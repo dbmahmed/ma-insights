@@ -414,6 +414,7 @@ const PEPFScreen = props => {
 
       <XanoCollectionApi.FetchGetAllPEPFGET
         countryIn={country}
+        device={'ios'}
         ebitdaIn={ebitdaRange}
         handlers={{
           on2xx: fetchData => {
@@ -538,6 +539,7 @@ const PEPFScreen = props => {
                       const newData = (
                         await XanoCollectionApi.getAllPEPFGET(Constants, {
                           countryIn: country,
+                          device: 'ios',
                           ebitdaIn: ebitdaRange,
                           page: nextPage,
                           searchString: keywordSearch,
@@ -1519,11 +1521,22 @@ const PEPFScreen = props => {
                                           'screen_title'
                                         ].style,
                                         {
-                                          color: {
-                                            minWidth: Breakpoints.Desktop,
-                                            value:
-                                              palettes.Brand['Strong Inverse'],
-                                          },
+                                          color: [
+                                            {
+                                              minWidth: Breakpoints.Desktop,
+                                              value:
+                                                palettes.Brand[
+                                                  'Strong Inverse'
+                                                ],
+                                            },
+                                            {
+                                              minWidth: Breakpoints.Mobile,
+                                              value:
+                                                palettes.Brand[
+                                                  'Strong Inverse'
+                                                ],
+                                            },
+                                          ],
                                           fontFamily: 'Quicksand_400Regular',
                                           fontSize: 12,
                                         }

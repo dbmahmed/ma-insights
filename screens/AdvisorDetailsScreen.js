@@ -16,7 +16,7 @@ import {
 } from '@draftbit/ui';
 import { H3, H5 } from '@expo/html-elements';
 import { useIsFocused } from '@react-navigation/native';
-import { ActivityIndicator, Modal, Text, View } from 'react-native';
+import { ActivityIndicator, Modal, Platform, Text, View } from 'react-native';
 import { Fetch } from 'react-request';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
@@ -25,7 +25,9 @@ import CustomHeaderBlock from '../components/CustomHeaderBlock';
 import LoadingBlock from '../components/LoadingBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import assessAccess from '../global-functions/assessAccess';
+import deviceType from '../global-functions/deviceType';
 import removeGlobalScroll from '../global-functions/removeGlobalScroll';
+import resetAccess from '../global-functions/resetAccess';
 import setPadding from '../global-functions/setPadding';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
@@ -174,10 +176,8 @@ const AdvisorDetailsScreen = props => {
       if (assessAccess(Variables, setGlobalVariableValue) === true) {
         return;
       }
-      if (navigation.canGoBack()) {
-        navigation.popToTop();
-      }
-      navigation.replace('LogInScreen');
+      resetAccess(navigation, Variables, setGlobalVariableValue);
+      /* hidden 'Navigate' action */
     } catch (err) {
       console.error(err);
     }
@@ -193,6 +193,11 @@ const AdvisorDetailsScreen = props => {
       <XanoCollectionApi.FetchGetAdvisorGET
         advisor_id={props.route?.params?.advisor_id ?? 1}
         country_in={country}
+        device={deviceType(
+          Platform.OS === 'web',
+          Platform.OS === 'ios',
+          Platform.OS === 'android'
+        )}
         sector_in={sector}
       >
         {({ loading, error, data, refetchGetAdvisor }) => {
@@ -453,6 +458,7 @@ const AdvisorDetailsScreen = props => {
                       const newData = (
                         await XanoCollectionApi.getAllEventsGET(Constants, {
                           countryIn: country,
+                          device: 'ios',
                           page: nextPage,
                           sectorIn: sector,
                         })

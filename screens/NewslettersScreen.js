@@ -593,10 +593,15 @@ const NewslettersScreen = props => {
 
         <XanoCollectionApi.FetchNewslettersGET
           dach={dach}
+          device={'ios'}
           handlers={{
             on2xx: fetchData => {
               try {
-                setNewslettersList(fetchData?.json?.items);
+                if (fetchData?.json?.items !== newslettersList) {
+                  setNewslettersList(fetchData?.json?.items);
+                } else {
+                }
+
                 console.log(newslettersList);
                 setNextPage(fetchData?.json?.nextPage);
                 setLastPage(fetchData?.json?.pageTotal);
@@ -654,6 +659,7 @@ const NewslettersScreen = props => {
                       const newData = (
                         await XanoCollectionApi.newslettersGET(Constants, {
                           dach: dach,
+                          device: 'ios',
                           keyword: keywordSearch,
                           newsletters: newsletter,
                           nordic: nordic,
@@ -665,7 +671,7 @@ const NewslettersScreen = props => {
                       setLastPage(newData?.pageTotal);
                       if (
                         fetchData?.items ===
-                        (0 && newslettersList !== fetchData?.items)
+                        (0 || newslettersList !== fetchData?.items)
                       ) {
                         return;
                       }

@@ -135,6 +135,7 @@ const StockDetailsScreen = props => {
     >
       <CustomHeaderBlock />
       <XanoCollectionApi.FetchGetOneStockGET
+        device={'ios'}
         handlers={{
           on2xx: fetchData => {
             try {
@@ -1826,7 +1827,7 @@ const StockDetailsScreen = props => {
                             >
                               {transformNumber(
                                 fetchData?.ebitda_margin_fy0,
-                                undefined,
+                                '%',
                                 undefined
                               )}
                             </Text>
@@ -1864,7 +1865,7 @@ const StockDetailsScreen = props => {
                             >
                               {transformNumber(
                                 fetchData?.ebitda_margin_ttm,
-                                undefined,
+                                '%',
                                 undefined
                               )}
                             </Text>
@@ -1902,7 +1903,7 @@ const StockDetailsScreen = props => {
                             >
                               {transformNumber(
                                 fetchData?.ebitda_margin_fy1,
-                                undefined,
+                                '%',
                                 undefined
                               )}
                             </Text>
@@ -1940,7 +1941,7 @@ const StockDetailsScreen = props => {
                             >
                               {transformNumber(
                                 fetchData?.ebitda_margin_fy2,
-                                undefined,
+                                '%',
                                 undefined
                               )}
                             </Text>
@@ -2214,7 +2215,7 @@ const StockDetailsScreen = props => {
                             >
                               {transformNumber(
                                 fetchData?.ebit_margin_fy0,
-                                undefined,
+                                '%',
                                 undefined
                               )}
                             </Text>
@@ -2252,7 +2253,7 @@ const StockDetailsScreen = props => {
                             >
                               {transformNumber(
                                 fetchData?.ebit_margin_ttm,
-                                undefined,
+                                '%',
                                 undefined
                               )}
                             </Text>
@@ -2290,7 +2291,7 @@ const StockDetailsScreen = props => {
                             >
                               {transformNumber(
                                 fetchData?.ebit_margin_fy1,
-                                undefined,
+                                '%',
                                 undefined
                               )}
                             </Text>
@@ -2328,7 +2329,7 @@ const StockDetailsScreen = props => {
                             >
                               {transformNumber(
                                 fetchData?.ebit_margin_fy2,
-                                undefined,
+                                '%',
                                 undefined
                               )}
                             </Text>
@@ -2602,7 +2603,7 @@ const StockDetailsScreen = props => {
                             >
                               {transformNumber(
                                 fetchData?.np_margin_fy0,
-                                undefined,
+                                '%',
                                 undefined
                               )}
                             </Text>
@@ -2640,7 +2641,7 @@ const StockDetailsScreen = props => {
                             >
                               {transformNumber(
                                 fetchData?.np_margin_ttm,
-                                undefined,
+                                '%',
                                 undefined
                               )}
                             </Text>
@@ -2678,7 +2679,7 @@ const StockDetailsScreen = props => {
                             >
                               {transformNumber(
                                 fetchData?.np_margin_fy1,
-                                undefined,
+                                '%',
                                 undefined
                               )}
                             </Text>
@@ -2716,7 +2717,7 @@ const StockDetailsScreen = props => {
                             >
                               {transformNumber(
                                 fetchData?.np_margin_fy2,
-                                undefined,
+                                '%',
                                 undefined
                               )}
                             </Text>
@@ -4197,6 +4198,7 @@ const StockDetailsScreen = props => {
                                       const newData = (
                                         await xanoCollectionUpdatePeerGroupPATCH.mutateAsync(
                                           {
+                                            device: 'ios',
                                             peer_id: selectedPeerGroupID,
                                             stocksList: [
                                               props.route?.params?.stock_id ??
@@ -4386,6 +4388,7 @@ const StockDetailsScreen = props => {
                                             await xanoCollectionCreateNewPeerPOST.mutateAsync(
                                               {
                                                 access_type: 'Private',
+                                                device: 'ios',
                                                 stocks: [].concat([
                                                   props.route?.params
                                                     ?.stock_id ?? 1527,

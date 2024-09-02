@@ -479,7 +479,7 @@ const CustomHeaderBlock = props => {
           {/* Left Container */}
           <View
             style={StyleSheet.applyWidth(
-              { maxWidth: 300, width: '100%' },
+              { height: '100%', maxWidth: 300, width: '100%' },
               dimensions.width
             )}
           >

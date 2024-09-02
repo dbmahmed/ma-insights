@@ -9,4 +9,6 @@ export default {
   mainsightslogowithnameleftsignature2: require('../assets/images/MAInsightsLogoWithNameLeft(signature)(2).png'),
   logorightsmall: require('../assets/images/LogoRightSmall.png'),
   logorightsmall2: require('../assets/images/LogoRightSmall2.png'),
+  mainsightsmigrationinformationvisual: require('../assets/images/MAInsightsMigrationInformationVisual.png'),
+  dummyqrcodeforappstoreapp: require('../assets/images/DummyQRCodeForAppStoreApp.png'),
 };

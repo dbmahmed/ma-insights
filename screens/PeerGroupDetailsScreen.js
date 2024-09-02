@@ -88,6 +88,7 @@ const PeerGroupDetailsScreen = props => {
     >
       <CustomHeaderBlock />
       <XanoCollectionApi.FetchGetOnePeerGET
+        device={'ios'}
         handlers={{
           onData: fetchData => {
             try {
@@ -102,7 +103,7 @@ const PeerGroupDetailsScreen = props => {
             }
           },
         }}
-        peer_group_id={props.route?.params?.peer_group_id ?? 788}
+        peer_group_id={props.route?.params?.peer_group_id ?? 596}
       >
         {({ loading, error, data, refetchGetOnePeer }) => {
           const fetchData = data?.json;
@@ -852,9 +853,10 @@ const PeerGroupDetailsScreen = props => {
                                               (
                                                 await xanoCollectionUpdatePeerGroupPATCH.mutateAsync(
                                                   {
+                                                    device: 'ios',
                                                     peer_id:
                                                       props.route?.params
-                                                        ?.peer_group_id ?? 788,
+                                                        ?.peer_group_id ?? 596,
                                                     stocksList: [].concat([
                                                       tableData?.id,
                                                     ]),
@@ -2416,11 +2418,7 @@ const PeerGroupDetailsScreen = props => {
                                   dimensions.width
                                 )}
                               >
-                                {transformNumber(
-                                  fetchData?.ev_ebitda_fy0,
-                                  'x',
-                                  true
-                                )}
+                                {'-'}
                               </Text>
                             </TableCell>
                             {/* Table Cell 3 */}
@@ -2454,11 +2452,7 @@ const PeerGroupDetailsScreen = props => {
                                   dimensions.width
                                 )}
                               >
-                                {transformNumber(
-                                  fetchData?.ev_ebitda_ttm,
-                                  'x',
-                                  true
-                                )}
+                                {'-'}
                               </Text>
                             </TableCell>
                             {/* Table Cell 4 */}
@@ -2492,11 +2486,7 @@ const PeerGroupDetailsScreen = props => {
                                   dimensions.width
                                 )}
                               >
-                                {transformNumber(
-                                  fetchData?.ev_ebitda_fy1,
-                                  'x',
-                                  true
-                                )}
+                                {'-'}
                               </Text>
                             </TableCell>
                             {/* Table Cell 5 */}
@@ -3189,9 +3179,11 @@ const PeerGroupDetailsScreen = props => {
                                 const newData = (
                                   await xanoCollectionUpdatePeerGroupPATCH.mutateAsync(
                                     {
+                                      device: 'ios',
                                       peer_id:
                                         props.route?.params?.peer_group_id ??
-                                        788,
+                                        596,
+                                      stocksList: [30, 40],
                                       title: peerName,
                                       type: 'None',
                                     }

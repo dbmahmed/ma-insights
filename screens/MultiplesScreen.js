@@ -418,6 +418,7 @@ const MultiplesScreen = props => {
         {/* Fetch container */}
         <View style={StyleSheet.applyWidth({ flex: 1 }, dimensions.width)}>
           <XanoCollectionApi.FetchEventTransactionsGET
+            device={'ios'}
             keyword={keywordSearch}
             page={1}
             region_in={region}

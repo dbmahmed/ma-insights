@@ -228,6 +228,10 @@ const CFSScreen = props => {
 
     setTypeOwnership(() => typeOwnership);
   };
+
+  const advisorEmptyState = item => {
+    return item.length ? item : `"_"`;
+  };
   const isFocused = useIsFocused();
   React.useEffect(() => {
     try {
@@ -425,6 +429,7 @@ const CFSScreen = props => {
       <XanoCollectionApi.FetchGetCFSGET
         cfsSearchQuery={keywordSearch}
         countryIn={country}
+        device={'ios'}
         ebitdaIn={ebitdaRange}
         handlers={{
           on2xx: fetchData => {
@@ -558,6 +563,7 @@ const CFSScreen = props => {
                             await XanoCollectionApi.getCFSGET(Constants, {
                               cfsSearchQuery: keywordSearch,
                               countryIn: country,
+                              device: 'ios',
                               ebitdaIn: ebitdaRange,
                               page: parseInt(nextPage, 10),
                               sectorIn: sector,
@@ -784,7 +790,7 @@ const CFSScreen = props => {
                                     )}
                                   >
                                     {'Advisor: '}
-                                    {listData?._advisors}
+                                    {advisorEmptyState(listData?._advisors)}
                                   </Text>
                                   {/* Text 5 */}
                                   <Text

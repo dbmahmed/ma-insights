@@ -71,8 +71,11 @@ const EventDetailsScreen = props => {
       if (assessAccess(Variables, setGlobalVariableValue) === true) {
         return;
       }
-      /* hidden 'Navigate' action */
-      resetAccess(navigation, Variables, setGlobalVariableValue);
+      if (navigation.canGoBack()) {
+        navigation.popToTop();
+      }
+      navigation.replace('LogInScreen');
+      /* hidden 'Run a Custom Function' action */
     } catch (err) {
       console.error(err);
     }
@@ -88,6 +91,7 @@ const EventDetailsScreen = props => {
     >
       <CustomHeaderBlock />
       <XanoCollectionApi.FetchGetOneEventGET
+        device={'ios'}
         event_id={props.route?.params?.event_id ?? 42839}
       >
         {({ loading, error, data, refetchGetOneEvent }) => {
@@ -155,22 +159,6 @@ const EventDetailsScreen = props => {
                   >
                     {showNKPProp(fetchData?.headline, fetchData?.source)}
                   </H3>
-                  <>
-                    {!isNKPProp(fetchData?.source) ? null : (
-                      <Image
-                        resizeMode={'cover'}
-                        {...GlobalStyles.ImageStyles(theme)['Image'].props}
-                        source={Images['mainsightsfaviconlogo1024new']}
-                        style={StyleSheet.applyWidth(
-                          StyleSheet.compose(
-                            GlobalStyles.ImageStyles(theme)['Image'].style,
-                            { height: 25, marginTop: 20, width: 25 }
-                          ),
-                          dimensions.width
-                        )}
-                      />
-                    )}
-                  </>
                 </HStack>
 
                 <View

@@ -146,6 +146,7 @@ const ReportsScreen = props => {
         </View>
 
         <XanoCollectionApi.FetchReportsGET
+          device={'ios'}
           handlers={{
             onData: fetchData => {
               try {
@@ -416,7 +417,7 @@ const ReportsScreen = props => {
                                   ),
                                   dimensions.width
                                 )}
-                                title={`${tableData?.file?.name}`}
+                                title={`${tableData?.title?.name}`}
                               />
                             </TableCell>
                           </TableRow>

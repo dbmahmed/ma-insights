@@ -179,6 +179,15 @@ const ForgotPasswordScreen = props => {
             behavior={'padding'}
             enabled={true}
             keyboardVerticalOffset={0}
+            style={StyleSheet.applyWidth(
+              {
+                alignItems: [
+                  { minWidth: Breakpoints.Desktop, value: 'center' },
+                  { minWidth: Breakpoints.Laptop, value: 'center' },
+                ],
+              },
+              dimensions.width
+            )}
           >
             {/* Enter Email View */}
             <>
@@ -442,6 +451,10 @@ const ForgotPasswordScreen = props => {
             behavior={'padding'}
             enabled={true}
             keyboardVerticalOffset={0}
+            style={StyleSheet.applyWidth(
+              { alignItems: { minWidth: Breakpoints.Laptop, value: 'center' } },
+              dimensions.width
+            )}
           >
             {/* Enter Temp Pass View */}
             <Surface
@@ -696,6 +709,10 @@ const ForgotPasswordScreen = props => {
             behavior={'padding'}
             enabled={true}
             keyboardVerticalOffset={0}
+            style={StyleSheet.applyWidth(
+              { alignItems: { minWidth: Breakpoints.Laptop, value: 'center' } },
+              dimensions.width
+            )}
           >
             {/* Set New Pass View */}
             <Surface

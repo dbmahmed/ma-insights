@@ -80,6 +80,7 @@ const PEPFDetailsScreen = props => {
     >
       <CustomHeaderBlock />
       <XanoCollectionApi.FetchGetOnePEPFGET
+        device={'ios'}
         pepf_id={props.route?.params?.pepf_id ?? 1}
       >
         {({ loading, error, data, refetchGetOnePEPF }) => {

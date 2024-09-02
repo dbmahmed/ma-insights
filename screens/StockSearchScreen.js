@@ -383,6 +383,7 @@ const StockSearchScreen = props => {
         {/* Fetch Container */}
         <View style={StyleSheet.applyWidth({ flex: 1 }, dimensions.width)}>
           <XanoCollectionApi.FetchGetAllStocksGET
+            device={'ios'}
             evIn={enterpriseValue}
             handlers={{
               on2xx: fetchData => {
@@ -519,6 +520,7 @@ const StockSearchScreen = props => {
                               await XanoCollectionApi.getAllStocksGET(
                                 Constants,
                                 {
+                                  device: 'ios',
                                   evIn: enterpriseValue,
                                   page: nextPage,
                                   regionIn: region,

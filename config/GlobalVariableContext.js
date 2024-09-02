@@ -15,8 +15,9 @@ export const DeviceVariables = {
     newsletter: true,
   },
   AUTH_HEADER:
-    'eyJhbGciOiJBMjU2S1ciLCJlbmMiOiJBMjU2Q0JDLUhTNTEyIiwiemlwIjoiREVGIn0.NyClNFRdFwZlRyg4G1ePAEVOaonFeS3HGE5MvHxIF5He9wL9KwOksDO4mM9v6nkZW5NrGs9YZO53jAqQ9EUO4kK6RfetZckr.P5Y9UTu7Tr6LNeDq6HAqbA.hRh-3m_759IRp1mX1iw4oPhd1njNXqNlRNYL2l_MxRQQoSv5UF0RJX1iED0LAVvzSZvJYH9p22afAgvBJ6uy8ZDRHs9AeqLd1bXCKVt3UBGXX5laKcvW1dG9G7lVQ_whERSsdUa21kuwdQqqQMZNVw.gkrcpARRVqdYcgz2Ml7vwm_JAcEhkTcaaK9VJQ2tHGU',
+    'eyJhbGciOiJBMjU2S1ciLCJlbmMiOiJBMjU2Q0JDLUhTNTEyIiwiemlwIjoiREVGIn0.syRukq-nNCe-U71mTiGKpwhfFbuB4kpywy33MKC_NrbW7yBDSYwZFlVZDwNv-snF0IlZAdODMUZaQGUdvqzI9KdXjx5KQTZz.TbhCNQMgZSrn0WGTi9vwFg.HeKAR0m801U08La19iScadQ0J-w-Ku-55StsUCkDFzJhenDYBXQF_1x_DF9F6ktOaAhyZF7byXpca597lz6jdqFAQRomlR1WbRS1qRg0EenYAbuhBrfEnY2NlWEnZOjmA6hFYrtPCmfCGyZAvERC0A.GWtYy9Ku2f6kubfsABMryiH0_ILV0701ZPX9zTBQPWQ',
   currentScreen: 'Newsletters',
+  deviceType: '',
   ME: {
     id: 0,
     name: '',
@@ -36,7 +37,7 @@ export const DeviceVariables = {
   screenParamValue: '',
   subPage: false,
   top_nav_pressed: false,
-  __env__: 'Production',
+  __env__: 'Development',
 };
 export const AppVariables = { 'Bearer Token': 'UNSET' };
 const GlobalVariableContext = React.createContext();

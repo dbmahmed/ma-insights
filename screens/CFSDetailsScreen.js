@@ -88,6 +88,7 @@ const CFSDetailsScreen = props => {
       <CustomHeaderBlock />
       <XanoCollectionApi.FetchGetOneCFSGET
         cfs_id={props.route?.params?.cfs_id ?? 1989}
+        device={'ios'}
       >
         {({ loading, error, data, refetchGetOneCFS }) => {
           const fetchData = data?.json;
@@ -983,6 +984,7 @@ const CFSDetailsScreen = props => {
                                 Constants,
                                 {
                                   countryIn: country,
+                                  device: 'ios',
                                   eventTypeIn: eventType,
                                   keyword: keywordSearch,
                                   page: nextPage,

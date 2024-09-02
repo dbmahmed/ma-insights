@@ -46,44 +46,44 @@ const AllEventsScreen = props => {
   const Constants = GlobalVariables.useValues();
   const Variables = Constants;
   const setGlobalVariableValue = GlobalVariables.useSetValue();
-  const [Media_and_Other, setMedia_and_Other] = React.useState(true);
-  const [NKP_Proprietary, setNKP_Proprietary] = React.useState(true);
-  const [Press_Release, setPress_Release] = React.useState(true);
-  const [acq_agenda, setAcq_agenda] = React.useState(true);
-  const [austria, setAustria] = React.useState(true);
+  const [Media_and_Other, setMedia_and_Other] = React.useState(false);
+  const [NKP_Proprietary, setNKP_Proprietary] = React.useState(false);
+  const [Press_Release, setPress_Release] = React.useState(false);
+  const [acq_agenda, setAcq_agenda] = React.useState(false);
+  const [austria, setAustria] = React.useState(false);
   const [communication_services, setCommunication_services] =
-    React.useState(true);
+    React.useState(false);
   const [consumer_discretionary, setConsumer_discretionary] =
-    React.useState(true);
-  const [consumer_staples, setConsumer_staples] = React.useState(true);
+    React.useState(false);
+  const [consumer_staples, setConsumer_staples] = React.useState(false);
   const [country, setCountry] = React.useState([]);
-  const [denmark, setDenmark] = React.useState(true);
-  const [energy, setEnergy] = React.useState(true);
+  const [denmark, setDenmark] = React.useState(false);
+  const [energy, setEnergy] = React.useState(false);
   const [eventItems, setEventItems] = React.useState([]);
   const [eventSearch, setEventSearch] = React.useState('');
   const [eventType, setEventType] = React.useState([]);
   const [filterPressed, setFilterPressed] = React.useState(false);
-  const [financials, setFinancials] = React.useState(true);
-  const [finland, setFinland] = React.useState(true);
-  const [future_opportunity, setFuture_opportunity] = React.useState(true);
-  const [germany, setGermany] = React.useState(true);
-  const [health_care, setHealth_care] = React.useState(true);
-  const [industrials, setIndustrials] = React.useState(true);
-  const [it_and_software, setIt_and_software] = React.useState(true);
+  const [financials, setFinancials] = React.useState(false);
+  const [finland, setFinland] = React.useState(false);
+  const [future_opportunity, setFuture_opportunity] = React.useState(false);
+  const [germany, setGermany] = React.useState(false);
+  const [health_care, setHealth_care] = React.useState(false);
+  const [industrials, setIndustrials] = React.useState(false);
+  const [it_and_software, setIt_and_software] = React.useState(false);
   const [keywordSearch, setKeywordSearch] = React.useState('');
   const [keywordSearchRaw, setKeywordSearchRaw] = React.useState('');
   const [lastPage, setLastPage] = React.useState(2);
-  const [materials, setMaterials] = React.useState(true);
-  const [minEbitda, setMinEbitda] = React.useState(true);
+  const [materials, setMaterials] = React.useState(false);
+  const [minEbitda, setMinEbitda] = React.useState(false);
   const [nextPage, setNextPage] = React.useState(2);
-  const [norway, setNorway] = React.useState(true);
-  const [real_estate, setReal_estate] = React.useState(true);
+  const [norway, setNorway] = React.useState(false);
+  const [real_estate, setReal_estate] = React.useState(false);
   const [sector, setSector] = React.useState([]);
   const [sourceType, setSourceType] = React.useState([]);
-  const [sweden, setSweden] = React.useState(true);
-  const [switzerland, setSwitzerland] = React.useState(true);
-  const [transaction, setTransaction] = React.useState(true);
-  const [utilities, setUtilities] = React.useState(true);
+  const [sweden, setSweden] = React.useState(false);
+  const [switzerland, setSwitzerland] = React.useState(false);
+  const [transaction, setTransaction] = React.useState(false);
+  const [utilities, setUtilities] = React.useState(false);
   const matchingFilters = () => {
     setFuture_opportunity((eventType || []).includes('Future Opportunity'));
     setAcq_agenda((eventType || []).includes('Acq. agenda & other'));
@@ -419,6 +419,7 @@ const AllEventsScreen = props => {
               webShowOutline={true}
               {...GlobalStyles.TextInputStyles(theme)['Text Input'].props}
               autoCapitalize={'sentences'}
+              blurOnSubmit={true}
               clearButtonMode={'while-editing'}
               placeholder={'Search...'}
               returnKeyType={'search'}
@@ -487,6 +488,7 @@ const AllEventsScreen = props => {
 
       <XanoCollectionApi.FetchGetAllEventsGET
         countryIn={country}
+        device={'ios'}
         eventTypeIn={eventType}
         handlers={{
           on2xx: fetchData => {
@@ -606,7 +608,10 @@ const AllEventsScreen = props => {
                   >
                     {formatNumber(fetchData?.itemsTotal)}{' '}
                     {fetchData?.itemsTotal === 1 ? 'event' : 'events'}
-                    {' matching filter'}
+                    {' matching filter '}
+                    {dimensions.width >= Breakpoints.Tablet
+                      ? '(New data is fetched automatically)'
+                      : undefined}
                   </Text>
                 </View>
               </View>
@@ -650,6 +655,7 @@ const AllEventsScreen = props => {
                       const newData = (
                         await XanoCollectionApi.getAllEventsGET(Constants, {
                           countryIn: country,
+                          device: 'ios',
                           eventTypeIn: eventType,
                           keyword: keywordSearchRaw,
                           page: nextPage,

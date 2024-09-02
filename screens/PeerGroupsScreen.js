@@ -406,6 +406,7 @@ const PeerGroupsScreen = props => {
       </View>
 
       <XanoCollectionApi.FetchGetAllPeersGET
+        device={'ios'}
         handlers={{
           on2xx: fetchData => {
             try {
@@ -516,6 +517,7 @@ const PeerGroupsScreen = props => {
                       }
                       const newData = (
                         await XanoCollectionApi.getAllPeersGET(Constants, {
+                          device: 'ios',
                           keyword: keywordSearch,
                           my_peers: my_peer_groups,
                           nkp_comps: nkp_comps,

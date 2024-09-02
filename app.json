@@ -9,10 +9,10 @@
           "audio"
         ]
       },
-      "buildNumber": "1.153.0",
+      "buildNumber": "1.155.0",
       "isTabletOnly": false,
       "supportsTablet": true,
-      "bundleIdentifier": "com.draftbit.untitledapp",
+      "bundleIdentifier": "io.mainsights.mainsights",
       "requireFullScreen": true,
       "usesIcloudStorage": false,
       "userInterfaceStyle": "light",
@@ -67,7 +67,7 @@
     "android": {
       "package": "com.draftbit.untitledapp",
       "permissions": [],
-      "versionCode": 153,
+      "versionCode": 155,
       "adaptiveIcon": {},
       "userInterfaceStyle": "light"
     },
@@ -80,7 +80,7 @@
       ]
     ],
     "privacy": "unlisted",
-    "version": "1.153.0",
+    "version": "1.155.0",
     "platforms": [
       "ios",
       "android",

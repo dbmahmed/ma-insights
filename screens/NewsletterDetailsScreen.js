@@ -78,6 +78,7 @@ const NewsletterDetailsScreen = props => {
   return (
     <ScreenContainer
       hasSafeArea={false}
+      hasBottomSafeArea={false}
       hasLeftSafeArea={true}
       hasRightSafeArea={true}
       hasTopSafeArea={true}
@@ -85,6 +86,7 @@ const NewsletterDetailsScreen = props => {
     >
       <CustomHeaderBlock />
       <XanoCollectionApi.FetchNewsletterEachGET
+        device={'ios'}
         handlers={{
           on401: fetchData => {
             try {
@@ -126,7 +128,7 @@ const NewsletterDetailsScreen = props => {
             }
           },
         }}
-        newsletter_id={props.route?.params?.news_id ?? 103}
+        newsletter_id={props.route?.params?.news_id ?? 84}
       >
         {({ loading, error, data, refetchNewsletterEach }) => {
           const fetchData = data?.json;
@@ -551,54 +553,6 @@ const NewsletterDetailsScreen = props => {
                                     undefined
                                   )}
                                 </H3>
-                              )}
-                            </>
-                          </View>
-                        )}
-                      </>
-                      <>
-                        {!isNKPProp(fetchData?._potd?.headline) ? null : (
-                          <View
-                            style={StyleSheet.applyWidth(
-                              { paddingBottom: 10 },
-                              dimensions.width
-                            )}
-                          >
-                            {/* nkpPropImg */}
-                            <>
-                              {!isNKPProp(fetchData?._potd?.headline) ? null : (
-                                <Image
-                                  resizeMode={'cover'}
-                                  {...GlobalStyles.ImageStyles(theme)['Image']
-                                    .props}
-                                  source={
-                                    Images['mainsightsfaviconlogo1024new']
-                                  }
-                                  style={StyleSheet.applyWidth(
-                                    StyleSheet.compose(
-                                      GlobalStyles.ImageStyles(theme)['Image']
-                                        .style,
-                                      {
-                                        height: 20,
-                                        marginBottom: 10,
-                                        marginRight: {
-                                          minWidth: Breakpoints.Tablet,
-                                          value: 5,
-                                        },
-                                        position: {
-                                          minWidth: Breakpoints.Tablet,
-                                          value: 'relative',
-                                        },
-                                        top: {
-                                          minWidth: Breakpoints.Tablet,
-                                          value: 0,
-                                        },
-                                        width: 20,
-                                      }
-                                    ),
-                                    dimensions.width
-                                  )}
-                                />
                               )}
                             </>
                           </View>
@@ -1728,57 +1682,6 @@ const NewsletterDetailsScreen = props => {
                                                   )}
                                                 </Text>
                                               </Text>
-                                              <>
-                                                {!isNKPProp(
-                                                  listData?.source
-                                                ) ? null : (
-                                                  <Image
-                                                    resizeMode={'cover'}
-                                                    {...GlobalStyles.ImageStyles(
-                                                      theme
-                                                    )['Image'].props}
-                                                    source={
-                                                      Images[
-                                                        'mainsightsfaviconlogo1024new'
-                                                      ]
-                                                    }
-                                                    style={StyleSheet.applyWidth(
-                                                      StyleSheet.compose(
-                                                        GlobalStyles.ImageStyles(
-                                                          theme
-                                                        )['Image'].style,
-                                                        {
-                                                          height: [
-                                                            {
-                                                              minWidth:
-                                                                Breakpoints.Tablet,
-                                                              value: 25,
-                                                            },
-                                                            {
-                                                              minWidth:
-                                                                Breakpoints.Mobile,
-                                                              value: 25,
-                                                            },
-                                                          ],
-                                                          width: [
-                                                            {
-                                                              minWidth:
-                                                                Breakpoints.Tablet,
-                                                              value: 25,
-                                                            },
-                                                            {
-                                                              minWidth:
-                                                                Breakpoints.Mobile,
-                                                              value: 25,
-                                                            },
-                                                          ],
-                                                        }
-                                                      ),
-                                                      dimensions.width
-                                                    )}
-                                                  />
-                                                )}
-                                              </>
                                             </HStack>
                                             {/* View 3 */}
                                             <View>
@@ -2018,57 +1921,6 @@ const NewsletterDetailsScreen = props => {
                                                   )}
                                                 </Text>
                                               </Text>
-                                              <>
-                                                {!isNKPProp(
-                                                  listData?.source
-                                                ) ? null : (
-                                                  <Image
-                                                    resizeMode={'cover'}
-                                                    {...GlobalStyles.ImageStyles(
-                                                      theme
-                                                    )['Image'].props}
-                                                    source={
-                                                      Images[
-                                                        'mainsightsfaviconlogo1024new'
-                                                      ]
-                                                    }
-                                                    style={StyleSheet.applyWidth(
-                                                      StyleSheet.compose(
-                                                        GlobalStyles.ImageStyles(
-                                                          theme
-                                                        )['Image'].style,
-                                                        {
-                                                          height: [
-                                                            {
-                                                              minWidth:
-                                                                Breakpoints.Tablet,
-                                                              value: 25,
-                                                            },
-                                                            {
-                                                              minWidth:
-                                                                Breakpoints.Mobile,
-                                                              value: 25,
-                                                            },
-                                                          ],
-                                                          width: [
-                                                            {
-                                                              minWidth:
-                                                                Breakpoints.Tablet,
-                                                              value: 25,
-                                                            },
-                                                            {
-                                                              minWidth:
-                                                                Breakpoints.Mobile,
-                                                              value: 25,
-                                                            },
-                                                          ],
-                                                        }
-                                                      ),
-                                                      dimensions.width
-                                                    )}
-                                                  />
-                                                )}
-                                              </>
                                             </HStack>
                                             {/* View 3 */}
                                             <View>
@@ -2297,57 +2149,6 @@ const NewsletterDetailsScreen = props => {
                                                   )}
                                                 </Text>
                                               </Text>
-                                              <>
-                                                {!isNKPProp(
-                                                  listData?.source
-                                                ) ? null : (
-                                                  <Image
-                                                    resizeMode={'cover'}
-                                                    {...GlobalStyles.ImageStyles(
-                                                      theme
-                                                    )['Image'].props}
-                                                    source={
-                                                      Images[
-                                                        'mainsightsfaviconlogo1024new'
-                                                      ]
-                                                    }
-                                                    style={StyleSheet.applyWidth(
-                                                      StyleSheet.compose(
-                                                        GlobalStyles.ImageStyles(
-                                                          theme
-                                                        )['Image'].style,
-                                                        {
-                                                          height: [
-                                                            {
-                                                              minWidth:
-                                                                Breakpoints.Tablet,
-                                                              value: 25,
-                                                            },
-                                                            {
-                                                              minWidth:
-                                                                Breakpoints.Mobile,
-                                                              value: 25,
-                                                            },
-                                                          ],
-                                                          width: [
-                                                            {
-                                                              minWidth:
-                                                                Breakpoints.Tablet,
-                                                              value: 25,
-                                                            },
-                                                            {
-                                                              minWidth:
-                                                                Breakpoints.Mobile,
-                                                              value: 25,
-                                                            },
-                                                          ],
-                                                        }
-                                                      ),
-                                                      dimensions.width
-                                                    )}
-                                                  />
-                                                )}
-                                              </>
                                             </HStack>
                                             {/* View 3 */}
                                             <View>
@@ -2594,57 +2395,6 @@ const NewsletterDetailsScreen = props => {
                                                   )}
                                                 </Text>
                                               </Text>
-                                              <>
-                                                {!isNKPProp(
-                                                  listData?.source
-                                                ) ? null : (
-                                                  <Image
-                                                    resizeMode={'cover'}
-                                                    {...GlobalStyles.ImageStyles(
-                                                      theme
-                                                    )['Image'].props}
-                                                    source={
-                                                      Images[
-                                                        'mainsightsfaviconlogo1024new'
-                                                      ]
-                                                    }
-                                                    style={StyleSheet.applyWidth(
-                                                      StyleSheet.compose(
-                                                        GlobalStyles.ImageStyles(
-                                                          theme
-                                                        )['Image'].style,
-                                                        {
-                                                          height: [
-                                                            {
-                                                              minWidth:
-                                                                Breakpoints.Tablet,
-                                                              value: 25,
-                                                            },
-                                                            {
-                                                              minWidth:
-                                                                Breakpoints.Mobile,
-                                                              value: 25,
-                                                            },
-                                                          ],
-                                                          width: [
-                                                            {
-                                                              minWidth:
-                                                                Breakpoints.Tablet,
-                                                              value: 25,
-                                                            },
-                                                            {
-                                                              minWidth:
-                                                                Breakpoints.Mobile,
-                                                              value: 25,
-                                                            },
-                                                          ],
-                                                        }
-                                                      ),
-                                                      dimensions.width
-                                                    )}
-                                                  />
-                                                )}
-                                              </>
                                             </HStack>
                                             {/* View 3 */}
                                             <View>
@@ -2900,35 +2650,6 @@ const NewsletterDetailsScreen = props => {
                                                         )}
                                                       </Text>
                                                     </View>
-                                                    <>
-                                                      {!isNKPProp(
-                                                        listData?.headline
-                                                      ) ? null : (
-                                                        <Image
-                                                          resizeMode={'cover'}
-                                                          {...GlobalStyles.ImageStyles(
-                                                            theme
-                                                          )['Image'].props}
-                                                          source={
-                                                            Images[
-                                                              'mainsightsfaviconlogo1024new'
-                                                            ]
-                                                          }
-                                                          style={StyleSheet.applyWidth(
-                                                            StyleSheet.compose(
-                                                              GlobalStyles.ImageStyles(
-                                                                theme
-                                                              )['Image'].style,
-                                                              {
-                                                                height: 25,
-                                                                width: 25,
-                                                              }
-                                                            ),
-                                                            dimensions.width
-                                                          )}
-                                                        />
-                                                      )}
-                                                    </>
                                                   </HStack>
                                                   {/* View 2 */}
                                                   <View>
@@ -3198,35 +2919,6 @@ const NewsletterDetailsScreen = props => {
                                                       )}
                                                     </Text>
                                                   </View>
-                                                  <>
-                                                    {!isNKPProp(
-                                                      listData?.headline
-                                                    ) ? null : (
-                                                      <Image
-                                                        resizeMode={'cover'}
-                                                        {...GlobalStyles.ImageStyles(
-                                                          theme
-                                                        )['Image'].props}
-                                                        source={
-                                                          Images[
-                                                            'mainsightsfaviconlogo1024new'
-                                                          ]
-                                                        }
-                                                        style={StyleSheet.applyWidth(
-                                                          StyleSheet.compose(
-                                                            GlobalStyles.ImageStyles(
-                                                              theme
-                                                            )['Image'].style,
-                                                            {
-                                                              height: 20,
-                                                              width: 20,
-                                                            }
-                                                          ),
-                                                          dimensions.width
-                                                        )}
-                                                      />
-                                                    )}
-                                                  </>
                                                 </HStack>
                                                 {/* View 2 */}
                                                 <View>
@@ -3485,35 +3177,6 @@ const NewsletterDetailsScreen = props => {
                                                       )}
                                                     </Text>
                                                   </View>
-                                                  <>
-                                                    {!isNKPProp(
-                                                      listData?.headline
-                                                    ) ? null : (
-                                                      <Image
-                                                        resizeMode={'cover'}
-                                                        {...GlobalStyles.ImageStyles(
-                                                          theme
-                                                        )['Image'].props}
-                                                        source={
-                                                          Images[
-                                                            'mainsightsfaviconlogo1024new'
-                                                          ]
-                                                        }
-                                                        style={StyleSheet.applyWidth(
-                                                          StyleSheet.compose(
-                                                            GlobalStyles.ImageStyles(
-                                                              theme
-                                                            )['Image'].style,
-                                                            {
-                                                              height: 25,
-                                                              width: 25,
-                                                            }
-                                                          ),
-                                                          dimensions.width
-                                                        )}
-                                                      />
-                                                    )}
-                                                  </>
                                                 </HStack>
                                                 <View />
                                                 {/* View 2 */}
