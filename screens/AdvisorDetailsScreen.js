@@ -460,6 +460,7 @@ const AdvisorDetailsScreen = props => {
                           countryIn: country,
                           device: 'ios',
                           page: nextPage,
+                          region_in: 'Nordic',
                           sectorIn: sector,
                         })
                       )?.json;

@@ -988,6 +988,7 @@ const CFSDetailsScreen = props => {
                                   eventTypeIn: eventType,
                                   keyword: keywordSearch,
                                   page: nextPage,
+                                  region_in: 'Nordic',
                                   sectorIn: sector,
                                 }
                               )

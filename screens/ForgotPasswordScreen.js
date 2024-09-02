@@ -16,6 +16,7 @@ import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
 import * as XanoResetPassApi from '../apis/XanoResetPassApi.js';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import Images from '../config/Images';
+import passwordValidate from '../global-functions/passwordValidate';
 import removeGlobalScroll from '../global-functions/removeGlobalScroll';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
@@ -184,6 +185,7 @@ const ForgotPasswordScreen = props => {
                 alignItems: [
                   { minWidth: Breakpoints.Desktop, value: 'center' },
                   { minWidth: Breakpoints.Laptop, value: 'center' },
+                  { minWidth: Breakpoints.Tablet, value: 'center' },
                 ],
               },
               dimensions.width
@@ -199,14 +201,14 @@ const ForgotPasswordScreen = props => {
                     StyleSheet.compose(
                       GlobalStyles.SurfaceStyles(theme)['Surface'].style,
                       {
-                        maxWidth: {
-                          minWidth: Breakpoints.BigScreen,
-                          value: 380,
-                        },
-                        minWidth: {
-                          minWidth: Breakpoints.BigScreen,
-                          value: 380,
-                        },
+                        maxWidth: [
+                          { minWidth: Breakpoints.BigScreen, value: 380 },
+                          { minWidth: Breakpoints.Tablet, value: 380 },
+                        ],
+                        minWidth: [
+                          { minWidth: Breakpoints.BigScreen, value: 380 },
+                          { minWidth: Breakpoints.Tablet, value: 380 },
+                        ],
                         padding: 10,
                       }
                     ),
@@ -462,7 +464,12 @@ const ForgotPasswordScreen = props => {
             enabled={true}
             keyboardVerticalOffset={0}
             style={StyleSheet.applyWidth(
-              { alignItems: { minWidth: Breakpoints.Laptop, value: 'center' } },
+              {
+                alignItems: [
+                  { minWidth: Breakpoints.Laptop, value: 'center' },
+                  { minWidth: Breakpoints.Tablet, value: 'center' },
+                ],
+              },
               dimensions.width
             )}
           >
@@ -475,7 +482,10 @@ const ForgotPasswordScreen = props => {
                   GlobalStyles.SurfaceStyles(theme)['Surface'].style,
                   {
                     maxWidth: 380,
-                    minWidth: { minWidth: Breakpoints.BigScreen, value: 380 },
+                    minWidth: [
+                      { minWidth: Breakpoints.BigScreen, value: 380 },
+                      { minWidth: Breakpoints.Tablet, value: 380 },
+                    ],
                     padding: 10,
                   }
                 ),
@@ -718,13 +728,18 @@ const ForgotPasswordScreen = props => {
       </>
       {/* Keyboard Avoiding View 3 */}
       <>
-        {!(pageState === 'new_pass') ? null : (
+        {!(pageState !== 'new_pass') ? null : (
           <KeyboardAvoidingView
             behavior={'padding'}
             enabled={true}
             keyboardVerticalOffset={0}
             style={StyleSheet.applyWidth(
-              { alignItems: { minWidth: Breakpoints.Laptop, value: 'center' } },
+              {
+                alignItems: [
+                  { minWidth: Breakpoints.Laptop, value: 'center' },
+                  { minWidth: Breakpoints.Tablet, value: 'center' },
+                ],
+              },
               dimensions.width
             )}
           >
@@ -737,7 +752,10 @@ const ForgotPasswordScreen = props => {
                   GlobalStyles.SurfaceStyles(theme)['Surface'].style,
                   {
                     maxWidth: 380,
-                    minWidth: { minWidth: Breakpoints.BigScreen, value: 380 },
+                    minWidth: [
+                      { minWidth: Breakpoints.BigScreen, value: 380 },
+                      { minWidth: Breakpoints.Tablet, value: 380 },
+                    ],
                     padding: 10,
                   }
                 ),
@@ -772,6 +790,26 @@ const ForgotPasswordScreen = props => {
                   } catch (err) {
                     console.error(err);
                   }
+                }}
+                onChangeTextDelayed={newPasswordValue => {
+                  console.log('Password ON_CHANGE_TEXT_DELAYED Start');
+                  let error = null;
+                  try {
+                    console.log(
+                      'Start ON_CHANGE_TEXT_DELAYED:0 CUSTOM_FUNCTION'
+                    );
+                    passwordValidate(newPasswordValue);
+                    console.log(
+                      'Complete ON_CHANGE_TEXT_DELAYED:0 CUSTOM_FUNCTION'
+                    );
+                  } catch (err) {
+                    console.error(err);
+                    error = err.message ?? err;
+                  }
+                  console.log(
+                    'Password ON_CHANGE_TEXT_DELAYED Complete',
+                    error ? { error } : 'no error'
+                  );
                 }}
                 webShowOutline={true}
                 {...GlobalStyles.TextInputStyles(theme)['Login Text Style']
