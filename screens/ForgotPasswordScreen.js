@@ -198,7 +198,17 @@ const ForgotPasswordScreen = props => {
                   style={StyleSheet.applyWidth(
                     StyleSheet.compose(
                       GlobalStyles.SurfaceStyles(theme)['Surface'].style,
-                      { padding: 10 }
+                      {
+                        maxWidth: {
+                          minWidth: Breakpoints.BigScreen,
+                          value: 380,
+                        },
+                        minWidth: {
+                          minWidth: Breakpoints.BigScreen,
+                          value: 380,
+                        },
+                        padding: 10,
+                      }
                     ),
                     dimensions.width
                   )}
@@ -463,7 +473,11 @@ const ForgotPasswordScreen = props => {
               style={StyleSheet.applyWidth(
                 StyleSheet.compose(
                   GlobalStyles.SurfaceStyles(theme)['Surface'].style,
-                  { maxWidth: 380, padding: 10 }
+                  {
+                    maxWidth: 380,
+                    minWidth: { minWidth: Breakpoints.BigScreen, value: 380 },
+                    padding: 10,
+                  }
                 ),
                 dimensions.width
               )}
@@ -721,7 +735,11 @@ const ForgotPasswordScreen = props => {
               style={StyleSheet.applyWidth(
                 StyleSheet.compose(
                   GlobalStyles.SurfaceStyles(theme)['Surface'].style,
-                  { maxWidth: 380, padding: 10 }
+                  {
+                    maxWidth: 380,
+                    minWidth: { minWidth: Breakpoints.BigScreen, value: 380 },
+                    padding: 10,
+                  }
                 ),
                 dimensions.width
               )}
