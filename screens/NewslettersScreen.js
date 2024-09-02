@@ -14,7 +14,13 @@ import {
 } from '@draftbit/ui';
 import { H4, H5 } from '@expo/html-elements';
 import { useIsFocused } from '@react-navigation/native';
-import { ActivityIndicator, Modal, Text, View } from 'react-native';
+import {
+  ActivityIndicator,
+  Modal,
+  RefreshControl,
+  Text,
+  View,
+} from 'react-native';
 import { Fetch } from 'react-request';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
@@ -50,6 +56,7 @@ const NewslettersScreen = props => {
   const [nkp_comps, setNkp_comps] = React.useState(false);
   const [nordic, setNordic] = React.useState(true);
   const [weeklyReport, setWeeklyReport] = React.useState(true);
+  const [refreshingsXtzWjLu, setRefreshingsXtzWjLu] = React.useState(false);
   const fixedKeyProp = key => {
     console.log('key', key + window.innerWidth);
     return key + window.innerWidth;
@@ -433,6 +440,24 @@ const NewslettersScreen = props => {
                   };
                   handler();
                 }}
+                refreshControl={
+                  <RefreshControl
+                    refreshing={refreshingsXtzWjLu}
+                    onRefresh={() => {
+                      const handler = async () => {
+                        try {
+                          setRefreshingsXtzWjLu(true);
+                          await refetchNewsletters();
+                          setRefreshingsXtzWjLu(false);
+                        } catch (err) {
+                          console.error(err);
+                          setRefreshingsXtzWjLu(false);
+                        }
+                      };
+                      handler();
+                    }}
+                  />
+                }
                 renderItem={({ item, index }) => {
                   const listData = item;
                   return (

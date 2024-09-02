@@ -18,7 +18,13 @@ import {
 import { H3, H5 } from '@expo/html-elements';
 import { useIsFocused } from '@react-navigation/native';
 import * as WebBrowser from 'expo-web-browser';
-import { ActivityIndicator, Modal, Text, View } from 'react-native';
+import {
+  ActivityIndicator,
+  Modal,
+  RefreshControl,
+  Text,
+  View,
+} from 'react-native';
 import { Fetch } from 'react-request';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
@@ -84,6 +90,7 @@ const AdvisorsScreen = props => {
   const [type, setType] = React.useState('Corporate Finance');
   const [typeAdvisor, setTypeAdvisor] = React.useState('dk');
   const [utilities, setUtilities] = React.useState(false);
+  const [refreshing2cY8Myag, setRefreshing2cY8Myag] = React.useState(false);
   const setAdvisorRank = (
     Variables,
     type,
@@ -965,6 +972,24 @@ line two` ) and will not work with special characters inside of quotes ( example
                       handler();
                     }}
                     onEndReachedThreshold={0.5}
+                    refreshControl={
+                      <RefreshControl
+                        refreshing={refreshing2cY8Myag}
+                        onRefresh={() => {
+                          const handler = async () => {
+                            try {
+                              setRefreshing2cY8Myag(true);
+                              await refetchGetAdvisors();
+                              setRefreshing2cY8Myag(false);
+                            } catch (err) {
+                              console.error(err);
+                              setRefreshing2cY8Myag(false);
+                            }
+                          };
+                          handler();
+                        }}
+                      />
+                    }
                     renderItem={({ item, index }) => {
                       const listData = item;
                       return (

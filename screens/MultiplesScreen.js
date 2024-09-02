@@ -16,7 +16,13 @@ import {
 } from '@draftbit/ui';
 import { H5 } from '@expo/html-elements';
 import { useIsFocused } from '@react-navigation/native';
-import { ActivityIndicator, Modal, Text, View } from 'react-native';
+import {
+  ActivityIndicator,
+  Modal,
+  RefreshControl,
+  Text,
+  View,
+} from 'react-native';
 import { Fetch } from 'react-request';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
@@ -72,6 +78,7 @@ const MultiplesScreen = props => {
   const [sector, setSector] = React.useState([]);
   const [transaction, setTransaction] = React.useState(true);
   const [utilities, setUtilities] = React.useState(true);
+  const [refreshingSfOccPiT, setRefreshingSfOccPiT] = React.useState(false);
   const toggleAllFilters = flag => {
     setEbitda_large(flag);
     setEbitda_medium(flag);
@@ -506,6 +513,24 @@ const MultiplesScreen = props => {
                       listKey={'SfOccPiT'}
                       nestedScrollEnabled={false}
                       onEndReachedThreshold={0.5}
+                      refreshControl={
+                        <RefreshControl
+                          refreshing={refreshingSfOccPiT}
+                          onRefresh={() => {
+                            const handler = async () => {
+                              try {
+                                setRefreshingSfOccPiT(true);
+                                await refetchEventTransactions();
+                                setRefreshingSfOccPiT(false);
+                              } catch (err) {
+                                console.error(err);
+                                setRefreshingSfOccPiT(false);
+                              }
+                            };
+                            handler();
+                          }}
+                        />
+                      }
                       renderItem={({ item, index }) => {
                         const listData = item;
                         return (

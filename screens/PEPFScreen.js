@@ -16,7 +16,14 @@ import {
 } from '@draftbit/ui';
 import { H4, H5 } from '@expo/html-elements';
 import { useIsFocused } from '@react-navigation/native';
-import { ActivityIndicator, Modal, Platform, Text, View } from 'react-native';
+import {
+  ActivityIndicator,
+  Modal,
+  Platform,
+  RefreshControl,
+  Text,
+  View,
+} from 'react-native';
 import { Fetch } from 'react-request';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
@@ -95,6 +102,7 @@ const PEPFScreen = props => {
   const [testWidth, setTestWidth] = React.useState(2);
   const [transaction, setTransaction] = React.useState(true);
   const [utilities, setUtilities] = React.useState(true);
+  const [refreshinghDO0JNzh, setRefreshinghDO0JNzh] = React.useState(false);
   const toggleAllFilters = flag => {
     setEbitda_large(flag);
     setEbitda_medium(flag);
@@ -584,6 +592,24 @@ const PEPFScreen = props => {
                   handler();
                 }}
                 onEndReachedThreshold={0.5}
+                refreshControl={
+                  <RefreshControl
+                    refreshing={refreshinghDO0JNzh}
+                    onRefresh={() => {
+                      const handler = async () => {
+                        try {
+                          setRefreshinghDO0JNzh(true);
+                          await refetchGetAllPEPF();
+                          setRefreshinghDO0JNzh(false);
+                        } catch (err) {
+                          console.error(err);
+                          setRefreshinghDO0JNzh(false);
+                        }
+                      };
+                      handler();
+                    }}
+                  />
+                }
                 renderItem={({ item, index }) => {
                   const listData = item;
                   return (

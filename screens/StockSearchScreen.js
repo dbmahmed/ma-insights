@@ -16,7 +16,13 @@ import {
 } from '@draftbit/ui';
 import { H5 } from '@expo/html-elements';
 import { useIsFocused } from '@react-navigation/native';
-import { ActivityIndicator, Modal, Text, View } from 'react-native';
+import {
+  ActivityIndicator,
+  Modal,
+  RefreshControl,
+  Text,
+  View,
+} from 'react-native';
 import { Fetch } from 'react-request';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
@@ -90,6 +96,7 @@ const StockSearchScreen = props => {
   const [switzerland, setSwitzerland] = React.useState(false);
   const [transaction, setTransaction] = React.useState(false);
   const [utilities, setUtilities] = React.useState(false);
+  const [refreshingg1gXcvVu, setRefreshingg1gXcvVu] = React.useState(false);
   const toggleAllFilters = flag => {
     setCommunication_services(flag);
     setIndustrials(flag);
@@ -571,6 +578,24 @@ const StockSearchScreen = props => {
                         };
                         handler();
                       }}
+                      refreshControl={
+                        <RefreshControl
+                          refreshing={refreshingg1gXcvVu}
+                          onRefresh={() => {
+                            const handler = async () => {
+                              try {
+                                setRefreshingg1gXcvVu(true);
+                                await refetchGetAllStocks();
+                                setRefreshingg1gXcvVu(false);
+                              } catch (err) {
+                                console.error(err);
+                                setRefreshingg1gXcvVu(false);
+                              }
+                            };
+                            handler();
+                          }}
+                        />
+                      }
                       renderItem={({ item, index }) => {
                         const listData = item;
                         return (

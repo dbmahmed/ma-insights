@@ -22,6 +22,7 @@ import {
   Image,
   Modal,
   Platform,
+  RefreshControl,
   Text,
   View,
 } from 'react-native';
@@ -96,6 +97,7 @@ const AllEventsScreen = props => {
   const [tempRegion, setTempRegion] = React.useState('');
   const [transaction, setTransaction] = React.useState(false);
   const [utilities, setUtilities] = React.useState(false);
+  const [refreshingAwqPzJqX, setRefreshingAwqPzJqX] = React.useState(false);
   const toggleAllFilters = flag => {
     setFuture_opportunity(flag);
     setAcq_agenda(flag);
@@ -723,6 +725,24 @@ const AllEventsScreen = props => {
                   };
                   handler();
                 }}
+                refreshControl={
+                  <RefreshControl
+                    refreshing={refreshingAwqPzJqX}
+                    onRefresh={() => {
+                      const handler = async () => {
+                        try {
+                          setRefreshingAwqPzJqX(true);
+                          await refetchGetAllEvents();
+                          setRefreshingAwqPzJqX(false);
+                        } catch (err) {
+                          console.error(err);
+                          setRefreshingAwqPzJqX(false);
+                        }
+                      };
+                      handler();
+                    }}
+                  />
+                }
                 renderItem={({ item, index }) => {
                   const listData = item;
                   return (

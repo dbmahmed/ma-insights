@@ -16,7 +16,13 @@ import {
 } from '@draftbit/ui';
 import { H4, H5 } from '@expo/html-elements';
 import { useIsFocused } from '@react-navigation/native';
-import { ActivityIndicator, Modal, Text, View } from 'react-native';
+import {
+  ActivityIndicator,
+  Modal,
+  RefreshControl,
+  Text,
+  View,
+} from 'react-native';
 import { Fetch } from 'react-request';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
@@ -84,6 +90,7 @@ const CFSScreen = props => {
   const [transaction, setTransaction] = React.useState(true);
   const [typeOwnership, setTypeOwnership] = React.useState([]);
   const [utilities, setUtilities] = React.useState(true);
+  const [refreshingyCaR0jC6, setRefreshingyCaR0jC6] = React.useState(false);
   const toggleAllFilters = flag => {
     setEbitda_large(flag);
     setEbitda_medium(flag);
@@ -582,6 +589,24 @@ const CFSScreen = props => {
                       handler();
                     }}
                     onEndReachedThreshold={0.5}
+                    refreshControl={
+                      <RefreshControl
+                        refreshing={refreshingyCaR0jC6}
+                        onRefresh={() => {
+                          const handler = async () => {
+                            try {
+                              setRefreshingyCaR0jC6(true);
+                              await refetchGetCFS();
+                              setRefreshingyCaR0jC6(false);
+                            } catch (err) {
+                              console.error(err);
+                              setRefreshingyCaR0jC6(false);
+                            }
+                          };
+                          handler();
+                        }}
+                      />
+                    }
                     renderItem={({ item, index }) => {
                       const listData = item;
                       return (

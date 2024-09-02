@@ -13,7 +13,13 @@ import {
 } from '@draftbit/ui';
 import { H5 } from '@expo/html-elements';
 import { useIsFocused } from '@react-navigation/native';
-import { ActivityIndicator, Image, Text, View } from 'react-native';
+import {
+  ActivityIndicator,
+  Image,
+  RefreshControl,
+  Text,
+  View,
+} from 'react-native';
 import { Fetch } from 'react-request';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
@@ -61,6 +67,7 @@ const PeerGroupsScreen = props => {
   const [sweden, setSweden] = React.useState(false);
   const [transaction, setTransaction] = React.useState(false);
   const [utilities, setUtilities] = React.useState(false);
+  const [refreshingO0u33Gng, setRefreshingO0u33Gng] = React.useState(false);
   const isFocused = useIsFocused();
   React.useEffect(() => {
     try {
@@ -537,6 +544,24 @@ const PeerGroupsScreen = props => {
                   handler();
                 }}
                 onEndReachedThreshold={0.5}
+                refreshControl={
+                  <RefreshControl
+                    refreshing={refreshingO0u33Gng}
+                    onRefresh={() => {
+                      const handler = async () => {
+                        try {
+                          setRefreshingO0u33Gng(true);
+                          await refetchGetAllPeers();
+                          setRefreshingO0u33Gng(false);
+                        } catch (err) {
+                          console.error(err);
+                          setRefreshingO0u33Gng(false);
+                        }
+                      };
+                      handler();
+                    }}
+                  />
+                }
                 renderItem={({ item, index }) => {
                   const listData = item;
                   return (

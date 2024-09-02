@@ -1,14 +1,4 @@
 import React from 'react';
-import * as GlobalStyles from '../GlobalStyles.js';
-import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
-import * as GlobalVariables from '../config/GlobalVariableContext';
-import Images from '../config/Images';
-import removeGlobalScroll from '../global-functions/removeGlobalScroll';
-import palettes from '../themes/palettes';
-import Breakpoints from '../utils/Breakpoints';
-import * as StyleSheet from '../utils/StyleSheet';
-import showAlertUtil from '../utils/showAlert';
-import useWindowDimensions from '../utils/useWindowDimensions';
 import {
   Button,
   KeyboardAvoidingView,
@@ -20,6 +10,16 @@ import {
 } from '@draftbit/ui';
 import { useIsFocused } from '@react-navigation/native';
 import { Image, Keyboard, Text, View } from 'react-native';
+import * as GlobalStyles from '../GlobalStyles.js';
+import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
+import * as GlobalVariables from '../config/GlobalVariableContext';
+import Images from '../config/Images';
+import removeGlobalScroll from '../global-functions/removeGlobalScroll';
+import palettes from '../themes/palettes';
+import Breakpoints from '../utils/Breakpoints';
+import * as StyleSheet from '../utils/StyleSheet';
+import showAlertUtil from '../utils/showAlert';
+import useWindowDimensions from '../utils/useWindowDimensions';
 
 const RequestDemoScreen = props => {
   const { theme, navigation } = props;
@@ -96,7 +96,7 @@ const RequestDemoScreen = props => {
         <Image
           {...GlobalStyles.ImageStyles(theme)['Image'].props}
           resizeMode={'contain'}
-          source={Images['LogoMobileApp']}
+          source={Images['mainsightsfaviconlogo1024new']}
           style={StyleSheet.applyWidth(
             StyleSheet.compose(GlobalStyles.ImageStyles(theme)['Image'].style, {
               width: 300,
@@ -104,6 +104,7 @@ const RequestDemoScreen = props => {
             dimensions.width
           )}
         />
+        {/* Text 2 */}
         <Text
           accessible={true}
           {...GlobalStyles.TextStyles(theme)['screen_title'].props}
@@ -111,19 +112,26 @@ const RequestDemoScreen = props => {
             StyleSheet.compose(
               GlobalStyles.TextStyles(theme)['screen_title'].style,
               {
-                alignSelf: 'center',
-                color: palettes.Brand.Surface,
-                fontFamily: 'Quicksand_400Regular',
-                marginTop: 15,
+                color: [
+                  { minWidth: Breakpoints.Desktop, value: palettes.App.Orange },
+                  { minWidth: Breakpoints.Mobile, value: palettes.App.Orange },
+                ],
+                fontFamily: [
+                  { minWidth: Breakpoints.Desktop, value: 'Poppins_900Black' },
+                  { minWidth: Breakpoints.Mobile, value: 'Poppins_900Black' },
+                ],
+                fontSize: 30,
+                lineHeight: 30,
+                paddingBottom: { minWidth: Breakpoints.Desktop, value: 0 },
                 textAlign: 'center',
               }
             ),
             dimensions.width
           )}
         >
-          {
-            'You are about to log in to the M&A Insights mobile application available on the App Store and Play Store, respectively.'
-          }
+          {dimensions.width >= Breakpoints.Laptop
+            ? 'M&A INSIGHTS'
+            : 'M&A\nINSIGHTS'}
         </Text>
         {/* Title */}
         <Text
