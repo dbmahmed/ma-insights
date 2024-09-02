@@ -53,6 +53,7 @@ const ForgotPasswordScreen = props => {
       console.error(err);
     }
   }, [isFocused]);
+  const passwordAklNpn0KRef = React.useRef();
 
   return (
     <ScreenContainer
@@ -510,13 +511,13 @@ const ForgotPasswordScreen = props => {
               >
                 {'Enter temporary password'}
               </Text>
-              {/* Password */}
+              {/* Password-Code */}
               <TextInput
                 autoCapitalize={'none'}
                 changeTextDelay={500}
-                onChangeText={newPasswordValue => {
+                onChangeText={newPasswordCodeValue => {
                   try {
-                    setTempPassVal(newPasswordValue);
+                    setTempPassVal(newPasswordCodeValue);
                   } catch (err) {
                     console.error(err);
                   }
@@ -728,7 +729,7 @@ const ForgotPasswordScreen = props => {
       </>
       {/* Keyboard Avoiding View 3 */}
       <>
-        {!(pageState !== 'new_pass') ? null : (
+        {!(pageState === 'new_pass') ? null : (
           <KeyboardAvoidingView
             behavior={'padding'}
             enabled={true}
@@ -784,32 +785,55 @@ const ForgotPasswordScreen = props => {
               <TextInput
                 autoCapitalize={'none'}
                 changeTextDelay={500}
-                onChangeText={newPasswordValue => {
-                  try {
-                    setNewPass(newPasswordValue);
-                  } catch (err) {
-                    console.error(err);
-                  }
-                }}
-                onChangeTextDelayed={newPasswordValue => {
-                  console.log('Password ON_CHANGE_TEXT_DELAYED Start');
+                onBlur={() => {
+                  console.log('Password ON_BLUR Start');
                   let error = null;
                   try {
-                    console.log(
-                      'Start ON_CHANGE_TEXT_DELAYED:0 CUSTOM_FUNCTION'
+                    console.log('Start ON_BLUR:0 CONDITIONAL_STOP');
+                    if (newPass === '') {
+                      return console.log('Complete ON_BLUR:0 CONDITIONAL_STOP');
+                    } else {
+                      console.log(
+                        'Skipped ON_BLUR:0 CONDITIONAL_STOP: condition not met'
+                      );
+                    }
+                    console.log('Start ON_BLUR:1 CUSTOM_FUNCTION');
+                    const testPassword = passwordValidate(newPass);
+                    console.log('Complete ON_BLUR:1 CUSTOM_FUNCTION', {
+                      testPassword,
+                    });
+                    console.log('Start ON_BLUR:2 CONDITIONAL_STOP');
+                    if (testPassword === true) {
+                      return console.log('Complete ON_BLUR:2 CONDITIONAL_STOP');
+                    } else {
+                      console.log(
+                        'Skipped ON_BLUR:2 CONDITIONAL_STOP: condition not met'
+                      );
+                    }
+                    console.log('Start ON_BLUR:3 SET_VARIABLE');
+                    setErrorMessage(
+                      'Password must be at least 8 characters long and include upper and lower case letters, numbers and special characters.'
                     );
-                    passwordValidate(newPasswordValue);
-                    console.log(
-                      'Complete ON_CHANGE_TEXT_DELAYED:0 CUSTOM_FUNCTION'
-                    );
+                    console.log('Complete ON_BLUR:3 SET_VARIABLE');
+                    console.log('Start ON_BLUR:4 TEXT_INPUT_FOCUS');
+                    passwordAklNpn0KRef.current.focus();
+                    console.log('Complete ON_BLUR:4 TEXT_INPUT_FOCUS');
                   } catch (err) {
                     console.error(err);
                     error = err.message ?? err;
                   }
                   console.log(
-                    'Password ON_CHANGE_TEXT_DELAYED Complete',
+                    'Password ON_BLUR Complete',
                     error ? { error } : 'no error'
                   );
+                }}
+                onChangeText={newPasswordValue => {
+                  try {
+                    setNewPass(newPasswordValue);
+                    setErrorMessage('');
+                  } catch (err) {
+                    console.error(err);
+                  }
                 }}
                 webShowOutline={true}
                 {...GlobalStyles.TextInputStyles(theme)['Login Text Style']
@@ -821,6 +845,7 @@ const ForgotPasswordScreen = props => {
                 numberOfLines={1}
                 placeholder={'Enter new password'}
                 placeholderTextColor={theme.colors.text.medium}
+                ref={passwordAklNpn0KRef}
                 returnKeyType={'next'}
                 secureTextEntry={true}
                 selectionColor={theme.colors.text.strong}

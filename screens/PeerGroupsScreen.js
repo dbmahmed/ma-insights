@@ -608,6 +608,7 @@ const PeerGroupsScreen = props => {
                               borderColor: palettes.Brand['Light Inverse'],
                               borderRadius: 8,
                               borderWidth: 0,
+                              flex: 1,
                               flexDirection: 'row',
                               height: '100%',
                               justifyContent: 'space-between',
@@ -631,32 +632,40 @@ const PeerGroupsScreen = props => {
                             <View
                               style={StyleSheet.applyWidth(
                                 {
+                                  flex: 1,
                                   flexDirection: 'row',
                                   justifyContent: 'space-between',
                                 },
                                 dimensions.width
                               )}
                             >
-                              <Text
-                                accessible={true}
-                                {...GlobalStyles.TextStyles(theme)[
-                                  'screen_title'
-                                ].props}
+                              <View
                                 style={StyleSheet.applyWidth(
-                                  StyleSheet.compose(
-                                    GlobalStyles.TextStyles(theme)[
-                                      'screen_title'
-                                    ].style,
-                                    {
-                                      fontFamily: 'Quicksand_700Bold',
-                                      fontSize: 12,
-                                    }
-                                  ),
+                                  { flex: 1 },
                                   dimensions.width
                                 )}
                               >
-                                {listData?.title}
-                              </Text>
+                                <Text
+                                  accessible={true}
+                                  {...GlobalStyles.TextStyles(theme)[
+                                    'screen_title'
+                                  ].props}
+                                  style={StyleSheet.applyWidth(
+                                    StyleSheet.compose(
+                                      GlobalStyles.TextStyles(theme)[
+                                        'screen_title'
+                                      ].style,
+                                      {
+                                        fontFamily: 'Quicksand_700Bold',
+                                        fontSize: 12,
+                                      }
+                                    ),
+                                    dimensions.width
+                                  )}
+                                >
+                                  {listData?.title}
+                                </Text>
+                              </View>
                               {/* Text 2 */}
                               <Text
                                 accessible={true}

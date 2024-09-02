@@ -16,7 +16,7 @@ import {
 } from '@draftbit/ui';
 import { H4, H5 } from '@expo/html-elements';
 import { useIsFocused } from '@react-navigation/native';
-import { ActivityIndicator, Modal, Text, View } from 'react-native';
+import { ActivityIndicator, Modal, Platform, Text, View } from 'react-native';
 import { Fetch } from 'react-request';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
@@ -51,6 +51,7 @@ const PEPFScreen = props => {
     React.useState(true);
   const [consumer_staples, setConsumer_staples] = React.useState(true);
   const [country, setCountry] = React.useState([]);
+  const [dach, setDach] = React.useState(false);
   const [denmark, setDenmark] = React.useState(true);
   const [ebitdaRange, setEbitdaRange] = React.useState([]);
   const [ebitda_giant, setEbitda_giant] = React.useState(true);
@@ -82,9 +83,12 @@ const PEPFScreen = props => {
   const [materials, setMaterials] = React.useState(true);
   const [more_7, setMore_7] = React.useState(true);
   const [nextPage, setNextPage] = React.useState(2);
+  const [nordic, setNordic] = React.useState(false);
   const [norway, setNorway] = React.useState(true);
   const [pepfItems, setPepfItems] = React.useState([]);
   const [real_estate, setReal_estate] = React.useState(true);
+  const [regions, setRegions] = React.useState([]);
+  const [row, setRow] = React.useState(false);
   const [sector, setSector] = React.useState([]);
   const [sweden, setSweden] = React.useState(true);
   const [switzerland, setSwitzerland] = React.useState(true);
@@ -123,6 +127,10 @@ const PEPFScreen = props => {
     setFinancials(flag);
     setUtilities(flag);
     setHealth_care(flag);
+
+    setDach(flag);
+    setRow(flag);
+    setNordic(flag);
   };
 
   const matchingFilters = () => {
@@ -164,6 +172,10 @@ const PEPFScreen = props => {
     setFinancials((sector || []).includes('Financials'));
     setUtilities((sector || []).includes('Utilities'));
     setHealth_care((sector || []).includes('Health Care'));
+
+    setNordic((regions || []).includes('Nordic'));
+    setRow((regions || []).includes('RoW'));
+    setDach((regions || []).includes('DACH'));
   };
 
   const applyFilters = () => {
@@ -226,6 +238,16 @@ const PEPFScreen = props => {
     health_care && sectors.push('Health Care');
 
     setSector(() => sectors);
+
+    // Regions
+
+    const regionsTemp = [];
+
+    nordic && regionsTemp.push('Nordic');
+    dach && regionsTemp.push('DACH');
+    row && regionsTemp.push('RoW');
+
+    setRegions(regionsTemp);
   };
   const isFocused = useIsFocused();
   React.useEffect(() => {
@@ -444,6 +466,7 @@ const PEPFScreen = props => {
         }}
         holdingPeriodIn={holdingPreriod}
         page={1}
+        region_in={regions}
         searchString={keywordSearch}
         sectorIn={sector}
         vintageIn={fundVintage}
@@ -542,6 +565,7 @@ const PEPFScreen = props => {
                           device: 'ios',
                           ebitdaIn: ebitdaRange,
                           page: nextPage,
+                          region_in: ['RoW'],
                           searchString: keywordSearch,
                           sectorIn: sector,
                           vintageIn: fundVintage,
@@ -2100,651 +2124,1012 @@ const PEPFScreen = props => {
                               </View>
                             </View>
                           </View>
-                          {/* Country */}
-                          <View
-                            style={StyleSheet.applyWidth(
-                              {
-                                alignItems: 'stretch',
-                                flexDirection: 'column',
-                                gap: 8,
-                                padding: 10,
-                              },
-                              dimensions.width
-                            )}
-                          >
-                            <H5
-                              selectable={false}
-                              {...GlobalStyles.H5Styles(theme)['H5'].props}
-                              style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.H5Styles(theme)['H5'].style,
+                          {/* Region */}
+                          <>
+                            {Platform.OS === 'web' ? null : (
+                              <View
+                                style={StyleSheet.applyWidth(
                                   {
-                                    color: palettes.Brand['Strong Inverse'],
-                                    fontSize: 16,
-                                    marginBottom: 0,
-                                    marginTop: 0,
-                                  }
-                                ),
-                                dimensions.width
-                              )}
-                            >
-                              {'Portfolio firm HQ'}
-                            </H5>
+                                    alignItems: 'stretch',
+                                    flexDirection: 'column',
+                                    gap: 8,
+                                    padding: 10,
+                                  },
+                                  dimensions.width
+                                )}
+                              >
+                                <H5
+                                  selectable={false}
+                                  {...GlobalStyles.H5Styles(theme)['H5'].props}
+                                  style={StyleSheet.applyWidth(
+                                    StyleSheet.compose(
+                                      GlobalStyles.H5Styles(theme)['H5'].style,
+                                      {
+                                        color: palettes.Brand['Strong Inverse'],
+                                        fontSize: 16,
+                                        marginBottom: 0,
+                                        marginTop: 0,
+                                      }
+                                    ),
+                                    dimensions.width
+                                  )}
+                                >
+                                  {'Region'}
+                                </H5>
 
-                            <View
-                              style={StyleSheet.applyWidth(
-                                {
-                                  alignItems: 'flex-start',
-                                  flex: 0,
-                                  flexDirection: 'row',
-                                  flexWrap: 'wrap',
-                                  gap: 0,
-                                  justifyContent: 'flex-start',
-                                  margin: -4,
-                                  width: '100%',
-                                },
-                                dimensions.width
-                              )}
-                            >
-                              {/* Austria */}
+                                <View
+                                  style={StyleSheet.applyWidth(
+                                    {
+                                      alignItems: 'flex-start',
+                                      flex: 0,
+                                      flexDirection: 'row',
+                                      flexWrap: 'wrap',
+                                      gap: 0,
+                                      justifyContent: 'flex-start',
+                                      margin: -4,
+                                      width: '100%',
+                                    },
+                                    dimensions.width
+                                  )}
+                                >
+                                  {/* Nordic */}
+                                  <View
+                                    style={StyleSheet.applyWidth(
+                                      {
+                                        alignContent: 'center',
+                                        alignItems: 'center',
+                                        flexDirection: 'row',
+                                        gap: 4,
+                                        padding: 4,
+                                        width: [
+                                          {
+                                            minWidth: Breakpoints.Mobile,
+                                            value: '50%',
+                                          },
+                                          {
+                                            minWidth: Breakpoints.Tablet,
+                                            value: '33.33%',
+                                          },
+                                          {
+                                            minWidth: Breakpoints.Desktop,
+                                            value: '25%',
+                                          },
+                                          {
+                                            minWidth: Breakpoints.Laptop,
+                                            value: '25%',
+                                          },
+                                        ],
+                                      },
+                                      dimensions.width
+                                    )}
+                                  >
+                                    <Checkbox
+                                      onPress={newCheckboxValue => {
+                                        try {
+                                          setNordic(newCheckboxValue);
+                                        } catch (err) {
+                                          console.error(err);
+                                        }
+                                      }}
+                                      color={palettes.Brand['Strong Inverse']}
+                                      disabled={
+                                        Constants['ME']?.access_regions ===
+                                        'Nordic'
+                                      }
+                                      size={24}
+                                      status={nordic}
+                                      uncheckedColor={
+                                        palettes.Brand['Strong Inverse']
+                                      }
+                                    />
+                                    <Pressable
+                                      onPress={() => {
+                                        try {
+                                          setNordic(!nordic);
+                                        } catch (err) {
+                                          console.error(err);
+                                        }
+                                      }}
+                                      disabled={
+                                        Constants['ME']?.access_regions ===
+                                        'Nordic'
+                                      }
+                                    >
+                                      <Text
+                                        accessible={true}
+                                        {...GlobalStyles.TextStyles(theme)[
+                                          'screen_title'
+                                        ].props}
+                                        style={StyleSheet.applyWidth(
+                                          StyleSheet.compose(
+                                            GlobalStyles.TextStyles(theme)[
+                                              'screen_title'
+                                            ].style,
+                                            {
+                                              color:
+                                                palettes.Brand[
+                                                  'Strong Inverse'
+                                                ],
+                                              fontFamily:
+                                                'Quicksand_400Regular',
+                                              fontSize: 12,
+                                            }
+                                          ),
+                                          dimensions.width
+                                        )}
+                                      >
+                                        {'Nordic'}
+                                      </Text>
+                                    </Pressable>
+                                  </View>
+                                  {/* DACH */}
+                                  <View
+                                    style={StyleSheet.applyWidth(
+                                      {
+                                        alignContent: 'center',
+                                        alignItems: 'center',
+                                        flexDirection: 'row',
+                                        gap: 4,
+                                        padding: 4,
+                                        width: [
+                                          {
+                                            minWidth: Breakpoints.Mobile,
+                                            value: '50%',
+                                          },
+                                          {
+                                            minWidth: Breakpoints.Tablet,
+                                            value: '33.33%',
+                                          },
+                                          {
+                                            minWidth: Breakpoints.Desktop,
+                                            value: '25%',
+                                          },
+                                          {
+                                            minWidth: Breakpoints.Laptop,
+                                            value: '25%',
+                                          },
+                                        ],
+                                      },
+                                      dimensions.width
+                                    )}
+                                  >
+                                    <Checkbox
+                                      onPress={newCheckboxValue => {
+                                        try {
+                                          setDach(newCheckboxValue);
+                                        } catch (err) {
+                                          console.error(err);
+                                        }
+                                      }}
+                                      color={palettes.Brand['Strong Inverse']}
+                                      disabled={
+                                        Constants['ME']?.access_regions ===
+                                        'DACH'
+                                      }
+                                      size={24}
+                                      status={denmark}
+                                      uncheckedColor={
+                                        palettes.Brand['Strong Inverse']
+                                      }
+                                    />
+                                    <Pressable
+                                      onPress={() => {
+                                        try {
+                                          setDach(!dach);
+                                        } catch (err) {
+                                          console.error(err);
+                                        }
+                                      }}
+                                      disabled={
+                                        Constants['ME']?.access_regions ===
+                                        'DACH'
+                                      }
+                                    >
+                                      <Text
+                                        accessible={true}
+                                        {...GlobalStyles.TextStyles(theme)[
+                                          'screen_title'
+                                        ].props}
+                                        style={StyleSheet.applyWidth(
+                                          StyleSheet.compose(
+                                            GlobalStyles.TextStyles(theme)[
+                                              'screen_title'
+                                            ].style,
+                                            {
+                                              color:
+                                                palettes.Brand[
+                                                  'Strong Inverse'
+                                                ],
+                                              fontFamily:
+                                                'Quicksand_400Regular',
+                                              fontSize: 12,
+                                            }
+                                          ),
+                                          dimensions.width
+                                        )}
+                                      >
+                                        {'DACH'}
+                                      </Text>
+                                    </Pressable>
+                                  </View>
+                                  {/* RoW */}
+                                  <View
+                                    style={StyleSheet.applyWidth(
+                                      {
+                                        alignContent: 'center',
+                                        alignItems: 'center',
+                                        flexDirection: 'row',
+                                        gap: 4,
+                                        padding: 4,
+                                        width: [
+                                          {
+                                            minWidth: Breakpoints.Mobile,
+                                            value: '50%',
+                                          },
+                                          {
+                                            minWidth: Breakpoints.Tablet,
+                                            value: '33.33%',
+                                          },
+                                          {
+                                            minWidth: Breakpoints.Desktop,
+                                            value: '25%',
+                                          },
+                                          {
+                                            minWidth: Breakpoints.Laptop,
+                                            value: '25%',
+                                          },
+                                        ],
+                                      },
+                                      dimensions.width
+                                    )}
+                                  >
+                                    <Checkbox
+                                      onPress={newCheckboxValue => {
+                                        try {
+                                          setRow(newCheckboxValue);
+                                        } catch (err) {
+                                          console.error(err);
+                                        }
+                                      }}
+                                      color={palettes.Brand['Strong Inverse']}
+                                      disabled={
+                                        Constants['ME']?.access_regions ===
+                                        'DACH'
+                                      }
+                                      size={24}
+                                      status={finland}
+                                      uncheckedColor={
+                                        palettes.Brand['Strong Inverse']
+                                      }
+                                    />
+                                    <Pressable
+                                      onPress={() => {
+                                        try {
+                                          setRow(!row);
+                                        } catch (err) {
+                                          console.error(err);
+                                        }
+                                      }}
+                                      disabled={
+                                        Constants['ME']?.access_regions ===
+                                        'DACH'
+                                      }
+                                    >
+                                      <Text
+                                        accessible={true}
+                                        {...GlobalStyles.TextStyles(theme)[
+                                          'screen_title'
+                                        ].props}
+                                        style={StyleSheet.applyWidth(
+                                          StyleSheet.compose(
+                                            GlobalStyles.TextStyles(theme)[
+                                              'screen_title'
+                                            ].style,
+                                            {
+                                              color:
+                                                palettes.Brand[
+                                                  'Strong Inverse'
+                                                ],
+                                              fontFamily:
+                                                'Quicksand_400Regular',
+                                              fontSize: 12,
+                                            }
+                                          ),
+                                          dimensions.width
+                                        )}
+                                      >
+                                        {'Rest of the world'}
+                                      </Text>
+                                    </Pressable>
+                                  </View>
+                                </View>
+                              </View>
+                            )}
+                          </>
+                          {/* Country */}
+                          <>
+                            {!(Platform.OS === 'web') ? null : (
                               <View
                                 style={StyleSheet.applyWidth(
                                   {
-                                    alignContent: 'center',
-                                    alignItems: 'center',
-                                    flexDirection: 'row',
-                                    gap: 4,
-                                    padding: 4,
-                                    width: [
-                                      {
-                                        minWidth: Breakpoints.Mobile,
-                                        value: '50%',
-                                      },
-                                      {
-                                        minWidth: Breakpoints.Tablet,
-                                        value: '33.33%',
-                                      },
-                                      {
-                                        minWidth: Breakpoints.Desktop,
-                                        value: '25%',
-                                      },
-                                      {
-                                        minWidth: Breakpoints.Laptop,
-                                        value: '25%',
-                                      },
-                                    ],
+                                    alignItems: 'stretch',
+                                    flexDirection: 'column',
+                                    gap: 8,
+                                    padding: 10,
                                   },
                                   dimensions.width
                                 )}
                               >
-                                <Checkbox
-                                  onPress={newCheckboxValue => {
-                                    try {
-                                      setAustria(newCheckboxValue);
-                                    } catch (err) {
-                                      console.error(err);
-                                    }
-                                  }}
-                                  color={palettes.Brand['Strong Inverse']}
-                                  disabled={
-                                    Constants['ME']?.access_regions === 'Nordic'
-                                  }
-                                  size={24}
-                                  status={austria}
-                                  uncheckedColor={
-                                    palettes.Brand['Strong Inverse']
-                                  }
-                                />
-                                <Pressable
-                                  onPress={() => {
-                                    try {
-                                      setAustria(austria ? false : true);
-                                    } catch (err) {
-                                      console.error(err);
-                                    }
-                                  }}
-                                  disabled={
-                                    Constants['ME']?.access_regions === 'Nordic'
-                                  }
+                                <H5
+                                  selectable={false}
+                                  {...GlobalStyles.H5Styles(theme)['H5'].props}
+                                  style={StyleSheet.applyWidth(
+                                    StyleSheet.compose(
+                                      GlobalStyles.H5Styles(theme)['H5'].style,
+                                      {
+                                        color: palettes.Brand['Strong Inverse'],
+                                        fontSize: 16,
+                                        marginBottom: 0,
+                                        marginTop: 0,
+                                      }
+                                    ),
+                                    dimensions.width
+                                  )}
                                 >
-                                  <Text
-                                    accessible={true}
-                                    {...GlobalStyles.TextStyles(theme)[
-                                      'screen_title'
-                                    ].props}
+                                  {'Portfolio firm HQ'}
+                                </H5>
+
+                                <View
+                                  style={StyleSheet.applyWidth(
+                                    {
+                                      alignItems: 'flex-start',
+                                      flex: 0,
+                                      flexDirection: 'row',
+                                      flexWrap: 'wrap',
+                                      gap: 0,
+                                      justifyContent: 'flex-start',
+                                      margin: -4,
+                                      width: '100%',
+                                    },
+                                    dimensions.width
+                                  )}
+                                >
+                                  {/* Austria */}
+                                  <View
                                     style={StyleSheet.applyWidth(
-                                      StyleSheet.compose(
-                                        GlobalStyles.TextStyles(theme)[
-                                          'screen_title'
-                                        ].style,
-                                        {
-                                          color:
-                                            palettes.Brand['Strong Inverse'],
-                                          fontFamily: 'Quicksand_400Regular',
-                                          fontSize: 12,
-                                        }
-                                      ),
+                                      {
+                                        alignContent: 'center',
+                                        alignItems: 'center',
+                                        flexDirection: 'row',
+                                        gap: 4,
+                                        padding: 4,
+                                        width: [
+                                          {
+                                            minWidth: Breakpoints.Mobile,
+                                            value: '50%',
+                                          },
+                                          {
+                                            minWidth: Breakpoints.Tablet,
+                                            value: '33.33%',
+                                          },
+                                          {
+                                            minWidth: Breakpoints.Desktop,
+                                            value: '25%',
+                                          },
+                                          {
+                                            minWidth: Breakpoints.Laptop,
+                                            value: '25%',
+                                          },
+                                        ],
+                                      },
                                       dimensions.width
                                     )}
                                   >
-                                    {'Austria'}
-                                  </Text>
-                                </Pressable>
-                              </View>
-                              {/* Denmark */}
-                              <View
-                                style={StyleSheet.applyWidth(
-                                  {
-                                    alignContent: 'center',
-                                    alignItems: 'center',
-                                    flexDirection: 'row',
-                                    gap: 4,
-                                    padding: 4,
-                                    width: [
-                                      {
-                                        minWidth: Breakpoints.Mobile,
-                                        value: '50%',
-                                      },
-                                      {
-                                        minWidth: Breakpoints.Tablet,
-                                        value: '33.33%',
-                                      },
-                                      {
-                                        minWidth: Breakpoints.Desktop,
-                                        value: '25%',
-                                      },
-                                      {
-                                        minWidth: Breakpoints.Laptop,
-                                        value: '25%',
-                                      },
-                                    ],
-                                  },
-                                  dimensions.width
-                                )}
-                              >
-                                <Checkbox
-                                  onPress={newCheckboxValue => {
-                                    try {
-                                      setDenmark(newCheckboxValue);
-                                    } catch (err) {
-                                      console.error(err);
-                                    }
-                                  }}
-                                  color={palettes.Brand['Strong Inverse']}
-                                  disabled={
-                                    Constants['ME']?.access_regions === 'DACH'
-                                  }
-                                  size={24}
-                                  status={denmark}
-                                  uncheckedColor={
-                                    palettes.Brand['Strong Inverse']
-                                  }
-                                />
-                                <Pressable
-                                  onPress={() => {
-                                    try {
-                                      setDenmark(denmark ? false : true);
-                                    } catch (err) {
-                                      console.error(err);
-                                    }
-                                  }}
-                                  disabled={
-                                    Constants['ME']?.access_regions === 'DACH'
-                                  }
-                                >
-                                  <Text
-                                    accessible={true}
-                                    {...GlobalStyles.TextStyles(theme)[
-                                      'screen_title'
-                                    ].props}
-                                    style={StyleSheet.applyWidth(
-                                      StyleSheet.compose(
-                                        GlobalStyles.TextStyles(theme)[
-                                          'screen_title'
-                                        ].style,
-                                        {
-                                          color:
-                                            palettes.Brand['Strong Inverse'],
-                                          fontFamily: 'Quicksand_400Regular',
-                                          fontSize: 12,
+                                    <Checkbox
+                                      onPress={newCheckboxValue => {
+                                        try {
+                                          setAustria(newCheckboxValue);
+                                        } catch (err) {
+                                          console.error(err);
                                         }
-                                      ),
+                                      }}
+                                      color={palettes.Brand['Strong Inverse']}
+                                      disabled={
+                                        Constants['ME']?.access_regions ===
+                                        'Nordic'
+                                      }
+                                      size={24}
+                                      status={austria}
+                                      uncheckedColor={
+                                        palettes.Brand['Strong Inverse']
+                                      }
+                                    />
+                                    <Pressable
+                                      onPress={() => {
+                                        try {
+                                          setAustria(austria ? false : true);
+                                        } catch (err) {
+                                          console.error(err);
+                                        }
+                                      }}
+                                      disabled={
+                                        Constants['ME']?.access_regions ===
+                                        'Nordic'
+                                      }
+                                    >
+                                      <Text
+                                        accessible={true}
+                                        {...GlobalStyles.TextStyles(theme)[
+                                          'screen_title'
+                                        ].props}
+                                        style={StyleSheet.applyWidth(
+                                          StyleSheet.compose(
+                                            GlobalStyles.TextStyles(theme)[
+                                              'screen_title'
+                                            ].style,
+                                            {
+                                              color:
+                                                palettes.Brand[
+                                                  'Strong Inverse'
+                                                ],
+                                              fontFamily:
+                                                'Quicksand_400Regular',
+                                              fontSize: 12,
+                                            }
+                                          ),
+                                          dimensions.width
+                                        )}
+                                      >
+                                        {'Austria'}
+                                      </Text>
+                                    </Pressable>
+                                  </View>
+                                  {/* Denmark */}
+                                  <View
+                                    style={StyleSheet.applyWidth(
+                                      {
+                                        alignContent: 'center',
+                                        alignItems: 'center',
+                                        flexDirection: 'row',
+                                        gap: 4,
+                                        padding: 4,
+                                        width: [
+                                          {
+                                            minWidth: Breakpoints.Mobile,
+                                            value: '50%',
+                                          },
+                                          {
+                                            minWidth: Breakpoints.Tablet,
+                                            value: '33.33%',
+                                          },
+                                          {
+                                            minWidth: Breakpoints.Desktop,
+                                            value: '25%',
+                                          },
+                                          {
+                                            minWidth: Breakpoints.Laptop,
+                                            value: '25%',
+                                          },
+                                        ],
+                                      },
                                       dimensions.width
                                     )}
                                   >
-                                    {'Denmark'}
-                                  </Text>
-                                </Pressable>
-                              </View>
-                              {/* Finland */}
-                              <View
-                                style={StyleSheet.applyWidth(
-                                  {
-                                    alignContent: 'center',
-                                    alignItems: 'center',
-                                    flexDirection: 'row',
-                                    gap: 4,
-                                    padding: 4,
-                                    width: [
-                                      {
-                                        minWidth: Breakpoints.Mobile,
-                                        value: '50%',
-                                      },
-                                      {
-                                        minWidth: Breakpoints.Tablet,
-                                        value: '33.33%',
-                                      },
-                                      {
-                                        minWidth: Breakpoints.Desktop,
-                                        value: '25%',
-                                      },
-                                      {
-                                        minWidth: Breakpoints.Laptop,
-                                        value: '25%',
-                                      },
-                                    ],
-                                  },
-                                  dimensions.width
-                                )}
-                              >
-                                <Checkbox
-                                  onPress={newCheckboxValue => {
-                                    try {
-                                      setFinland(newCheckboxValue);
-                                    } catch (err) {
-                                      console.error(err);
-                                    }
-                                  }}
-                                  color={palettes.Brand['Strong Inverse']}
-                                  disabled={
-                                    Constants['ME']?.access_regions === 'DACH'
-                                  }
-                                  size={24}
-                                  status={finland}
-                                  uncheckedColor={
-                                    palettes.Brand['Strong Inverse']
-                                  }
-                                />
-                                <Pressable
-                                  onPress={() => {
-                                    try {
-                                      setFinland(finland ? false : true);
-                                    } catch (err) {
-                                      console.error(err);
-                                    }
-                                  }}
-                                  disabled={
-                                    Constants['ME']?.access_regions === 'DACH'
-                                  }
-                                >
-                                  <Text
-                                    accessible={true}
-                                    {...GlobalStyles.TextStyles(theme)[
-                                      'screen_title'
-                                    ].props}
-                                    style={StyleSheet.applyWidth(
-                                      StyleSheet.compose(
-                                        GlobalStyles.TextStyles(theme)[
-                                          'screen_title'
-                                        ].style,
-                                        {
-                                          color:
-                                            palettes.Brand['Strong Inverse'],
-                                          fontFamily: 'Quicksand_400Regular',
-                                          fontSize: 12,
+                                    <Checkbox
+                                      onPress={newCheckboxValue => {
+                                        try {
+                                          setDenmark(newCheckboxValue);
+                                        } catch (err) {
+                                          console.error(err);
                                         }
-                                      ),
+                                      }}
+                                      color={palettes.Brand['Strong Inverse']}
+                                      disabled={
+                                        Constants['ME']?.access_regions ===
+                                        'DACH'
+                                      }
+                                      size={24}
+                                      status={denmark}
+                                      uncheckedColor={
+                                        palettes.Brand['Strong Inverse']
+                                      }
+                                    />
+                                    <Pressable
+                                      onPress={() => {
+                                        try {
+                                          setDenmark(denmark ? false : true);
+                                        } catch (err) {
+                                          console.error(err);
+                                        }
+                                      }}
+                                      disabled={
+                                        Constants['ME']?.access_regions ===
+                                        'DACH'
+                                      }
+                                    >
+                                      <Text
+                                        accessible={true}
+                                        {...GlobalStyles.TextStyles(theme)[
+                                          'screen_title'
+                                        ].props}
+                                        style={StyleSheet.applyWidth(
+                                          StyleSheet.compose(
+                                            GlobalStyles.TextStyles(theme)[
+                                              'screen_title'
+                                            ].style,
+                                            {
+                                              color:
+                                                palettes.Brand[
+                                                  'Strong Inverse'
+                                                ],
+                                              fontFamily:
+                                                'Quicksand_400Regular',
+                                              fontSize: 12,
+                                            }
+                                          ),
+                                          dimensions.width
+                                        )}
+                                      >
+                                        {'Denmark'}
+                                      </Text>
+                                    </Pressable>
+                                  </View>
+                                  {/* Finland */}
+                                  <View
+                                    style={StyleSheet.applyWidth(
+                                      {
+                                        alignContent: 'center',
+                                        alignItems: 'center',
+                                        flexDirection: 'row',
+                                        gap: 4,
+                                        padding: 4,
+                                        width: [
+                                          {
+                                            minWidth: Breakpoints.Mobile,
+                                            value: '50%',
+                                          },
+                                          {
+                                            minWidth: Breakpoints.Tablet,
+                                            value: '33.33%',
+                                          },
+                                          {
+                                            minWidth: Breakpoints.Desktop,
+                                            value: '25%',
+                                          },
+                                          {
+                                            minWidth: Breakpoints.Laptop,
+                                            value: '25%',
+                                          },
+                                        ],
+                                      },
                                       dimensions.width
                                     )}
                                   >
-                                    {'Finland'}
-                                  </Text>
-                                </Pressable>
-                              </View>
-                              {/* Germany */}
-                              <View
-                                style={StyleSheet.applyWidth(
-                                  {
-                                    alignContent: 'center',
-                                    alignItems: 'center',
-                                    flexDirection: 'row',
-                                    gap: 4,
-                                    padding: 4,
-                                    width: [
-                                      {
-                                        minWidth: Breakpoints.Mobile,
-                                        value: '50%',
-                                      },
-                                      {
-                                        minWidth: Breakpoints.Tablet,
-                                        value: '33.33%',
-                                      },
-                                      {
-                                        minWidth: Breakpoints.Desktop,
-                                        value: '25%',
-                                      },
-                                      {
-                                        minWidth: Breakpoints.Laptop,
-                                        value: '25%',
-                                      },
-                                    ],
-                                  },
-                                  dimensions.width
-                                )}
-                              >
-                                <Checkbox
-                                  onPress={newCheckboxValue => {
-                                    try {
-                                      setGermany(newCheckboxValue);
-                                    } catch (err) {
-                                      console.error(err);
-                                    }
-                                  }}
-                                  color={palettes.Brand['Strong Inverse']}
-                                  disabled={
-                                    Constants['ME']?.access_regions === 'Nordic'
-                                  }
-                                  size={24}
-                                  status={germany}
-                                  uncheckedColor={
-                                    palettes.Brand['Strong Inverse']
-                                  }
-                                />
-                                <Pressable
-                                  onPress={() => {
-                                    try {
-                                      setGermany(germany ? false : true);
-                                    } catch (err) {
-                                      console.error(err);
-                                    }
-                                  }}
-                                  disabled={
-                                    Constants['ME']?.access_regions === 'Nordic'
-                                  }
-                                >
-                                  <Text
-                                    accessible={true}
-                                    {...GlobalStyles.TextStyles(theme)[
-                                      'screen_title'
-                                    ].props}
-                                    style={StyleSheet.applyWidth(
-                                      StyleSheet.compose(
-                                        GlobalStyles.TextStyles(theme)[
-                                          'screen_title'
-                                        ].style,
-                                        {
-                                          color:
-                                            palettes.Brand['Strong Inverse'],
-                                          fontFamily: 'Quicksand_400Regular',
-                                          fontSize: 12,
+                                    <Checkbox
+                                      onPress={newCheckboxValue => {
+                                        try {
+                                          setFinland(newCheckboxValue);
+                                        } catch (err) {
+                                          console.error(err);
                                         }
-                                      ),
+                                      }}
+                                      color={palettes.Brand['Strong Inverse']}
+                                      disabled={
+                                        Constants['ME']?.access_regions ===
+                                        'DACH'
+                                      }
+                                      size={24}
+                                      status={finland}
+                                      uncheckedColor={
+                                        palettes.Brand['Strong Inverse']
+                                      }
+                                    />
+                                    <Pressable
+                                      onPress={() => {
+                                        try {
+                                          setFinland(finland ? false : true);
+                                        } catch (err) {
+                                          console.error(err);
+                                        }
+                                      }}
+                                      disabled={
+                                        Constants['ME']?.access_regions ===
+                                        'DACH'
+                                      }
+                                    >
+                                      <Text
+                                        accessible={true}
+                                        {...GlobalStyles.TextStyles(theme)[
+                                          'screen_title'
+                                        ].props}
+                                        style={StyleSheet.applyWidth(
+                                          StyleSheet.compose(
+                                            GlobalStyles.TextStyles(theme)[
+                                              'screen_title'
+                                            ].style,
+                                            {
+                                              color:
+                                                palettes.Brand[
+                                                  'Strong Inverse'
+                                                ],
+                                              fontFamily:
+                                                'Quicksand_400Regular',
+                                              fontSize: 12,
+                                            }
+                                          ),
+                                          dimensions.width
+                                        )}
+                                      >
+                                        {'Finland'}
+                                      </Text>
+                                    </Pressable>
+                                  </View>
+                                  {/* Germany */}
+                                  <View
+                                    style={StyleSheet.applyWidth(
+                                      {
+                                        alignContent: 'center',
+                                        alignItems: 'center',
+                                        flexDirection: 'row',
+                                        gap: 4,
+                                        padding: 4,
+                                        width: [
+                                          {
+                                            minWidth: Breakpoints.Mobile,
+                                            value: '50%',
+                                          },
+                                          {
+                                            minWidth: Breakpoints.Tablet,
+                                            value: '33.33%',
+                                          },
+                                          {
+                                            minWidth: Breakpoints.Desktop,
+                                            value: '25%',
+                                          },
+                                          {
+                                            minWidth: Breakpoints.Laptop,
+                                            value: '25%',
+                                          },
+                                        ],
+                                      },
                                       dimensions.width
                                     )}
                                   >
-                                    {'Germany'}
-                                  </Text>
-                                </Pressable>
-                              </View>
-                              {/* Norway */}
-                              <View
-                                style={StyleSheet.applyWidth(
-                                  {
-                                    alignContent: 'center',
-                                    alignItems: 'center',
-                                    flexDirection: 'row',
-                                    gap: 4,
-                                    padding: 4,
-                                    width: [
-                                      {
-                                        minWidth: Breakpoints.Mobile,
-                                        value: '50%',
-                                      },
-                                      {
-                                        minWidth: Breakpoints.Tablet,
-                                        value: '33.33%',
-                                      },
-                                      {
-                                        minWidth: Breakpoints.Desktop,
-                                        value: '25%',
-                                      },
-                                      {
-                                        minWidth: Breakpoints.Laptop,
-                                        value: '25%',
-                                      },
-                                    ],
-                                  },
-                                  dimensions.width
-                                )}
-                              >
-                                <Checkbox
-                                  onPress={newCheckboxValue => {
-                                    try {
-                                      setNorway(newCheckboxValue);
-                                    } catch (err) {
-                                      console.error(err);
-                                    }
-                                  }}
-                                  color={palettes.Brand['Strong Inverse']}
-                                  disabled={
-                                    Constants['ME']?.access_regions === 'DACH'
-                                  }
-                                  size={24}
-                                  status={norway}
-                                  uncheckedColor={
-                                    palettes.Brand['Strong Inverse']
-                                  }
-                                />
-                                <Pressable
-                                  onPress={() => {
-                                    try {
-                                      setNorway(norway ? false : true);
-                                    } catch (err) {
-                                      console.error(err);
-                                    }
-                                  }}
-                                  disabled={
-                                    Constants['ME']?.access_regions === 'DACH'
-                                  }
-                                >
-                                  <Text
-                                    accessible={true}
-                                    {...GlobalStyles.TextStyles(theme)[
-                                      'screen_title'
-                                    ].props}
-                                    style={StyleSheet.applyWidth(
-                                      StyleSheet.compose(
-                                        GlobalStyles.TextStyles(theme)[
-                                          'screen_title'
-                                        ].style,
-                                        {
-                                          color:
-                                            palettes.Brand['Strong Inverse'],
-                                          fontFamily: 'Quicksand_400Regular',
-                                          fontSize: 12,
+                                    <Checkbox
+                                      onPress={newCheckboxValue => {
+                                        try {
+                                          setGermany(newCheckboxValue);
+                                        } catch (err) {
+                                          console.error(err);
                                         }
-                                      ),
+                                      }}
+                                      color={palettes.Brand['Strong Inverse']}
+                                      disabled={
+                                        Constants['ME']?.access_regions ===
+                                        'Nordic'
+                                      }
+                                      size={24}
+                                      status={germany}
+                                      uncheckedColor={
+                                        palettes.Brand['Strong Inverse']
+                                      }
+                                    />
+                                    <Pressable
+                                      onPress={() => {
+                                        try {
+                                          setGermany(germany ? false : true);
+                                        } catch (err) {
+                                          console.error(err);
+                                        }
+                                      }}
+                                      disabled={
+                                        Constants['ME']?.access_regions ===
+                                        'Nordic'
+                                      }
+                                    >
+                                      <Text
+                                        accessible={true}
+                                        {...GlobalStyles.TextStyles(theme)[
+                                          'screen_title'
+                                        ].props}
+                                        style={StyleSheet.applyWidth(
+                                          StyleSheet.compose(
+                                            GlobalStyles.TextStyles(theme)[
+                                              'screen_title'
+                                            ].style,
+                                            {
+                                              color:
+                                                palettes.Brand[
+                                                  'Strong Inverse'
+                                                ],
+                                              fontFamily:
+                                                'Quicksand_400Regular',
+                                              fontSize: 12,
+                                            }
+                                          ),
+                                          dimensions.width
+                                        )}
+                                      >
+                                        {'Germany'}
+                                      </Text>
+                                    </Pressable>
+                                  </View>
+                                  {/* Norway */}
+                                  <View
+                                    style={StyleSheet.applyWidth(
+                                      {
+                                        alignContent: 'center',
+                                        alignItems: 'center',
+                                        flexDirection: 'row',
+                                        gap: 4,
+                                        padding: 4,
+                                        width: [
+                                          {
+                                            minWidth: Breakpoints.Mobile,
+                                            value: '50%',
+                                          },
+                                          {
+                                            minWidth: Breakpoints.Tablet,
+                                            value: '33.33%',
+                                          },
+                                          {
+                                            minWidth: Breakpoints.Desktop,
+                                            value: '25%',
+                                          },
+                                          {
+                                            minWidth: Breakpoints.Laptop,
+                                            value: '25%',
+                                          },
+                                        ],
+                                      },
                                       dimensions.width
                                     )}
                                   >
-                                    {'Norway'}
-                                  </Text>
-                                </Pressable>
-                              </View>
-                              {/* Sweden */}
-                              <View
-                                style={StyleSheet.applyWidth(
-                                  {
-                                    alignContent: 'center',
-                                    alignItems: 'center',
-                                    flexDirection: 'row',
-                                    gap: 4,
-                                    padding: 4,
-                                    width: [
-                                      {
-                                        minWidth: Breakpoints.Tablet,
-                                        value: '33.33%',
-                                      },
-                                      {
-                                        minWidth: Breakpoints.Desktop,
-                                        value: '25%',
-                                      },
-                                      {
-                                        minWidth: Breakpoints.Mobile,
-                                        value: '50%',
-                                      },
-                                      {
-                                        minWidth: Breakpoints.Laptop,
-                                        value: '25%',
-                                      },
-                                    ],
-                                  },
-                                  dimensions.width
-                                )}
-                              >
-                                <Checkbox
-                                  onPress={newCheckboxValue => {
-                                    try {
-                                      setSweden(newCheckboxValue);
-                                    } catch (err) {
-                                      console.error(err);
-                                    }
-                                  }}
-                                  color={palettes.Brand['Strong Inverse']}
-                                  disabled={
-                                    Constants['ME']?.access_regions === 'DACH'
-                                  }
-                                  size={24}
-                                  status={sweden}
-                                  uncheckedColor={
-                                    palettes.Brand['Strong Inverse']
-                                  }
-                                />
-                                <Pressable
-                                  onPress={() => {
-                                    try {
-                                      setSweden(sweden ? false : true);
-                                    } catch (err) {
-                                      console.error(err);
-                                    }
-                                  }}
-                                  disabled={
-                                    Constants['ME']?.access_regions === 'DACH'
-                                  }
-                                >
-                                  <Text
-                                    accessible={true}
-                                    {...GlobalStyles.TextStyles(theme)[
-                                      'screen_title'
-                                    ].props}
-                                    style={StyleSheet.applyWidth(
-                                      StyleSheet.compose(
-                                        GlobalStyles.TextStyles(theme)[
-                                          'screen_title'
-                                        ].style,
-                                        {
-                                          color:
-                                            palettes.Brand['Strong Inverse'],
-                                          fontFamily: 'Quicksand_400Regular',
-                                          fontSize: 12,
+                                    <Checkbox
+                                      onPress={newCheckboxValue => {
+                                        try {
+                                          setNorway(newCheckboxValue);
+                                        } catch (err) {
+                                          console.error(err);
                                         }
-                                      ),
+                                      }}
+                                      color={palettes.Brand['Strong Inverse']}
+                                      disabled={
+                                        Constants['ME']?.access_regions ===
+                                        'DACH'
+                                      }
+                                      size={24}
+                                      status={norway}
+                                      uncheckedColor={
+                                        palettes.Brand['Strong Inverse']
+                                      }
+                                    />
+                                    <Pressable
+                                      onPress={() => {
+                                        try {
+                                          setNorway(norway ? false : true);
+                                        } catch (err) {
+                                          console.error(err);
+                                        }
+                                      }}
+                                      disabled={
+                                        Constants['ME']?.access_regions ===
+                                        'DACH'
+                                      }
+                                    >
+                                      <Text
+                                        accessible={true}
+                                        {...GlobalStyles.TextStyles(theme)[
+                                          'screen_title'
+                                        ].props}
+                                        style={StyleSheet.applyWidth(
+                                          StyleSheet.compose(
+                                            GlobalStyles.TextStyles(theme)[
+                                              'screen_title'
+                                            ].style,
+                                            {
+                                              color:
+                                                palettes.Brand[
+                                                  'Strong Inverse'
+                                                ],
+                                              fontFamily:
+                                                'Quicksand_400Regular',
+                                              fontSize: 12,
+                                            }
+                                          ),
+                                          dimensions.width
+                                        )}
+                                      >
+                                        {'Norway'}
+                                      </Text>
+                                    </Pressable>
+                                  </View>
+                                  {/* Sweden */}
+                                  <View
+                                    style={StyleSheet.applyWidth(
+                                      {
+                                        alignContent: 'center',
+                                        alignItems: 'center',
+                                        flexDirection: 'row',
+                                        gap: 4,
+                                        padding: 4,
+                                        width: [
+                                          {
+                                            minWidth: Breakpoints.Tablet,
+                                            value: '33.33%',
+                                          },
+                                          {
+                                            minWidth: Breakpoints.Desktop,
+                                            value: '25%',
+                                          },
+                                          {
+                                            minWidth: Breakpoints.Mobile,
+                                            value: '50%',
+                                          },
+                                          {
+                                            minWidth: Breakpoints.Laptop,
+                                            value: '25%',
+                                          },
+                                        ],
+                                      },
                                       dimensions.width
                                     )}
                                   >
-                                    {'Sweden'}
-                                  </Text>
-                                </Pressable>
-                              </View>
-                              {/* Switzerland */}
-                              <View
-                                style={StyleSheet.applyWidth(
-                                  {
-                                    alignContent: 'center',
-                                    alignItems: 'center',
-                                    flexDirection: 'row',
-                                    gap: 4,
-                                    padding: 4,
-                                    width: [
-                                      {
-                                        minWidth: Breakpoints.Mobile,
-                                        value: '50%',
-                                      },
-                                      {
-                                        minWidth: Breakpoints.Tablet,
-                                        value: '33.33%',
-                                      },
-                                      {
-                                        minWidth: Breakpoints.Desktop,
-                                        value: '25%',
-                                      },
-                                      {
-                                        minWidth: Breakpoints.Laptop,
-                                        value: '25%',
-                                      },
-                                    ],
-                                  },
-                                  dimensions.width
-                                )}
-                              >
-                                <Checkbox
-                                  onPress={newCheckboxValue => {
-                                    try {
-                                      setSwitzerland(newCheckboxValue);
-                                    } catch (err) {
-                                      console.error(err);
-                                    }
-                                  }}
-                                  color={palettes.Brand['Strong Inverse']}
-                                  disabled={
-                                    Constants['ME']?.access_regions === 'Nordic'
-                                  }
-                                  size={24}
-                                  status={switzerland}
-                                  uncheckedColor={
-                                    palettes.Brand['Strong Inverse']
-                                  }
-                                />
-                                <Pressable
-                                  onPress={() => {
-                                    try {
-                                      setSwitzerland(
-                                        switzerland ? false : true
-                                      );
-                                    } catch (err) {
-                                      console.error(err);
-                                    }
-                                  }}
-                                  disabled={
-                                    Constants['ME']?.access_regions === 'Nordic'
-                                  }
-                                >
-                                  <Text
-                                    accessible={true}
-                                    {...GlobalStyles.TextStyles(theme)[
-                                      'screen_title'
-                                    ].props}
-                                    style={StyleSheet.applyWidth(
-                                      StyleSheet.compose(
-                                        GlobalStyles.TextStyles(theme)[
-                                          'screen_title'
-                                        ].style,
-                                        {
-                                          color:
-                                            palettes.Brand['Strong Inverse'],
-                                          fontFamily: 'Quicksand_400Regular',
-                                          fontSize: 12,
+                                    <Checkbox
+                                      onPress={newCheckboxValue => {
+                                        try {
+                                          setSweden(newCheckboxValue);
+                                        } catch (err) {
+                                          console.error(err);
                                         }
-                                      ),
+                                      }}
+                                      color={palettes.Brand['Strong Inverse']}
+                                      disabled={
+                                        Constants['ME']?.access_regions ===
+                                        'DACH'
+                                      }
+                                      size={24}
+                                      status={sweden}
+                                      uncheckedColor={
+                                        palettes.Brand['Strong Inverse']
+                                      }
+                                    />
+                                    <Pressable
+                                      onPress={() => {
+                                        try {
+                                          setSweden(sweden ? false : true);
+                                        } catch (err) {
+                                          console.error(err);
+                                        }
+                                      }}
+                                      disabled={
+                                        Constants['ME']?.access_regions ===
+                                        'DACH'
+                                      }
+                                    >
+                                      <Text
+                                        accessible={true}
+                                        {...GlobalStyles.TextStyles(theme)[
+                                          'screen_title'
+                                        ].props}
+                                        style={StyleSheet.applyWidth(
+                                          StyleSheet.compose(
+                                            GlobalStyles.TextStyles(theme)[
+                                              'screen_title'
+                                            ].style,
+                                            {
+                                              color:
+                                                palettes.Brand[
+                                                  'Strong Inverse'
+                                                ],
+                                              fontFamily:
+                                                'Quicksand_400Regular',
+                                              fontSize: 12,
+                                            }
+                                          ),
+                                          dimensions.width
+                                        )}
+                                      >
+                                        {'Sweden'}
+                                      </Text>
+                                    </Pressable>
+                                  </View>
+                                  {/* Switzerland */}
+                                  <View
+                                    style={StyleSheet.applyWidth(
+                                      {
+                                        alignContent: 'center',
+                                        alignItems: 'center',
+                                        flexDirection: 'row',
+                                        gap: 4,
+                                        padding: 4,
+                                        width: [
+                                          {
+                                            minWidth: Breakpoints.Mobile,
+                                            value: '50%',
+                                          },
+                                          {
+                                            minWidth: Breakpoints.Tablet,
+                                            value: '33.33%',
+                                          },
+                                          {
+                                            minWidth: Breakpoints.Desktop,
+                                            value: '25%',
+                                          },
+                                          {
+                                            minWidth: Breakpoints.Laptop,
+                                            value: '25%',
+                                          },
+                                        ],
+                                      },
                                       dimensions.width
                                     )}
                                   >
-                                    {'Switzerland'}
-                                  </Text>
-                                </Pressable>
+                                    <Checkbox
+                                      onPress={newCheckboxValue => {
+                                        try {
+                                          setSwitzerland(newCheckboxValue);
+                                        } catch (err) {
+                                          console.error(err);
+                                        }
+                                      }}
+                                      color={palettes.Brand['Strong Inverse']}
+                                      disabled={
+                                        Constants['ME']?.access_regions ===
+                                        'Nordic'
+                                      }
+                                      size={24}
+                                      status={switzerland}
+                                      uncheckedColor={
+                                        palettes.Brand['Strong Inverse']
+                                      }
+                                    />
+                                    <Pressable
+                                      onPress={() => {
+                                        try {
+                                          setSwitzerland(
+                                            switzerland ? false : true
+                                          );
+                                        } catch (err) {
+                                          console.error(err);
+                                        }
+                                      }}
+                                      disabled={
+                                        Constants['ME']?.access_regions ===
+                                        'Nordic'
+                                      }
+                                    >
+                                      <Text
+                                        accessible={true}
+                                        {...GlobalStyles.TextStyles(theme)[
+                                          'screen_title'
+                                        ].props}
+                                        style={StyleSheet.applyWidth(
+                                          StyleSheet.compose(
+                                            GlobalStyles.TextStyles(theme)[
+                                              'screen_title'
+                                            ].style,
+                                            {
+                                              color:
+                                                palettes.Brand[
+                                                  'Strong Inverse'
+                                                ],
+                                              fontFamily:
+                                                'Quicksand_400Regular',
+                                              fontSize: 12,
+                                            }
+                                          ),
+                                          dimensions.width
+                                        )}
+                                      >
+                                        {'Switzerland'}
+                                      </Text>
+                                    </Pressable>
+                                  </View>
+                                </View>
                               </View>
-                            </View>
-                          </View>
+                            )}
+                          </>
                           {/* Sector */}
                           <View
                             style={StyleSheet.applyWidth(

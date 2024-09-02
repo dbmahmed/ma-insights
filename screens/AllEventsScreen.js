@@ -87,7 +87,7 @@ const AllEventsScreen = props => {
   const [nordic, setNordic] = React.useState(false);
   const [norway, setNorway] = React.useState(false);
   const [real_estate, setReal_estate] = React.useState(false);
-  const [region, setRegion] = React.useState('');
+  const [regions, setRegions] = React.useState([]);
   const [row, setRow] = React.useState(false);
   const [sector, setSector] = React.useState([]);
   const [sourceType, setSourceType] = React.useState([]);
@@ -96,40 +96,6 @@ const AllEventsScreen = props => {
   const [tempRegion, setTempRegion] = React.useState('');
   const [transaction, setTransaction] = React.useState(false);
   const [utilities, setUtilities] = React.useState(false);
-  const matchingFilters = () => {
-    setFuture_opportunity((eventType || []).includes('Future Opportunity'));
-    setAcq_agenda((eventType || []).includes('Acq. agenda & other'));
-    setTransaction((eventType || []).includes('Transaction'));
-
-    setSweden((country || []).includes('Sweden'));
-    setGermany((country || []).includes('Germany'));
-    setDenmark((country || []).includes('Denmark'));
-    setSwitzerland((country || []).includes('Switzerland'));
-    setNorway((country || []).includes('Norway'));
-    setAustria((country || []).includes('Austria'));
-    setFinland((country || []).includes('Finland'));
-
-    setCommunication_services(
-      (sector || []).includes('Communication Services')
-    );
-    setIndustrials((sector || []).includes('Industrials'));
-    setConsumer_discretionary(
-      (sector || []).includes('Consumer Discretionary')
-    );
-    setIt_and_software((sector || []).includes('IT & Software'));
-    setConsumer_staples((sector || []).includes('Consumer Staples'));
-    setMaterials((sector || []).includes('Materials'));
-    setEnergy((sector || []).includes('Energy'));
-    setReal_estate((sector || []).includes('Real Estate'));
-    setFinancials((sector || []).includes('Financials'));
-    setUtilities((sector || []).includes('Utilities'));
-    setHealth_care((sector || []).includes('Health Care'));
-    console.log(sourceType);
-    setNKP_Proprietary((sourceType || []).includes('NKP Proprietary'));
-    setPress_Release((sourceType || []).includes('Press Release'));
-    setMedia_and_Other((sourceType || []).includes('Media & Other'));
-  };
-
   const toggleAllFilters = flag => {
     setFuture_opportunity(flag);
     setAcq_agenda(flag);
@@ -155,6 +121,9 @@ const AllEventsScreen = props => {
     setNKP_Proprietary(flag);
     setPress_Release(flag);
     setMedia_and_Other(flag);
+    setDach(flag);
+    setRow(flag);
+    setNordic(flag);
   };
 
   const applyFilter = () => {
@@ -205,6 +174,54 @@ const AllEventsScreen = props => {
     Media_and_Other && sourceType.push('Media & Other');
 
     setSourceType(() => sourceType);
+
+    // Regions
+
+    const regionsTemp = [];
+
+    nordic && regionsTemp.push('Nordic');
+    dach && regionsTemp.push('DACH');
+    row && regionsTemp.push('RoW');
+
+    setRegions(regionsTemp);
+  };
+
+  const matchingFilters = () => {
+    setFuture_opportunity((eventType || []).includes('Future Opportunity'));
+    setAcq_agenda((eventType || []).includes('Acq. agenda & other'));
+    setTransaction((eventType || []).includes('Transaction'));
+
+    setSweden((country || []).includes('Sweden'));
+    setGermany((country || []).includes('Germany'));
+    setDenmark((country || []).includes('Denmark'));
+    setSwitzerland((country || []).includes('Switzerland'));
+    setNorway((country || []).includes('Norway'));
+    setAustria((country || []).includes('Austria'));
+    setFinland((country || []).includes('Finland'));
+
+    setCommunication_services(
+      (sector || []).includes('Communication Services')
+    );
+    setIndustrials((sector || []).includes('Industrials'));
+    setConsumer_discretionary(
+      (sector || []).includes('Consumer Discretionary')
+    );
+    setIt_and_software((sector || []).includes('IT & Software'));
+    setConsumer_staples((sector || []).includes('Consumer Staples'));
+    setMaterials((sector || []).includes('Materials'));
+    setEnergy((sector || []).includes('Energy'));
+    setReal_estate((sector || []).includes('Real Estate'));
+    setFinancials((sector || []).includes('Financials'));
+    setUtilities((sector || []).includes('Utilities'));
+    setHealth_care((sector || []).includes('Health Care'));
+    console.log(sourceType);
+    setNKP_Proprietary((sourceType || []).includes('NKP Proprietary'));
+    setPress_Release((sourceType || []).includes('Press Release'));
+    setMedia_and_Other((sourceType || []).includes('Media & Other'));
+
+    setNordic((regions || []).includes('Nordic'));
+    setRow((regions || []).includes('RoW'));
+    setDach((regions || []).includes('DACH'));
   };
   const isFocused = useIsFocused();
   React.useEffect(() => {
@@ -544,7 +561,7 @@ const AllEventsScreen = props => {
         }}
         keyword={keywordSearch}
         page={1}
-        region_in={'Nordic'}
+        region_in={regions}
         sectorIn={sector}
       >
         {({ loading, error, data, refetchGetAllEvents }) => {

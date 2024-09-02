@@ -734,6 +734,7 @@ export const getAllPEPFGET = async (
     ebitdaIn,
     holdingPeriodIn,
     page,
+    region_in,
     searchString,
     sectorIn,
     vintageIn,
@@ -764,6 +765,9 @@ export const getAllPEPFGET = async (
   }
   if (device !== undefined) {
     paramsDict['device'] = renderParam(device);
+  }
+  if (region_in !== undefined) {
+    paramsDict['region_in'] = renderParam(region_in);
   }
   const url = `https://xne3-pdiu-8ysm.f2.xano.io/api:abjrBkC8/pepf${renderQueryString(
     paramsDict
@@ -803,6 +807,7 @@ export const FetchGetAllPEPFGET = ({
   ebitdaIn,
   holdingPeriodIn,
   page,
+  region_in,
   searchString,
   sectorIn,
   vintageIn,
@@ -823,6 +828,7 @@ export const FetchGetAllPEPFGET = ({
       ebitdaIn,
       holdingPeriodIn,
       page,
+      region_in,
       searchString,
       sectorIn,
       vintageIn,
