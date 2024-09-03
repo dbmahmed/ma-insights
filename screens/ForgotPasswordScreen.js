@@ -648,7 +648,10 @@ const ForgotPasswordScreen = props => {
                       setTempPassPressed(false);
                       console.log('Complete ON_PRESS:15 SET_VARIABLE');
                       console.log('Start ON_PRESS:16 CONDITIONAL_STOP');
-                      if (tempErrorMessage === 'Invalid Credentials.') {
+                      if (
+                        tempErrorMessage ===
+                        'Invalid Credentials. Please enter the code shared in email correctly'
+                      ) {
                         return console.log(
                           'Complete ON_PRESS:16 CONDITIONAL_STOP'
                         );
