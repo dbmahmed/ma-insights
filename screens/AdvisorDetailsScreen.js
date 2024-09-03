@@ -22,6 +22,7 @@ import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
 import CustomBottomNavBlock from '../components/CustomBottomNavBlock';
 import CustomHeaderBlock from '../components/CustomHeaderBlock';
+import EventDetailsModalBlock from '../components/EventDetailsModalBlock';
 import LoadingBlock from '../components/LoadingBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import assessAccess from '../global-functions/assessAccess';
@@ -68,6 +69,7 @@ const AdvisorDetailsScreen = props => {
   const [sweden, setSweden] = React.useState(true);
   const [switzerland, setSwitzerland] = React.useState(true);
   const [utilities, setUtilities] = React.useState(true);
+  const [viewingId, setViewingId] = React.useState(0);
   const applyFilters = () => {
     //country
     const countries = [];
@@ -531,7 +533,8 @@ const AdvisorDetailsScreen = props => {
                         <Pressable
                           onPress={() => {
                             try {
-                              navigation.push('EventDetailsScreen');
+                              /* hidden 'Navigate' action */
+                              setViewingId(fetchData?.id);
                             } catch (err) {
                               console.error(err);
                             }
@@ -2525,6 +2528,14 @@ const AdvisorDetailsScreen = props => {
         }}
       </XanoCollectionApi.FetchGetAdvisorGET>
       <CustomBottomNavBlock />
+      <>
+        {!viewingId ? null : (
+          <EventDetailsModalBlock
+            setViewingEventId={viewingEventId => setViewingId(viewingEventId)}
+            viewingEventId={viewingId}
+          />
+        )}
+      </>
     </ScreenContainer>
   );
 };

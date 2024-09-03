@@ -29,6 +29,7 @@ import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
 import CustomBottomNavBlock from '../components/CustomBottomNavBlock';
 import CustomHeaderBlock from '../components/CustomHeaderBlock';
+import EventDetailsModalBlock from '../components/EventDetailsModalBlock';
 import LoadingBlock from '../components/LoadingBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import assessAccess from '../global-functions/assessAccess';
@@ -69,6 +70,7 @@ const MultiplesScreen = props => {
   const [financials, setFinancials] = React.useState(true);
   const [germany, setGermany] = React.useState(true);
   const [health_care, setHealth_care] = React.useState(true);
+  const [heightMap, setHeightMap] = React.useState({});
   const [industrials, setIndustrials] = React.useState(true);
   const [it_and_software, setIt_and_software] = React.useState(true);
   const [keywordSearch, setKeywordSearch] = React.useState('');
@@ -82,6 +84,7 @@ const MultiplesScreen = props => {
   const [sector, setSector] = React.useState([]);
   const [transaction, setTransaction] = React.useState(true);
   const [utilities, setUtilities] = React.useState(true);
+  const [viewingId, setViewingId] = React.useState(0);
   const [refreshingSfOccPiT, setRefreshingSfOccPiT] = React.useState(false);
   const toggleAllFilters = flag => {
     setEbitda_large(flag);
@@ -169,6 +172,10 @@ const MultiplesScreen = props => {
     setNordic((region || []).includes('Nordic'));
     setDach((region || []).includes('DACH'));
     setRoW((region || []).includes('RoW'));
+  };
+
+  const updateHeightMap = (idx, height) => {
+    return setHeightMap(prev => ({ ...prev, [idx]: height }));
   };
   const isFocused = useIsFocused();
   React.useEffect(() => {
@@ -691,13 +698,19 @@ const MultiplesScreen = props => {
                             <Pressable
                               onPress={() => {
                                 try {
-                                  navigation.push('EventDetailsScreen', {
-                                    event_id: listData?.id,
-                                  });
+                                  /* hidden 'Navigate' action */
+                                  setViewingId(listData?.id);
                                 } catch (err) {
                                   console.error(err);
                                 }
                               }}
+                              style={StyleSheet.applyWidth(
+                                {
+                                  height:
+                                    Platform.OS === 'web' ? '100%' : undefined,
+                                },
+                                dimensions.width
+                              )}
                             >
                               <View
                                 style={StyleSheet.applyWidth(
@@ -709,6 +722,7 @@ const MultiplesScreen = props => {
                                       palettes.Brand['Light Inverse'],
                                     borderRadius: 8,
                                     borderWidth: 0,
+                                    flex: 1,
                                     flexDirection: 'row',
                                     justifyContent: 'space-between',
                                     padding: 0,
@@ -2962,6 +2976,14 @@ const MultiplesScreen = props => {
         </View>
         <CustomBottomNavBlock />
       </View>
+      <>
+        {!viewingId ? null : (
+          <EventDetailsModalBlock
+            setViewingEventId={viewingEventId => setViewingId(viewingEventId)}
+            viewingEventId={viewingId}
+          />
+        )}
+      </>
     </ScreenContainer>
   );
 };

@@ -60,7 +60,7 @@ const CFSDetailsScreen = props => {
       });
       setGlobalVariableValue({
         key: 'screenParamValue',
-        value: props.route?.params?.cfs_id ?? 1989,
+        value: props.route?.params?.cfs_id ?? 2,
       });
       setGlobalVariableValue({
         key: 'pageName',
@@ -88,7 +88,7 @@ const CFSDetailsScreen = props => {
     >
       <CustomHeaderBlock />
       <XanoCollectionApi.FetchGetOneCFSGET
-        cfs_id={props.route?.params?.cfs_id ?? 1989}
+        cfs_id={props.route?.params?.cfs_id ?? 2}
         device={deviceType(
           Platform.OS === 'web',
           Platform.OS === 'ios',

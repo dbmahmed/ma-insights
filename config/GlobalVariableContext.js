@@ -37,9 +37,13 @@ export const DeviceVariables = {
   screenParamValue: '',
   subPage: false,
   top_nav_pressed: false,
-  __env__: 'Development',
+  __env__: 'Production',
 };
-export const AppVariables = { 'Bearer Token': 'UNSET' };
+export const AppVariables = {
+  'Bearer Token': 'UNSET',
+  speciaities: ['All', 'Heart', 'Cardiology', 'Neurologist', 'dermatologist'],
+  WATCHED_EVENT_IDX: -1,
+};
 const GlobalVariableContext = React.createContext();
 const GlobalVariableUpdater = React.createContext();
 const keySuffix = '';

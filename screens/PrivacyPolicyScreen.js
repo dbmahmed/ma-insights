@@ -11,6 +11,7 @@ import * as GlobalStyles from '../GlobalStyles.js';
 import CustomBottomNavBlock from '../components/CustomBottomNavBlock';
 import CustomHeaderBlock from '../components/CustomHeaderBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
+import assessAccess from '../global-functions/assessAccess';
 import removeGlobalScroll from '../global-functions/removeGlobalScroll';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
@@ -550,7 +551,11 @@ const PrivacyPolicyScreen = props => {
           </Text>
         </View>
       </SimpleStyleScrollView>
-      <CustomBottomNavBlock />
+      <>
+        {!assessAccess(Variables, setGlobalVariableValue) ? null : (
+          <CustomBottomNavBlock />
+        )}
+      </>
     </ScreenContainer>
   );
 };

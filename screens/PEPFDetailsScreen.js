@@ -17,6 +17,7 @@ import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
 import CustomBottomNavBlock from '../components/CustomBottomNavBlock';
 import CustomHeaderBlock from '../components/CustomHeaderBlock';
+import EventDetailsModalBlock from '../components/EventDetailsModalBlock';
 import LoadingBlock from '../components/LoadingBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import assessAccess from '../global-functions/assessAccess';
@@ -42,6 +43,7 @@ const PEPFDetailsScreen = props => {
   const [lastPage, setLastPage] = React.useState(0);
   const [nextPage, setNextPage] = React.useState(0);
   const [sector, setSector] = React.useState([]);
+  const [selectedID, setSelectedID] = React.useState(0);
   const isFocused = useIsFocused();
   React.useEffect(() => {
     try {
@@ -1005,10 +1007,8 @@ const PEPFDetailsScreen = props => {
                                   <Pressable
                                     onPress={() => {
                                       try {
-                                        navigation.navigate(
-                                          'EventDetailsScreen',
-                                          { event_id: listData?.id }
-                                        );
+                                        /* hidden 'Navigate' action */
+                                        setSelectedID(listData?.id);
                                       } catch (err) {
                                         console.error(err);
                                       }
@@ -1116,6 +1116,14 @@ const PEPFDetailsScreen = props => {
         }}
       </XanoCollectionApi.FetchGetOnePEPFGET>
       <CustomBottomNavBlock />
+      <>
+        {!(selectedID > 0) ? null : (
+          <EventDetailsModalBlock
+            setViewingEventId={viewingEventId => setSelectedID(viewingEventId)}
+            viewingEventId={selectedID}
+          />
+        )}
+      </>
     </ScreenContainer>
   );
 };

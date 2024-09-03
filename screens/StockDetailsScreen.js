@@ -23,6 +23,7 @@ import { useIsFocused } from '@react-navigation/native';
 import {
   ActivityIndicator,
   Modal,
+  Platform,
   RefreshControl,
   Text,
   View,
@@ -207,7 +208,13 @@ const StockDetailsScreen = props => {
                     { minWidth: Breakpoints.Desktop, value: 'center' },
                   ],
                   height: '100%',
-                  marginTop: 65,
+                  marginTop: [
+                    { minWidth: Breakpoints.Mobile, value: 65 },
+                    {
+                      minWidth: Breakpoints.Mobile,
+                      value: Platform.OS === 'web' ? 30 : 65,
+                    },
+                  ],
                   paddingBottom: 65,
                   position: 'absolute',
                   width: '100%',

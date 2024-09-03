@@ -3,8 +3,10 @@ import {
   Button,
   Checkbox,
   HStack,
+  Icon,
   IconButton,
   LinearGradient,
+  Link,
   Pressable,
   ScreenContainer,
   Shadow,
@@ -15,8 +17,9 @@ import {
   Touchable,
   withTheme,
 } from '@draftbit/ui';
-import { H5, H6 } from '@expo/html-elements';
+import { H3, H5, H6 } from '@expo/html-elements';
 import { useIsFocused } from '@react-navigation/native';
+import * as WebBrowser from 'expo-web-browser';
 import {
   ActivityIndicator,
   Image,
@@ -26,23 +29,30 @@ import {
   Text,
   View,
 } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Fetch } from 'react-request';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
 import CustomBottomNavBlock from '../components/CustomBottomNavBlock';
 import CustomHeaderBlock from '../components/CustomHeaderBlock';
+import EventDetailsModalBlock from '../components/EventDetailsModalBlock';
 import LoadingBlock from '../components/LoadingBlock';
+import TopNavBlock from '../components/TopNavBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import Images from '../config/Images';
 import assessAccess from '../global-functions/assessAccess';
+import cutTextByWidth from '../global-functions/cutTextByWidth';
 import deviceType from '../global-functions/deviceType';
 import formatNumber from '../global-functions/formatNumber';
+import getListNameFormArray from '../global-functions/getListNameFormArray';
 import isNKPProp from '../global-functions/isNKPProp';
 import modifyArrays from '../global-functions/modifyArrays';
 import removeGlobalScroll from '../global-functions/removeGlobalScroll';
 import resetAccess from '../global-functions/resetAccess';
 import setPadding from '../global-functions/setPadding';
 import showNKPProp from '../global-functions/showNKPProp';
+import transformEuroM from '../global-functions/transformEuroM';
+import transformNumber from '../global-functions/transformNumber';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
@@ -98,6 +108,7 @@ const AllEventsScreen = props => {
   const [tempRegion, setTempRegion] = React.useState('');
   const [transaction, setTransaction] = React.useState(false);
   const [utilities, setUtilities] = React.useState(false);
+  const [viewingEventId, setViewingEventId] = React.useState(0);
   const [refreshingAwqPzJqX, setRefreshingAwqPzJqX] = React.useState(false);
   const [refreshinge5MZS9Mp, setRefreshinge5MZS9Mp] = React.useState(false);
   const toggleAllFilters = flag => {
@@ -227,6 +238,7 @@ const AllEventsScreen = props => {
     setRow((regions || []).includes('RoW'));
     setDach((regions || []).includes('DACH'));
   };
+  const safeAreaInsets = useSafeAreaInsets();
   const isFocused = useIsFocused();
   React.useEffect(() => {
     try {
@@ -234,7 +246,7 @@ const AllEventsScreen = props => {
         return;
       }
       console.log('On screen focus');
-      removeGlobalScroll();
+      /* hidden 'Run a Custom Function' action */
       setGlobalVariableValue({
         key: 'currentScreen',
         value: 'All Events',
@@ -298,6 +310,16 @@ const AllEventsScreen = props => {
         dimensions.width
       )}
     >
+      <>
+        {!viewingEventId ? null : (
+          <EventDetailsModalBlock
+            setViewingEventId={viewingEventId =>
+              setViewingEventId(viewingEventId)
+            }
+            viewingEventId={viewingEventId}
+          />
+        )}
+      </>
       <CustomHeaderBlock />
       {/* box */}
       <View
@@ -523,23 +545,27 @@ const AllEventsScreen = props => {
           <Spacer left={8} right={8} bottom={2.5} top={2.5} />
         </View>
       </View>
-      {/* Fetch 2 */}
+
       <XanoCollectionApi.FetchGetAllEventsGET
         countryIn={country}
-        device={'web'}
+        device={deviceType(
+          Platform.OS === 'web',
+          Platform.OS === 'ios',
+          Platform.OS === 'android'
+        )}
         eventTypeIn={eventType}
         handlers={{
-          on2xx: fetch2Data => {
+          on2xx: fetchData => {
             try {
-              setEventItems(fetch2Data?.json?.items);
-              setNextPage(fetch2Data?.json?.nextPage);
-              setLastPage(fetch2Data?.json?.pageTotal);
+              setEventItems(fetchData?.json?.items);
+              setNextPage(fetchData?.json?.nextPage);
+              setLastPage(fetchData?.json?.pageTotal);
               console.log(nextPage, lastPage);
             } catch (err) {
               console.error(err);
             }
           },
-          on401: fetch2Data => {
+          on401: fetchData => {
             try {
               setGlobalVariableValue({
                 key: 'AUTH_HEADER',
@@ -557,13 +583,23 @@ const AllEventsScreen = props => {
               console.error(err);
             }
           },
-          onData: fetch2Data => {
+          onData: fetchData => {
             try {
-              console.log(fetch2Data?.length, 'FETCHDATA ONSCREEN');
-              setNextPage(fetch2Data?.nextPage);
-              setLastPage(fetch2Data?.pageTotal);
+              console.log(fetchData?.length, 'FETCHDATA ONSCREEN');
+              setNextPage(fetchData?.nextPage);
+              setLastPage(fetchData?.pageTotal);
               /* hidden 'Set Variable' action */
-              /* hidden 'Scroll To Index' action */
+              if (
+                Constants['WATCHED_EVENT_IDX'] > -1 &&
+                !(Platform.OS === 'web')
+              ) {
+                listAwqPzJqXRef.current.scrollToIndex({
+                  index: Constants['WATCHED_EVENT_IDX'],
+                  viewOffset: undefined,
+                  viewPosition: undefined,
+                  animated: true,
+                });
+              }
             } catch (err) {
               console.error(err);
             }
@@ -576,7 +612,7 @@ const AllEventsScreen = props => {
         sourceType_in={sourceType}
       >
         {({ loading, error, data, refetchGetAllEvents }) => {
-          const fetch2Data = data?.json;
+          const fetchData = data?.json;
           if (loading) {
             return <LoadingBlock />;
           }
@@ -622,6 +658,7 @@ const AllEventsScreen = props => {
                     dimensions.width
                   )}
                 >
+                  {/*  Text 1 */}
                   <Text
                     accessible={true}
                     {...GlobalStyles.TextStyles(theme)['screen_title'].props}
@@ -647,8 +684,8 @@ const AllEventsScreen = props => {
                       dimensions.width
                     )}
                   >
-                    {formatNumber(fetch2Data?.itemsTotal)}{' '}
-                    {fetch2Data?.itemsTotal === 1 ? 'event' : 'events'}
+                    {formatNumber(fetchData?.itemsTotal)}{' '}
+                    {fetchData?.itemsTotal === 1 ? 'event' : 'events'}
                     {' matching filter '}
                     {dimensions.width >= Breakpoints.Tablet
                       ? '(New data is fetched automatically)'
@@ -656,213 +693,261 @@ const AllEventsScreen = props => {
                   </Text>
                 </View>
               </View>
-              <SimpleStyleFlatList
-                data={eventItems}
-                horizontal={false}
-                inverted={false}
-                keyExtractor={(listData, index) => index}
-                keyboardShouldPersistTaps={'never'}
-                listKey={'e5MZS9Mp'}
-                nestedScrollEnabled={false}
-                numColumns={1}
-                onEndReached={() => {
-                  const handler = async () => {
-                    console.log('List ON_END_REACHED Start');
-                    let error = null;
-                    try {
-                      console.log('Start ON_END_REACHED:0 CONSOLE_LOG');
-                      console.log('END REACHED');
-                      console.log('Complete ON_END_REACHED:0 CONSOLE_LOG');
-                      console.log('Start ON_END_REACHED:1 CONDITIONAL_STOP');
-                      if (nextPage === null) {
-                        return console.log(
-                          'Complete ON_END_REACHED:1 CONDITIONAL_STOP'
-                        );
-                      } else {
-                        console.log(
-                          'Skipped ON_END_REACHED:1 CONDITIONAL_STOP: condition not met'
-                        );
-                      }
-                      console.log('Start ON_END_REACHED:2 SET_VARIABLE');
-                      const valuerMDKkqA3 = parseInt(nextPage + 1, 10);
-                      setNextPage(valuerMDKkqA3);
-                      const nextPageSet = valuerMDKkqA3;
-                      console.log('Complete ON_END_REACHED:2 SET_VARIABLE');
-                      console.log('Start ON_END_REACHED:3 CONSOLE_LOG');
-                      /* hidden 'Log to Console' action */ console.log(
-                        'Complete ON_END_REACHED:3 CONSOLE_LOG'
-                      );
-                      console.log('Start ON_END_REACHED:4 FETCH_REQUEST');
-                      const newData = (
-                        await XanoCollectionApi.getAllEventsGET(Constants, {
-                          countryIn: country,
-                          device: deviceType(
-                            Platform.OS === 'web',
-                            Platform.OS === 'ios',
-                            Platform.OS === 'android'
-                          ),
-                          eventTypeIn: eventType,
-                          keyword: keywordSearchRaw,
-                          page: nextPage,
-                          region_in: 'Nordic',
-                          sectorIn: sector,
-                          sourceType_in: sourceType,
-                        })
-                      )?.json;
-                      console.log('Complete ON_END_REACHED:4 FETCH_REQUEST', {
-                        newData,
-                      });
-                      console.log('Start ON_END_REACHED:5 CONDITIONAL_STOP');
-                      if (newData?.items?.length === 0) {
-                        return console.log(
-                          'Complete ON_END_REACHED:5 CONDITIONAL_STOP'
-                        );
-                      } else {
-                        console.log(
-                          'Skipped ON_END_REACHED:5 CONDITIONAL_STOP: condition not met'
-                        );
-                      }
-                      console.log('Start ON_END_REACHED:6 SET_VARIABLE');
-                      setEventItems(eventItems.concat(newData?.items));
-                      console.log('Complete ON_END_REACHED:6 SET_VARIABLE');
-                      console.log('Start ON_END_REACHED:7 SET_VARIABLE');
-                      setLastPage(newData?.pageTotal);
-                      console.log('Complete ON_END_REACHED:7 SET_VARIABLE');
-                    } catch (err) {
-                      console.error(err);
-                      error = err.message ?? err;
-                    }
-                    console.log(
-                      'List ON_END_REACHED Complete',
-                      error ? { error } : 'no error'
-                    );
-                  };
-                  handler();
-                }}
-                refreshControl={
-                  <RefreshControl
-                    refreshing={refreshinge5MZS9Mp}
-                    onRefresh={() => {
-                      const handler = async () => {
-                        try {
-                          setRefreshinge5MZS9Mp(true);
-                          await refetchGetAllEvents();
-                          setRefreshinge5MZS9Mp(false);
-                        } catch (err) {
-                          console.error(err);
-                          setRefreshinge5MZS9Mp(false);
+              {/* View 3 */}
+              <View
+                style={StyleSheet.applyWidth({ flex: 1 }, dimensions.width)}
+              >
+                <SimpleStyleFlatList
+                  data={eventItems}
+                  horizontal={false}
+                  inverted={false}
+                  keyExtractor={(listData, index) => index}
+                  keyboardShouldPersistTaps={'never'}
+                  listKey={'AwqPzJqX'}
+                  nestedScrollEnabled={false}
+                  numColumns={1}
+                  onEndReached={() => {
+                    const handler = async () => {
+                      try {
+                        console.log('END REACHED');
+                        if (nextPage === null) {
+                          return;
                         }
-                      };
-                      handler();
-                    }}
-                  />
-                }
-                renderItem={({ item, index }) => {
-                  const listData = item;
-                  return (
-                    <View
-                      style={StyleSheet.applyWidth(
-                        {
-                          alignContent: {
-                            minWidth: Breakpoints.BigScreen,
-                            value: 'center',
-                          },
-                          alignSelf: {
-                            minWidth: Breakpoints.BigScreen,
-                            value: 'center',
-                          },
-                          flex: { minWidth: Breakpoints.Laptop, value: 1 },
-                          maxWidth: {
-                            minWidth: Breakpoints.BigScreen,
-                            value: 1200,
-                          },
-                          padding: { minWidth: Breakpoints.Desktop, value: 5 },
-                          paddingLeft: [
-                            { minWidth: Breakpoints.Desktop, value: 10 },
-                            { minWidth: Breakpoints.Mobile, value: 10 },
-                            { minWidth: Breakpoints.BigScreen, value: 15 },
-                          ],
-                          paddingRight: [
-                            { minWidth: Breakpoints.Desktop, value: 10 },
-                            { minWidth: Breakpoints.Mobile, value: 10 },
-                            { minWidth: Breakpoints.BigScreen, value: 10 },
-                          ],
-                          width: {
-                            minWidth: Breakpoints.BigScreen,
-                            value: '100%',
-                          },
-                        },
-                        dimensions.width
-                      )}
-                    >
-                      <Touchable
-                        onPress={() => {
+
+                        const value5LnNJ7Yb = parseInt(nextPage + 1, 10);
+                        setNextPage(value5LnNJ7Yb);
+                        const nextPageSet = value5LnNJ7Yb;
+                        /* hidden 'Log to Console' action */
+                        const newData = (
+                          await XanoCollectionApi.getAllEventsGET(Constants, {
+                            countryIn: country,
+                            device: deviceType(
+                              Platform.OS === 'web',
+                              Platform.OS === 'ios',
+                              Platform.OS === 'android'
+                            ),
+                            eventTypeIn: eventType,
+                            keyword: keywordSearchRaw,
+                            page: nextPage,
+                            region_in: 'Nordic',
+                            sectorIn: sector,
+                            sourceType_in: sourceType,
+                          })
+                        )?.json;
+                        if (newData?.items?.length === 0) {
+                          return;
+                        }
+                        setEventItems(eventItems.concat(newData?.items));
+                        setLastPage(newData?.pageTotal);
+                      } catch (err) {
+                        console.error(err);
+                      }
+                    };
+                    handler();
+                  }}
+                  onEndReachedThreshold={0.5}
+                  refreshControl={
+                    <RefreshControl
+                      refreshing={refreshingAwqPzJqX}
+                      onRefresh={() => {
+                        const handler = async () => {
                           try {
-                            navigation.navigate('EventDetailsScreen', {
-                              event_id: listData?.id,
-                            });
+                            setRefreshingAwqPzJqX(true);
+                            await refetchGetAllEvents();
+                            setRefreshingAwqPzJqX(false);
                           } catch (err) {
                             console.error(err);
+                            setRefreshingAwqPzJqX(false);
                           }
-                        }}
-                      >
-                        <View
-                          style={StyleSheet.applyWidth(
-                            {
-                              borderBottomWidth: 0.5,
-                              borderColor: theme.colors.text.light,
-                              flexWrap: {
-                                minWidth: Breakpoints.Laptop,
-                                value: 'nowrap',
-                              },
-                              minHeight: {
-                                minWidth: Breakpoints.Laptop,
-                                value: 85,
-                              },
-                              paddingBottom: 5,
-                              paddingTop: 5,
+                        };
+                        handler();
+                      }}
+                    />
+                  }
+                  renderItem={({ item, index }) => {
+                    const listData = item;
+                    return (
+                      <View
+                        style={StyleSheet.applyWidth(
+                          {
+                            alignContent: {
+                              minWidth: Breakpoints.BigScreen,
+                              value: 'center',
                             },
-                            dimensions.width
-                          )}
+                            alignSelf: {
+                              minWidth: Breakpoints.BigScreen,
+                              value: 'center',
+                            },
+                            flex: { minWidth: Breakpoints.Laptop, value: 1 },
+                            maxWidth: {
+                              minWidth: Breakpoints.BigScreen,
+                              value: 1200,
+                            },
+                            padding: {
+                              minWidth: Breakpoints.Desktop,
+                              value: 5,
+                            },
+                            paddingLeft: [
+                              { minWidth: Breakpoints.Desktop, value: 10 },
+                              { minWidth: Breakpoints.Mobile, value: 10 },
+                              { minWidth: Breakpoints.BigScreen, value: 15 },
+                            ],
+                            paddingRight: [
+                              { minWidth: Breakpoints.Desktop, value: 10 },
+                              { minWidth: Breakpoints.Mobile, value: 10 },
+                              { minWidth: Breakpoints.BigScreen, value: 10 },
+                            ],
+                            width: {
+                              minWidth: Breakpoints.BigScreen,
+                              value: '100%',
+                            },
+                          },
+                          dimensions.width
+                        )}
+                      >
+                        <Touchable
+                          onPress={() => {
+                            try {
+                              /* hidden 'Navigate' action */
+                              /* hidden 'Set Variable' action */
+                              setViewingEventId(listData?.id);
+                            } catch (err) {
+                              console.error(err);
+                            }
+                          }}
                         >
-                          <H6
-                            selectable={false}
-                            {...GlobalStyles.H6Styles(theme)['H6'].props}
+                          <View
                             style={StyleSheet.applyWidth(
-                              StyleSheet.compose(
-                                GlobalStyles.H6Styles(theme)['H6'].style,
-                                {
-                                  fontFamily: 'Quicksand_700Bold',
-                                  fontSize: [
-                                    { minWidth: Breakpoints.Mobile, value: 14 },
-                                    { minWidth: Breakpoints.Laptop, value: 16 },
-                                  ],
-                                  margin: 0,
-                                  marginBottom: [
-                                    { minWidth: Breakpoints.Laptop, value: 5 },
-                                    { minWidth: Breakpoints.Mobile, value: 0 },
-                                  ],
-                                  marginTop: 0,
-                                }
-                              ),
+                              {
+                                borderBottomWidth: 0.5,
+                                borderColor: theme.colors.text.light,
+                                flexWrap: {
+                                  minWidth: Breakpoints.Laptop,
+                                  value: 'nowrap',
+                                },
+                                minHeight: {
+                                  minWidth: Breakpoints.Laptop,
+                                  value: 85,
+                                },
+                                paddingBottom: 5,
+                                paddingTop: 5,
+                              },
                               dimensions.width
                             )}
                           >
-                            {showNKPProp(listData?.headline, listData?.source)}
-                          </H6>
+                            <H6
+                              selectable={false}
+                              {...GlobalStyles.H6Styles(theme)['H6'].props}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.H6Styles(theme)['H6'].style,
+                                  {
+                                    fontFamily: 'Quicksand_700Bold',
+                                    fontSize: [
+                                      {
+                                        minWidth: Breakpoints.Mobile,
+                                        value: 14,
+                                      },
+                                      {
+                                        minWidth: Breakpoints.Laptop,
+                                        value: 16,
+                                      },
+                                    ],
+                                    margin: 0,
+                                    marginBottom: [
+                                      {
+                                        minWidth: Breakpoints.Laptop,
+                                        value: 5,
+                                      },
+                                      {
+                                        minWidth: Breakpoints.Mobile,
+                                        value: 0,
+                                      },
+                                    ],
+                                    marginTop: 0,
+                                  }
+                                ),
+                                dimensions.width
+                              )}
+                            >
+                              {showNKPProp(
+                                listData?.headline,
+                                listData?.source
+                              )}
+                            </H6>
 
-                          <HStack
-                            {...GlobalStyles.HStackStyles(theme)['H Stack']
-                              .props}
-                            style={StyleSheet.applyWidth(
-                              StyleSheet.compose(
-                                GlobalStyles.HStackStyles(theme)['H Stack']
-                                  .style,
-                                { gap: 10 }
-                              ),
-                              dimensions.width
-                            )}
-                          >
+                            <HStack
+                              {...GlobalStyles.HStackStyles(theme)['H Stack']
+                                .props}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.HStackStyles(theme)['H Stack']
+                                    .style,
+                                  { gap: 10 }
+                                ),
+                                dimensions.width
+                              )}
+                            >
+                              <Text
+                                accessible={true}
+                                {...GlobalStyles.TextStyles(theme)[
+                                  'screen_title'
+                                ].props}
+                                style={StyleSheet.applyWidth(
+                                  StyleSheet.compose(
+                                    GlobalStyles.TextStyles(theme)[
+                                      'screen_title'
+                                    ].style,
+                                    {
+                                      fontFamily: 'Quicksand_400Regular',
+                                      fontSize: [
+                                        {
+                                          minWidth: Breakpoints.Mobile,
+                                          value: 12,
+                                        },
+                                        {
+                                          minWidth: Breakpoints.Laptop,
+                                          value: 14,
+                                        },
+                                      ],
+                                      marginBottom: {
+                                        minWidth: Breakpoints.Laptop,
+                                        value: 5,
+                                      },
+                                      marginTop: 4,
+                                    }
+                                  ),
+                                  dimensions.width
+                                )}
+                              >
+                                {index}
+                                {' idx '}
+                                {listData?.published}
+                                {' | Source: '}
+                                {listData?.source}
+                              </Text>
+                              <>
+                                {!isNKPProp(listData?.source) ? null : (
+                                  <Image
+                                    resizeMode={'cover'}
+                                    {...GlobalStyles.ImageStyles(theme)['Image']
+                                      .props}
+                                    source={
+                                      Images['mainsightsfaviconlogo1024new']
+                                    }
+                                    style={StyleSheet.applyWidth(
+                                      StyleSheet.compose(
+                                        GlobalStyles.ImageStyles(theme)['Image']
+                                          .style,
+                                        { height: 18, width: 18 }
+                                      ),
+                                      dimensions.width
+                                    )}
+                                  />
+                                )}
+                              </>
+                            </HStack>
+                            {/* Text 2 */}
                             <Text
                               accessible={true}
                               {...GlobalStyles.TextStyles(theme)['screen_title']
@@ -888,107 +973,51 @@ const AllEventsScreen = props => {
                                       value: 5,
                                     },
                                     marginTop: 4,
+                                    textAlign: 'left',
                                   }
                                 ),
                                 dimensions.width
                               )}
                             >
-                              {listData?.published}
-                              {' | Source: '}
-                              {listData?.source}
+                              {listData?.description}
                             </Text>
-                            <>
-                              {!isNKPProp(listData?.source) ? null : (
-                                <Image
-                                  resizeMode={'cover'}
-                                  {...GlobalStyles.ImageStyles(theme)['Image']
-                                    .props}
-                                  source={
-                                    Images['mainsightsfaviconlogo1024new']
-                                  }
-                                  style={StyleSheet.applyWidth(
-                                    StyleSheet.compose(
-                                      GlobalStyles.ImageStyles(theme)['Image']
-                                        .style,
-                                      { height: 18, width: 18 }
-                                    ),
-                                    dimensions.width
-                                  )}
-                                />
-                              )}
-                            </>
-                          </HStack>
-                          {/* Text 2 */}
-                          <Text
-                            accessible={true}
-                            {...GlobalStyles.TextStyles(theme)['screen_title']
-                              .props}
-                            style={StyleSheet.applyWidth(
-                              StyleSheet.compose(
-                                GlobalStyles.TextStyles(theme)['screen_title']
-                                  .style,
-                                {
-                                  fontFamily: 'Quicksand_400Regular',
-                                  fontSize: [
-                                    { minWidth: Breakpoints.Mobile, value: 12 },
-                                    { minWidth: Breakpoints.Laptop, value: 14 },
-                                  ],
-                                  marginBottom: {
-                                    minWidth: Breakpoints.Laptop,
-                                    value: 5,
-                                  },
-                                  marginTop: 4,
-                                  textAlign: 'left',
-                                }
-                              ),
-                              dimensions.width
-                            )}
-                          >
-                            {listData?.description}
-                          </Text>
-                        </View>
-                      </Touchable>
-                    </View>
-                  );
-                }}
-                onEndReachedThreshold={0.7}
-                showsHorizontalScrollIndicator={false}
-                showsVerticalScrollIndicator={true}
-                style={StyleSheet.applyWidth(
-                  {
-                    alignContent: {
-                      minWidth: Breakpoints.BigScreen,
-                      value: 'center',
-                    },
-                    alignItems: {
-                      minWidth: Breakpoints.BigScreen,
-                      value: 'stretch',
-                    },
-                    alignSelf: {
-                      minWidth: Breakpoints.BigScreen,
-                      value: 'center',
-                    },
-                    marginBottom:
-                      dimensions.width >= Breakpoints.Laptop ? 0 : 65,
-                    paddingLeft: [
-                      { minWidth: Breakpoints.Mobile, value: 5 },
-                      {
+                          </View>
+                        </Touchable>
+                      </View>
+                    );
+                  }}
+                  ref={listAwqPzJqXRef}
+                  showsHorizontalScrollIndicator={false}
+                  showsVerticalScrollIndicator={true}
+                  style={StyleSheet.applyWidth(
+                    {
+                      alignContent: {
+                        minWidth: Breakpoints.BigScreen,
+                        value: 'center',
+                      },
+                      alignItems: {
+                        minWidth: Breakpoints.BigScreen,
+                        value: 'stretch',
+                      },
+                      alignSelf: {
+                        minWidth: Breakpoints.BigScreen,
+                        value: 'center',
+                      },
+                      marginBottom:
+                        dimensions.width >= Breakpoints.Laptop ? 0 : 65,
+                      paddingLeft: {
                         minWidth: Breakpoints.Desktop,
                         value: setPadding(dimensions.width),
                       },
-                    ],
-                    paddingRight: [
-                      { minWidth: Breakpoints.Mobile, value: 5 },
-                      {
+                      paddingRight: {
                         minWidth: Breakpoints.Desktop,
                         value: setPadding(dimensions.width),
                       },
-                    ],
-                    width: '100%',
-                  },
-                  dimensions.width
-                )}
-              />
+                    },
+                    dimensions.width
+                  )}
+                />
+              </View>
               {/* Modal 2 */}
               <Modal
                 supportedOrientations={['portrait', 'landscape']}
@@ -3372,9 +3401,9 @@ const AllEventsScreen = props => {
                             <Checkbox
                               onCheck={() => {
                                 try {
-                                  const valueemvJU6D0 = undefined;
-                                  setNKP_Proprietary(valueemvJU6D0);
-                                  const event = valueemvJU6D0;
+                                  const valueEG0JIppY = undefined;
+                                  setNKP_Proprietary(valueEG0JIppY);
+                                  const event = valueEG0JIppY;
                                 } catch (err) {
                                   console.error(err);
                                 }
@@ -3724,6 +3753,7 @@ const AllEventsScreen = props => {
           );
         }}
       </XanoCollectionApi.FetchGetAllEventsGET>
+      <>{!Constants['top_nav_pressed'] ? null : <TopNavBlock />}</>
       <CustomBottomNavBlock />
     </ScreenContainer>
   );

@@ -594,12 +594,39 @@ const LogInScreen = props => {
                           color: theme.colors.text.strong,
                           fontFamily: 'Quicksand_600SemiBold',
                           margin: 10,
-                          marginBottom: 20,
+                          marginBottom: 0,
                         }
                       ),
                       dimensions.width
                     )}
                     title={'Request Demo'}
+                  />
+                  {/* Link 2 */}
+                  <Link
+                    accessible={true}
+                    onPress={() => {
+                      try {
+                        navigation.push('PrivacyPolicyScreen');
+                      } catch (err) {
+                        console.error(err);
+                      }
+                    }}
+                    {...GlobalStyles.LinkStyles(theme)['Link'].props}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.LinkStyles(theme)['Link'].style,
+                        {
+                          fontFamily: 'Quicksand_400Regular',
+                          fontSize: 12,
+                          marginBottom: 20,
+                          marginRight: 10,
+                          marginTop: 5,
+                          textAlign: 'right',
+                        }
+                      ),
+                      dimensions.width
+                    )}
+                    title={'Privacy Policy'}
                   />
                 </View>
               )}

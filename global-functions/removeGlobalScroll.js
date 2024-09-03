@@ -1,7 +1,5 @@
 const removeGlobalScroll = () => {
-  // if (document && document.body) {
-  //     document.body.style.overflow = 'hidden'
-  // }
+  return;
 };
 
 export default removeGlobalScroll;

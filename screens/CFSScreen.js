@@ -3,8 +3,10 @@ import {
   Button,
   Checkbox,
   HStack,
+  Icon,
   IconButton,
   LinearGradient,
+  Link,
   Pressable,
   ScreenContainer,
   Shadow,
@@ -12,18 +14,21 @@ import {
   SimpleStyleScrollView,
   Spacer,
   TextInput,
+  Touchable,
   withTheme,
 } from '@draftbit/ui';
-import { H4, H5 } from '@expo/html-elements';
+import { H3, H4, H5, H6 } from '@expo/html-elements';
 import { useIsFocused } from '@react-navigation/native';
 import {
   ActivityIndicator,
+  Image,
   Modal,
   Platform,
   RefreshControl,
   Text,
   View,
 } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Fetch } from 'react-request';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
@@ -31,6 +36,7 @@ import CustomBottomNavBlock from '../components/CustomBottomNavBlock';
 import CustomHeaderBlock from '../components/CustomHeaderBlock';
 import LoadingBlock from '../components/LoadingBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
+import Images from '../config/Images';
 import assessAccess from '../global-functions/assessAccess';
 import deviceType from '../global-functions/deviceType';
 import formatNumber from '../global-functions/formatNumber';
@@ -42,6 +48,7 @@ import transformEuroM from '../global-functions/transformEuroM';
 import transformNumber from '../global-functions/transformNumber';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
+import * as DateUtils from '../utils/DateUtils';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import waitUtil from '../utils/wait';
@@ -67,6 +74,8 @@ const CFSScreen = props => {
   const [ebitda_medium, setEbitda_medium] = React.useState(true);
   const [ebitda_small, setEbitda_small] = React.useState(true);
   const [energy, setEnergy] = React.useState(true);
+  const [eventItems, setEventItems] = React.useState([]);
+  const [eventType, setEventType] = React.useState([]);
   const [filterPressed, setFilterPressed] = React.useState(false);
   const [financials, setFinancials] = React.useState(true);
   const [finland, setFinland] = React.useState(true);
@@ -87,12 +96,15 @@ const CFSScreen = props => {
   const [otStrategic, setOtStrategic] = React.useState(false);
   const [real_estate, setReal_estate] = React.useState(true);
   const [sector, setSector] = React.useState([]);
+  const [selectedID, setSelectedID] = React.useState(0);
+  const [showModal, setShowModal] = React.useState(false);
   const [sweden, setSweden] = React.useState(true);
   const [switzerland, setSwitzerland] = React.useState(true);
   const [totalCFS, setTotalCFS] = React.useState(0);
   const [transaction, setTransaction] = React.useState(true);
   const [typeOwnership, setTypeOwnership] = React.useState([]);
   const [utilities, setUtilities] = React.useState(true);
+  const [viewingEventId, setViewingEventId] = React.useState(0);
   const [refreshingyCaR0jC6, setRefreshingyCaR0jC6] = React.useState(false);
   const toggleAllFilters = flag => {
     setEbitda_large(flag);
@@ -242,6 +254,7 @@ const CFSScreen = props => {
   const advisorEmptyState = item => {
     return item.length ? item : `"_"`;
   };
+  const safeAreaInsets = useSafeAreaInsets();
   const isFocused = useIsFocused();
   React.useEffect(() => {
     try {
@@ -667,12 +680,13 @@ const CFSScreen = props => {
                               dimensions.width
                             )}
                           >
+                            {/* Pressable 2 */}
                             <Pressable
                               onPress={() => {
                                 try {
-                                  navigation.navigate('CFSDetailsScreen', {
-                                    cfs_id: listData?.id,
-                                  });
+                                  /* hidden 'Navigate' action */
+                                  setSelectedID(listData?.id);
+                                  setShowModal(true);
                                 } catch (err) {
                                   console.error(err);
                                 }
@@ -3528,6 +3542,1518 @@ const CFSScreen = props => {
         }}
       </XanoCollectionApi.FetchGetCFSGET>
       <CustomBottomNavBlock />
+      <Modal
+        animationType={'none'}
+        supportedOrientations={['portrait', 'landscape']}
+        transparent={false}
+        visible={showModal}
+      >
+        <View
+          style={StyleSheet.applyWidth(
+            {
+              flex: 1,
+              marginTop: Platform.OS === 'web' ? undefined : safeAreaInsets.top,
+            },
+            dimensions.width
+          )}
+        >
+          {/* custom_header */}
+          <View
+            style={StyleSheet.applyWidth(
+              {
+                backgroundColor: theme.colors.background.brand,
+                position: { minWidth: Breakpoints.Desktop, value: 'relative' },
+                width: '100%',
+                zIndex: 10,
+              },
+              dimensions.width
+            )}
+          >
+            <Shadow
+              offsetX={0}
+              offsetY={0}
+              showShadowCornerBottomEnd={true}
+              showShadowCornerBottomStart={true}
+              showShadowCornerTopEnd={true}
+              showShadowCornerTopStart={true}
+              showShadowSideBottom={true}
+              showShadowSideEnd={true}
+              showShadowSideStart={true}
+              showShadowSideTop={true}
+              paintInside={false}
+              style={StyleSheet.applyWidth(
+                {
+                  height: 65,
+                  width: '100%',
+                  zIndex: { minWidth: Breakpoints.Desktop, value: 1000 },
+                },
+                dimensions.width
+              )}
+            >
+              <HStack
+                {...GlobalStyles.HStackStyles(theme)['H Stack'].props}
+                style={StyleSheet.applyWidth(
+                  StyleSheet.compose(
+                    GlobalStyles.HStackStyles(theme)['H Stack'].style,
+                    {
+                      height: 65,
+                      justifyContent: 'space-between',
+                      paddingLeft: 15,
+                      paddingRight: 15,
+                      width: dimensions.width,
+                    }
+                  ),
+                  dimensions.width
+                )}
+              >
+                <View
+                  style={StyleSheet.applyWidth(
+                    {
+                      alignContent: 'center',
+                      alignItems: 'center',
+                      alignSelf: 'center',
+                      flexDirection: 'row',
+                    },
+                    dimensions.width
+                  )}
+                >
+                  {/* Back */}
+                  <IconButton
+                    onPress={() => {
+                      try {
+                        /* hidden 'Navigate Back' action */
+                        setShowModal(false);
+                      } catch (err) {
+                        console.error(err);
+                      }
+                    }}
+                    size={32}
+                    color={theme.colors.text.strong}
+                    icon={'Entypo/chevron-thin-left'}
+                  />
+                </View>
+                {/* View 2 */}
+                <>
+                  {!(dimensions.width >= Breakpoints.Laptop) ? null : (
+                    <View
+                      style={StyleSheet.applyWidth(
+                        {
+                          alignContent: {
+                            minWidth: Breakpoints.Laptop,
+                            value: 'stretch',
+                          },
+                          alignItems: {
+                            minWidth: Breakpoints.Laptop,
+                            value: 'center',
+                          },
+                          alignSelf: {
+                            minWidth: Breakpoints.Laptop,
+                            value: 'center',
+                          },
+                          flexDirection: {
+                            minWidth: Breakpoints.Tablet,
+                            value: 'row',
+                          },
+                          gap: { minWidth: Breakpoints.Laptop, value: 10 },
+                          position: {
+                            minWidth: Breakpoints.Laptop,
+                            value: 'absolute',
+                          },
+                          right: { minWidth: Breakpoints.Laptop, value: 100 },
+                        },
+                        dimensions.width
+                      )}
+                    >
+                      <Link
+                        accessible={true}
+                        onPress={() => {
+                          try {
+                            navigation.navigate('NewslettersScreen');
+                          } catch (err) {
+                            console.error(err);
+                          }
+                        }}
+                        {...GlobalStyles.LinkStyles(theme)['Link'].props}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.LinkStyles(theme)['Link'].style,
+                            {
+                              alignSelf: {
+                                minWidth: Breakpoints.Laptop,
+                                value: 'center',
+                              },
+                              color: {
+                                minWidth: Breakpoints.Laptop,
+                                value:
+                                  Constants['pageName'] === 'Newsletters'
+                                    ? palettes.App.Orange
+                                    : palettes.Brand.Primary,
+                              },
+                              fontFamily: {
+                                minWidth: Breakpoints.Laptop,
+                                value: 'Quicksand_500Medium',
+                              },
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                        title={'NEWSLETTERS'}
+                      />
+                      <Text
+                        accessible={true}
+                        {...GlobalStyles.TextStyles(theme)['screen_title']
+                          .props}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.TextStyles(theme)['screen_title']
+                              .style,
+                            {
+                              alignSelf: {
+                                minWidth: Breakpoints.Laptop,
+                                value: 'center',
+                              },
+                              color: {
+                                minWidth: Breakpoints.Laptop,
+                                value: theme.colors.foreground.brand,
+                              },
+                              fontFamily: {
+                                minWidth: Breakpoints.Laptop,
+                                value: 'Quicksand_300Light',
+                              },
+                              fontSize: {
+                                minWidth: Breakpoints.Laptop,
+                                value: 35,
+                              },
+                              marginBottom: {
+                                minWidth: Breakpoints.Laptop,
+                                value: 0,
+                              },
+                              marginTop: {
+                                minWidth: Breakpoints.Laptop,
+                                value: 0,
+                              },
+                              textAlign: {
+                                minWidth: Breakpoints.Laptop,
+                                value: 'center',
+                              },
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {'|'}
+                      </Text>
+                      {/* Link 2 */}
+                      <Link
+                        accessible={true}
+                        onPress={() => {
+                          try {
+                            navigation.navigate('AllEventsScreen');
+                          } catch (err) {
+                            console.error(err);
+                          }
+                        }}
+                        {...GlobalStyles.LinkStyles(theme)['Link'].props}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.LinkStyles(theme)['Link'].style,
+                            {
+                              color: {
+                                minWidth: Breakpoints.Laptop,
+                                value:
+                                  Constants['pageName'] === 'All events'
+                                    ? palettes.App.Orange
+                                    : palettes.Brand.Primary,
+                              },
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                        title={'ALL EVENTS'}
+                      />
+                      {/* Text 2 */}
+                      <Text
+                        accessible={true}
+                        {...GlobalStyles.TextStyles(theme)['screen_title']
+                          .props}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.TextStyles(theme)['screen_title']
+                              .style,
+                            {
+                              alignSelf: {
+                                minWidth: Breakpoints.Laptop,
+                                value: 'center',
+                              },
+                              color: {
+                                minWidth: Breakpoints.Laptop,
+                                value: theme.colors.foreground.brand,
+                              },
+                              fontFamily: {
+                                minWidth: Breakpoints.Laptop,
+                                value: 'Quicksand_300Light',
+                              },
+                              fontSize: {
+                                minWidth: Breakpoints.Laptop,
+                                value: 35,
+                              },
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {'|'}
+                      </Text>
+                      {/* Link 3 */}
+                      <Link
+                        accessible={true}
+                        onPress={() => {
+                          try {
+                            navigation.navigate('CFSScreen');
+                          } catch (err) {
+                            console.error(err);
+                          }
+                        }}
+                        {...GlobalStyles.LinkStyles(theme)['Link'].props}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.LinkStyles(theme)['Link'].style,
+                            {
+                              color: {
+                                minWidth: Breakpoints.Laptop,
+                                value:
+                                  Constants['pageName'] === 'Companies For Sale'
+                                    ? palettes.App.Orange
+                                    : palettes.Brand.Primary,
+                              },
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                        title={'CFS'}
+                      />
+                      {/* Text 3 */}
+                      <Text
+                        accessible={true}
+                        {...GlobalStyles.TextStyles(theme)['screen_title']
+                          .props}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.TextStyles(theme)['screen_title']
+                              .style,
+                            {
+                              alignSelf: {
+                                minWidth: Breakpoints.Laptop,
+                                value: 'center',
+                              },
+                              color: {
+                                minWidth: Breakpoints.Laptop,
+                                value: theme.colors.foreground.brand,
+                              },
+                              fontFamily: {
+                                minWidth: Breakpoints.Laptop,
+                                value: 'Quicksand_300Light',
+                              },
+                              fontSize: {
+                                minWidth: Breakpoints.Laptop,
+                                value: 35,
+                              },
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {'|'}
+                      </Text>
+                      {/* Link 4 */}
+                      <Link
+                        accessible={true}
+                        onPress={() => {
+                          try {
+                            navigation.navigate('PEPFScreen');
+                          } catch (err) {
+                            console.error(err);
+                          }
+                        }}
+                        {...GlobalStyles.LinkStyles(theme)['Link'].props}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.LinkStyles(theme)['Link'].style,
+                            {
+                              color: {
+                                minWidth: Breakpoints.Laptop,
+                                value:
+                                  Constants['pageName'] ===
+                                  'Private Equity Firms (PEPF)'
+                                    ? palettes.App.Orange
+                                    : palettes.Brand.Primary,
+                              },
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                        title={'PEPF'}
+                      />
+                      {/* Text 4 */}
+                      <Text
+                        accessible={true}
+                        {...GlobalStyles.TextStyles(theme)['screen_title']
+                          .props}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.TextStyles(theme)['screen_title']
+                              .style,
+                            {
+                              alignSelf: {
+                                minWidth: Breakpoints.Laptop,
+                                value: 'center',
+                              },
+                              color: {
+                                minWidth: Breakpoints.Laptop,
+                                value: theme.colors.foreground.brand,
+                              },
+                              fontFamily: {
+                                minWidth: Breakpoints.Laptop,
+                                value: 'Quicksand_300Light',
+                              },
+                              fontSize: {
+                                minWidth: Breakpoints.Laptop,
+                                value: 35,
+                              },
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {'|'}
+                      </Text>
+                    </View>
+                  )}
+                </>
+                {/* View 3 */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    { alignItems: 'stretch', justifyContent: 'center' },
+                    dimensions.width
+                  )}
+                >
+                  <Pressable
+                    onPress={() => {
+                      try {
+                        navigation.navigate('NewslettersScreen');
+                      } catch (err) {
+                        console.error(err);
+                      }
+                    }}
+                  >
+                    <Image
+                      {...GlobalStyles.ImageStyles(theme)['Image'].props}
+                      resizeMode={'contain'}
+                      source={Images['mainsightsfaviconlogo1024cropped']}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.ImageStyles(theme)['Image'].style,
+                          { height: 50, width: 75 }
+                        ),
+                        dimensions.width
+                      )}
+                    />
+                  </Pressable>
+                </View>
+              </HStack>
+            </Shadow>
+          </View>
+
+          <XanoCollectionApi.FetchGetOneCFSGET
+            cfs_id={selectedID}
+            device={deviceType(
+              Platform.OS === 'web',
+              Platform.OS === 'ios',
+              Platform.OS === 'android'
+            )}
+          >
+            {({ loading, error, data, refetchGetOneCFS }) => {
+              const fetchData = data?.json;
+              if (loading) {
+                return <LoadingBlock />;
+              }
+
+              if (error || data?.status < 200 || data?.status >= 300) {
+                return <ActivityIndicator />;
+              }
+
+              return (
+                <SimpleStyleScrollView
+                  bounces={true}
+                  horizontal={false}
+                  keyboardShouldPersistTaps={'never'}
+                  nestedScrollEnabled={false}
+                  showsHorizontalScrollIndicator={false}
+                  showsVerticalScrollIndicator={false}
+                  style={StyleSheet.applyWidth(
+                    {
+                      alignItems: 'center',
+                      height: '100%',
+                      marginTop: [
+                        { minWidth: Breakpoints.Mobile, value: 65 },
+                        { minWidth: Breakpoints.Desktop, value: 85 },
+                      ],
+                      paddingBottom: 65,
+                      position: 'absolute',
+                      width: '99.9%',
+                    },
+                    dimensions.width
+                  )}
+                >
+                  {/* View 2 */}
+                  <View
+                    style={StyleSheet.applyWidth(
+                      { maxWidth: 1200, width: '100%' },
+                      dimensions.width
+                    )}
+                  >
+                    <>
+                      {!(dimensions.width >= Breakpoints.Laptop) ? null : (
+                        <H5
+                          selectable={false}
+                          {...GlobalStyles.H5Styles(theme)['H5'].props}
+                          style={StyleSheet.applyWidth(
+                            StyleSheet.compose(
+                              GlobalStyles.H5Styles(theme)['H5'].style,
+                              {
+                                fontFamily: 'Quicksand_600SemiBold',
+                                fontSize: 25,
+                                marginBottom: 20,
+                                marginTop: [
+                                  { minWidth: Breakpoints.Mobile, value: 0 },
+                                  { minWidth: Breakpoints.Laptop, value: 20 },
+                                ],
+                                paddingLeft: 5,
+                                textDecorationLine: 'none',
+                              }
+                            ),
+                            dimensions.width
+                          )}
+                        >
+                          {'Company for Sale details'}
+                        </H5>
+                      )}
+                    </>
+                    <LinearGradient
+                      endX={100}
+                      endY={100}
+                      startX={0}
+                      startY={0}
+                      {...GlobalStyles.LinearGradientStyles(theme)[
+                        'Linear Gradient'
+                      ].props}
+                      color1={theme.colors.text.strong}
+                      color2={theme.colors.branding.primary}
+                      color3={null}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.LinearGradientStyles(theme)[
+                            'Linear Gradient'
+                          ].style,
+                          {
+                            borderColor: null,
+                            borderRadius: null,
+                            borderWidth: null,
+                            gap: 8,
+                            margin: null,
+                            marginBottom: 20,
+                            padding: 10,
+                            width: '100%',
+                          }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      <View
+                        style={StyleSheet.applyWidth(
+                          { flexDirection: 'row', gap: 8, width: '100%' },
+                          dimensions.width
+                        )}
+                      >
+                        <View
+                          style={StyleSheet.applyWidth(
+                            { width: 100 },
+                            dimensions.width
+                          )}
+                        >
+                          <Text
+                            accessible={true}
+                            {...GlobalStyles.TextStyles(theme)['screen_title']
+                              .props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TextStyles(theme)['screen_title']
+                                  .style,
+                                {
+                                  color: palettes.Brand['Strong Inverse'],
+                                  fontFamily: 'Quicksand_500Medium',
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            {'Target:'}
+                          </Text>
+                        </View>
+                        {/* View 2 */}
+                        <View
+                          style={StyleSheet.applyWidth(
+                            { flex: 1 },
+                            dimensions.width
+                          )}
+                        >
+                          <Text
+                            accessible={true}
+                            {...GlobalStyles.TextStyles(theme)['screen_title']
+                              .props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TextStyles(theme)['screen_title']
+                                  .style,
+                                {
+                                  color: palettes.Brand['Strong Inverse'],
+                                  fontFamily: 'Quicksand_500Medium',
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            {fetchData?.company}
+                          </Text>
+                        </View>
+                      </View>
+                      {/* View 2 */}
+                      <View
+                        style={StyleSheet.applyWidth(
+                          { flexDirection: 'row', gap: 8, width: '100%' },
+                          dimensions.width
+                        )}
+                      >
+                        <View
+                          style={StyleSheet.applyWidth(
+                            { width: 100 },
+                            dimensions.width
+                          )}
+                        >
+                          <Text
+                            accessible={true}
+                            {...GlobalStyles.TextStyles(theme)['screen_title']
+                              .props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TextStyles(theme)['screen_title']
+                                  .style,
+                                {
+                                  color: palettes.Brand['Strong Inverse'],
+                                  fontFamily: 'Quicksand_500Medium',
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            {'Advisor:'}
+                          </Text>
+                        </View>
+                        {/* View 2 */}
+                        <View
+                          style={StyleSheet.applyWidth(
+                            { flex: 1 },
+                            dimensions.width
+                          )}
+                        >
+                          <Text
+                            accessible={true}
+                            {...GlobalStyles.TextStyles(theme)['screen_title']
+                              .props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TextStyles(theme)['screen_title']
+                                  .style,
+                                {
+                                  color: palettes.Brand['Strong Inverse'],
+                                  fontFamily: 'Quicksand_500Medium',
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            {fetchData?._advisors}
+                          </Text>
+                        </View>
+                      </View>
+                      {/* View 9 */}
+                      <View
+                        style={StyleSheet.applyWidth(
+                          { flexDirection: 'row', gap: 8, width: '100%' },
+                          dimensions.width
+                        )}
+                      >
+                        <View
+                          style={StyleSheet.applyWidth(
+                            { width: 100 },
+                            dimensions.width
+                          )}
+                        >
+                          <Text
+                            accessible={true}
+                            {...GlobalStyles.TextStyles(theme)['screen_title']
+                              .props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TextStyles(theme)['screen_title']
+                                  .style,
+                                {
+                                  color: palettes.Brand['Strong Inverse'],
+                                  fontFamily: 'Quicksand_500Medium',
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            {'Owners:'}
+                          </Text>
+                        </View>
+                        {/* View 2 */}
+                        <View
+                          style={StyleSheet.applyWidth(
+                            { flex: 1 },
+                            dimensions.width
+                          )}
+                        >
+                          <Text
+                            accessible={true}
+                            {...GlobalStyles.TextStyles(theme)['screen_title']
+                              .props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TextStyles(theme)['screen_title']
+                                  .style,
+                                {
+                                  color: palettes.Brand['Strong Inverse'],
+                                  fontFamily: 'Quicksand_500Medium',
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            {fetchData?._ownersList}
+                          </Text>
+                        </View>
+                      </View>
+                      {/* View 10 */}
+                      <View
+                        style={StyleSheet.applyWidth(
+                          { flexDirection: 'row', gap: 8, width: '100%' },
+                          dimensions.width
+                        )}
+                      >
+                        <View
+                          style={StyleSheet.applyWidth(
+                            { width: 100 },
+                            dimensions.width
+                          )}
+                        >
+                          <Text
+                            accessible={true}
+                            {...GlobalStyles.TextStyles(theme)['screen_title']
+                              .props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TextStyles(theme)['screen_title']
+                                  .style,
+                                {
+                                  color: palettes.Brand['Strong Inverse'],
+                                  fontFamily: 'Quicksand_500Medium',
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            {'Org. source:'}
+                          </Text>
+                        </View>
+                        {/* View 2 */}
+                        <View
+                          style={StyleSheet.applyWidth(
+                            { flex: 1 },
+                            dimensions.width
+                          )}
+                        >
+                          <Text
+                            accessible={true}
+                            {...GlobalStyles.TextStyles(theme)['screen_title']
+                              .props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TextStyles(theme)['screen_title']
+                                  .style,
+                                {
+                                  color: palettes.Brand['Strong Inverse'],
+                                  fontFamily: 'Quicksand_500Medium',
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            {fetchData?.source}
+                          </Text>
+                        </View>
+                      </View>
+                      {/* View 3 */}
+                      <View
+                        style={StyleSheet.applyWidth(
+                          { flexDirection: 'row', gap: 8, width: '100%' },
+                          dimensions.width
+                        )}
+                      >
+                        <View
+                          style={StyleSheet.applyWidth(
+                            { width: 100 },
+                            dimensions.width
+                          )}
+                        >
+                          <Text
+                            accessible={true}
+                            {...GlobalStyles.TextStyles(theme)['screen_title']
+                              .props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TextStyles(theme)['screen_title']
+                                  .style,
+                                {
+                                  color: palettes.Brand['Strong Inverse'],
+                                  fontFamily: 'Quicksand_500Medium',
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            {'Stage:'}
+                          </Text>
+                        </View>
+                        {/* View 2 */}
+                        <View
+                          style={StyleSheet.applyWidth(
+                            { flex: 1 },
+                            dimensions.width
+                          )}
+                        >
+                          <Text
+                            accessible={true}
+                            {...GlobalStyles.TextStyles(theme)['screen_title']
+                              .props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TextStyles(theme)['screen_title']
+                                  .style,
+                                {
+                                  color: palettes.Brand['Strong Inverse'],
+                                  fontFamily: 'Quicksand_500Medium',
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            {fetchData?.stage}
+                          </Text>
+                        </View>
+                      </View>
+                      {/* View 4 */}
+                      <View
+                        style={StyleSheet.applyWidth(
+                          { flexDirection: 'row', gap: 8, width: '100%' },
+                          dimensions.width
+                        )}
+                      >
+                        <View
+                          style={StyleSheet.applyWidth(
+                            { width: 100 },
+                            dimensions.width
+                          )}
+                        >
+                          <Text
+                            accessible={true}
+                            {...GlobalStyles.TextStyles(theme)['screen_title']
+                              .props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TextStyles(theme)['screen_title']
+                                  .style,
+                                {
+                                  color: palettes.Brand['Strong Inverse'],
+                                  fontFamily: 'Quicksand_500Medium',
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            {'Revenue:'}
+                          </Text>
+                        </View>
+                        {/* View 2 */}
+                        <View
+                          style={StyleSheet.applyWidth(
+                            { flex: 1 },
+                            dimensions.width
+                          )}
+                        >
+                          <Text
+                            accessible={true}
+                            {...GlobalStyles.TextStyles(theme)['screen_title']
+                              .props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TextStyles(theme)['screen_title']
+                                  .style,
+                                {
+                                  color: palettes.Brand['Strong Inverse'],
+                                  fontFamily: 'Quicksand_500Medium',
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            {fetchData?.revenue_eur}
+                          </Text>
+                        </View>
+                      </View>
+                      {/* View 5 */}
+                      <View
+                        style={StyleSheet.applyWidth(
+                          { flexDirection: 'row', gap: 8, width: '100%' },
+                          dimensions.width
+                        )}
+                      >
+                        <View
+                          style={StyleSheet.applyWidth(
+                            { width: 100 },
+                            dimensions.width
+                          )}
+                        >
+                          <Text
+                            accessible={true}
+                            {...GlobalStyles.TextStyles(theme)['screen_title']
+                              .props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TextStyles(theme)['screen_title']
+                                  .style,
+                                {
+                                  color: palettes.Brand['Strong Inverse'],
+                                  fontFamily: 'Quicksand_500Medium',
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            {'EBITDA:'}
+                          </Text>
+                        </View>
+                        {/* View 2 */}
+                        <View
+                          style={StyleSheet.applyWidth(
+                            { flex: 1 },
+                            dimensions.width
+                          )}
+                        >
+                          <Text
+                            accessible={true}
+                            {...GlobalStyles.TextStyles(theme)['screen_title']
+                              .props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TextStyles(theme)['screen_title']
+                                  .style,
+                                {
+                                  color: palettes.Brand['Strong Inverse'],
+                                  fontFamily: 'Quicksand_500Medium',
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            {fetchData?.ebitda_eur}
+                          </Text>
+                        </View>
+                      </View>
+                      {/* View 6 */}
+                      <View
+                        style={StyleSheet.applyWidth(
+                          { flexDirection: 'row', gap: 8, width: '100%' },
+                          dimensions.width
+                        )}
+                      >
+                        <View
+                          style={StyleSheet.applyWidth(
+                            { width: 100 },
+                            dimensions.width
+                          )}
+                        >
+                          <Text
+                            accessible={true}
+                            {...GlobalStyles.TextStyles(theme)['screen_title']
+                              .props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TextStyles(theme)['screen_title']
+                                  .style,
+                                {
+                                  color: palettes.Brand['Strong Inverse'],
+                                  fontFamily: 'Quicksand_500Medium',
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            {'Fiscal year:'}
+                          </Text>
+                        </View>
+                        {/* View 2 */}
+                        <View
+                          style={StyleSheet.applyWidth(
+                            { flex: 1 },
+                            dimensions.width
+                          )}
+                        >
+                          <Text
+                            accessible={true}
+                            {...GlobalStyles.TextStyles(theme)['screen_title']
+                              .props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TextStyles(theme)['screen_title']
+                                  .style,
+                                {
+                                  color: palettes.Brand['Strong Inverse'],
+                                  fontFamily: 'Quicksand_500Medium',
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            {fetchData?.fy_end}
+                          </Text>
+                        </View>
+                      </View>
+                      {/* View 7 */}
+                      <View
+                        style={StyleSheet.applyWidth(
+                          { flexDirection: 'row', gap: 8, width: '100%' },
+                          dimensions.width
+                        )}
+                      >
+                        <View
+                          style={StyleSheet.applyWidth(
+                            { width: 100 },
+                            dimensions.width
+                          )}
+                        >
+                          <Text
+                            accessible={true}
+                            {...GlobalStyles.TextStyles(theme)['screen_title']
+                              .props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TextStyles(theme)['screen_title']
+                                  .style,
+                                {
+                                  color: palettes.Brand['Strong Inverse'],
+                                  fontFamily: 'Quicksand_500Medium',
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            {'GICS:'}
+                          </Text>
+                        </View>
+                        {/* View 2 */}
+                        <View
+                          style={StyleSheet.applyWidth(
+                            { flex: 1 },
+                            dimensions.width
+                          )}
+                        >
+                          <Text
+                            accessible={true}
+                            {...GlobalStyles.TextStyles(theme)['screen_title']
+                              .props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TextStyles(theme)['screen_title']
+                                  .style,
+                                {
+                                  color: palettes.Brand['Strong Inverse'],
+                                  fontFamily: 'Quicksand_500Medium',
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            {fetchData?._gics?.GICS_Industry}
+                            {' - '}
+                            {fetchData?._gics?.GICS_Sub_Industry}
+                          </Text>
+                        </View>
+                      </View>
+                      {/* View 8 */}
+                      <View
+                        style={StyleSheet.applyWidth(
+                          { flexDirection: 'row', gap: 8, width: '100%' },
+                          dimensions.width
+                        )}
+                      >
+                        <View
+                          style={StyleSheet.applyWidth(
+                            { width: 100 },
+                            dimensions.width
+                          )}
+                        >
+                          <Text
+                            accessible={true}
+                            {...GlobalStyles.TextStyles(theme)['screen_title']
+                              .props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TextStyles(theme)['screen_title']
+                                  .style,
+                                {
+                                  color: palettes.Brand['Strong Inverse'],
+                                  fontFamily: 'Quicksand_500Medium',
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            {'Country:'}
+                          </Text>
+                        </View>
+                        {/* View 2 */}
+                        <View
+                          style={StyleSheet.applyWidth(
+                            { flex: 1 },
+                            dimensions.width
+                          )}
+                        >
+                          <Text
+                            accessible={true}
+                            {...GlobalStyles.TextStyles(theme)['screen_title']
+                              .props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TextStyles(theme)['screen_title']
+                                  .style,
+                                {
+                                  color: palettes.Brand['Strong Inverse'],
+                                  fontFamily: 'Quicksand_500Medium',
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            {fetchData?.country}
+                          </Text>
+                        </View>
+                      </View>
+                    </LinearGradient>
+                  </View>
+                  <>
+                    {!fetchData?._main_event ? null : (
+                      <View
+                        style={StyleSheet.applyWidth(
+                          {
+                            maxWidth: 1200,
+                            padding: 10,
+                            paddingBottom: 40,
+                            width: '100%',
+                          },
+                          dimensions.width
+                        )}
+                      >
+                        {/* Text 3 */}
+                        <Text
+                          accessible={true}
+                          {...GlobalStyles.TextStyles(theme)['screen_title']
+                            .props}
+                          style={StyleSheet.applyWidth(
+                            StyleSheet.compose(
+                              GlobalStyles.TextStyles(theme)['screen_title']
+                                .style,
+                              { paddingBottom: 5 }
+                            ),
+                            dimensions.width
+                          )}
+                        >
+                          {'Latest Update:'}
+                        </Text>
+
+                        <H3
+                          selectable={false}
+                          {...GlobalStyles.H3Styles(theme)['H3'].props}
+                          style={StyleSheet.applyWidth(
+                            StyleSheet.compose(
+                              GlobalStyles.H3Styles(theme)['H3'].style,
+                              {
+                                fontFamily: 'Quicksand_700Bold',
+                                fontSize: 20,
+                                marginBottom: 10,
+                                marginTop: 0,
+                              }
+                            ),
+                            dimensions.width
+                          )}
+                        >
+                          {fetchData?._main_event?.headline}
+                        </H3>
+                        <>
+                          {!(fetchData?.event !== 0) ? null : (
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)['screen_title']
+                                .props}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.TextStyles(theme)['screen_title']
+                                    .style,
+                                  {
+                                    color: palettes.App.Orange,
+                                    fontFamily: 'Quicksand_500Medium',
+                                    fontSize: 13,
+                                    marginBottom: 20,
+                                  }
+                                ),
+                                dimensions.width
+                              )}
+                            >
+                              {fetchData?._main_event?.published}
+                              {' ('}
+                              {fetchData?._main_event?.source}
+                              {')'}
+                            </Text>
+                          )}
+                        </>
+                        <View
+                          style={StyleSheet.applyWidth(
+                            { paddingBottom: 40 },
+                            dimensions.width
+                          )}
+                        >
+                          {/* Text 2 */}
+                          <Text
+                            accessible={true}
+                            {...GlobalStyles.TextStyles(theme)['screen_title']
+                              .props}
+                            style={StyleSheet.applyWidth(
+                              GlobalStyles.TextStyles(theme)['screen_title']
+                                .style,
+                              dimensions.width
+                            )}
+                          >
+                            {fetchData?._main_event?.description}
+                          </Text>
+                        </View>
+                      </View>
+                    )}
+                  </>
+                  {/* View 3 */}
+                  <>
+                    {!(
+                      fetchData?.other_events && (fetchData?.other_events)[0]
+                    ) ? null : (
+                      <View
+                        style={StyleSheet.applyWidth(
+                          {
+                            alignContent: 'center',
+                            alignItems: 'center',
+                            marginBottom:
+                              dimensions.width >= Breakpoints.Laptop ? 0 : 65,
+                            paddingBottom: 40,
+                            width: '100%',
+                          },
+                          dimensions.width
+                        )}
+                      >
+                        <View
+                          style={StyleSheet.applyWidth(
+                            {
+                              maxWidth: 1200,
+                              paddingLeft: 10,
+                              paddingRight: 10,
+                              width: '100%',
+                            },
+                            dimensions.width
+                          )}
+                        >
+                          {/* H3 2 */}
+                          <H3
+                            selectable={false}
+                            {...GlobalStyles.H3Styles(theme)['H3'].props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.H3Styles(theme)['H3'].style,
+                                {
+                                  alignSelf: {
+                                    minWidth: Breakpoints.Laptop,
+                                    value: 'flex-start',
+                                  },
+                                  fontFamily: 'Quicksand_700Bold',
+                                  fontSize: 20,
+                                  marginBottom: 10,
+                                  marginTop: 0,
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            {'Other Updates:'}
+                          </H3>
+                        </View>
+                        <SimpleStyleFlatList
+                          data={fetchData?.other_events}
+                          horizontal={false}
+                          inverted={false}
+                          keyExtractor={(listData, index) => listData?.id}
+                          keyboardShouldPersistTaps={'never'}
+                          listKey={'XdML12G9'}
+                          nestedScrollEnabled={false}
+                          numColumns={1}
+                          onEndReached={() => {
+                            const handler = async () => {
+                              console.log('List ON_END_REACHED Start');
+                              let error = null;
+                              try {
+                                console.log(
+                                  'Start ON_END_REACHED:0 CONSOLE_LOG'
+                                );
+                                /* hidden 'Log to Console' action */ console.log(
+                                  'Complete ON_END_REACHED:0 CONSOLE_LOG'
+                                );
+                                console.log(
+                                  'Start ON_END_REACHED:1 CONDITIONAL_STOP'
+                                );
+                                if (nextPage > lastPage) {
+                                  return console.log(
+                                    'Complete ON_END_REACHED:1 CONDITIONAL_STOP'
+                                  );
+                                } else {
+                                  console.log(
+                                    'Skipped ON_END_REACHED:1 CONDITIONAL_STOP: condition not met'
+                                  );
+                                }
+                                console.log(
+                                  'Start ON_END_REACHED:2 SET_VARIABLE'
+                                );
+                                const value7cAPyGEK = parseInt(
+                                  nextPage + 1,
+                                  10
+                                );
+                                setNextPage(value7cAPyGEK);
+                                const nextPageSet = value7cAPyGEK;
+                                console.log(
+                                  'Complete ON_END_REACHED:2 SET_VARIABLE'
+                                );
+                                console.log(
+                                  'Start ON_END_REACHED:3 CONSOLE_LOG'
+                                );
+                                console.log(nextPage);
+                                console.log(
+                                  'Complete ON_END_REACHED:3 CONSOLE_LOG'
+                                );
+                                console.log(
+                                  'Start ON_END_REACHED:4 FETCH_REQUEST'
+                                );
+                                const newData = (
+                                  await XanoCollectionApi.getAllEventsGET(
+                                    Constants,
+                                    {
+                                      countryIn: country,
+                                      device: 'ios',
+                                      eventTypeIn: eventType,
+                                      keyword: keywordSearch,
+                                      page: nextPage,
+                                      region_in: 'Nordic',
+                                      sectorIn: sector,
+                                      sourceType_in: [],
+                                    }
+                                  )
+                                )?.json;
+                                console.log(
+                                  'Complete ON_END_REACHED:4 FETCH_REQUEST',
+                                  { newData }
+                                );
+                                console.log(
+                                  'Start ON_END_REACHED:5 SET_VARIABLE'
+                                );
+                                setEventItems(
+                                  eventItems.concat(newData?.items)
+                                );
+                                console.log(
+                                  'Complete ON_END_REACHED:5 SET_VARIABLE'
+                                );
+                                console.log(
+                                  'Start ON_END_REACHED:6 SET_VARIABLE'
+                                );
+                                setLastPage(newData?.pageTotal);
+                                console.log(
+                                  'Complete ON_END_REACHED:6 SET_VARIABLE'
+                                );
+                              } catch (err) {
+                                console.error(err);
+                                error = err.message ?? err;
+                              }
+                              console.log(
+                                'List ON_END_REACHED Complete',
+                                error ? { error } : 'no error'
+                              );
+                            };
+                            handler();
+                          }}
+                          renderItem={({ item, index }) => {
+                            const listData = item;
+                            return (
+                              <View
+                                style={StyleSheet.applyWidth(
+                                  {
+                                    flex: {
+                                      minWidth: Breakpoints.Laptop,
+                                      value: 1,
+                                    },
+                                  },
+                                  dimensions.width
+                                )}
+                              >
+                                <Touchable
+                                  onPress={() => {
+                                    try {
+                                      navigation.navigate(
+                                        'EventDetailsScreen',
+                                        { event_id: listData?.id }
+                                      );
+                                      setShowModal(false);
+                                    } catch (err) {
+                                      console.error(err);
+                                    }
+                                  }}
+                                >
+                                  <View
+                                    style={StyleSheet.applyWidth(
+                                      {
+                                        borderBottomWidth: 0.5,
+                                        borderColor: theme.colors.text.light,
+                                        flexWrap: {
+                                          minWidth: Breakpoints.Laptop,
+                                          value: 'nowrap',
+                                        },
+                                        paddingBottom: 5,
+                                        paddingTop: 5,
+                                      },
+                                      dimensions.width
+                                    )}
+                                  >
+                                    <H6
+                                      selectable={false}
+                                      {...GlobalStyles.H6Styles(theme)['H6']
+                                        .props}
+                                      style={StyleSheet.applyWidth(
+                                        StyleSheet.compose(
+                                          GlobalStyles.H6Styles(theme)['H6']
+                                            .style,
+                                          {
+                                            fontFamily: 'Quicksand_700Bold',
+                                            fontSize: [
+                                              {
+                                                minWidth: Breakpoints.Laptop,
+                                                value: 14,
+                                              },
+                                              {
+                                                minWidth: Breakpoints.Mobile,
+                                                value: 14,
+                                              },
+                                            ],
+                                            margin: 0,
+                                          }
+                                        ),
+                                        dimensions.width
+                                      )}
+                                    >
+                                      {listData?.headline}
+                                    </H6>
+                                    <>
+                                      {!(fetchData?.event !== 0) ? null : (
+                                        <Text
+                                          accessible={true}
+                                          {...GlobalStyles.TextStyles(theme)[
+                                            'screen_title'
+                                          ].props}
+                                          style={StyleSheet.applyWidth(
+                                            StyleSheet.compose(
+                                              GlobalStyles.TextStyles(theme)[
+                                                'screen_title'
+                                              ].style,
+                                              {
+                                                fontFamily:
+                                                  'Quicksand_400Regular',
+                                                fontSize: [
+                                                  {
+                                                    minWidth:
+                                                      Breakpoints.Laptop,
+                                                    value: 12,
+                                                  },
+                                                  {
+                                                    minWidth:
+                                                      Breakpoints.Mobile,
+                                                    value: 12,
+                                                  },
+                                                ],
+                                                marginTop: 4,
+                                              }
+                                            ),
+                                            dimensions.width
+                                          )}
+                                        >
+                                          {DateUtils.format(
+                                            listData?.published,
+                                            'd/m/Y'
+                                          )}
+                                          {' | Source: '}
+                                          {listData?.source}
+                                        </Text>
+                                      )}
+                                    </>
+                                  </View>
+                                </Touchable>
+                              </View>
+                            );
+                          }}
+                          onEndReachedThreshold={0.2}
+                          showsHorizontalScrollIndicator={false}
+                          showsVerticalScrollIndicator={false}
+                          style={StyleSheet.applyWidth(
+                            {
+                              gap: { minWidth: Breakpoints.Laptop, value: 5 },
+                              maxHeight: dimensions.height - 250,
+                              maxWidth: 1200,
+                              paddingLeft: 10,
+                              paddingRight: 10,
+                              width: '100%',
+                            },
+                            dimensions.width
+                          )}
+                        />
+                      </View>
+                    )}
+                  </>
+                </SimpleStyleScrollView>
+              );
+            }}
+          </XanoCollectionApi.FetchGetOneCFSGET>
+        </View>
+      </Modal>
     </ScreenContainer>
   );
 };

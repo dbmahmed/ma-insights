@@ -17,6 +17,7 @@ import { useIsFocused } from '@react-navigation/native';
 import {
   ActivityIndicator,
   Image,
+  Platform,
   RefreshControl,
   Text,
   View,
@@ -26,6 +27,7 @@ import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
 import CustomBottomNavBlock from '../components/CustomBottomNavBlock';
 import CustomHeaderBlock from '../components/CustomHeaderBlock';
+import EventDetailsModalBlock from '../components/EventDetailsModalBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import Images from '../config/Images';
 import assessAccess from '../global-functions/assessAccess';
@@ -58,6 +60,7 @@ const NewsletterDetailsScreen = props => {
   const [nordic_nl_section_4, setNordic_nl_section_4] = React.useState(
     'nordic_nl_section_4'
   );
+  const [selectedID, setSelectedID] = React.useState(0);
   const [refreshingdAZY73yw, setRefreshingdAZY73yw] = React.useState(false);
   const isFocused = useIsFocused();
   React.useEffect(() => {
@@ -317,7 +320,6 @@ const NewsletterDetailsScreen = props => {
             <>
               {!(has_access === true) ? null : (
                 <SimpleStyleScrollView
-                  bounces={true}
                   horizontal={false}
                   keyboardShouldPersistTaps={'never'}
                   nestedScrollEnabled={false}
@@ -339,16 +341,21 @@ const NewsletterDetailsScreen = props => {
                       }}
                     />
                   }
+                  bounces={false}
                   showsHorizontalScrollIndicator={false}
                   showsVerticalScrollIndicator={false}
                   style={StyleSheet.applyWidth(
                     {
                       alignItems: 'center',
                       height: '100%',
-                      marginBottom: 65,
-                      marginTop: 65,
+                      marginTop: [
+                        { minWidth: Breakpoints.Mobile, value: 65 },
+                        {
+                          minWidth: Breakpoints.Mobile,
+                          value: Platform.OS === 'web' ? 0 : 65,
+                        },
+                      ],
                       maxHeight: dimensions.height - 67,
-                      position: 'absolute',
                       width: '100%',
                     },
                     dimensions.width
@@ -1659,10 +1666,8 @@ const NewsletterDetailsScreen = props => {
                                         <Pressable
                                           onPress={() => {
                                             try {
-                                              navigation.navigate(
-                                                'EventDetailsScreen',
-                                                { event_id: listData?.id }
-                                              );
+                                              /* hidden 'Navigate' action */
+                                              setSelectedID(listData?.id);
                                             } catch (err) {
                                               console.error(err);
                                             }
@@ -1898,10 +1903,8 @@ const NewsletterDetailsScreen = props => {
                                         <Pressable
                                           onPress={() => {
                                             try {
-                                              navigation.navigate(
-                                                'EventDetailsScreen',
-                                                { event_id: listData?.id }
-                                              );
+                                              /* hidden 'Navigate' action */
+                                              setSelectedID(listData?.id);
                                             } catch (err) {
                                               console.error(err);
                                             }
@@ -2125,10 +2128,8 @@ const NewsletterDetailsScreen = props => {
                                         <Pressable
                                           onPress={() => {
                                             try {
-                                              navigation.navigate(
-                                                'EventDetailsScreen',
-                                                { event_id: listData?.id }
-                                              );
+                                              /* hidden 'Navigate' action */
+                                              setSelectedID(listData?.id);
                                             } catch (err) {
                                               console.error(err);
                                             }
@@ -2351,10 +2352,8 @@ const NewsletterDetailsScreen = props => {
                                         <Pressable
                                           onPress={() => {
                                             try {
-                                              navigation.navigate(
-                                                'EventDetailsScreen',
-                                                { event_id: listData?.id }
-                                              );
+                                              /* hidden 'Navigate' action */
+                                              setSelectedID(listData?.id);
                                             } catch (err) {
                                               console.error(err);
                                             }
@@ -2632,10 +2631,8 @@ const NewsletterDetailsScreen = props => {
                                               <Pressable
                                                 onPress={() => {
                                                   try {
-                                                    navigation.navigate(
-                                                      'EventDetailsScreen',
-                                                      { event_id: listData?.id }
-                                                    );
+                                                    /* hidden 'Navigate' action */
+                                                    setSelectedID(listData?.id);
                                                   } catch (err) {
                                                     console.error(err);
                                                   }
@@ -2901,10 +2898,8 @@ const NewsletterDetailsScreen = props => {
                                             <Pressable
                                               onPress={() => {
                                                 try {
-                                                  navigation.navigate(
-                                                    'EventDetailsScreen',
-                                                    { event_id: listData?.id }
-                                                  );
+                                                  /* hidden 'Navigate' action */
+                                                  setSelectedID(listData?.id);
                                                 } catch (err) {
                                                   console.error(err);
                                                 }
@@ -3161,10 +3156,8 @@ const NewsletterDetailsScreen = props => {
                                             <Pressable
                                               onPress={() => {
                                                 try {
-                                                  navigation.navigate(
-                                                    'EventDetailsScreen',
-                                                    { event_id: listData?.id }
-                                                  );
+                                                  /* hidden 'Navigate' action */
+                                                  setSelectedID(listData?.id);
                                                 } catch (err) {
                                                   console.error(err);
                                                 }
@@ -3338,6 +3331,14 @@ const NewsletterDetailsScreen = props => {
         }}
       </XanoCollectionApi.FetchNewsletterEachGET>
       <CustomBottomNavBlock />
+      <>
+        {!selectedID ? null : (
+          <EventDetailsModalBlock
+            setViewingEventId={viewingEventId => setSelectedID(viewingEventId)}
+            viewingEventId={selectedID}
+          />
+        )}
+      </>
     </ScreenContainer>
   );
 };
