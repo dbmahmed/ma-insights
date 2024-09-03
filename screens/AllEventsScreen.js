@@ -968,8 +968,6 @@ const AllEventsScreen = props => {
                                       dimensions.width
                                     )}
                                   >
-                                    {index}
-                                    {' idx '}
                                     {listData?.published}
                                     {' | Source: '}
                                     {listData?.source}
@@ -1311,8 +1309,6 @@ const AllEventsScreen = props => {
                                       dimensions.width
                                     )}
                                   >
-                                    {index}
-                                    {' idx '}
                                     {listLargerData?.published}
                                     {' | Source: '}
                                     {listLargerData?.source}
