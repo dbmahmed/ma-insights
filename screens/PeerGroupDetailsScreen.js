@@ -14,6 +14,7 @@ import {
   TableCell,
   TableRow,
   TextInput,
+  Touchable,
   withTheme,
 } from '@draftbit/ui';
 import { H3, H5 } from '@expo/html-elements';
@@ -615,22 +616,46 @@ const PeerGroupDetailsScreen = props => {
                                     dimensions.width
                                   )}
                                 >
-                                  <Text
-                                    accessible={true}
-                                    {...GlobalStyles.TextStyles(theme)[
-                                      'screen_title_stock'
-                                    ].props}
-                                    ellipsizeMode={'clip'}
-                                    numberOfLines={1}
+                                  <Touchable
+                                    onPress={() => {
+                                      try {
+                                        navigation.navigate(
+                                          'StockDetailsScreen',
+                                          { stock_id: tableData?.id }
+                                        );
+                                      } catch (err) {
+                                        console.error(err);
+                                      }
+                                    }}
                                     style={StyleSheet.applyWidth(
-                                      GlobalStyles.TextStyles(theme)[
-                                        'screen_title_stock'
-                                      ].style,
+                                      { width: '100%' },
                                       dimensions.width
                                     )}
                                   >
-                                    {tableData?.company_name}
-                                  </Text>
+                                    <View
+                                      style={StyleSheet.applyWidth(
+                                        { alignItems: 'center', width: '100%' },
+                                        dimensions.width
+                                      )}
+                                    >
+                                      <Text
+                                        accessible={true}
+                                        {...GlobalStyles.TextStyles(theme)[
+                                          'screen_title_stock'
+                                        ].props}
+                                        ellipsizeMode={'clip'}
+                                        numberOfLines={1}
+                                        style={StyleSheet.applyWidth(
+                                          GlobalStyles.TextStyles(theme)[
+                                            'screen_title_stock'
+                                          ].style,
+                                          dimensions.width
+                                        )}
+                                      >
+                                        {tableData?.company_name}
+                                      </Text>
+                                    </View>
+                                  </Touchable>
                                 </TableCell>
                                 {/* Table Cell 2 */}
                                 <TableCell

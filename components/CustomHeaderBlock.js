@@ -820,7 +820,8 @@ const CustomHeaderBlock = props => {
                                 {
                                   minWidth: Breakpoints.Laptop,
                                   value:
-                                    Constants['pageName'] === 'All events'
+                                    Constants['pageName'] ===
+                                    'Multiples database'
                                       ? palettes.App.Orange
                                       : palettes.Brand.Strong,
                                 },

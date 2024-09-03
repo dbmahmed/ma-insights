@@ -995,6 +995,7 @@ const CFSDetailsScreen = props => {
                                   page: nextPage,
                                   region_in: 'Nordic',
                                   sectorIn: sector,
+                                  sourceType_in: [],
                                 }
                               )
                             )?.json;

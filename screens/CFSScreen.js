@@ -39,6 +39,7 @@ import removeGlobalScroll from '../global-functions/removeGlobalScroll';
 import resetAccess from '../global-functions/resetAccess';
 import setPadding from '../global-functions/setPadding';
 import transformEuroM from '../global-functions/transformEuroM';
+import transformNumber from '../global-functions/transformNumber';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
@@ -825,7 +826,11 @@ const CFSScreen = props => {
                                     )}
                                   >
                                     {'Advisor: '}
-                                    {advisorEmptyState(listData?._advisors)}
+                                    {transformNumber(
+                                      listData?._advisors,
+                                      undefined,
+                                      undefined
+                                    )}
                                   </Text>
                                   {/* Text 5 */}
                                   <Text

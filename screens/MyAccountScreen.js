@@ -778,10 +778,17 @@ const MyAccountScreen = props => {
                           <Checkbox
                             onPress={newCheckboxValue => {
                               const handler = async () => {
+                                console.log('Checkbox ON_PRESS Start');
+                                let error = null;
                                 try {
-                                  setPushNotificationNordic(newCheckboxValue);
-                                  /* hidden 'Set Variable' action */
+                                  console.log('Start ON_PRESS:0 SET_VARIABLE');
+                                  /* hidden 'Set Variable' action */ console.log(
+                                    'Complete ON_PRESS:0 SET_VARIABLE'
+                                  );
+                                  console.log('Start ON_PRESS:1 WAIT');
                                   await waitUtil({ milliseconds: 100 });
+                                  console.log('Complete ON_PRESS:1 WAIT');
+                                  console.log('Start ON_PRESS:2 FETCH_REQUEST');
                                   (
                                     await xanoCollectionUpdateNotificationPUT.mutateAsync(
                                       {
@@ -792,11 +799,30 @@ const MyAccountScreen = props => {
                                       }
                                     )
                                   )?.json;
-                                  await refetchAuthMe();
-                                  /* hidden 'Set Variable' action */
+                                  console.log(
+                                    'Complete ON_PRESS:2 FETCH_REQUEST'
+                                  );
+                                  console.log('Start ON_PRESS:3 CONSOLE_LOG');
+                                  console.log('Auth me restart');
+                                  console.log(
+                                    'Complete ON_PRESS:3 CONSOLE_LOG'
+                                  );
+                                  console.log('Start ON_PRESS:4 FETCH_REFETCH');
+                                  /* hidden 'Refetch Data' action */ console.log(
+                                    'Complete ON_PRESS:4 FETCH_REFETCH'
+                                  );
+                                  console.log('Start ON_PRESS:5 SET_VARIABLE');
+                                  /* hidden 'Set Variable' action */ console.log(
+                                    'Complete ON_PRESS:5 SET_VARIABLE'
+                                  );
                                 } catch (err) {
                                   console.error(err);
+                                  error = err.message ?? err;
                                 }
+                                console.log(
+                                  'Checkbox ON_PRESS Complete',
+                                  error ? { error } : 'no error'
+                                );
                               };
                               handler();
                             }}
@@ -834,8 +860,8 @@ const MyAccountScreen = props => {
                                       }
                                     )
                                   )?.json;
-                                  await refetchAuthMe();
-                                  setEn_loading(false);
+                                  /* hidden 'Refetch Data' action */
+                                  /* hidden 'Set Variable' action */
                                 } catch (err) {
                                   console.error(err);
                                 }
@@ -917,8 +943,8 @@ const MyAccountScreen = props => {
                                       }
                                     )
                                   )?.json;
-                                  await refetchAuthMe();
-                                  setPd_loading(false);
+                                  /* hidden 'Refetch Data' action */
+                                  /* hidden 'Set Variable' action */
                                 } catch (err) {
                                   console.error(err);
                                 }
@@ -959,8 +985,8 @@ const MyAccountScreen = props => {
                                       }
                                     )
                                   )?.json;
-                                  await refetchAuthMe();
-                                  setEd_loading(false);
+                                  /* hidden 'Refetch Data' action */
+                                  /* hidden 'Set Variable' action */
                                 } catch (err) {
                                   console.error(err);
                                 }

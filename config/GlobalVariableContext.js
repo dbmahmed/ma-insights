@@ -14,7 +14,8 @@ export const DeviceVariables = {
     advisors: false,
     newsletter: true,
   },
-  AUTH_HEADER: '',
+  AUTH_HEADER:
+    'Bearer eyJhbGciOiJBMjU2S1ciLCJlbmMiOiJBMjU2Q0JDLUhTNTEyIiwiemlwIjoiREVGIn0.--i0UUY8vywVxoxQMWCPk6FxqARldLHKskrq4qkfn7nmJ-xvKLQj3f5fyBhcxTljY3KymsaJDSk1FqGrSrWgtWYo2sgC5oRi.C-5lcw3vDyUlu4L1etG9vQ.JXWaHJX34FD0y3n2b0eISTD7nUUtgXOu2fIkkGZqGw8aQGSTJXvE3rIfSQIm1EDvRtilCK5ciTSEUVR6_G64-r0Fvflh75VYG-eP1QxXYIjxqTAy6_ImrDyOPY67iQSLmVJ4qAsfu2kDunLAf5AOUg.f8ySRqPb9sfD5DpCJOMYYrCUbgEM7d-q2MpvhkIxedI',
   currentScreen: 'Newsletters',
   deviceType: '',
   ME: {
@@ -36,7 +37,7 @@ export const DeviceVariables = {
   screenParamValue: '',
   subPage: false,
   top_nav_pressed: false,
-  __env__: 'Production',
+  __env__: 'Development',
 };
 export const AppVariables = { 'Bearer Token': 'UNSET' };
 const GlobalVariableContext = React.createContext();

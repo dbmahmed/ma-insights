@@ -274,11 +274,20 @@ const MultiplesScreen = props => {
               <Button
                 iconPosition={'left'}
                 onPress={() => {
+                  console.log('Button ON_PRESS Start');
+                  let error = null;
                   try {
-                    navigation.push('AllEventsScreen');
+                    console.log('Start ON_PRESS:0 NAVIGATE');
+                    navigation.navigate('AllEventsScreen');
+                    console.log('Complete ON_PRESS:0 NAVIGATE');
                   } catch (err) {
                     console.error(err);
+                    error = err.message ?? err;
                   }
+                  console.log(
+                    'Button ON_PRESS Complete',
+                    error ? { error } : 'no error'
+                  );
                 }}
                 {...GlobalStyles.ButtonStyles(theme)['Header menu'].props}
                 icon={'AntDesign/left'}

@@ -438,7 +438,16 @@ export const FetchGetAdvisorsGET = ({
 
 export const getAllEventsGET = async (
   Constants,
-  { countryIn, device, eventTypeIn, keyword, page, region_in, sectorIn },
+  {
+    countryIn,
+    device,
+    eventTypeIn,
+    keyword,
+    page,
+    region_in,
+    sectorIn,
+    sourceType_in,
+  },
   handlers = {}
 ) => {
   const paramsDict = {};
@@ -466,6 +475,9 @@ export const getAllEventsGET = async (
   if (device !== undefined) {
     paramsDict['device'] = renderParam(device);
   }
+  if (sourceType_in !== undefined) {
+    paramsDict['sourceType_in'] = renderParam(sourceType_in);
+  }
   const url = `https://xne3-pdiu-8ysm.f2.xano.io/api:abjrBkC8/event${renderQueryString(
     paramsDict
   )}`;
@@ -486,7 +498,7 @@ export const useGetAllEventsGET = (
 ) => {
   const Constants = GlobalVariables.useValues();
   return useQuery(
-    ['Events', args],
+    ['Events solos', args],
     () => getAllEventsGET(Constants, args, handlers),
     {
       refetchInterval,
@@ -506,6 +518,7 @@ export const FetchGetAllEventsGET = ({
   page,
   region_in,
   sectorIn,
+  sourceType_in,
 }) => {
   const Constants = GlobalVariables.useValues();
   const isFocused = useIsFocused();
@@ -517,7 +530,16 @@ export const FetchGetAllEventsGET = ({
     error,
     refetch,
   } = useGetAllEventsGET(
-    { countryIn, device, eventTypeIn, keyword, page, region_in, sectorIn },
+    {
+      countryIn,
+      device,
+      eventTypeIn,
+      keyword,
+      page,
+      region_in,
+      sectorIn,
+      sourceType_in,
+    },
     { refetchInterval, handlers: { onData, ...handlers } }
   );
 

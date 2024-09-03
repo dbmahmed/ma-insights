@@ -462,6 +462,7 @@ const AdvisorDetailsScreen = props => {
                           page: nextPage,
                           region_in: 'Nordic',
                           sectorIn: sector,
+                          sourceType_in: [],
                         })
                       )?.json;
                       console.log('Complete ON_END_REACHED:4 FETCH_REQUEST', {

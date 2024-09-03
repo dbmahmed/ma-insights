@@ -99,6 +99,7 @@ const AllEventsScreen = props => {
   const [transaction, setTransaction] = React.useState(false);
   const [utilities, setUtilities] = React.useState(false);
   const [refreshingAwqPzJqX, setRefreshingAwqPzJqX] = React.useState(false);
+  const [refreshinge5MZS9Mp, setRefreshinge5MZS9Mp] = React.useState(false);
   const toggleAllFilters = flag => {
     setFuture_opportunity(flag);
     setAcq_agenda(flag);
@@ -173,8 +174,8 @@ const AllEventsScreen = props => {
     const sourceType = [];
 
     NKP_Proprietary && sourceType.push('NKP Proprietary');
-    Press_Release && sourceType.push('Press Release');
-    Media_and_Other && sourceType.push('Media & Other');
+    Press_Release && sourceType.push('Publicly Confirmed');
+    Media_and_Other && sourceType.push('Media Intelligence');
 
     setSourceType(() => sourceType);
 
@@ -219,8 +220,8 @@ const AllEventsScreen = props => {
     setHealth_care((sector || []).includes('Health Care'));
     console.log(sourceType);
     setNKP_Proprietary((sourceType || []).includes('NKP Proprietary'));
-    setPress_Release((sourceType || []).includes('Press Release'));
-    setMedia_and_Other((sourceType || []).includes('Media & Other'));
+    setPress_Release((sourceType || []).includes('Publicly Confirmed'));
+    setMedia_and_Other((sourceType || []).includes('Media Intelligence'));
 
     setNordic((regions || []).includes('Nordic'));
     setRow((regions || []).includes('RoW'));
@@ -232,6 +233,7 @@ const AllEventsScreen = props => {
       if (!isFocused) {
         return;
       }
+      console.log('On screen focus');
       removeGlobalScroll();
       setGlobalVariableValue({
         key: 'currentScreen',
@@ -282,6 +284,7 @@ const AllEventsScreen = props => {
       console.error(err);
     }
   }, [isFocused]);
+  const listAwqPzJqXRef = React.useRef();
 
   return (
     <ScreenContainer
@@ -365,7 +368,7 @@ const AllEventsScreen = props => {
               iconPosition={'left'}
               onPress={() => {
                 try {
-                  navigation.push('MultiplesScreen');
+                  navigation.navigate('MultiplesScreen');
                 } catch (err) {
                   console.error(err);
                 }
@@ -483,7 +486,10 @@ const AllEventsScreen = props => {
                   {
                     alignItems: 'center',
                     backgroundColor:
-                      eventType?.length || country?.length || sector?.length
+                      eventType?.length ||
+                      country?.length ||
+                      sector?.length ||
+                      sourceType?.length
                         ? palettes.App.Orange
                         : palettes.Brand.Background,
                     borderRadius: 50,
@@ -504,7 +510,7 @@ const AllEventsScreen = props => {
                     }
                   }}
                   color={
-                    (eventType[0] || country[0] || sector[0]
+                    (eventType[0] || country[0] || sector[0] || sourceType[0]
                       ? palettes.Brand['Strong Inverse']
                       : palettes.App.Strong2) ?? palettes.App.Strong2
                   }
@@ -517,27 +523,23 @@ const AllEventsScreen = props => {
           <Spacer left={8} right={8} bottom={2.5} top={2.5} />
         </View>
       </View>
-
+      {/* Fetch 2 */}
       <XanoCollectionApi.FetchGetAllEventsGET
         countryIn={country}
-        device={deviceType(
-          Platform.OS === 'web',
-          Platform.OS === 'ios',
-          Platform.OS === 'android'
-        )}
+        device={'web'}
         eventTypeIn={eventType}
         handlers={{
-          on2xx: fetchData => {
+          on2xx: fetch2Data => {
             try {
-              setEventItems(fetchData?.json?.items);
-              setNextPage(fetchData?.json?.nextPage);
-              setLastPage(fetchData?.json?.pageTotal);
+              setEventItems(fetch2Data?.json?.items);
+              setNextPage(fetch2Data?.json?.nextPage);
+              setLastPage(fetch2Data?.json?.pageTotal);
               console.log(nextPage, lastPage);
             } catch (err) {
               console.error(err);
             }
           },
-          on401: fetchData => {
+          on401: fetch2Data => {
             try {
               setGlobalVariableValue({
                 key: 'AUTH_HEADER',
@@ -555,12 +557,13 @@ const AllEventsScreen = props => {
               console.error(err);
             }
           },
-          onData: fetchData => {
+          onData: fetch2Data => {
             try {
-              /* hidden 'Log to Console' action */
-              setNextPage(fetchData?.nextPage);
-              setLastPage(fetchData?.pageTotal);
+              console.log(fetch2Data?.length, 'FETCHDATA ONSCREEN');
+              setNextPage(fetch2Data?.nextPage);
+              setLastPage(fetch2Data?.pageTotal);
               /* hidden 'Set Variable' action */
+              /* hidden 'Scroll To Index' action */
             } catch (err) {
               console.error(err);
             }
@@ -570,9 +573,10 @@ const AllEventsScreen = props => {
         page={1}
         region_in={regions}
         sectorIn={sector}
+        sourceType_in={sourceType}
       >
         {({ loading, error, data, refetchGetAllEvents }) => {
-          const fetchData = data?.json;
+          const fetch2Data = data?.json;
           if (loading) {
             return <LoadingBlock />;
           }
@@ -643,8 +647,8 @@ const AllEventsScreen = props => {
                       dimensions.width
                     )}
                   >
-                    {formatNumber(fetchData?.itemsTotal)}{' '}
-                    {fetchData?.itemsTotal === 1 ? 'event' : 'events'}
+                    {formatNumber(fetch2Data?.itemsTotal)}{' '}
+                    {fetch2Data?.itemsTotal === 1 ? 'event' : 'events'}
                     {' matching filter '}
                     {dimensions.width >= Breakpoints.Tablet
                       ? '(New data is fetched automatically)'
@@ -658,7 +662,7 @@ const AllEventsScreen = props => {
                 inverted={false}
                 keyExtractor={(listData, index) => index}
                 keyboardShouldPersistTaps={'never'}
-                listKey={'AwqPzJqX'}
+                listKey={'e5MZS9Mp'}
                 nestedScrollEnabled={false}
                 numColumns={1}
                 onEndReached={() => {
@@ -680,9 +684,9 @@ const AllEventsScreen = props => {
                         );
                       }
                       console.log('Start ON_END_REACHED:2 SET_VARIABLE');
-                      const value5LnNJ7Yb = parseInt(nextPage + 1, 10);
-                      setNextPage(value5LnNJ7Yb);
-                      const nextPageSet = value5LnNJ7Yb;
+                      const valuerMDKkqA3 = parseInt(nextPage + 1, 10);
+                      setNextPage(valuerMDKkqA3);
+                      const nextPageSet = valuerMDKkqA3;
                       console.log('Complete ON_END_REACHED:2 SET_VARIABLE');
                       console.log('Start ON_END_REACHED:3 CONSOLE_LOG');
                       /* hidden 'Log to Console' action */ console.log(
@@ -702,6 +706,7 @@ const AllEventsScreen = props => {
                           page: nextPage,
                           region_in: 'Nordic',
                           sectorIn: sector,
+                          sourceType_in: sourceType,
                         })
                       )?.json;
                       console.log('Complete ON_END_REACHED:4 FETCH_REQUEST', {
@@ -736,16 +741,16 @@ const AllEventsScreen = props => {
                 }}
                 refreshControl={
                   <RefreshControl
-                    refreshing={refreshingAwqPzJqX}
+                    refreshing={refreshinge5MZS9Mp}
                     onRefresh={() => {
                       const handler = async () => {
                         try {
-                          setRefreshingAwqPzJqX(true);
+                          setRefreshinge5MZS9Mp(true);
                           await refetchGetAllEvents();
-                          setRefreshingAwqPzJqX(false);
+                          setRefreshinge5MZS9Mp(false);
                         } catch (err) {
                           console.error(err);
-                          setRefreshingAwqPzJqX(false);
+                          setRefreshinge5MZS9Mp(false);
                         }
                       };
                       handler();
@@ -946,9 +951,9 @@ const AllEventsScreen = props => {
                     </View>
                   );
                 }}
-                onEndReachedThreshold={0.5}
+                onEndReachedThreshold={0.7}
                 showsHorizontalScrollIndicator={false}
-                showsVerticalScrollIndicator={false}
+                showsVerticalScrollIndicator={true}
                 style={StyleSheet.applyWidth(
                   {
                     alignContent: {
@@ -3367,9 +3372,9 @@ const AllEventsScreen = props => {
                             <Checkbox
                               onCheck={() => {
                                 try {
-                                  const valueEG0JIppY = undefined;
-                                  setNKP_Proprietary(valueEG0JIppY);
-                                  const event = valueEG0JIppY;
+                                  const valueemvJU6D0 = undefined;
+                                  setNKP_Proprietary(valueemvJU6D0);
+                                  const event = valueemvJU6D0;
                                 } catch (err) {
                                   console.error(err);
                                 }

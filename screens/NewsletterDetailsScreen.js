@@ -14,7 +14,13 @@ import {
 } from '@draftbit/ui';
 import { H1, H3, H5 } from '@expo/html-elements';
 import { useIsFocused } from '@react-navigation/native';
-import { ActivityIndicator, Image, Text, View } from 'react-native';
+import {
+  ActivityIndicator,
+  Image,
+  RefreshControl,
+  Text,
+  View,
+} from 'react-native';
 import { Fetch } from 'react-request';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
@@ -52,6 +58,7 @@ const NewsletterDetailsScreen = props => {
   const [nordic_nl_section_4, setNordic_nl_section_4] = React.useState(
     'nordic_nl_section_4'
   );
+  const [refreshingdAZY73yw, setRefreshingdAZY73yw] = React.useState(false);
   const isFocused = useIsFocused();
   React.useEffect(() => {
     try {
@@ -129,7 +136,7 @@ const NewsletterDetailsScreen = props => {
             }
           },
         }}
-        newsletter_id={props.route?.params?.news_id ?? 125}
+        newsletter_id={props.route?.params?.news_id ?? 127}
       >
         {({ loading, error, data, refetchNewsletterEach }) => {
           const fetchData = data?.json;
@@ -274,7 +281,7 @@ const NewsletterDetailsScreen = props => {
                             iconPosition={'left'}
                             onPress={() => {
                               try {
-                                navigation.navigate('RootNavigator');
+                                navigation.navigate('NewslettersScreen');
                               } catch (err) {
                                 console.error(err);
                               }
@@ -314,6 +321,24 @@ const NewsletterDetailsScreen = props => {
                   horizontal={false}
                   keyboardShouldPersistTaps={'never'}
                   nestedScrollEnabled={false}
+                  refreshControl={
+                    <RefreshControl
+                      refreshing={refreshingdAZY73yw}
+                      onRefresh={() => {
+                        const handler = async () => {
+                          try {
+                            setRefreshingdAZY73yw(true);
+                            await refetchNewsletterEach();
+                            setRefreshingdAZY73yw(false);
+                          } catch (err) {
+                            console.error(err);
+                            setRefreshingdAZY73yw(false);
+                          }
+                        };
+                        handler();
+                      }}
+                    />
+                  }
                   showsHorizontalScrollIndicator={false}
                   showsVerticalScrollIndicator={false}
                   style={StyleSheet.applyWidth(
@@ -1112,38 +1137,43 @@ const NewsletterDetailsScreen = props => {
                               {
                                 alignItems: 'flex-start',
                                 flexDirection: 'row',
-                                gap: 8,
                                 justifyContent: 'space-between',
                               },
                               dimensions.width
                             )}
                           >
-                            <Text
-                              accessible={true}
-                              {...GlobalStyles.TextStyles(theme)[
-                                'listed_header_title'
-                              ].props}
+                            {/* Name */}
+                            <View
                               style={StyleSheet.applyWidth(
-                                GlobalStyles.TextStyles(theme)[
-                                  'listed_header_title'
-                                ].style,
+                                { flex: 1 },
                                 dimensions.width
                               )}
                             >
-                              {'Listed comparable'}
-                            </Text>
-
+                              <Text
+                                accessible={true}
+                                {...GlobalStyles.TextStyles(theme)[
+                                  'listed_header_title'
+                                ].props}
+                                style={StyleSheet.applyWidth(
+                                  GlobalStyles.TextStyles(theme)[
+                                    'listed_header_title'
+                                  ].style,
+                                  dimensions.width
+                                )}
+                              >
+                                {'Listed comparable'}
+                              </Text>
+                            </View>
+                            {/* Metrics */}
                             <View
                               style={StyleSheet.applyWidth(
                                 {
+                                  flex: 1.2,
                                   flexDirection: 'row',
-                                  gap: [
-                                    { minWidth: Breakpoints.Mobile, value: 8 },
-                                    {
-                                      minWidth: Breakpoints.BigScreen,
-                                      value: 8,
-                                    },
-                                  ],
+                                  gap: {
+                                    minWidth: Breakpoints.BigScreen,
+                                    value: 8,
+                                  },
                                   justifyContent: {
                                     minWidth: Breakpoints.BigScreen,
                                     value: 'flex-end',
@@ -1152,20 +1182,17 @@ const NewsletterDetailsScreen = props => {
                                 dimensions.width
                               )}
                             >
+                              {/* M1 */}
                               <View
                                 style={StyleSheet.applyWidth(
                                   {
                                     alignItems: 'flex-end',
-                                    width: [
-                                      {
-                                        minWidth: Breakpoints.BigScreen,
-                                        value: 100,
-                                      },
-                                      {
-                                        minWidth: Breakpoints.Mobile,
-                                        value: 100,
-                                      },
-                                    ],
+                                    flex: 1,
+                                    justifyContent: 'center',
+                                    width: {
+                                      minWidth: Breakpoints.BigScreen,
+                                      value: 100,
+                                    },
                                   },
                                   dimensions.width
                                 )}
@@ -1186,6 +1213,7 @@ const NewsletterDetailsScreen = props => {
                                           minWidth: Breakpoints.BigScreen,
                                           value: 'flex-end',
                                         },
+                                        textAlign: 'right',
                                       }
                                     ),
                                     dimensions.width
@@ -1194,16 +1222,13 @@ const NewsletterDetailsScreen = props => {
                                   {'EV/Sales (FY0)'}
                                 </Text>
                               </View>
-                              {/* View 2 */}
+                              {/* M2 */}
                               <View
                                 style={StyleSheet.applyWidth(
                                   {
                                     alignItems: 'flex-end',
                                     alignSelf: 'flex-end',
-                                    width: {
-                                      minWidth: Breakpoints.BigScreen,
-                                      value: 100,
-                                    },
+                                    flex: 1.1,
                                   },
                                   dimensions.width
                                 )}
@@ -1219,12 +1244,7 @@ const NewsletterDetailsScreen = props => {
                                       GlobalStyles.TextStyles(theme)[
                                         'listed_header_title'
                                       ].style,
-                                      {
-                                        alignSelf: {
-                                          minWidth: Breakpoints.BigScreen,
-                                          value: 'flex-start',
-                                        },
-                                      }
+                                      { textAlign: 'right' }
                                     ),
                                     dimensions.width
                                   )}
@@ -1247,116 +1267,130 @@ const NewsletterDetailsScreen = props => {
                             renderItem={({ item, index }) => {
                               const listData = item;
                               return (
-                                <View
-                                  style={StyleSheet.applyWidth(
-                                    {
-                                      alignItems: 'flex-start',
-                                      borderBottomWidth: 0.5,
-                                      borderColor:
-                                        theme.colors.foreground.brand,
-                                      flexDirection: 'row',
-                                      gap: 8,
-                                      justifyContent: 'space-between',
-                                      marginBottom: 4,
-                                    },
-                                    dimensions.width
-                                  )}
-                                >
-                                  <Text
-                                    accessible={true}
-                                    {...GlobalStyles.TextStyles(theme)[
-                                      'screen_title'
-                                    ].props}
-                                    style={StyleSheet.applyWidth(
-                                      GlobalStyles.TextStyles(theme)[
-                                        'screen_title'
-                                      ].style,
-                                      dimensions.width
-                                    )}
-                                  >
-                                    {listData?.company_name}
-                                  </Text>
-
+                                <>
+                                  {/* Row */}
                                   <View
                                     style={StyleSheet.applyWidth(
-                                      { flexDirection: 'row', gap: 8 },
+                                      {
+                                        alignItems: 'flex-start',
+                                        borderBottomWidth: 0.5,
+                                        borderColor:
+                                          theme.colors.foreground.brand,
+                                        flexDirection: 'row',
+                                        justifyContent: 'space-between',
+                                        marginBottom: 4,
+                                      },
                                       dimensions.width
                                     )}
                                   >
+                                    {/* Name */}
                                     <View
                                       style={StyleSheet.applyWidth(
-                                        {
-                                          alignContent: 'flex-end',
-                                          alignSelf: 'flex-end',
-                                          width: 100,
-                                        },
+                                        { flex: 1 },
                                         dimensions.width
                                       )}
                                     >
-                                      {/* Text 2 */}
                                       <Text
                                         accessible={true}
                                         {...GlobalStyles.TextStyles(theme)[
                                           'screen_title'
                                         ].props}
+                                        ellipsizeMode={'tail'}
+                                        numberOfLines={1}
                                         style={StyleSheet.applyWidth(
-                                          StyleSheet.compose(
-                                            GlobalStyles.TextStyles(theme)[
-                                              'screen_title'
-                                            ].style,
-                                            { textAlign: 'right' }
-                                          ),
+                                          GlobalStyles.TextStyles(theme)[
+                                            'screen_title'
+                                          ].style,
                                           dimensions.width
                                         )}
                                       >
-                                        {transformNumber(
-                                          listData?.ev_sales_fy0,
-                                          'x',
-                                          undefined
-                                        )}
+                                        {listData?.company_name}
                                       </Text>
                                     </View>
-                                    {/* View 2 */}
+                                    {/* Metrics */}
                                     <View
                                       style={StyleSheet.applyWidth(
-                                        {
-                                          alignContent: 'flex-end',
-                                          alignSelf: 'flex-end',
-                                          width: 100,
-                                        },
+                                        { flex: 1.2, flexDirection: 'row' },
                                         dimensions.width
                                       )}
                                     >
-                                      <Text
-                                        accessible={true}
-                                        {...GlobalStyles.TextStyles(theme)[
-                                          'screen_title'
-                                        ].props}
+                                      {/* M1 */}
+                                      <View
                                         style={StyleSheet.applyWidth(
-                                          StyleSheet.compose(
-                                            GlobalStyles.TextStyles(theme)[
-                                              'screen_title'
-                                            ].style,
-                                            { textAlign: 'right' }
-                                          ),
+                                          {
+                                            alignContent: 'flex-end',
+                                            alignSelf: 'flex-end',
+                                            flex: 1,
+                                            paddingRight: 12,
+                                          },
                                           dimensions.width
                                         )}
                                       >
-                                        {transformNumber(
-                                          listData?.ev_ebitda_fy0,
-                                          'x',
-                                          undefined
+                                        {/* Text 2 */}
+                                        <Text
+                                          accessible={true}
+                                          {...GlobalStyles.TextStyles(theme)[
+                                            'screen_title'
+                                          ].props}
+                                          style={StyleSheet.applyWidth(
+                                            StyleSheet.compose(
+                                              GlobalStyles.TextStyles(theme)[
+                                                'screen_title'
+                                              ].style,
+                                              { textAlign: 'right' }
+                                            ),
+                                            dimensions.width
+                                          )}
+                                        >
+                                          {transformNumber(
+                                            listData?.ev_sales_fy0,
+                                            'x',
+                                            undefined
+                                          )}
+                                        </Text>
+                                      </View>
+                                      {/* M2 */}
+                                      <View
+                                        style={StyleSheet.applyWidth(
+                                          {
+                                            alignContent: 'flex-end',
+                                            alignSelf: 'flex-end',
+                                            flex: 1,
+                                          },
+                                          dimensions.width
                                         )}
-                                      </Text>
+                                      >
+                                        <Text
+                                          accessible={true}
+                                          {...GlobalStyles.TextStyles(theme)[
+                                            'screen_title'
+                                          ].props}
+                                          style={StyleSheet.applyWidth(
+                                            StyleSheet.compose(
+                                              GlobalStyles.TextStyles(theme)[
+                                                'screen_title'
+                                              ].style,
+                                              { textAlign: 'right' }
+                                            ),
+                                            dimensions.width
+                                          )}
+                                        >
+                                          {transformNumber(
+                                            listData?.ev_ebitda_fy0,
+                                            'x',
+                                            undefined
+                                          )}
+                                        </Text>
+                                      </View>
                                     </View>
                                   </View>
-                                </View>
+                                </>
                               );
                             }}
                             showsHorizontalScrollIndicator={true}
                             showsVerticalScrollIndicator={true}
                           />
-                          {/* View 2 */}
+                          {/* Total */}
                           <View
                             style={StyleSheet.applyWidth(
                               {
@@ -1364,38 +1398,51 @@ const NewsletterDetailsScreen = props => {
                                 flexDirection: 'row',
                                 gap: 8,
                                 justifyContent: 'space-between',
+                                width: '100%',
                               },
                               dimensions.width
                             )}
                           >
-                            <Text
-                              accessible={true}
-                              {...GlobalStyles.TextStyles(theme)['screen_title']
-                                .props}
-                              style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.TextStyles(theme)['screen_title']
-                                    .style,
-                                  { fontFamily: 'Quicksand_700Bold' }
-                                ),
-                                dimensions.width
-                              )}
-                            >
-                              {'Median = '}
-                            </Text>
-
+                            {/* Name */}
                             <View
                               style={StyleSheet.applyWidth(
-                                { flexDirection: 'row', gap: 8 },
+                                { flex: 1 },
                                 dimensions.width
                               )}
                             >
+                              <Text
+                                accessible={true}
+                                {...GlobalStyles.TextStyles(theme)[
+                                  'screen_title'
+                                ].props}
+                                style={StyleSheet.applyWidth(
+                                  StyleSheet.compose(
+                                    GlobalStyles.TextStyles(theme)[
+                                      'screen_title'
+                                    ].style,
+                                    { fontFamily: 'Quicksand_700Bold' }
+                                  ),
+                                  dimensions.width
+                                )}
+                              >
+                                {'Median = '}
+                              </Text>
+                            </View>
+                            {/* Metrics */}
+                            <View
+                              style={StyleSheet.applyWidth(
+                                { flex: 1.2, flexDirection: 'row', gap: 8 },
+                                dimensions.width
+                              )}
+                            >
+                              {/* M1 */}
                               <View
                                 style={StyleSheet.applyWidth(
                                   {
                                     alignContent: 'flex-end',
                                     alignSelf: 'flex-end',
-                                    width: 100,
+                                    flex: 1,
+                                    paddingRight: 12,
                                   },
                                   dimensions.width
                                 )}
@@ -1427,10 +1474,10 @@ const NewsletterDetailsScreen = props => {
                                   )}
                                 </Text>
                               </View>
-                              {/* View 2 */}
+                              {/* M2 */}
                               <View
                                 style={StyleSheet.applyWidth(
-                                  { width: 100 },
+                                  { alignContent: 'flex-end', flex: 1 },
                                   dimensions.width
                                 )}
                               >

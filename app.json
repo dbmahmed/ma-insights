@@ -9,7 +9,7 @@
           "audio"
         ]
       },
-      "buildNumber": "1.171.0",
+      "buildNumber": "1.174.0",
       "isTabletOnly": false,
       "supportsTablet": true,
       "bundleIdentifier": "io.mainsights.mainsights",
@@ -55,9 +55,10 @@
     "slug": "mainsights-app",
     "extra": {
       "eas": {
-        "projectId": ""
+        "projectId": "88659c1f-cf38-4c59-a203-778b3a7c2899"
       }
     },
+    "owner": "nordic_knowledge_partners",
     "scheme": "app.mainsights.io",
     "splash": {
       "image": "./assets/app/splash.png",
@@ -67,7 +68,7 @@
     "android": {
       "package": "com.draftbit.untitledapp",
       "permissions": [],
-      "versionCode": 171,
+      "versionCode": 174,
       "adaptiveIcon": {},
       "userInterfaceStyle": "light"
     },
@@ -80,7 +81,7 @@
       ]
     ],
     "privacy": "unlisted",
-    "version": "1.171.0",
+    "version": "1.174.0",
     "platforms": [
       "ios",
       "android",

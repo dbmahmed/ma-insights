@@ -20,7 +20,13 @@ import {
 } from '@draftbit/ui';
 import { H3 } from '@expo/html-elements';
 import { useIsFocused } from '@react-navigation/native';
-import { ActivityIndicator, Modal, Text, View } from 'react-native';
+import {
+  ActivityIndicator,
+  Modal,
+  RefreshControl,
+  Text,
+  View,
+} from 'react-native';
 import { Fetch } from 'react-request';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
@@ -61,6 +67,7 @@ const StockDetailsScreen = props => {
   const [ticker, setTicker] = React.useState('');
   const [viewPeerGroup, setViewPeerGroup] = React.useState(false);
   const [textInputValue, setTextInputValue] = React.useState('');
+  const [refreshingn5IjwgJe, setRefreshingn5IjwgJe] = React.useState(false);
   const setSeletedPeerGroup = peerGroups => {
     if (!Array.isArray(peerGroups)) {
       return;
@@ -173,6 +180,24 @@ const StockDetailsScreen = props => {
               horizontal={false}
               keyboardShouldPersistTaps={'never'}
               nestedScrollEnabled={false}
+              refreshControl={
+                <RefreshControl
+                  refreshing={refreshingn5IjwgJe}
+                  onRefresh={() => {
+                    const handler = async () => {
+                      try {
+                        setRefreshingn5IjwgJe(true);
+                        await refetchGetOneStock();
+                        setRefreshingn5IjwgJe(false);
+                      } catch (err) {
+                        console.error(err);
+                        setRefreshingn5IjwgJe(false);
+                      }
+                    };
+                    handler();
+                  }}
+                />
+              }
               showsHorizontalScrollIndicator={false}
               showsVerticalScrollIndicator={false}
               style={StyleSheet.applyWidth(
