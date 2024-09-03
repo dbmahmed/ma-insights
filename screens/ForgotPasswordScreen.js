@@ -623,31 +623,32 @@ const ForgotPasswordScreen = props => {
                       /* hidden 'Set Variable' action */ console.log(
                         'Complete ON_PRESS:10 SET_VARIABLE'
                       );
-                      console.log('Start ON_PRESS:12 FETCH_REQUEST');
+                      console.log('Start ON_PRESS:11 FETCH_REQUEST');
                       const temp_auth = (
                         await XanoResetPassApi.tempLoginPOST(Constants, {
                           email: emailVarl,
                           temp_pass: tempPassVal,
                         })
                       )?.json;
-                      console.log('Complete ON_PRESS:12 FETCH_REQUEST', {
+                      console.log('Complete ON_PRESS:11 FETCH_REQUEST', {
                         temp_auth,
                       });
+                      console.log('Start ON_PRESS:12 CONSOLE_LOG');
+                      console.log(temp_auth);
+                      console.log('Complete ON_PRESS:12 CONSOLE_LOG');
                       console.log('Start ON_PRESS:13 EXTRACT_KEY');
-                      const tempAuthToken = temp_auth?.tempToken;
+                      const tempErrorMessage = temp_auth?.message;
                       console.log('Complete ON_PRESS:13 EXTRACT_KEY', {
-                        tempAuthToken,
+                        tempErrorMessage,
                       });
-                      console.log('Start ON_PRESS:14 EXTRACT_KEY');
-                      /* hidden 'Extract Key' action */ console.log(
-                        'Complete ON_PRESS:14 EXTRACT_KEY'
-                      );
+                      console.log('Start ON_PRESS:14 SET_VARIABLE');
+                      setErrorMessage(tempErrorMessage);
+                      console.log('Complete ON_PRESS:14 SET_VARIABLE');
                       console.log('Start ON_PRESS:15 SET_VARIABLE');
-                      /* hidden 'Set Variable' action */ console.log(
-                        'Complete ON_PRESS:15 SET_VARIABLE'
-                      );
+                      setTempPassPressed(false);
+                      console.log('Complete ON_PRESS:15 SET_VARIABLE');
                       console.log('Start ON_PRESS:16 CONDITIONAL_STOP');
-                      if (tempAuthToken === '') {
+                      if (tempErrorMessage === 'Invalid Credentials.') {
                         return console.log(
                           'Complete ON_PRESS:16 CONDITIONAL_STOP'
                         );
@@ -656,18 +657,23 @@ const ForgotPasswordScreen = props => {
                           'Skipped ON_PRESS:16 CONDITIONAL_STOP: condition not met'
                         );
                       }
-                      console.log('Start ON_PRESS:17 SET_VARIABLE');
+                      console.log('Start ON_PRESS:17 EXTRACT_KEY');
+                      const tempAuthToken = temp_auth?.tempToken;
+                      console.log('Complete ON_PRESS:17 EXTRACT_KEY', {
+                        tempAuthToken,
+                      });
+                      console.log('Start ON_PRESS:18 SET_VARIABLE');
                       setGlobalVariableValue({
                         key: 'RESET_AUTH_HEADER',
                         value: 'Bearer ' + tempAuthToken,
                       });
-                      console.log('Complete ON_PRESS:17 SET_VARIABLE');
-                      console.log('Start ON_PRESS:18 CONSOLE_LOG');
+                      console.log('Complete ON_PRESS:18 SET_VARIABLE');
+                      console.log('Start ON_PRESS:19 CONSOLE_LOG');
                       console.log(Constants['RESET_AUTH_HEADER']);
-                      console.log('Complete ON_PRESS:18 CONSOLE_LOG');
-                      console.log('Start ON_PRESS:19 SET_VARIABLE');
+                      console.log('Complete ON_PRESS:19 CONSOLE_LOG');
+                      console.log('Start ON_PRESS:20 SET_VARIABLE');
                       setPageState('new_pass');
-                      console.log('Complete ON_PRESS:19 SET_VARIABLE');
+                      console.log('Complete ON_PRESS:20 SET_VARIABLE');
                     } catch (err) {
                       console.error(err);
                       error = err.message ?? err;

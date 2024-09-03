@@ -14,7 +14,8 @@ export const DeviceVariables = {
     advisors: false,
     newsletter: true,
   },
-  AUTH_HEADER: '',
+  AUTH_HEADER:
+    'eyJhbGciOiJBMjU2S1ciLCJlbmMiOiJBMjU2Q0JDLUhTNTEyIiwiemlwIjoiREVGIn0.QB8GLSJue9n_zzSn1dhbii5KSLivljHkXtlcFuDR-mVS0qQmDp6GRvtAkEYd6aWGWLBdA3lSswKK9cmqNChlZAs6x8yAALN8.4kwER_cVhknIASbPVAxK0Q.y632f6qCBPZidxYdJIAyqaJVnuTHYyqBYXBRyDc95sMG441mYXNhOWvvuskBeJVgLhDO8KeyUROeKjKLf3NPfKr8uG6gAgEqElzmu6D1xaU_MXjfB_gDnSixxn9I4zmjoAcPUS2nEtg3OMyHKpvadA.c462_nUrsYxnKW8idzRBgv702P0neqF-gTmCJbWMQMU',
   currentScreen: 'Newsletters',
   deviceType: '',
   ME: {

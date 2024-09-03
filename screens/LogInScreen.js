@@ -211,9 +211,9 @@ const LogInScreen = props => {
       </View>
 
       <KeyboardAvoidingView
-        behavior={'padding'}
         enabled={true}
         keyboardVerticalOffset={0}
+        behavior={'position'}
       >
         {/* Login Window */}
         <View
@@ -412,7 +412,7 @@ const LogInScreen = props => {
                         changeTextDelay={500}
                         onBlur={() => {
                           try {
-                            Keyboard.dismiss();
+                            /* hidden 'Dismiss Keyboard' action */
                           } catch (err) {
                             console.error(err);
                           }
