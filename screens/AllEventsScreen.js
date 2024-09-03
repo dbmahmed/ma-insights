@@ -79,7 +79,38 @@ const AllEventsScreen = props => {
   const [dach, setDach] = React.useState(false);
   const [denmark, setDenmark] = React.useState(false);
   const [energy, setEnergy] = React.useState(false);
-  const [eventItems, setEventItems] = React.useState([]);
+  const [eventItems, setEventItems] = React.useState([
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+  ]);
   const [eventSearch, setEventSearch] = React.useState('');
   const [eventType, setEventType] = React.useState([]);
   const [filterPressed, setFilterPressed] = React.useState(false);
@@ -110,6 +141,7 @@ const AllEventsScreen = props => {
   const [utilities, setUtilities] = React.useState(false);
   const [viewingEventId, setViewingEventId] = React.useState(0);
   const [refreshingAwqPzJqX, setRefreshingAwqPzJqX] = React.useState(false);
+  const [refreshingf9DpjkHa, setRefreshingf9DpjkHa] = React.useState(false);
   const [refreshinge5MZS9Mp, setRefreshinge5MZS9Mp] = React.useState(false);
   const toggleAllFilters = flag => {
     setFuture_opportunity(flag);
@@ -697,326 +729,692 @@ const AllEventsScreen = props => {
               <View
                 style={StyleSheet.applyWidth({ flex: 1 }, dimensions.width)}
               >
-                <SimpleStyleFlatList
-                  data={eventItems}
-                  horizontal={false}
-                  inverted={false}
-                  keyExtractor={(listData, index) => index}
-                  keyboardShouldPersistTaps={'never'}
-                  listKey={'AwqPzJqX'}
-                  nestedScrollEnabled={false}
-                  numColumns={1}
-                  onEndReached={() => {
-                    const handler = async () => {
-                      try {
-                        console.log('END REACHED');
-                        if (nextPage === null) {
-                          return;
-                        }
-
-                        const value5LnNJ7Yb = parseInt(nextPage + 1, 10);
-                        setNextPage(value5LnNJ7Yb);
-                        const nextPageSet = value5LnNJ7Yb;
-                        /* hidden 'Log to Console' action */
-                        const newData = (
-                          await XanoCollectionApi.getAllEventsGET(Constants, {
-                            countryIn: country,
-                            device: deviceType(
-                              Platform.OS === 'web',
-                              Platform.OS === 'ios',
-                              Platform.OS === 'android'
-                            ),
-                            eventTypeIn: eventType,
-                            keyword: keywordSearchRaw,
-                            page: nextPage,
-                            region_in: 'Nordic',
-                            sectorIn: sector,
-                            sourceType_in: sourceType,
-                          })
-                        )?.json;
-                        if (newData?.items?.length === 0) {
-                          return;
-                        }
-                        setEventItems(eventItems.concat(newData?.items));
-                        setLastPage(newData?.pageTotal);
-                      } catch (err) {
-                        console.error(err);
-                      }
-                    };
-                    handler();
-                  }}
-                  onEndReachedThreshold={0.5}
-                  refreshControl={
-                    <RefreshControl
-                      refreshing={refreshingAwqPzJqX}
-                      onRefresh={() => {
+                <>
+                  {dimensions.width >= Breakpoints.Laptop ? null : (
+                    <SimpleStyleFlatList
+                      data={eventItems}
+                      horizontal={false}
+                      inverted={false}
+                      keyExtractor={(listData, index) => index}
+                      keyboardShouldPersistTaps={'never'}
+                      listKey={'AwqPzJqX'}
+                      nestedScrollEnabled={false}
+                      numColumns={1}
+                      onEndReached={() => {
                         const handler = async () => {
                           try {
-                            setRefreshingAwqPzJqX(true);
-                            await refetchGetAllEvents();
-                            setRefreshingAwqPzJqX(false);
+                            console.log('END REACHED');
+                            if (nextPage === null) {
+                              return;
+                            }
+
+                            const value5LnNJ7Yb = parseInt(nextPage + 1, 10);
+                            setNextPage(value5LnNJ7Yb);
+                            const nextPageSet = value5LnNJ7Yb;
+                            /* hidden 'Log to Console' action */
+                            const newData = (
+                              await XanoCollectionApi.getAllEventsGET(
+                                Constants,
+                                {
+                                  countryIn: country,
+                                  device: deviceType(
+                                    Platform.OS === 'web',
+                                    Platform.OS === 'ios',
+                                    Platform.OS === 'android'
+                                  ),
+                                  eventTypeIn: eventType,
+                                  keyword: keywordSearchRaw,
+                                  page: nextPage,
+                                  region_in: 'Nordic',
+                                  sectorIn: sector,
+                                  sourceType_in: sourceType,
+                                }
+                              )
+                            )?.json;
+                            if (newData?.items?.length === 0) {
+                              return;
+                            }
+                            setEventItems(eventItems.concat(newData?.items));
+                            setLastPage(newData?.pageTotal);
                           } catch (err) {
                             console.error(err);
-                            setRefreshingAwqPzJqX(false);
                           }
                         };
                         handler();
                       }}
-                    />
-                  }
-                  renderItem={({ item, index }) => {
-                    const listData = item;
-                    return (
-                      <View
-                        style={StyleSheet.applyWidth(
-                          {
-                            alignContent: {
-                              minWidth: Breakpoints.BigScreen,
-                              value: 'center',
-                            },
-                            alignSelf: {
-                              minWidth: Breakpoints.BigScreen,
-                              value: 'center',
-                            },
-                            flex: { minWidth: Breakpoints.Laptop, value: 1 },
-                            maxWidth: {
-                              minWidth: Breakpoints.BigScreen,
-                              value: 1200,
-                            },
-                            padding: {
-                              minWidth: Breakpoints.Desktop,
-                              value: 5,
-                            },
-                            paddingLeft: [
-                              { minWidth: Breakpoints.Desktop, value: 10 },
-                              { minWidth: Breakpoints.Mobile, value: 10 },
-                              { minWidth: Breakpoints.BigScreen, value: 15 },
-                            ],
-                            paddingRight: [
-                              { minWidth: Breakpoints.Desktop, value: 10 },
-                              { minWidth: Breakpoints.Mobile, value: 10 },
-                              { minWidth: Breakpoints.BigScreen, value: 10 },
-                            ],
-                            width: {
-                              minWidth: Breakpoints.BigScreen,
-                              value: '100%',
-                            },
-                          },
-                          dimensions.width
-                        )}
-                      >
-                        <Touchable
-                          onPress={() => {
-                            try {
-                              /* hidden 'Navigate' action */
-                              /* hidden 'Set Variable' action */
-                              setViewingEventId(listData?.id);
-                            } catch (err) {
-                              console.error(err);
-                            }
+                      onEndReachedThreshold={0.5}
+                      refreshControl={
+                        <RefreshControl
+                          refreshing={refreshingAwqPzJqX}
+                          onRefresh={() => {
+                            const handler = async () => {
+                              try {
+                                setRefreshingAwqPzJqX(true);
+                                await refetchGetAllEvents();
+                                setRefreshingAwqPzJqX(false);
+                              } catch (err) {
+                                console.error(err);
+                                setRefreshingAwqPzJqX(false);
+                              }
+                            };
+                            handler();
                           }}
-                        >
+                        />
+                      }
+                      renderItem={({ item, index }) => {
+                        const listData = item;
+                        return (
                           <View
                             style={StyleSheet.applyWidth(
                               {
-                                borderBottomWidth: 0.5,
-                                borderColor: theme.colors.text.light,
-                                flexWrap: {
-                                  minWidth: Breakpoints.Laptop,
-                                  value: 'nowrap',
+                                alignContent: {
+                                  minWidth: Breakpoints.BigScreen,
+                                  value: 'center',
                                 },
-                                minHeight: {
-                                  minWidth: Breakpoints.Laptop,
-                                  value: 85,
+                                alignSelf: {
+                                  minWidth: Breakpoints.BigScreen,
+                                  value: 'center',
                                 },
-                                paddingBottom: 5,
-                                paddingTop: 5,
+                                flex: {
+                                  minWidth: Breakpoints.Laptop,
+                                  value: 1,
+                                },
+                                maxWidth: {
+                                  minWidth: Breakpoints.BigScreen,
+                                  value: 1200,
+                                },
+                                padding: {
+                                  minWidth: Breakpoints.Desktop,
+                                  value: 5,
+                                },
+                                paddingLeft: [
+                                  { minWidth: Breakpoints.Desktop, value: 10 },
+                                  { minWidth: Breakpoints.Mobile, value: 10 },
+                                  {
+                                    minWidth: Breakpoints.BigScreen,
+                                    value: 15,
+                                  },
+                                ],
+                                paddingRight: [
+                                  { minWidth: Breakpoints.Desktop, value: 10 },
+                                  { minWidth: Breakpoints.Mobile, value: 10 },
+                                  {
+                                    minWidth: Breakpoints.BigScreen,
+                                    value: 10,
+                                  },
+                                ],
+                                width: {
+                                  minWidth: Breakpoints.BigScreen,
+                                  value: '100%',
+                                },
                               },
                               dimensions.width
                             )}
                           >
-                            <H6
-                              selectable={false}
-                              {...GlobalStyles.H6Styles(theme)['H6'].props}
-                              style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.H6Styles(theme)['H6'].style,
-                                  {
-                                    fontFamily: 'Quicksand_700Bold',
-                                    fontSize: [
-                                      {
-                                        minWidth: Breakpoints.Mobile,
-                                        value: 14,
-                                      },
-                                      {
-                                        minWidth: Breakpoints.Laptop,
-                                        value: 16,
-                                      },
-                                    ],
-                                    margin: 0,
-                                    marginBottom: [
-                                      {
-                                        minWidth: Breakpoints.Laptop,
-                                        value: 5,
-                                      },
-                                      {
-                                        minWidth: Breakpoints.Mobile,
-                                        value: 0,
-                                      },
-                                    ],
-                                    marginTop: 0,
-                                  }
-                                ),
-                                dimensions.width
-                              )}
+                            <Touchable
+                              onPress={() => {
+                                try {
+                                  /* hidden 'Navigate' action */
+                                  /* hidden 'Set Variable' action */
+                                  setViewingEventId(listData?.id);
+                                } catch (err) {
+                                  console.error(err);
+                                }
+                              }}
                             >
-                              {showNKPProp(
-                                listData?.headline,
-                                listData?.source
-                              )}
-                            </H6>
-
-                            <HStack
-                              {...GlobalStyles.HStackStyles(theme)['H Stack']
-                                .props}
-                              style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.HStackStyles(theme)['H Stack']
-                                    .style,
-                                  { gap: 10 }
-                                ),
-                                dimensions.width
-                              )}
-                            >
-                              <Text
-                                accessible={true}
-                                {...GlobalStyles.TextStyles(theme)[
-                                  'screen_title'
-                                ].props}
+                              <View
                                 style={StyleSheet.applyWidth(
-                                  StyleSheet.compose(
-                                    GlobalStyles.TextStyles(theme)[
-                                      'screen_title'
-                                    ].style,
-                                    {
-                                      fontFamily: 'Quicksand_400Regular',
-                                      fontSize: [
-                                        {
-                                          minWidth: Breakpoints.Mobile,
-                                          value: 12,
-                                        },
-                                        {
-                                          minWidth: Breakpoints.Laptop,
-                                          value: 14,
-                                        },
-                                      ],
-                                      marginBottom: {
-                                        minWidth: Breakpoints.Laptop,
-                                        value: 5,
-                                      },
-                                      marginTop: 4,
-                                    }
-                                  ),
+                                  {
+                                    borderBottomWidth: 0.5,
+                                    borderColor: theme.colors.text.light,
+                                    flexWrap: {
+                                      minWidth: Breakpoints.Laptop,
+                                      value: 'nowrap',
+                                    },
+                                    minHeight: {
+                                      minWidth: Breakpoints.Laptop,
+                                      value: 85,
+                                    },
+                                    paddingBottom: 5,
+                                    paddingTop: 5,
+                                  },
                                   dimensions.width
                                 )}
                               >
-                                {index}
-                                {' idx '}
-                                {listData?.published}
-                                {' | Source: '}
-                                {listData?.source}
-                              </Text>
-                              <>
-                                {!isNKPProp(listData?.source) ? null : (
-                                  <Image
-                                    resizeMode={'cover'}
-                                    {...GlobalStyles.ImageStyles(theme)['Image']
-                                      .props}
-                                    source={
-                                      Images['mainsightsfaviconlogo1024new']
-                                    }
+                                <H6
+                                  selectable={false}
+                                  {...GlobalStyles.H6Styles(theme)['H6'].props}
+                                  style={StyleSheet.applyWidth(
+                                    StyleSheet.compose(
+                                      GlobalStyles.H6Styles(theme)['H6'].style,
+                                      {
+                                        fontFamily: 'Quicksand_700Bold',
+                                        fontSize: [
+                                          {
+                                            minWidth: Breakpoints.Mobile,
+                                            value: 14,
+                                          },
+                                          {
+                                            minWidth: Breakpoints.Laptop,
+                                            value: 16,
+                                          },
+                                        ],
+                                        margin: 0,
+                                        marginBottom: [
+                                          {
+                                            minWidth: Breakpoints.Laptop,
+                                            value: 5,
+                                          },
+                                          {
+                                            minWidth: Breakpoints.Mobile,
+                                            value: 0,
+                                          },
+                                        ],
+                                        marginTop: 0,
+                                      }
+                                    ),
+                                    dimensions.width
+                                  )}
+                                >
+                                  {showNKPProp(
+                                    listData?.headline,
+                                    listData?.source
+                                  )}
+                                </H6>
+
+                                <HStack
+                                  {...GlobalStyles.HStackStyles(theme)[
+                                    'H Stack'
+                                  ].props}
+                                  style={StyleSheet.applyWidth(
+                                    StyleSheet.compose(
+                                      GlobalStyles.HStackStyles(theme)[
+                                        'H Stack'
+                                      ].style,
+                                      { gap: 10 }
+                                    ),
+                                    dimensions.width
+                                  )}
+                                >
+                                  <Text
+                                    accessible={true}
+                                    {...GlobalStyles.TextStyles(theme)[
+                                      'screen_title'
+                                    ].props}
                                     style={StyleSheet.applyWidth(
                                       StyleSheet.compose(
-                                        GlobalStyles.ImageStyles(theme)['Image']
-                                          .style,
-                                        { height: 18, width: 18 }
+                                        GlobalStyles.TextStyles(theme)[
+                                          'screen_title'
+                                        ].style,
+                                        {
+                                          fontFamily: 'Quicksand_400Regular',
+                                          fontSize: [
+                                            {
+                                              minWidth: Breakpoints.Mobile,
+                                              value: 12,
+                                            },
+                                            {
+                                              minWidth: Breakpoints.Laptop,
+                                              value: 14,
+                                            },
+                                          ],
+                                          marginBottom: {
+                                            minWidth: Breakpoints.Laptop,
+                                            value: 5,
+                                          },
+                                          marginTop: 4,
+                                        }
                                       ),
                                       dimensions.width
                                     )}
-                                  />
-                                )}
-                              </>
-                            </HStack>
-                            {/* Text 2 */}
-                            <Text
-                              accessible={true}
-                              {...GlobalStyles.TextStyles(theme)['screen_title']
-                                .props}
-                              style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.TextStyles(theme)['screen_title']
-                                    .style,
-                                  {
-                                    fontFamily: 'Quicksand_400Regular',
-                                    fontSize: [
+                                  >
+                                    {index}
+                                    {' idx '}
+                                    {listData?.published}
+                                    {' | Source: '}
+                                    {listData?.source}
+                                  </Text>
+                                  <>
+                                    {!isNKPProp(listData?.source) ? null : (
+                                      <Image
+                                        resizeMode={'cover'}
+                                        {...GlobalStyles.ImageStyles(theme)[
+                                          'Image'
+                                        ].props}
+                                        source={
+                                          Images['mainsightsfaviconlogo1024new']
+                                        }
+                                        style={StyleSheet.applyWidth(
+                                          StyleSheet.compose(
+                                            GlobalStyles.ImageStyles(theme)[
+                                              'Image'
+                                            ].style,
+                                            { height: 18, width: 18 }
+                                          ),
+                                          dimensions.width
+                                        )}
+                                      />
+                                    )}
+                                  </>
+                                </HStack>
+                                {/* Text 2 */}
+                                <Text
+                                  accessible={true}
+                                  {...GlobalStyles.TextStyles(theme)[
+                                    'screen_title'
+                                  ].props}
+                                  style={StyleSheet.applyWidth(
+                                    StyleSheet.compose(
+                                      GlobalStyles.TextStyles(theme)[
+                                        'screen_title'
+                                      ].style,
                                       {
-                                        minWidth: Breakpoints.Mobile,
-                                        value: 12,
-                                      },
-                                      {
-                                        minWidth: Breakpoints.Laptop,
-                                        value: 14,
-                                      },
-                                    ],
-                                    marginBottom: {
-                                      minWidth: Breakpoints.Laptop,
-                                      value: 5,
-                                    },
-                                    marginTop: 4,
-                                    textAlign: 'left',
-                                  }
-                                ),
-                                dimensions.width
-                              )}
-                            >
-                              {listData?.description}
-                            </Text>
+                                        fontFamily: 'Quicksand_400Regular',
+                                        fontSize: [
+                                          {
+                                            minWidth: Breakpoints.Mobile,
+                                            value: 12,
+                                          },
+                                          {
+                                            minWidth: Breakpoints.Laptop,
+                                            value: 14,
+                                          },
+                                        ],
+                                        marginBottom: {
+                                          minWidth: Breakpoints.Laptop,
+                                          value: 5,
+                                        },
+                                        marginTop: 4,
+                                        textAlign: 'left',
+                                      }
+                                    ),
+                                    dimensions.width
+                                  )}
+                                >
+                                  {listData?.description}
+                                </Text>
+                              </View>
+                            </Touchable>
                           </View>
-                        </Touchable>
-                      </View>
-                    );
-                  }}
-                  ref={listAwqPzJqXRef}
-                  showsHorizontalScrollIndicator={false}
-                  showsVerticalScrollIndicator={true}
-                  style={StyleSheet.applyWidth(
-                    {
-                      alignContent: {
-                        minWidth: Breakpoints.BigScreen,
-                        value: 'center',
-                      },
-                      alignItems: {
-                        minWidth: Breakpoints.BigScreen,
-                        value: 'stretch',
-                      },
-                      alignSelf: {
-                        minWidth: Breakpoints.BigScreen,
-                        value: 'center',
-                      },
-                      marginBottom:
-                        dimensions.width >= Breakpoints.Laptop ? 0 : 65,
-                      paddingLeft: {
-                        minWidth: Breakpoints.Desktop,
-                        value: setPadding(dimensions.width),
-                      },
-                      paddingRight: {
-                        minWidth: Breakpoints.Desktop,
-                        value: setPadding(dimensions.width),
-                      },
-                    },
-                    dimensions.width
+                        );
+                      }}
+                      ref={listAwqPzJqXRef}
+                      showsHorizontalScrollIndicator={false}
+                      showsVerticalScrollIndicator={true}
+                      style={StyleSheet.applyWidth(
+                        {
+                          alignContent: {
+                            minWidth: Breakpoints.BigScreen,
+                            value: 'center',
+                          },
+                          alignItems: {
+                            minWidth: Breakpoints.BigScreen,
+                            value: 'stretch',
+                          },
+                          alignSelf: {
+                            minWidth: Breakpoints.BigScreen,
+                            value: 'center',
+                          },
+                          marginBottom:
+                            dimensions.width >= Breakpoints.Laptop ? 0 : 65,
+                          paddingLeft: {
+                            minWidth: Breakpoints.Desktop,
+                            value: setPadding(dimensions.width),
+                          },
+                          paddingRight: {
+                            minWidth: Breakpoints.Desktop,
+                            value: setPadding(dimensions.width),
+                          },
+                        },
+                        dimensions.width
+                      )}
+                    />
                   )}
-                />
+                </>
+                {/* List Larger */}
+                <>
+                  {!(dimensions.width >= Breakpoints.Laptop) ? null : (
+                    <SimpleStyleFlatList
+                      data={eventItems}
+                      horizontal={false}
+                      inverted={false}
+                      keyExtractor={(listLargerData, index) => index}
+                      keyboardShouldPersistTaps={'never'}
+                      listKey={'f9DpjkHa'}
+                      nestedScrollEnabled={false}
+                      numColumns={1}
+                      onEndReached={() => {
+                        const handler = async () => {
+                          try {
+                            console.log('END REACHED');
+                            if (nextPage === null) {
+                              return;
+                            }
+
+                            const valueFAyE96NF = parseInt(nextPage + 1, 10);
+                            setNextPage(valueFAyE96NF);
+                            const nextPageSet = valueFAyE96NF;
+                            /* hidden 'Log to Console' action */
+                            const newData = (
+                              await XanoCollectionApi.getAllEventsGET(
+                                Constants,
+                                {
+                                  countryIn: country,
+                                  device: deviceType(
+                                    Platform.OS === 'web',
+                                    Platform.OS === 'ios',
+                                    Platform.OS === 'android'
+                                  ),
+                                  eventTypeIn: eventType,
+                                  keyword: keywordSearchRaw,
+                                  page: nextPage,
+                                  region_in: 'Nordic',
+                                  sectorIn: sector,
+                                  sourceType_in: sourceType,
+                                }
+                              )
+                            )?.json;
+                            if (newData?.items?.length === 0) {
+                              return;
+                            }
+                            setEventItems(eventItems.concat(newData?.items));
+                            setLastPage(newData?.pageTotal);
+                          } catch (err) {
+                            console.error(err);
+                          }
+                        };
+                        handler();
+                      }}
+                      onEndReachedThreshold={0.5}
+                      refreshControl={
+                        <RefreshControl
+                          refreshing={refreshingf9DpjkHa}
+                          onRefresh={() => {
+                            const handler = async () => {
+                              try {
+                                setRefreshingf9DpjkHa(true);
+                                await refetchGetAllEvents();
+                                setRefreshingf9DpjkHa(false);
+                              } catch (err) {
+                                console.error(err);
+                                setRefreshingf9DpjkHa(false);
+                              }
+                            };
+                            handler();
+                          }}
+                        />
+                      }
+                      renderItem={({ item, index }) => {
+                        const listLargerData = item;
+                        return (
+                          <View
+                            style={StyleSheet.applyWidth(
+                              {
+                                alignContent: {
+                                  minWidth: Breakpoints.BigScreen,
+                                  value: 'center',
+                                },
+                                alignSelf: {
+                                  minWidth: Breakpoints.BigScreen,
+                                  value: 'center',
+                                },
+                                flex: {
+                                  minWidth: Breakpoints.Laptop,
+                                  value: 1,
+                                },
+                                maxWidth: {
+                                  minWidth: Breakpoints.BigScreen,
+                                  value: 1200,
+                                },
+                                padding: {
+                                  minWidth: Breakpoints.Desktop,
+                                  value: 5,
+                                },
+                                paddingLeft: [
+                                  { minWidth: Breakpoints.Desktop, value: 10 },
+                                  { minWidth: Breakpoints.Mobile, value: 10 },
+                                  {
+                                    minWidth: Breakpoints.BigScreen,
+                                    value: 15,
+                                  },
+                                ],
+                                paddingRight: [
+                                  { minWidth: Breakpoints.Desktop, value: 10 },
+                                  { minWidth: Breakpoints.Mobile, value: 10 },
+                                  {
+                                    minWidth: Breakpoints.BigScreen,
+                                    value: 10,
+                                  },
+                                ],
+                                width: {
+                                  minWidth: Breakpoints.BigScreen,
+                                  value: '100%',
+                                },
+                              },
+                              dimensions.width
+                            )}
+                          >
+                            <Touchable
+                              onPress={() => {
+                                try {
+                                  /* hidden 'Navigate' action */
+                                  /* hidden 'Set Variable' action */
+                                  setViewingEventId(listLargerData?.id);
+                                } catch (err) {
+                                  console.error(err);
+                                }
+                              }}
+                            >
+                              <View
+                                style={StyleSheet.applyWidth(
+                                  {
+                                    borderBottomWidth: 0.5,
+                                    borderColor: theme.colors.text.light,
+                                    flexWrap: {
+                                      minWidth: Breakpoints.Laptop,
+                                      value: 'nowrap',
+                                    },
+                                    minHeight: {
+                                      minWidth: Breakpoints.Laptop,
+                                      value: 85,
+                                    },
+                                    paddingBottom: 5,
+                                    paddingTop: 5,
+                                  },
+                                  dimensions.width
+                                )}
+                              >
+                                <H6
+                                  selectable={false}
+                                  {...GlobalStyles.H6Styles(theme)['H6'].props}
+                                  style={StyleSheet.applyWidth(
+                                    StyleSheet.compose(
+                                      GlobalStyles.H6Styles(theme)['H6'].style,
+                                      {
+                                        fontFamily: 'Quicksand_700Bold',
+                                        fontSize: [
+                                          {
+                                            minWidth: Breakpoints.Mobile,
+                                            value: 14,
+                                          },
+                                          {
+                                            minWidth: Breakpoints.Laptop,
+                                            value: 16,
+                                          },
+                                        ],
+                                        margin: 0,
+                                        marginBottom: [
+                                          {
+                                            minWidth: Breakpoints.Laptop,
+                                            value: 5,
+                                          },
+                                          {
+                                            minWidth: Breakpoints.Mobile,
+                                            value: 0,
+                                          },
+                                        ],
+                                        marginTop: 0,
+                                      }
+                                    ),
+                                    dimensions.width
+                                  )}
+                                >
+                                  {showNKPProp(
+                                    listLargerData?.headline,
+                                    listLargerData?.source
+                                  )}
+                                </H6>
+
+                                <HStack
+                                  {...GlobalStyles.HStackStyles(theme)[
+                                    'H Stack'
+                                  ].props}
+                                  style={StyleSheet.applyWidth(
+                                    StyleSheet.compose(
+                                      GlobalStyles.HStackStyles(theme)[
+                                        'H Stack'
+                                      ].style,
+                                      { gap: 10 }
+                                    ),
+                                    dimensions.width
+                                  )}
+                                >
+                                  <Text
+                                    accessible={true}
+                                    {...GlobalStyles.TextStyles(theme)[
+                                      'screen_title'
+                                    ].props}
+                                    style={StyleSheet.applyWidth(
+                                      StyleSheet.compose(
+                                        GlobalStyles.TextStyles(theme)[
+                                          'screen_title'
+                                        ].style,
+                                        {
+                                          fontFamily: 'Quicksand_400Regular',
+                                          fontSize: [
+                                            {
+                                              minWidth: Breakpoints.Mobile,
+                                              value: 12,
+                                            },
+                                            {
+                                              minWidth: Breakpoints.Laptop,
+                                              value: 14,
+                                            },
+                                          ],
+                                          marginBottom: {
+                                            minWidth: Breakpoints.Laptop,
+                                            value: 5,
+                                          },
+                                          marginTop: 4,
+                                        }
+                                      ),
+                                      dimensions.width
+                                    )}
+                                  >
+                                    {index}
+                                    {' idx '}
+                                    {listLargerData?.published}
+                                    {' | Source: '}
+                                    {listLargerData?.source}
+                                  </Text>
+                                  <>
+                                    {!isNKPProp(
+                                      listLargerData?.source
+                                    ) ? null : (
+                                      <Image
+                                        resizeMode={'cover'}
+                                        {...GlobalStyles.ImageStyles(theme)[
+                                          'Image'
+                                        ].props}
+                                        source={
+                                          Images['mainsightsfaviconlogo1024new']
+                                        }
+                                        style={StyleSheet.applyWidth(
+                                          StyleSheet.compose(
+                                            GlobalStyles.ImageStyles(theme)[
+                                              'Image'
+                                            ].style,
+                                            { height: 18, width: 18 }
+                                          ),
+                                          dimensions.width
+                                        )}
+                                      />
+                                    )}
+                                  </>
+                                </HStack>
+                                {/* Text 2 */}
+                                <Text
+                                  accessible={true}
+                                  {...GlobalStyles.TextStyles(theme)[
+                                    'screen_title'
+                                  ].props}
+                                  style={StyleSheet.applyWidth(
+                                    StyleSheet.compose(
+                                      GlobalStyles.TextStyles(theme)[
+                                        'screen_title'
+                                      ].style,
+                                      {
+                                        fontFamily: 'Quicksand_400Regular',
+                                        fontSize: [
+                                          {
+                                            minWidth: Breakpoints.Mobile,
+                                            value: 12,
+                                          },
+                                          {
+                                            minWidth: Breakpoints.Laptop,
+                                            value: 14,
+                                          },
+                                        ],
+                                        marginBottom: {
+                                          minWidth: Breakpoints.Laptop,
+                                          value: 5,
+                                        },
+                                        marginTop: 4,
+                                        textAlign: 'left',
+                                      }
+                                    ),
+                                    dimensions.width
+                                  )}
+                                >
+                                  {listLargerData?.description}
+                                </Text>
+                              </View>
+                            </Touchable>
+                          </View>
+                        );
+                      }}
+                      showsHorizontalScrollIndicator={true}
+                      showsVerticalScrollIndicator={true}
+                      style={StyleSheet.applyWidth(
+                        {
+                          alignContent: {
+                            minWidth: Breakpoints.BigScreen,
+                            value: 'center',
+                          },
+                          alignItems: {
+                            minWidth: Breakpoints.BigScreen,
+                            value: 'stretch',
+                          },
+                          alignSelf: {
+                            minWidth: Breakpoints.BigScreen,
+                            value: 'center',
+                          },
+                          marginBottom:
+                            dimensions.width >= Breakpoints.Laptop ? 0 : 65,
+                          paddingLeft: {
+                            minWidth: Breakpoints.Desktop,
+                            value: setPadding(dimensions.width),
+                          },
+                          paddingRight: {
+                            minWidth: Breakpoints.Desktop,
+                            value: setPadding(dimensions.width),
+                          },
+                        },
+                        dimensions.width
+                      )}
+                    />
+                  )}
+                </>
               </View>
               {/* Modal 2 */}
               <Modal
