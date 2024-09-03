@@ -52,7 +52,7 @@ const NewslettersScreen = props => {
   const [my_peer_groups, setMy_peer_groups] = React.useState(false);
   const [newsletter, setNewsletter] = React.useState(true);
   const [newslettersList, setNewslettersList] = React.useState([]);
-  const [nextPage, setNextPage] = React.useState(2);
+  const [nextPage, setNextPage] = React.useState(null);
   const [nkp_comps, setNkp_comps] = React.useState(false);
   const [nordic, setNordic] = React.useState(true);
   const [weeklyReport, setWeeklyReport] = React.useState(true);
@@ -360,11 +360,8 @@ const NewslettersScreen = props => {
 
                 console.log(newslettersList);
                 setNextPage(fetchData?.json?.nextPage);
-                setLastPage(fetchData?.json?.pageTotal);
-                if (nextPage === null) {
-                  setNextPage(lastPage);
-                } else {
-                }
+                /* hidden 'Set Variable' action */
+                /* hidden 'If/Else' action */
               } catch (err) {
                 console.error(err);
               }
@@ -408,10 +405,26 @@ const NewslettersScreen = props => {
                 nestedScrollEnabled={false}
                 onEndReached={() => {
                   const handler = async () => {
+                    console.log('List ON_END_REACHED Start');
+                    let error = null;
                     try {
+                      console.log('Start ON_END_REACHED:0 CONSOLE_LOG');
+                      console.log('End Reached');
+                      console.log('Complete ON_END_REACHED:0 CONSOLE_LOG');
+                      console.log('Start ON_END_REACHED:1 CONSOLE_LOG');
+                      console.log(nextPage);
+                      console.log('Complete ON_END_REACHED:1 CONSOLE_LOG');
+                      console.log('Start ON_END_REACHED:2 CONDITIONAL_STOP');
                       if (nextPage === null) {
-                        return;
+                        return console.log(
+                          'Complete ON_END_REACHED:2 CONDITIONAL_STOP'
+                        );
+                      } else {
+                        console.log(
+                          'Skipped ON_END_REACHED:2 CONDITIONAL_STOP: condition not met'
+                        );
                       }
+                      console.log('Start ON_END_REACHED:3 FETCH_REQUEST');
                       const newData = (
                         await XanoCollectionApi.newslettersGET(Constants, {
                           dach: dach,
@@ -423,20 +436,41 @@ const NewslettersScreen = props => {
                           reports: weeklyReport,
                         })
                       )?.json;
+                      console.log('Complete ON_END_REACHED:3 FETCH_REQUEST', {
+                        newData,
+                      });
+                      console.log('Start ON_END_REACHED:4 SET_VARIABLE');
                       setNextPage(newData?.nextPage);
+                      console.log('Complete ON_END_REACHED:4 SET_VARIABLE');
+                      console.log('Start ON_END_REACHED:5 SET_VARIABLE');
                       setLastPage(newData?.pageTotal);
+                      console.log('Complete ON_END_REACHED:5 SET_VARIABLE');
+                      console.log('Start ON_END_REACHED:6 CONDITIONAL_STOP');
                       if (
                         fetchData?.items ===
                         (0 || newslettersList !== fetchData?.items)
                       ) {
-                        return;
+                        return console.log(
+                          'Complete ON_END_REACHED:6 CONDITIONAL_STOP'
+                        );
+                      } else {
+                        console.log(
+                          'Skipped ON_END_REACHED:6 CONDITIONAL_STOP: condition not met'
+                        );
                       }
+                      console.log('Start ON_END_REACHED:7 SET_VARIABLE');
                       setNewslettersList(
                         newslettersList.concat(newData?.items)
                       );
+                      console.log('Complete ON_END_REACHED:7 SET_VARIABLE');
                     } catch (err) {
                       console.error(err);
+                      error = err.message ?? err;
                     }
+                    console.log(
+                      'List ON_END_REACHED Complete',
+                      error ? { error } : 'no error'
+                    );
                   };
                   handler();
                 }}
@@ -624,7 +658,7 @@ const NewslettersScreen = props => {
                     ? 3
                     : 2
                 }
-                onEndReachedThreshold={0.2}
+                onEndReachedThreshold={0.5}
                 showsHorizontalScrollIndicator={false}
                 showsVerticalScrollIndicator={false}
                 style={StyleSheet.applyWidth(

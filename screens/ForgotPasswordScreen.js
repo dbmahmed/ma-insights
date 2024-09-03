@@ -966,78 +966,97 @@ const ForgotPasswordScreen = props => {
                       /* hidden 'Extract Key' action */ console.log(
                         'Complete ON_PRESS:5 EXTRACT_KEY'
                       );
-                      console.log('Start ON_PRESS:6 SET_VARIABLE');
-                      /* hidden 'Set Variable' action */ console.log(
-                        'Complete ON_PRESS:6 SET_VARIABLE'
-                      );
-                      console.log('Start ON_PRESS:7 CONSOLE_LOG');
+                      console.log('Start ON_PRESS:6 CONSOLE_LOG');
                       /* hidden 'Log to Console' action */ console.log(
-                        'Complete ON_PRESS:7 CONSOLE_LOG'
+                        'Complete ON_PRESS:6 CONSOLE_LOG'
                       );
-                      console.log('Start ON_PRESS:8 SET_VARIABLE');
+                      console.log('Start ON_PRESS:7 SET_VARIABLE');
                       /* hidden 'Set Variable' action */ console.log(
-                        'Complete ON_PRESS:8 SET_VARIABLE'
+                        'Complete ON_PRESS:7 SET_VARIABLE'
                       );
-                      console.log('Start ON_PRESS:9 CONDITIONAL_STOP');
+                      console.log('Start ON_PRESS:8 CONDITIONAL_STOP');
                       /* hidden 'Conditional Stop' action */ console.log(
-                        'Complete ON_PRESS:9 CONDITIONAL_STOP'
+                        'Complete ON_PRESS:8 CONDITIONAL_STOP'
+                      );
+                      console.log('Start ON_PRESS:9 SET_VARIABLE');
+                      /* hidden 'Set Variable' action */ console.log(
+                        'Complete ON_PRESS:9 SET_VARIABLE'
                       );
                       console.log('Start ON_PRESS:10 SET_VARIABLE');
-                      /* hidden 'Set Variable' action */ console.log(
-                        'Complete ON_PRESS:10 SET_VARIABLE'
+                      setNewPassPressed(false);
+                      console.log('Complete ON_PRESS:10 SET_VARIABLE');
+                      console.log('Start ON_PRESS:11 SET_VARIABLE');
+                      setErrorMessage(
+                        newPass !== confNewPass
+                          ? "Passwords don't match"
+                          : undefined
                       );
-                      console.log('Start ON_PRESS:12 WAIT');
+                      console.log('Complete ON_PRESS:11 SET_VARIABLE');
+                      console.log('Start ON_PRESS:12 CONDITIONAL_STOP');
+                      if (newPass !== confNewPass) {
+                        return console.log(
+                          'Complete ON_PRESS:12 CONDITIONAL_STOP'
+                        );
+                      } else {
+                        console.log(
+                          'Skipped ON_PRESS:12 CONDITIONAL_STOP: condition not met'
+                        );
+                      }
+                      console.log('Start ON_PRESS:13 SET_VARIABLE');
+                      setNewPassPressed(true);
+                      console.log('Complete ON_PRESS:13 SET_VARIABLE');
+                      console.log('Start ON_PRESS:14 WAIT');
                       await waitUtil({ milliseconds: 1000 });
-                      console.log('Complete ON_PRESS:12 WAIT');
-                      console.log('Start ON_PRESS:13 FETCH_REQUEST');
+                      console.log('Complete ON_PRESS:14 WAIT');
+                      console.log('Start ON_PRESS:15 FETCH_REQUEST');
                       const new_pass_set = (
                         await xanoResetPassResetPasswordPOST.mutateAsync({
                           new_conf_pass: confNewPass,
                           new_pass: newPass,
                         })
                       )?.json;
-                      console.log('Complete ON_PRESS:13 FETCH_REQUEST', {
+                      console.log('Complete ON_PRESS:15 FETCH_REQUEST', {
                         new_pass_set,
                       });
-                      console.log('Start ON_PRESS:14 EXTRACT_KEY');
+                      console.log('Start ON_PRESS:16 EXTRACT_KEY');
                       /* hidden 'Extract Key' action */ console.log(
-                        'Complete ON_PRESS:14 EXTRACT_KEY'
+                        'Complete ON_PRESS:16 EXTRACT_KEY'
                       );
-                      console.log('Start ON_PRESS:15 EXTRACT_KEY');
+                      console.log('Start ON_PRESS:17 EXTRACT_KEY');
                       const Message = new_pass_set?.message;
-                      console.log('Complete ON_PRESS:15 EXTRACT_KEY', {
+                      console.log('Complete ON_PRESS:17 EXTRACT_KEY', {
                         Message,
                       });
-                      console.log('Start ON_PRESS:16 SET_VARIABLE');
+                      console.log('Start ON_PRESS:18 SET_VARIABLE');
                       /* hidden 'Set Variable' action */ console.log(
-                        'Complete ON_PRESS:16 SET_VARIABLE'
+                        'Complete ON_PRESS:18 SET_VARIABLE'
                       );
-                      console.log('Start ON_PRESS:17 CONDITIONAL_STOP');
+                      console.log('Start ON_PRESS:19 CONDITIONAL_STOP');
                       if (Message !== 'Password successfully updated') {
                         return console.log(
-                          'Complete ON_PRESS:17 CONDITIONAL_STOP'
+                          'Complete ON_PRESS:19 CONDITIONAL_STOP'
                         );
                       } else {
                         console.log(
-                          'Skipped ON_PRESS:17 CONDITIONAL_STOP: condition not met'
+                          'Skipped ON_PRESS:19 CONDITIONAL_STOP: condition not met'
                         );
                       }
-                      console.log('Start ON_PRESS:18 SET_VARIABLE');
+                      console.log('Start ON_PRESS:20 SET_VARIABLE');
                       setGlobalVariableValue({
                         key: 'RESET_AUTH_HEADER',
                         value: '',
                       });
-                      console.log('Complete ON_PRESS:18 SET_VARIABLE');
-                      console.log('Start ON_PRESS:19 SET_VARIABLE');
+                      console.log('Complete ON_PRESS:20 SET_VARIABLE');
+                      console.log('Start ON_PRESS:21 SET_VARIABLE');
                       /* hidden 'Set Variable' action */ console.log(
-                        'Complete ON_PRESS:19 SET_VARIABLE'
+                        'Complete ON_PRESS:21 SET_VARIABLE'
                       );
-                      console.log('Start ON_PRESS:20 NAVIGATE');
+                      console.log('Start ON_PRESS:22 NAVIGATE');
                       if (navigation.canGoBack()) {
                         navigation.popToTop();
                       }
                       navigation.replace('LogInScreen');
-                      console.log('Complete ON_PRESS:20 NAVIGATE');
+                      console.log('Complete ON_PRESS:22 NAVIGATE');
                     } catch (err) {
                       console.error(err);
                       error = err.message ?? err;
