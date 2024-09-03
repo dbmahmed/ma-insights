@@ -9,7 +9,7 @@ import {
 } from '@draftbit/ui';
 import { H3, H5, H6 } from '@expo/html-elements';
 import { useIsFocused } from '@react-navigation/native';
-import { ActivityIndicator, Text, View } from 'react-native';
+import { ActivityIndicator, Platform, Text, View } from 'react-native';
 import { Fetch } from 'react-request';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
@@ -18,6 +18,7 @@ import CustomHeaderBlock from '../components/CustomHeaderBlock';
 import LoadingBlock from '../components/LoadingBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import assessAccess from '../global-functions/assessAccess';
+import deviceType from '../global-functions/deviceType';
 import removeGlobalScroll from '../global-functions/removeGlobalScroll';
 import resetAccess from '../global-functions/resetAccess';
 import transformEuroM from '../global-functions/transformEuroM';
@@ -88,7 +89,11 @@ const CFSDetailsScreen = props => {
       <CustomHeaderBlock />
       <XanoCollectionApi.FetchGetOneCFSGET
         cfs_id={props.route?.params?.cfs_id ?? 1989}
-        device={'ios'}
+        device={deviceType(
+          Platform.OS === 'web',
+          Platform.OS === 'ios',
+          Platform.OS === 'android'
+        )}
       >
         {({ loading, error, data, refetchGetOneCFS }) => {
           const fetchData = data?.json;

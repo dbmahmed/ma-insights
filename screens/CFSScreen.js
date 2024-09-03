@@ -19,6 +19,7 @@ import { useIsFocused } from '@react-navigation/native';
 import {
   ActivityIndicator,
   Modal,
+  Platform,
   RefreshControl,
   Text,
   View,
@@ -31,6 +32,7 @@ import CustomHeaderBlock from '../components/CustomHeaderBlock';
 import LoadingBlock from '../components/LoadingBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import assessAccess from '../global-functions/assessAccess';
+import deviceType from '../global-functions/deviceType';
 import formatNumber from '../global-functions/formatNumber';
 import modifyArrays from '../global-functions/modifyArrays';
 import removeGlobalScroll from '../global-functions/removeGlobalScroll';
@@ -436,7 +438,11 @@ const CFSScreen = props => {
       <XanoCollectionApi.FetchGetCFSGET
         cfsSearchQuery={keywordSearch}
         countryIn={country}
-        device={'ios'}
+        device={deviceType(
+          Platform.OS === 'web',
+          Platform.OS === 'ios',
+          Platform.OS === 'android'
+        )}
         ebitdaIn={ebitdaRange}
         handlers={{
           on2xx: fetchData => {
@@ -570,7 +576,11 @@ const CFSScreen = props => {
                             await XanoCollectionApi.getCFSGET(Constants, {
                               cfsSearchQuery: keywordSearch,
                               countryIn: country,
-                              device: 'ios',
+                              device: deviceType(
+                                Platform.OS === 'web',
+                                Platform.OS === 'ios',
+                                Platform.OS === 'android'
+                              ),
                               ebitdaIn: ebitdaRange,
                               page: parseInt(nextPage, 10),
                               sectorIn: sector,

@@ -35,6 +35,7 @@ import LoadingBlock from '../components/LoadingBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import Images from '../config/Images';
 import assessAccess from '../global-functions/assessAccess';
+import deviceType from '../global-functions/deviceType';
 import formatNumber from '../global-functions/formatNumber';
 import isNKPProp from '../global-functions/isNKPProp';
 import modifyArrays from '../global-functions/modifyArrays';
@@ -519,7 +520,11 @@ const AllEventsScreen = props => {
 
       <XanoCollectionApi.FetchGetAllEventsGET
         countryIn={country}
-        device={'ios'}
+        device={deviceType(
+          Platform.OS === 'web',
+          Platform.OS === 'ios',
+          Platform.OS === 'android'
+        )}
         eventTypeIn={eventType}
         handlers={{
           on2xx: fetchData => {
@@ -687,7 +692,11 @@ const AllEventsScreen = props => {
                       const newData = (
                         await XanoCollectionApi.getAllEventsGET(Constants, {
                           countryIn: country,
-                          device: 'ios',
+                          device: deviceType(
+                            Platform.OS === 'web',
+                            Platform.OS === 'ios',
+                            Platform.OS === 'android'
+                          ),
                           eventTypeIn: eventType,
                           keyword: keywordSearchRaw,
                           page: nextPage,
@@ -937,7 +946,7 @@ const AllEventsScreen = props => {
                     </View>
                   );
                 }}
-                onEndReachedThreshold={0.2}
+                onEndReachedThreshold={0.5}
                 showsHorizontalScrollIndicator={false}
                 showsVerticalScrollIndicator={false}
                 style={StyleSheet.applyWidth(

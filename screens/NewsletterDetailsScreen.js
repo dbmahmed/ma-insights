@@ -27,6 +27,7 @@ import isNKPProp from '../global-functions/isNKPProp';
 import removeGlobalScroll from '../global-functions/removeGlobalScroll';
 import resetAccess from '../global-functions/resetAccess';
 import showNKPProp from '../global-functions/showNKPProp';
+import transformNumber from '../global-functions/transformNumber';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
@@ -128,7 +129,7 @@ const NewsletterDetailsScreen = props => {
             }
           },
         }}
-        newsletter_id={props.route?.params?.news_id ?? 84}
+        newsletter_id={props.route?.params?.news_id ?? 125}
       >
         {({ loading, error, data, refetchNewsletterEach }) => {
           const fetchData = data?.json;
@@ -1308,8 +1309,11 @@ const NewsletterDetailsScreen = props => {
                                           dimensions.width
                                         )}
                                       >
-                                        {listData?.ev_sales_fy0}
-                                        {'x'}
+                                        {transformNumber(
+                                          listData?.ev_sales_fy0,
+                                          'x',
+                                          undefined
+                                        )}
                                       </Text>
                                     </View>
                                     {/* View 2 */}
@@ -1338,8 +1342,11 @@ const NewsletterDetailsScreen = props => {
                                           dimensions.width
                                         )}
                                       >
-                                        {listData?.ev_ebitda_fy0}
-                                        {'x'}
+                                        {transformNumber(
+                                          listData?.ev_ebitda_fy0,
+                                          'x',
+                                          undefined
+                                        )}
                                       </Text>
                                     </View>
                                   </View>
@@ -1413,8 +1420,11 @@ const NewsletterDetailsScreen = props => {
                                     dimensions.width
                                   )}
                                 >
-                                  {fetchData?._potd?._peer_group?.ev_sales_fy0}
-                                  {'x'}
+                                  {transformNumber(
+                                    fetchData?._potd?._peer_group?.ev_sales_fy0,
+                                    'x',
+                                    undefined
+                                  )}
                                 </Text>
                               </View>
                               {/* View 2 */}
@@ -1442,8 +1452,12 @@ const NewsletterDetailsScreen = props => {
                                     dimensions.width
                                   )}
                                 >
-                                  {fetchData?._potd?._peer_group?.ev_ebitda_fy0}
-                                  {'x'}
+                                  {transformNumber(
+                                    fetchData?._potd?._peer_group
+                                      ?.ev_ebitda_fy0,
+                                    'x',
+                                    undefined
+                                  )}
                                 </Text>
                               </View>
                             </View>

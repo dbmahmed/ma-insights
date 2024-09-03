@@ -7,7 +7,7 @@ const passwordValidate = password => {
 line two` ) and will not work with special characters inside of quotes ( example: "line one line two" ) */
 
   const passwordRegex =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.,])[A-Za-z\d@$!%*?&.,]{8,}$/;
 
   return passwordRegex.test(password);
 };

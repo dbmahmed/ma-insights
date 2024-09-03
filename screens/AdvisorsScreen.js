@@ -21,6 +21,7 @@ import * as WebBrowser from 'expo-web-browser';
 import {
   ActivityIndicator,
   Modal,
+  Platform,
   RefreshControl,
   Text,
   View,
@@ -33,6 +34,7 @@ import CustomHeaderBlock from '../components/CustomHeaderBlock';
 import LoadingBlock from '../components/LoadingBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import assessAccess from '../global-functions/assessAccess';
+import deviceType from '../global-functions/deviceType';
 import modifyArrays from '../global-functions/modifyArrays';
 import removeGlobalScroll from '../global-functions/removeGlobalScroll';
 import resetAccess from '../global-functions/resetAccess';
@@ -826,7 +828,11 @@ line two` ) and will not work with special characters inside of quotes ( example
         <View style={StyleSheet.applyWidth({ flex: 1 }, dimensions.width)}>
           {/* Fetch  */}
           <XanoCollectionApi.FetchGetAdvisorsGET
-            device={'ios'}
+            device={deviceType(
+              Platform.OS === 'web',
+              Platform.OS === 'ios',
+              Platform.OS === 'android'
+            )}
             eventType_in={[]}
             handlers={{
               on2xx: fetchData => {
@@ -948,7 +954,11 @@ line two` ) and will not work with special characters inside of quotes ( example
                           }
                           const newData = (
                             await XanoCollectionApi.getAdvisorsGET(Constants, {
-                              device: 'ios',
+                              device: deviceType(
+                                Platform.OS === 'web',
+                                Platform.OS === 'ios',
+                                Platform.OS === 'android'
+                              ),
                               eventType_in: [],
                               keyword: keywordSearch,
                               page: nextPage,

@@ -463,6 +463,9 @@ export const getAllEventsGET = async (
   if (region_in !== undefined) {
     paramsDict['region_in'] = renderParam(region_in);
   }
+  if (device !== undefined) {
+    paramsDict['device'] = renderParam(device);
+  }
   const url = `https://xne3-pdiu-8ysm.f2.xano.io/api:abjrBkC8/event${renderQueryString(
     paramsDict
   )}`;

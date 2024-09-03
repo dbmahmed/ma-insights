@@ -19,6 +19,7 @@ import { useIsFocused } from '@react-navigation/native';
 import {
   ActivityIndicator,
   Modal,
+  Platform,
   RefreshControl,
   Text,
   View,
@@ -32,6 +33,7 @@ import LoadingBlock from '../components/LoadingBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import assessAccess from '../global-functions/assessAccess';
 import cutText from '../global-functions/cutText';
+import deviceType from '../global-functions/deviceType';
 import formatNumber from '../global-functions/formatNumber';
 import modifyArrays from '../global-functions/modifyArrays';
 import removeGlobalScroll from '../global-functions/removeGlobalScroll';
@@ -71,6 +73,8 @@ const MultiplesScreen = props => {
   const [it_and_software, setIt_and_software] = React.useState(true);
   const [keywordSearch, setKeywordSearch] = React.useState('');
   const [materials, setMaterials] = React.useState(true);
+  const [multiplesList, setMultiplesList] = React.useState([]);
+  const [nextPage, setNextPage] = React.useState(0);
   const [nordic, setNordic] = React.useState(true);
   const [norgic, setNorgic] = React.useState(true);
   const [real_estate, setReal_estate] = React.useState(true);
@@ -425,7 +429,21 @@ const MultiplesScreen = props => {
         {/* Fetch container */}
         <View style={StyleSheet.applyWidth({ flex: 1 }, dimensions.width)}>
           <XanoCollectionApi.FetchEventTransactionsGET
-            device={'ios'}
+            device={deviceType(
+              Platform.OS === 'web',
+              Platform.OS === 'ios',
+              Platform.OS === 'android'
+            )}
+            handlers={{
+              on2xx: fetchData => {
+                try {
+                  setMultiplesList(fetchData?.json?.items);
+                  setNextPage(fetchData?.json?.nextPage);
+                } catch (err) {
+                  console.error(err);
+                }
+              },
+            }}
             keyword={keywordSearch}
             page={1}
             region_in={region}
@@ -505,14 +523,91 @@ const MultiplesScreen = props => {
                     style={StyleSheet.applyWidth({ flex: 1 }, dimensions.width)}
                   >
                     <SimpleStyleFlatList
-                      data={fetchData?.items}
+                      data={multiplesList}
                       horizontal={false}
                       inverted={false}
                       keyExtractor={(listData, index) => listData?.id}
                       keyboardShouldPersistTaps={'never'}
                       listKey={'SfOccPiT'}
                       nestedScrollEnabled={false}
-                      onEndReachedThreshold={0.5}
+                      onEndReached={() => {
+                        const handler = async () => {
+                          console.log('List ON_END_REACHED Start');
+                          let error = null;
+                          try {
+                            console.log('Start ON_END_REACHED:0 CONSOLE_LOG');
+                            console.log('End reached');
+                            console.log(
+                              'Complete ON_END_REACHED:0 CONSOLE_LOG'
+                            );
+                            console.log(
+                              'Start ON_END_REACHED:1 CONDITIONAL_STOP'
+                            );
+                            if (nextPage === null) {
+                              return console.log(
+                                'Complete ON_END_REACHED:1 CONDITIONAL_STOP'
+                              );
+                            } else {
+                              console.log(
+                                'Skipped ON_END_REACHED:1 CONDITIONAL_STOP: condition not met'
+                              );
+                            }
+                            console.log('Start ON_END_REACHED:2 FETCH_REQUEST');
+                            const newData = (
+                              await XanoCollectionApi.eventTransactionsGET(
+                                Constants,
+                                {
+                                  device: deviceType(
+                                    Platform.OS === 'web',
+                                    Platform.OS === 'ios',
+                                    Platform.OS === 'android'
+                                  ),
+                                  keyword: keywordSearch,
+                                  page: nextPage,
+                                  region_in: region,
+                                  sector_in: sector,
+                                }
+                              )
+                            )?.json;
+                            console.log(
+                              'Complete ON_END_REACHED:2 FETCH_REQUEST',
+                              { newData }
+                            );
+                            console.log('Start ON_END_REACHED:3 SET_VARIABLE');
+                            setNextPage(fetchData?.nextPage);
+                            console.log(
+                              'Complete ON_END_REACHED:3 SET_VARIABLE'
+                            );
+                            console.log(
+                              'Start ON_END_REACHED:4 CONDITIONAL_STOP'
+                            );
+                            if (fetchData?.items === 0) {
+                              return console.log(
+                                'Complete ON_END_REACHED:4 CONDITIONAL_STOP'
+                              );
+                            } else {
+                              console.log(
+                                'Skipped ON_END_REACHED:4 CONDITIONAL_STOP: condition not met'
+                              );
+                            }
+                            console.log('Start ON_END_REACHED:5 SET_VARIABLE');
+                            setMultiplesList(
+                              multiplesList.concat(newData?.items)
+                            );
+                            console.log(
+                              'Complete ON_END_REACHED:5 SET_VARIABLE'
+                            );
+                          } catch (err) {
+                            console.error(err);
+                            error = err.message ?? err;
+                          }
+                          console.log(
+                            'List ON_END_REACHED Complete',
+                            error ? { error } : 'no error'
+                          );
+                        };
+                        handler();
+                      }}
                       refreshControl={
                         <RefreshControl
                           refreshing={refreshingSfOccPiT}
@@ -1013,6 +1108,7 @@ const MultiplesScreen = props => {
                           ? 2
                           : 1
                       }
+                      onEndReachedThreshold={0.5}
                       showsHorizontalScrollIndicator={false}
                       showsVerticalScrollIndicator={false}
                       style={StyleSheet.applyWidth(
