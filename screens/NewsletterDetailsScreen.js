@@ -4,6 +4,7 @@ import {
   Button,
   CircularProgress,
   HStack,
+  IconButton,
   LinearGradient,
   Pressable,
   ScreenContainer,
@@ -40,6 +41,7 @@ import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
+import waitUtil from '../utils/wait';
 
 const NewsletterDetailsScreen = props => {
   const { theme, navigation } = props;
@@ -61,7 +63,18 @@ const NewsletterDetailsScreen = props => {
     'nordic_nl_section_4'
   );
   const [selectedID, setSelectedID] = React.useState(0);
+  const [showTempDiv, setShowTempDiv] = React.useState(true);
   const [refreshingdAZY73yw, setRefreshingdAZY73yw] = React.useState(false);
+  const calculateMinsToSecs = seconds => {
+    // Calculate minutes and remaining seconds
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = Math.floor(seconds % 60);
+    // Format the result to always show two digits for seconds
+    const formattedSeconds =
+      remainingSeconds < 10 ? '0' + remainingSeconds : remainingSeconds;
+    // Return the formatted string
+    return `${minutes}:${formattedSeconds}`;
+  };
   const isFocused = useIsFocused();
   React.useEffect(() => {
     try {
@@ -85,6 +98,8 @@ const NewsletterDetailsScreen = props => {
       console.error(err);
     }
   }, [isFocused]);
+  const audioPlayerSIxP9tJTRef = React.useRef();
+  const audioPlayerHLcphF9xu9Ref = React.useRef();
 
   return (
     <ScreenContainer
@@ -134,6 +149,7 @@ const NewsletterDetailsScreen = props => {
           onData: fetchData => {
             try {
               console.log(fetchData);
+              setShowTempDiv(true);
             } catch (err) {
               console.error(err);
             }
@@ -425,7 +441,7 @@ const NewsletterDetailsScreen = props => {
                       >
                         {fetchData?.title}
                       </H1>
-                      {/* date */}
+                      {/* date 1 */}
                       <Text
                         accessible={true}
                         {...GlobalStyles.TextStyles(theme)['screen_title']
@@ -437,43 +453,128 @@ const NewsletterDetailsScreen = props => {
                       >
                         {fetchData?.date}
                       </Text>
-                      <>
-                        {!(fetchData?.audio_version_pvt !== null) ? null : (
-                          <AudioPlayer
-                            hideDuration={false}
-                            hidePlaybackIcon={false}
-                            hideSlider={false}
-                            interruptionMode={'lower volume'}
-                            isLooping={false}
-                            playThroughEarpieceAndroid={false}
-                            playsInSilentModeIOS={false}
-                            remainingTrackColor={theme.colors.border.brand}
-                            thumbColor={theme.colors.branding.primary}
-                            togglePlaybackIconColor={
-                              theme.colors.branding.primary
-                            }
-                            togglePlaybackIconSize={24}
-                            {...GlobalStyles.AudioPlayerStyles(theme)[
-                              'Audio Player'
-                            ].props}
-                            completedTrackColor={theme.colors.branding.primary}
-                            mode={'interface'}
-                            playsInBackground={true}
-                            source={{
-                              uri: `${fetchData?.audio_version_pvt?.url}`,
-                            }}
-                            style={StyleSheet.applyWidth(
-                              StyleSheet.compose(
-                                GlobalStyles.AudioPlayerStyles(theme)[
-                                  'Audio Player'
-                                ].style,
-                                { marginTop: 8 }
-                              ),
-                              dimensions.width
-                            )}
-                          />
-                        )}
-                      </>
+
+                      <View
+                        onLayout={event => {
+                          try {
+                            /* hidden 'Log to Console' action */
+                            /* hidden 'Wait' action */
+                            /* hidden 'Play Media' action */
+                            /* hidden 'Wait' action */
+                            /* hidden 'Toggle Media Playback' action */
+                          } catch (err) {
+                            console.error(err);
+                          }
+                        }}
+                      >
+                        <>
+                          {!(fetchData?.audio_version_pvt !== null) ? null : (
+                            <AudioPlayer
+                              hideDuration={false}
+                              hidePlaybackIcon={false}
+                              hideSlider={false}
+                              interruptionMode={'lower volume'}
+                              isLooping={false}
+                              onPlaybackStatusUpdate={playbackStatus => {
+                                try {
+                                  /* hidden 'Log to Console' action */
+                                  /* hidden 'Play Media' action */
+                                  /* hidden 'Wait' action */
+                                  /* hidden 'Set Variable' action */
+                                  if (
+                                    Platform.OS === 'web' &&
+                                    playbackStatus?.durationMillis
+                                  ) {
+                                    setShowTempDiv(false);
+                                  }
+                                } catch (err) {
+                                  console.error(err);
+                                }
+                              }}
+                              playThroughEarpieceAndroid={false}
+                              playsInSilentModeIOS={false}
+                              remainingTrackColor={theme.colors.border.brand}
+                              thumbColor={theme.colors.branding.primary}
+                              togglePlaybackIconColor={
+                                theme.colors.branding.primary
+                              }
+                              togglePlaybackIconSize={24}
+                              {...GlobalStyles.AudioPlayerStyles(theme)[
+                                'Audio Player'
+                              ].props}
+                              completedTrackColor={
+                                theme.colors.branding.primary
+                              }
+                              mode={'interface'}
+                              playsInBackground={true}
+                              ref={audioPlayerSIxP9tJTRef}
+                              source={{
+                                uri: `${fetchData?.audio_version_pvt?.url}`,
+                              }}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.AudioPlayerStyles(theme)[
+                                    'Audio Player'
+                                  ].style,
+                                  { marginTop: 8 }
+                                ),
+                                dimensions.width
+                              )}
+                            />
+                          )}
+                        </>
+                        <>
+                          {!(Platform.OS === 'web' && showTempDiv) ? null : (
+                            <View
+                              style={StyleSheet.applyWidth(
+                                {
+                                  backgroundColor: 'rgba(0, 0, 0, 0)',
+                                  bottom: 0,
+                                  justifyContent: 'center',
+                                  left: 32,
+                                  position: 'absolute',
+                                  top: 8,
+                                },
+                                dimensions.width
+                              )}
+                            >
+                              <View
+                                style={StyleSheet.applyWidth(
+                                  {
+                                    backgroundColor:
+                                      theme.colors.background.brand,
+                                    marginLeft: 8,
+                                  },
+                                  dimensions.width
+                                )}
+                              >
+                                {/* dur */}
+                                <Text
+                                  accessible={true}
+                                  {...GlobalStyles.TextStyles(theme)[
+                                    'screen_title_stockH'
+                                  ].props}
+                                  style={StyleSheet.applyWidth(
+                                    StyleSheet.compose(
+                                      GlobalStyles.TextStyles(theme)[
+                                        'screen_title_stockH'
+                                      ].style,
+                                      { color: theme.colors.text.strong }
+                                    ),
+                                    dimensions.width
+                                  )}
+                                >
+                                  {'00:00 / '}
+                                  {calculateMinsToSecs(
+                                    fetchData?.audio_version_pvt?.meta?.duration
+                                  )}
+                                  {'  '}
+                                </Text>
+                              </View>
+                            </View>
+                          )}
+                        </>
+                      </View>
                     </View>
                     {/* Section Name */}
                     <>

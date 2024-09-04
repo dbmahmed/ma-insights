@@ -1064,7 +1064,7 @@ export const FetchGetAllStocksGET = ({
 
 export const getCFSGET = async (
   Constants,
-  { cfsSearchQuery, countryIn, device, ebitdaIn, page, sectorIn },
+  { cfsSearchQuery, countryIn, device, ebitdaIn, ownershipIn, page, sectorIn },
   handlers = {}
 ) => {
   const paramsDict = {};
@@ -1085,6 +1085,9 @@ export const getCFSGET = async (
   }
   if (device !== undefined) {
     paramsDict['device'] = renderParam(device);
+  }
+  if (ownershipIn !== undefined) {
+    paramsDict['ownership_In'] = renderParam(ownershipIn);
   }
   const url = `https://xne3-pdiu-8ysm.f2.xano.io/api:abjrBkC8/cfs${renderQueryString(
     paramsDict
@@ -1119,6 +1122,7 @@ export const FetchGetCFSGET = ({
   countryIn,
   device,
   ebitdaIn,
+  ownershipIn,
   page,
   sectorIn,
 }) => {
@@ -1132,7 +1136,15 @@ export const FetchGetCFSGET = ({
     error,
     refetch,
   } = useGetCFSGET(
-    { cfsSearchQuery, countryIn, device, ebitdaIn, page, sectorIn },
+    {
+      cfsSearchQuery,
+      countryIn,
+      device,
+      ebitdaIn,
+      ownershipIn,
+      page,
+      sectorIn,
+    },
     { refetchInterval, handlers: { onData, ...handlers } }
   );
 

@@ -415,7 +415,10 @@ const CFSScreen = props => {
                   {
                     alignItems: 'center',
                     backgroundColor:
-                      ebitdaRange[0] || country[0] || sector[0]
+                      ebitdaRange[0] ||
+                      country[0] ||
+                      sector[0] ||
+                      typeOwnership[0]
                         ? palettes.App.Orange
                         : palettes.Brand.Background,
                     borderRadius: 50,
@@ -436,7 +439,10 @@ const CFSScreen = props => {
                     }
                   }}
                   color={
-                    (ebitdaRange[0] || country[0] || sector[0]
+                    (ebitdaRange[0] ||
+                    country[0] ||
+                    sector[0] ||
+                    typeOwnership[0]
                       ? palettes.Brand['Strong Inverse']
                       : palettes.App.Strong2) ?? palettes.App.Strong2
                   }
@@ -496,6 +502,7 @@ const CFSScreen = props => {
             }
           },
         }}
+        ownershipIn={typeOwnership}
         page={1}
         sectorIn={sector}
       >
@@ -596,6 +603,7 @@ const CFSScreen = props => {
                                 Platform.OS === 'android'
                               ),
                               ebitdaIn: ebitdaRange,
+                              ownershipIn: typeOwnership,
                               page: parseInt(nextPage, 10),
                               sectorIn: sector,
                             })
