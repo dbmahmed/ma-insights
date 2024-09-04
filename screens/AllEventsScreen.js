@@ -3,10 +3,8 @@ import {
   Button,
   Checkbox,
   HStack,
-  Icon,
   IconButton,
   LinearGradient,
-  Link,
   Pressable,
   ScreenContainer,
   Shadow,
@@ -17,9 +15,8 @@ import {
   Touchable,
   withTheme,
 } from '@draftbit/ui';
-import { H3, H5, H6 } from '@expo/html-elements';
+import { H5, H6 } from '@expo/html-elements';
 import { useIsFocused } from '@react-navigation/native';
-import * as WebBrowser from 'expo-web-browser';
 import {
   ActivityIndicator,
   Image,
@@ -29,7 +26,6 @@ import {
   Text,
   View,
 } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Fetch } from 'react-request';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
@@ -41,18 +37,14 @@ import TopNavBlock from '../components/TopNavBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import Images from '../config/Images';
 import assessAccess from '../global-functions/assessAccess';
-import cutTextByWidth from '../global-functions/cutTextByWidth';
 import deviceType from '../global-functions/deviceType';
 import formatNumber from '../global-functions/formatNumber';
-import getListNameFormArray from '../global-functions/getListNameFormArray';
 import isNKPProp from '../global-functions/isNKPProp';
 import modifyArrays from '../global-functions/modifyArrays';
 import removeGlobalScroll from '../global-functions/removeGlobalScroll';
 import resetAccess from '../global-functions/resetAccess';
 import setPadding from '../global-functions/setPadding';
 import showNKPProp from '../global-functions/showNKPProp';
-import transformEuroM from '../global-functions/transformEuroM';
-import transformNumber from '../global-functions/transformNumber';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
@@ -142,7 +134,6 @@ const AllEventsScreen = props => {
   const [viewingEventId, setViewingEventId] = React.useState(0);
   const [refreshingAwqPzJqX, setRefreshingAwqPzJqX] = React.useState(false);
   const [refreshingf9DpjkHa, setRefreshingf9DpjkHa] = React.useState(false);
-  const [refreshinge5MZS9Mp, setRefreshinge5MZS9Mp] = React.useState(false);
   const toggleAllFilters = flag => {
     setFuture_opportunity(flag);
     setAcq_agenda(flag);
@@ -270,7 +261,6 @@ const AllEventsScreen = props => {
     setRow((regions || []).includes('RoW'));
     setDach((regions || []).includes('DACH'));
   };
-  const safeAreaInsets = useSafeAreaInsets();
   const isFocused = useIsFocused();
   React.useEffect(() => {
     try {
@@ -3795,18 +3785,14 @@ const AllEventsScreen = props => {
                             <Checkbox
                               onCheck={() => {
                                 try {
-                                  const valueEG0JIppY = undefined;
-                                  setNKP_Proprietary(valueEG0JIppY);
-                                  const event = valueEG0JIppY;
+                                  /* hidden 'Set Variable' action */
                                 } catch (err) {
                                   console.error(err);
                                 }
                               }}
                               onPress={newCheckboxValue => {
                                 try {
-                                  setNKP_Proprietary(
-                                    'NKP_Proprietary' ? false : true
-                                  );
+                                  setNKP_Proprietary(newCheckboxValue);
                                 } catch (err) {
                                   console.error(err);
                                 }
@@ -3993,6 +3979,7 @@ const AllEventsScreen = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'Media & Other'}
                               </Text>

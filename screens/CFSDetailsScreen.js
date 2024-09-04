@@ -118,8 +118,8 @@ const CFSDetailsScreen = props => {
                   alignItems: 'center',
                   height: '100%',
                   marginTop: [
-                    { minWidth: Breakpoints.Mobile, value: 65 },
                     { minWidth: Breakpoints.Desktop, value: 85 },
+                    { minWidth: Breakpoints.Mobile, value: 65 },
                   ],
                   paddingBottom: 65,
                   position: 'absolute',

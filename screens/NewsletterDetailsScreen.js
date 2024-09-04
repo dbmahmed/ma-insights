@@ -368,7 +368,7 @@ const NewsletterDetailsScreen = props => {
                         { minWidth: Breakpoints.Mobile, value: 65 },
                         {
                           minWidth: Breakpoints.Mobile,
-                          value: Platform.OS === 'web' ? 0 : 65,
+                          value: Platform.OS === 'web' ? 0 : 0,
                         },
                       ],
                       maxHeight: dimensions.height - 67,
@@ -492,7 +492,6 @@ const NewsletterDetailsScreen = props => {
                                 }
                               }}
                               playThroughEarpieceAndroid={false}
-                              playsInSilentModeIOS={false}
                               remainingTrackColor={theme.colors.border.brand}
                               thumbColor={theme.colors.branding.primary}
                               togglePlaybackIconColor={
@@ -507,6 +506,7 @@ const NewsletterDetailsScreen = props => {
                               }
                               mode={'interface'}
                               playsInBackground={true}
+                              playsInSilentModeIOS={true}
                               ref={audioPlayerSIxP9tJTRef}
                               source={{
                                 uri: `${fetchData?.audio_version_pvt?.url}`,
