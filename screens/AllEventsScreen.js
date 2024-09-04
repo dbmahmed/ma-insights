@@ -33,7 +33,6 @@ import CustomBottomNavBlock from '../components/CustomBottomNavBlock';
 import CustomHeaderBlock from '../components/CustomHeaderBlock';
 import EventDetailsModalBlock from '../components/EventDetailsModalBlock';
 import LoadingBlock from '../components/LoadingBlock';
-import TopNavBlock from '../components/TopNavBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import Images from '../config/Images';
 import assessAccess from '../global-functions/assessAccess';
@@ -4138,7 +4137,6 @@ const AllEventsScreen = props => {
           );
         }}
       </XanoCollectionApi.FetchGetAllEventsGET>
-      <>{!Constants['top_nav_pressed'] ? null : <TopNavBlock />}</>
       <CustomBottomNavBlock />
     </ScreenContainer>
   );

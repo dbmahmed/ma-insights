@@ -132,7 +132,10 @@ const LogInScreen = props => {
         <VStack
           {...GlobalStyles.VStackStyles(theme)['V Stack'].props}
           style={StyleSheet.applyWidth(
-            GlobalStyles.VStackStyles(theme)['V Stack'].style,
+            StyleSheet.compose(
+              GlobalStyles.VStackStyles(theme)['V Stack'].style,
+              { gap: 5 }
+            ),
             dimensions.width
           )}
         >

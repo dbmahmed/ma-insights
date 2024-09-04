@@ -1463,7 +1463,7 @@ const NewsletterDetailsScreen = props => {
                                           {transformNumber(
                                             listData?.ev_sales_fy0,
                                             'x',
-                                            undefined
+                                            true
                                           )}
                                         </Text>
                                       </View>
@@ -1496,7 +1496,7 @@ const NewsletterDetailsScreen = props => {
                                           {transformNumber(
                                             listData?.ev_ebitda_fy0,
                                             'x',
-                                            undefined
+                                            true
                                           )}
                                         </Text>
                                       </View>
@@ -1588,7 +1588,7 @@ const NewsletterDetailsScreen = props => {
                                   {transformNumber(
                                     fetchData?._potd?._peer_group?.ev_sales_fy0,
                                     'x',
-                                    undefined
+                                    true
                                   )}
                                 </Text>
                               </View>
@@ -1621,7 +1621,7 @@ const NewsletterDetailsScreen = props => {
                                     fetchData?._potd?._peer_group
                                       ?.ev_ebitda_fy0,
                                     'x',
-                                    undefined
+                                    true
                                   )}
                                 </Text>
                               </View>
