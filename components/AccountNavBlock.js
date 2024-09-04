@@ -1,13 +1,13 @@
 import React from 'react';
+import { BottomSheet, Link, withTheme } from '@draftbit/ui';
+import { useNavigation } from '@react-navigation/native';
+import { Text } from 'react-native';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
-import { BottomSheet, Link, withTheme } from '@draftbit/ui';
-import { useNavigation } from '@react-navigation/native';
-import { Text } from 'react-native';
 
 const AccountNavBlock = props => {
   const { theme } = props;

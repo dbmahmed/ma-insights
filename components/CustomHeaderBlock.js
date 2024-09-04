@@ -20,6 +20,7 @@ import resetAccess from '../global-functions/resetAccess';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
+import imageSource from '../utils/imageSource';
 import useWindowDimensions from '../utils/useWindowDimensions';
 
 const CustomHeaderBlock = props => {
@@ -443,7 +444,7 @@ const CustomHeaderBlock = props => {
               <Image
                 {...GlobalStyles.ImageStyles(theme)['Image'].props}
                 resizeMode={'contain'}
-                source={Images['mainsightsfaviconlogo1024cropped']}
+                source={imageSource(Images['mainsightsfaviconlogo1024cropped'])}
                 style={StyleSheet.applyWidth(
                   StyleSheet.compose(
                     GlobalStyles.ImageStyles(theme)['Image'].style,
@@ -656,14 +657,14 @@ const CustomHeaderBlock = props => {
                             {
                               color: [
                                 {
-                                  minWidth: Breakpoints.Laptop,
+                                  minWidth: Breakpoints.Mobile,
                                   value:
                                     Constants['pageName'] === 'Newsletters'
                                       ? palettes.App.Orange
                                       : palettes.Brand.Strong,
                                 },
                                 {
-                                  minWidth: Breakpoints.Mobile,
+                                  minWidth: Breakpoints.Laptop,
                                   value:
                                     Constants['pageName'] === 'Newsletters'
                                       ? palettes.App.Orange
@@ -1066,14 +1067,14 @@ const CustomHeaderBlock = props => {
                             {
                               color: [
                                 {
-                                  minWidth: Breakpoints.Laptop,
+                                  minWidth: Breakpoints.Mobile,
                                   value:
                                     Constants['pageName'] === 'Advisors'
                                       ? palettes.App.Orange
                                       : palettes.Brand.Strong,
                                 },
                                 {
-                                  minWidth: Breakpoints.Mobile,
+                                  minWidth: Breakpoints.Laptop,
                                   value:
                                     Constants['pageName'] === 'Advisors'
                                       ? palettes.App.Orange
@@ -1218,14 +1219,14 @@ const CustomHeaderBlock = props => {
                             {
                               color: [
                                 {
-                                  minWidth: Breakpoints.Laptop,
+                                  minWidth: Breakpoints.Mobile,
                                   value:
                                     Constants['pageName'] === 'Peer Groups'
                                       ? palettes.App.Orange
                                       : palettes.Brand.Strong,
                                 },
                                 {
-                                  minWidth: Breakpoints.Mobile,
+                                  minWidth: Breakpoints.Laptop,
                                   value:
                                     Constants['pageName'] === 'Peer Groups'
                                       ? palettes.App.Orange

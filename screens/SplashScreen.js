@@ -6,7 +6,7 @@ import {
   withTheme,
 } from '@draftbit/ui';
 import { useIsFocused } from '@react-navigation/native';
-import { Image, Text, View } from 'react-native';
+import { Image, Platform, Text, View } from 'react-native';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
 import * as GlobalVariables from '../config/GlobalVariableContext';
@@ -15,6 +15,8 @@ import removeGlobalScroll from '../global-functions/removeGlobalScroll';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
+import getPushTokenUtil from '../utils/getPushToken';
+import imageSource from '../utils/imageSource';
 import useWindowDimensions from '../utils/useWindowDimensions';
 
 const SplashScreen = props => {
@@ -23,6 +25,7 @@ const SplashScreen = props => {
   const Constants = GlobalVariables.useValues();
   const Variables = Constants;
   const setGlobalVariableValue = GlobalVariables.useSetValue();
+  const xanoCollectionExpoTokenPUT = XanoCollectionApi.useExpoTokenPUT();
   const isFocused = useIsFocused();
   React.useEffect(() => {
     const handler = async () => {
@@ -64,6 +67,10 @@ const SplashScreen = props => {
         } else {
           /* hidden 'Log to Console' action */
           navigation.navigate('NewslettersScreen');
+          /* hidden 'Conditional Stop' action */
+          /* hidden 'Conditional Stop' action */
+          /* hidden 'Get Expo Push Token' action */
+          /* hidden 'API Request' action */
         }
         console.log('Complete ON_SCREEN_FOCUS:6 IF');
       } catch (err) {

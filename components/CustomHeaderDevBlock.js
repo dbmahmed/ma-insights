@@ -19,6 +19,7 @@ import resetAccess from '../global-functions/resetAccess';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
+import imageSource from '../utils/imageSource';
 import useWindowDimensions from '../utils/useWindowDimensions';
 
 const CustomHeaderDevBlock = props => {
@@ -454,7 +455,7 @@ const CustomHeaderDevBlock = props => {
               <Image
                 {...GlobalStyles.ImageStyles(theme)['Image'].props}
                 resizeMode={'contain'}
-                source={Images['mainsightsfaviconlogo1024cropped']}
+                source={imageSource(Images['mainsightsfaviconlogo1024cropped'])}
                 style={StyleSheet.applyWidth(
                   StyleSheet.compose(
                     GlobalStyles.ImageStyles(theme)['Image'].style,
@@ -1674,14 +1675,14 @@ const CustomHeaderDevBlock = props => {
                         {
                           color: [
                             {
-                              minWidth: Breakpoints.Laptop,
+                              minWidth: Breakpoints.Mobile,
                               value:
                                 Constants['pageName'] === 'Reports'
                                   ? palettes.App.Orange
                                   : palettes.Brand.Strong,
                             },
                             {
-                              minWidth: Breakpoints.Mobile,
+                              minWidth: Breakpoints.Laptop,
                               value:
                                 Constants['pageName'] === 'Reports'
                                   ? palettes.App.Orange

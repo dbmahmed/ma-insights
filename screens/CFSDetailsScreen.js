@@ -74,7 +74,10 @@ const CFSDetailsScreen = props => {
         return;
       }
       resetAccess(navigation, Variables, setGlobalVariableValue);
-      /* hidden 'Navigate' action */
+      if (navigation.canGoBack()) {
+        navigation.popToTop();
+      }
+      navigation.replace('LogInScreen');
     } catch (err) {
       console.error(err);
     }
@@ -866,12 +869,7 @@ const CFSDetailsScreen = props => {
                         </Text>
                       )}
                     </>
-                    <View
-                      style={StyleSheet.applyWidth(
-                        { paddingBottom: 40 },
-                        dimensions.width
-                      )}
-                    >
+                    <View>
                       {/* Text 2 */}
                       <Text
                         accessible={true}

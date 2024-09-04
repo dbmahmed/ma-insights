@@ -408,7 +408,9 @@ const MultiplesScreen = props => {
                     {
                       alignItems: 'center',
                       backgroundColor:
-                        sector[0] || region[0]
+                        sector[0] ||
+                        region[0] ||
+                        (ebitdaRange && ebitdaRange[0])
                           ? palettes.App.Orange
                           : palettes.Brand.Background,
                       borderRadius: 50,
@@ -429,7 +431,7 @@ const MultiplesScreen = props => {
                       }
                     }}
                     color={
-                      (sector[0] || region[0]
+                      (sector[0] || region[0] || (ebitdaRange && ebitdaRange[0])
                         ? palettes.Brand['Strong Inverse']
                         : palettes.App.Strong2) ?? palettes.App.Strong2
                     }
@@ -450,6 +452,7 @@ const MultiplesScreen = props => {
               Platform.OS === 'ios',
               Platform.OS === 'android'
             )}
+            ebitda_in={ebitdaRange}
             handlers={{
               on2xx: fetchData => {
                 try {

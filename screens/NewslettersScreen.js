@@ -17,6 +17,7 @@ import { useIsFocused } from '@react-navigation/native';
 import {
   ActivityIndicator,
   Modal,
+  Platform,
   RefreshControl,
   Text,
   View,
@@ -29,6 +30,7 @@ import CustomHeaderBlock from '../components/CustomHeaderBlock';
 import LoadingBlock from '../components/LoadingBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import assessAccess from '../global-functions/assessAccess';
+import deviceType from '../global-functions/deviceType';
 import removeGlobalScroll from '../global-functions/removeGlobalScroll';
 import resetAccess from '../global-functions/resetAccess';
 import setPadding from '../global-functions/setPadding';
@@ -128,9 +130,11 @@ const NewslettersScreen = props => {
       resetAccess(navigation, Variables, setGlobalVariableValue);
       console.log('Complete ON_SCREEN_FOCUS:10 CUSTOM_FUNCTION');
       console.log('Start ON_SCREEN_FOCUS:11 NAVIGATE');
-      /* hidden 'Navigate' action */ console.log(
-        'Complete ON_SCREEN_FOCUS:11 NAVIGATE'
-      );
+      if (navigation.canGoBack()) {
+        navigation.popToTop();
+      }
+      navigation.replace('LogInScreen');
+      console.log('Complete ON_SCREEN_FOCUS:11 NAVIGATE');
       console.log('Start ON_SCREEN_FOCUS:12 SET_VARIABLE');
       /* hidden 'Set Variable' action */ console.log(
         'Complete ON_SCREEN_FOCUS:12 SET_VARIABLE'
@@ -600,7 +604,11 @@ const NewslettersScreen = props => {
 
         <XanoCollectionApi.FetchNewslettersGET
           dach={dach}
-          device={'ios'}
+          device={deviceType(
+            Platform.OS === 'web',
+            Platform.OS === 'ios',
+            Platform.OS === 'android'
+          )}
           handlers={{
             on2xx: fetchData => {
               try {
@@ -679,7 +687,11 @@ const NewslettersScreen = props => {
                       const newData = (
                         await XanoCollectionApi.newslettersGET(Constants, {
                           dach: dach,
-                          device: 'ios',
+                          device: deviceType(
+                            Platform.OS === 'web',
+                            Platform.OS === 'ios',
+                            Platform.OS === 'android'
+                          ),
                           keyword: keywordSearch,
                           newsletters: newsletter,
                           nordic: nordic,

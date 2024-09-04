@@ -28,11 +28,13 @@ import CustomHeaderBlock from '../components/CustomHeaderBlock';
 import LoadingBlock from '../components/LoadingBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import Images from '../config/Images';
+import assessAccess from '../global-functions/assessAccess';
 import removeGlobalScroll from '../global-functions/removeGlobalScroll';
 import setPadding from '../global-functions/setPadding';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
+import imageSource from '../utils/imageSource';
 import useWindowDimensions from '../utils/useWindowDimensions';
 
 const PeerGroupsScreen = props => {
@@ -83,6 +85,13 @@ const PeerGroupsScreen = props => {
         key: 'subPage',
         value: false,
       });
+      if (assessAccess(Variables, setGlobalVariableValue, true)) {
+        return;
+      }
+      if (navigation.canGoBack()) {
+        navigation.popToTop();
+      }
+      navigation.replace('LogInScreen');
     } catch (err) {
       console.error(err);
     }
@@ -760,9 +769,9 @@ const PeerGroupsScreen = props => {
                                   resizeMode={'cover'}
                                   {...GlobalStyles.ImageStyles(theme)['Image']
                                     .props}
-                                  source={
+                                  source={imageSource(
                                     Images['mainsightsfaviconlogo1024new']
-                                  }
+                                  )}
                                   style={StyleSheet.applyWidth(
                                     StyleSheet.compose(
                                       GlobalStyles.ImageStyles(theme)['Image']

@@ -11,7 +11,7 @@ import {
 import { H3, H5, H6 } from '@expo/html-elements';
 import { useIsFocused } from '@react-navigation/native';
 import * as WebBrowser from 'expo-web-browser';
-import { ActivityIndicator, Text, View } from 'react-native';
+import { ActivityIndicator, Platform, Text, View } from 'react-native';
 import { Fetch } from 'react-request';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
@@ -22,6 +22,7 @@ import LoadingBlock from '../components/LoadingBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import assessAccess from '../global-functions/assessAccess';
 import cutTextByWidth from '../global-functions/cutTextByWidth';
+import deviceType from '../global-functions/deviceType';
 import removeGlobalScroll from '../global-functions/removeGlobalScroll';
 import transformEuroM from '../global-functions/transformEuroM';
 import palettes from '../themes/palettes';
@@ -82,7 +83,11 @@ const PEPFDetailsScreen = props => {
     >
       <CustomHeaderBlock />
       <XanoCollectionApi.FetchGetOnePEPFGET
-        device={'ios'}
+        device={deviceType(
+          Platform.OS === 'web',
+          Platform.OS === 'ios',
+          Platform.OS === 'android'
+        )}
         pepf_id={props.route?.params?.pepf_id ?? 1}
       >
         {({ loading, error, data, refetchGetOnePEPF }) => {

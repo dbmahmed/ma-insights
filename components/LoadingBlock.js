@@ -1,11 +1,11 @@
 import React from 'react';
+import { CircularProgress, withTheme } from '@draftbit/ui';
+import { View } from 'react-native';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
-import { CircularProgress, withTheme } from '@draftbit/ui';
-import { View } from 'react-native';
 
 const LoadingBlock = props => {
   const { theme } = props;

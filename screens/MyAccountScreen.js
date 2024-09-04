@@ -120,10 +120,7 @@ const MyAccountScreen = props => {
               /* hidden 'Set Variable' action */
               /* hidden 'Set Variable' action */
               /* hidden 'Set Variable' action */
-              setGlobalVariableValue({
-                key: 'ME',
-                value: fetchData,
-              });
+              /* hidden 'Set Variable' action */
             } catch (err) {
               console.error(err);
             }

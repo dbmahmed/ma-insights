@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  AccordionGroup,
   Button,
   Checkbox,
   HStack,
@@ -33,6 +34,7 @@ import LoadingBlock from '../components/LoadingBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import assessAccess from '../global-functions/assessAccess';
 import cutText from '../global-functions/cutText';
+import deviceType from '../global-functions/deviceType';
 import formatNumber from '../global-functions/formatNumber';
 import modifyArrays from '../global-functions/modifyArrays';
 import removeGlobalScroll from '../global-functions/removeGlobalScroll';
@@ -444,7 +446,11 @@ const PEPFScreen = props => {
 
       <XanoCollectionApi.FetchGetAllPEPFGET
         countryIn={country}
-        device={'ios'}
+        device={deviceType(
+          Platform.OS === 'web',
+          Platform.OS === 'ios',
+          Platform.OS === 'android'
+        )}
         ebitdaIn={ebitdaRange}
         handlers={{
           on2xx: fetchData => {
@@ -570,10 +576,14 @@ const PEPFScreen = props => {
                       const newData = (
                         await XanoCollectionApi.getAllPEPFGET(Constants, {
                           countryIn: country,
-                          device: 'ios',
+                          device: deviceType(
+                            Platform.OS === 'web',
+                            Platform.OS === 'ios',
+                            Platform.OS === 'android'
+                          ),
                           ebitdaIn: ebitdaRange,
                           page: nextPage,
-                          region_in: ['RoW'],
+                          region_in: regions,
                           searchString: keywordSearch,
                           sectorIn: sector,
                           vintageIn: fundVintage,
@@ -3168,884 +3178,893 @@ const PEPFScreen = props => {
                               dimensions.width
                             )}
                           >
-                            <H5
-                              selectable={false}
-                              {...GlobalStyles.H5Styles(theme)['H5'].props}
+                            <AccordionGroup
+                              caretSize={24}
+                              expanded={false}
+                              iconSize={24}
+                              {...GlobalStyles.AccordionGroupStyles(theme)[
+                                'Accordion'
+                              ].props}
+                              caretColor={palettes.Brand['Strong Inverse']}
+                              closedColor={palettes.Brand['Strong Inverse']}
+                              label={'Sector'}
+                              openColor={palettes.Brand['Strong Inverse']}
                               style={StyleSheet.applyWidth(
                                 StyleSheet.compose(
-                                  GlobalStyles.H5Styles(theme)['H5'].style,
+                                  GlobalStyles.AccordionGroupStyles(theme)[
+                                    'Accordion'
+                                  ].style,
                                   {
                                     color: palettes.Brand['Strong Inverse'],
-                                    fontSize: 16,
-                                    marginBottom: 0,
-                                    marginTop: 0,
+                                    fontFamily: 'Quicksand_700Bold',
                                   }
                                 ),
                                 dimensions.width
                               )}
                             >
-                              {'Sector (GICS)'}
-                            </H5>
-                            {/* View 2 */}
-                            <View
-                              style={StyleSheet.applyWidth(
-                                {
-                                  alignItems: 'flex-start',
-                                  flex: 0,
-                                  flexDirection: 'row',
-                                  flexWrap: 'wrap',
-                                  gap: 0,
-                                  justifyContent: 'flex-start',
-                                  margin: -4,
-                                  width: '100%',
-                                },
-                                dimensions.width
-                              )}
-                            >
-                              {/* Communication Services */}
+                              {/* View 2 */}
                               <View
                                 style={StyleSheet.applyWidth(
                                   {
-                                    alignContent: 'center',
-                                    alignItems: 'center',
+                                    alignItems: 'flex-start',
+                                    flex: 0,
                                     flexDirection: 'row',
-                                    gap: 4,
-                                    padding: 4,
-                                    width: [
-                                      {
-                                        minWidth: Breakpoints.Mobile,
-                                        value: '50%',
-                                      },
-                                      {
-                                        minWidth: Breakpoints.Tablet,
-                                        value: '33.33%',
-                                      },
-                                      {
-                                        minWidth: Breakpoints.Laptop,
-                                        value: '25%',
-                                      },
-                                    ],
+                                    flexWrap: 'wrap',
+                                    gap: 0,
+                                    justifyContent: 'flex-start',
+                                    margin: -4,
+                                    width: '100%',
                                   },
                                   dimensions.width
                                 )}
                               >
-                                <Checkbox
-                                  onPress={newCheckboxValue => {
-                                    try {
-                                      setCommunication_services(
-                                        newCheckboxValue
-                                      );
-                                    } catch (err) {
-                                      console.error(err);
-                                    }
-                                  }}
-                                  color={palettes.Brand['Strong Inverse']}
-                                  size={24}
-                                  status={communication_services}
-                                  uncheckedColor={
-                                    palettes.Brand['Strong Inverse']
-                                  }
-                                />
-                                <Pressable
-                                  onPress={() => {
-                                    try {
-                                      setCommunication_services(
-                                        communication_services ? false : true
-                                      );
-                                    } catch (err) {
-                                      console.error(err);
-                                    }
-                                  }}
-                                >
-                                  <Text
-                                    accessible={true}
-                                    {...GlobalStyles.TextStyles(theme)[
-                                      'screen_title'
-                                    ].props}
-                                    style={StyleSheet.applyWidth(
-                                      StyleSheet.compose(
-                                        GlobalStyles.TextStyles(theme)[
-                                          'screen_title'
-                                        ].style,
+                                {/* Communication Services */}
+                                <View
+                                  style={StyleSheet.applyWidth(
+                                    {
+                                      alignContent: 'center',
+                                      alignItems: 'center',
+                                      flexDirection: 'row',
+                                      gap: 4,
+                                      padding: 4,
+                                      width: [
                                         {
-                                          color:
-                                            palettes.Brand['Strong Inverse'],
-                                          fontFamily: 'Quicksand_400Regular',
-                                          fontSize: 12,
-                                        }
-                                      ),
-                                      dimensions.width
-                                    )}
-                                  >
-                                    {'Communication Services'}
-                                  </Text>
-                                </Pressable>
-                              </View>
-                              {/* Industrials */}
-                              <View
-                                style={StyleSheet.applyWidth(
-                                  {
-                                    alignContent: 'center',
-                                    alignItems: 'center',
-                                    flexDirection: 'row',
-                                    gap: 4,
-                                    padding: 4,
-                                    width: [
-                                      {
-                                        minWidth: Breakpoints.Mobile,
-                                        value: '50%',
-                                      },
-                                      {
-                                        minWidth: Breakpoints.Tablet,
-                                        value: '33.33%',
-                                      },
-                                      {
-                                        minWidth: Breakpoints.Laptop,
-                                        value: '25%',
-                                      },
-                                    ],
-                                  },
-                                  dimensions.width
-                                )}
-                              >
-                                <Checkbox
-                                  onPress={newCheckboxValue => {
-                                    try {
-                                      setIndustrials(newCheckboxValue);
-                                    } catch (err) {
-                                      console.error(err);
-                                    }
-                                  }}
-                                  color={palettes.Brand['Strong Inverse']}
-                                  size={24}
-                                  status={industrials}
-                                  uncheckedColor={
-                                    palettes.Brand['Strong Inverse']
-                                  }
-                                />
-                                <Pressable
-                                  onPress={() => {
-                                    try {
-                                      setIndustrials(
-                                        industrials ? false : true
-                                      );
-                                    } catch (err) {
-                                      console.error(err);
-                                    }
-                                  }}
-                                >
-                                  <Text
-                                    accessible={true}
-                                    {...GlobalStyles.TextStyles(theme)[
-                                      'screen_title'
-                                    ].props}
-                                    style={StyleSheet.applyWidth(
-                                      StyleSheet.compose(
-                                        GlobalStyles.TextStyles(theme)[
-                                          'screen_title'
-                                        ].style,
+                                          minWidth: Breakpoints.Mobile,
+                                          value: '50%',
+                                        },
                                         {
-                                          color:
-                                            palettes.Brand['Strong Inverse'],
-                                          fontFamily: 'Quicksand_400Regular',
-                                          fontSize: 12,
-                                        }
-                                      ),
-                                      dimensions.width
-                                    )}
-                                  >
-                                    {'Industrials'}
-                                  </Text>
-                                </Pressable>
-                              </View>
-                              {/* Consumer Discretionary */}
-                              <View
-                                style={StyleSheet.applyWidth(
-                                  {
-                                    alignContent: 'center',
-                                    alignItems: 'center',
-                                    flexDirection: 'row',
-                                    gap: 4,
-                                    padding: 4,
-                                    width: [
-                                      {
-                                        minWidth: Breakpoints.Mobile,
-                                        value: '50%',
-                                      },
-                                      {
-                                        minWidth: Breakpoints.Tablet,
-                                        value: '33.33%',
-                                      },
-                                      {
-                                        minWidth: Breakpoints.Laptop,
-                                        value: '25%',
-                                      },
-                                    ],
-                                  },
-                                  dimensions.width
-                                )}
-                              >
-                                <Checkbox
-                                  onPress={newCheckboxValue => {
-                                    try {
-                                      setConsumer_discretionary(
-                                        newCheckboxValue
-                                      );
-                                    } catch (err) {
-                                      console.error(err);
-                                    }
-                                  }}
-                                  color={palettes.Brand['Strong Inverse']}
-                                  size={24}
-                                  status={consumer_discretionary}
-                                  uncheckedColor={
-                                    palettes.Brand['Strong Inverse']
-                                  }
-                                />
-                                <Pressable
-                                  onPress={() => {
-                                    try {
-                                      setConsumer_discretionary(
-                                        consumer_discretionary ? false : true
-                                      );
-                                    } catch (err) {
-                                      console.error(err);
-                                    }
-                                  }}
-                                >
-                                  <Text
-                                    accessible={true}
-                                    {...GlobalStyles.TextStyles(theme)[
-                                      'screen_title'
-                                    ].props}
-                                    style={StyleSheet.applyWidth(
-                                      StyleSheet.compose(
-                                        GlobalStyles.TextStyles(theme)[
-                                          'screen_title'
-                                        ].style,
+                                          minWidth: Breakpoints.Tablet,
+                                          value: '33.33%',
+                                        },
                                         {
-                                          color:
-                                            palettes.Brand['Strong Inverse'],
-                                          fontFamily: 'Quicksand_400Regular',
-                                          fontSize: 12,
-                                        }
-                                      ),
-                                      dimensions.width
-                                    )}
-                                  >
-                                    {'Consumer Discretionary'}
-                                  </Text>
-                                </Pressable>
-                              </View>
-                              {/* IT and Software */}
-                              <View
-                                style={StyleSheet.applyWidth(
-                                  {
-                                    alignContent: 'center',
-                                    alignItems: 'center',
-                                    flexDirection: 'row',
-                                    gap: 4,
-                                    padding: 4,
-                                    width: [
-                                      {
-                                        minWidth: Breakpoints.Tablet,
-                                        value: '33.33%',
-                                      },
-                                      {
-                                        minWidth: Breakpoints.Mobile,
-                                        value: '50%',
-                                      },
-                                      {
-                                        minWidth: Breakpoints.Laptop,
-                                        value: '25%',
-                                      },
-                                    ],
-                                  },
-                                  dimensions.width
-                                )}
-                              >
-                                <Checkbox
-                                  onPress={newCheckboxValue => {
-                                    try {
-                                      setIt_and_software(newCheckboxValue);
-                                    } catch (err) {
-                                      console.error(err);
-                                    }
-                                  }}
-                                  color={palettes.Brand['Strong Inverse']}
-                                  size={24}
-                                  status={it_and_software}
-                                  uncheckedColor={
-                                    palettes.Brand['Strong Inverse']
-                                  }
-                                />
-                                <Pressable
-                                  onPress={() => {
-                                    try {
-                                      setIt_and_software(
-                                        it_and_software ? false : true
-                                      );
-                                    } catch (err) {
-                                      console.error(err);
-                                    }
-                                  }}
+                                          minWidth: Breakpoints.Laptop,
+                                          value: '25%',
+                                        },
+                                      ],
+                                    },
+                                    dimensions.width
+                                  )}
                                 >
-                                  <Text
-                                    accessible={true}
-                                    {...GlobalStyles.TextStyles(theme)[
-                                      'screen_title'
-                                    ].props}
-                                    style={StyleSheet.applyWidth(
-                                      StyleSheet.compose(
-                                        GlobalStyles.TextStyles(theme)[
-                                          'screen_title'
-                                        ].style,
-                                        {
-                                          color:
-                                            palettes.Brand['Strong Inverse'],
-                                          fontFamily: 'Quicksand_400Regular',
-                                          fontSize: 12,
-                                        }
-                                      ),
-                                      dimensions.width
-                                    )}
+                                  <Checkbox
+                                    onPress={newCheckboxValue => {
+                                      try {
+                                        setCommunication_services(
+                                          newCheckboxValue
+                                        );
+                                      } catch (err) {
+                                        console.error(err);
+                                      }
+                                    }}
+                                    color={palettes.Brand['Strong Inverse']}
+                                    size={24}
+                                    status={communication_services}
+                                    uncheckedColor={
+                                      palettes.Brand['Strong Inverse']
+                                    }
+                                  />
+                                  <Pressable
+                                    onPress={() => {
+                                      try {
+                                        setCommunication_services(
+                                          communication_services ? false : true
+                                        );
+                                      } catch (err) {
+                                        console.error(err);
+                                      }
+                                    }}
                                   >
-                                    {'IT & Software'}
-                                  </Text>
-                                </Pressable>
-                              </View>
-                              {/* Consumer Staples */}
-                              <View
-                                style={StyleSheet.applyWidth(
-                                  {
-                                    alignContent: 'center',
-                                    alignItems: 'center',
-                                    flexDirection: 'row',
-                                    gap: 4,
-                                    padding: 4,
-                                    width: [
-                                      {
-                                        minWidth: Breakpoints.Mobile,
-                                        value: '50%',
-                                      },
-                                      {
-                                        minWidth: Breakpoints.Tablet,
-                                        value: '33.33%',
-                                      },
-                                      {
-                                        minWidth: Breakpoints.Laptop,
-                                        value: '25%',
-                                      },
-                                    ],
-                                  },
-                                  dimensions.width
-                                )}
-                              >
-                                <Checkbox
-                                  onPress={newCheckboxValue => {
-                                    try {
-                                      setConsumer_staples(newCheckboxValue);
-                                    } catch (err) {
-                                      console.error(err);
-                                    }
-                                  }}
-                                  color={palettes.Brand['Strong Inverse']}
-                                  size={24}
-                                  status={consumer_staples}
-                                  uncheckedColor={
-                                    palettes.Brand['Strong Inverse']
-                                  }
-                                />
-                                <Pressable
-                                  onPress={() => {
-                                    try {
-                                      setConsumer_staples(
-                                        consumer_staples ? false : true
-                                      );
-                                    } catch (err) {
-                                      console.error(err);
-                                    }
-                                  }}
+                                    <Text
+                                      accessible={true}
+                                      {...GlobalStyles.TextStyles(theme)[
+                                        'screen_title'
+                                      ].props}
+                                      style={StyleSheet.applyWidth(
+                                        StyleSheet.compose(
+                                          GlobalStyles.TextStyles(theme)[
+                                            'screen_title'
+                                          ].style,
+                                          {
+                                            color:
+                                              palettes.Brand['Strong Inverse'],
+                                            fontFamily: 'Quicksand_400Regular',
+                                            fontSize: 12,
+                                          }
+                                        ),
+                                        dimensions.width
+                                      )}
+                                    >
+                                      {'Communication Services'}
+                                    </Text>
+                                  </Pressable>
+                                </View>
+                                {/* Industrials */}
+                                <View
+                                  style={StyleSheet.applyWidth(
+                                    {
+                                      alignContent: 'center',
+                                      alignItems: 'center',
+                                      flexDirection: 'row',
+                                      gap: 4,
+                                      padding: 4,
+                                      width: [
+                                        {
+                                          minWidth: Breakpoints.Mobile,
+                                          value: '50%',
+                                        },
+                                        {
+                                          minWidth: Breakpoints.Tablet,
+                                          value: '33.33%',
+                                        },
+                                        {
+                                          minWidth: Breakpoints.Laptop,
+                                          value: '25%',
+                                        },
+                                      ],
+                                    },
+                                    dimensions.width
+                                  )}
                                 >
-                                  <Text
-                                    accessible={true}
-                                    {...GlobalStyles.TextStyles(theme)[
-                                      'screen_title'
-                                    ].props}
-                                    style={StyleSheet.applyWidth(
-                                      StyleSheet.compose(
-                                        GlobalStyles.TextStyles(theme)[
-                                          'screen_title'
-                                        ].style,
-                                        {
-                                          color:
-                                            palettes.Brand['Strong Inverse'],
-                                          fontFamily: 'Quicksand_400Regular',
-                                          fontSize: 12,
-                                        }
-                                      ),
-                                      dimensions.width
-                                    )}
+                                  <Checkbox
+                                    onPress={newCheckboxValue => {
+                                      try {
+                                        setIndustrials(newCheckboxValue);
+                                      } catch (err) {
+                                        console.error(err);
+                                      }
+                                    }}
+                                    color={palettes.Brand['Strong Inverse']}
+                                    size={24}
+                                    status={industrials}
+                                    uncheckedColor={
+                                      palettes.Brand['Strong Inverse']
+                                    }
+                                  />
+                                  <Pressable
+                                    onPress={() => {
+                                      try {
+                                        setIndustrials(
+                                          industrials ? false : true
+                                        );
+                                      } catch (err) {
+                                        console.error(err);
+                                      }
+                                    }}
                                   >
-                                    {'Consumer Staples'}
-                                  </Text>
-                                </Pressable>
-                              </View>
-                              {/* Materials */}
-                              <View
-                                style={StyleSheet.applyWidth(
-                                  {
-                                    alignContent: 'center',
-                                    alignItems: 'center',
-                                    flexDirection: 'row',
-                                    gap: 4,
-                                    padding: 4,
-                                    width: [
-                                      {
-                                        minWidth: Breakpoints.Mobile,
-                                        value: '50%',
-                                      },
-                                      {
-                                        minWidth: Breakpoints.Tablet,
-                                        value: '33.33%',
-                                      },
-                                      {
-                                        minWidth: Breakpoints.Laptop,
-                                        value: '25%',
-                                      },
-                                    ],
-                                  },
-                                  dimensions.width
-                                )}
-                              >
-                                <Checkbox
-                                  onPress={newCheckboxValue => {
-                                    try {
-                                      setMaterials(newCheckboxValue);
-                                    } catch (err) {
-                                      console.error(err);
-                                    }
-                                  }}
-                                  color={palettes.Brand['Strong Inverse']}
-                                  size={24}
-                                  status={materials}
-                                  uncheckedColor={
-                                    palettes.Brand['Strong Inverse']
-                                  }
-                                />
-                                <Pressable
-                                  onPress={() => {
-                                    try {
-                                      setMaterials(materials ? false : true);
-                                    } catch (err) {
-                                      console.error(err);
-                                    }
-                                  }}
+                                    <Text
+                                      accessible={true}
+                                      {...GlobalStyles.TextStyles(theme)[
+                                        'screen_title'
+                                      ].props}
+                                      style={StyleSheet.applyWidth(
+                                        StyleSheet.compose(
+                                          GlobalStyles.TextStyles(theme)[
+                                            'screen_title'
+                                          ].style,
+                                          {
+                                            color:
+                                              palettes.Brand['Strong Inverse'],
+                                            fontFamily: 'Quicksand_400Regular',
+                                            fontSize: 12,
+                                          }
+                                        ),
+                                        dimensions.width
+                                      )}
+                                    >
+                                      {'Industrials'}
+                                    </Text>
+                                  </Pressable>
+                                </View>
+                                {/* Consumer Discretionary */}
+                                <View
+                                  style={StyleSheet.applyWidth(
+                                    {
+                                      alignContent: 'center',
+                                      alignItems: 'center',
+                                      flexDirection: 'row',
+                                      gap: 4,
+                                      padding: 4,
+                                      width: [
+                                        {
+                                          minWidth: Breakpoints.Mobile,
+                                          value: '50%',
+                                        },
+                                        {
+                                          minWidth: Breakpoints.Tablet,
+                                          value: '33.33%',
+                                        },
+                                        {
+                                          minWidth: Breakpoints.Laptop,
+                                          value: '25%',
+                                        },
+                                      ],
+                                    },
+                                    dimensions.width
+                                  )}
                                 >
-                                  <Text
-                                    accessible={true}
-                                    {...GlobalStyles.TextStyles(theme)[
-                                      'screen_title'
-                                    ].props}
-                                    style={StyleSheet.applyWidth(
-                                      StyleSheet.compose(
-                                        GlobalStyles.TextStyles(theme)[
-                                          'screen_title'
-                                        ].style,
-                                        {
-                                          color:
-                                            palettes.Brand['Strong Inverse'],
-                                          fontFamily: 'Quicksand_400Regular',
-                                          fontSize: 12,
-                                        }
-                                      ),
-                                      dimensions.width
-                                    )}
+                                  <Checkbox
+                                    onPress={newCheckboxValue => {
+                                      try {
+                                        setConsumer_discretionary(
+                                          newCheckboxValue
+                                        );
+                                      } catch (err) {
+                                        console.error(err);
+                                      }
+                                    }}
+                                    color={palettes.Brand['Strong Inverse']}
+                                    size={24}
+                                    status={consumer_discretionary}
+                                    uncheckedColor={
+                                      palettes.Brand['Strong Inverse']
+                                    }
+                                  />
+                                  <Pressable
+                                    onPress={() => {
+                                      try {
+                                        setConsumer_discretionary(
+                                          consumer_discretionary ? false : true
+                                        );
+                                      } catch (err) {
+                                        console.error(err);
+                                      }
+                                    }}
                                   >
-                                    {'Materials'}
-                                  </Text>
-                                </Pressable>
-                              </View>
-                              {/* Energy */}
-                              <View
-                                style={StyleSheet.applyWidth(
-                                  {
-                                    alignContent: 'center',
-                                    alignItems: 'center',
-                                    flexDirection: 'row',
-                                    gap: 4,
-                                    padding: 4,
-                                    width: [
-                                      {
-                                        minWidth: Breakpoints.Mobile,
-                                        value: '50%',
-                                      },
-                                      {
-                                        minWidth: Breakpoints.Tablet,
-                                        value: '33.33%',
-                                      },
-                                      {
-                                        minWidth: Breakpoints.Laptop,
-                                        value: '25%',
-                                      },
-                                    ],
-                                  },
-                                  dimensions.width
-                                )}
-                              >
-                                <Checkbox
-                                  onPress={newCheckboxValue => {
-                                    try {
-                                      setEnergy(newCheckboxValue);
-                                    } catch (err) {
-                                      console.error(err);
-                                    }
-                                  }}
-                                  color={palettes.Brand['Strong Inverse']}
-                                  size={24}
-                                  status={energy}
-                                  uncheckedColor={
-                                    palettes.Brand['Strong Inverse']
-                                  }
-                                />
-                                <Pressable
-                                  onPress={() => {
-                                    try {
-                                      setEnergy(energy ? false : true);
-                                    } catch (err) {
-                                      console.error(err);
-                                    }
-                                  }}
+                                    <Text
+                                      accessible={true}
+                                      {...GlobalStyles.TextStyles(theme)[
+                                        'screen_title'
+                                      ].props}
+                                      style={StyleSheet.applyWidth(
+                                        StyleSheet.compose(
+                                          GlobalStyles.TextStyles(theme)[
+                                            'screen_title'
+                                          ].style,
+                                          {
+                                            color:
+                                              palettes.Brand['Strong Inverse'],
+                                            fontFamily: 'Quicksand_400Regular',
+                                            fontSize: 12,
+                                          }
+                                        ),
+                                        dimensions.width
+                                      )}
+                                    >
+                                      {'Consumer Discretionary'}
+                                    </Text>
+                                  </Pressable>
+                                </View>
+                                {/* IT and Software */}
+                                <View
+                                  style={StyleSheet.applyWidth(
+                                    {
+                                      alignContent: 'center',
+                                      alignItems: 'center',
+                                      flexDirection: 'row',
+                                      gap: 4,
+                                      padding: 4,
+                                      width: [
+                                        {
+                                          minWidth: Breakpoints.Tablet,
+                                          value: '33.33%',
+                                        },
+                                        {
+                                          minWidth: Breakpoints.Mobile,
+                                          value: '50%',
+                                        },
+                                        {
+                                          minWidth: Breakpoints.Laptop,
+                                          value: '25%',
+                                        },
+                                      ],
+                                    },
+                                    dimensions.width
+                                  )}
                                 >
-                                  <Text
-                                    accessible={true}
-                                    {...GlobalStyles.TextStyles(theme)[
-                                      'screen_title'
-                                    ].props}
-                                    style={StyleSheet.applyWidth(
-                                      StyleSheet.compose(
-                                        GlobalStyles.TextStyles(theme)[
-                                          'screen_title'
-                                        ].style,
-                                        {
-                                          color:
-                                            palettes.Brand['Strong Inverse'],
-                                          fontFamily: 'Quicksand_400Regular',
-                                          fontSize: 12,
-                                        }
-                                      ),
-                                      dimensions.width
-                                    )}
+                                  <Checkbox
+                                    onPress={newCheckboxValue => {
+                                      try {
+                                        setIt_and_software(newCheckboxValue);
+                                      } catch (err) {
+                                        console.error(err);
+                                      }
+                                    }}
+                                    color={palettes.Brand['Strong Inverse']}
+                                    size={24}
+                                    status={it_and_software}
+                                    uncheckedColor={
+                                      palettes.Brand['Strong Inverse']
+                                    }
+                                  />
+                                  <Pressable
+                                    onPress={() => {
+                                      try {
+                                        setIt_and_software(
+                                          it_and_software ? false : true
+                                        );
+                                      } catch (err) {
+                                        console.error(err);
+                                      }
+                                    }}
                                   >
-                                    {'Energy'}
-                                  </Text>
-                                </Pressable>
-                              </View>
-                              {/* Real Estate */}
-                              <View
-                                style={StyleSheet.applyWidth(
-                                  {
-                                    alignContent: 'center',
-                                    alignItems: 'center',
-                                    flexDirection: 'row',
-                                    gap: 4,
-                                    padding: 4,
-                                    width: [
-                                      {
-                                        minWidth: Breakpoints.Mobile,
-                                        value: '50%',
-                                      },
-                                      {
-                                        minWidth: Breakpoints.Tablet,
-                                        value: '33.33%',
-                                      },
-                                      {
-                                        minWidth: Breakpoints.Laptop,
-                                        value: '25%',
-                                      },
-                                    ],
-                                  },
-                                  dimensions.width
-                                )}
-                              >
-                                <Checkbox
-                                  onPress={newCheckboxValue => {
-                                    try {
-                                      setReal_estate(newCheckboxValue);
-                                    } catch (err) {
-                                      console.error(err);
-                                    }
-                                  }}
-                                  color={palettes.Brand['Strong Inverse']}
-                                  size={24}
-                                  status={real_estate}
-                                  uncheckedColor={
-                                    palettes.Brand['Strong Inverse']
-                                  }
-                                />
-                                <Pressable
-                                  onPress={() => {
-                                    try {
-                                      setReal_estate(
-                                        real_estate ? false : true
-                                      );
-                                    } catch (err) {
-                                      console.error(err);
-                                    }
-                                  }}
+                                    <Text
+                                      accessible={true}
+                                      {...GlobalStyles.TextStyles(theme)[
+                                        'screen_title'
+                                      ].props}
+                                      style={StyleSheet.applyWidth(
+                                        StyleSheet.compose(
+                                          GlobalStyles.TextStyles(theme)[
+                                            'screen_title'
+                                          ].style,
+                                          {
+                                            color:
+                                              palettes.Brand['Strong Inverse'],
+                                            fontFamily: 'Quicksand_400Regular',
+                                            fontSize: 12,
+                                          }
+                                        ),
+                                        dimensions.width
+                                      )}
+                                    >
+                                      {'IT & Software'}
+                                    </Text>
+                                  </Pressable>
+                                </View>
+                                {/* Consumer Staples */}
+                                <View
+                                  style={StyleSheet.applyWidth(
+                                    {
+                                      alignContent: 'center',
+                                      alignItems: 'center',
+                                      flexDirection: 'row',
+                                      gap: 4,
+                                      padding: 4,
+                                      width: [
+                                        {
+                                          minWidth: Breakpoints.Mobile,
+                                          value: '50%',
+                                        },
+                                        {
+                                          minWidth: Breakpoints.Tablet,
+                                          value: '33.33%',
+                                        },
+                                        {
+                                          minWidth: Breakpoints.Laptop,
+                                          value: '25%',
+                                        },
+                                      ],
+                                    },
+                                    dimensions.width
+                                  )}
                                 >
-                                  <Text
-                                    accessible={true}
-                                    {...GlobalStyles.TextStyles(theme)[
-                                      'screen_title'
-                                    ].props}
-                                    style={StyleSheet.applyWidth(
-                                      StyleSheet.compose(
-                                        GlobalStyles.TextStyles(theme)[
-                                          'screen_title'
-                                        ].style,
-                                        {
-                                          color:
-                                            palettes.Brand['Strong Inverse'],
-                                          fontFamily: 'Quicksand_400Regular',
-                                          fontSize: 12,
-                                        }
-                                      ),
-                                      dimensions.width
-                                    )}
+                                  <Checkbox
+                                    onPress={newCheckboxValue => {
+                                      try {
+                                        setConsumer_staples(newCheckboxValue);
+                                      } catch (err) {
+                                        console.error(err);
+                                      }
+                                    }}
+                                    color={palettes.Brand['Strong Inverse']}
+                                    size={24}
+                                    status={consumer_staples}
+                                    uncheckedColor={
+                                      palettes.Brand['Strong Inverse']
+                                    }
+                                  />
+                                  <Pressable
+                                    onPress={() => {
+                                      try {
+                                        setConsumer_staples(
+                                          consumer_staples ? false : true
+                                        );
+                                      } catch (err) {
+                                        console.error(err);
+                                      }
+                                    }}
                                   >
-                                    {'Real Estate'}
-                                  </Text>
-                                </Pressable>
-                              </View>
-                              {/* Financials */}
-                              <View
-                                style={StyleSheet.applyWidth(
-                                  {
-                                    alignContent: 'center',
-                                    alignItems: 'center',
-                                    flexDirection: 'row',
-                                    gap: 4,
-                                    padding: 4,
-                                    width: [
-                                      {
-                                        minWidth: Breakpoints.Mobile,
-                                        value: '50%',
-                                      },
-                                      {
-                                        minWidth: Breakpoints.Tablet,
-                                        value: '33.33%',
-                                      },
-                                      {
-                                        minWidth: Breakpoints.Laptop,
-                                        value: '25%',
-                                      },
-                                    ],
-                                  },
-                                  dimensions.width
-                                )}
-                              >
-                                <Checkbox
-                                  onPress={newCheckboxValue => {
-                                    try {
-                                      setFinancials(newCheckboxValue);
-                                    } catch (err) {
-                                      console.error(err);
-                                    }
-                                  }}
-                                  color={palettes.Brand['Strong Inverse']}
-                                  size={24}
-                                  status={financials}
-                                  uncheckedColor={
-                                    palettes.Brand['Strong Inverse']
-                                  }
-                                />
-                                <Pressable
-                                  onPress={() => {
-                                    try {
-                                      setFinancials(financials ? false : true);
-                                    } catch (err) {
-                                      console.error(err);
-                                    }
-                                  }}
+                                    <Text
+                                      accessible={true}
+                                      {...GlobalStyles.TextStyles(theme)[
+                                        'screen_title'
+                                      ].props}
+                                      style={StyleSheet.applyWidth(
+                                        StyleSheet.compose(
+                                          GlobalStyles.TextStyles(theme)[
+                                            'screen_title'
+                                          ].style,
+                                          {
+                                            color:
+                                              palettes.Brand['Strong Inverse'],
+                                            fontFamily: 'Quicksand_400Regular',
+                                            fontSize: 12,
+                                          }
+                                        ),
+                                        dimensions.width
+                                      )}
+                                    >
+                                      {'Consumer Staples'}
+                                    </Text>
+                                  </Pressable>
+                                </View>
+                                {/* Materials */}
+                                <View
+                                  style={StyleSheet.applyWidth(
+                                    {
+                                      alignContent: 'center',
+                                      alignItems: 'center',
+                                      flexDirection: 'row',
+                                      gap: 4,
+                                      padding: 4,
+                                      width: [
+                                        {
+                                          minWidth: Breakpoints.Mobile,
+                                          value: '50%',
+                                        },
+                                        {
+                                          minWidth: Breakpoints.Tablet,
+                                          value: '33.33%',
+                                        },
+                                        {
+                                          minWidth: Breakpoints.Laptop,
+                                          value: '25%',
+                                        },
+                                      ],
+                                    },
+                                    dimensions.width
+                                  )}
                                 >
-                                  <Text
-                                    accessible={true}
-                                    {...GlobalStyles.TextStyles(theme)[
-                                      'screen_title'
-                                    ].props}
-                                    style={StyleSheet.applyWidth(
-                                      StyleSheet.compose(
-                                        GlobalStyles.TextStyles(theme)[
-                                          'screen_title'
-                                        ].style,
-                                        {
-                                          color:
-                                            palettes.Brand['Strong Inverse'],
-                                          fontFamily: 'Quicksand_400Regular',
-                                          fontSize: 12,
-                                        }
-                                      ),
-                                      dimensions.width
-                                    )}
+                                  <Checkbox
+                                    onPress={newCheckboxValue => {
+                                      try {
+                                        setMaterials(newCheckboxValue);
+                                      } catch (err) {
+                                        console.error(err);
+                                      }
+                                    }}
+                                    color={palettes.Brand['Strong Inverse']}
+                                    size={24}
+                                    status={materials}
+                                    uncheckedColor={
+                                      palettes.Brand['Strong Inverse']
+                                    }
+                                  />
+                                  <Pressable
+                                    onPress={() => {
+                                      try {
+                                        setMaterials(materials ? false : true);
+                                      } catch (err) {
+                                        console.error(err);
+                                      }
+                                    }}
                                   >
-                                    {'Financials'}
-                                  </Text>
-                                </Pressable>
-                              </View>
-                              {/* Utilities */}
-                              <View
-                                style={StyleSheet.applyWidth(
-                                  {
-                                    alignContent: 'center',
-                                    alignItems: 'center',
-                                    flexDirection: 'row',
-                                    gap: 4,
-                                    padding: 4,
-                                    width: [
-                                      {
-                                        minWidth: Breakpoints.Mobile,
-                                        value: '50%',
-                                      },
-                                      {
-                                        minWidth: Breakpoints.Tablet,
-                                        value: '33.33%',
-                                      },
-                                      {
-                                        minWidth: Breakpoints.Laptop,
-                                        value: '25%',
-                                      },
-                                    ],
-                                  },
-                                  dimensions.width
-                                )}
-                              >
-                                <Checkbox
-                                  onPress={newCheckboxValue => {
-                                    try {
-                                      setUtilities(newCheckboxValue);
-                                    } catch (err) {
-                                      console.error(err);
-                                    }
-                                  }}
-                                  color={palettes.Brand['Strong Inverse']}
-                                  size={24}
-                                  status={utilities}
-                                  uncheckedColor={
-                                    palettes.Brand['Strong Inverse']
-                                  }
-                                />
-                                <Pressable
-                                  onPress={() => {
-                                    try {
-                                      setUtilities(utilities ? false : true);
-                                    } catch (err) {
-                                      console.error(err);
-                                    }
-                                  }}
+                                    <Text
+                                      accessible={true}
+                                      {...GlobalStyles.TextStyles(theme)[
+                                        'screen_title'
+                                      ].props}
+                                      style={StyleSheet.applyWidth(
+                                        StyleSheet.compose(
+                                          GlobalStyles.TextStyles(theme)[
+                                            'screen_title'
+                                          ].style,
+                                          {
+                                            color:
+                                              palettes.Brand['Strong Inverse'],
+                                            fontFamily: 'Quicksand_400Regular',
+                                            fontSize: 12,
+                                          }
+                                        ),
+                                        dimensions.width
+                                      )}
+                                    >
+                                      {'Materials'}
+                                    </Text>
+                                  </Pressable>
+                                </View>
+                                {/* Energy */}
+                                <View
+                                  style={StyleSheet.applyWidth(
+                                    {
+                                      alignContent: 'center',
+                                      alignItems: 'center',
+                                      flexDirection: 'row',
+                                      gap: 4,
+                                      padding: 4,
+                                      width: [
+                                        {
+                                          minWidth: Breakpoints.Mobile,
+                                          value: '50%',
+                                        },
+                                        {
+                                          minWidth: Breakpoints.Tablet,
+                                          value: '33.33%',
+                                        },
+                                        {
+                                          minWidth: Breakpoints.Laptop,
+                                          value: '25%',
+                                        },
+                                      ],
+                                    },
+                                    dimensions.width
+                                  )}
                                 >
-                                  <Text
-                                    accessible={true}
-                                    {...GlobalStyles.TextStyles(theme)[
-                                      'screen_title'
-                                    ].props}
-                                    style={StyleSheet.applyWidth(
-                                      StyleSheet.compose(
-                                        GlobalStyles.TextStyles(theme)[
-                                          'screen_title'
-                                        ].style,
-                                        {
-                                          color:
-                                            palettes.Brand['Strong Inverse'],
-                                          fontFamily: 'Quicksand_400Regular',
-                                          fontSize: 12,
-                                        }
-                                      ),
-                                      dimensions.width
-                                    )}
+                                  <Checkbox
+                                    onPress={newCheckboxValue => {
+                                      try {
+                                        setEnergy(newCheckboxValue);
+                                      } catch (err) {
+                                        console.error(err);
+                                      }
+                                    }}
+                                    color={palettes.Brand['Strong Inverse']}
+                                    size={24}
+                                    status={energy}
+                                    uncheckedColor={
+                                      palettes.Brand['Strong Inverse']
+                                    }
+                                  />
+                                  <Pressable
+                                    onPress={() => {
+                                      try {
+                                        setEnergy(energy ? false : true);
+                                      } catch (err) {
+                                        console.error(err);
+                                      }
+                                    }}
                                   >
-                                    {'Utilities'}
-                                  </Text>
-                                </Pressable>
-                              </View>
-                              {/* Health Care */}
-                              <View
-                                style={StyleSheet.applyWidth(
-                                  {
-                                    alignContent: 'center',
-                                    alignItems: 'center',
-                                    flexDirection: 'row',
-                                    gap: 4,
-                                    padding: 4,
-                                    width: [
-                                      {
-                                        minWidth: Breakpoints.Mobile,
-                                        value: '50%',
-                                      },
-                                      {
-                                        minWidth: Breakpoints.Tablet,
-                                        value: '33.33%',
-                                      },
-                                      {
-                                        minWidth: Breakpoints.Laptop,
-                                        value: '25%',
-                                      },
-                                    ],
-                                  },
-                                  dimensions.width
-                                )}
-                              >
-                                <Checkbox
-                                  onPress={newCheckboxValue => {
-                                    try {
-                                      setHealth_care(newCheckboxValue);
-                                    } catch (err) {
-                                      console.error(err);
-                                    }
-                                  }}
-                                  color={palettes.Brand['Strong Inverse']}
-                                  size={24}
-                                  status={health_care}
-                                  uncheckedColor={
-                                    palettes.Brand['Strong Inverse']
-                                  }
-                                />
-                                <Pressable
-                                  onPress={() => {
-                                    try {
-                                      setHealth_care(
-                                        health_care ? false : true
-                                      );
-                                    } catch (err) {
-                                      console.error(err);
-                                    }
-                                  }}
+                                    <Text
+                                      accessible={true}
+                                      {...GlobalStyles.TextStyles(theme)[
+                                        'screen_title'
+                                      ].props}
+                                      style={StyleSheet.applyWidth(
+                                        StyleSheet.compose(
+                                          GlobalStyles.TextStyles(theme)[
+                                            'screen_title'
+                                          ].style,
+                                          {
+                                            color:
+                                              palettes.Brand['Strong Inverse'],
+                                            fontFamily: 'Quicksand_400Regular',
+                                            fontSize: 12,
+                                          }
+                                        ),
+                                        dimensions.width
+                                      )}
+                                    >
+                                      {'Energy'}
+                                    </Text>
+                                  </Pressable>
+                                </View>
+                                {/* Real Estate */}
+                                <View
+                                  style={StyleSheet.applyWidth(
+                                    {
+                                      alignContent: 'center',
+                                      alignItems: 'center',
+                                      flexDirection: 'row',
+                                      gap: 4,
+                                      padding: 4,
+                                      width: [
+                                        {
+                                          minWidth: Breakpoints.Mobile,
+                                          value: '50%',
+                                        },
+                                        {
+                                          minWidth: Breakpoints.Tablet,
+                                          value: '33.33%',
+                                        },
+                                        {
+                                          minWidth: Breakpoints.Laptop,
+                                          value: '25%',
+                                        },
+                                      ],
+                                    },
+                                    dimensions.width
+                                  )}
                                 >
-                                  <Text
-                                    accessible={true}
-                                    {...GlobalStyles.TextStyles(theme)[
-                                      'screen_title'
-                                    ].props}
-                                    style={StyleSheet.applyWidth(
-                                      StyleSheet.compose(
-                                        GlobalStyles.TextStyles(theme)[
-                                          'screen_title'
-                                        ].style,
-                                        {
-                                          color:
-                                            palettes.Brand['Strong Inverse'],
-                                          fontFamily: 'Quicksand_400Regular',
-                                          fontSize: 12,
-                                        }
-                                      ),
-                                      dimensions.width
-                                    )}
+                                  <Checkbox
+                                    onPress={newCheckboxValue => {
+                                      try {
+                                        setReal_estate(newCheckboxValue);
+                                      } catch (err) {
+                                        console.error(err);
+                                      }
+                                    }}
+                                    color={palettes.Brand['Strong Inverse']}
+                                    size={24}
+                                    status={real_estate}
+                                    uncheckedColor={
+                                      palettes.Brand['Strong Inverse']
+                                    }
+                                  />
+                                  <Pressable
+                                    onPress={() => {
+                                      try {
+                                        setReal_estate(
+                                          real_estate ? false : true
+                                        );
+                                      } catch (err) {
+                                        console.error(err);
+                                      }
+                                    }}
                                   >
-                                    {'Health Care'}
-                                  </Text>
-                                </Pressable>
+                                    <Text
+                                      accessible={true}
+                                      {...GlobalStyles.TextStyles(theme)[
+                                        'screen_title'
+                                      ].props}
+                                      style={StyleSheet.applyWidth(
+                                        StyleSheet.compose(
+                                          GlobalStyles.TextStyles(theme)[
+                                            'screen_title'
+                                          ].style,
+                                          {
+                                            color:
+                                              palettes.Brand['Strong Inverse'],
+                                            fontFamily: 'Quicksand_400Regular',
+                                            fontSize: 12,
+                                          }
+                                        ),
+                                        dimensions.width
+                                      )}
+                                    >
+                                      {'Real Estate'}
+                                    </Text>
+                                  </Pressable>
+                                </View>
+                                {/* Financials */}
+                                <View
+                                  style={StyleSheet.applyWidth(
+                                    {
+                                      alignContent: 'center',
+                                      alignItems: 'center',
+                                      flexDirection: 'row',
+                                      gap: 4,
+                                      padding: 4,
+                                      width: [
+                                        {
+                                          minWidth: Breakpoints.Mobile,
+                                          value: '50%',
+                                        },
+                                        {
+                                          minWidth: Breakpoints.Tablet,
+                                          value: '33.33%',
+                                        },
+                                        {
+                                          minWidth: Breakpoints.Laptop,
+                                          value: '25%',
+                                        },
+                                      ],
+                                    },
+                                    dimensions.width
+                                  )}
+                                >
+                                  <Checkbox
+                                    onPress={newCheckboxValue => {
+                                      try {
+                                        setFinancials(newCheckboxValue);
+                                      } catch (err) {
+                                        console.error(err);
+                                      }
+                                    }}
+                                    color={palettes.Brand['Strong Inverse']}
+                                    size={24}
+                                    status={financials}
+                                    uncheckedColor={
+                                      palettes.Brand['Strong Inverse']
+                                    }
+                                  />
+                                  <Pressable
+                                    onPress={() => {
+                                      try {
+                                        setFinancials(
+                                          financials ? false : true
+                                        );
+                                      } catch (err) {
+                                        console.error(err);
+                                      }
+                                    }}
+                                  >
+                                    <Text
+                                      accessible={true}
+                                      {...GlobalStyles.TextStyles(theme)[
+                                        'screen_title'
+                                      ].props}
+                                      style={StyleSheet.applyWidth(
+                                        StyleSheet.compose(
+                                          GlobalStyles.TextStyles(theme)[
+                                            'screen_title'
+                                          ].style,
+                                          {
+                                            color:
+                                              palettes.Brand['Strong Inverse'],
+                                            fontFamily: 'Quicksand_400Regular',
+                                            fontSize: 12,
+                                          }
+                                        ),
+                                        dimensions.width
+                                      )}
+                                    >
+                                      {'Financials'}
+                                    </Text>
+                                  </Pressable>
+                                </View>
+                                {/* Utilities */}
+                                <View
+                                  style={StyleSheet.applyWidth(
+                                    {
+                                      alignContent: 'center',
+                                      alignItems: 'center',
+                                      flexDirection: 'row',
+                                      gap: 4,
+                                      padding: 4,
+                                      width: [
+                                        {
+                                          minWidth: Breakpoints.Mobile,
+                                          value: '50%',
+                                        },
+                                        {
+                                          minWidth: Breakpoints.Tablet,
+                                          value: '33.33%',
+                                        },
+                                        {
+                                          minWidth: Breakpoints.Laptop,
+                                          value: '25%',
+                                        },
+                                      ],
+                                    },
+                                    dimensions.width
+                                  )}
+                                >
+                                  <Checkbox
+                                    onPress={newCheckboxValue => {
+                                      try {
+                                        setUtilities(newCheckboxValue);
+                                      } catch (err) {
+                                        console.error(err);
+                                      }
+                                    }}
+                                    color={palettes.Brand['Strong Inverse']}
+                                    size={24}
+                                    status={utilities}
+                                    uncheckedColor={
+                                      palettes.Brand['Strong Inverse']
+                                    }
+                                  />
+                                  <Pressable
+                                    onPress={() => {
+                                      try {
+                                        setUtilities(utilities ? false : true);
+                                      } catch (err) {
+                                        console.error(err);
+                                      }
+                                    }}
+                                  >
+                                    <Text
+                                      accessible={true}
+                                      {...GlobalStyles.TextStyles(theme)[
+                                        'screen_title'
+                                      ].props}
+                                      style={StyleSheet.applyWidth(
+                                        StyleSheet.compose(
+                                          GlobalStyles.TextStyles(theme)[
+                                            'screen_title'
+                                          ].style,
+                                          {
+                                            color:
+                                              palettes.Brand['Strong Inverse'],
+                                            fontFamily: 'Quicksand_400Regular',
+                                            fontSize: 12,
+                                          }
+                                        ),
+                                        dimensions.width
+                                      )}
+                                    >
+                                      {'Utilities'}
+                                    </Text>
+                                  </Pressable>
+                                </View>
+                                {/* Health Care */}
+                                <View
+                                  style={StyleSheet.applyWidth(
+                                    {
+                                      alignContent: 'center',
+                                      alignItems: 'center',
+                                      flexDirection: 'row',
+                                      gap: 4,
+                                      padding: 4,
+                                      width: [
+                                        {
+                                          minWidth: Breakpoints.Mobile,
+                                          value: '50%',
+                                        },
+                                        {
+                                          minWidth: Breakpoints.Tablet,
+                                          value: '33.33%',
+                                        },
+                                        {
+                                          minWidth: Breakpoints.Laptop,
+                                          value: '25%',
+                                        },
+                                      ],
+                                    },
+                                    dimensions.width
+                                  )}
+                                >
+                                  <Checkbox
+                                    onPress={newCheckboxValue => {
+                                      try {
+                                        setHealth_care(newCheckboxValue);
+                                      } catch (err) {
+                                        console.error(err);
+                                      }
+                                    }}
+                                    color={palettes.Brand['Strong Inverse']}
+                                    size={24}
+                                    status={health_care}
+                                    uncheckedColor={
+                                      palettes.Brand['Strong Inverse']
+                                    }
+                                  />
+                                  <Pressable
+                                    onPress={() => {
+                                      try {
+                                        setHealth_care(
+                                          health_care ? false : true
+                                        );
+                                      } catch (err) {
+                                        console.error(err);
+                                      }
+                                    }}
+                                  >
+                                    <Text
+                                      accessible={true}
+                                      {...GlobalStyles.TextStyles(theme)[
+                                        'screen_title'
+                                      ].props}
+                                      style={StyleSheet.applyWidth(
+                                        StyleSheet.compose(
+                                          GlobalStyles.TextStyles(theme)[
+                                            'screen_title'
+                                          ].style,
+                                          {
+                                            color:
+                                              palettes.Brand['Strong Inverse'],
+                                            fontFamily: 'Quicksand_400Regular',
+                                            fontSize: 12,
+                                          }
+                                        ),
+                                        dimensions.width
+                                      )}
+                                    >
+                                      {'Health Care'}
+                                    </Text>
+                                  </Pressable>
+                                </View>
                               </View>
-                            </View>
+                            </AccordionGroup>
                           </View>
                           <Spacer bottom={10} left={0} right={0} top={10} />
                           {/* Buttons */}

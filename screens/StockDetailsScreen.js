@@ -36,6 +36,7 @@ import CustomHeaderBlock from '../components/CustomHeaderBlock';
 import LoadingBlock from '../components/LoadingBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import assessAccess from '../global-functions/assessAccess';
+import deviceType from '../global-functions/deviceType';
 import removeGlobalScroll from '../global-functions/removeGlobalScroll';
 import transformEuroM from '../global-functions/transformEuroM';
 import transformNumber from '../global-functions/transformNumber';
@@ -143,7 +144,11 @@ const StockDetailsScreen = props => {
     >
       <CustomHeaderBlock />
       <XanoCollectionApi.FetchGetOneStockGET
-        device={'ios'}
+        device={deviceType(
+          Platform.OS === 'web',
+          Platform.OS === 'ios',
+          Platform.OS === 'android'
+        )}
         handlers={{
           on2xx: fetchData => {
             try {
@@ -3819,7 +3824,7 @@ const StockDetailsScreen = props => {
       <Modal
         animationType={'none'}
         supportedOrientations={['portrait', 'landscape']}
-        presentationStyle={'fullScreen'}
+        presentationStyle={'pageSheet'}
         transparent={true}
         visible={showModal}
       >
@@ -4113,7 +4118,6 @@ const StockDetailsScreen = props => {
                                     console.error(err);
                                   }
                                 }}
-                                webShowOutline={true}
                                 {...GlobalStyles.TextInputStyles(theme)[
                                   'peerTextInput'
                                 ].props}
@@ -4126,6 +4130,7 @@ const StockDetailsScreen = props => {
                                   dimensions.width
                                 )}
                                 value={peerQueryRaw}
+                                webShowOutline={false}
                               />
                               <>
                                 {!showDropdown ? null : (
@@ -4136,12 +4141,9 @@ const StockDetailsScreen = props => {
                                         borderBottomLeftRadius: 10,
                                         borderBottomRightRadius: 10,
                                         flex: 1,
-                                        maxHeight: 200,
-                                        maxWidth: '60%',
                                         position: 'absolute',
                                         top: 40,
                                         width: '60%',
-                                        zIndex: 999,
                                       },
                                       dimensions.width
                                     )}
@@ -4209,10 +4211,10 @@ const StockDetailsScreen = props => {
                                           </Pressable>
                                         );
                                       }}
-                                      showsHorizontalScrollIndicator={true}
-                                      showsVerticalScrollIndicator={true}
+                                      showsHorizontalScrollIndicator={false}
+                                      showsVerticalScrollIndicator={false}
                                       style={StyleSheet.applyWidth(
-                                        { padding: 3, zIndex: 11 },
+                                        { padding: 3 },
                                         dimensions.width
                                       )}
                                     />
@@ -4395,10 +4397,10 @@ const StockDetailsScreen = props => {
                                         console.error(err);
                                       }
                                     }}
-                                    webShowOutline={true}
                                     {...GlobalStyles.TextInputStyles(theme)[
                                       'peerTextInput'
                                     ].props}
+                                    clearButtonMode={'while-editing'}
                                     disabled={selectedPeerGroupID > 0}
                                     placeholder={'Peer group name...'}
                                     style={StyleSheet.applyWidth(
@@ -4408,6 +4410,7 @@ const StockDetailsScreen = props => {
                                       dimensions.width
                                     )}
                                     value={newPeerGroup}
+                                    webShowOutline={false}
                                   />
                                   {/* Button 2 */}
                                   <Button

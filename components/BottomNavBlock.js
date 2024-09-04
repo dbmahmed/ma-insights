@@ -1,11 +1,11 @@
 import React from 'react';
+import { HStack, IconButton, Link, VStack, withTheme } from '@draftbit/ui';
+import { Text, View } from 'react-native';
 import * as GlobalStyles from '../GlobalStyles.js';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
-import { HStack, IconButton, Link, VStack, withTheme } from '@draftbit/ui';
-import { Text, View } from 'react-native';
 
 const BottomNavBlock = props => {
   const { theme } = props;

@@ -48,6 +48,7 @@ import showNKPProp from '../global-functions/showNKPProp';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
+import imageSource from '../utils/imageSource';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import waitUtil from '../utils/wait';
 
@@ -299,7 +300,10 @@ const AllEventsScreen = props => {
       if (assessAccess(Variables, setGlobalVariableValue) === true) {
         return;
       }
-      /* hidden 'Navigate' action */
+      if (navigation.canGoBack()) {
+        navigation.popToTop();
+      }
+      navigation.replace('LogInScreen');
       resetAccess(navigation, Variables, setGlobalVariableValue);
     } catch (err) {
       console.error(err);
@@ -969,9 +973,9 @@ const AllEventsScreen = props => {
                                         {...GlobalStyles.ImageStyles(theme)[
                                           'Image'
                                         ].props}
-                                        source={
+                                        source={imageSource(
                                           Images['mainsightsfaviconlogo1024new']
-                                        }
+                                        )}
                                         style={StyleSheet.applyWidth(
                                           StyleSheet.compose(
                                             GlobalStyles.ImageStyles(theme)[
@@ -1312,9 +1316,9 @@ const AllEventsScreen = props => {
                                         {...GlobalStyles.ImageStyles(theme)[
                                           'Image'
                                         ].props}
-                                        source={
+                                        source={imageSource(
                                           Images['mainsightsfaviconlogo1024new']
-                                        }
+                                        )}
                                         style={StyleSheet.applyWidth(
                                           StyleSheet.compose(
                                             GlobalStyles.ImageStyles(theme)[

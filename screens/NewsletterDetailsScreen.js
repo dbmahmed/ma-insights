@@ -32,6 +32,7 @@ import EventDetailsModalBlock from '../components/EventDetailsModalBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import Images from '../config/Images';
 import assessAccess from '../global-functions/assessAccess';
+import deviceType from '../global-functions/deviceType';
 import isNKPProp from '../global-functions/isNKPProp';
 import removeGlobalScroll from '../global-functions/removeGlobalScroll';
 import resetAccess from '../global-functions/resetAccess';
@@ -40,6 +41,7 @@ import transformNumber from '../global-functions/transformNumber';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
+import imageSource from '../utils/imageSource';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import waitUtil from '../utils/wait';
 
@@ -94,6 +96,10 @@ const NewsletterDetailsScreen = props => {
         return;
       }
       resetAccess(navigation, Variables, setGlobalVariableValue);
+      if (navigation.canGoBack()) {
+        navigation.popToTop();
+      }
+      navigation.replace('LogInScreen');
     } catch (err) {
       console.error(err);
     }
@@ -112,7 +118,11 @@ const NewsletterDetailsScreen = props => {
     >
       <CustomHeaderBlock />
       <XanoCollectionApi.FetchNewsletterEachGET
-        device={'ios'}
+        device={deviceType(
+          Platform.OS === 'web',
+          Platform.OS === 'ios',
+          Platform.OS === 'android'
+        )}
         handlers={{
           on401: fetchData => {
             try {

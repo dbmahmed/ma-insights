@@ -10,7 +10,7 @@ import {
 import { H3 } from '@expo/html-elements';
 import { useIsFocused } from '@react-navigation/native';
 import * as WebBrowser from 'expo-web-browser';
-import { ActivityIndicator, Image, Text, View } from 'react-native';
+import { ActivityIndicator, Image, Platform, Text, View } from 'react-native';
 import { Fetch } from 'react-request';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
@@ -21,6 +21,7 @@ import * as GlobalVariables from '../config/GlobalVariableContext';
 import Images from '../config/Images';
 import assessAccess from '../global-functions/assessAccess';
 import cutTextByWidth from '../global-functions/cutTextByWidth';
+import deviceType from '../global-functions/deviceType';
 import isNKPProp from '../global-functions/isNKPProp';
 import removeGlobalScroll from '../global-functions/removeGlobalScroll';
 import resetAccess from '../global-functions/resetAccess';
@@ -30,6 +31,7 @@ import transformNumber from '../global-functions/transformNumber';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
+import imageSource from '../utils/imageSource';
 import useWindowDimensions from '../utils/useWindowDimensions';
 
 const EventDetailsScreen = props => {
@@ -58,7 +60,7 @@ const EventDetailsScreen = props => {
       });
       setGlobalVariableValue({
         key: 'screenParamValue',
-        value: props.route?.params?.event_id ?? 42839,
+        value: props.route?.params?.event_id ?? 1,
       });
       setGlobalVariableValue({
         key: 'pageName',
@@ -91,8 +93,12 @@ const EventDetailsScreen = props => {
     >
       <CustomHeaderBlock />
       <XanoCollectionApi.FetchGetOneEventGET
-        device={'ios'}
-        event_id={props.route?.params?.event_id ?? 42839}
+        device={deviceType(
+          Platform.OS === 'web',
+          Platform.OS === 'ios',
+          Platform.OS === 'android'
+        )}
+        event_id={props.route?.params?.event_id ?? 1}
       >
         {({ loading, error, data, refetchGetOneEvent }) => {
           const fetchData = data?.json;
@@ -654,7 +660,11 @@ const EventDetailsScreen = props => {
                             dimensions.width
                           )}
                         >
-                          {fetchData?._gics?.GICS_Sub_Industry}
+                          {transformNumber(
+                            fetchData?._gics?.GICS_Sub_Industry,
+                            undefined,
+                            undefined
+                          )}
                         </Text>
                       </View>
                     </View>
@@ -914,12 +924,7 @@ const EventDetailsScreen = props => {
                             </Text>
                           </View>
                           {/* View 2 */}
-                          <View
-                            style={StyleSheet.applyWidth(
-                              { flex: 1 },
-                              dimensions.width
-                            )}
-                          >
+                          <View>
                             <Text
                               accessible={true}
                               {...GlobalStyles.TextStyles(theme)['screen_title']
@@ -988,12 +993,7 @@ const EventDetailsScreen = props => {
                             </Text>
                           </View>
                           {/* View 2 */}
-                          <View
-                            style={StyleSheet.applyWidth(
-                              { flex: 1 },
-                              dimensions.width
-                            )}
-                          >
+                          <View>
                             <Text
                               accessible={true}
                               {...GlobalStyles.TextStyles(theme)['screen_title']

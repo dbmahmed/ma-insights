@@ -19,6 +19,7 @@ import { useIsFocused } from '@react-navigation/native';
 import {
   ActivityIndicator,
   Modal,
+  Platform,
   RefreshControl,
   Text,
   View,
@@ -31,6 +32,7 @@ import CustomHeaderBlock from '../components/CustomHeaderBlock';
 import LoadingBlock from '../components/LoadingBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import assessAccess from '../global-functions/assessAccess';
+import deviceType from '../global-functions/deviceType';
 import formatNumber from '../global-functions/formatNumber';
 import removeGlobalScroll from '../global-functions/removeGlobalScroll';
 import setPadding from '../global-functions/setPadding';
@@ -390,7 +392,11 @@ const StockSearchScreen = props => {
         {/* Fetch Container */}
         <View style={StyleSheet.applyWidth({ flex: 1 }, dimensions.width)}>
           <XanoCollectionApi.FetchGetAllStocksGET
-            device={'ios'}
+            device={deviceType(
+              Platform.OS === 'web',
+              Platform.OS === 'ios',
+              Platform.OS === 'android'
+            )}
             evIn={enterpriseValue}
             handlers={{
               on2xx: fetchData => {
@@ -602,7 +608,6 @@ const StockSearchScreen = props => {
                           <View
                             style={StyleSheet.applyWidth(
                               {
-                                borderRadius: 8,
                                 flexDirection: 'column',
                                 maxWidth: [
                                   {
@@ -659,7 +664,10 @@ const StockSearchScreen = props => {
                                 }
                               }}
                               style={StyleSheet.applyWidth(
-                                { width: '100%' },
+                                {
+                                  height:
+                                    Platform.OS === 'web' ? '100%' : undefined,
+                                },
                                 dimensions.width
                               )}
                             >
@@ -673,6 +681,7 @@ const StockSearchScreen = props => {
                                       palettes.Brand['Light Inverse'],
                                     borderRadius: 8,
                                     borderWidth: 0,
+                                    flex: 1,
                                     flexDirection: 'row',
                                     justifyContent: 'space-between',
                                     padding: 0,

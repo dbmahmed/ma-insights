@@ -19,7 +19,7 @@ import {
 } from '@draftbit/ui';
 import { H3, H5 } from '@expo/html-elements';
 import { useIsFocused } from '@react-navigation/native';
-import { ActivityIndicator, Modal, Text, View } from 'react-native';
+import { ActivityIndicator, Modal, Platform, Text, View } from 'react-native';
 import { Fetch } from 'react-request';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
@@ -28,6 +28,7 @@ import CustomHeaderBlock from '../components/CustomHeaderBlock';
 import LoadingBlock from '../components/LoadingBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import assessAccess from '../global-functions/assessAccess';
+import deviceType from '../global-functions/deviceType';
 import passwordValidate from '../global-functions/passwordValidate';
 import removeGlobalScroll from '../global-functions/removeGlobalScroll';
 import transformEuroM from '../global-functions/transformEuroM';
@@ -89,7 +90,11 @@ const PeerGroupDetailsScreen = props => {
     >
       <CustomHeaderBlock />
       <XanoCollectionApi.FetchGetOnePeerGET
-        device={'ios'}
+        device={deviceType(
+          Platform.OS === 'web',
+          Platform.OS === 'ios',
+          Platform.OS === 'web'
+        )}
         handlers={{
           onData: fetchData => {
             try {
@@ -104,7 +109,7 @@ const PeerGroupDetailsScreen = props => {
             }
           },
         }}
-        peer_group_id={props.route?.params?.peer_group_id ?? 596}
+        peer_group_id={props.route?.params?.peer_group_id ?? 843}
       >
         {({ loading, error, data, refetchGetOnePeer }) => {
           const fetchData = data?.json;
@@ -567,7 +572,7 @@ const PeerGroupDetailsScreen = props => {
                                               },
                                               {
                                                 minWidth: Breakpoints.Mobile,
-                                                value: 'center',
+                                                value: 'flex-end',
                                               },
                                             ],
                                           }
@@ -634,7 +639,10 @@ const PeerGroupDetailsScreen = props => {
                                   >
                                     <View
                                       style={StyleSheet.applyWidth(
-                                        { alignItems: 'center', width: '100%' },
+                                        {
+                                          alignItems: 'flex-start',
+                                          width: '100%',
+                                        },
                                         dimensions.width
                                       )}
                                     >
@@ -858,12 +866,12 @@ const PeerGroupDetailsScreen = props => {
                                           {
                                             justifyContent: [
                                               {
-                                                minWidth: Breakpoints.Mobile,
+                                                minWidth: Breakpoints.Tablet,
                                                 value: 'center',
                                               },
                                               {
-                                                minWidth: Breakpoints.Tablet,
-                                                value: 'center',
+                                                minWidth: Breakpoints.Mobile,
+                                                value: 'flex-end',
                                               },
                                             ],
                                           }
@@ -881,7 +889,7 @@ const PeerGroupDetailsScreen = props => {
                                                     device: 'ios',
                                                     peer_id:
                                                       props.route?.params
-                                                        ?.peer_group_id ?? 596,
+                                                        ?.peer_group_id ?? 843,
                                                     stocksList: [].concat([
                                                       tableData?.id,
                                                     ]),
@@ -3207,7 +3215,7 @@ const PeerGroupDetailsScreen = props => {
                                       device: 'ios',
                                       peer_id:
                                         props.route?.params?.peer_group_id ??
-                                        596,
+                                        843,
                                       stocksList: [30, 40],
                                       title: peerName,
                                       type: 'None',

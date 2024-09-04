@@ -10,6 +10,7 @@ import {
   Shadow,
   SimpleStyleFlatList,
   SimpleStyleScrollView,
+  Slider,
   Spacer,
   TextInput,
   withTheme,
@@ -64,12 +65,14 @@ const AdvisorDetailsScreen = props => {
   const [materials, setMaterials] = React.useState(true);
   const [nextPage, setNextPage] = React.useState(0);
   const [norway, setNorway] = React.useState(true);
+  const [periodRange, setPeriodRange] = React.useState(0);
   const [real_estate, setReal_estate] = React.useState(true);
   const [sector, setSector] = React.useState([]);
   const [sweden, setSweden] = React.useState(true);
   const [switzerland, setSwitzerland] = React.useState(true);
   const [utilities, setUtilities] = React.useState(true);
   const [viewingId, setViewingId] = React.useState(0);
+  const [sliderValue, setSliderValue] = React.useState(0);
   const applyFilters = () => {
     //country
     const countries = [];
@@ -179,7 +182,10 @@ const AdvisorDetailsScreen = props => {
         return;
       }
       resetAccess(navigation, Variables, setGlobalVariableValue);
-      /* hidden 'Navigate' action */
+      if (navigation.canGoBack()) {
+        navigation.popToTop();
+      }
+      navigation.replace('LogInScreen');
     } catch (err) {
       console.error(err);
     }
@@ -430,56 +436,37 @@ const AdvisorDetailsScreen = props => {
                 listKey={'aDfVzu4Y'}
                 nestedScrollEnabled={false}
                 onEndReached={() => {
-                  const handler = async () => {
-                    console.log('List ON_END_REACHED Start');
-                    let error = null;
-                    try {
-                      console.log('Start ON_END_REACHED:0 CONSOLE_LOG');
-                      /* hidden 'Log to Console' action */ console.log(
-                        'Complete ON_END_REACHED:0 CONSOLE_LOG'
-                      );
-                      console.log('Start ON_END_REACHED:1 CONDITIONAL_STOP');
-                      if (nextPage > undefined) {
-                        return console.log(
-                          'Complete ON_END_REACHED:1 CONDITIONAL_STOP'
-                        );
-                      } else {
-                        console.log(
-                          'Skipped ON_END_REACHED:1 CONDITIONAL_STOP: condition not met'
-                        );
-                      }
-                      console.log('Start ON_END_REACHED:2 SET_VARIABLE');
-                      const valueohqI6hAQ = parseInt(nextPage + 1, 10);
-                      setNextPage(valueohqI6hAQ);
-                      const nextPageSet = valueohqI6hAQ;
-                      console.log('Complete ON_END_REACHED:2 SET_VARIABLE');
-                      console.log('Start ON_END_REACHED:3 CONSOLE_LOG');
-                      console.log(nextPage);
-                      console.log('Complete ON_END_REACHED:3 CONSOLE_LOG');
-                      console.log('Start ON_END_REACHED:4 FETCH_REQUEST');
-                      const newData = (
-                        await XanoCollectionApi.getAllEventsGET(Constants, {
-                          countryIn: country,
-                          device: 'ios',
-                          page: nextPage,
-                          region_in: 'Nordic',
-                          sectorIn: sector,
-                          sourceType_in: [],
-                        })
-                      )?.json;
-                      console.log('Complete ON_END_REACHED:4 FETCH_REQUEST', {
-                        newData,
-                      });
-                    } catch (err) {
-                      console.error(err);
-                      error = err.message ?? err;
-                    }
-                    console.log(
-                      'List ON_END_REACHED Complete',
-                      error ? { error } : 'no error'
+                  console.log('List ON_END_REACHED Start');
+                  let error = null;
+                  try {
+                    console.log('Start ON_END_REACHED:0 CONSOLE_LOG');
+                    /* hidden 'Log to Console' action */ console.log(
+                      'Complete ON_END_REACHED:0 CONSOLE_LOG'
                     );
-                  };
-                  handler();
+                    console.log('Start ON_END_REACHED:1 CONDITIONAL_STOP');
+                    /* hidden 'Conditional Stop' action */ console.log(
+                      'Complete ON_END_REACHED:1 CONDITIONAL_STOP'
+                    );
+                    console.log('Start ON_END_REACHED:2 SET_VARIABLE');
+                    /* hidden 'Set Variable' action */ console.log(
+                      'Complete ON_END_REACHED:2 SET_VARIABLE'
+                    );
+                    console.log('Start ON_END_REACHED:3 CONSOLE_LOG');
+                    /* hidden 'Log to Console' action */ console.log(
+                      'Complete ON_END_REACHED:3 CONSOLE_LOG'
+                    );
+                    console.log('Start ON_END_REACHED:4 FETCH_REQUEST');
+                    /* hidden 'API Request' action */ console.log(
+                      'Complete ON_END_REACHED:4 FETCH_REQUEST'
+                    );
+                  } catch (err) {
+                    console.error(err);
+                    error = err.message ?? err;
+                  }
+                  console.log(
+                    'List ON_END_REACHED Complete',
+                    error ? { error } : 'no error'
+                  );
                 }}
                 renderItem={({ item, index }) => {
                   const listData = item;
@@ -2366,37 +2353,6 @@ const AdvisorDetailsScreen = props => {
                             </Pressable>
                           </View>
                         </View>
-                      </View>
-                      {/* Period */}
-                      <View
-                        style={StyleSheet.applyWidth(
-                          {
-                            alignItems: 'stretch',
-                            flexDirection: 'column',
-                            gap: 8,
-                            padding: 10,
-                          },
-                          dimensions.width
-                        )}
-                      >
-                        <H5
-                          selectable={false}
-                          {...GlobalStyles.H5Styles(theme)['H5'].props}
-                          style={StyleSheet.applyWidth(
-                            StyleSheet.compose(
-                              GlobalStyles.H5Styles(theme)['H5'].style,
-                              {
-                                color: palettes.Brand['Strong Inverse'],
-                                fontSize: 16,
-                                marginBottom: 0,
-                                marginTop: 0,
-                              }
-                            ),
-                            dimensions.width
-                          )}
-                        >
-                          {'Period'}
-                        </H5>
                       </View>
                       <Spacer bottom={10} left={0} right={0} top={10} />
                       {/* Buttons */}

@@ -400,3 +400,17 @@ export const AudioPlayerStyles = theme =>
       props: {},
     },
   });
+
+export const AccordionGroupStyles = theme =>
+  StyleSheet.create({
+    Accordion: {
+      style: {
+        fontSize: 16,
+        paddingBottom: 8,
+        paddingLeft: 8,
+        paddingRight: 8,
+        paddingTop: 8,
+      },
+      props: {},
+    },
+  });

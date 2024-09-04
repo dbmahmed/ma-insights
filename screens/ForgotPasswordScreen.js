@@ -21,6 +21,7 @@ import removeGlobalScroll from '../global-functions/removeGlobalScroll';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
+import imageSource from '../utils/imageSource';
 import parseBoolean from '../utils/parseBoolean';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import waitUtil from '../utils/wait';
@@ -105,7 +106,7 @@ const ForgotPasswordScreen = props => {
           <Image
             {...GlobalStyles.ImageStyles(theme)['Image'].props}
             resizeMode={'contain'}
-            source={Images['mainsightsfaviconlogo1024new']}
+            source={imageSource(Images['mainsightsfaviconlogo1024new'])}
             style={StyleSheet.applyWidth(
               StyleSheet.compose(
                 GlobalStyles.ImageStyles(theme)['Image'].style,

@@ -50,6 +50,7 @@ import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as DateUtils from '../utils/DateUtils';
 import * as StyleSheet from '../utils/StyleSheet';
+import imageSource from '../utils/imageSource';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import waitUtil from '../utils/wait';
 
@@ -286,7 +287,10 @@ const CFSScreen = props => {
         return;
       }
       resetAccess(navigation, Variables, setGlobalVariableValue);
-      /* hidden 'Navigate' action */
+      if (navigation.canGoBack()) {
+        navigation.popToTop();
+      }
+      navigation.replace('LogInScreen');
     } catch (err) {
       console.error(err);
     }
@@ -3957,7 +3961,9 @@ const CFSScreen = props => {
                     <Image
                       {...GlobalStyles.ImageStyles(theme)['Image'].props}
                       resizeMode={'contain'}
-                      source={Images['mainsightsfaviconlogo1024cropped']}
+                      source={imageSource(
+                        Images['mainsightsfaviconlogo1024cropped']
+                      )}
                       style={StyleSheet.applyWidth(
                         StyleSheet.compose(
                           GlobalStyles.ImageStyles(theme)['Image'].style,

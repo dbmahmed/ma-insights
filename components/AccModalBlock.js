@@ -1,16 +1,16 @@
 import React from 'react';
-import * as GlobalStyles from '../GlobalStyles.js';
-import * as GlobalVariables from '../config/GlobalVariableContext';
-import palettes from '../themes/palettes';
-import Breakpoints from '../utils/Breakpoints';
-import * as StyleSheet from '../utils/StyleSheet';
-import useWindowDimensions from '../utils/useWindowDimensions';
 import { IconButton, Link, VStack, withTheme } from '@draftbit/ui';
 import { H2, H4 } from '@expo/html-elements';
 import { useNavigation } from '@react-navigation/native';
 import * as Linking from 'expo-linking';
 import * as WebBrowser from 'expo-web-browser';
 import { Modal, Text, View } from 'react-native';
+import * as GlobalStyles from '../GlobalStyles.js';
+import * as GlobalVariables from '../config/GlobalVariableContext';
+import palettes from '../themes/palettes';
+import Breakpoints from '../utils/Breakpoints';
+import * as StyleSheet from '../utils/StyleSheet';
+import useWindowDimensions from '../utils/useWindowDimensions';
 
 const AccModalBlock = props => {
   const { theme } = props;

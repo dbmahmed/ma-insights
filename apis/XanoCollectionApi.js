@@ -168,7 +168,7 @@ export const FetchCreateNewPeerPOST = ({
 
 export const eventTransactionsGET = async (
   Constants,
-  { device, keyword, page, region_in, sector_in },
+  { device, ebitda_in, keyword, page, region_in, sector_in },
   handlers = {}
 ) => {
   const paramsDict = {};
@@ -186,6 +186,9 @@ export const eventTransactionsGET = async (
   }
   if (device !== undefined) {
     paramsDict['device'] = renderParam(device);
+  }
+  if (ebitda_in !== undefined) {
+    paramsDict['ebitda_in'] = renderParam(ebitda_in);
   }
   const url = `https://xne3-pdiu-8ysm.f2.xano.io/api:abjrBkC8/event_transactions${renderQueryString(
     paramsDict
@@ -221,6 +224,7 @@ export const FetchEventTransactionsGET = ({
   handlers = {},
   refetchInterval,
   device,
+  ebitda_in,
   keyword,
   page,
   region_in,
@@ -236,7 +240,7 @@ export const FetchEventTransactionsGET = ({
     error,
     refetch,
   } = useEventTransactionsGET(
-    { device, keyword, page, region_in, sector_in },
+    { device, ebitda_in, keyword, page, region_in, sector_in },
     { refetchInterval, handlers: { onData, ...handlers } }
   );
 
@@ -2390,6 +2394,40 @@ export const useUpdatePeerGroupPATCH = (
       onSettled: () => {
         queryClient.invalidateQueries('Peer Group');
         queryClient.invalidateQueries('Peer Groups');
+      },
+    }
+  );
+};
+
+export const expoTokenPUT = async (Constants, { expoToken }, handlers = {}) => {
+  const url = `https://xne3-pdiu-8ysm.f2.xano.io/api:abjrBkC8/user/expo_token`;
+  const options = {
+    body: JSON.stringify({ expo_token: expoToken }),
+    headers: cleanHeaders({
+      Accept: 'application/json',
+      Authorization: Constants['AUTH_HEADER'],
+      'Content-Type': 'application/json',
+    }),
+    method: 'PUT',
+  };
+  const res = await fetch(url, options);
+  return handleResponse(res, handlers);
+};
+
+export const useExpoTokenPUT = (initialArgs = {}, { handlers = {} } = {}) => {
+  const queryClient = useQueryClient();
+  const Constants = GlobalVariables.useValues();
+  return useMutation(
+    args => expoTokenPUT(Constants, { ...initialArgs, ...args }, handlers),
+    {
+      onError: (err, variables, { previousValue }) => {
+        if (previousValue) {
+          return queryClient.setQueryData('User', previousValue);
+        }
+      },
+      onSettled: () => {
+        queryClient.invalidateQueries('User');
+        queryClient.invalidateQueries('Users');
       },
     }
   );

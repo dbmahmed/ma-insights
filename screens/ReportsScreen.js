@@ -11,13 +11,14 @@ import {
 import { H5 } from '@expo/html-elements';
 import { useIsFocused } from '@react-navigation/native';
 import * as WebBrowser from 'expo-web-browser';
-import { ActivityIndicator, Text, View } from 'react-native';
+import { ActivityIndicator, Platform, Text, View } from 'react-native';
 import { Fetch } from 'react-request';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
 import CustomBottomNavBlock from '../components/CustomBottomNavBlock';
 import CustomHeaderBlock from '../components/CustomHeaderBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
+import deviceType from '../global-functions/deviceType';
 import removeGlobalScroll from '../global-functions/removeGlobalScroll';
 import setPadding from '../global-functions/setPadding';
 import palettes from '../themes/palettes';
@@ -146,7 +147,11 @@ const ReportsScreen = props => {
         </View>
 
         <XanoCollectionApi.FetchReportsGET
-          device={'ios'}
+          device={deviceType(
+            Platform.OS === 'web',
+            Platform.OS === 'ios',
+            Platform.OS === 'android'
+          )}
           handlers={{
             onData: fetchData => {
               try {
