@@ -732,7 +732,7 @@ const AllEventsScreen = props => {
                                   eventTypeIn: eventType,
                                   keyword: keywordSearchRaw,
                                   page: nextPage,
-                                  region_in: 'Nordic',
+                                  region_in: regions,
                                   sectorIn: sector,
                                   sourceType_in: sourceType,
                                 }
@@ -1073,7 +1073,7 @@ const AllEventsScreen = props => {
                                   eventTypeIn: eventType,
                                   keyword: keywordSearchRaw,
                                   page: nextPage,
-                                  region_in: 'Nordic',
+                                  region_in: regions,
                                   sectorIn: sector,
                                   sourceType_in: sourceType,
                                 }
