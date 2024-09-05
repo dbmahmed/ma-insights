@@ -48,7 +48,6 @@ import transformEuroM from '../global-functions/transformEuroM';
 import transformNumber from '../global-functions/transformNumber';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
-import * as DateUtils from '../utils/DateUtils';
 import * as StyleSheet from '../utils/StyleSheet';
 import imageSource from '../utils/imageSource';
 import useWindowDimensions from '../utils/useWindowDimensions';
@@ -5030,10 +5029,7 @@ const CFSScreen = props => {
                                             dimensions.width
                                           )}
                                         >
-                                          {DateUtils.format(
-                                            listData?.published,
-                                            'd/m/Y'
-                                          )}
+                                          {listData?.published}
                                           {' | Source: '}
                                           {listData?.source}
                                         </Text>
