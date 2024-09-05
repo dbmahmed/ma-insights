@@ -71,38 +71,7 @@ const AllEventsScreen = props => {
   const [dach, setDach] = React.useState(false);
   const [denmark, setDenmark] = React.useState(false);
   const [energy, setEnergy] = React.useState(false);
-  const [eventItems, setEventItems] = React.useState([
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-  ]);
+  const [eventItems, setEventItems] = React.useState([]);
   const [eventSearch, setEventSearch] = React.useState('');
   const [eventType, setEventType] = React.useState([]);
   const [filterPressed, setFilterPressed] = React.useState(false);
@@ -728,7 +697,12 @@ const AllEventsScreen = props => {
                       data={eventItems}
                       horizontal={false}
                       inverted={false}
-                      keyExtractor={(listData, index) => index}
+                      keyExtractor={(listData, index) =>
+                        listData?.id ??
+                        listData?.uuid ??
+                        index?.toString() ??
+                        JSON.stringify(listData)
+                      }
                       keyboardShouldPersistTaps={'never'}
                       listKey={'AwqPzJqX'}
                       nestedScrollEnabled={false}
