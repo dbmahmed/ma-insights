@@ -11,4 +11,5 @@ export default {
   logorightsmall2: require('../assets/images/LogoRightSmall2.png'),
   mainsightsmigrationinformationvisual: require('../assets/images/MAInsightsMigrationInformationVisual.png'),
   dummyqrcodeforappstoreapp: require('../assets/images/DummyQRCodeForAppStoreApp.png'),
+  mainsightslogonew: require('../assets/images/MAInsightsLogoNew.png'),
 };

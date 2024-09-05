@@ -109,6 +109,8 @@ const MyAccountScreen = props => {
     <ScreenContainer
       hasSafeArea={false}
       scrollable={false}
+      hasLeftSafeArea={false}
+      hasRightSafeArea={false}
       hasTopSafeArea={true}
     >
       <CustomHeaderBlock />
@@ -668,31 +670,6 @@ const MyAccountScreen = props => {
                           dimensions.width
                         )}
                       >
-                        <View
-                          style={StyleSheet.applyWidth(
-                            { paddingLeft: 2, paddingRight: 2, width: '50%' },
-                            dimensions.width
-                          )}
-                        >
-                          <Text
-                            accessible={true}
-                            {...GlobalStyles.TextStyles(theme)['screen_title']
-                              .props}
-                            style={StyleSheet.applyWidth(
-                              StyleSheet.compose(
-                                GlobalStyles.TextStyles(theme)['screen_title']
-                                  .style,
-                                {
-                                  fontFamily: 'Quicksand_700Bold',
-                                  textAlign: 'center',
-                                }
-                              ),
-                              dimensions.width
-                            )}
-                          >
-                            {'Push notification'}
-                          </Text>
-                        </View>
                         {/* View 2 */}
                         <View
                           style={StyleSheet.applyWidth(
@@ -761,73 +738,6 @@ const MyAccountScreen = props => {
                           dimensions.width
                         )}
                       >
-                        <View
-                          style={StyleSheet.applyWidth(
-                            {
-                              alignItems: 'center',
-                              paddingLeft: 2,
-                              paddingRight: 2,
-                              width: '50%',
-                            },
-                            dimensions.width
-                          )}
-                        >
-                          <Checkbox
-                            onPress={newCheckboxValue => {
-                              const handler = async () => {
-                                console.log('Checkbox ON_PRESS Start');
-                                let error = null;
-                                try {
-                                  console.log('Start ON_PRESS:0 SET_VARIABLE');
-                                  /* hidden 'Set Variable' action */ console.log(
-                                    'Complete ON_PRESS:0 SET_VARIABLE'
-                                  );
-                                  console.log('Start ON_PRESS:1 WAIT');
-                                  await waitUtil({ milliseconds: 100 });
-                                  console.log('Complete ON_PRESS:1 WAIT');
-                                  console.log('Start ON_PRESS:2 FETCH_REQUEST');
-                                  (
-                                    await xanoCollectionUpdateNotificationPUT.mutateAsync(
-                                      {
-                                        email_dach: emailDach,
-                                        email_nordic: emailNordic,
-                                        push_dach: pushNotificationDach,
-                                        push_nordic: newCheckboxValue,
-                                      }
-                                    )
-                                  )?.json;
-                                  console.log(
-                                    'Complete ON_PRESS:2 FETCH_REQUEST'
-                                  );
-                                  console.log('Start ON_PRESS:3 CONSOLE_LOG');
-                                  console.log('Auth me restart');
-                                  console.log(
-                                    'Complete ON_PRESS:3 CONSOLE_LOG'
-                                  );
-                                  console.log('Start ON_PRESS:4 FETCH_REFETCH');
-                                  /* hidden 'Refetch Data' action */ console.log(
-                                    'Complete ON_PRESS:4 FETCH_REFETCH'
-                                  );
-                                  console.log('Start ON_PRESS:5 SET_VARIABLE');
-                                  /* hidden 'Set Variable' action */ console.log(
-                                    'Complete ON_PRESS:5 SET_VARIABLE'
-                                  );
-                                } catch (err) {
-                                  console.error(err);
-                                  error = err.message ?? err;
-                                }
-                                console.log(
-                                  'Checkbox ON_PRESS Complete',
-                                  error ? { error } : 'no error'
-                                );
-                              };
-                              handler();
-                            }}
-                            color={theme.colors.text.medium}
-                            status={pushNotificationNordic}
-                            uncheckedColor={theme.colors.text.medium}
-                          />
-                        </View>
                         {/* View 2 */}
                         <View
                           style={StyleSheet.applyWidth(
@@ -912,47 +822,6 @@ const MyAccountScreen = props => {
                           dimensions.width
                         )}
                       >
-                        <View
-                          style={StyleSheet.applyWidth(
-                            {
-                              alignItems: 'center',
-                              paddingLeft: 2,
-                              paddingRight: 2,
-                              width: '50%',
-                            },
-                            dimensions.width
-                          )}
-                        >
-                          <Checkbox
-                            onPress={newCheckboxValue => {
-                              const handler = async () => {
-                                try {
-                                  setPushNotificationDach(newCheckboxValue);
-                                  setPd_loading(true);
-                                  await waitUtil({ milliseconds: 100 });
-                                  (
-                                    await xanoCollectionUpdateNotificationPUT.mutateAsync(
-                                      {
-                                        email_dach: emailDach,
-                                        email_nordic: emailNordic,
-                                        push_dach: newCheckboxValue,
-                                        push_nordic: pushNotificationNordic,
-                                      }
-                                    )
-                                  )?.json;
-                                  /* hidden 'Refetch Data' action */
-                                  /* hidden 'Set Variable' action */
-                                } catch (err) {
-                                  console.error(err);
-                                }
-                              };
-                              handler();
-                            }}
-                            color={theme.colors.text.medium}
-                            status={pushNotificationDach}
-                            uncheckedColor={theme.colors.text.medium}
-                          />
-                        </View>
                         {/* View 2 */}
                         <View
                           style={StyleSheet.applyWidth(

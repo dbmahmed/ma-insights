@@ -174,7 +174,7 @@ const PEPFScreen = props => {
     setConsumer_discretionary(
       (sector || []).includes('Consumer Discretionary')
     );
-    setIt_and_software((sector || []).includes('IT & Software'));
+    setIt_and_software((sector || []).includes('IT and Software'));
     setConsumer_staples((sector || []).includes('Consumer Staples'));
     setMaterials((sector || []).includes('Materials'));
     setEnergy((sector || []).includes('Energy'));
@@ -238,7 +238,7 @@ const PEPFScreen = props => {
     communication_services && sectors.push('Communication Services');
     industrials && sectors.push('Industrials');
     consumer_discretionary && sectors.push('Consumer Discretionary');
-    it_and_software && sectors.push('IT & Software');
+    it_and_software && sectors.push('IT and Software');
     consumer_staples && sectors.push('Consumer Staples');
     materials && sectors.push('Materials');
     energy && sectors.push('Energy');
@@ -291,6 +291,8 @@ const PEPFScreen = props => {
     <ScreenContainer
       hasSafeArea={false}
       scrollable={false}
+      hasLeftSafeArea={false}
+      hasRightSafeArea={false}
       hasTopSafeArea={true}
     >
       <CustomHeaderBlock />
@@ -905,7 +907,11 @@ const PEPFScreen = props => {
                   {
                     flexDirection: 'column',
                     marginBottom:
-                      dimensions.width >= Breakpoints.Laptop ? 0 : 65,
+                      dimensions.width >= Breakpoints.Laptop
+                        ? 0
+                        : Platform.OS === 'ios'
+                        ? 65
+                        : 35,
                     maxHeight: [
                       {
                         minWidth: Breakpoints.Tablet,

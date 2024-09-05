@@ -31,6 +31,8 @@ import * as DateUtils from '../utils/DateUtils';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
 
+const defaultProps = { pepf_id: 3816 };
+
 const PEPFDetailsScreen = props => {
   const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
@@ -79,6 +81,8 @@ const PEPFDetailsScreen = props => {
     <ScreenContainer
       hasSafeArea={false}
       scrollable={false}
+      hasLeftSafeArea={false}
+      hasRightSafeArea={false}
       hasTopSafeArea={true}
     >
       <CustomHeaderBlock />
@@ -88,7 +92,7 @@ const PEPFDetailsScreen = props => {
           Platform.OS === 'ios',
           Platform.OS === 'android'
         )}
-        pepf_id={props.route?.params?.pepf_id ?? 1}
+        pepf_id={props.route?.params?.pepf_id ?? defaultProps.pepf_id}
       >
         {({ loading, error, data, refetchGetOnePEPF }) => {
           const fetchData = data?.json;
@@ -1109,6 +1113,21 @@ const PEPFDetailsScreen = props => {
                             onEndReachedThreshold={0.8}
                             showsHorizontalScrollIndicator={false}
                             showsVerticalScrollIndicator={false}
+                            style={StyleSheet.applyWidth(
+                              {
+                                marginBottom: [
+                                  { minWidth: Breakpoints.Mobile, value: 0 },
+                                  {
+                                    minWidth: Breakpoints.Mobile,
+                                    value:
+                                      dimensions.width >= Breakpoints.Laptop
+                                        ? 0
+                                        : 35,
+                                  },
+                                ],
+                              },
+                              dimensions.width
+                            )}
                           />
                         </View>
                       )}

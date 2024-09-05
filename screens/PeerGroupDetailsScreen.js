@@ -38,6 +38,8 @@ import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
 
+const defaultProps = { peer_group_id: 843 };
+
 const PeerGroupDetailsScreen = props => {
   const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
@@ -85,6 +87,8 @@ const PeerGroupDetailsScreen = props => {
   return (
     <ScreenContainer
       hasSafeArea={false}
+      hasLeftSafeArea={false}
+      hasRightSafeArea={false}
       hasTopSafeArea={true}
       scrollable={false}
     >
@@ -109,7 +113,9 @@ const PeerGroupDetailsScreen = props => {
             }
           },
         }}
-        peer_group_id={props.route?.params?.peer_group_id ?? 843}
+        peer_group_id={
+          props.route?.params?.peer_group_id ?? defaultProps.peer_group_id
+        }
       >
         {({ loading, error, data, refetchGetOnePeer }) => {
           const fetchData = data?.json;
@@ -889,7 +895,8 @@ const PeerGroupDetailsScreen = props => {
                                                     device: 'ios',
                                                     peer_id:
                                                       props.route?.params
-                                                        ?.peer_group_id ?? 843,
+                                                        ?.peer_group_id ??
+                                                      defaultProps.peer_group_id,
                                                     stocksList: [].concat([
                                                       tableData?.id,
                                                     ]),
@@ -3215,7 +3222,7 @@ const PeerGroupDetailsScreen = props => {
                                       device: 'ios',
                                       peer_id:
                                         props.route?.params?.peer_group_id ??
-                                        843,
+                                        defaultProps.peer_group_id,
                                       stocksList: [30, 40],
                                       title: peerName,
                                       type: 'None',

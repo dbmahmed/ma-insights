@@ -2,6 +2,7 @@ import React from 'react';
 import {
   Button,
   Checkbox,
+  CircularProgress,
   HStack,
   IconButton,
   LinearGradient,
@@ -74,6 +75,8 @@ const MultiplesScreen = props => {
   const [industrials, setIndustrials] = React.useState(true);
   const [it_and_software, setIt_and_software] = React.useState(true);
   const [keywordSearch, setKeywordSearch] = React.useState('');
+  const [keywordSearchRaw, setKeywordSearchRaw] = React.useState('');
+  const [loadingMore, setLoadingMore] = React.useState(false);
   const [materials, setMaterials] = React.useState(true);
   const [multiplesList, setMultiplesList] = React.useState([]);
   const [nextPage, setNextPage] = React.useState(0);
@@ -109,6 +112,37 @@ const MultiplesScreen = props => {
     setRoW(flag);
   };
 
+  const matchingFilters = () => {
+    setEbitda_giant((ebitdaRange || []).includes('EBITDA > €50m'));
+    setEbitda_large((ebitdaRange || []).includes('€20m < EBITDA ≤ €50m'));
+    setEbitda_medium((ebitdaRange || []).includes('€5m < EBITDA ≤ €20m'));
+    setEbitda_small((ebitdaRange || []).includes('EBITDA ≤ €5m'));
+
+    setCommunication_services(
+      (sector || []).includes('Communication Services')
+    );
+    setIndustrials((sector || []).includes('Industrials'));
+    setConsumer_discretionary(
+      (sector || []).includes('Consumer Discretionary')
+    );
+    setIt_and_software((sector || []).includes('IT and Software'));
+    setConsumer_staples((sector || []).includes('Consumer Staples'));
+    setMaterials((sector || []).includes('Materials'));
+    setEnergy((sector || []).includes('Energy'));
+    setReal_estate((sector || []).includes('Real Estate'));
+    setFinancials((sector || []).includes('Financials'));
+    setUtilities((sector || []).includes('Utilities'));
+    setHealth_care((sector || []).includes('Health Care'));
+
+    setNordic((region || []).includes('Nordic'));
+    setDach((region || []).includes('DACH'));
+    setRoW((region || []).includes('RoW'));
+  };
+
+  const updateHeightMap = (idx, height) => {
+    return setHeightMap(prev => ({ ...prev, [idx]: height }));
+  };
+
   const applyFilters = () => {
     //EBITDA Range
     const ebitdaRange = [];
@@ -126,7 +160,7 @@ const MultiplesScreen = props => {
     communication_services && sectors.push('Communication Services');
     industrials && sectors.push('Industrials');
     consumer_discretionary && sectors.push('Consumer Discretionary');
-    it_and_software && sectors.push('IT & Software');
+    it_and_software && sectors.push('IT and Software');
     consumer_staples && sectors.push('Consumer Staples');
     materials && sectors.push('Materials');
     energy && sectors.push('Energy');
@@ -145,37 +179,6 @@ const MultiplesScreen = props => {
     RoW && region.push('RoW');
 
     setRegion(() => region);
-  };
-
-  const matchingFilters = () => {
-    setEbitda_giant((ebitdaRange || []).includes('EBITDA > €50m'));
-    setEbitda_large((ebitdaRange || []).includes('€20m < EBITDA ≤ €50m'));
-    setEbitda_medium((ebitdaRange || []).includes('€5m < EBITDA ≤ €20m'));
-    setEbitda_small((ebitdaRange || []).includes('EBITDA ≤ €5m'));
-
-    setCommunication_services(
-      (sector || []).includes('Communication Services')
-    );
-    setIndustrials((sector || []).includes('Industrials'));
-    setConsumer_discretionary(
-      (sector || []).includes('Consumer Discretionary')
-    );
-    setIt_and_software((sector || []).includes('IT & Software'));
-    setConsumer_staples((sector || []).includes('Consumer Staples'));
-    setMaterials((sector || []).includes('Materials'));
-    setEnergy((sector || []).includes('Energy'));
-    setReal_estate((sector || []).includes('Real Estate'));
-    setFinancials((sector || []).includes('Financials'));
-    setUtilities((sector || []).includes('Utilities'));
-    setHealth_care((sector || []).includes('Health Care'));
-
-    setNordic((region || []).includes('Nordic'));
-    setDach((region || []).includes('DACH'));
-    setRoW((region || []).includes('RoW'));
-  };
-
-  const updateHeightMap = (idx, height) => {
-    return setHeightMap(prev => ({ ...prev, [idx]: height }));
   };
   const isFocused = useIsFocused();
   React.useEffect(() => {
@@ -207,6 +210,8 @@ const MultiplesScreen = props => {
   return (
     <ScreenContainer
       scrollable={false}
+      hasLeftSafeArea={false}
+      hasRightSafeArea={false}
       hasSafeArea={false}
       hasTopSafeArea={true}
     >
@@ -350,7 +355,7 @@ const MultiplesScreen = props => {
               style={StyleSheet.applyWidth(
                 StyleSheet.compose(
                   GlobalStyles.HStackStyles(theme)['H Stack'].style,
-                  { gap: 10, justifyContent: 'space-between' }
+                  { gap: 10, justifyContent: 'space-between', marginRight: 5 }
                 ),
                 dimensions.width
               )}
@@ -360,16 +365,16 @@ const MultiplesScreen = props => {
                 changeTextDelay={500}
                 onChangeText={newTextInputValue => {
                   try {
-                    setKeywordSearch(newTextInputValue);
+                    setKeywordSearchRaw(newTextInputValue);
                   } catch (err) {
                     console.error(err);
                   }
                 }}
                 onSubmitEditing={() => {
                   try {
-                    /* hidden 'Set Variable' action */
+                    setKeywordSearch(keywordSearchRaw);
                     /* hidden 'API Request' action */
-                    /* 'Refetch Data' action requires configuration: choose an API endpoint */
+                    /* hidden 'Refetch Data' action */
                   } catch (err) {
                     console.error(err);
                   }
@@ -380,6 +385,7 @@ const MultiplesScreen = props => {
                 clearButtonMode={'while-editing'}
                 placeholder={'Search...'}
                 returnKeyType={'search'}
+                spellcheck={true}
                 style={StyleSheet.applyWidth(
                   StyleSheet.compose(
                     GlobalStyles.TextInputStyles(theme)['Text Input'].style,
@@ -387,7 +393,7 @@ const MultiplesScreen = props => {
                   ),
                   dimensions.width
                 )}
-                value={keywordSearch}
+                value={keywordSearchRaw}
               />
               <Shadow
                 offsetX={0}
@@ -571,7 +577,12 @@ const MultiplesScreen = props => {
                                 'Skipped ON_END_REACHED:1 CONDITIONAL_STOP: condition not met'
                               );
                             }
-                            console.log('Start ON_END_REACHED:2 FETCH_REQUEST');
+                            console.log('Start ON_END_REACHED:2 SET_VARIABLE');
+                            setLoadingMore(true);
+                            console.log(
+                              'Complete ON_END_REACHED:2 SET_VARIABLE'
+                            );
+                            console.log('Start ON_END_REACHED:3 FETCH_REQUEST');
                             const newData = (
                               await XanoCollectionApi.eventTransactionsGET(
                                 Constants,
@@ -589,32 +600,37 @@ const MultiplesScreen = props => {
                               )
                             )?.json;
                             console.log(
-                              'Complete ON_END_REACHED:2 FETCH_REQUEST',
+                              'Complete ON_END_REACHED:3 FETCH_REQUEST',
                               { newData }
                             );
-                            console.log('Start ON_END_REACHED:3 SET_VARIABLE');
+                            console.log('Start ON_END_REACHED:4 SET_VARIABLE');
                             setNextPage(fetchData?.nextPage);
                             console.log(
-                              'Complete ON_END_REACHED:3 SET_VARIABLE'
+                              'Complete ON_END_REACHED:4 SET_VARIABLE'
+                            );
+                            console.log('Start ON_END_REACHED:5 SET_VARIABLE');
+                            setLoadingMore(false);
+                            console.log(
+                              'Complete ON_END_REACHED:5 SET_VARIABLE'
                             );
                             console.log(
-                              'Start ON_END_REACHED:4 CONDITIONAL_STOP'
+                              'Start ON_END_REACHED:6 CONDITIONAL_STOP'
                             );
                             if (fetchData?.items === 0) {
                               return console.log(
-                                'Complete ON_END_REACHED:4 CONDITIONAL_STOP'
+                                'Complete ON_END_REACHED:6 CONDITIONAL_STOP'
                               );
                             } else {
                               console.log(
-                                'Skipped ON_END_REACHED:4 CONDITIONAL_STOP: condition not met'
+                                'Skipped ON_END_REACHED:6 CONDITIONAL_STOP: condition not met'
                               );
                             }
-                            console.log('Start ON_END_REACHED:5 SET_VARIABLE');
+                            console.log('Start ON_END_REACHED:7 SET_VARIABLE');
                             setMultiplesList(
                               multiplesList.concat(newData?.items)
                             );
                             console.log(
-                              'Complete ON_END_REACHED:5 SET_VARIABLE'
+                              'Complete ON_END_REACHED:7 SET_VARIABLE'
                             );
                           } catch (err) {
                             console.error(err);
@@ -1141,7 +1157,11 @@ const MultiplesScreen = props => {
                         {
                           alignItems: 'stretch',
                           marginBottom:
-                            dimensions.width >= Breakpoints.Laptop ? 0 : 65,
+                            dimensions.width >= Breakpoints.Laptop
+                              ? 0
+                              : Platform.OS === 'ios'
+                              ? 65
+                              : 35,
                           padding: 5,
                           paddingLeft: setPadding(dimensions.width),
                           paddingRight: setPadding(dimensions.width),
@@ -2985,6 +3005,43 @@ const MultiplesScreen = props => {
             setViewingEventId={viewingEventId => setViewingId(viewingEventId)}
             viewingEventId={viewingId}
           />
+        )}
+      </>
+      {/* View 2 */}
+      <>
+        {!loadingMore ? null : (
+          <View
+            style={StyleSheet.applyWidth(
+              {
+                alignContent: 'center',
+                alignItems: 'center',
+                alignSelf: 'center',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                position: 'absolute',
+                top: '50%',
+                zIndex: 10,
+              },
+              dimensions.width
+            )}
+          >
+            <CircularProgress
+              color={theme.colors.branding.primary}
+              lineCap={'round'}
+              showTrack={true}
+              startPosition={'top'}
+              trackColor={theme.colors.border.brand}
+              trackLineCap={'round'}
+              animationDuration={500}
+              indeterminate={true}
+              isAnimated={true}
+              style={StyleSheet.applyWidth(
+                { minWidth: 50, width: 50 },
+                dimensions.width
+              )}
+              thickness={5}
+            />
+          </View>
         )}
       </>
     </ScreenContainer>

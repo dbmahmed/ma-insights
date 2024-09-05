@@ -182,7 +182,7 @@ const CFSScreen = props => {
     setConsumer_discretionary(
       (sector || []).includes('Consumer Discretionary')
     );
-    setIt_and_software((sector || []).includes('IT & Software'));
+    setIt_and_software((sector || []).includes('IT and Software'));
     setConsumer_staples((sector || []).includes('Consumer Staples'));
     setMaterials((sector || []).includes('Materials'));
     setEnergy((sector || []).includes('Energy'));
@@ -197,6 +197,10 @@ const CFSScreen = props => {
       (typeOwnership || []).includes('Private Individual')
     );
     setOtOther((typeOwnership || []).includes('Other'));
+  };
+
+  const advisorEmptyState = item => {
+    return item.length ? item : `"_"`;
   };
 
   const applyFilter = () => {
@@ -229,7 +233,7 @@ const CFSScreen = props => {
     communication_services && sectors.push('Communication Services');
     industrials && sectors.push('Industrials');
     consumer_discretionary && sectors.push('Consumer Discretionary');
-    it_and_software && sectors.push('IT & Software');
+    it_and_software && sectors.push('IT and Software');
     consumer_staples && sectors.push('Consumer Staples');
     materials && sectors.push('Materials');
     energy && sectors.push('Energy');
@@ -249,10 +253,6 @@ const CFSScreen = props => {
     otOther && typeOwnership.push('Other');
 
     setTypeOwnership(() => typeOwnership);
-  };
-
-  const advisorEmptyState = item => {
-    return item.length ? item : `"_"`;
   };
   const safeAreaInsets = useSafeAreaInsets();
   const isFocused = useIsFocused();
@@ -299,6 +299,8 @@ const CFSScreen = props => {
     <ScreenContainer
       hasSafeArea={false}
       scrollable={false}
+      hasLeftSafeArea={false}
+      hasRightSafeArea={false}
       hasTopSafeArea={true}
     >
       <CustomHeaderBlock />
@@ -360,7 +362,7 @@ const CFSScreen = props => {
             style={StyleSheet.applyWidth(
               StyleSheet.compose(
                 GlobalStyles.HStackStyles(theme)['H Stack'].style,
-                { gap: 10, justifyContent: 'space-between' }
+                { gap: 10, justifyContent: 'space-between', marginRight: 5 }
               ),
               dimensions.width
             )}
@@ -914,7 +916,11 @@ const CFSScreen = props => {
                     style={StyleSheet.applyWidth(
                       {
                         marginBottom:
-                          dimensions.width >= Breakpoints.Laptop ? 0 : 35,
+                          dimensions.width >= Breakpoints.Laptop
+                            ? 0
+                            : Platform.OS === 'ios'
+                            ? 65
+                            : 35,
                         maxHeight: dimensions.height - 195,
                         paddingLeft: setPadding(dimensions.width),
                         paddingRight: setPadding(dimensions.width),
@@ -2995,408 +3001,6 @@ const CFSScreen = props => {
                               </View>
                             </View>
                           </View>
-                          {/* Type of ownership */}
-                          <>
-                            {!(
-                              dimensions.width >= Breakpoints.Laptop
-                            ) ? null : (
-                              <View
-                                style={StyleSheet.applyWidth(
-                                  {
-                                    alignItems: 'flex-start',
-                                    flexDirection: [
-                                      {
-                                        minWidth: Breakpoints.Mobile,
-                                        value: 'column',
-                                      },
-                                      {
-                                        minWidth: Breakpoints.Tablet,
-                                        value: 'column',
-                                      },
-                                    ],
-                                    gap: 8,
-                                    padding: 10,
-                                  },
-                                  dimensions.width
-                                )}
-                              >
-                                <H5
-                                  selectable={false}
-                                  {...GlobalStyles.H5Styles(theme)['H5'].props}
-                                  style={StyleSheet.applyWidth(
-                                    StyleSheet.compose(
-                                      GlobalStyles.H5Styles(theme)['H5'].style,
-                                      {
-                                        color: palettes.Brand['Strong Inverse'],
-                                        fontSize: 16,
-                                        marginBottom: 0,
-                                        marginTop: 0,
-                                      }
-                                    ),
-                                    dimensions.width
-                                  )}
-                                >
-                                  {'Type of ownership'}
-                                </H5>
-
-                                <View
-                                  {...GlobalStyles.ViewStyles(theme)[
-                                    'split_options'
-                                  ].props}
-                                  style={StyleSheet.applyWidth(
-                                    StyleSheet.compose(
-                                      GlobalStyles.ViewStyles(theme)[
-                                        'split_options'
-                                      ].style,
-                                      { gap: 0, margin: -4, width: '100%' }
-                                    ),
-                                    dimensions.width
-                                  )}
-                                >
-                                  {/* Private equity */}
-                                  <View
-                                    style={StyleSheet.applyWidth(
-                                      {
-                                        alignContent: 'center',
-                                        alignItems: 'center',
-                                        flexDirection: 'row',
-                                        gap: 4,
-                                        padding: 4,
-                                        width: [
-                                          {
-                                            minWidth: Breakpoints.Mobile,
-                                            value: '50%',
-                                          },
-                                          {
-                                            minWidth: Breakpoints.Laptop,
-                                            value: '25%',
-                                          },
-                                        ],
-                                      },
-                                      dimensions.width
-                                    )}
-                                  >
-                                    <Checkbox
-                                      onPress={newCheckboxValue => {
-                                        const handler = async () => {
-                                          console.log(
-                                            'Checkbox ON_PRESS Start'
-                                          );
-                                          let error = null;
-                                          try {
-                                            console.log(
-                                              'Start ON_PRESS:0 SET_VARIABLE'
-                                            );
-                                            setOtPrivateEquity(
-                                              newCheckboxValue
-                                            );
-                                            console.log(
-                                              'Complete ON_PRESS:0 SET_VARIABLE'
-                                            );
-                                            console.log(
-                                              'Start ON_PRESS:1 WAIT'
-                                            );
-                                            await waitUtil({
-                                              milliseconds: 1000,
-                                            });
-                                            console.log(
-                                              'Complete ON_PRESS:1 WAIT'
-                                            );
-                                            console.log(
-                                              'Start ON_PRESS:2 CONSOLE_LOG'
-                                            );
-                                            console.log(ebitda_small);
-                                            console.log(
-                                              'Complete ON_PRESS:2 CONSOLE_LOG'
-                                            );
-                                          } catch (err) {
-                                            console.error(err);
-                                            error = err.message ?? err;
-                                          }
-                                          console.log(
-                                            'Checkbox ON_PRESS Complete',
-                                            error ? { error } : 'no error'
-                                          );
-                                        };
-                                        handler();
-                                      }}
-                                      color={palettes.Brand['Strong Inverse']}
-                                      size={24}
-                                      status={otPrivateEquity}
-                                      uncheckedColor={
-                                        palettes.Brand['Strong Inverse']
-                                      }
-                                    />
-                                    <Pressable
-                                      onPress={() => {
-                                        try {
-                                          setOtPrivateEquity(
-                                            otPrivateEquity ? false : true
-                                          );
-                                        } catch (err) {
-                                          console.error(err);
-                                        }
-                                      }}
-                                    >
-                                      <Text
-                                        accessible={true}
-                                        {...GlobalStyles.TextStyles(theme)[
-                                          'screen_title'
-                                        ].props}
-                                        style={StyleSheet.applyWidth(
-                                          StyleSheet.compose(
-                                            GlobalStyles.TextStyles(theme)[
-                                              'screen_title'
-                                            ].style,
-                                            {
-                                              color:
-                                                palettes.Brand[
-                                                  'Strong Inverse'
-                                                ],
-                                              fontFamily:
-                                                'Quicksand_400Regular',
-                                              fontSize: 12,
-                                            }
-                                          ),
-                                          dimensions.width
-                                        )}
-                                      >
-                                        {'Private equity'}
-                                      </Text>
-                                    </Pressable>
-                                  </View>
-                                  {/* Strategic */}
-                                  <View
-                                    style={StyleSheet.applyWidth(
-                                      {
-                                        alignContent: 'center',
-                                        alignItems: 'center',
-                                        flexDirection: 'row',
-                                        gap: 4,
-                                        padding: 4,
-                                        width: [
-                                          {
-                                            minWidth: Breakpoints.Mobile,
-                                            value: '50%',
-                                          },
-                                          {
-                                            minWidth: Breakpoints.Laptop,
-                                            value: '25%',
-                                          },
-                                        ],
-                                      },
-                                      dimensions.width
-                                    )}
-                                  >
-                                    <Checkbox
-                                      onPress={newCheckboxValue => {
-                                        try {
-                                          setOtStrategic(newCheckboxValue);
-                                        } catch (err) {
-                                          console.error(err);
-                                        }
-                                      }}
-                                      color={palettes.Brand['Strong Inverse']}
-                                      size={24}
-                                      status={otStrategic}
-                                      uncheckedColor={
-                                        palettes.Brand['Strong Inverse']
-                                      }
-                                    />
-                                    <Pressable
-                                      onPress={() => {
-                                        try {
-                                          setOtStrategic(
-                                            otStrategic ? false : true
-                                          );
-                                        } catch (err) {
-                                          console.error(err);
-                                        }
-                                      }}
-                                    >
-                                      <Text
-                                        accessible={true}
-                                        {...GlobalStyles.TextStyles(theme)[
-                                          'screen_title'
-                                        ].props}
-                                        style={StyleSheet.applyWidth(
-                                          StyleSheet.compose(
-                                            GlobalStyles.TextStyles(theme)[
-                                              'screen_title'
-                                            ].style,
-                                            {
-                                              color:
-                                                palettes.Brand[
-                                                  'Strong Inverse'
-                                                ],
-                                              fontFamily:
-                                                'Quicksand_400Regular',
-                                              fontSize: 12,
-                                            }
-                                          ),
-                                          dimensions.width
-                                        )}
-                                      >
-                                        {'Strategic'}
-                                      </Text>
-                                    </Pressable>
-                                  </View>
-                                  {/* Private Individual */}
-                                  <View
-                                    style={StyleSheet.applyWidth(
-                                      {
-                                        alignContent: 'center',
-                                        alignItems: 'center',
-                                        flexDirection: 'row',
-                                        gap: 4,
-                                        padding: 4,
-                                        width: [
-                                          {
-                                            minWidth: Breakpoints.Mobile,
-                                            value: '50%',
-                                          },
-                                          {
-                                            minWidth: Breakpoints.Laptop,
-                                            value: '25%',
-                                          },
-                                        ],
-                                      },
-                                      dimensions.width
-                                    )}
-                                  >
-                                    <Checkbox
-                                      onPress={newCheckboxValue => {
-                                        try {
-                                          setOtPrivateIndividual(
-                                            newCheckboxValue
-                                          );
-                                        } catch (err) {
-                                          console.error(err);
-                                        }
-                                      }}
-                                      color={palettes.Brand['Strong Inverse']}
-                                      size={24}
-                                      status={otPrivateIndividual}
-                                      uncheckedColor={
-                                        palettes.Brand['Strong Inverse']
-                                      }
-                                    />
-                                    <Pressable
-                                      onPress={() => {
-                                        try {
-                                          setOtPrivateIndividual(
-                                            otPrivateIndividual ? false : true
-                                          );
-                                        } catch (err) {
-                                          console.error(err);
-                                        }
-                                      }}
-                                    >
-                                      <Text
-                                        accessible={true}
-                                        {...GlobalStyles.TextStyles(theme)[
-                                          'screen_title'
-                                        ].props}
-                                        style={StyleSheet.applyWidth(
-                                          StyleSheet.compose(
-                                            GlobalStyles.TextStyles(theme)[
-                                              'screen_title'
-                                            ].style,
-                                            {
-                                              color:
-                                                palettes.Brand[
-                                                  'Strong Inverse'
-                                                ],
-                                              fontFamily:
-                                                'Quicksand_400Regular',
-                                              fontSize: 12,
-                                            }
-                                          ),
-                                          dimensions.width
-                                        )}
-                                      >
-                                        {'Private Individual'}
-                                      </Text>
-                                    </Pressable>
-                                  </View>
-                                  {/* Other */}
-                                  <View
-                                    style={StyleSheet.applyWidth(
-                                      {
-                                        alignContent: 'center',
-                                        alignItems: 'center',
-                                        flexDirection: 'row',
-                                        gap: 4,
-                                        padding: 4,
-                                        width: [
-                                          {
-                                            minWidth: Breakpoints.Mobile,
-                                            value: '50%',
-                                          },
-                                          {
-                                            minWidth: Breakpoints.Laptop,
-                                            value: '25%',
-                                          },
-                                        ],
-                                      },
-                                      dimensions.width
-                                    )}
-                                  >
-                                    <Checkbox
-                                      onPress={newCheckboxValue => {
-                                        try {
-                                          setOtOther(newCheckboxValue);
-                                        } catch (err) {
-                                          console.error(err);
-                                        }
-                                      }}
-                                      color={palettes.Brand['Strong Inverse']}
-                                      size={24}
-                                      status={otOther}
-                                      uncheckedColor={
-                                        palettes.Brand['Strong Inverse']
-                                      }
-                                    />
-                                    <Pressable
-                                      onPress={() => {
-                                        try {
-                                          setOtOther(otOther ? false : true);
-                                        } catch (err) {
-                                          console.error(err);
-                                        }
-                                      }}
-                                    >
-                                      <Text
-                                        accessible={true}
-                                        {...GlobalStyles.TextStyles(theme)[
-                                          'screen_title'
-                                        ].props}
-                                        style={StyleSheet.applyWidth(
-                                          StyleSheet.compose(
-                                            GlobalStyles.TextStyles(theme)[
-                                              'screen_title'
-                                            ].style,
-                                            {
-                                              color:
-                                                palettes.Brand[
-                                                  'Strong Inverse'
-                                                ],
-                                              fontFamily:
-                                                'Quicksand_400Regular',
-                                              fontSize: 12,
-                                            }
-                                          ),
-                                          dimensions.width
-                                        )}
-                                      >
-                                        {'Other\n'}
-                                      </Text>
-                                    </Pressable>
-                                  </View>
-                                </View>
-                              </View>
-                            )}
-                          </>
                           <Spacer bottom={10} left={0} right={0} top={10} />
                           {/* Buttons */}
                           <View

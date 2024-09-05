@@ -164,7 +164,7 @@ const AllEventsScreen = props => {
     communication_services && sectors.push('Communication Services');
     industrials && sectors.push('Industrials');
     consumer_discretionary && sectors.push('Consumer Discretionary');
-    it_and_software && sectors.push('IT & Software');
+    it_and_software && sectors.push('IT and Software');
     consumer_staples && sectors.push('Consumer Staples');
     materials && sectors.push('Materials');
     energy && sectors.push('Energy');
@@ -215,7 +215,7 @@ const AllEventsScreen = props => {
     setConsumer_discretionary(
       (sector || []).includes('Consumer Discretionary')
     );
-    setIt_and_software((sector || []).includes('IT & Software'));
+    setIt_and_software((sector || []).includes('IT and Software'));
     setConsumer_staples((sector || []).includes('Consumer Staples'));
     setMaterials((sector || []).includes('Materials'));
     setEnergy((sector || []).includes('Energy'));
@@ -297,8 +297,8 @@ const AllEventsScreen = props => {
   return (
     <ScreenContainer
       hasSafeArea={false}
-      hasLeftSafeArea={true}
-      hasRightSafeArea={true}
+      hasLeftSafeArea={false}
+      hasRightSafeArea={false}
       hasTopSafeArea={true}
       scrollable={false}
       style={StyleSheet.applyWidth(
@@ -1025,7 +1025,11 @@ const AllEventsScreen = props => {
                             value: 'center',
                           },
                           marginBottom:
-                            dimensions.width >= Breakpoints.Laptop ? 0 : 35,
+                            dimensions.width >= Breakpoints.Laptop
+                              ? 0
+                              : Platform.OS === 'ios'
+                              ? 75
+                              : 35,
                           paddingLeft: {
                             minWidth: Breakpoints.Desktop,
                             value: setPadding(dimensions.width),

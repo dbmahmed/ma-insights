@@ -45,6 +45,8 @@ import imageSource from '../utils/imageSource';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import waitUtil from '../utils/wait';
 
+const defaultProps = { news_id: 127 };
+
 const NewsletterDetailsScreen = props => {
   const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
@@ -111,8 +113,8 @@ const NewsletterDetailsScreen = props => {
     <ScreenContainer
       hasSafeArea={false}
       hasBottomSafeArea={false}
-      hasLeftSafeArea={true}
-      hasRightSafeArea={true}
+      hasLeftSafeArea={false}
+      hasRightSafeArea={false}
       hasTopSafeArea={true}
       scrollable={false}
     >
@@ -165,7 +167,7 @@ const NewsletterDetailsScreen = props => {
             }
           },
         }}
-        newsletter_id={props.route?.params?.news_id ?? 127}
+        newsletter_id={props.route?.params?.news_id ?? defaultProps.news_id}
       >
         {({ loading, error, data, refetchNewsletterEach }) => {
           const fetchData = data?.json;

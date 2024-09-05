@@ -37,6 +37,8 @@ import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import waitUtil from '../utils/wait';
 
+const defaultProps = { advisor_id: 1 };
+
 const AdvisorDetailsScreen = props => {
   const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
@@ -93,7 +95,7 @@ const AdvisorDetailsScreen = props => {
     communication_services && sectors.push('Communication Services');
     industrials && sectors.push('Industrials');
     consumer_discretionary && sectors.push('Consumer Discretionary');
-    it_and_software && sectors.push('IT & Software');
+    it_and_software && sectors.push('IT and Software');
     consumer_staples && sectors.push('Consumer Staples');
     materials && sectors.push('Materials');
     energy && sectors.push('Energy');
@@ -103,6 +105,32 @@ const AdvisorDetailsScreen = props => {
     health_care && sectors.push('Health Care');
 
     setSector(() => sectors);
+  };
+
+  const matchingFilters = () => {
+    setSweden((country || []).includes('Sweden'));
+    setGermany((country || []).includes('Germany'));
+    setDenmark((country || []).includes('Denmark'));
+    setSwitzerland((country || []).includes('Switzerland'));
+    setNorway((country || []).includes('Norway'));
+    setAustria((country || []).includes('Austria'));
+    setFinland((country || []).includes('Finland'));
+
+    setCommunication_services(
+      (sector || []).includes('Communication Services')
+    );
+    setIndustrials((sector || []).includes('Industrials'));
+    setConsumer_discretionary(
+      (sector || []).includes('Consumer Discretionary')
+    );
+    setIt_and_software((sector || []).includes('IT and Software'));
+    setConsumer_staples((sector || []).includes('Consumer Staples'));
+    setMaterials((sector || []).includes('Materials'));
+    setEnergy((sector || []).includes('Energy'));
+    setReal_estate((sector || []).includes('Real Estate'));
+    setFinancials((sector || []).includes('Financials'));
+    setUtilities((sector || []).includes('Utilities'));
+    setHealth_care((sector || []).includes('Health Care'));
   };
 
   const toggleAllFilters = flag => {
@@ -125,32 +153,6 @@ const AdvisorDetailsScreen = props => {
     setUtilities(flag);
     setHealth_care(flag);
   };
-
-  const matchingFilters = () => {
-    setSweden((country || []).includes('Sweden'));
-    setGermany((country || []).includes('Germany'));
-    setDenmark((country || []).includes('Denmark'));
-    setSwitzerland((country || []).includes('Switzerland'));
-    setNorway((country || []).includes('Norway'));
-    setAustria((country || []).includes('Austria'));
-    setFinland((country || []).includes('Finland'));
-
-    setCommunication_services(
-      (sector || []).includes('Communication Services')
-    );
-    setIndustrials((sector || []).includes('Industrials'));
-    setConsumer_discretionary(
-      (sector || []).includes('Consumer Discretionary')
-    );
-    setIt_and_software((sector || []).includes('IT & Software'));
-    setConsumer_staples((sector || []).includes('Consumer Staples'));
-    setMaterials((sector || []).includes('Materials'));
-    setEnergy((sector || []).includes('Energy'));
-    setReal_estate((sector || []).includes('Real Estate'));
-    setFinancials((sector || []).includes('Financials'));
-    setUtilities((sector || []).includes('Utilities'));
-    setHealth_care((sector || []).includes('Health Care'));
-  };
   const isFocused = useIsFocused();
   React.useEffect(() => {
     try {
@@ -167,7 +169,7 @@ const AdvisorDetailsScreen = props => {
       });
       setGlobalVariableValue({
         key: 'screenParamValue',
-        value: props.route?.params?.advisor_id ?? 1,
+        value: props.route?.params?.advisor_id ?? defaultProps.advisor_id,
       });
       removeGlobalScroll();
       setGlobalVariableValue({
@@ -194,12 +196,14 @@ const AdvisorDetailsScreen = props => {
   return (
     <ScreenContainer
       scrollable={false}
+      hasLeftSafeArea={false}
+      hasRightSafeArea={false}
       hasSafeArea={false}
       hasTopSafeArea={true}
     >
       <CustomHeaderBlock />
       <XanoCollectionApi.FetchGetAdvisorGET
-        advisor_id={props.route?.params?.advisor_id ?? 1}
+        advisor_id={props.route?.params?.advisor_id ?? defaultProps.advisor_id}
         country_in={country}
         device={deviceType(
           Platform.OS === 'web',

@@ -56,7 +56,8 @@ const ReportsScreen = props => {
     <ScreenContainer
       hasSafeArea={false}
       scrollable={false}
-      hasLeftSafeArea={true}
+      hasLeftSafeArea={false}
+      hasRightSafeArea={false}
       hasTopSafeArea={true}
     >
       <CustomHeaderBlock />

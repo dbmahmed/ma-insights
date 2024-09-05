@@ -46,6 +46,8 @@ import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import waitUtil from '../utils/wait';
 
+const defaultProps = { peer_name: null, stock_id: 1527 };
+
 const StockDetailsScreen = props => {
   const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
@@ -138,7 +140,8 @@ const StockDetailsScreen = props => {
   return (
     <ScreenContainer
       hasSafeArea={false}
-      hasLeftSafeArea={true}
+      hasLeftSafeArea={false}
+      hasRightSafeArea={false}
       hasTopSafeArea={true}
       scrollable={false}
     >
@@ -168,7 +171,7 @@ const StockDetailsScreen = props => {
             }
           },
         }}
-        stock_id={props.route?.params?.stock_id ?? 1527}
+        stock_id={props.route?.params?.stock_id ?? defaultProps.stock_id}
       >
         {({ loading, error, data, refetchGetOneStock }) => {
           const fetchData = data?.json;
@@ -4236,7 +4239,7 @@ const StockDetailsScreen = props => {
                                             peer_id: selectedPeerGroupID,
                                             stocksList: [
                                               props.route?.params?.stock_id ??
-                                                1527,
+                                                defaultProps.stock_id,
                                             ].concat([]),
                                             type: 'Add',
                                           }
@@ -4426,7 +4429,8 @@ const StockDetailsScreen = props => {
                                                 device: 'ios',
                                                 stocks: [].concat([
                                                   props.route?.params
-                                                    ?.stock_id ?? 1527,
+                                                    ?.stock_id ??
+                                                    defaultProps.stock_id,
                                                 ]),
                                                 title: newPeerGroup,
                                               }

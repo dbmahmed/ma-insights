@@ -939,7 +939,9 @@ const NewslettersScreen = props => {
                         minWidth: Breakpoints.Mobile,
                         value:
                           dimensions.width >= Breakpoints.Laptop === false
-                            ? 65
+                            ? Platform.OS === 'ios'
+                              ? 65
+                              : 35
                             : 0,
                       },
                     ],

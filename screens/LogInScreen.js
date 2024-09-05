@@ -143,7 +143,7 @@ const LogInScreen = props => {
           <Image
             {...GlobalStyles.ImageStyles(theme)['Image'].props}
             resizeMode={'contain'}
-            source={imageSource(Images['mainsightsfaviconlogo1024new'])}
+            source={imageSource(Images['mainsightslogonew'])}
             style={StyleSheet.applyWidth(
               StyleSheet.compose(
                 GlobalStyles.ImageStyles(theme)['Image'].style,
@@ -289,7 +289,7 @@ const LogInScreen = props => {
                       const handler = async () => {
                         try {
                           /* hidden 'Focus Text Input' action */
-                          Keyboard.dismiss();
+                          /* hidden 'Dismiss Keyboard' action */
                           setEnterPressed(true);
                           const signIn = (
                             await XanoResetPassApi.initialLoginGET(Constants, {
@@ -430,7 +430,7 @@ const LogInScreen = props => {
                         }}
                         onSubmitEditing={() => {
                           try {
-                            Keyboard.dismiss();
+                            /* hidden 'Dismiss Keyboard' action */
                             /* hidden 'API Request' action */
                             /* hidden 'If/Else' action */
                           } catch (err) {

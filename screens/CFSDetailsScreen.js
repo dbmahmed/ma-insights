@@ -28,6 +28,8 @@ import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
 
+const defaultProps = { cfs_id: 2 };
+
 const CFSDetailsScreen = props => {
   const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
@@ -59,7 +61,7 @@ const CFSDetailsScreen = props => {
       });
       setGlobalVariableValue({
         key: 'screenParamValue',
-        value: props.route?.params?.cfs_id ?? 2,
+        value: props.route?.params?.cfs_id ?? defaultProps.cfs_id,
       });
       setGlobalVariableValue({
         key: 'pageName',
@@ -86,11 +88,13 @@ const CFSDetailsScreen = props => {
     <ScreenContainer
       hasSafeArea={false}
       scrollable={false}
+      hasLeftSafeArea={false}
+      hasRightSafeArea={false}
       hasTopSafeArea={true}
     >
       <CustomHeaderBlock />
       <XanoCollectionApi.FetchGetOneCFSGET
-        cfs_id={props.route?.params?.cfs_id ?? 2}
+        cfs_id={props.route?.params?.cfs_id ?? defaultProps.cfs_id}
         device={deviceType(
           Platform.OS === 'web',
           Platform.OS === 'ios',

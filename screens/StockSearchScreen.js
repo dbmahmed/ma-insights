@@ -129,7 +129,7 @@ const StockSearchScreen = props => {
     communication_services && sectors.push('Communication Services');
     industrials && sectors.push('Industrials');
     consumer_discretionary && sectors.push('Consumer Discretionary');
-    it_and_software && sectors.push('IT & Software');
+    it_and_software && sectors.push('IT and Software');
     consumer_staples && sectors.push('Consumer Staples');
     materials && sectors.push('Materials');
     energy && sectors.push('Energy');
@@ -168,7 +168,7 @@ const StockSearchScreen = props => {
     setConsumer_discretionary(
       (sector || []).includes('Consumer Discretionary')
     );
-    setIt_and_software((sector || []).includes('IT & Software'));
+    setIt_and_software((sector || []).includes('IT and Software'));
     setConsumer_staples((sector || []).includes('Consumer Staples'));
     setMaterials((sector || []).includes('Materials'));
     setEnergy((sector || []).includes('Energy'));
@@ -217,6 +217,8 @@ const StockSearchScreen = props => {
     <ScreenContainer
       hasSafeArea={false}
       scrollable={false}
+      hasLeftSafeArea={false}
+      hasRightSafeArea={false}
       hasTopSafeArea={true}
     >
       {/* Container */}
@@ -1038,14 +1040,12 @@ const StockSearchScreen = props => {
                       style={StyleSheet.applyWidth(
                         {
                           gap: 0,
-                          marginBottom: [
-                            { minWidth: Breakpoints.Mobile, value: 0 },
-                            {
-                              minWidth: Breakpoints.Mobile,
-                              value:
-                                dimensions.width >= Breakpoints.Laptop ? 0 : 65,
-                            },
-                          ],
+                          marginBottom:
+                            dimensions.width >= Breakpoints.Laptop
+                              ? 0
+                              : Platform.OS === 'ios'
+                              ? 65
+                              : 35,
                           maxHeight: {
                             minWidth: Breakpoints.Laptop,
                             value: dimensions.height - 250,

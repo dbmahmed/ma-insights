@@ -166,6 +166,8 @@ line two` ) and will not work with special characters inside of quotes ( example
     <ScreenContainer
       hasSafeArea={false}
       scrollable={false}
+      hasLeftSafeArea={false}
+      hasRightSafeArea={false}
       hasTopSafeArea={true}
     >
       {/* Container */}
@@ -1204,7 +1206,11 @@ line two` ) and will not work with special characters inside of quotes ( example
                       {
                         gap: 8,
                         marginBottom:
-                          dimensions.width >= Breakpoints.Laptop ? 0 : 35,
+                          dimensions.width >= Breakpoints.Laptop
+                            ? 0
+                            : Platform.OS === 'ios'
+                            ? 65
+                            : 35,
                         maxHeight: [
                           {
                             minWidth: Breakpoints.Mobile,

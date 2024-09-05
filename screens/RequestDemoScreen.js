@@ -97,7 +97,7 @@ const RequestDemoScreen = props => {
         <Image
           {...GlobalStyles.ImageStyles(theme)['Image'].props}
           resizeMode={'contain'}
-          source={imageSource(Images['mainsightsfaviconlogo1024new'])}
+          source={imageSource(Images['mainsightslogonew'])}
           style={StyleSheet.applyWidth(
             StyleSheet.compose(GlobalStyles.ImageStyles(theme)['Image'].style, {
               width: 300,

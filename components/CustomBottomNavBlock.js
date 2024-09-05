@@ -23,10 +23,12 @@ const CustomBottomNavBlock = props => {
           backgroundColor: palettes.Brand.Surface,
           bottom: 0,
           height: dimensions.width >= Breakpoints.Laptop ? 0 : 65,
+          left: 0,
           position: [
             { minWidth: Breakpoints.Desktop, value: 'relative' },
             { minWidth: Breakpoints.Mobile, value: 'absolute' },
           ],
+          right: 0,
           width: '100%',
           zIndex: 10,
         },

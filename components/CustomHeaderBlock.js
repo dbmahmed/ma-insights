@@ -657,14 +657,14 @@ const CustomHeaderBlock = props => {
                             {
                               color: [
                                 {
-                                  minWidth: Breakpoints.Mobile,
+                                  minWidth: Breakpoints.Laptop,
                                   value:
                                     Constants['pageName'] === 'Newsletters'
                                       ? palettes.App.Orange
                                       : palettes.Brand.Strong,
                                 },
                                 {
-                                  minWidth: Breakpoints.Laptop,
+                                  minWidth: Breakpoints.Mobile,
                                   value:
                                     Constants['pageName'] === 'Newsletters'
                                       ? palettes.App.Orange
@@ -1067,14 +1067,14 @@ const CustomHeaderBlock = props => {
                             {
                               color: [
                                 {
-                                  minWidth: Breakpoints.Mobile,
+                                  minWidth: Breakpoints.Laptop,
                                   value:
                                     Constants['pageName'] === 'Advisors'
                                       ? palettes.App.Orange
                                       : palettes.Brand.Strong,
                                 },
                                 {
-                                  minWidth: Breakpoints.Laptop,
+                                  minWidth: Breakpoints.Mobile,
                                   value:
                                     Constants['pageName'] === 'Advisors'
                                       ? palettes.App.Orange
@@ -1219,14 +1219,14 @@ const CustomHeaderBlock = props => {
                             {
                               color: [
                                 {
-                                  minWidth: Breakpoints.Mobile,
+                                  minWidth: Breakpoints.Laptop,
                                   value:
                                     Constants['pageName'] === 'Peer Groups'
                                       ? palettes.App.Orange
                                       : palettes.Brand.Strong,
                                 },
                                 {
-                                  minWidth: Breakpoints.Laptop,
+                                  minWidth: Breakpoints.Mobile,
                                   value:
                                     Constants['pageName'] === 'Peer Groups'
                                       ? palettes.App.Orange

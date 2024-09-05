@@ -16,6 +16,7 @@ import { useIsFocused } from '@react-navigation/native';
 import {
   ActivityIndicator,
   Image,
+  Platform,
   RefreshControl,
   Text,
   View,
@@ -101,6 +102,8 @@ const PeerGroupsScreen = props => {
     <ScreenContainer
       hasSafeArea={false}
       scrollable={false}
+      hasLeftSafeArea={false}
+      hasRightSafeArea={false}
       hasTopSafeArea={true}
     >
       <CustomHeaderBlock />
@@ -816,7 +819,11 @@ const PeerGroupsScreen = props => {
                       },
                     ],
                     marginBottom:
-                      dimensions.width >= Breakpoints.Laptop ? 0 : 65,
+                      dimensions.width >= Breakpoints.Laptop
+                        ? 0
+                        : Platform.OS === 'ios'
+                        ? 65
+                        : 35,
                     maxHeight: dimensions.height - 270,
                     padding: 5,
                     paddingLeft: setPadding(dimensions.width),

@@ -46,8 +46,11 @@ const TermsAndConditionsScreen = props => {
 
   return (
     <ScreenContainer
-      hasSafeArea={false}
       scrollable={false}
+      hasBottomSafeArea={false}
+      hasLeftSafeArea={false}
+      hasRightSafeArea={false}
+      hasSafeArea={false}
       hasTopSafeArea={true}
     >
       <CustomHeaderBlock />
