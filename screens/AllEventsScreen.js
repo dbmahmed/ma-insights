@@ -2,6 +2,7 @@ import React from 'react';
 import {
   Button,
   Checkbox,
+  CircularProgress,
   HStack,
   IconButton,
   LinearGradient,
@@ -85,6 +86,7 @@ const AllEventsScreen = props => {
   const [keywordSearch, setKeywordSearch] = React.useState('');
   const [keywordSearchRaw, setKeywordSearchRaw] = React.useState('');
   const [lastPage, setLastPage] = React.useState(2);
+  const [loadingMore, setLoadingMore] = React.useState(false);
   const [materials, setMaterials] = React.useState(false);
   const [minEbitda, setMinEbitda] = React.useState(false);
   const [nextPage, setNextPage] = React.useState(2);
@@ -711,6 +713,7 @@ const AllEventsScreen = props => {
                         const handler = async () => {
                           try {
                             console.log('END REACHED');
+                            setLoadingMore(true);
                             if (nextPage === null) {
                               return;
                             }
@@ -738,6 +741,7 @@ const AllEventsScreen = props => {
                                 }
                               )
                             )?.json;
+                            setLoadingMore(false);
                             if (newData?.items?.length === 0) {
                               return;
                             }
@@ -749,7 +753,6 @@ const AllEventsScreen = props => {
                         };
                         handler();
                       }}
-                      onEndReachedThreshold={0.5}
                       refreshControl={
                         <RefreshControl
                           refreshing={refreshingAwqPzJqX}
@@ -1003,6 +1006,7 @@ const AllEventsScreen = props => {
                           </View>
                         );
                       }}
+                      onEndReachedThreshold={0.2}
                       ref={listAwqPzJqXRef}
                       showsHorizontalScrollIndicator={false}
                       showsVerticalScrollIndicator={true}
@@ -1021,7 +1025,7 @@ const AllEventsScreen = props => {
                             value: 'center',
                           },
                           marginBottom:
-                            dimensions.width >= Breakpoints.Laptop ? 0 : 65,
+                            dimensions.width >= Breakpoints.Laptop ? 0 : 35,
                           paddingLeft: {
                             minWidth: Breakpoints.Desktop,
                             value: setPadding(dimensions.width),
@@ -1052,6 +1056,7 @@ const AllEventsScreen = props => {
                         const handler = async () => {
                           try {
                             console.log('END REACHED');
+                            setLoadingMore(true);
                             if (nextPage === null) {
                               return;
                             }
@@ -1079,6 +1084,7 @@ const AllEventsScreen = props => {
                                 }
                               )
                             )?.json;
+                            setLoadingMore(false);
                             if (newData?.items?.length === 0) {
                               return;
                             }
@@ -4112,6 +4118,43 @@ const AllEventsScreen = props => {
         }}
       </XanoCollectionApi.FetchGetAllEventsGET>
       <CustomBottomNavBlock />
+      {/* View 2 */}
+      <>
+        {!loadingMore ? null : (
+          <View
+            style={StyleSheet.applyWidth(
+              {
+                alignContent: 'center',
+                alignItems: 'center',
+                alignSelf: 'center',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                position: 'absolute',
+                top: '50%',
+                zIndex: 10,
+              },
+              dimensions.width
+            )}
+          >
+            <CircularProgress
+              color={theme.colors.branding.primary}
+              lineCap={'round'}
+              showTrack={true}
+              startPosition={'top'}
+              trackColor={theme.colors.border.brand}
+              trackLineCap={'round'}
+              animationDuration={500}
+              indeterminate={true}
+              isAnimated={true}
+              style={StyleSheet.applyWidth(
+                { minWidth: 50, width: 50 },
+                dimensions.width
+              )}
+              thickness={5}
+            />
+          </View>
+        )}
+      </>
     </ScreenContainer>
   );
 };
