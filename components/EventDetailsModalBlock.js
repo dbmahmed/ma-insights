@@ -1224,12 +1224,7 @@ const EventDetailsModalBlock = props => {
                               </Text>
                             </View>
                             {/* View 2 */}
-                            <View
-                              style={StyleSheet.applyWidth(
-                                { flex: 1 },
-                                dimensions.width
-                              )}
-                            >
+                            <View>
                               <Text
                                 accessible={true}
                                 {...GlobalStyles.TextStyles(theme)[

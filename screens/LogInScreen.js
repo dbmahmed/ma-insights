@@ -142,7 +142,7 @@ const LogInScreen = props => {
           {/* NKP Logo */}
           <Image
             {...GlobalStyles.ImageStyles(theme)['Image'].props}
-            resizeMode={'contain'}
+            resizeMode={'center'}
             source={imageSource(Images['mainsightsfaviconlogo1024new'])}
             style={StyleSheet.applyWidth(
               StyleSheet.compose(
