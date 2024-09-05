@@ -713,10 +713,10 @@ const AllEventsScreen = props => {
                         const handler = async () => {
                           try {
                             console.log('END REACHED');
-                            setLoadingMore(true);
                             if (nextPage === null) {
                               return;
                             }
+                            setLoadingMore(true);
 
                             const value5LnNJ7Yb = parseInt(nextPage + 1, 10);
                             setNextPage(value5LnNJ7Yb);
@@ -1056,10 +1056,10 @@ const AllEventsScreen = props => {
                         const handler = async () => {
                           try {
                             console.log('END REACHED');
-                            setLoadingMore(true);
                             if (nextPage === null) {
                               return;
                             }
+                            setLoadingMore(true);
 
                             const valueFAyE96NF = parseInt(nextPage + 1, 10);
                             setNextPage(valueFAyE96NF);

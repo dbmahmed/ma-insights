@@ -1204,7 +1204,7 @@ line two` ) and will not work with special characters inside of quotes ( example
                       {
                         gap: 8,
                         marginBottom:
-                          dimensions.width >= Breakpoints.Laptop ? 0 : 65,
+                          dimensions.width >= Breakpoints.Laptop ? 0 : 35,
                         maxHeight: [
                           {
                             minWidth: Breakpoints.Mobile,

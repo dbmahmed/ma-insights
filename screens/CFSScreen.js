@@ -914,7 +914,7 @@ const CFSScreen = props => {
                     style={StyleSheet.applyWidth(
                       {
                         marginBottom:
-                          dimensions.width >= Breakpoints.Laptop ? 0 : 65,
+                          dimensions.width >= Breakpoints.Laptop ? 0 : 35,
                         maxHeight: dimensions.height - 195,
                         paddingLeft: setPadding(dimensions.width),
                         paddingRight: setPadding(dimensions.width),
@@ -4431,7 +4431,7 @@ const CFSScreen = props => {
                               dimensions.width
                             )}
                           >
-                            {fetchData?.revenue_eur}
+                            {transformEuroM(fetchData?.revenue_eur)}
                           </Text>
                         </View>
                       </View>
@@ -4490,7 +4490,7 @@ const CFSScreen = props => {
                               dimensions.width
                             )}
                           >
-                            {fetchData?.ebitda_eur}
+                            {transformEuroM(fetchData?.ebitda_eur)}
                           </Text>
                         </View>
                       </View>
@@ -4750,12 +4750,7 @@ const CFSScreen = props => {
                             </Text>
                           )}
                         </>
-                        <View
-                          style={StyleSheet.applyWidth(
-                            { paddingBottom: 40 },
-                            dimensions.width
-                          )}
-                        >
+                        <View>
                           {/* Text 2 */}
                           <Text
                             accessible={true}
