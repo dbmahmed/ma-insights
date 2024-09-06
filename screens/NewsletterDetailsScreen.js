@@ -45,7 +45,7 @@ import imageSource from '../utils/imageSource';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import waitUtil from '../utils/wait';
 
-const defaultProps = { news_id: 127 };
+const defaultProps = { news_id: 138 };
 
 const NewsletterDetailsScreen = props => {
   const { theme, navigation } = props;
@@ -536,7 +536,11 @@ const NewsletterDetailsScreen = props => {
                           )}
                         </>
                         <>
-                          {!(Platform.OS === 'web' && showTempDiv) ? null : (
+                          {!(
+                            Platform.OS === 'web' &&
+                            showTempDiv &&
+                            fetchData?.audio_version_pvt !== null
+                          ) ? null : (
                             <View
                               style={StyleSheet.applyWidth(
                                 {
