@@ -34,6 +34,7 @@ import deviceType from '../global-functions/deviceType';
 import removeGlobalScroll from '../global-functions/removeGlobalScroll';
 import resetAccess from '../global-functions/resetAccess';
 import setPadding from '../global-functions/setPadding';
+import transformNumber from '../global-functions/transformNumber';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
@@ -902,11 +903,23 @@ const NewslettersScreen = props => {
                               )}
                             >
                               {'Stories: '}
-                              {listData?.total_stories}
+                              {transformNumber(
+                                listData?.total_stories,
+                                undefined,
+                                undefined
+                              )}
                               {'\nOpportunities: '}
-                              {listData?.opportunities}
+                              {transformNumber(
+                                listData?.opportunities,
+                                undefined,
+                                undefined
+                              )}
                               {'\nTransactional: '}
-                              {listData?.transactional}
+                              {transformNumber(
+                                listData?.transactional,
+                                undefined,
+                                undefined
+                              )}
                             </Text>
                           </View>
                         </Pressable>

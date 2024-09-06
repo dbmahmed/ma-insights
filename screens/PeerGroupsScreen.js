@@ -30,6 +30,7 @@ import LoadingBlock from '../components/LoadingBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import Images from '../config/Images';
 import assessAccess from '../global-functions/assessAccess';
+import deviceType from '../global-functions/deviceType';
 import removeGlobalScroll from '../global-functions/removeGlobalScroll';
 import setPadding from '../global-functions/setPadding';
 import palettes from '../themes/palettes';
@@ -59,6 +60,7 @@ const PeerGroupsScreen = props => {
   const [industrials, setIndustrials] = React.useState(false);
   const [it_and_software, setIt_and_software] = React.useState(false);
   const [keywordSearch, setKeywordSearch] = React.useState('');
+  const [keywordSearchRaw, setKeywordSearchRaw] = React.useState('');
   const [materials, setMaterials] = React.useState(false);
   const [my_peer_groups, setMy_peer_groups] = React.useState(false);
   const [nextPage, setNextPage] = React.useState(1);
@@ -247,16 +249,16 @@ const PeerGroupsScreen = props => {
               changeTextDelay={500}
               onChangeText={newTextInputValue => {
                 try {
-                  setKeywordSearch(newTextInputValue);
+                  setKeywordSearchRaw(newTextInputValue);
                 } catch (err) {
                   console.error(err);
                 }
               }}
               onSubmitEditing={() => {
                 try {
-                  /* hidden 'Set Variable' action */
+                  setKeywordSearch(keywordSearchRaw);
                   /* hidden 'API Request' action */
-                  /* 'Refetch Data' action requires configuration: choose an API endpoint */
+                  /* hidden 'Refetch Data' action */
                 } catch (err) {
                   console.error(err);
                 }
@@ -285,7 +287,7 @@ const PeerGroupsScreen = props => {
                 ),
                 dimensions.width
               )}
-              value={keywordSearch}
+              value={keywordSearchRaw}
             />
             <View
               style={StyleSheet.applyWidth(
@@ -425,7 +427,11 @@ const PeerGroupsScreen = props => {
       </View>
 
       <XanoCollectionApi.FetchGetAllPeersGET
-        device={'ios'}
+        device={deviceType(
+          Platform.OS === 'web',
+          Platform.OS === 'ios',
+          Platform.OS === 'android'
+        )}
         handlers={{
           on2xx: fetchData => {
             try {
@@ -536,7 +542,11 @@ const PeerGroupsScreen = props => {
                       }
                       const newData = (
                         await XanoCollectionApi.getAllPeersGET(Constants, {
-                          device: 'ios',
+                          device: deviceType(
+                            Platform.OS === 'web',
+                            Platform.OS === 'ios',
+                            Platform.OS === 'android'
+                          ),
                           keyword: keywordSearch,
                           my_peers: my_peer_groups,
                           nkp_comps: nkp_comps,

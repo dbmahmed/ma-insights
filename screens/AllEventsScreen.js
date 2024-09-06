@@ -4078,7 +4078,7 @@ const AllEventsScreen = props => {
                                   applyFilter();
                                   setFilterPressed(false);
                                   await waitUtil({ milliseconds: 1000 });
-                                  await refetchGetAllEvents();
+                                  /* hidden 'Refetch Data' action */
                                 } catch (err) {
                                   console.error(err);
                                 }

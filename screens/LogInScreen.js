@@ -156,6 +156,8 @@ const LogInScreen = props => {
           <Text
             accessible={true}
             {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+            disabled={true}
+            selectable={true}
             style={StyleSheet.applyWidth(
               StyleSheet.compose(
                 GlobalStyles.TextStyles(theme)['screen_title'].style,
@@ -185,6 +187,7 @@ const LogInScreen = props => {
               ),
               dimensions.width
             )}
+            suppressHighlighting={true}
           >
             {dimensions.width >= Breakpoints.Laptop
               ? 'M&A INSIGHTS'
@@ -194,6 +197,7 @@ const LogInScreen = props => {
           <Text
             accessible={true}
             {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+            disabled={true}
             style={StyleSheet.applyWidth(
               StyleSheet.compose(
                 GlobalStyles.TextStyles(theme)['screen_title'].style,
@@ -208,6 +212,7 @@ const LogInScreen = props => {
               ),
               dimensions.width
             )}
+            suppressHighlighting={true}
           >
             {'Creating visibility in unlisted markets'}
           </Text>
