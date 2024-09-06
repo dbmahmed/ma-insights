@@ -107,17 +107,17 @@ const NewslettersScreen = props => {
         value: false,
       });
       console.log('Complete ON_SCREEN_FOCUS:5 SET_VARIABLE');
-      console.log('Start ON_SCREEN_FOCUS:6 CONDITIONAL_STOP');
+      console.log('Start ON_SCREEN_FOCUS:6 SET_VARIABLE');
+      setScreenCode(screenNameGen());
+      console.log('Complete ON_SCREEN_FOCUS:6 SET_VARIABLE');
+      console.log('Start ON_SCREEN_FOCUS:7 CONDITIONAL_STOP');
       if (assessAccess(Variables, setGlobalVariableValue) === true) {
-        return console.log('Complete ON_SCREEN_FOCUS:6 CONDITIONAL_STOP');
+        return console.log('Complete ON_SCREEN_FOCUS:7 CONDITIONAL_STOP');
       } else {
         console.log(
-          'Skipped ON_SCREEN_FOCUS:6 CONDITIONAL_STOP: condition not met'
+          'Skipped ON_SCREEN_FOCUS:7 CONDITIONAL_STOP: condition not met'
         );
       }
-      console.log('Start ON_SCREEN_FOCUS:7 SET_VARIABLE');
-      setScreenCode(screenNameGen());
-      console.log('Complete ON_SCREEN_FOCUS:7 SET_VARIABLE');
       console.log('Start ON_SCREEN_FOCUS:8 CUSTOM_FUNCTION');
       resetAccess(navigation, Variables, setGlobalVariableValue);
       console.log('Complete ON_SCREEN_FOCUS:8 CUSTOM_FUNCTION');

@@ -15,6 +15,7 @@ line two` ) and will not work with special characters inside of quotes ( example
     result += characters.charAt(Math.floor(Math.random() * charactersLength));
     counter += 1;
   }
+
   return result;
 };
 

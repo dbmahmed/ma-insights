@@ -7,14 +7,11 @@ const setAccessToken = (Variables, setGlobalVariableValue, newToken) => {
 line two` ) and will not work with special characters inside of quotes ( example: "line one line two" ) */
   // console.log(newToken);
 
-  console.log(Variables);
-
   setTimeout(() => {
     setGlobalVariableValue({
       key: 'AUTH_HEADER',
       value: newToken,
     });
-    console.log(Variables);
     return true;
   }, 1000);
 };
