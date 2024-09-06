@@ -1977,7 +1977,7 @@ export const FetchNewsletterEachGET = ({
 
 export const newslettersGET = async (
   Constants,
-  { dach, device, keyword, newsletters, nordic, page, reports },
+  { dach, device, keyword, newsletters, nordic, page, reports, screenCode },
   handlers = {}
 ) => {
   const paramsDict = {};
@@ -2001,6 +2001,9 @@ export const newslettersGET = async (
   }
   if (device !== undefined) {
     paramsDict['device'] = renderParam(device);
+  }
+  if (screenCode !== undefined) {
+    paramsDict['screenCode'] = renderParam(screenCode);
   }
   const url = `https://xne3-pdiu-8ysm.f2.xano.io/api:abjrBkC8/newsletter${renderQueryString(
     paramsDict
@@ -2042,6 +2045,7 @@ export const FetchNewslettersGET = ({
   nordic,
   page,
   reports,
+  screenCode,
 }) => {
   const Constants = GlobalVariables.useValues();
   const isFocused = useIsFocused();
@@ -2053,7 +2057,7 @@ export const FetchNewslettersGET = ({
     error,
     refetch,
   } = useNewslettersGET(
-    { dach, device, keyword, newsletters, nordic, page, reports },
+    { dach, device, keyword, newsletters, nordic, page, reports, screenCode },
     { refetchInterval, handlers: { onData, ...handlers } }
   );
 

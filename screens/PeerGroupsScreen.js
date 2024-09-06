@@ -71,6 +71,7 @@ const PeerGroupsScreen = props => {
   const [sector, setSector] = React.useState([]);
   const [sweden, setSweden] = React.useState(false);
   const [transaction, setTransaction] = React.useState(false);
+  const [uniqueCode, setUniqueCode] = React.useState('');
   const [utilities, setUtilities] = React.useState(false);
   const [refreshingO0u33Gng, setRefreshingO0u33Gng] = React.useState(false);
   const isFocused = useIsFocused();

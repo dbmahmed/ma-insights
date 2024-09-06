@@ -11,6 +11,7 @@ import LinkingConfiguration from './LinkingConfiguration';
 import * as XanoCollectionApi from './apis/XanoCollectionApi.js';
 import * as GlobalVariables from './config/GlobalVariableContext';
 import assessAccess from './global-functions/assessAccess';
+import screenNameGen from './global-functions/screenNameGen';
 import AdvisorDetailsScreen from './screens/AdvisorDetailsScreen';
 import AdvisorsScreen from './screens/AdvisorsScreen';
 import AllEventsScreen from './screens/AllEventsScreen';

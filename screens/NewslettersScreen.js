@@ -33,6 +33,7 @@ import assessAccess from '../global-functions/assessAccess';
 import deviceType from '../global-functions/deviceType';
 import removeGlobalScroll from '../global-functions/removeGlobalScroll';
 import resetAccess from '../global-functions/resetAccess';
+import screenNameGen from '../global-functions/screenNameGen';
 import setPadding from '../global-functions/setPadding';
 import transformNumber from '../global-functions/transformNumber';
 import palettes from '../themes/palettes';
@@ -58,6 +59,7 @@ const NewslettersScreen = props => {
   const [nextPage, setNextPage] = React.useState(null);
   const [nkp_comps, setNkp_comps] = React.useState(false);
   const [nordic, setNordic] = React.useState(true);
+  const [screenCode, setScreenCode] = React.useState('');
   const [weeklyReport, setWeeklyReport] = React.useState(true);
   const [refreshingsXtzWjLu, setRefreshingsXtzWjLu] = React.useState(false);
   const fixedKeyProp = key => {
@@ -140,6 +142,9 @@ const NewslettersScreen = props => {
       /* hidden 'Set Variable' action */ console.log(
         'Complete ON_SCREEN_FOCUS:12 SET_VARIABLE'
       );
+      console.log('Start ON_SCREEN_FOCUS:13 SET_VARIABLE');
+      setScreenCode(screenNameGen());
+      console.log('Complete ON_SCREEN_FOCUS:13 SET_VARIABLE');
     } catch (err) {
       console.error(err);
       error = err.message ?? err;
@@ -643,6 +648,7 @@ const NewslettersScreen = props => {
           nordic={nordic}
           page={1}
           reports={weeklyReport}
+          screenCode={screenCode}
         >
           {({ loading, error, data, refetchNewsletters }) => {
             const fetchData = data?.json;
@@ -698,6 +704,7 @@ const NewslettersScreen = props => {
                           nordic: nordic,
                           page: nextPage,
                           reports: weeklyReport,
+                          screenCode: screenCode,
                         })
                       )?.json;
                       console.log('Complete ON_END_REACHED:3 FETCH_REQUEST', {
