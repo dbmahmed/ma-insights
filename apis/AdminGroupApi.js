@@ -34,6 +34,7 @@ export const sendNotificationForScreenshotPOST = async (
     }),
     headers: cleanHeaders({
       Accept: 'application/json',
+      Authorization: Constants['AUTH_HEADER'],
       'Content-Type': 'application/json',
     }),
     method: 'POST',

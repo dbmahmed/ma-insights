@@ -225,13 +225,10 @@ const LogInScreen = props => {
         </VStack>
       </View>
 
-      <SimpleStyleKeyboardAwareScrollView
-        enableOnAndroid={false}
-        enableResetScrollToCoords={false}
-        viewIsInsideTabBar={false}
-        enableAutomaticScroll={true}
-        keyboardShouldPersistTaps={'always'}
-        showsVerticalScrollIndicator={false}
+      <KeyboardAvoidingView
+        keyboardVerticalOffset={0}
+        behavior={'position'}
+        enabled={true}
       >
         {/* Login Window */}
         <View
@@ -362,6 +359,9 @@ const LogInScreen = props => {
                       const handler = async () => {
                         try {
                           Keyboard.dismiss();
+                          if (emailVarl === '' || passwordVarl === '') {
+                            return;
+                          }
                           setLogInPressed(true);
                           if (!loginFormValidator()) {
                             return;
@@ -586,7 +586,7 @@ const LogInScreen = props => {
             </>
           </Surface>
         </View>
-      </SimpleStyleKeyboardAwareScrollView>
+      </KeyboardAvoidingView>
     </ScreenContainer>
   );
 };

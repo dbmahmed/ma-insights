@@ -184,7 +184,7 @@ const ForgotPasswordScreen = props => {
         </VStack>
       </View>
       <>
-        {!(pageState === 'email') ? null : (
+        {!(pageState !== 'email') ? null : (
           <KeyboardAvoidingView
             behavior={'padding'}
             enabled={true}
@@ -404,7 +404,7 @@ const ForgotPasswordScreen = props => {
       </>
       {/* Keyboard Avoiding View 2 */}
       <>
-        {!(pageState === 'temp_pass') ? null : (
+        {!(pageState !== 'temp_pass') ? null : (
           <KeyboardAvoidingView
             behavior={'padding'}
             enabled={true}
@@ -442,7 +442,11 @@ const ForgotPasswordScreen = props => {
               <Text
                 accessible={true}
                 style={StyleSheet.applyWidth(
-                  { fontFamily: 'Quicksand_400Regular', textAlign: 'center' },
+                  {
+                    fontFamily: 'Quicksand_400Regular',
+                    padding: 10,
+                    textAlign: 'center',
+                  },
                   dimensions.width
                 )}
               >

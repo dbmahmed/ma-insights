@@ -236,7 +236,7 @@ const AllEventsScreen = props => {
     setRow((regions || []).includes('RoW'));
     setDach((regions || []).includes('DACH'));
   };
-  ExpoScreenCapture.useScreenShoot();
+  // ExpoScreenCapture.useScreenShoot(viewingEventId ? 'EventDetails:' + String(viewingEventId) : 'AllEvents')
   const isFocused = useIsFocused();
   React.useEffect(() => {
     try {
@@ -277,10 +277,7 @@ const AllEventsScreen = props => {
       }
       navigation.replace('LogInScreen');
       resetAccess(navigation, Variables, setGlobalVariableValue);
-      setGlobalVariableValue({
-        key: 'SS_SCREEN_NAME',
-        value: 'AllEvents',
-      });
+      /* hidden 'Set Variable' action */
     } catch (err) {
       console.error(err);
     }
@@ -837,10 +834,7 @@ const AllEventsScreen = props => {
                                   const valueP1z8rKBd = listData?.id;
                                   setViewingEventId(valueP1z8rKBd);
                                   const thisId = valueP1z8rKBd;
-                                  setGlobalVariableValue({
-                                    key: 'SS_SCREEN_NAME',
-                                    value: 'EventsDetials:' + thisId,
-                                  });
+                                  /* hidden 'Set Variable' action */
                                 } catch (err) {
                                   console.error(err);
                                 }

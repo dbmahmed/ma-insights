@@ -25,14 +25,13 @@ import {
 } from 'react-native';
 import { Fetch } from 'react-request';
 import * as GlobalStyles from '../GlobalStyles.js';
-import * as AdminGroupApi from '../apis/AdminGroupApi.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
 import CustomBottomNavBlock from '../components/CustomBottomNavBlock';
 import CustomHeaderBlock from '../components/CustomHeaderBlock';
 import EventDetailsModalBlock from '../components/EventDetailsModalBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import Images from '../config/Images';
-import * as ExpoScreenCapture from '../custom-files/ExpoScreenCapture';
+import * as BuiltIns from '../custom-files/BuiltIns';
 import assessAccess from '../global-functions/assessAccess';
 import deviceType from '../global-functions/deviceType';
 import isNKPProp from '../global-functions/isNKPProp';
@@ -83,56 +82,88 @@ const NewsletterDetailsScreen = props => {
     // Return the formatted string
     return `${minutes}:${formattedSeconds}`;
   };
-  ExpoScreenCapture.useScreenShoot();
-  const adminGroupSendNotificationForScreenshotPOST =
-    AdminGroupApi.useSendNotificationForScreenshotPOST();
+  // const { AdminGroupApi } = BuiltIns
+
+  // const adminGroupSendNotificationForScreenshotPOST =
+  //     AdminGroupApi.useSendNotificationForScreenshotPOST();
+
+  // const hasPermissions = async () => {
+  //     const { status } = await ScreenCapture.requestPermissionsAsync();
+  //     console.log("has perpm", status);
+  //     return status === "granted";
+  // };
+
+  // React.useEffect(() => {
+  //     let subscription;
+
+  //     const addListenerAsync = async () => {
+  //         if (await hasPermissions()) {
+  //             await ScreenCapture.preventScreenCaptureAsync();
+  //             console.log("add listner");
+  //             subscription = ScreenCapture.addScreenshotListener(async () => {
+  //                 console.log("handling listener");
+  //                 onScreenShotCapture(scName, Variables);
+  //                 let details = "NewsletterDetails" +
+  //                     (":" +
+  //                         (props.route?.params?.news_id ?? defaultProps.news_id).toString())
+  //                 console.log(details)
+  //                 const rest = (
+  //                     await adminGroupSendNotificationForScreenshotPOST.mutateAsync({
+  //                         details,
+  //                         email: Variables.ME.email,
+  //                         name: Variables.ME.name,
+  //                         ts: new Date(),
+  //                     })
+  //                 )?.json;
+  //                 console.log("res ", rest);
+  //                 // alert("Thanks for screenshotting my beautiful app 😊");
+  //             });
+  //         } else {
+  //             console.error(
+  //                 "Permissions needed to subscribe to screenshot events are missing!"
+  //             );
+  //         }
+  //     };
+  //     addListenerAsync();
+
+  //     return () => {
+  //         subscription?.remove();
+  //     };
+  // }, []);
   const isFocused = useIsFocused();
   React.useEffect(() => {
-    const handler = async () => {
-      try {
-        if (!isFocused) {
-          return;
-        }
-        setScreenCode(screenNameGen());
-        removeGlobalScroll();
-        setGlobalVariableValue({
-          key: 'pageName',
-          value: 'Newsletter Details',
-        });
-        setGlobalVariableValue({
-          key: 'subPage',
-          value: true,
-        });
-        if (assessAccess(Variables, setGlobalVariableValue) === true) {
-          return;
-        }
-        resetAccess(navigation, Variables, setGlobalVariableValue);
-        if (navigation.canGoBack()) {
-          navigation.popToTop();
-        }
-        navigation.replace('LogInScreen');
-        setGlobalVariableValue({
-          key: 'SS_SCREEN_NAME',
-          value:
-            'NewsletterDetails' +
-            ("':'" +
-              (
-                props.route?.params?.news_id ?? defaultProps.news_id
-              ).toString()),
-        });
-        (
-          await adminGroupSendNotificationForScreenshotPOST.mutateAsync({
-            details: 'EventDetailsScreen',
-            email: 'test',
-            name: 'test',
-            ts: 'test',
-          })
-        )?.json;
-      } catch (err) {
-        console.error(err);
+    try {
+      if (!isFocused) {
+        return;
       }
-    };
-    handler();
+      setScreenCode(screenNameGen());
+      removeGlobalScroll();
+      setGlobalVariableValue({
+        key: 'pageName',
+        value: 'Newsletter Details',
+      });
+      setGlobalVariableValue({
+        key: 'subPage',
+        value: true,
+      });
+      if (assessAccess(Variables, setGlobalVariableValue) === true) {
+        return;
+      }
+      resetAccess(navigation, Variables, setGlobalVariableValue);
+      if (navigation.canGoBack()) {
+        navigation.popToTop();
+      }
+      navigation.replace('LogInScreen');
+      setGlobalVariableValue({
+        key: 'SS_SCREEN_NAME',
+        value:
+          'NewsletterDetails' +
+          ("':'" +
+            (props.route?.params?.news_id ?? defaultProps.news_id).toString()),
+      });
+    } catch (err) {
+      console.error(err);
+    }
   }, [isFocused]);
   const audioPlayerSIxP9tJTRef = React.useRef();
   const audioPlayerHLcphF9xu9Ref = React.useRef();
