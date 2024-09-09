@@ -34,7 +34,6 @@ import CustomBottomNavBlock from '../components/CustomBottomNavBlock';
 import CustomHeaderBlock from '../components/CustomHeaderBlock';
 import EventDetailsModalBlock from '../components/EventDetailsModalBlock';
 import LoadingBlock from '../components/LoadingBlock';
-import WatermarkerBlock from '../components/WatermarkerBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import Images from '../config/Images';
 import * as ExpoScreenCapture from '../custom-files/ExpoScreenCapture';
@@ -829,13 +828,6 @@ const AllEventsScreen = props => {
                               dimensions.width
                             )}
                           >
-                            <>
-                              {!listData?.source
-                                ?.toLowerCase()
-                                .includes('proprietary') ? null : (
-                                <WatermarkerBlock />
-                              )}
-                            </>
                             <Touchable
                               onPress={() => {
                                 try {
@@ -1195,13 +1187,6 @@ const AllEventsScreen = props => {
                               dimensions.width
                             )}
                           >
-                            <>
-                              {!listLargerData?.source
-                                ?.toLowerCase()
-                                .includes('proprietary') ? null : (
-                                <WatermarkerBlock />
-                              )}
-                            </>
                             <Touchable
                               onPress={() => {
                                 try {
