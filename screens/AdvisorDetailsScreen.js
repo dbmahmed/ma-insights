@@ -30,6 +30,7 @@ import assessAccess from '../global-functions/assessAccess';
 import deviceType from '../global-functions/deviceType';
 import removeGlobalScroll from '../global-functions/removeGlobalScroll';
 import resetAccess from '../global-functions/resetAccess';
+import screenNameGen from '../global-functions/screenNameGen';
 import setPadding from '../global-functions/setPadding';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
@@ -69,6 +70,7 @@ const AdvisorDetailsScreen = props => {
   const [norway, setNorway] = React.useState(true);
   const [periodRange, setPeriodRange] = React.useState(0);
   const [real_estate, setReal_estate] = React.useState(true);
+  const [screenCode, setScreenCode] = React.useState('');
   const [sector, setSector] = React.useState([]);
   const [sweden, setSweden] = React.useState(true);
   const [switzerland, setSwitzerland] = React.useState(true);
@@ -159,6 +161,7 @@ const AdvisorDetailsScreen = props => {
       if (!isFocused) {
         return;
       }
+      setScreenCode(screenNameGen());
       setGlobalVariableValue({
         key: 'currentScreen',
         value: 'Advisor Details',
@@ -210,6 +213,7 @@ const AdvisorDetailsScreen = props => {
           Platform.OS === 'ios',
           Platform.OS === 'android'
         )}
+        screenCode={screenCode}
         sector_in={sector}
       >
         {({ loading, error, data, refetchGetAdvisor }) => {

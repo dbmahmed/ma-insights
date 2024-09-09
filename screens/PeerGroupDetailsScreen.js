@@ -31,6 +31,7 @@ import assessAccess from '../global-functions/assessAccess';
 import deviceType from '../global-functions/deviceType';
 import passwordValidate from '../global-functions/passwordValidate';
 import removeGlobalScroll from '../global-functions/removeGlobalScroll';
+import screenNameGen from '../global-functions/screenNameGen';
 import transformEuroM from '../global-functions/transformEuroM';
 import transformNumber from '../global-functions/transformNumber';
 import palettes from '../themes/palettes';
@@ -53,6 +54,7 @@ const PeerGroupDetailsScreen = props => {
   const [errorMessage, setErrorMessage] = React.useState('');
   const [newPass, setNewPass] = React.useState('');
   const [peerName, setPeerName] = React.useState('');
+  const [screenCode, setScreenCode] = React.useState('');
   const [showModal, setShowModal] = React.useState(false);
   const xanoCollectionUpdatePeerGroupPATCH =
     XanoCollectionApi.useUpdatePeerGroupPATCH();
@@ -62,6 +64,7 @@ const PeerGroupDetailsScreen = props => {
       if (!isFocused) {
         return;
       }
+      setScreenCode(screenNameGen());
       removeGlobalScroll();
       setGlobalVariableValue({
         key: 'pageName',
@@ -116,6 +119,7 @@ const PeerGroupDetailsScreen = props => {
         peer_group_id={
           props.route?.params?.peer_group_id ?? defaultProps.peer_group_id
         }
+        screenCode={screenCode}
       >
         {({ loading, error, data, refetchGetOnePeer }) => {
           const fetchData = data?.json;

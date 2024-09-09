@@ -46,22 +46,20 @@ const LogInScreen = props => {
   const [resetNeeded, setResetNeeded] = React.useState(false);
   const loginFormValidator = () => {
     var emailPattern = /\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b/;
-    var passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{6,}$/;
+    // var passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{6,}$/;
 
     if (!emailVarl.match(emailPattern)) {
       setErrorMessage('*Invalid email address!');
       return false;
     }
 
-    if (!passwordVarl.match(passwordPattern)) {
-      setErrorMessage(
-        '*Password must be at least 6 characters, and contain at least one lowercase letter, one uppercase letter, and one digit.'
-      );
-      return false;
-    }
+    // if (!passwordVarl.match(passwordPattern)) {
+    //     setErrorMessage('*Password must be at least 6 characters, and contain at least one lowercase letter, one uppercase letter, and one digit.');
+    //     return false;
+    // }
 
-    console.log('Inputs are valid!'); // All checks passed
-    setErrorMessage(''); // Clear any previous error message
+    // console.log('Inputs are valid!');  // All checks passed
+    // setErrorMessage('');  // Clear any previous error message
     return true;
   };
   const isFocused = useIsFocused();
@@ -294,23 +292,50 @@ const LogInScreen = props => {
                     }}
                     onSubmitEditing={() => {
                       const handler = async () => {
+                        console.log('Email ON_SUBMIT_EDITING Start');
+                        let error = null;
                         try {
-                          /* hidden 'Focus Text Input' action */
-                          /* hidden 'Dismiss Keyboard' action */
+                          console.log(
+                            'Start ON_SUBMIT_EDITING:0 TEXT_INPUT_FOCUS'
+                          );
+                          /* hidden 'Focus Text Input' action */ console.log(
+                            'Complete ON_SUBMIT_EDITING:0 TEXT_INPUT_FOCUS'
+                          );
+                          console.log(
+                            'Start ON_SUBMIT_EDITING:1 DISMISS_KEYBOARD'
+                          );
+                          /* hidden 'Dismiss Keyboard' action */ console.log(
+                            'Complete ON_SUBMIT_EDITING:1 DISMISS_KEYBOARD'
+                          );
+                          console.log('Start ON_SUBMIT_EDITING:2 SET_VARIABLE');
                           setEnterPressed(true);
+                          console.log(
+                            'Complete ON_SUBMIT_EDITING:2 SET_VARIABLE'
+                          );
+                          console.log(
+                            'Start ON_SUBMIT_EDITING:3 FETCH_REQUEST'
+                          );
                           const signIn = (
                             await XanoResetPassApi.initialLoginGET(Constants, {
                               email: emailVarl,
                             })
                           )?.json;
-                          if (signIn?.message === null) {
-                            setEmailEntered(true);
-                          } else {
-                            setErrorMessage(signIn?.message);
-                          }
+                          console.log(
+                            'Complete ON_SUBMIT_EDITING:3 FETCH_REQUEST',
+                            { signIn }
+                          );
+                          console.log('Start ON_SUBMIT_EDITING:4 IF');
+                          /* hidden 'If/Else' action */ console.log(
+                            'Complete ON_SUBMIT_EDITING:4 IF'
+                          );
                         } catch (err) {
                           console.error(err);
+                          error = err.message ?? err;
                         }
+                        console.log(
+                          'Email ON_SUBMIT_EDITING Complete',
+                          error ? { error } : 'no error'
+                        );
                       };
                       handler();
                     }}
@@ -355,36 +380,48 @@ const LogInScreen = props => {
                             let error = null;
                             try {
                               console.log('Start ON_PRESS:0 CUSTOM_FUNCTION');
-                              /* hidden 'Run a Custom Function' action */ console.log(
-                                'Complete ON_PRESS:0 CUSTOM_FUNCTION'
+                              const validEmail = loginFormValidator();
+                              console.log(
+                                'Complete ON_PRESS:0 CUSTOM_FUNCTION',
+                                { validEmail }
                               );
-                              console.log('Start ON_PRESS:1 SET_VARIABLE');
+                              console.log('Start ON_PRESS:1 CONDITIONAL_STOP');
+                              if (validEmail === false) {
+                                return console.log(
+                                  'Complete ON_PRESS:1 CONDITIONAL_STOP'
+                                );
+                              } else {
+                                console.log(
+                                  'Skipped ON_PRESS:1 CONDITIONAL_STOP: condition not met'
+                                );
+                              }
+                              console.log('Start ON_PRESS:2 SET_VARIABLE');
                               setEnterPressed(true);
-                              console.log('Complete ON_PRESS:1 SET_VARIABLE');
-                              console.log('Start ON_PRESS:2 FETCH_REQUEST');
+                              console.log('Complete ON_PRESS:2 SET_VARIABLE');
+                              console.log('Start ON_PRESS:3 FETCH_REQUEST');
                               const signIn = (
                                 await XanoResetPassApi.initialLoginGET(
                                   Constants,
                                   { email: emailVarl }
                                 )
                               )?.json;
-                              console.log('Complete ON_PRESS:2 FETCH_REQUEST', {
+                              console.log('Complete ON_PRESS:3 FETCH_REQUEST', {
                                 signIn,
                               });
-                              console.log('Start ON_PRESS:3 IF');
+                              console.log('Start ON_PRESS:4 IF');
                               if (signIn?.email !== null) {
                                 setErrorMessage('');
-                                console.log(signIn?.Initial_Login_Complete);
                                 if (signIn?.Initial_Login_Complete === true) {
                                   setEmailEntered(true);
                                 } else {
+                                  setFirstLogin(true);
                                   setFirstLogin(true);
                                   setEmailVarl('');
                                 }
                               } else {
                                 setErrorMessage(signIn?.message);
                               }
-                              console.log('Complete ON_PRESS:3 IF');
+                              console.log('Complete ON_PRESS:4 IF');
                             } catch (err) {
                               console.error(err);
                               error = err.message ?? err;
@@ -639,75 +676,6 @@ const LogInScreen = props => {
                     )}
                     title={'Privacy Policy'}
                   />
-                </View>
-              )}
-            </>
-            {/* View 2 */}
-            <>
-              {!firstLogin ? null : (
-                <View>
-                  {/* Text 2 */}
-                  <Text
-                    accessible={true}
-                    {...GlobalStyles.TextStyles(theme)['screen_title'].props}
-                    style={StyleSheet.applyWidth(
-                      StyleSheet.compose(
-                        GlobalStyles.TextStyles(theme)['screen_title'].style,
-                        {
-                          alignSelf: 'center',
-                          fontFamily: 'Quicksand_700Bold',
-                          fontSize: 25,
-                          margin: 10,
-                          padding: 10,
-                        }
-                      ),
-                      dimensions.width
-                    )}
-                  >
-                    {'You need to set a new password to proceed.'}
-                  </Text>
-                  {/* Reset Password */}
-                  <>
-                    {!(emailEntered === false) ? null : (
-                      <Button
-                        iconPosition={'left'}
-                        onPress={() => {
-                          console.log('Reset Password ON_PRESS Start');
-                          let error = null;
-                          try {
-                            console.log('Start ON_PRESS:0 NAVIGATE');
-                            if (navigation.canGoBack()) {
-                              navigation.popToTop();
-                            }
-                            navigation.replace('ForgotPasswordScreen');
-                            console.log('Complete ON_PRESS:0 NAVIGATE');
-                          } catch (err) {
-                            console.error(err);
-                            error = err.message ?? err;
-                          }
-                          console.log(
-                            'Reset Password ON_PRESS Complete',
-                            error ? { error } : 'no error'
-                          );
-                        }}
-                        {...GlobalStyles.ButtonStyles(theme)['Button'].props}
-                        style={StyleSheet.applyWidth(
-                          StyleSheet.compose(
-                            GlobalStyles.ButtonStyles(theme)['Button'].style,
-                            {
-                              fontFamily: 'Quicksand_600SemiBold',
-                              marginBottom: 20,
-                              marginLeft: 10,
-                              marginRight: 10,
-                              marginTop: 10,
-                            }
-                          ),
-                          dimensions.width
-                        )}
-                        title={'Reset Password'}
-                      />
-                    )}
-                  </>
                 </View>
               )}
             </>

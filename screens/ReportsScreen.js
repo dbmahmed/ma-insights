@@ -20,6 +20,7 @@ import CustomHeaderBlock from '../components/CustomHeaderBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import deviceType from '../global-functions/deviceType';
 import removeGlobalScroll from '../global-functions/removeGlobalScroll';
+import screenNameGen from '../global-functions/screenNameGen';
 import setPadding from '../global-functions/setPadding';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
@@ -36,12 +37,14 @@ const ReportsScreen = props => {
   const [lastPage, setLastPage] = React.useState(0);
   const [nextPage, setNextPage] = React.useState(parseInt(1, 10));
   const [reportItems, setReportItems] = React.useState([]);
+  const [screenCode, setScreenCode] = React.useState('');
   const isFocused = useIsFocused();
   React.useEffect(() => {
     try {
       if (!isFocused) {
         return;
       }
+      setScreenCode(screenNameGen());
       const Reports = setGlobalVariableValue({
         key: 'pageName',
         value: 'Reports',
@@ -168,6 +171,7 @@ const ReportsScreen = props => {
             },
           }}
           page={1}
+          screenCode={screenCode}
         >
           {({ loading, error, data, refetchReports }) => {
             const fetchData = data?.json;

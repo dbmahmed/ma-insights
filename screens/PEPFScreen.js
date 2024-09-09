@@ -35,9 +35,9 @@ import * as GlobalVariables from '../config/GlobalVariableContext';
 import assessAccess from '../global-functions/assessAccess';
 import cutText from '../global-functions/cutText';
 import deviceType from '../global-functions/deviceType';
-import formatNumber from '../global-functions/formatNumber';
 import modifyArrays from '../global-functions/modifyArrays';
 import removeGlobalScroll from '../global-functions/removeGlobalScroll';
+import screenNameGen from '../global-functions/screenNameGen';
 import setPadding from '../global-functions/setPadding';
 import transformEuroM from '../global-functions/transformEuroM';
 import palettes from '../themes/palettes';
@@ -98,6 +98,7 @@ const PEPFScreen = props => {
   const [real_estate, setReal_estate] = React.useState(true);
   const [regions, setRegions] = React.useState([]);
   const [row, setRow] = React.useState(false);
+  const [screenCode, setScreenCode] = React.useState('');
   const [sector, setSector] = React.useState([]);
   const [sweden, setSweden] = React.useState(true);
   const [switzerland, setSwitzerland] = React.useState(true);
@@ -265,6 +266,7 @@ const PEPFScreen = props => {
       if (!isFocused) {
         return;
       }
+      setScreenCode(screenNameGen());
       removeGlobalScroll();
       setGlobalVariableValue({
         key: 'pageName',
@@ -483,6 +485,7 @@ const PEPFScreen = props => {
         holdingPeriodIn={holdingPreriod}
         page={1}
         region_in={regions}
+        screenCode={screenCode}
         searchString={keywordSearch}
         sectorIn={sector}
         vintageIn={fundVintage}
@@ -551,7 +554,7 @@ const PEPFScreen = props => {
                     )}
                     suppressHighlighting={true}
                   >
-                    {formatNumber(fetchData?.itemsTotal)}
+                    {fetchData?.itemsTotal}
                     {
                       ' private equity portfolio firms matching the filter and sorted by EBITDA, high to low'
                     }
@@ -588,6 +591,7 @@ const PEPFScreen = props => {
                           ebitdaIn: ebitdaRange,
                           page: nextPage,
                           region_in: regions,
+                          screenCode: screenCode,
                           searchString: keywordSearch,
                           sectorIn: sector,
                           vintageIn: fundVintage,

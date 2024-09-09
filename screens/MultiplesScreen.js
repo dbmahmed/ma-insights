@@ -36,9 +36,9 @@ import * as GlobalVariables from '../config/GlobalVariableContext';
 import assessAccess from '../global-functions/assessAccess';
 import cutText from '../global-functions/cutText';
 import deviceType from '../global-functions/deviceType';
-import formatNumber from '../global-functions/formatNumber';
 import modifyArrays from '../global-functions/modifyArrays';
 import removeGlobalScroll from '../global-functions/removeGlobalScroll';
+import screenNameGen from '../global-functions/screenNameGen';
 import setPadding from '../global-functions/setPadding';
 import showDate from '../global-functions/showDate';
 import transformNumber from '../global-functions/transformNumber';
@@ -84,6 +84,7 @@ const MultiplesScreen = props => {
   const [norgic, setNorgic] = React.useState(true);
   const [real_estate, setReal_estate] = React.useState(true);
   const [region, setRegion] = React.useState([]);
+  const [screenCode, setScreenCode] = React.useState('');
   const [sector, setSector] = React.useState([]);
   const [transaction, setTransaction] = React.useState(true);
   const [utilities, setUtilities] = React.useState(true);
@@ -186,6 +187,7 @@ const MultiplesScreen = props => {
       if (!isFocused) {
         return;
       }
+      setScreenCode(screenNameGen());
       removeGlobalScroll();
       setGlobalVariableValue({
         key: 'pageName',
@@ -472,6 +474,7 @@ const MultiplesScreen = props => {
             keyword={keywordSearch}
             page={1}
             region_in={region}
+            screenCode={screenCode}
             sector_in={sector}
           >
             {({ loading, error, data, refetchEventTransactions }) => {
@@ -539,7 +542,7 @@ const MultiplesScreen = props => {
                         )}
                         suppressHighlighting={true}
                       >
-                        {formatNumber(fetchData?.itemsTotal)}
+                        {fetchData?.itemsTotal}
                         {' transactions matching filter'}
                       </Text>
                     </View>
@@ -561,29 +564,24 @@ const MultiplesScreen = props => {
                           console.log('List ON_END_REACHED Start');
                           let error = null;
                           try {
-                            console.log('Start ON_END_REACHED:0 CONSOLE_LOG');
-                            console.log('End reached');
                             console.log(
-                              'Complete ON_END_REACHED:0 CONSOLE_LOG'
-                            );
-                            console.log(
-                              'Start ON_END_REACHED:1 CONDITIONAL_STOP'
+                              'Start ON_END_REACHED:0 CONDITIONAL_STOP'
                             );
                             if (nextPage === null) {
                               return console.log(
-                                'Complete ON_END_REACHED:1 CONDITIONAL_STOP'
+                                'Complete ON_END_REACHED:0 CONDITIONAL_STOP'
                               );
                             } else {
                               console.log(
-                                'Skipped ON_END_REACHED:1 CONDITIONAL_STOP: condition not met'
+                                'Skipped ON_END_REACHED:0 CONDITIONAL_STOP: condition not met'
                               );
                             }
-                            console.log('Start ON_END_REACHED:2 SET_VARIABLE');
+                            console.log('Start ON_END_REACHED:1 SET_VARIABLE');
                             setLoadingMore(true);
                             console.log(
-                              'Complete ON_END_REACHED:2 SET_VARIABLE'
+                              'Complete ON_END_REACHED:1 SET_VARIABLE'
                             );
-                            console.log('Start ON_END_REACHED:3 FETCH_REQUEST');
+                            console.log('Start ON_END_REACHED:2 FETCH_REQUEST');
                             const newData = (
                               await XanoCollectionApi.eventTransactionsGET(
                                 Constants,
@@ -593,45 +591,47 @@ const MultiplesScreen = props => {
                                     Platform.OS === 'ios',
                                     Platform.OS === 'android'
                                   ),
+                                  ebitda_in: ebitdaRange,
                                   keyword: keywordSearch,
                                   page: nextPage,
                                   region_in: region,
+                                  screenCode: screenCode,
                                   sector_in: sector,
                                 }
                               )
                             )?.json;
                             console.log(
-                              'Complete ON_END_REACHED:3 FETCH_REQUEST',
+                              'Complete ON_END_REACHED:2 FETCH_REQUEST',
                               { newData }
                             );
-                            console.log('Start ON_END_REACHED:4 SET_VARIABLE');
+                            console.log('Start ON_END_REACHED:3 SET_VARIABLE');
                             setNextPage(fetchData?.nextPage);
+                            console.log(
+                              'Complete ON_END_REACHED:3 SET_VARIABLE'
+                            );
+                            console.log('Start ON_END_REACHED:4 SET_VARIABLE');
+                            setLoadingMore(false);
                             console.log(
                               'Complete ON_END_REACHED:4 SET_VARIABLE'
                             );
-                            console.log('Start ON_END_REACHED:5 SET_VARIABLE');
-                            setLoadingMore(false);
                             console.log(
-                              'Complete ON_END_REACHED:5 SET_VARIABLE'
-                            );
-                            console.log(
-                              'Start ON_END_REACHED:6 CONDITIONAL_STOP'
+                              'Start ON_END_REACHED:5 CONDITIONAL_STOP'
                             );
                             if (fetchData?.items === 0) {
                               return console.log(
-                                'Complete ON_END_REACHED:6 CONDITIONAL_STOP'
+                                'Complete ON_END_REACHED:5 CONDITIONAL_STOP'
                               );
                             } else {
                               console.log(
-                                'Skipped ON_END_REACHED:6 CONDITIONAL_STOP: condition not met'
+                                'Skipped ON_END_REACHED:5 CONDITIONAL_STOP: condition not met'
                               );
                             }
-                            console.log('Start ON_END_REACHED:7 SET_VARIABLE');
+                            console.log('Start ON_END_REACHED:6 SET_VARIABLE');
                             setMultiplesList(
                               multiplesList.concat(newData?.items)
                             );
                             console.log(
-                              'Complete ON_END_REACHED:7 SET_VARIABLE'
+                              'Complete ON_END_REACHED:6 SET_VARIABLE'
                             );
                           } catch (err) {
                             console.error(err);

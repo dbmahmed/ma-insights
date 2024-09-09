@@ -24,6 +24,7 @@ import assessAccess from '../global-functions/assessAccess';
 import cutTextByWidth from '../global-functions/cutTextByWidth';
 import deviceType from '../global-functions/deviceType';
 import removeGlobalScroll from '../global-functions/removeGlobalScroll';
+import screenNameGen from '../global-functions/screenNameGen';
 import transformEuroM from '../global-functions/transformEuroM';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
@@ -45,6 +46,7 @@ const PEPFDetailsScreen = props => {
   const [keywordSearch, setKeywordSearch] = React.useState('');
   const [lastPage, setLastPage] = React.useState(0);
   const [nextPage, setNextPage] = React.useState(0);
+  const [screenCode, setScreenCode] = React.useState('');
   const [sector, setSector] = React.useState([]);
   const [selectedID, setSelectedID] = React.useState(0);
   const isFocused = useIsFocused();
@@ -53,6 +55,7 @@ const PEPFDetailsScreen = props => {
       if (!isFocused) {
         return;
       }
+      setScreenCode(screenNameGen());
       removeGlobalScroll();
       setGlobalVariableValue({
         key: 'pageName',
@@ -93,6 +96,7 @@ const PEPFDetailsScreen = props => {
           Platform.OS === 'android'
         )}
         pepf_id={props.route?.params?.pepf_id ?? defaultProps.pepf_id}
+        screenCode={screenCode}
       >
         {({ loading, error, data, refetchGetOnePEPF }) => {
           const fetchData = data?.json;

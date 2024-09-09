@@ -78,12 +78,15 @@ export const FetchAuthMeGET = ({
 
 export const createNewPeerPOST = async (
   Constants,
-  { access_type, device, stocks, title },
+  { access_type, device, screenCode, stocks, title },
   handlers = {}
 ) => {
   const paramsDict = {};
   if (device !== undefined) {
     paramsDict['device'] = renderParam(device);
+  }
+  if (screenCode !== undefined) {
+    paramsDict['screenCode'] = renderParam(screenCode);
   }
   const url = `https://xne3-pdiu-8ysm.f2.xano.io/api:abjrBkC8/peer_group${renderQueryString(
     paramsDict
@@ -134,6 +137,7 @@ export const FetchCreateNewPeerPOST = ({
   refetchInterval,
   access_type,
   device,
+  screenCode,
   stocks,
   title,
 }) => {
@@ -147,7 +151,7 @@ export const FetchCreateNewPeerPOST = ({
     error,
     mutate: refetch,
   } = useCreateNewPeerPOST(
-    { access_type, device, stocks, title },
+    { access_type, device, screenCode, stocks, title },
     { refetchInterval, handlers: { onData, ...handlers } }
   );
 
@@ -168,7 +172,7 @@ export const FetchCreateNewPeerPOST = ({
 
 export const eventTransactionsGET = async (
   Constants,
-  { device, ebitda_in, keyword, page, region_in, sector_in },
+  { device, ebitda_in, keyword, page, region_in, screenCode, sector_in },
   handlers = {}
 ) => {
   const paramsDict = {};
@@ -189,6 +193,9 @@ export const eventTransactionsGET = async (
   }
   if (ebitda_in !== undefined) {
     paramsDict['ebitda_in'] = renderParam(ebitda_in);
+  }
+  if (screenCode !== undefined) {
+    paramsDict['screenCode'] = renderParam(screenCode);
   }
   const url = `https://xne3-pdiu-8ysm.f2.xano.io/api:abjrBkC8/event_transactions${renderQueryString(
     paramsDict
@@ -228,6 +235,7 @@ export const FetchEventTransactionsGET = ({
   keyword,
   page,
   region_in,
+  screenCode,
   sector_in,
 }) => {
   const Constants = GlobalVariables.useValues();
@@ -240,7 +248,7 @@ export const FetchEventTransactionsGET = ({
     error,
     refetch,
   } = useEventTransactionsGET(
-    { device, ebitda_in, keyword, page, region_in, sector_in },
+    { device, ebitda_in, keyword, page, region_in, screenCode, sector_in },
     { refetchInterval, handlers: { onData, ...handlers } }
   );
 
@@ -261,7 +269,7 @@ export const FetchEventTransactionsGET = ({
 
 export const getAdvisorGET = async (
   Constants,
-  { advisor_id, country_in, device, sector_in },
+  { advisor_id, country_in, device, screenCode, sector_in },
   handlers = {}
 ) => {
   const paramsDict = {};
@@ -273,6 +281,9 @@ export const getAdvisorGET = async (
   }
   if (device !== undefined) {
     paramsDict['device'] = renderParam(device);
+  }
+  if (screenCode !== undefined) {
+    paramsDict['screenCode'] = renderParam(screenCode);
   }
   const url = `https://xne3-pdiu-8ysm.f2.xano.io/api:abjrBkC8/advisor/${encodeQueryParam(
     advisor_id
@@ -312,6 +323,7 @@ export const FetchGetAdvisorGET = ({
   advisor_id,
   country_in,
   device,
+  screenCode,
   sector_in,
 }) => {
   const Constants = GlobalVariables.useValues();
@@ -324,7 +336,7 @@ export const FetchGetAdvisorGET = ({
     error,
     refetch,
   } = useGetAdvisorGET(
-    { advisor_id, country_in, device, sector_in },
+    { advisor_id, country_in, device, screenCode, sector_in },
     { refetchInterval, handlers: { onData, ...handlers } }
   );
 
@@ -345,7 +357,7 @@ export const FetchGetAdvisorGET = ({
 
 export const getAdvisorsGET = async (
   Constants,
-  { device, eventType_in, keyword, page, region, sector_in, type },
+  { device, eventType_in, keyword, page, region, screenCode, sector_in, type },
   handlers = {}
 ) => {
   const paramsDict = {};
@@ -369,6 +381,9 @@ export const getAdvisorsGET = async (
   }
   if (device !== undefined) {
     paramsDict['device'] = renderParam(device);
+  }
+  if (screenCode !== undefined) {
+    paramsDict['screenCode'] = renderParam(screenCode);
   }
   const url = `https://xne3-pdiu-8ysm.f2.xano.io/api:abjrBkC8/advisor${renderQueryString(
     paramsDict
@@ -408,6 +423,7 @@ export const FetchGetAdvisorsGET = ({
   keyword,
   page,
   region,
+  screenCode,
   sector_in,
   type,
 }) => {
@@ -421,7 +437,16 @@ export const FetchGetAdvisorsGET = ({
     error,
     refetch,
   } = useGetAdvisorsGET(
-    { device, eventType_in, keyword, page, region, sector_in, type },
+    {
+      device,
+      eventType_in,
+      keyword,
+      page,
+      region,
+      screenCode,
+      sector_in,
+      type,
+    },
     { refetchInterval, handlers: { onData, ...handlers } }
   );
 
@@ -449,6 +474,7 @@ export const getAllEventsGET = async (
     keyword,
     page,
     region_in,
+    screenCode,
     sectorIn,
     sourceType_in,
   },
@@ -481,6 +507,9 @@ export const getAllEventsGET = async (
   }
   if (sourceType_in !== undefined) {
     paramsDict['sourceType_in'] = renderParam(sourceType_in);
+  }
+  if (screenCode !== undefined) {
+    paramsDict['screenCode'] = renderParam(screenCode);
   }
   const url = `https://xne3-pdiu-8ysm.f2.xano.io/api:abjrBkC8/event${renderQueryString(
     paramsDict
@@ -521,6 +550,7 @@ export const FetchGetAllEventsGET = ({
   keyword,
   page,
   region_in,
+  screenCode,
   sectorIn,
   sourceType_in,
 }) => {
@@ -541,6 +571,7 @@ export const FetchGetAllEventsGET = ({
       keyword,
       page,
       region_in,
+      screenCode,
       sectorIn,
       sourceType_in,
     },
@@ -562,10 +593,17 @@ export const FetchGetAllEventsGET = ({
   return children({ loading, data, error, refetchGetAllEvents: refetch });
 };
 
-export const getAllFundsGET = async (Constants, { device }, handlers = {}) => {
+export const getAllFundsGET = async (
+  Constants,
+  { device, screenCode },
+  handlers = {}
+) => {
   const paramsDict = {};
   if (device !== undefined) {
     paramsDict['device'] = renderParam(device);
+  }
+  if (screenCode !== undefined) {
+    paramsDict['screenCode'] = renderParam(screenCode);
   }
   const url = `https://xne3-pdiu-8ysm.f2.xano.io/api:abjrBkC8/fund${renderQueryString(
     paramsDict
@@ -601,6 +639,7 @@ export const FetchGetAllFundsGET = ({
   handlers = {},
   refetchInterval,
   device,
+  screenCode,
 }) => {
   const Constants = GlobalVariables.useValues();
   const isFocused = useIsFocused();
@@ -612,7 +651,7 @@ export const FetchGetAllFundsGET = ({
     error,
     refetch,
   } = useGetAllFundsGET(
-    { device },
+    { device, screenCode },
     { refetchInterval, handlers: { onData, ...handlers } }
   );
 
@@ -764,6 +803,7 @@ export const getAllPEPFGET = async (
     holdingPeriodIn,
     page,
     region_in,
+    screenCode,
     searchString,
     sectorIn,
     vintageIn,
@@ -797,6 +837,9 @@ export const getAllPEPFGET = async (
   }
   if (region_in !== undefined) {
     paramsDict['region_in'] = renderParam(region_in);
+  }
+  if (screenCode !== undefined) {
+    paramsDict['screenCode'] = renderParam(screenCode);
   }
   const url = `https://xne3-pdiu-8ysm.f2.xano.io/api:abjrBkC8/pepf${renderQueryString(
     paramsDict
@@ -837,6 +880,7 @@ export const FetchGetAllPEPFGET = ({
   holdingPeriodIn,
   page,
   region_in,
+  screenCode,
   searchString,
   sectorIn,
   vintageIn,
@@ -858,6 +902,7 @@ export const FetchGetAllPEPFGET = ({
       holdingPeriodIn,
       page,
       region_in,
+      screenCode,
       searchString,
       sectorIn,
       vintageIn,
@@ -882,7 +927,7 @@ export const FetchGetAllPEPFGET = ({
 
 export const getAllPeersGET = async (
   Constants,
-  { device, keyword, my_peers, nkp_comps, page, type },
+  { device, keyword, my_peers, nkp_comps, page, screenCode, type },
   handlers = {}
 ) => {
   const paramsDict = {};
@@ -903,6 +948,9 @@ export const getAllPeersGET = async (
   }
   if (device !== undefined) {
     paramsDict['device'] = renderParam(device);
+  }
+  if (screenCode !== undefined) {
+    paramsDict['screenCode'] = renderParam(screenCode);
   }
   const url = `https://xne3-pdiu-8ysm.f2.xano.io/api:abjrBkC8/peer_group${renderQueryString(
     paramsDict
@@ -942,6 +990,7 @@ export const FetchGetAllPeersGET = ({
   my_peers,
   nkp_comps,
   page,
+  screenCode,
   type,
 }) => {
   const Constants = GlobalVariables.useValues();
@@ -954,7 +1003,7 @@ export const FetchGetAllPeersGET = ({
     error,
     refetch,
   } = useGetAllPeersGET(
-    { device, keyword, my_peers, nkp_comps, page, type },
+    { device, keyword, my_peers, nkp_comps, page, screenCode, type },
     { refetchInterval, handlers: { onData, ...handlers } }
   );
 
@@ -975,7 +1024,7 @@ export const FetchGetAllPeersGET = ({
 
 export const getAllStocksGET = async (
   Constants,
-  { device, evIn, page, regionIn, sectorIn, stockKeyword },
+  { device, evIn, page, regionIn, screenCode, sectorIn, stockKeyword },
   handlers = {}
 ) => {
   const paramsDict = {};
@@ -996,6 +1045,9 @@ export const getAllStocksGET = async (
   }
   if (device !== undefined) {
     paramsDict['device'] = renderParam(device);
+  }
+  if (screenCode !== undefined) {
+    paramsDict['screenCode'] = renderParam(screenCode);
   }
   const url = `https://xne3-pdiu-8ysm.f2.xano.io/api:abjrBkC8/stock${renderQueryString(
     paramsDict
@@ -1034,6 +1086,7 @@ export const FetchGetAllStocksGET = ({
   evIn,
   page,
   regionIn,
+  screenCode,
   sectorIn,
   stockKeyword,
 }) => {
@@ -1047,7 +1100,7 @@ export const FetchGetAllStocksGET = ({
     error,
     refetch,
   } = useGetAllStocksGET(
-    { device, evIn, page, regionIn, sectorIn, stockKeyword },
+    { device, evIn, page, regionIn, screenCode, sectorIn, stockKeyword },
     { refetchInterval, handlers: { onData, ...handlers } }
   );
 
@@ -1068,7 +1121,16 @@ export const FetchGetAllStocksGET = ({
 
 export const getCFSGET = async (
   Constants,
-  { cfsSearchQuery, countryIn, device, ebitdaIn, ownershipIn, page, sectorIn },
+  {
+    cfsSearchQuery,
+    countryIn,
+    device,
+    ebitdaIn,
+    ownershipIn,
+    page,
+    screenCode,
+    sectorIn,
+  },
   handlers = {}
 ) => {
   const paramsDict = {};
@@ -1092,6 +1154,9 @@ export const getCFSGET = async (
   }
   if (ownershipIn !== undefined) {
     paramsDict['ownership_In'] = renderParam(ownershipIn);
+  }
+  if (screenCode !== undefined) {
+    paramsDict['screenCode'] = renderParam(screenCode);
   }
   const url = `https://xne3-pdiu-8ysm.f2.xano.io/api:abjrBkC8/cfs${renderQueryString(
     paramsDict
@@ -1128,6 +1193,7 @@ export const FetchGetCFSGET = ({
   ebitdaIn,
   ownershipIn,
   page,
+  screenCode,
   sectorIn,
 }) => {
   const Constants = GlobalVariables.useValues();
@@ -1147,6 +1213,7 @@ export const FetchGetCFSGET = ({
       ebitdaIn,
       ownershipIn,
       page,
+      screenCode,
       sectorIn,
     },
     { refetchInterval, handlers: { onData, ...handlers } }
@@ -1169,12 +1236,15 @@ export const FetchGetCFSGET = ({
 
 export const getOneCFSGET = async (
   Constants,
-  { cfs_id, device },
+  { cfs_id, device, screenCode },
   handlers = {}
 ) => {
   const paramsDict = {};
   if (device !== undefined) {
     paramsDict['device'] = renderParam(device);
+  }
+  if (screenCode !== undefined) {
+    paramsDict['screenCode'] = renderParam(screenCode);
   }
   const url = `https://xne3-pdiu-8ysm.f2.xano.io/api:abjrBkC8/cfs/${encodeQueryParam(
     cfs_id
@@ -1209,6 +1279,7 @@ export const FetchGetOneCFSGET = ({
   refetchInterval,
   cfs_id,
   device,
+  screenCode,
 }) => {
   const Constants = GlobalVariables.useValues();
   const isFocused = useIsFocused();
@@ -1220,7 +1291,7 @@ export const FetchGetOneCFSGET = ({
     error,
     refetch,
   } = useGetOneCFSGET(
-    { cfs_id, device },
+    { cfs_id, device, screenCode },
     { refetchInterval, handlers: { onData, ...handlers } }
   );
 
@@ -1241,12 +1312,15 @@ export const FetchGetOneCFSGET = ({
 
 export const getOneEventGET = async (
   Constants,
-  { device, event_id },
+  { device, event_id, screenCode },
   handlers = {}
 ) => {
   const paramsDict = {};
   if (device !== undefined) {
     paramsDict['device'] = renderParam(device);
+  }
+  if (screenCode !== undefined) {
+    paramsDict['screenCode'] = renderParam(screenCode);
   }
   const url = `https://xne3-pdiu-8ysm.f2.xano.io/api:abjrBkC8/event/${encodeQueryParam(
     event_id
@@ -1285,6 +1359,7 @@ export const FetchGetOneEventGET = ({
   refetchInterval,
   device,
   event_id,
+  screenCode,
 }) => {
   const Constants = GlobalVariables.useValues();
   const isFocused = useIsFocused();
@@ -1296,7 +1371,7 @@ export const FetchGetOneEventGET = ({
     error,
     refetch,
   } = useGetOneEventGET(
-    { device, event_id },
+    { device, event_id, screenCode },
     { refetchInterval, handlers: { onData, ...handlers } }
   );
 
@@ -1531,12 +1606,15 @@ export const FetchGetOneInvestorGET = ({
 
 export const getOnePEPFGET = async (
   Constants,
-  { device, pepf_id },
+  { device, pepf_id, screenCode },
   handlers = {}
 ) => {
   const paramsDict = {};
   if (device !== undefined) {
     paramsDict['device'] = renderParam(device);
+  }
+  if (screenCode !== undefined) {
+    paramsDict['screenCode'] = renderParam(screenCode);
   }
   const url = `https://xne3-pdiu-8ysm.f2.xano.io/api:abjrBkC8/pepf/${encodeQueryParam(
     pepf_id
@@ -1575,6 +1653,7 @@ export const FetchGetOnePEPFGET = ({
   refetchInterval,
   device,
   pepf_id,
+  screenCode,
 }) => {
   const Constants = GlobalVariables.useValues();
   const isFocused = useIsFocused();
@@ -1586,7 +1665,7 @@ export const FetchGetOnePEPFGET = ({
     error,
     refetch,
   } = useGetOnePEPFGET(
-    { device, pepf_id },
+    { device, pepf_id, screenCode },
     { refetchInterval, handlers: { onData, ...handlers } }
   );
 
@@ -1607,12 +1686,15 @@ export const FetchGetOnePEPFGET = ({
 
 export const getOnePeerGET = async (
   Constants,
-  { device, peer_group_id },
+  { device, peer_group_id, screenCode },
   handlers = {}
 ) => {
   const paramsDict = {};
   if (device !== undefined) {
     paramsDict['device'] = renderParam(device);
+  }
+  if (screenCode !== undefined) {
+    paramsDict['screenCode'] = renderParam(screenCode);
   }
   const url = `https://xne3-pdiu-8ysm.f2.xano.io/api:abjrBkC8/peer_group/${encodeQueryParam(
     peer_group_id
@@ -1651,6 +1733,7 @@ export const FetchGetOnePeerGET = ({
   refetchInterval,
   device,
   peer_group_id,
+  screenCode,
 }) => {
   const Constants = GlobalVariables.useValues();
   const isFocused = useIsFocused();
@@ -1662,7 +1745,7 @@ export const FetchGetOnePeerGET = ({
     error,
     refetch,
   } = useGetOnePeerGET(
-    { device, peer_group_id },
+    { device, peer_group_id, screenCode },
     { refetchInterval, handlers: { onData, ...handlers } }
   );
 
@@ -1683,12 +1766,15 @@ export const FetchGetOnePeerGET = ({
 
 export const getOneStockGET = async (
   Constants,
-  { device, stock_id },
+  { device, screenCode, stock_id },
   handlers = {}
 ) => {
   const paramsDict = {};
   if (device !== undefined) {
     paramsDict['device'] = renderParam(device);
+  }
+  if (screenCode !== undefined) {
+    paramsDict['screenCode'] = renderParam(screenCode);
   }
   const url = `https://xne3-pdiu-8ysm.f2.xano.io/api:abjrBkC8/stock/${encodeQueryParam(
     stock_id
@@ -1726,6 +1812,7 @@ export const FetchGetOneStockGET = ({
   handlers = {},
   refetchInterval,
   device,
+  screenCode,
   stock_id,
 }) => {
   const Constants = GlobalVariables.useValues();
@@ -1738,7 +1825,7 @@ export const FetchGetOneStockGET = ({
     error,
     refetch,
   } = useGetOneStockGET(
-    { device, stock_id },
+    { device, screenCode, stock_id },
     { refetchInterval, handlers: { onData, ...handlers } }
   );
 
@@ -1901,12 +1988,15 @@ export const FetchLoginPOST = ({
 
 export const newsletterEachGET = async (
   Constants,
-  { device, newsletter_id },
+  { device, newsletter_id, screenCode },
   handlers = {}
 ) => {
   const paramsDict = {};
   if (device !== undefined) {
     paramsDict['device'] = renderParam(device);
+  }
+  if (screenCode !== undefined) {
+    paramsDict['screenCode'] = renderParam(screenCode);
   }
   const url = `https://xne3-pdiu-8ysm.f2.xano.io/api:abjrBkC8/newsletter/${encodeQueryParam(
     newsletter_id
@@ -1945,6 +2035,7 @@ export const FetchNewsletterEachGET = ({
   refetchInterval,
   device,
   newsletter_id,
+  screenCode,
 }) => {
   const Constants = GlobalVariables.useValues();
   const isFocused = useIsFocused();
@@ -1956,7 +2047,7 @@ export const FetchNewsletterEachGET = ({
     error,
     refetch,
   } = useNewsletterEachGET(
-    { device, newsletter_id },
+    { device, newsletter_id, screenCode },
     { refetchInterval, handlers: { onData, ...handlers } }
   );
 
@@ -2078,7 +2169,7 @@ export const FetchNewslettersGET = ({
 
 export const reportsGET = async (
   Constants,
-  { device, page },
+  { device, page, screenCode },
   handlers = {}
 ) => {
   const paramsDict = {};
@@ -2087,6 +2178,9 @@ export const reportsGET = async (
   }
   if (device !== undefined) {
     paramsDict['device'] = renderParam(device);
+  }
+  if (screenCode !== undefined) {
+    paramsDict['screenCode'] = renderParam(screenCode);
   }
   const url = `https://xne3-pdiu-8ysm.f2.xano.io/api:abjrBkC8/report${renderQueryString(
     paramsDict
@@ -2123,6 +2217,7 @@ export const FetchReportsGET = ({
   refetchInterval,
   device,
   page,
+  screenCode,
 }) => {
   const Constants = GlobalVariables.useValues();
   const isFocused = useIsFocused();
@@ -2134,7 +2229,7 @@ export const FetchReportsGET = ({
     error,
     refetch,
   } = useReportsGET(
-    { device, page },
+    { device, page, screenCode },
     { refetchInterval, handlers: { onData, ...handlers } }
   );
 
@@ -2349,7 +2444,7 @@ export const useUpdateNotificationPUT = (
 
 export const updatePeerGroupPATCH = async (
   Constants,
-  { device, peer_id, stocksList, title, type },
+  { device, peer_id, screenCode, stocksList, title, type },
   handlers = {}
 ) => {
   const paramsDict = {};
@@ -2358,6 +2453,9 @@ export const updatePeerGroupPATCH = async (
   }
   if (device !== undefined) {
     paramsDict['device'] = renderParam(device);
+  }
+  if (screenCode !== undefined) {
+    paramsDict['screenCode'] = renderParam(screenCode);
   }
   const url = `https://xne3-pdiu-8ysm.f2.xano.io/api:abjrBkC8/peer_group/${encodeQueryParam(
     peer_id

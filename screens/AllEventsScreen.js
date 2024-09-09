@@ -34,15 +34,16 @@ import CustomBottomNavBlock from '../components/CustomBottomNavBlock';
 import CustomHeaderBlock from '../components/CustomHeaderBlock';
 import EventDetailsModalBlock from '../components/EventDetailsModalBlock';
 import LoadingBlock from '../components/LoadingBlock';
+import WatermarkerBlock from '../components/WatermarkerBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import Images from '../config/Images';
 import assessAccess from '../global-functions/assessAccess';
 import deviceType from '../global-functions/deviceType';
-import formatNumber from '../global-functions/formatNumber';
 import isNKPProp from '../global-functions/isNKPProp';
 import modifyArrays from '../global-functions/modifyArrays';
 import removeGlobalScroll from '../global-functions/removeGlobalScroll';
 import resetAccess from '../global-functions/resetAccess';
+import screenNameGen from '../global-functions/screenNameGen';
 import setPadding from '../global-functions/setPadding';
 import showNKPProp from '../global-functions/showNKPProp';
 import palettes from '../themes/palettes';
@@ -97,6 +98,7 @@ const AllEventsScreen = props => {
   const [real_estate, setReal_estate] = React.useState(false);
   const [regions, setRegions] = React.useState([]);
   const [row, setRow] = React.useState(false);
+  const [screenCode, setScreenCode] = React.useState('');
   const [sector, setSector] = React.useState([]);
   const [sourceType, setSourceType] = React.useState([]);
   const [sweden, setSweden] = React.useState(false);
@@ -240,7 +242,7 @@ const AllEventsScreen = props => {
       if (!isFocused) {
         return;
       }
-      console.log('On screen focus');
+      setScreenCode(screenNameGen());
       /* hidden 'Run a Custom Function' action */
       setGlobalVariableValue({
         key: 'currentScreen',
@@ -266,9 +268,6 @@ const AllEventsScreen = props => {
         key: 'subPage',
         value: false,
       });
-      /* hidden 'Log to Console' action */
-      /* hidden 'API Request' action */
-      /* hidden 'Log to Console' action */
       if (assessAccess(Variables, setGlobalVariableValue) === true) {
         return;
       }
@@ -583,10 +582,8 @@ const AllEventsScreen = props => {
           },
           onData: fetchData => {
             try {
-              console.log(fetchData?.length, 'FETCHDATA ONSCREEN');
               setNextPage(fetchData?.nextPage);
               setLastPage(fetchData?.pageTotal);
-              /* hidden 'Set Variable' action */
               if (
                 Constants['WATCHED_EVENT_IDX'] > -1 &&
                 !(Platform.OS === 'web')
@@ -606,6 +603,7 @@ const AllEventsScreen = props => {
         keyword={keywordSearch}
         page={1}
         region_in={regions}
+        screenCode={screenCode}
         sectorIn={sector}
         sourceType_in={sourceType}
       >
@@ -684,7 +682,7 @@ const AllEventsScreen = props => {
                     )}
                     suppressHighlighting={true}
                   >
-                    {formatNumber(fetchData?.itemsTotal)}{' '}
+                    {fetchData?.itemsTotal}{' '}
                     {fetchData?.itemsTotal === 1 ? 'event' : 'events'}
                     {' matching filter '}
                     {dimensions.width >= Breakpoints.Tablet
@@ -697,44 +695,6 @@ const AllEventsScreen = props => {
               <View
                 style={StyleSheet.applyWidth({ flex: 1 }, dimensions.width)}
               >
-                {/* Watermark */}
-                <View
-                  style={StyleSheet.applyWidth(
-                    {
-                      bottom: 0,
-                      flex: 1,
-                      justifyContent: 'center',
-                      left: 0,
-                      position: 'absolute',
-                      right: 0,
-                      top: 0,
-                      zIndex: -20,
-                    },
-                    dimensions.width
-                  )}
-                >
-                  <View style={{ transform: [{ rotate: '-50deg' }] }}>
-                    <Text
-                      accessible={true}
-                      {...GlobalStyles.TextStyles(theme)['screen_title_stockH']
-                        .props}
-                      style={StyleSheet.applyWidth(
-                        StyleSheet.compose(
-                          GlobalStyles.TextStyles(theme)['screen_title_stockH']
-                            .style,
-                          {
-                            color: palettes.App.Studily_Dark_Primary,
-                            fontSize: 25,
-                            opacity: 0.5,
-                          }
-                        ),
-                        dimensions.width
-                      )}
-                    >
-                      {'Lorem ipsum dolor sit amet'}
-                    </Text>
-                  </View>
-                </View>
                 <>
                   {dimensions.width >= Breakpoints.Laptop ? null : (
                     <SimpleStyleFlatList
@@ -754,7 +714,6 @@ const AllEventsScreen = props => {
                       onEndReached={() => {
                         const handler = async () => {
                           try {
-                            console.log('END REACHED');
                             if (nextPage === null) {
                               return;
                             }
@@ -778,6 +737,7 @@ const AllEventsScreen = props => {
                                   keyword: keywordSearchRaw,
                                   page: nextPage,
                                   region_in: regions,
+                                  screenCode: screenCode,
                                   sectorIn: sector,
                                   sourceType_in: sourceType,
                                 }
@@ -863,6 +823,13 @@ const AllEventsScreen = props => {
                               dimensions.width
                             )}
                           >
+                            <>
+                              {!listData?.source
+                                ?.toLowerCase()
+                                .includes('proprietary') ? null : (
+                                <WatermarkerBlock />
+                              )}
+                            </>
                             <Touchable
                               onPress={() => {
                                 try {
@@ -1105,7 +1072,6 @@ const AllEventsScreen = props => {
                       onEndReached={() => {
                         const handler = async () => {
                           try {
-                            console.log('END REACHED');
                             if (nextPage === null) {
                               return;
                             }
@@ -1129,6 +1095,7 @@ const AllEventsScreen = props => {
                                   keyword: keywordSearchRaw,
                                   page: nextPage,
                                   region_in: regions,
+                                  screenCode: screenCode,
                                   sectorIn: sector,
                                   sourceType_in: sourceType,
                                 }
@@ -1215,6 +1182,13 @@ const AllEventsScreen = props => {
                               dimensions.width
                             )}
                           >
+                            <>
+                              {!listLargerData?.source
+                                ?.toLowerCase()
+                                .includes('proprietary') ? null : (
+                                <WatermarkerBlock />
+                              )}
+                            </>
                             <Touchable
                               onPress={() => {
                                 try {

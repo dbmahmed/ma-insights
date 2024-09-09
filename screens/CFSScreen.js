@@ -39,10 +39,10 @@ import * as GlobalVariables from '../config/GlobalVariableContext';
 import Images from '../config/Images';
 import assessAccess from '../global-functions/assessAccess';
 import deviceType from '../global-functions/deviceType';
-import formatNumber from '../global-functions/formatNumber';
 import modifyArrays from '../global-functions/modifyArrays';
 import removeGlobalScroll from '../global-functions/removeGlobalScroll';
 import resetAccess from '../global-functions/resetAccess';
+import screenNameGen from '../global-functions/screenNameGen';
 import setPadding from '../global-functions/setPadding';
 import transformEuroM from '../global-functions/transformEuroM';
 import transformNumber from '../global-functions/transformNumber';
@@ -97,6 +97,7 @@ const CFSScreen = props => {
   const [otPrivateIndividual, setOtPrivateIndividual] = React.useState(false);
   const [otStrategic, setOtStrategic] = React.useState(false);
   const [real_estate, setReal_estate] = React.useState(true);
+  const [screenCode, setScreenCode] = React.useState('');
   const [sector, setSector] = React.useState([]);
   const [selectedID, setSelectedID] = React.useState(0);
   const [showModal, setShowModal] = React.useState(false);
@@ -263,6 +264,7 @@ const CFSScreen = props => {
       if (!isFocused) {
         return;
       }
+      setScreenCode(screenNameGen());
       removeGlobalScroll();
       setGlobalVariableValue({
         key: 'currentScreen',
@@ -511,6 +513,7 @@ const CFSScreen = props => {
         }}
         ownershipIn={typeOwnership}
         page={1}
+        screenCode={screenCode}
         sectorIn={sector}
       >
         {({ loading, error, data, refetchGetCFS }) => {
@@ -577,7 +580,7 @@ const CFSScreen = props => {
                     )}
                     suppressHighlighting={true}
                   >
-                    {formatNumber(fetchData?.itemsTotal)}{' '}
+                    {fetchData?.itemsTotal}{' '}
                     {fetchData?.itemsTotal > 1 ? 'companies' : 'company'}
                     {
                       ' for sale matching filter and sorted by latest coverage, new to old'
@@ -614,6 +617,7 @@ const CFSScreen = props => {
                               ebitdaIn: ebitdaRange,
                               ownershipIn: typeOwnership,
                               page: parseInt(nextPage, 10),
+                              screenCode: screenCode,
                               sectorIn: sector,
                             })
                           )?.json;

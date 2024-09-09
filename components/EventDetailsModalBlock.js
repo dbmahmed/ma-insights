@@ -27,6 +27,7 @@ import { Fetch } from 'react-request';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
 import LoadingBlock from '../components/LoadingBlock';
+import WatermarkerBlock from '../components/WatermarkerBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import Images from '../config/Images';
 import cutTextByWidth from '../global-functions/cutTextByWidth';
@@ -41,8 +42,6 @@ import * as StyleSheet from '../utils/StyleSheet';
 import imageSource from '../utils/imageSource';
 import useWindowDimensions from '../utils/useWindowDimensions';
 
-const defaultProps = { scrollingIndex: 5 };
-
 const EventDetailsModalBlock = props => {
   const { theme } = props;
   const dimensions = useWindowDimensions();
@@ -52,10 +51,10 @@ const EventDetailsModalBlock = props => {
   const setGlobalVariableValue = GlobalVariables.useSetValue();
   const [viewingEventId, setViewingEventId] = props.setViewingEventId
     ? [
-        props.viewingEventId !== undefined ? props.viewingEventId : 0,
+        props.viewingEventId !== undefined ? props.viewingEventId : 4,
         props.setViewingEventId,
       ]
-    : React.useState(0);
+    : React.useState(4);
   const applyFilter = () => {
     //Event type
     const eventType = [];
@@ -365,48 +364,59 @@ const EventDetailsModalBlock = props => {
                     dimensions.width
                   )}
                 >
-                  <HStack
-                    {...GlobalStyles.HStackStyles(theme)['H Stack'].props}
-                    style={StyleSheet.applyWidth(
-                      StyleSheet.compose(
-                        GlobalStyles.HStackStyles(theme)['H Stack'].style,
-                        { alignItems: 'flex-start' }
-                      ),
-                      dimensions.width
-                    )}
-                  >
-                    <H3
-                      selectable={false}
-                      {...GlobalStyles.H3Styles(theme)['H3'].props}
+                  {/* View 3 */}
+                  <View>
+                    <>
+                      {!fetchData?.source
+                        ?.toLowerCase()
+                        .includes('proprietary') ? null : (
+                        <WatermarkerBlock />
+                      )}
+                    </>
+                    <HStack
+                      {...GlobalStyles.HStackStyles(theme)['H Stack'].props}
                       style={StyleSheet.applyWidth(
                         StyleSheet.compose(
-                          GlobalStyles.H3Styles(theme)['H3'].style,
-                          { fontFamily: 'Quicksand_700Bold', fontSize: 20 }
+                          GlobalStyles.HStackStyles(theme)['H Stack'].style,
+                          { alignItems: 'flex-start' }
                         ),
                         dimensions.width
                       )}
                     >
-                      {fetchData?.headline}
-                    </H3>
-                  </HStack>
+                      <H3
+                        selectable={false}
+                        {...GlobalStyles.H3Styles(theme)['H3'].props}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.H3Styles(theme)['H3'].style,
+                            { fontFamily: 'Quicksand_700Bold', fontSize: 20 }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {fetchData?.headline}
+                      </H3>
+                    </HStack>
 
-                  <View
-                    style={StyleSheet.applyWidth(
-                      { marginBottom: 20 },
-                      dimensions.width
-                    )}
-                  >
-                    <Text
-                      accessible={true}
-                      {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                    <View
                       style={StyleSheet.applyWidth(
-                        GlobalStyles.TextStyles(theme)['screen_title'].style,
+                        { marginBottom: 20 },
                         dimensions.width
                       )}
-                      suppressHighlighting={true}
                     >
-                      {fetchData?.description}
-                    </Text>
+                      <Text
+                        accessible={true}
+                        {...GlobalStyles.TextStyles(theme)['screen_title']
+                          .props}
+                        style={StyleSheet.applyWidth(
+                          GlobalStyles.TextStyles(theme)['screen_title'].style,
+                          dimensions.width
+                        )}
+                        suppressHighlighting={true}
+                      >
+                        {fetchData?.description}
+                      </Text>
+                    </View>
                   </View>
                   {/* View 2 */}
                   <View

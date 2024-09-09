@@ -32,6 +32,7 @@ import Images from '../config/Images';
 import assessAccess from '../global-functions/assessAccess';
 import deviceType from '../global-functions/deviceType';
 import removeGlobalScroll from '../global-functions/removeGlobalScroll';
+import screenNameGen from '../global-functions/screenNameGen';
 import setPadding from '../global-functions/setPadding';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
@@ -68,6 +69,7 @@ const PeerGroupsScreen = props => {
   const [nordic, setNordic] = React.useState(false);
   const [peerItems, setPeerItems] = React.useState([]);
   const [real_estate, setReal_estate] = React.useState(false);
+  const [screenCode, setScreenCode] = React.useState('');
   const [sector, setSector] = React.useState([]);
   const [sweden, setSweden] = React.useState(false);
   const [transaction, setTransaction] = React.useState(false);
@@ -80,6 +82,7 @@ const PeerGroupsScreen = props => {
       if (!isFocused) {
         return;
       }
+      setScreenCode(screenNameGen());
       removeGlobalScroll();
       setGlobalVariableValue({
         key: 'pageName',
@@ -457,6 +460,7 @@ const PeerGroupsScreen = props => {
         my_peers={my_peer_groups}
         nkp_comps={nkp_comps}
         page={1}
+        screenCode={screenCode}
         type={''}
       >
         {({ loading, error, data, refetchGetAllPeers }) => {
@@ -555,7 +559,7 @@ const PeerGroupsScreen = props => {
                           my_peers: my_peer_groups,
                           nkp_comps: nkp_comps,
                           page: nextPage,
-                          type: '',
+                          screenCode: screenCode,
                         })
                       )?.json;
                       setNextPage(newData?.nextPage);

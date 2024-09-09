@@ -38,6 +38,7 @@ import deviceType from '../global-functions/deviceType';
 import modifyArrays from '../global-functions/modifyArrays';
 import removeGlobalScroll from '../global-functions/removeGlobalScroll';
 import resetAccess from '../global-functions/resetAccess';
+import screenNameGen from '../global-functions/screenNameGen';
 import setPadding from '../global-functions/setPadding';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
@@ -86,6 +87,7 @@ const AdvisorsScreen = props => {
   const [nordic, setNordic] = React.useState(false);
   const [norway, setNorway] = React.useState(false);
   const [real_estate, setReal_estate] = React.useState(false);
+  const [screenCode, setScreenCode] = React.useState('');
   const [sector, setSector] = React.useState([]);
   const [showSubmitDeal, setShowSubmitDeal] = React.useState(false);
   const [sweden, setSweden] = React.useState(false);
@@ -130,6 +132,7 @@ line two` ) and will not work with special characters inside of quotes ( example
       if (!isFocused) {
         return;
       }
+      setScreenCode(screenNameGen());
       removeGlobalScroll();
       setGlobalVariableValue({
         key: 'currentScreen',
@@ -824,6 +827,7 @@ line two` ) and will not work with special characters inside of quotes ( example
             keyword={keywordSearch}
             page={1}
             region={typeAdvisor}
+            screenCode={screenCode}
             sector_in={[]}
             type={type}
           >
@@ -923,6 +927,7 @@ line two` ) and will not work with special characters inside of quotes ( example
                               keyword: keywordSearch,
                               page: nextPage,
                               region: typeAdvisor,
+                              screenCode: screenCode,
                               sector_in: [],
                               type: type,
                             })

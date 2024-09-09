@@ -75,40 +75,40 @@ const NewslettersScreen = props => {
         return;
       }
       console.log('Start ON_SCREEN_FOCUS:0 SET_VARIABLE');
+      setScreenCode(screenNameGen());
+      console.log('Complete ON_SCREEN_FOCUS:0 SET_VARIABLE');
+      console.log('Start ON_SCREEN_FOCUS:1 SET_VARIABLE');
       setGlobalVariableValue({
         key: 'currentScreen',
         value: 'Newsletters',
       });
-      console.log('Complete ON_SCREEN_FOCUS:0 SET_VARIABLE');
-      console.log('Start ON_SCREEN_FOCUS:1 SET_VARIABLE');
+      console.log('Complete ON_SCREEN_FOCUS:1 SET_VARIABLE');
+      console.log('Start ON_SCREEN_FOCUS:2 SET_VARIABLE');
       setGlobalVariableValue({
         key: 'screenParamName',
         value: '',
       });
-      console.log('Complete ON_SCREEN_FOCUS:1 SET_VARIABLE');
-      console.log('Start ON_SCREEN_FOCUS:2 SET_VARIABLE');
+      console.log('Complete ON_SCREEN_FOCUS:2 SET_VARIABLE');
+      console.log('Start ON_SCREEN_FOCUS:3 SET_VARIABLE');
       setGlobalVariableValue({
         key: 'screenParamValue',
         value: 0,
       });
-      console.log('Complete ON_SCREEN_FOCUS:2 SET_VARIABLE');
-      console.log('Start ON_SCREEN_FOCUS:3 CUSTOM_FUNCTION');
+      console.log('Complete ON_SCREEN_FOCUS:3 SET_VARIABLE');
+      console.log('Start ON_SCREEN_FOCUS:4 CUSTOM_FUNCTION');
       removeGlobalScroll();
-      console.log('Complete ON_SCREEN_FOCUS:3 CUSTOM_FUNCTION');
-      console.log('Start ON_SCREEN_FOCUS:4 SET_VARIABLE');
+      console.log('Complete ON_SCREEN_FOCUS:4 CUSTOM_FUNCTION');
+      console.log('Start ON_SCREEN_FOCUS:5 SET_VARIABLE');
       setGlobalVariableValue({
         key: 'pageName',
         value: 'Newsletters',
       });
-      console.log('Complete ON_SCREEN_FOCUS:4 SET_VARIABLE');
-      console.log('Start ON_SCREEN_FOCUS:5 SET_VARIABLE');
+      console.log('Complete ON_SCREEN_FOCUS:5 SET_VARIABLE');
+      console.log('Start ON_SCREEN_FOCUS:6 SET_VARIABLE');
       setGlobalVariableValue({
         key: 'subPage',
         value: false,
       });
-      console.log('Complete ON_SCREEN_FOCUS:5 SET_VARIABLE');
-      console.log('Start ON_SCREEN_FOCUS:6 SET_VARIABLE');
-      setScreenCode(screenNameGen());
       console.log('Complete ON_SCREEN_FOCUS:6 SET_VARIABLE');
       console.log('Start ON_SCREEN_FOCUS:7 CONDITIONAL_STOP');
       if (assessAccess(Variables, setGlobalVariableValue) === true) {
@@ -671,22 +671,19 @@ const NewslettersScreen = props => {
                     let error = null;
                     try {
                       console.log('Start ON_END_REACHED:0 CONSOLE_LOG');
-                      console.log('End Reached');
-                      console.log('Complete ON_END_REACHED:0 CONSOLE_LOG');
-                      console.log('Start ON_END_REACHED:1 CONSOLE_LOG');
                       console.log(nextPage);
-                      console.log('Complete ON_END_REACHED:1 CONSOLE_LOG');
-                      console.log('Start ON_END_REACHED:2 CONDITIONAL_STOP');
+                      console.log('Complete ON_END_REACHED:0 CONSOLE_LOG');
+                      console.log('Start ON_END_REACHED:1 CONDITIONAL_STOP');
                       if (nextPage === null) {
                         return console.log(
-                          'Complete ON_END_REACHED:2 CONDITIONAL_STOP'
+                          'Complete ON_END_REACHED:1 CONDITIONAL_STOP'
                         );
                       } else {
                         console.log(
-                          'Skipped ON_END_REACHED:2 CONDITIONAL_STOP: condition not met'
+                          'Skipped ON_END_REACHED:1 CONDITIONAL_STOP: condition not met'
                         );
                       }
-                      console.log('Start ON_END_REACHED:3 FETCH_REQUEST');
+                      console.log('Start ON_END_REACHED:2 FETCH_REQUEST');
                       const newData = (
                         await XanoCollectionApi.newslettersGET(Constants, {
                           dach: dach,
@@ -703,33 +700,33 @@ const NewslettersScreen = props => {
                           screenCode: screenCode,
                         })
                       )?.json;
-                      console.log('Complete ON_END_REACHED:3 FETCH_REQUEST', {
+                      console.log('Complete ON_END_REACHED:2 FETCH_REQUEST', {
                         newData,
                       });
-                      console.log('Start ON_END_REACHED:4 SET_VARIABLE');
+                      console.log('Start ON_END_REACHED:3 SET_VARIABLE');
                       setNextPage(newData?.nextPage);
-                      console.log('Complete ON_END_REACHED:4 SET_VARIABLE');
-                      console.log('Start ON_END_REACHED:5 SET_VARIABLE');
+                      console.log('Complete ON_END_REACHED:3 SET_VARIABLE');
+                      console.log('Start ON_END_REACHED:4 SET_VARIABLE');
                       setLastPage(newData?.pageTotal);
-                      console.log('Complete ON_END_REACHED:5 SET_VARIABLE');
-                      console.log('Start ON_END_REACHED:6 CONDITIONAL_STOP');
+                      console.log('Complete ON_END_REACHED:4 SET_VARIABLE');
+                      console.log('Start ON_END_REACHED:5 CONDITIONAL_STOP');
                       if (
                         fetchData?.items ===
                         (0 || newslettersList !== fetchData?.items)
                       ) {
                         return console.log(
-                          'Complete ON_END_REACHED:6 CONDITIONAL_STOP'
+                          'Complete ON_END_REACHED:5 CONDITIONAL_STOP'
                         );
                       } else {
                         console.log(
-                          'Skipped ON_END_REACHED:6 CONDITIONAL_STOP: condition not met'
+                          'Skipped ON_END_REACHED:5 CONDITIONAL_STOP: condition not met'
                         );
                       }
-                      console.log('Start ON_END_REACHED:7 SET_VARIABLE');
+                      console.log('Start ON_END_REACHED:6 SET_VARIABLE');
                       setNewslettersList(
                         newslettersList.concat(newData?.items)
                       );
-                      console.log('Complete ON_END_REACHED:7 SET_VARIABLE');
+                      console.log('Complete ON_END_REACHED:6 SET_VARIABLE');
                     } catch (err) {
                       console.error(err);
                       error = err.message ?? err;

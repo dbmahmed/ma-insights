@@ -38,6 +38,7 @@ import * as GlobalVariables from '../config/GlobalVariableContext';
 import assessAccess from '../global-functions/assessAccess';
 import deviceType from '../global-functions/deviceType';
 import removeGlobalScroll from '../global-functions/removeGlobalScroll';
+import screenNameGen from '../global-functions/screenNameGen';
 import transformEuroM from '../global-functions/transformEuroM';
 import transformNumber from '../global-functions/transformNumber';
 import palettes from '../themes/palettes';
@@ -64,6 +65,7 @@ const StockDetailsScreen = props => {
   const [peerQueryRaw, setPeerQueryRaw] = React.useState('');
   const [peer_id, setPeer_id] = React.useState(0);
   const [peer_name, setPeer_name] = React.useState('');
+  const [screenCode, setScreenCode] = React.useState('');
   const [selectedPeerGroup, setSelectedPeerGroup] = React.useState({});
   const [selectedPeerGroupID, setSelectedPeerGroupID] = React.useState(0);
   const [showDropdown, setShowDropdown] = React.useState(false);
@@ -116,6 +118,7 @@ const StockDetailsScreen = props => {
       if (!isFocused) {
         return;
       }
+      setScreenCode(screenNameGen());
       removeGlobalScroll();
       setGlobalVariableValue({
         key: 'pageName',
@@ -171,6 +174,7 @@ const StockDetailsScreen = props => {
             }
           },
         }}
+        screenCode={screenCode}
         stock_id={props.route?.params?.stock_id ?? defaultProps.stock_id}
       >
         {({ loading, error, data, refetchGetOneStock }) => {

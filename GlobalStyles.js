@@ -41,6 +41,19 @@ export const TextStyles = theme =>
       },
       props: {},
     },
+    'watermark text': {
+      style: {
+        color: palettes.App.Studily_Dark_Primary,
+        fontFamily: 'Quicksand_500Medium',
+        fontSize: [
+          { minWidth: Breakpoints.Mobile, value: 25 },
+          { minWidth: Breakpoints.Laptop, value: 35 },
+          { minWidth: Breakpoints.Tablet, value: 30 },
+        ],
+        opacity: 0.39,
+      },
+      props: {},
+    },
   });
 
 export const LinearGradientStyles = theme =>

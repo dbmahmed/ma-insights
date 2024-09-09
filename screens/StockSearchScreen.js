@@ -33,8 +33,8 @@ import LoadingBlock from '../components/LoadingBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import assessAccess from '../global-functions/assessAccess';
 import deviceType from '../global-functions/deviceType';
-import formatNumber from '../global-functions/formatNumber';
 import removeGlobalScroll from '../global-functions/removeGlobalScroll';
+import screenNameGen from '../global-functions/screenNameGen';
 import setPadding from '../global-functions/setPadding';
 import transformEuroM from '../global-functions/transformEuroM';
 import transformNumber from '../global-functions/transformNumber';
@@ -91,6 +91,7 @@ const StockSearchScreen = props => {
   const [norway, setNorway] = React.useState(false);
   const [real_estate, setReal_estate] = React.useState(false);
   const [region, setRegion] = React.useState([]);
+  const [screenCode, setScreenCode] = React.useState('');
   const [sector, setSector] = React.useState([]);
   const [stockData, setStockData] = React.useState([]);
   const [stockItems, setStockItems] = React.useState([]);
@@ -192,6 +193,7 @@ const StockSearchScreen = props => {
       if (!isFocused) {
         return;
       }
+      setScreenCode(screenNameGen());
       removeGlobalScroll();
       setGlobalVariableValue({
         key: 'pageName',
@@ -421,6 +423,7 @@ const StockSearchScreen = props => {
             }}
             page={1}
             regionIn={region}
+            screenCode={screenCode}
             sectorIn={sector}
             stockKeyword={keywordSearch}
           >
@@ -490,7 +493,7 @@ const StockSearchScreen = props => {
                         )}
                         suppressHighlighting={true}
                       >
-                        {formatNumber(fetchData?.itemsTotal)}
+                        {fetchData?.itemsTotal}
                         {
                           ' stocks matching filter and sorted by market cap, high to low'
                         }
@@ -536,10 +539,15 @@ const StockSearchScreen = props => {
                               await XanoCollectionApi.getAllStocksGET(
                                 Constants,
                                 {
-                                  device: 'ios',
+                                  device: deviceType(
+                                    Platform.OS === 'web',
+                                    Platform.OS === 'ios',
+                                    Platform.OS === 'android'
+                                  ),
                                   evIn: enterpriseValue,
                                   page: nextPage,
                                   regionIn: region,
+                                  screenCode: screenCode,
                                   sectorIn: sector,
                                   stockKeyword: keywordSearchRaw,
                                 }

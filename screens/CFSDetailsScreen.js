@@ -21,6 +21,7 @@ import assessAccess from '../global-functions/assessAccess';
 import deviceType from '../global-functions/deviceType';
 import removeGlobalScroll from '../global-functions/removeGlobalScroll';
 import resetAccess from '../global-functions/resetAccess';
+import screenNameGen from '../global-functions/screenNameGen';
 import transformEuroM from '../global-functions/transformEuroM';
 import transformNumber from '../global-functions/transformNumber';
 import palettes from '../themes/palettes';
@@ -43,6 +44,7 @@ const CFSDetailsScreen = props => {
   const [keywordSearch, setKeywordSearch] = React.useState('');
   const [lastPage, setLastPage] = React.useState(0);
   const [nextPage, setNextPage] = React.useState(0);
+  const [screenCode, setScreenCode] = React.useState('');
   const [sector, setSector] = React.useState([]);
   const isFocused = useIsFocused();
   React.useEffect(() => {
@@ -50,6 +52,7 @@ const CFSDetailsScreen = props => {
       if (!isFocused) {
         return;
       }
+      setScreenCode(screenNameGen());
       removeGlobalScroll();
       setGlobalVariableValue({
         key: 'currentScreen',
@@ -100,6 +103,7 @@ const CFSDetailsScreen = props => {
           Platform.OS === 'ios',
           Platform.OS === 'android'
         )}
+        screenCode={screenCode}
       >
         {({ loading, error, data, refetchGetOneCFS }) => {
           const fetchData = data?.json;

@@ -29,6 +29,7 @@ import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
 import CustomBottomNavBlock from '../components/CustomBottomNavBlock';
 import CustomHeaderBlock from '../components/CustomHeaderBlock';
 import EventDetailsModalBlock from '../components/EventDetailsModalBlock';
+import WatermarkerBlock from '../components/WatermarkerBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import Images from '../config/Images';
 import assessAccess from '../global-functions/assessAccess';
@@ -36,6 +37,7 @@ import deviceType from '../global-functions/deviceType';
 import isNKPProp from '../global-functions/isNKPProp';
 import removeGlobalScroll from '../global-functions/removeGlobalScroll';
 import resetAccess from '../global-functions/resetAccess';
+import screenNameGen from '../global-functions/screenNameGen';
 import showNKPProp from '../global-functions/showNKPProp';
 import transformNumber from '../global-functions/transformNumber';
 import palettes from '../themes/palettes';
@@ -45,7 +47,7 @@ import imageSource from '../utils/imageSource';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import waitUtil from '../utils/wait';
 
-const defaultProps = { news_id: 138 };
+const defaultProps = { news_id: 139 };
 
 const NewsletterDetailsScreen = props => {
   const { theme, navigation } = props;
@@ -66,6 +68,7 @@ const NewsletterDetailsScreen = props => {
   const [nordic_nl_section_4, setNordic_nl_section_4] = React.useState(
     'nordic_nl_section_4'
   );
+  const [screenCode, setScreenCode] = React.useState('');
   const [selectedID, setSelectedID] = React.useState(0);
   const [showTempDiv, setShowTempDiv] = React.useState(true);
   const [refreshingdAZY73yw, setRefreshingdAZY73yw] = React.useState(false);
@@ -85,6 +88,7 @@ const NewsletterDetailsScreen = props => {
       if (!isFocused) {
         return;
       }
+      setScreenCode(screenNameGen());
       removeGlobalScroll();
       setGlobalVariableValue({
         key: 'pageName',
@@ -168,6 +172,7 @@ const NewsletterDetailsScreen = props => {
           },
         }}
         newsletter_id={props.route?.params?.news_id ?? defaultProps.news_id}
+        screenCode={screenCode}
       >
         {({ loading, error, data, refetchNewsletterEach }) => {
           const fetchData = data?.json;
@@ -666,622 +671,638 @@ const NewsletterDetailsScreen = props => {
                         dimensions.width
                       )}
                     />
-                    {/* View 7 */}
-                    <View
-                      style={StyleSheet.applyWidth(
-                        {
-                          alignItems: 'flex-end',
-                          flexDirection: 'row',
-                          gap: 8,
-                          width: '100%',
-                        },
-                        dimensions.width
-                      )}
-                    >
+                    {/* For Water mark */}
+                    <View>
+                      <WatermarkerBlock />
+                      {/* View 7 */}
+                      <View
+                        style={StyleSheet.applyWidth(
+                          {
+                            alignItems: 'flex-end',
+                            flexDirection: 'row',
+                            gap: 8,
+                            width: '100%',
+                          },
+                          dimensions.width
+                        )}
+                      >
+                        <>
+                          {!(fetchData?.potd !== 0) ? null : (
+                            <View
+                              style={StyleSheet.applyWidth(
+                                { flex: 1 },
+                                dimensions.width
+                              )}
+                            >
+                              <>
+                                {!(fetchData?.potd !== 0) ? null : (
+                                  <H3
+                                    selectable={false}
+                                    {...GlobalStyles.H3Styles(theme)['H3']
+                                      .props}
+                                    style={StyleSheet.applyWidth(
+                                      StyleSheet.compose(
+                                        GlobalStyles.H3Styles(theme)['H3']
+                                          .style,
+                                        {
+                                          alignSelf: 'flex-start',
+                                          fontSize: 16,
+                                          marginBottom: 10,
+                                          marginTop: 0,
+                                          padding: 10,
+                                          textAlign: 'left',
+                                        }
+                                      ),
+                                      dimensions.width
+                                    )}
+                                  >
+                                    {showNKPProp(
+                                      fetchData?._potd?.headline,
+                                      undefined
+                                    )}
+                                  </H3>
+                                )}
+                              </>
+                            </View>
+                          )}
+                        </>
+                      </View>
+                      {/* potd settings */}
                       <>
                         {!(fetchData?.potd !== 0) ? null : (
                           <View
                             style={StyleSheet.applyWidth(
-                              { flex: 1 },
+                              {
+                                gap: 4,
+                                marginBottom: 20,
+                                padding: 10,
+                                width: '100%',
+                              },
                               dimensions.width
                             )}
                           >
-                            <>
-                              {!(fetchData?.potd !== 0) ? null : (
-                                <H3
-                                  selectable={false}
-                                  {...GlobalStyles.H3Styles(theme)['H3'].props}
+                            <View
+                              style={StyleSheet.applyWidth(
+                                { flexDirection: 'row', gap: 8, width: '100%' },
+                                dimensions.width
+                              )}
+                            >
+                              <View
+                                style={StyleSheet.applyWidth(
+                                  { width: 80 },
+                                  dimensions.width
+                                )}
+                              >
+                                {/* Lable */}
+                                <Text
+                                  accessible={true}
+                                  {...GlobalStyles.TextStyles(theme)[
+                                    'screen_title'
+                                  ].props}
+                                  disabled={true}
                                   style={StyleSheet.applyWidth(
                                     StyleSheet.compose(
-                                      GlobalStyles.H3Styles(theme)['H3'].style,
-                                      {
-                                        alignSelf: 'flex-start',
-                                        fontSize: 16,
-                                        marginBottom: 10,
-                                        marginTop: 0,
-                                        padding: 10,
-                                        textAlign: 'left',
-                                      }
+                                      GlobalStyles.TextStyles(theme)[
+                                        'screen_title'
+                                      ].style,
+                                      { fontFamily: 'Quicksand_700Bold' }
                                     ),
                                     dimensions.width
                                   )}
+                                  suppressHighlighting={true}
                                 >
-                                  {showNKPProp(
-                                    fetchData?._potd?.headline,
-                                    undefined
+                                  {'Target:'}
+                                </Text>
+                              </View>
+
+                              <View
+                                style={StyleSheet.applyWidth(
+                                  { flex: 1 },
+                                  dimensions.width
+                                )}
+                              >
+                                {/* Value */}
+                                <Text
+                                  accessible={true}
+                                  {...GlobalStyles.TextStyles(theme)[
+                                    'screen_title'
+                                  ].props}
+                                  disabled={true}
+                                  style={StyleSheet.applyWidth(
+                                    StyleSheet.compose(
+                                      GlobalStyles.TextStyles(theme)[
+                                        'screen_title'
+                                      ].style,
+                                      { fontFamily: 'Quicksand_400Regular' }
+                                    ),
+                                    dimensions.width
                                   )}
-                                </H3>
+                                  suppressHighlighting={true}
+                                >
+                                  {fetchData?._potd?.target}
+                                </Text>
+                              </View>
+                            </View>
+                            {/* View 2 */}
+                            <View
+                              style={StyleSheet.applyWidth(
+                                { flexDirection: 'row', gap: 8, width: '100%' },
+                                dimensions.width
                               )}
-                            </>
+                            >
+                              <View
+                                style={StyleSheet.applyWidth(
+                                  { width: 80 },
+                                  dimensions.width
+                                )}
+                              >
+                                {/* Lable */}
+                                <Text
+                                  accessible={true}
+                                  {...GlobalStyles.TextStyles(theme)[
+                                    'screen_title'
+                                  ].props}
+                                  disabled={true}
+                                  style={StyleSheet.applyWidth(
+                                    StyleSheet.compose(
+                                      GlobalStyles.TextStyles(theme)[
+                                        'screen_title'
+                                      ].style,
+                                      { fontFamily: 'Quicksand_700Bold' }
+                                    ),
+                                    dimensions.width
+                                  )}
+                                  suppressHighlighting={true}
+                                >
+                                  {'Advisor:'}
+                                </Text>
+                              </View>
+
+                              <View
+                                style={StyleSheet.applyWidth(
+                                  { flex: 1 },
+                                  dimensions.width
+                                )}
+                              >
+                                {/* Value */}
+                                <Text
+                                  accessible={true}
+                                  {...GlobalStyles.TextStyles(theme)[
+                                    'screen_title'
+                                  ].props}
+                                  disabled={true}
+                                  style={StyleSheet.applyWidth(
+                                    StyleSheet.compose(
+                                      GlobalStyles.TextStyles(theme)[
+                                        'screen_title'
+                                      ].style,
+                                      { fontFamily: 'Quicksand_400Regular' }
+                                    ),
+                                    dimensions.width
+                                  )}
+                                  suppressHighlighting={true}
+                                >
+                                  {fetchData?._potd?.advisor}
+                                </Text>
+                              </View>
+                            </View>
+                            {/* View 3 */}
+                            <View
+                              style={StyleSheet.applyWidth(
+                                { flexDirection: 'row', gap: 8, width: '100%' },
+                                dimensions.width
+                              )}
+                            >
+                              <View
+                                style={StyleSheet.applyWidth(
+                                  { width: 80 },
+                                  dimensions.width
+                                )}
+                              >
+                                {/* Lable */}
+                                <Text
+                                  accessible={true}
+                                  {...GlobalStyles.TextStyles(theme)[
+                                    'screen_title'
+                                  ].props}
+                                  disabled={true}
+                                  style={StyleSheet.applyWidth(
+                                    StyleSheet.compose(
+                                      GlobalStyles.TextStyles(theme)[
+                                        'screen_title'
+                                      ].style,
+                                      { fontFamily: 'Quicksand_700Bold' }
+                                    ),
+                                    dimensions.width
+                                  )}
+                                  suppressHighlighting={true}
+                                >
+                                  {'Stage:'}
+                                </Text>
+                              </View>
+
+                              <View
+                                style={StyleSheet.applyWidth(
+                                  { flex: 1 },
+                                  dimensions.width
+                                )}
+                              >
+                                {/* Value */}
+                                <Text
+                                  accessible={true}
+                                  {...GlobalStyles.TextStyles(theme)[
+                                    'screen_title'
+                                  ].props}
+                                  disabled={true}
+                                  style={StyleSheet.applyWidth(
+                                    StyleSheet.compose(
+                                      GlobalStyles.TextStyles(theme)[
+                                        'screen_title'
+                                      ].style,
+                                      { fontFamily: 'Quicksand_400Regular' }
+                                    ),
+                                    dimensions.width
+                                  )}
+                                  suppressHighlighting={true}
+                                >
+                                  {fetchData?._potd?.stage}
+                                </Text>
+                              </View>
+                            </View>
+                            {/* View 4 */}
+                            <View
+                              style={StyleSheet.applyWidth(
+                                { flexDirection: 'row', gap: 8, width: '100%' },
+                                dimensions.width
+                              )}
+                            >
+                              <View
+                                style={StyleSheet.applyWidth(
+                                  { width: 80 },
+                                  dimensions.width
+                                )}
+                              >
+                                {/* Lable */}
+                                <Text
+                                  accessible={true}
+                                  {...GlobalStyles.TextStyles(theme)[
+                                    'screen_title'
+                                  ].props}
+                                  disabled={true}
+                                  style={StyleSheet.applyWidth(
+                                    StyleSheet.compose(
+                                      GlobalStyles.TextStyles(theme)[
+                                        'screen_title'
+                                      ].style,
+                                      { fontFamily: 'Quicksand_700Bold' }
+                                    ),
+                                    dimensions.width
+                                  )}
+                                  suppressHighlighting={true}
+                                >
+                                  {'Financials:'}
+                                </Text>
+                              </View>
+
+                              <View
+                                style={StyleSheet.applyWidth(
+                                  { flex: 1 },
+                                  dimensions.width
+                                )}
+                              >
+                                {/* Value */}
+                                <Text
+                                  accessible={true}
+                                  {...GlobalStyles.TextStyles(theme)[
+                                    'screen_title'
+                                  ].props}
+                                  disabled={true}
+                                  style={StyleSheet.applyWidth(
+                                    StyleSheet.compose(
+                                      GlobalStyles.TextStyles(theme)[
+                                        'screen_title'
+                                      ].style,
+                                      { fontFamily: 'Quicksand_400Regular' }
+                                    ),
+                                    dimensions.width
+                                  )}
+                                  suppressHighlighting={true}
+                                >
+                                  {fetchData?._potd?.financials}
+                                </Text>
+                              </View>
+                            </View>
+                            {/* View 5 */}
+                            <View
+                              style={StyleSheet.applyWidth(
+                                { flexDirection: 'row', gap: 8, width: '100%' },
+                                dimensions.width
+                              )}
+                            >
+                              <View
+                                style={StyleSheet.applyWidth(
+                                  { width: 80 },
+                                  dimensions.width
+                                )}
+                              >
+                                {/* Lable */}
+                                <Text
+                                  accessible={true}
+                                  {...GlobalStyles.TextStyles(theme)[
+                                    'screen_title'
+                                  ].props}
+                                  disabled={true}
+                                  style={StyleSheet.applyWidth(
+                                    StyleSheet.compose(
+                                      GlobalStyles.TextStyles(theme)[
+                                        'screen_title'
+                                      ].style,
+                                      { fontFamily: 'Quicksand_700Bold' }
+                                    ),
+                                    dimensions.width
+                                  )}
+                                  suppressHighlighting={true}
+                                >
+                                  {'GICS:'}
+                                </Text>
+                              </View>
+
+                              <View
+                                style={StyleSheet.applyWidth(
+                                  { flex: 1 },
+                                  dimensions.width
+                                )}
+                              >
+                                {/* Value */}
+                                <Text
+                                  accessible={true}
+                                  {...GlobalStyles.TextStyles(theme)[
+                                    'screen_title'
+                                  ].props}
+                                  disabled={true}
+                                  style={StyleSheet.applyWidth(
+                                    StyleSheet.compose(
+                                      GlobalStyles.TextStyles(theme)[
+                                        'screen_title'
+                                      ].style,
+                                      { fontFamily: 'Quicksand_400Regular' }
+                                    ),
+                                    dimensions.width
+                                  )}
+                                  suppressHighlighting={true}
+                                >
+                                  {fetchData?._potd?.gics}
+                                </Text>
+                              </View>
+                            </View>
+                            {/* View 6 */}
+                            <View
+                              style={StyleSheet.applyWidth(
+                                { flexDirection: 'row', gap: 8, width: '100%' },
+                                dimensions.width
+                              )}
+                            >
+                              <View
+                                style={StyleSheet.applyWidth(
+                                  { width: 80 },
+                                  dimensions.width
+                                )}
+                              >
+                                {/* Lable */}
+                                <Text
+                                  accessible={true}
+                                  {...GlobalStyles.TextStyles(theme)[
+                                    'screen_title'
+                                  ].props}
+                                  disabled={true}
+                                  style={StyleSheet.applyWidth(
+                                    StyleSheet.compose(
+                                      GlobalStyles.TextStyles(theme)[
+                                        'screen_title'
+                                      ].style,
+                                      { fontFamily: 'Quicksand_700Bold' }
+                                    ),
+                                    dimensions.width
+                                  )}
+                                  suppressHighlighting={true}
+                                >
+                                  {'HQ:'}
+                                </Text>
+                              </View>
+
+                              <View
+                                style={StyleSheet.applyWidth(
+                                  { flex: 1 },
+                                  dimensions.width
+                                )}
+                              >
+                                {/* Value */}
+                                <Text
+                                  accessible={true}
+                                  {...GlobalStyles.TextStyles(theme)[
+                                    'screen_title'
+                                  ].props}
+                                  disabled={true}
+                                  style={StyleSheet.applyWidth(
+                                    StyleSheet.compose(
+                                      GlobalStyles.TextStyles(theme)[
+                                        'screen_title'
+                                      ].style,
+                                      { fontFamily: 'Quicksand_400Regular' }
+                                    ),
+                                    dimensions.width
+                                  )}
+                                  suppressHighlighting={true}
+                                >
+                                  {fetchData?._potd?.hq}
+                                </Text>
+                              </View>
+                            </View>
+                          </View>
+                        )}
+                      </>
+                      {/* container */}
+                      <>
+                        {!(fetchData?.potd !== 0) ? null : (
+                          <View
+                            style={StyleSheet.applyWidth(
+                              { gap: 20, marginBottom: 20, padding: 10 },
+                              dimensions.width
+                            )}
+                          >
+                            {/* Content */}
+                            <View
+                              style={StyleSheet.applyWidth(
+                                {
+                                  alignItems: 'flex-start',
+                                  flexDirection: 'column',
+                                  gap: 8,
+                                },
+                                dimensions.width
+                              )}
+                            >
+                              {/* Lable */}
+                              <Text
+                                accessible={true}
+                                disabled={true}
+                                style={StyleSheet.applyWidth(
+                                  {
+                                    color: theme.colors.text.light,
+                                    fontFamily: 'Quicksand_500Medium',
+                                    fontSize: 16,
+                                  },
+                                  dimensions.width
+                                )}
+                                suppressHighlighting={true}
+                              >
+                                {'Company profile:'}
+                              </Text>
+                              {/* Value */}
+                              <Text
+                                accessible={true}
+                                {...GlobalStyles.TextStyles(theme)[
+                                  'screen_title'
+                                ].props}
+                                disabled={true}
+                                style={StyleSheet.applyWidth(
+                                  StyleSheet.compose(
+                                    GlobalStyles.TextStyles(theme)[
+                                      'screen_title'
+                                    ].style,
+                                    {
+                                      fontFamily: 'Quicksand_500Medium',
+                                      fontSize: 16,
+                                    }
+                                  ),
+                                  dimensions.width
+                                )}
+                                suppressHighlighting={true}
+                              >
+                                {fetchData?._potd?.story_company_profile}
+                              </Text>
+                            </View>
+                            {/* Content */}
+                            <View
+                              style={StyleSheet.applyWidth(
+                                {
+                                  alignItems: 'flex-start',
+                                  flexDirection: 'column',
+                                  gap: 8,
+                                },
+                                dimensions.width
+                              )}
+                            >
+                              {/* Lable */}
+                              <Text
+                                accessible={true}
+                                {...GlobalStyles.TextStyles(theme)[
+                                  'screen_title'
+                                ].props}
+                                disabled={true}
+                                style={StyleSheet.applyWidth(
+                                  StyleSheet.compose(
+                                    GlobalStyles.TextStyles(theme)[
+                                      'screen_title'
+                                    ].style,
+                                    {
+                                      color: theme.colors.text.light,
+                                      fontFamily: 'Quicksand_500Medium',
+                                      fontSize: 16,
+                                    }
+                                  ),
+                                  dimensions.width
+                                )}
+                                suppressHighlighting={true}
+                              >
+                                {'The opportunity:'}
+                              </Text>
+                              {/* Value */}
+                              <Text
+                                accessible={true}
+                                {...GlobalStyles.TextStyles(theme)[
+                                  'screen_title'
+                                ].props}
+                                disabled={true}
+                                style={StyleSheet.applyWidth(
+                                  StyleSheet.compose(
+                                    GlobalStyles.TextStyles(theme)[
+                                      'screen_title'
+                                    ].style,
+                                    {
+                                      fontFamily: 'Quicksand_500Medium',
+                                      fontSize: 16,
+                                    }
+                                  ),
+                                  dimensions.width
+                                )}
+                                suppressHighlighting={true}
+                              >
+                                {fetchData?._potd?.story_opportunity}
+                              </Text>
+                            </View>
+                            {/* Content */}
+                            <View
+                              style={StyleSheet.applyWidth(
+                                {
+                                  alignItems: 'flex-start',
+                                  flexDirection: 'column',
+                                  gap: 8,
+                                },
+                                dimensions.width
+                              )}
+                            >
+                              {/* Lable */}
+                              <Text
+                                accessible={true}
+                                {...GlobalStyles.TextStyles(theme)[
+                                  'screen_title'
+                                ].props}
+                                disabled={true}
+                                style={StyleSheet.applyWidth(
+                                  StyleSheet.compose(
+                                    GlobalStyles.TextStyles(theme)[
+                                      'screen_title'
+                                    ].style,
+                                    {
+                                      color: theme.colors.text.light,
+                                      fontFamily: 'Quicksand_500Medium',
+                                      fontSize: 16,
+                                    }
+                                  ),
+                                  dimensions.width
+                                )}
+                                suppressHighlighting={true}
+                              >
+                                {'Comps & precedents:'}
+                              </Text>
+                              {/* Value */}
+                              <Text
+                                accessible={true}
+                                {...GlobalStyles.TextStyles(theme)[
+                                  'screen_title'
+                                ].props}
+                                disabled={true}
+                                style={StyleSheet.applyWidth(
+                                  StyleSheet.compose(
+                                    GlobalStyles.TextStyles(theme)[
+                                      'screen_title'
+                                    ].style,
+                                    {
+                                      fontFamily: 'Quicksand_500Medium',
+                                      fontSize: 16,
+                                    }
+                                  ),
+                                  dimensions.width
+                                )}
+                                suppressHighlighting={true}
+                              >
+                                {fetchData?._potd?.story_comps}
+                              </Text>
+                            </View>
                           </View>
                         )}
                       </>
                     </View>
-                    {/* potd settings */}
-                    <>
-                      {!(fetchData?.potd !== 0) ? null : (
-                        <View
-                          style={StyleSheet.applyWidth(
-                            {
-                              gap: 4,
-                              marginBottom: 20,
-                              padding: 10,
-                              width: '100%',
-                            },
-                            dimensions.width
-                          )}
-                        >
-                          <View
-                            style={StyleSheet.applyWidth(
-                              { flexDirection: 'row', gap: 8, width: '100%' },
-                              dimensions.width
-                            )}
-                          >
-                            <View
-                              style={StyleSheet.applyWidth(
-                                { width: 80 },
-                                dimensions.width
-                              )}
-                            >
-                              {/* Lable */}
-                              <Text
-                                accessible={true}
-                                {...GlobalStyles.TextStyles(theme)[
-                                  'screen_title'
-                                ].props}
-                                disabled={true}
-                                style={StyleSheet.applyWidth(
-                                  StyleSheet.compose(
-                                    GlobalStyles.TextStyles(theme)[
-                                      'screen_title'
-                                    ].style,
-                                    { fontFamily: 'Quicksand_700Bold' }
-                                  ),
-                                  dimensions.width
-                                )}
-                                suppressHighlighting={true}
-                              >
-                                {'Target:'}
-                              </Text>
-                            </View>
-
-                            <View
-                              style={StyleSheet.applyWidth(
-                                { flex: 1 },
-                                dimensions.width
-                              )}
-                            >
-                              {/* Value */}
-                              <Text
-                                accessible={true}
-                                {...GlobalStyles.TextStyles(theme)[
-                                  'screen_title'
-                                ].props}
-                                disabled={true}
-                                style={StyleSheet.applyWidth(
-                                  StyleSheet.compose(
-                                    GlobalStyles.TextStyles(theme)[
-                                      'screen_title'
-                                    ].style,
-                                    { fontFamily: 'Quicksand_400Regular' }
-                                  ),
-                                  dimensions.width
-                                )}
-                                suppressHighlighting={true}
-                              >
-                                {fetchData?._potd?.target}
-                              </Text>
-                            </View>
-                          </View>
-                          {/* View 2 */}
-                          <View
-                            style={StyleSheet.applyWidth(
-                              { flexDirection: 'row', gap: 8, width: '100%' },
-                              dimensions.width
-                            )}
-                          >
-                            <View
-                              style={StyleSheet.applyWidth(
-                                { width: 80 },
-                                dimensions.width
-                              )}
-                            >
-                              {/* Lable */}
-                              <Text
-                                accessible={true}
-                                {...GlobalStyles.TextStyles(theme)[
-                                  'screen_title'
-                                ].props}
-                                disabled={true}
-                                style={StyleSheet.applyWidth(
-                                  StyleSheet.compose(
-                                    GlobalStyles.TextStyles(theme)[
-                                      'screen_title'
-                                    ].style,
-                                    { fontFamily: 'Quicksand_700Bold' }
-                                  ),
-                                  dimensions.width
-                                )}
-                                suppressHighlighting={true}
-                              >
-                                {'Advisor:'}
-                              </Text>
-                            </View>
-
-                            <View
-                              style={StyleSheet.applyWidth(
-                                { flex: 1 },
-                                dimensions.width
-                              )}
-                            >
-                              {/* Value */}
-                              <Text
-                                accessible={true}
-                                {...GlobalStyles.TextStyles(theme)[
-                                  'screen_title'
-                                ].props}
-                                disabled={true}
-                                style={StyleSheet.applyWidth(
-                                  StyleSheet.compose(
-                                    GlobalStyles.TextStyles(theme)[
-                                      'screen_title'
-                                    ].style,
-                                    { fontFamily: 'Quicksand_400Regular' }
-                                  ),
-                                  dimensions.width
-                                )}
-                                suppressHighlighting={true}
-                              >
-                                {fetchData?._potd?.advisor}
-                              </Text>
-                            </View>
-                          </View>
-                          {/* View 3 */}
-                          <View
-                            style={StyleSheet.applyWidth(
-                              { flexDirection: 'row', gap: 8, width: '100%' },
-                              dimensions.width
-                            )}
-                          >
-                            <View
-                              style={StyleSheet.applyWidth(
-                                { width: 80 },
-                                dimensions.width
-                              )}
-                            >
-                              {/* Lable */}
-                              <Text
-                                accessible={true}
-                                {...GlobalStyles.TextStyles(theme)[
-                                  'screen_title'
-                                ].props}
-                                disabled={true}
-                                style={StyleSheet.applyWidth(
-                                  StyleSheet.compose(
-                                    GlobalStyles.TextStyles(theme)[
-                                      'screen_title'
-                                    ].style,
-                                    { fontFamily: 'Quicksand_700Bold' }
-                                  ),
-                                  dimensions.width
-                                )}
-                                suppressHighlighting={true}
-                              >
-                                {'Stage:'}
-                              </Text>
-                            </View>
-
-                            <View
-                              style={StyleSheet.applyWidth(
-                                { flex: 1 },
-                                dimensions.width
-                              )}
-                            >
-                              {/* Value */}
-                              <Text
-                                accessible={true}
-                                {...GlobalStyles.TextStyles(theme)[
-                                  'screen_title'
-                                ].props}
-                                disabled={true}
-                                style={StyleSheet.applyWidth(
-                                  StyleSheet.compose(
-                                    GlobalStyles.TextStyles(theme)[
-                                      'screen_title'
-                                    ].style,
-                                    { fontFamily: 'Quicksand_400Regular' }
-                                  ),
-                                  dimensions.width
-                                )}
-                                suppressHighlighting={true}
-                              >
-                                {fetchData?._potd?.stage}
-                              </Text>
-                            </View>
-                          </View>
-                          {/* View 4 */}
-                          <View
-                            style={StyleSheet.applyWidth(
-                              { flexDirection: 'row', gap: 8, width: '100%' },
-                              dimensions.width
-                            )}
-                          >
-                            <View
-                              style={StyleSheet.applyWidth(
-                                { width: 80 },
-                                dimensions.width
-                              )}
-                            >
-                              {/* Lable */}
-                              <Text
-                                accessible={true}
-                                {...GlobalStyles.TextStyles(theme)[
-                                  'screen_title'
-                                ].props}
-                                disabled={true}
-                                style={StyleSheet.applyWidth(
-                                  StyleSheet.compose(
-                                    GlobalStyles.TextStyles(theme)[
-                                      'screen_title'
-                                    ].style,
-                                    { fontFamily: 'Quicksand_700Bold' }
-                                  ),
-                                  dimensions.width
-                                )}
-                                suppressHighlighting={true}
-                              >
-                                {'Financials:'}
-                              </Text>
-                            </View>
-
-                            <View
-                              style={StyleSheet.applyWidth(
-                                { flex: 1 },
-                                dimensions.width
-                              )}
-                            >
-                              {/* Value */}
-                              <Text
-                                accessible={true}
-                                {...GlobalStyles.TextStyles(theme)[
-                                  'screen_title'
-                                ].props}
-                                disabled={true}
-                                style={StyleSheet.applyWidth(
-                                  StyleSheet.compose(
-                                    GlobalStyles.TextStyles(theme)[
-                                      'screen_title'
-                                    ].style,
-                                    { fontFamily: 'Quicksand_400Regular' }
-                                  ),
-                                  dimensions.width
-                                )}
-                                suppressHighlighting={true}
-                              >
-                                {fetchData?._potd?.financials}
-                              </Text>
-                            </View>
-                          </View>
-                          {/* View 5 */}
-                          <View
-                            style={StyleSheet.applyWidth(
-                              { flexDirection: 'row', gap: 8, width: '100%' },
-                              dimensions.width
-                            )}
-                          >
-                            <View
-                              style={StyleSheet.applyWidth(
-                                { width: 80 },
-                                dimensions.width
-                              )}
-                            >
-                              {/* Lable */}
-                              <Text
-                                accessible={true}
-                                {...GlobalStyles.TextStyles(theme)[
-                                  'screen_title'
-                                ].props}
-                                disabled={true}
-                                style={StyleSheet.applyWidth(
-                                  StyleSheet.compose(
-                                    GlobalStyles.TextStyles(theme)[
-                                      'screen_title'
-                                    ].style,
-                                    { fontFamily: 'Quicksand_700Bold' }
-                                  ),
-                                  dimensions.width
-                                )}
-                                suppressHighlighting={true}
-                              >
-                                {'GICS:'}
-                              </Text>
-                            </View>
-
-                            <View
-                              style={StyleSheet.applyWidth(
-                                { flex: 1 },
-                                dimensions.width
-                              )}
-                            >
-                              {/* Value */}
-                              <Text
-                                accessible={true}
-                                {...GlobalStyles.TextStyles(theme)[
-                                  'screen_title'
-                                ].props}
-                                disabled={true}
-                                style={StyleSheet.applyWidth(
-                                  StyleSheet.compose(
-                                    GlobalStyles.TextStyles(theme)[
-                                      'screen_title'
-                                    ].style,
-                                    { fontFamily: 'Quicksand_400Regular' }
-                                  ),
-                                  dimensions.width
-                                )}
-                                suppressHighlighting={true}
-                              >
-                                {fetchData?._potd?.gics}
-                              </Text>
-                            </View>
-                          </View>
-                          {/* View 6 */}
-                          <View
-                            style={StyleSheet.applyWidth(
-                              { flexDirection: 'row', gap: 8, width: '100%' },
-                              dimensions.width
-                            )}
-                          >
-                            <View
-                              style={StyleSheet.applyWidth(
-                                { width: 80 },
-                                dimensions.width
-                              )}
-                            >
-                              {/* Lable */}
-                              <Text
-                                accessible={true}
-                                {...GlobalStyles.TextStyles(theme)[
-                                  'screen_title'
-                                ].props}
-                                disabled={true}
-                                style={StyleSheet.applyWidth(
-                                  StyleSheet.compose(
-                                    GlobalStyles.TextStyles(theme)[
-                                      'screen_title'
-                                    ].style,
-                                    { fontFamily: 'Quicksand_700Bold' }
-                                  ),
-                                  dimensions.width
-                                )}
-                                suppressHighlighting={true}
-                              >
-                                {'HQ:'}
-                              </Text>
-                            </View>
-
-                            <View
-                              style={StyleSheet.applyWidth(
-                                { flex: 1 },
-                                dimensions.width
-                              )}
-                            >
-                              {/* Value */}
-                              <Text
-                                accessible={true}
-                                {...GlobalStyles.TextStyles(theme)[
-                                  'screen_title'
-                                ].props}
-                                disabled={true}
-                                style={StyleSheet.applyWidth(
-                                  StyleSheet.compose(
-                                    GlobalStyles.TextStyles(theme)[
-                                      'screen_title'
-                                    ].style,
-                                    { fontFamily: 'Quicksand_400Regular' }
-                                  ),
-                                  dimensions.width
-                                )}
-                                suppressHighlighting={true}
-                              >
-                                {fetchData?._potd?.hq}
-                              </Text>
-                            </View>
-                          </View>
-                        </View>
-                      )}
-                    </>
-                    {/* container */}
-                    <>
-                      {!(fetchData?.potd !== 0) ? null : (
-                        <View
-                          style={StyleSheet.applyWidth(
-                            { gap: 20, marginBottom: 20, padding: 10 },
-                            dimensions.width
-                          )}
-                        >
-                          {/* Content */}
-                          <View
-                            style={StyleSheet.applyWidth(
-                              {
-                                alignItems: 'flex-start',
-                                flexDirection: 'column',
-                                gap: 8,
-                              },
-                              dimensions.width
-                            )}
-                          >
-                            {/* Lable */}
-                            <Text
-                              accessible={true}
-                              disabled={true}
-                              style={StyleSheet.applyWidth(
-                                {
-                                  color: theme.colors.text.light,
-                                  fontFamily: 'Quicksand_500Medium',
-                                  fontSize: 16,
-                                },
-                                dimensions.width
-                              )}
-                              suppressHighlighting={true}
-                            >
-                              {'Company profile:'}
-                            </Text>
-                            {/* Value */}
-                            <Text
-                              accessible={true}
-                              {...GlobalStyles.TextStyles(theme)['screen_title']
-                                .props}
-                              disabled={true}
-                              style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.TextStyles(theme)['screen_title']
-                                    .style,
-                                  {
-                                    fontFamily: 'Quicksand_500Medium',
-                                    fontSize: 16,
-                                  }
-                                ),
-                                dimensions.width
-                              )}
-                              suppressHighlighting={true}
-                            >
-                              {fetchData?._potd?.story_company_profile}
-                            </Text>
-                          </View>
-                          {/* Content */}
-                          <View
-                            style={StyleSheet.applyWidth(
-                              {
-                                alignItems: 'flex-start',
-                                flexDirection: 'column',
-                                gap: 8,
-                              },
-                              dimensions.width
-                            )}
-                          >
-                            {/* Lable */}
-                            <Text
-                              accessible={true}
-                              {...GlobalStyles.TextStyles(theme)['screen_title']
-                                .props}
-                              disabled={true}
-                              style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.TextStyles(theme)['screen_title']
-                                    .style,
-                                  {
-                                    color: theme.colors.text.light,
-                                    fontFamily: 'Quicksand_500Medium',
-                                    fontSize: 16,
-                                  }
-                                ),
-                                dimensions.width
-                              )}
-                              suppressHighlighting={true}
-                            >
-                              {'The opportunity:'}
-                            </Text>
-                            {/* Value */}
-                            <Text
-                              accessible={true}
-                              {...GlobalStyles.TextStyles(theme)['screen_title']
-                                .props}
-                              disabled={true}
-                              style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.TextStyles(theme)['screen_title']
-                                    .style,
-                                  {
-                                    fontFamily: 'Quicksand_500Medium',
-                                    fontSize: 16,
-                                  }
-                                ),
-                                dimensions.width
-                              )}
-                              suppressHighlighting={true}
-                            >
-                              {fetchData?._potd?.story_opportunity}
-                            </Text>
-                          </View>
-                          {/* Content */}
-                          <View
-                            style={StyleSheet.applyWidth(
-                              {
-                                alignItems: 'flex-start',
-                                flexDirection: 'column',
-                                gap: 8,
-                              },
-                              dimensions.width
-                            )}
-                          >
-                            {/* Lable */}
-                            <Text
-                              accessible={true}
-                              {...GlobalStyles.TextStyles(theme)['screen_title']
-                                .props}
-                              disabled={true}
-                              style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.TextStyles(theme)['screen_title']
-                                    .style,
-                                  {
-                                    color: theme.colors.text.light,
-                                    fontFamily: 'Quicksand_500Medium',
-                                    fontSize: 16,
-                                  }
-                                ),
-                                dimensions.width
-                              )}
-                              suppressHighlighting={true}
-                            >
-                              {'Comps & precedents:'}
-                            </Text>
-                            {/* Value */}
-                            <Text
-                              accessible={true}
-                              {...GlobalStyles.TextStyles(theme)['screen_title']
-                                .props}
-                              disabled={true}
-                              style={StyleSheet.applyWidth(
-                                StyleSheet.compose(
-                                  GlobalStyles.TextStyles(theme)['screen_title']
-                                    .style,
-                                  {
-                                    fontFamily: 'Quicksand_500Medium',
-                                    fontSize: 16,
-                                  }
-                                ),
-                                dimensions.width
-                              )}
-                              suppressHighlighting={true}
-                            >
-                              {fetchData?._potd?.story_comps}
-                            </Text>
-                          </View>
-                        </View>
-                      )}
-                    </>
                     {/* Listed comparable */}
                     <>
                       {!fetchData?._potd?._peer_group ? null : (
@@ -1872,6 +1893,15 @@ const NewsletterDetailsScreen = props => {
                                               dimensions.width
                                             )}
                                           >
+                                            <>
+                                              {!listData?.source
+                                                ?.toLowerCase()
+                                                .includes(
+                                                  'proprietary'
+                                                ) ? null : (
+                                                <WatermarkerBlock />
+                                              )}
+                                            </>
                                             <HStack
                                               {...GlobalStyles.HStackStyles(
                                                 theme
@@ -1935,24 +1965,31 @@ const NewsletterDetailsScreen = props => {
                                               </Text>
                                             </HStack>
                                             {/* View 3 */}
-                                            <View>
-                                              <Text
-                                                accessible={true}
-                                                disabled={true}
-                                                style={StyleSheet.applyWidth(
-                                                  {
-                                                    color:
-                                                      theme.colors.text.strong,
-                                                    fontFamily:
-                                                      'Quicksand_400Regular',
-                                                  },
-                                                  dimensions.width
-                                                )}
-                                                suppressHighlighting={true}
-                                              >
-                                                {listData?.description}
-                                              </Text>
-                                            </View>
+                                            <>
+                                              {(fetchData?.title).includes(
+                                                "This Week's"
+                                              ) ? null : (
+                                                <View>
+                                                  <Text
+                                                    accessible={true}
+                                                    disabled={true}
+                                                    style={StyleSheet.applyWidth(
+                                                      {
+                                                        color:
+                                                          theme.colors.text
+                                                            .strong,
+                                                        fontFamily:
+                                                          'Quicksand_400Regular',
+                                                      },
+                                                      dimensions.width
+                                                    )}
+                                                    suppressHighlighting={true}
+                                                  >
+                                                    {listData?.description}
+                                                  </Text>
+                                                </View>
+                                              )}
+                                            </>
                                             {/* View 2 */}
                                             <View>
                                               {/* Text 2 */}
@@ -2180,24 +2217,31 @@ const NewsletterDetailsScreen = props => {
                                               </Text>
                                             </HStack>
                                             {/* View 3 */}
-                                            <View>
-                                              <Text
-                                                accessible={true}
-                                                disabled={true}
-                                                style={StyleSheet.applyWidth(
-                                                  {
-                                                    color:
-                                                      theme.colors.text.strong,
-                                                    fontFamily:
-                                                      'Quicksand_400Regular',
-                                                  },
-                                                  dimensions.width
-                                                )}
-                                                suppressHighlighting={true}
-                                              >
-                                                {listData?.description}
-                                              </Text>
-                                            </View>
+                                            <>
+                                              {(fetchData?.title).includes(
+                                                "This Week's"
+                                              ) ? null : (
+                                                <View>
+                                                  <Text
+                                                    accessible={true}
+                                                    disabled={true}
+                                                    style={StyleSheet.applyWidth(
+                                                      {
+                                                        color:
+                                                          theme.colors.text
+                                                            .strong,
+                                                        fontFamily:
+                                                          'Quicksand_400Regular',
+                                                      },
+                                                      dimensions.width
+                                                    )}
+                                                    suppressHighlighting={true}
+                                                  >
+                                                    {listData?.description}
+                                                  </Text>
+                                                </View>
+                                              )}
+                                            </>
                                             {/* View 2 */}
                                             <View>
                                               {/* Text 2 */}
@@ -2219,6 +2263,15 @@ const NewsletterDetailsScreen = props => {
                                                 {listData?.source}
                                               </Text>
                                             </View>
+                                            <>
+                                              {!listData?.source
+                                                ?.toLowerCase()
+                                                .includes(
+                                                  'proprietary'
+                                                ) ? null : (
+                                                <WatermarkerBlock />
+                                              )}
+                                            </>
                                           </View>
                                         </Pressable>
                                       </View>
@@ -2414,24 +2467,31 @@ const NewsletterDetailsScreen = props => {
                                               </Text>
                                             </HStack>
                                             {/* View 3 */}
-                                            <View>
-                                              <Text
-                                                accessible={true}
-                                                disabled={true}
-                                                style={StyleSheet.applyWidth(
-                                                  {
-                                                    color:
-                                                      theme.colors.text.strong,
-                                                    fontFamily:
-                                                      'Quicksand_400Regular',
-                                                  },
-                                                  dimensions.width
-                                                )}
-                                                suppressHighlighting={true}
-                                              >
-                                                {listData?.description}
-                                              </Text>
-                                            </View>
+                                            <>
+                                              {(fetchData?.title).includes(
+                                                "This Week's"
+                                              ) ? null : (
+                                                <View>
+                                                  <Text
+                                                    accessible={true}
+                                                    disabled={true}
+                                                    style={StyleSheet.applyWidth(
+                                                      {
+                                                        color:
+                                                          theme.colors.text
+                                                            .strong,
+                                                        fontFamily:
+                                                          'Quicksand_400Regular',
+                                                      },
+                                                      dimensions.width
+                                                    )}
+                                                    suppressHighlighting={true}
+                                                  >
+                                                    {listData?.description}
+                                                  </Text>
+                                                </View>
+                                              )}
+                                            </>
                                             {/* View 2 */}
                                             <View>
                                               <Text
@@ -2451,6 +2511,15 @@ const NewsletterDetailsScreen = props => {
                                                 {listData?.source}
                                               </Text>
                                             </View>
+                                            <>
+                                              {!listData?.source
+                                                ?.toLowerCase()
+                                                .includes(
+                                                  'proprietary'
+                                                ) ? null : (
+                                                <WatermarkerBlock />
+                                              )}
+                                            </>
                                           </View>
                                         </Pressable>
                                       </View>
@@ -2666,24 +2735,31 @@ const NewsletterDetailsScreen = props => {
                                               </Text>
                                             </HStack>
                                             {/* View 3 */}
-                                            <View>
-                                              <Text
-                                                accessible={true}
-                                                disabled={true}
-                                                style={StyleSheet.applyWidth(
-                                                  {
-                                                    color:
-                                                      theme.colors.text.strong,
-                                                    fontFamily:
-                                                      'Quicksand_400Regular',
-                                                  },
-                                                  dimensions.width
-                                                )}
-                                                suppressHighlighting={true}
-                                              >
-                                                {listData?.description}
-                                              </Text>
-                                            </View>
+                                            <>
+                                              {(fetchData?.title).includes(
+                                                "This Week's"
+                                              ) ? null : (
+                                                <View>
+                                                  <Text
+                                                    accessible={true}
+                                                    disabled={true}
+                                                    style={StyleSheet.applyWidth(
+                                                      {
+                                                        color:
+                                                          theme.colors.text
+                                                            .strong,
+                                                        fontFamily:
+                                                          'Quicksand_400Regular',
+                                                      },
+                                                      dimensions.width
+                                                    )}
+                                                    suppressHighlighting={true}
+                                                  >
+                                                    {listData?.description}
+                                                  </Text>
+                                                </View>
+                                              )}
+                                            </>
                                             {/* View 2 */}
                                             <View>
                                               <Text
@@ -2716,6 +2792,15 @@ const NewsletterDetailsScreen = props => {
                                                 {listData?.source}
                                               </Text>
                                             </View>
+                                            <>
+                                              {!listData?.source
+                                                ?.toLowerCase()
+                                                .includes(
+                                                  'proprietary'
+                                                ) ? null : (
+                                                <WatermarkerBlock />
+                                              )}
+                                            </>
                                           </View>
                                         </Pressable>
                                       </View>
@@ -2950,50 +3035,67 @@ const NewsletterDetailsScreen = props => {
                                                     </Text>
                                                   </View>
                                                   {/* View 3 */}
-                                                  <View>
-                                                    <Text
-                                                      accessible={true}
-                                                      disabled={true}
-                                                      style={StyleSheet.applyWidth(
-                                                        {
-                                                          color:
-                                                            theme.colors.text
-                                                              .strong,
-                                                          fontFamily:
-                                                            'Quicksand_400Regular',
-                                                        },
-                                                        dimensions.width
-                                                      )}
-                                                      suppressHighlighting={
-                                                        true
-                                                      }
-                                                    >
-                                                      {listData?.description}
-                                                    </Text>
-                                                    {/* View 4 */}
-                                                    <View>
-                                                      <Text
-                                                        accessible={true}
-                                                        disabled={true}
-                                                        style={StyleSheet.applyWidth(
+                                                  <>
+                                                    {(fetchData?.title).includes(
+                                                      "This Week's"
+                                                    ) ? null : (
+                                                      <View>
+                                                        <Text
+                                                          accessible={true}
+                                                          disabled={true}
+                                                          style={StyleSheet.applyWidth(
+                                                            {
+                                                              color:
+                                                                theme.colors
+                                                                  .text.strong,
+                                                              fontFamily:
+                                                                'Quicksand_400Regular',
+                                                            },
+                                                            dimensions.width
+                                                          )}
+                                                          suppressHighlighting={
+                                                            true
+                                                          }
+                                                        >
                                                           {
-                                                            color:
-                                                              palettes.App
-                                                                .Orange,
-                                                            fontFamily:
-                                                              'Quicksand_400Regular',
-                                                          },
-                                                          dimensions.width
-                                                        )}
-                                                        suppressHighlighting={
-                                                          true
-                                                        }
-                                                      >
-                                                        {'Source: '}
-                                                        {listData?.source}
-                                                      </Text>
-                                                    </View>
-                                                  </View>
+                                                            listData?.description
+                                                          }
+                                                        </Text>
+                                                        {/* View 4 */}
+                                                        <View>
+                                                          <Text
+                                                            accessible={true}
+                                                            disabled={true}
+                                                            style={StyleSheet.applyWidth(
+                                                              {
+                                                                color:
+                                                                  palettes.App
+                                                                    .Orange,
+                                                                fontFamily:
+                                                                  'Quicksand_400Regular',
+                                                              },
+                                                              dimensions.width
+                                                            )}
+                                                            suppressHighlighting={
+                                                              true
+                                                            }
+                                                          >
+                                                            {'Source: '}
+                                                            {listData?.source}
+                                                          </Text>
+                                                        </View>
+                                                      </View>
+                                                    )}
+                                                  </>
+                                                  <>
+                                                    {!listData?.source
+                                                      ?.toLowerCase()
+                                                      .includes(
+                                                        'proprietary'
+                                                      ) ? null : (
+                                                      <WatermarkerBlock />
+                                                    )}
+                                                  </>
                                                 </View>
                                               </Pressable>
                                             </View>
@@ -3231,25 +3333,33 @@ const NewsletterDetailsScreen = props => {
                                                   </Text>
                                                 </View>
                                                 {/* View 3 */}
-                                                <View>
-                                                  <Text
-                                                    accessible={true}
-                                                    disabled={true}
-                                                    style={StyleSheet.applyWidth(
-                                                      {
-                                                        color:
-                                                          theme.colors.text
-                                                            .strong,
-                                                        fontFamily:
-                                                          'Quicksand_400Regular',
-                                                      },
-                                                      dimensions.width
-                                                    )}
-                                                    suppressHighlighting={true}
-                                                  >
-                                                    {listData?.description}
-                                                  </Text>
-                                                </View>
+                                                <>
+                                                  {(fetchData?.title).includes(
+                                                    "This Week's"
+                                                  ) ? null : (
+                                                    <View>
+                                                      <Text
+                                                        accessible={true}
+                                                        disabled={true}
+                                                        style={StyleSheet.applyWidth(
+                                                          {
+                                                            color:
+                                                              theme.colors.text
+                                                                .strong,
+                                                            fontFamily:
+                                                              'Quicksand_400Regular',
+                                                          },
+                                                          dimensions.width
+                                                        )}
+                                                        suppressHighlighting={
+                                                          true
+                                                        }
+                                                      >
+                                                        {listData?.description}
+                                                      </Text>
+                                                    </View>
+                                                  )}
+                                                </>
                                                 {/* View 5 */}
                                                 <View>
                                                   <Text
@@ -3270,6 +3380,15 @@ const NewsletterDetailsScreen = props => {
                                                     {listData?.source}
                                                   </Text>
                                                 </View>
+                                                <>
+                                                  {!listData?.source
+                                                    ?.toLowerCase()
+                                                    .includes(
+                                                      'proprietary'
+                                                    ) ? null : (
+                                                    <WatermarkerBlock />
+                                                  )}
+                                                </>
                                               </View>
                                             </Pressable>
                                           </View>
@@ -3498,26 +3617,34 @@ const NewsletterDetailsScreen = props => {
                                                   </Text>
                                                 </View>
                                                 {/* View 3 */}
-                                                <View>
-                                                  <Text
-                                                    accessible={true}
-                                                    disabled={true}
-                                                    style={StyleSheet.applyWidth(
-                                                      {
-                                                        color:
-                                                          theme.colors.text
-                                                            .strong,
-                                                        fontFamily:
-                                                          'Quicksand_400Regular',
-                                                        textAlign: 'left',
-                                                      },
-                                                      dimensions.width
-                                                    )}
-                                                    suppressHighlighting={true}
-                                                  >
-                                                    {listData?.description}
-                                                  </Text>
-                                                </View>
+                                                <>
+                                                  {(fetchData?.title).includes(
+                                                    "This Week's"
+                                                  ) ? null : (
+                                                    <View>
+                                                      <Text
+                                                        accessible={true}
+                                                        disabled={true}
+                                                        style={StyleSheet.applyWidth(
+                                                          {
+                                                            color:
+                                                              theme.colors.text
+                                                                .strong,
+                                                            fontFamily:
+                                                              'Quicksand_400Regular',
+                                                            textAlign: 'left',
+                                                          },
+                                                          dimensions.width
+                                                        )}
+                                                        suppressHighlighting={
+                                                          true
+                                                        }
+                                                      >
+                                                        {listData?.description}
+                                                      </Text>
+                                                    </View>
+                                                  )}
+                                                </>
                                                 {/* View 5 */}
                                                 <View>
                                                   <Text
@@ -3538,6 +3665,15 @@ const NewsletterDetailsScreen = props => {
                                                     {listData?.source}
                                                   </Text>
                                                 </View>
+                                                <>
+                                                  {!listData?.source
+                                                    ?.toLowerCase()
+                                                    .includes(
+                                                      'proprietary'
+                                                    ) ? null : (
+                                                    <WatermarkerBlock />
+                                                  )}
+                                                </>
                                               </View>
                                             </Pressable>
                                           </View>

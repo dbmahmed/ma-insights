@@ -25,6 +25,7 @@ import deviceType from '../global-functions/deviceType';
 import isNKPProp from '../global-functions/isNKPProp';
 import removeGlobalScroll from '../global-functions/removeGlobalScroll';
 import resetAccess from '../global-functions/resetAccess';
+import screenNameGen from '../global-functions/screenNameGen';
 import showNKPProp from '../global-functions/showNKPProp';
 import transformEuroM from '../global-functions/transformEuroM';
 import transformNumber from '../global-functions/transformNumber';
@@ -42,6 +43,7 @@ const EventDetailsScreen = props => {
   const Constants = GlobalVariables.useValues();
   const Variables = Constants;
   const setGlobalVariableValue = GlobalVariables.useSetValue();
+  const [screenCode, setScreenCode] = React.useState('');
   const getListNameFormArray = array => {
     return array.map(item => item?.name).join(', ');
   };
@@ -51,6 +53,7 @@ const EventDetailsScreen = props => {
       if (!isFocused) {
         return;
       }
+      setScreenCode(screenNameGen());
       removeGlobalScroll();
       setGlobalVariableValue({
         key: 'currentScreen',
@@ -101,6 +104,7 @@ const EventDetailsScreen = props => {
           Platform.OS === 'android'
         )}
         event_id={props.route?.params?.event_id ?? defaultProps.event_id}
+        screenCode={screenCode}
       >
         {({ loading, error, data, refetchGetOneEvent }) => {
           const fetchData = data?.json;

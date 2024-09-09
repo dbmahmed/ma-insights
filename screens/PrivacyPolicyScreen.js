@@ -13,6 +13,7 @@ import CustomHeaderBlock from '../components/CustomHeaderBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import assessAccess from '../global-functions/assessAccess';
 import removeGlobalScroll from '../global-functions/removeGlobalScroll';
+import screenNameGen from '../global-functions/screenNameGen';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
@@ -28,6 +29,7 @@ const PrivacyPolicyScreen = props => {
   const [ebitdaRange, setEbitdaRange] = React.useState([]);
   const [filterPressed, setFilterPressed] = React.useState(false);
   const [keywordSearch, setKeywordSearch] = React.useState('');
+  const [screenCode, setScreenCode] = React.useState('');
   const [sector, setSector] = React.useState([]);
   const isFocused = useIsFocused();
   React.useEffect(() => {
@@ -35,6 +37,7 @@ const PrivacyPolicyScreen = props => {
       if (!isFocused) {
         return;
       }
+      setScreenCode(screenNameGen());
       setGlobalVariableValue({
         key: 'pageName',
         value: 'Privacy Policy',
