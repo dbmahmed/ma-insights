@@ -29,7 +29,6 @@ import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
 import CustomBottomNavBlock from '../components/CustomBottomNavBlock';
 import CustomHeaderBlock from '../components/CustomHeaderBlock';
 import EventDetailsModalBlock from '../components/EventDetailsModalBlock';
-import WatermarkerBlock from '../components/WatermarkerBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import Images from '../config/Images';
 import assessAccess from '../global-functions/assessAccess';
@@ -673,7 +672,6 @@ const NewsletterDetailsScreen = props => {
                     />
                     {/* For Water mark */}
                     <View>
-                      <WatermarkerBlock />
                       {/* View 7 */}
                       <View
                         style={StyleSheet.applyWidth(
@@ -1893,15 +1891,6 @@ const NewsletterDetailsScreen = props => {
                                               dimensions.width
                                             )}
                                           >
-                                            <>
-                                              {!listData?.source
-                                                ?.toLowerCase()
-                                                .includes(
-                                                  'proprietary'
-                                                ) ? null : (
-                                                <WatermarkerBlock />
-                                              )}
-                                            </>
                                             <HStack
                                               {...GlobalStyles.HStackStyles(
                                                 theme
@@ -2263,15 +2252,6 @@ const NewsletterDetailsScreen = props => {
                                                 {listData?.source}
                                               </Text>
                                             </View>
-                                            <>
-                                              {!listData?.source
-                                                ?.toLowerCase()
-                                                .includes(
-                                                  'proprietary'
-                                                ) ? null : (
-                                                <WatermarkerBlock />
-                                              )}
-                                            </>
                                           </View>
                                         </Pressable>
                                       </View>
@@ -2511,15 +2491,6 @@ const NewsletterDetailsScreen = props => {
                                                 {listData?.source}
                                               </Text>
                                             </View>
-                                            <>
-                                              {!listData?.source
-                                                ?.toLowerCase()
-                                                .includes(
-                                                  'proprietary'
-                                                ) ? null : (
-                                                <WatermarkerBlock />
-                                              )}
-                                            </>
                                           </View>
                                         </Pressable>
                                       </View>
@@ -2792,15 +2763,6 @@ const NewsletterDetailsScreen = props => {
                                                 {listData?.source}
                                               </Text>
                                             </View>
-                                            <>
-                                              {!listData?.source
-                                                ?.toLowerCase()
-                                                .includes(
-                                                  'proprietary'
-                                                ) ? null : (
-                                                <WatermarkerBlock />
-                                              )}
-                                            </>
                                           </View>
                                         </Pressable>
                                       </View>
@@ -3087,15 +3049,6 @@ const NewsletterDetailsScreen = props => {
                                                       </View>
                                                     )}
                                                   </>
-                                                  <>
-                                                    {!listData?.source
-                                                      ?.toLowerCase()
-                                                      .includes(
-                                                        'proprietary'
-                                                      ) ? null : (
-                                                      <WatermarkerBlock />
-                                                    )}
-                                                  </>
                                                 </View>
                                               </Pressable>
                                             </View>
@@ -3380,15 +3333,6 @@ const NewsletterDetailsScreen = props => {
                                                     {listData?.source}
                                                   </Text>
                                                 </View>
-                                                <>
-                                                  {!listData?.source
-                                                    ?.toLowerCase()
-                                                    .includes(
-                                                      'proprietary'
-                                                    ) ? null : (
-                                                    <WatermarkerBlock />
-                                                  )}
-                                                </>
                                               </View>
                                             </Pressable>
                                           </View>
@@ -3665,15 +3609,6 @@ const NewsletterDetailsScreen = props => {
                                                     {listData?.source}
                                                   </Text>
                                                 </View>
-                                                <>
-                                                  {!listData?.source
-                                                    ?.toLowerCase()
-                                                    .includes(
-                                                      'proprietary'
-                                                    ) ? null : (
-                                                    <WatermarkerBlock />
-                                                  )}
-                                                </>
                                               </View>
                                             </Pressable>
                                           </View>

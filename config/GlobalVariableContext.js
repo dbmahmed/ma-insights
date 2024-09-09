@@ -38,6 +38,7 @@ export const DeviceVariables = {
   __env__: 'Production',
 };
 export const AppVariables = {
+  AUTH_USER: '',
   'Bearer Token': 'UNSET',
   speciaities: ['All', 'Heart', 'Cardiology', 'Neurologist', 'dermatologist'],
   WATCHED_EVENT_IDX: -1,
