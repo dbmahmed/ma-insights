@@ -5,6 +5,7 @@ import {
   KeyboardAvoidingView,
   Link,
   ScreenContainer,
+  SimpleStyleKeyboardAwareScrollView,
   Surface,
   TextInput,
   VStack,
@@ -20,7 +21,6 @@ import Images from '../config/Images';
 import assessAccess from '../global-functions/assessAccess';
 import deviceType from '../global-functions/deviceType';
 import removeGlobalScroll from '../global-functions/removeGlobalScroll';
-import setAccessToken from '../global-functions/setAccessToken';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
@@ -28,7 +28,7 @@ import imageSource from '../utils/imageSource';
 import parseBoolean from '../utils/parseBoolean';
 import useWindowDimensions from '../utils/useWindowDimensions';
 
-const defaultProps = { message: null };
+const defaultProps = { email: null, message: null };
 
 const LogInScreen = props => {
   const { theme, navigation } = props;
@@ -71,26 +71,32 @@ const LogInScreen = props => {
         return;
       }
       console.log('Start ON_SCREEN_FOCUS:0 SET_VARIABLE');
+      setEmailVarl(props.route?.params?.email ?? defaultProps.email);
+      console.log('Complete ON_SCREEN_FOCUS:0 SET_VARIABLE');
+      console.log('Start ON_SCREEN_FOCUS:1 SET_VARIABLE');
       setGlobalVariableValue({
         key: 'top_nav_pressed',
         value: false,
       });
-      console.log('Complete ON_SCREEN_FOCUS:0 SET_VARIABLE');
-      console.log('Start ON_SCREEN_FOCUS:1 CONSOLE_LOG');
+      console.log('Complete ON_SCREEN_FOCUS:1 SET_VARIABLE');
+      console.log('Start ON_SCREEN_FOCUS:2 CONSOLE_LOG');
       /* hidden 'Log to Console' action */ console.log(
-        'Complete ON_SCREEN_FOCUS:1 CONSOLE_LOG'
+        'Complete ON_SCREEN_FOCUS:2 CONSOLE_LOG'
       );
-      console.log('Start ON_SCREEN_FOCUS:2 CONDITIONAL_STOP');
+      console.log('Start ON_SCREEN_FOCUS:3 CONDITIONAL_STOP');
       if (assessAccess(Variables, setGlobalVariableValue) === false) {
-        return console.log('Complete ON_SCREEN_FOCUS:2 CONDITIONAL_STOP');
+        return console.log('Complete ON_SCREEN_FOCUS:3 CONDITIONAL_STOP');
       } else {
         console.log(
-          'Skipped ON_SCREEN_FOCUS:2 CONDITIONAL_STOP: condition not met'
+          'Skipped ON_SCREEN_FOCUS:3 CONDITIONAL_STOP: condition not met'
         );
       }
-      console.log('Start ON_SCREEN_FOCUS:4 CUSTOM_FUNCTION');
+      console.log('Start ON_SCREEN_FOCUS:4 SET_VARIABLE');
+      setEmailVarl(props.route?.params?.email ?? defaultProps.email);
+      console.log('Complete ON_SCREEN_FOCUS:4 SET_VARIABLE');
+      console.log('Start ON_SCREEN_FOCUS:5 CUSTOM_FUNCTION');
       removeGlobalScroll();
-      console.log('Complete ON_SCREEN_FOCUS:4 CUSTOM_FUNCTION');
+      console.log('Complete ON_SCREEN_FOCUS:5 CUSTOM_FUNCTION');
     } catch (err) {
       console.error(err);
       error = err.message ?? err;
@@ -219,10 +225,13 @@ const LogInScreen = props => {
         </VStack>
       </View>
 
-      <KeyboardAvoidingView
-        enabled={true}
-        keyboardVerticalOffset={0}
-        behavior={'position'}
+      <SimpleStyleKeyboardAwareScrollView
+        enableOnAndroid={false}
+        enableResetScrollToCoords={false}
+        viewIsInsideTabBar={false}
+        enableAutomaticScroll={true}
+        keyboardShouldPersistTaps={'always'}
+        showsVerticalScrollIndicator={false}
       >
         {/* Login Window */}
         <View
@@ -291,53 +300,15 @@ const LogInScreen = props => {
                       }
                     }}
                     onSubmitEditing={() => {
-                      const handler = async () => {
-                        console.log('Email ON_SUBMIT_EDITING Start');
-                        let error = null;
-                        try {
-                          console.log(
-                            'Start ON_SUBMIT_EDITING:0 TEXT_INPUT_FOCUS'
-                          );
-                          /* hidden 'Focus Text Input' action */ console.log(
-                            'Complete ON_SUBMIT_EDITING:0 TEXT_INPUT_FOCUS'
-                          );
-                          console.log(
-                            'Start ON_SUBMIT_EDITING:1 DISMISS_KEYBOARD'
-                          );
-                          /* hidden 'Dismiss Keyboard' action */ console.log(
-                            'Complete ON_SUBMIT_EDITING:1 DISMISS_KEYBOARD'
-                          );
-                          console.log('Start ON_SUBMIT_EDITING:2 SET_VARIABLE');
-                          setEnterPressed(true);
-                          console.log(
-                            'Complete ON_SUBMIT_EDITING:2 SET_VARIABLE'
-                          );
-                          console.log(
-                            'Start ON_SUBMIT_EDITING:3 FETCH_REQUEST'
-                          );
-                          const signIn = (
-                            await XanoResetPassApi.initialLoginGET(Constants, {
-                              email: emailVarl,
-                            })
-                          )?.json;
-                          console.log(
-                            'Complete ON_SUBMIT_EDITING:3 FETCH_REQUEST',
-                            { signIn }
-                          );
-                          console.log('Start ON_SUBMIT_EDITING:4 IF');
-                          /* hidden 'If/Else' action */ console.log(
-                            'Complete ON_SUBMIT_EDITING:4 IF'
-                          );
-                        } catch (err) {
-                          console.error(err);
-                          error = err.message ?? err;
-                        }
-                        console.log(
-                          'Email ON_SUBMIT_EDITING Complete',
-                          error ? { error } : 'no error'
-                        );
-                      };
-                      handler();
+                      try {
+                        passwordyUSI8C8SRef.current.focus();
+                        /* hidden 'Dismiss Keyboard' action */
+                        /* hidden 'Set Variable' action */
+                        /* hidden 'API Request' action */
+                        /* hidden 'If/Else' action */
+                      } catch (err) {
+                        console.error(err);
+                      }
                     }}
                     webShowOutline={true}
                     {...GlobalStyles.TextInputStyles(theme)['Login Text Style']
@@ -369,146 +340,85 @@ const LogInScreen = props => {
                     )}
                     value={emailVarl}
                   />
-                  {/* Enter Email */}
-                  <>
-                    {!(emailEntered === false) ? null : (
-                      <Button
-                        iconPosition={'left'}
-                        onPress={() => {
-                          const handler = async () => {
-                            console.log('Enter Email ON_PRESS Start');
-                            let error = null;
-                            try {
-                              console.log('Start ON_PRESS:0 CUSTOM_FUNCTION');
-                              const validEmail = loginFormValidator();
-                              console.log(
-                                'Complete ON_PRESS:0 CUSTOM_FUNCTION',
-                                { validEmail }
-                              );
-                              console.log('Start ON_PRESS:1 CONDITIONAL_STOP');
-                              if (validEmail === false) {
-                                return console.log(
-                                  'Complete ON_PRESS:1 CONDITIONAL_STOP'
-                                );
-                              } else {
-                                console.log(
-                                  'Skipped ON_PRESS:1 CONDITIONAL_STOP: condition not met'
-                                );
-                              }
-                              console.log('Start ON_PRESS:2 SET_VARIABLE');
-                              setEnterPressed(true);
-                              console.log('Complete ON_PRESS:2 SET_VARIABLE');
-                              console.log('Start ON_PRESS:3 FETCH_REQUEST');
-                              const signIn = (
-                                await XanoResetPassApi.initialLoginGET(
-                                  Constants,
-                                  { email: emailVarl }
-                                )
-                              )?.json;
-                              console.log('Complete ON_PRESS:3 FETCH_REQUEST', {
-                                signIn,
-                              });
-                              console.log('Start ON_PRESS:4 IF');
-                              if (signIn?.email !== null) {
-                                setErrorMessage('');
-                                if (signIn?.Initial_Login_Complete === true) {
-                                  setEmailEntered(true);
-                                } else {
-                                  setFirstLogin(true);
-                                  setFirstLogin(true);
-                                  setEmailVarl('');
-                                }
-                              } else {
-                                setErrorMessage(signIn?.message);
-                              }
-                              console.log('Complete ON_PRESS:4 IF');
-                            } catch (err) {
-                              console.error(err);
-                              error = err.message ?? err;
-                            }
-                            console.log(
-                              'Enter Email ON_PRESS Complete',
-                              error ? { error } : 'no error'
-                            );
-                          };
-                          handler();
-                        }}
-                        {...GlobalStyles.ButtonStyles(theme)['Button'].props}
-                        disabled={emailVarl === ''}
-                        loading={emailEntered}
-                        style={StyleSheet.applyWidth(
-                          StyleSheet.compose(
-                            GlobalStyles.ButtonStyles(theme)['Button'].style,
-                            {
-                              fontFamily: 'Quicksand_600SemiBold',
-                              marginLeft: 10,
-                              marginRight: 10,
-                              marginTop: 10,
-                            }
-                          ),
-                          dimensions.width
-                        )}
-                        title={'Enter'}
-                      />
-                    )}
-                  </>
                   {/* Password */}
-                  <>
-                    {!emailEntered ? null : (
-                      <TextInput
-                        autoCapitalize={'none'}
-                        changeTextDelay={500}
-                        onBlur={() => {
-                          try {
-                            /* hidden 'Dismiss Keyboard' action */
-                          } catch (err) {
-                            console.error(err);
+                  <TextInput
+                    autoCapitalize={'none'}
+                    changeTextDelay={500}
+                    onBlur={() => {
+                      try {
+                        /* hidden 'Dismiss Keyboard' action */
+                      } catch (err) {
+                        console.error(err);
+                      }
+                    }}
+                    onChangeText={newPasswordValue => {
+                      try {
+                        setPasswordVarl(newPasswordValue);
+                      } catch (err) {
+                        console.error(err);
+                      }
+                    }}
+                    onSubmitEditing={() => {
+                      const handler = async () => {
+                        try {
+                          Keyboard.dismiss();
+                          setLogInPressed(true);
+                          if (!loginFormValidator()) {
+                            return;
                           }
-                        }}
-                        onChangeText={newPasswordValue => {
-                          try {
-                            setPasswordVarl(newPasswordValue);
-                          } catch (err) {
-                            console.error(err);
+                          const Xano_Auth = (
+                            await XanoCollectionApi.loginPOST(Constants, {
+                              deviceType: deviceType(
+                                Platform.OS === 'web',
+                                Platform.OS === 'ios',
+                                Platform.OS === 'android'
+                              ),
+                              email: emailVarl,
+                              password: passwordVarl,
+                            })
+                          )?.json;
+                          const savedToken = Xano_Auth?.authToken;
+                          const message = Xano_Auth?.message;
+                          setErrorMessage(message);
+                          setLogInPressed(false);
+                          if (!savedToken) {
+                            return;
                           }
-                        }}
-                        onSubmitEditing={() => {
-                          try {
-                            /* hidden 'Dismiss Keyboard' action */
-                            /* hidden 'API Request' action */
-                            /* hidden 'If/Else' action */
-                          } catch (err) {
-                            console.error(err);
-                          }
-                        }}
-                        webShowOutline={true}
-                        {...GlobalStyles.TextInputStyles(theme)['Text Input']
-                          .props}
-                        autoCorrect={false}
-                        placeholder={'Enter password...'}
-                        placeholderTextColor={theme.colors.text.medium}
-                        ref={passwordyUSI8C8SRef}
-                        returnKeyLabel={'Login'}
-                        returnKeyType={'go'}
-                        secureTextEntry={true}
-                        spellcheck={true}
-                        style={StyleSheet.applyWidth(
-                          StyleSheet.compose(
-                            GlobalStyles.TextInputStyles(theme)['Text Input']
-                              .style,
-                            {
-                              borderColor: theme.colors.text.strong,
-                              fontFamily: 'Quicksand_400Regular',
-                              margin: 10,
-                              padding: 10,
-                            }
-                          ),
-                          dimensions.width
-                        )}
-                        value={passwordVarl}
-                      />
+                          setGlobalVariableValue({
+                            key: 'AUTH_HEADER',
+                            value: 'Bearer ' + savedToken,
+                          });
+                          navigation.navigate('SplashScreen');
+                        } catch (err) {
+                          console.error(err);
+                        }
+                      };
+                      handler();
+                    }}
+                    webShowOutline={true}
+                    {...GlobalStyles.TextInputStyles(theme)['Text Input'].props}
+                    autoCorrect={false}
+                    placeholder={'Enter password...'}
+                    placeholderTextColor={theme.colors.text.medium}
+                    ref={passwordyUSI8C8SRef}
+                    returnKeyLabel={'Login'}
+                    returnKeyType={'go'}
+                    secureTextEntry={true}
+                    spellcheck={true}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.TextInputStyles(theme)['Text Input'].style,
+                        {
+                          borderColor: theme.colors.text.strong,
+                          fontFamily: 'Quicksand_400Regular',
+                          margin: 10,
+                          padding: 10,
+                        }
+                      ),
+                      dimensions.width
                     )}
-                  </>
+                    value={passwordVarl}
+                  />
                   {/* err message */}
                   <>
                     {!errorMessage ? null : (
@@ -534,73 +444,68 @@ const LogInScreen = props => {
                     )}
                   </>
                   {/* Login */}
-                  <>
-                    {!emailEntered ? null : (
-                      <Button
-                        iconPosition={'left'}
-                        onPress={() => {
-                          const handler = async () => {
-                            try {
-                              setLogInPressed(true);
-                              if (!loginFormValidator()) {
-                                return;
-                              }
-                              const Xano_Auth = (
-                                await XanoCollectionApi.loginPOST(Constants, {
-                                  deviceType: deviceType(
-                                    Platform.OS === 'web',
-                                    Platform.OS === 'ios',
-                                    Platform.OS === 'android'
-                                  ),
-                                  email: emailVarl,
-                                  password: passwordVarl,
-                                })
-                              )?.json;
-                              console.log('XANO_AUTH', Xano_Auth);
-                              /* hidden 'Run a Custom Function' action */
-                              const savedToken = Xano_Auth?.authToken;
-                              const message = Xano_Auth?.message;
-                              setErrorMessage(message);
-                              setLogInPressed(false);
-                              if (!savedToken) {
-                                return;
-                              }
-                              setGlobalVariableValue({
-                                key: 'AUTH_HEADER',
-                                value: 'Bearer ' + savedToken,
-                              });
-                              /* hidden 'API Request' action */
-                              navigation.navigate('SplashScreen');
-                            } catch (err) {
-                              console.error(err);
-                            }
-                          };
-                          handler();
-                        }}
-                        {...GlobalStyles.ButtonStyles(theme)['Button'].props}
-                        disabled={emailVarl === '' || passwordVarl === ''}
-                        loading={parseBoolean(LogInPressed)}
-                        style={StyleSheet.applyWidth(
-                          StyleSheet.compose(
-                            GlobalStyles.ButtonStyles(theme)['Button'].style,
-                            {
-                              fontFamily: 'Quicksand_600SemiBold',
-                              marginLeft: 10,
-                              marginRight: 10,
-                              marginTop: 10,
-                            }
-                          ),
-                          dimensions.width
-                        )}
-                        title={'Log In'}
-                      />
+                  <Button
+                    iconPosition={'left'}
+                    onPress={() => {
+                      const handler = async () => {
+                        try {
+                          setLogInPressed(true);
+                          if (!loginFormValidator()) {
+                            return;
+                          }
+                          const Xano_Auth = (
+                            await XanoCollectionApi.loginPOST(Constants, {
+                              deviceType: deviceType(
+                                Platform.OS === 'web',
+                                Platform.OS === 'ios',
+                                Platform.OS === 'android'
+                              ),
+                              email: emailVarl,
+                              password: passwordVarl,
+                            })
+                          )?.json;
+                          const savedToken = Xano_Auth?.authToken;
+                          const message = Xano_Auth?.message;
+                          setErrorMessage(message);
+                          setLogInPressed(false);
+                          if (!savedToken) {
+                            return;
+                          }
+                          setGlobalVariableValue({
+                            key: 'AUTH_HEADER',
+                            value: 'Bearer ' + savedToken,
+                          });
+                          navigation.navigate('SplashScreen');
+                        } catch (err) {
+                          console.error(err);
+                        }
+                      };
+                      handler();
+                    }}
+                    {...GlobalStyles.ButtonStyles(theme)['Button'].props}
+                    disabled={emailVarl === '' || passwordVarl === ''}
+                    loading={parseBoolean(LogInPressed)}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.ButtonStyles(theme)['Button'].style,
+                        {
+                          fontFamily: 'Quicksand_600SemiBold',
+                          marginLeft: 10,
+                          marginRight: 10,
+                          marginTop: 10,
+                        }
+                      ),
+                      dimensions.width
                     )}
-                  </>
+                    title={'Log In'}
+                  />
                   <Link
                     accessible={true}
                     onPress={() => {
                       try {
-                        navigation.push('ForgotPasswordScreen');
+                        navigation.push('ForgotPasswordScreen', {
+                          email: emailVarl,
+                        });
                       } catch (err) {
                         console.error(err);
                       }
@@ -619,7 +524,7 @@ const LogInScreen = props => {
                       ),
                       dimensions.width
                     )}
-                    title={'Reset Password'}
+                    title={'Reset password/activate account'}
                   />
                   {/* Request Demo */}
                   <Button
@@ -681,7 +586,7 @@ const LogInScreen = props => {
             </>
           </Surface>
         </View>
-      </KeyboardAvoidingView>
+      </SimpleStyleKeyboardAwareScrollView>
     </ScreenContainer>
   );
 };

@@ -34,8 +34,10 @@ import CustomBottomNavBlock from '../components/CustomBottomNavBlock';
 import CustomHeaderBlock from '../components/CustomHeaderBlock';
 import EventDetailsModalBlock from '../components/EventDetailsModalBlock';
 import LoadingBlock from '../components/LoadingBlock';
+import WatermarkerBlock from '../components/WatermarkerBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import Images from '../config/Images';
+import * as ExpoScreenCapture from '../custom-files/ExpoScreenCapture';
 import assessAccess from '../global-functions/assessAccess';
 import deviceType from '../global-functions/deviceType';
 import isNKPProp from '../global-functions/isNKPProp';
@@ -235,6 +237,7 @@ const AllEventsScreen = props => {
     setRow((regions || []).includes('RoW'));
     setDach((regions || []).includes('DACH'));
   };
+  ExpoScreenCapture.useScreenShoot();
   const isFocused = useIsFocused();
   React.useEffect(() => {
     try {
@@ -275,6 +278,10 @@ const AllEventsScreen = props => {
       }
       navigation.replace('LogInScreen');
       resetAccess(navigation, Variables, setGlobalVariableValue);
+      setGlobalVariableValue({
+        key: 'SS_SCREEN_NAME',
+        value: 'AllEvents',
+      });
     } catch (err) {
       console.error(err);
     }
@@ -822,12 +829,26 @@ const AllEventsScreen = props => {
                               dimensions.width
                             )}
                           >
+                            <>
+                              {!listData?.source
+                                ?.toLowerCase()
+                                .includes('proprietary') ? null : (
+                                <WatermarkerBlock />
+                              )}
+                            </>
                             <Touchable
                               onPress={() => {
                                 try {
                                   /* hidden 'Navigate' action */
                                   /* hidden 'Set Variable' action */
-                                  setViewingEventId(listData?.id);
+
+                                  const valueP1z8rKBd = listData?.id;
+                                  setViewingEventId(valueP1z8rKBd);
+                                  const thisId = valueP1z8rKBd;
+                                  setGlobalVariableValue({
+                                    key: 'SS_SCREEN_NAME',
+                                    value: 'EventsDetials:' + thisId,
+                                  });
                                 } catch (err) {
                                   console.error(err);
                                 }
@@ -1174,6 +1195,13 @@ const AllEventsScreen = props => {
                               dimensions.width
                             )}
                           >
+                            <>
+                              {!listLargerData?.source
+                                ?.toLowerCase()
+                                .includes('proprietary') ? null : (
+                                <WatermarkerBlock />
+                              )}
+                            </>
                             <Touchable
                               onPress={() => {
                                 try {

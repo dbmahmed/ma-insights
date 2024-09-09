@@ -4,7 +4,8 @@ const onScreenShotCapture = async Variables => {
     SS_SCREEN_NAME,
     ME: { email, name },
   } = Variables;
-  if (SEND_SS_NOTIF) {
+  console.log(SS_SCREEN_NAME);
+  if (SS_SCREEN_NAME) {
     const rest = (
       await xanoCollectionSendScreenshotNotficationPOST.mutateAsync({
         details: SS_SCREEN_NAME,

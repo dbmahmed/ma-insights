@@ -40,7 +40,9 @@ export const DeviceVariables = {
 export const AppVariables = {
   AUTH_USER: '',
   'Bearer Token': 'UNSET',
+  SEND_SS_NOTIF: '',
   speciaities: ['All', 'Heart', 'Cardiology', 'Neurologist', 'dermatologist'],
+  SS_SCREEN_NAME: '',
   WATCHED_EVENT_IDX: -1,
 };
 const GlobalVariableContext = React.createContext();

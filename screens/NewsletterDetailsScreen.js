@@ -29,8 +29,10 @@ import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
 import CustomBottomNavBlock from '../components/CustomBottomNavBlock';
 import CustomHeaderBlock from '../components/CustomHeaderBlock';
 import EventDetailsModalBlock from '../components/EventDetailsModalBlock';
+import WatermarkerBlock from '../components/WatermarkerBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import Images from '../config/Images';
+import * as ExpoScreenCapture from '../custom-files/ExpoScreenCapture';
 import assessAccess from '../global-functions/assessAccess';
 import deviceType from '../global-functions/deviceType';
 import isNKPProp from '../global-functions/isNKPProp';
@@ -81,33 +83,56 @@ const NewsletterDetailsScreen = props => {
     // Return the formatted string
     return `${minutes}:${formattedSeconds}`;
   };
+  ExpoScreenCapture.useScreenShoot();
+  const xanoCollectionSendScreenshotNotficationPOST =
+    XanoCollectionApi.useSendScreenshotNotficationPOST();
   const isFocused = useIsFocused();
   React.useEffect(() => {
-    try {
-      if (!isFocused) {
-        return;
+    const handler = async () => {
+      try {
+        if (!isFocused) {
+          return;
+        }
+        setScreenCode(screenNameGen());
+        removeGlobalScroll();
+        setGlobalVariableValue({
+          key: 'pageName',
+          value: 'Newsletter Details',
+        });
+        setGlobalVariableValue({
+          key: 'subPage',
+          value: true,
+        });
+        if (assessAccess(Variables, setGlobalVariableValue) === true) {
+          return;
+        }
+        resetAccess(navigation, Variables, setGlobalVariableValue);
+        if (navigation.canGoBack()) {
+          navigation.popToTop();
+        }
+        navigation.replace('LogInScreen');
+        setGlobalVariableValue({
+          key: 'SS_SCREEN_NAME',
+          value:
+            'NewsletterDetails' +
+            ("':'" +
+              (
+                props.route?.params?.news_id ?? defaultProps.news_id
+              ).toString()),
+        });
+        (
+          await xanoCollectionSendScreenshotNotficationPOST.mutateAsync({
+            details: 'EventDetailsScreen',
+            email: 'test',
+            name: 'test',
+            ts: 'test',
+          })
+        )?.json;
+      } catch (err) {
+        console.error(err);
       }
-      setScreenCode(screenNameGen());
-      removeGlobalScroll();
-      setGlobalVariableValue({
-        key: 'pageName',
-        value: 'Newsletter Details',
-      });
-      setGlobalVariableValue({
-        key: 'subPage',
-        value: true,
-      });
-      if (assessAccess(Variables, setGlobalVariableValue) === true) {
-        return;
-      }
-      resetAccess(navigation, Variables, setGlobalVariableValue);
-      if (navigation.canGoBack()) {
-        navigation.popToTop();
-      }
-      navigation.replace('LogInScreen');
-    } catch (err) {
-      console.error(err);
-    }
+    };
+    handler();
   }, [isFocused]);
   const audioPlayerSIxP9tJTRef = React.useRef();
   const audioPlayerHLcphF9xu9Ref = React.useRef();
@@ -672,6 +697,7 @@ const NewsletterDetailsScreen = props => {
                     />
                     {/* For Water mark */}
                     <View>
+                      <WatermarkerBlock />
                       {/* View 7 */}
                       <View
                         style={StyleSheet.applyWidth(
@@ -1891,6 +1917,15 @@ const NewsletterDetailsScreen = props => {
                                               dimensions.width
                                             )}
                                           >
+                                            <>
+                                              {!listData?.source
+                                                ?.toLowerCase()
+                                                .includes(
+                                                  'proprietary'
+                                                ) ? null : (
+                                                <WatermarkerBlock />
+                                              )}
+                                            </>
                                             <HStack
                                               {...GlobalStyles.HStackStyles(
                                                 theme
@@ -2252,6 +2287,15 @@ const NewsletterDetailsScreen = props => {
                                                 {listData?.source}
                                               </Text>
                                             </View>
+                                            <>
+                                              {!listData?.source
+                                                ?.toLowerCase()
+                                                .includes(
+                                                  'proprietary'
+                                                ) ? null : (
+                                                <WatermarkerBlock />
+                                              )}
+                                            </>
                                           </View>
                                         </Pressable>
                                       </View>
@@ -2491,6 +2535,15 @@ const NewsletterDetailsScreen = props => {
                                                 {listData?.source}
                                               </Text>
                                             </View>
+                                            <>
+                                              {!listData?.source
+                                                ?.toLowerCase()
+                                                .includes(
+                                                  'proprietary'
+                                                ) ? null : (
+                                                <WatermarkerBlock />
+                                              )}
+                                            </>
                                           </View>
                                         </Pressable>
                                       </View>
@@ -2763,6 +2816,15 @@ const NewsletterDetailsScreen = props => {
                                                 {listData?.source}
                                               </Text>
                                             </View>
+                                            <>
+                                              {!listData?.source
+                                                ?.toLowerCase()
+                                                .includes(
+                                                  'proprietary'
+                                                ) ? null : (
+                                                <WatermarkerBlock />
+                                              )}
+                                            </>
                                           </View>
                                         </Pressable>
                                       </View>
@@ -3049,6 +3111,15 @@ const NewsletterDetailsScreen = props => {
                                                       </View>
                                                     )}
                                                   </>
+                                                  <>
+                                                    {!listData?.source
+                                                      ?.toLowerCase()
+                                                      .includes(
+                                                        'proprietary'
+                                                      ) ? null : (
+                                                      <WatermarkerBlock />
+                                                    )}
+                                                  </>
                                                 </View>
                                               </Pressable>
                                             </View>
@@ -3333,6 +3404,15 @@ const NewsletterDetailsScreen = props => {
                                                     {listData?.source}
                                                   </Text>
                                                 </View>
+                                                <>
+                                                  {!listData?.source
+                                                    ?.toLowerCase()
+                                                    .includes(
+                                                      'proprietary'
+                                                    ) ? null : (
+                                                    <WatermarkerBlock />
+                                                  )}
+                                                </>
                                               </View>
                                             </Pressable>
                                           </View>
@@ -3609,6 +3689,15 @@ const NewsletterDetailsScreen = props => {
                                                     {listData?.source}
                                                   </Text>
                                                 </View>
+                                                <>
+                                                  {!listData?.source
+                                                    ?.toLowerCase()
+                                                    .includes(
+                                                      'proprietary'
+                                                    ) ? null : (
+                                                    <WatermarkerBlock />
+                                                  )}
+                                                </>
                                               </View>
                                             </Pressable>
                                           </View>

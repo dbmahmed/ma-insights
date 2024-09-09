@@ -104,6 +104,12 @@ const SplashScreen = props => {
           /* hidden 'API Request' action */
         }
         console.log('Complete ON_SCREEN_FOCUS:6 IF');
+        console.log('Start ON_SCREEN_FOCUS:7 SET_VARIABLE');
+        setGlobalVariableValue({
+          key: 'SS_SCREEN_NAME',
+          value: null,
+        });
+        console.log('Complete ON_SCREEN_FOCUS:7 SET_VARIABLE');
       } catch (err) {
         console.error(err);
         error = err.message ?? err;

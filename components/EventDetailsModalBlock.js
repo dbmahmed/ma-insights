@@ -27,6 +27,7 @@ import { Fetch } from 'react-request';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
 import LoadingBlock from '../components/LoadingBlock';
+import WatermarkerBlock from '../components/WatermarkerBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import Images from '../config/Images';
 import cutTextByWidth from '../global-functions/cutTextByWidth';
@@ -365,6 +366,13 @@ const EventDetailsModalBlock = props => {
                 >
                   {/* View 3 */}
                   <View>
+                    <>
+                      {!fetchData?.source
+                        ?.toLowerCase()
+                        .includes('proprietary') ? null : (
+                        <WatermarkerBlock />
+                      )}
+                    </>
                     <HStack
                       {...GlobalStyles.HStackStyles(theme)['H Stack'].props}
                       style={StyleSheet.applyWidth(

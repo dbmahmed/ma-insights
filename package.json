@@ -52,6 +52,7 @@
     "expo-linking": "~6.2.2",
     "expo-notifications": "~0.27.7",
     "expo-permissions": "~14.4.0",
+    "expo-screen-capture": "~5.8.1",
     "expo-screen-orientation": "~6.4.1",
     "expo-sharing": "~11.10.0",
     "expo-splash-screen": "~0.26.4",
