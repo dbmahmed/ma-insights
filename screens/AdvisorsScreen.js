@@ -45,6 +45,8 @@ import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import waitUtil from '../utils/wait';
 
+const defaultProps = { corporate_finance: null };
+
 const AdvisorsScreen = props => {
   const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
@@ -244,6 +246,7 @@ line two` ) and will not work with special characters inside of quotes ( example
                       ),
                       dimensions.width
                     )}
+                    suppressHighlighting={true}
                   >
                     {
                       "Please fill in this Sheets/Excel template and send to ma@nordicknowledgepartners.com - then we'll make sure to credit you as an advisor accordingly."
@@ -887,6 +890,7 @@ line two` ) and will not work with special characters inside of quotes ( example
                           ),
                           dimensions.width
                         )}
+                        suppressHighlighting={true}
                       >
                         {fetchData?.itemsTotal}{' '}
                         {fetchData?.itemsTotal > 1 ? 'advisors' : 'advisor'}
@@ -1073,6 +1077,7 @@ line two` ) and will not work with special characters inside of quotes ( example
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {listData?.name}
                               </Text>
@@ -1095,6 +1100,7 @@ line two` ) and will not work with special characters inside of quotes ( example
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {listData?.type}
                               </Text>
@@ -1125,6 +1131,7 @@ line two` ) and will not work with special characters inside of quotes ( example
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {typeAdvisor?.toUpperCase()}
                                 {' YTD: '}
@@ -1175,6 +1182,7 @@ line two` ) and will not work with special characters inside of quotes ( example
                                     ),
                                     dimensions.width
                                   )}
+                                  suppressHighlighting={true}
                                 >
                                   {typeAdvisor?.toUpperCase()}
                                   {' LY: '}

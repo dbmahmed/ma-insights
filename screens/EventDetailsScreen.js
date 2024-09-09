@@ -34,6 +34,8 @@ import * as StyleSheet from '../utils/StyleSheet';
 import imageSource from '../utils/imageSource';
 import useWindowDimensions from '../utils/useWindowDimensions';
 
+const defaultProps = { event_id: 1 };
+
 const EventDetailsScreen = props => {
   const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
@@ -60,7 +62,7 @@ const EventDetailsScreen = props => {
       });
       setGlobalVariableValue({
         key: 'screenParamValue',
-        value: props.route?.params?.event_id ?? 1,
+        value: props.route?.params?.event_id ?? defaultProps.event_id,
       });
       setGlobalVariableValue({
         key: 'pageName',
@@ -98,7 +100,7 @@ const EventDetailsScreen = props => {
           Platform.OS === 'ios',
           Platform.OS === 'android'
         )}
-        event_id={props.route?.params?.event_id ?? 1}
+        event_id={props.route?.params?.event_id ?? defaultProps.event_id}
       >
         {({ loading, error, data, refetchGetOneEvent }) => {
           const fetchData = data?.json;
@@ -180,7 +182,7 @@ const EventDetailsScreen = props => {
                       GlobalStyles.TextStyles(theme)['screen_title'].style,
                       dimensions.width
                     )}
-                    suppressHighlighting={false}
+                    suppressHighlighting={true}
                   >
                     {fetchData?.description}
                   </Text>
@@ -275,6 +277,7 @@ const EventDetailsScreen = props => {
                             ),
                             dimensions.width
                           )}
+                          suppressHighlighting={true}
                         >
                           {'Event type:'}
                         </Text>
@@ -301,6 +304,7 @@ const EventDetailsScreen = props => {
                             ),
                             dimensions.width
                           )}
+                          suppressHighlighting={true}
                         >
                           {fetchData?.event_type}
                         </Text>
@@ -339,6 +343,7 @@ const EventDetailsScreen = props => {
                             ),
                             dimensions.width
                           )}
+                          suppressHighlighting={true}
                         >
                           {'Source:'}
                         </Text>
@@ -365,6 +370,7 @@ const EventDetailsScreen = props => {
                             ),
                             dimensions.width
                           )}
+                          suppressHighlighting={true}
                         >
                           {fetchData?.source}
                         </Text>
@@ -403,6 +409,7 @@ const EventDetailsScreen = props => {
                             ),
                             dimensions.width
                           )}
+                          suppressHighlighting={true}
                         >
                           {'Source link:'}
                         </Text>
@@ -465,6 +472,7 @@ const EventDetailsScreen = props => {
                                 ),
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {'-'}
                             </Text>
@@ -505,6 +513,7 @@ const EventDetailsScreen = props => {
                             ),
                             dimensions.width
                           )}
+                          suppressHighlighting={true}
                         >
                           {'Target:'}
                         </Text>
@@ -531,6 +540,7 @@ const EventDetailsScreen = props => {
                             ),
                             dimensions.width
                           )}
+                          suppressHighlighting={true}
                         >
                           {fetchData?.target}
                         </Text>
@@ -569,6 +579,7 @@ const EventDetailsScreen = props => {
                             ),
                             dimensions.width
                           )}
+                          suppressHighlighting={true}
                         >
                           {'Target Country:'}
                         </Text>
@@ -595,6 +606,7 @@ const EventDetailsScreen = props => {
                             ),
                             dimensions.width
                           )}
+                          suppressHighlighting={true}
                         >
                           {fetchData?.country}
                         </Text>
@@ -633,6 +645,7 @@ const EventDetailsScreen = props => {
                             ),
                             dimensions.width
                           )}
+                          suppressHighlighting={true}
                         >
                           {'Target GICS:'}
                         </Text>
@@ -659,6 +672,7 @@ const EventDetailsScreen = props => {
                             ),
                             dimensions.width
                           )}
+                          suppressHighlighting={true}
                         >
                           {transformNumber(
                             fetchData?._gics?.GICS_Sub_Industry,
@@ -701,6 +715,7 @@ const EventDetailsScreen = props => {
                             ),
                             dimensions.width
                           )}
+                          suppressHighlighting={true}
                         >
                           {'Seller:'}
                         </Text>
@@ -727,6 +742,7 @@ const EventDetailsScreen = props => {
                             ),
                             dimensions.width
                           )}
+                          suppressHighlighting={true}
                         >
                           {transformNumber(
                             getListNameFormArray(fetchData?.seller),
@@ -769,6 +785,7 @@ const EventDetailsScreen = props => {
                             ),
                             dimensions.width
                           )}
+                          suppressHighlighting={true}
                         >
                           {'Buyer:'}
                         </Text>
@@ -795,6 +812,7 @@ const EventDetailsScreen = props => {
                             ),
                             dimensions.width
                           )}
+                          suppressHighlighting={true}
                         >
                           {transformNumber(
                             getListNameFormArray(fetchData?.buyer),
@@ -845,6 +863,7 @@ const EventDetailsScreen = props => {
                                 ),
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {'Revenue:'}
                             </Text>
@@ -871,6 +890,7 @@ const EventDetailsScreen = props => {
                                 ),
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {transformEuroM(fetchData?.revenue_eur)}
                             </Text>
@@ -919,6 +939,7 @@ const EventDetailsScreen = props => {
                                 ),
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {'EBITDA:'}
                             </Text>
@@ -940,6 +961,7 @@ const EventDetailsScreen = props => {
                                 ),
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {transformEuroM(fetchData?.ebitda_eur)}
                             </Text>
@@ -988,6 +1010,7 @@ const EventDetailsScreen = props => {
                                 ),
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {'Gross Profit:'}
                             </Text>
@@ -1009,6 +1032,7 @@ const EventDetailsScreen = props => {
                                 ),
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {transformEuroM(fetchData?.gross_profit_eur)}
                             </Text>
@@ -1051,6 +1075,7 @@ const EventDetailsScreen = props => {
                                 ),
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {'Enterprise value (EV):'}
                             </Text>
@@ -1077,6 +1102,7 @@ const EventDetailsScreen = props => {
                                 ),
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {transformEuroM(fetchData?.ev_eur)}
                             </Text>
@@ -1119,6 +1145,7 @@ const EventDetailsScreen = props => {
                                 ),
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {'EV/Sales ('}
                               {fetchData?.fy_end}
@@ -1147,6 +1174,7 @@ const EventDetailsScreen = props => {
                                 ),
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {fetchData?.ev_sales !== '0.0'
                                 ? fetchData?.ev_sales
@@ -1191,6 +1219,7 @@ const EventDetailsScreen = props => {
                                 ),
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {'EV/EBITDA ('}
                               {fetchData?.fy_end}
@@ -1219,6 +1248,7 @@ const EventDetailsScreen = props => {
                                 ),
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {fetchData?.ev_ebitda !== '0.0'
                                 ? fetchData?.ev_ebitda
@@ -1263,6 +1293,7 @@ const EventDetailsScreen = props => {
                                 ),
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {'EV/EBIT ('}
                               {fetchData?.fy_end}
@@ -1291,6 +1322,7 @@ const EventDetailsScreen = props => {
                                 ),
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {fetchData?.ev_ebit !== '0.0'
                                 ? fetchData?.ev_ebit
@@ -1333,6 +1365,7 @@ const EventDetailsScreen = props => {
                             ),
                             dimensions.width
                           )}
+                          suppressHighlighting={true}
                         >
                           {'Comment to financials:'}
                         </Text>
@@ -1361,6 +1394,7 @@ const EventDetailsScreen = props => {
                             ),
                             dimensions.width
                           )}
+                          suppressHighlighting={true}
                         >
                           {fetchData?.note_financials
                             ? fetchData?.note_financials
@@ -1411,6 +1445,7 @@ const EventDetailsScreen = props => {
                             ),
                             dimensions.width
                           )}
+                          suppressHighlighting={true}
                         >
                           {'Sell-side corp. finance:'}
                         </Text>
@@ -1431,6 +1466,7 @@ const EventDetailsScreen = props => {
                           ),
                           dimensions.width
                         )}
+                        suppressHighlighting={true}
                       >
                         {fetchData?.sellside_cf?.length !== 0
                           ? getListNameFormArray(fetchData?.sellside_cf)
@@ -1465,6 +1501,7 @@ const EventDetailsScreen = props => {
                             ),
                             dimensions.width
                           )}
+                          suppressHighlighting={true}
                         >
                           {'Sell-side legal:'}
                         </Text>
@@ -1485,6 +1522,7 @@ const EventDetailsScreen = props => {
                           ),
                           dimensions.width
                         )}
+                        suppressHighlighting={true}
                       >
                         {fetchData?.sellside_legal?.length !== 0
                           ? getListNameFormArray(fetchData?.sellside_legal)
@@ -1519,6 +1557,7 @@ const EventDetailsScreen = props => {
                             ),
                             dimensions.width
                           )}
+                          suppressHighlighting={true}
                         >
                           {'Buy-side corp. finance:'}
                         </Text>
@@ -1539,6 +1578,7 @@ const EventDetailsScreen = props => {
                           ),
                           dimensions.width
                         )}
+                        suppressHighlighting={true}
                       >
                         {fetchData?.buyside_cf?.length !== 0
                           ? getListNameFormArray(fetchData?.buyside_cf)
@@ -1573,6 +1613,7 @@ const EventDetailsScreen = props => {
                             ),
                             dimensions.width
                           )}
+                          suppressHighlighting={true}
                         >
                           {'Buy-side legal:'}
                         </Text>
@@ -1593,6 +1634,7 @@ const EventDetailsScreen = props => {
                           ),
                           dimensions.width
                         )}
+                        suppressHighlighting={true}
                       >
                         {fetchData?.buyside_legal?.length !== 0
                           ? getListNameFormArray(fetchData?.buyside_legal)

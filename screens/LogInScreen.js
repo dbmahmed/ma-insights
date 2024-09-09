@@ -28,6 +28,8 @@ import imageSource from '../utils/imageSource';
 import parseBoolean from '../utils/parseBoolean';
 import useWindowDimensions from '../utils/useWindowDimensions';
 
+const defaultProps = { message: null };
+
 const LogInScreen = props => {
   const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
@@ -157,7 +159,7 @@ const LogInScreen = props => {
             accessible={true}
             {...GlobalStyles.TextStyles(theme)['screen_title'].props}
             disabled={true}
-            selectable={true}
+            selectable={false}
             style={StyleSheet.applyWidth(
               StyleSheet.compose(
                 GlobalStyles.TextStyles(theme)['screen_title'].style,

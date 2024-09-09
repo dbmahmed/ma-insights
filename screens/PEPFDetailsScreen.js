@@ -257,6 +257,7 @@ const PEPFDetailsScreen = props => {
                           ),
                           dimensions.width
                         )}
+                        suppressHighlighting={true}
                       >
                         {'Country:'}
                       </Text>
@@ -283,6 +284,7 @@ const PEPFDetailsScreen = props => {
                           ),
                           dimensions.width
                         )}
+                        suppressHighlighting={true}
                       >
                         {fetchData?.country}
                       </Text>
@@ -316,6 +318,7 @@ const PEPFDetailsScreen = props => {
                           ),
                           dimensions.width
                         )}
+                        suppressHighlighting={true}
                       >
                         {'Website:'}
                       </Text>
@@ -396,6 +399,7 @@ const PEPFDetailsScreen = props => {
                           ),
                           dimensions.width
                         )}
+                        suppressHighlighting={true}
                       >
                         {'Sector:'}
                       </Text>
@@ -422,6 +426,7 @@ const PEPFDetailsScreen = props => {
                           ),
                           dimensions.width
                         )}
+                        suppressHighlighting={true}
                       >
                         {fetchData?._gics_sub_industry?.GICS_Sector}
                       </Text>
@@ -455,6 +460,7 @@ const PEPFDetailsScreen = props => {
                           ),
                           dimensions.width
                         )}
+                        suppressHighlighting={true}
                       >
                         {'Revenue:'}
                       </Text>
@@ -481,6 +487,7 @@ const PEPFDetailsScreen = props => {
                           ),
                           dimensions.width
                         )}
+                        suppressHighlighting={true}
                       >
                         {transformEuroM(fetchData?.revenue_eur)}
                         {/* Text 2 */}
@@ -504,6 +511,7 @@ const PEPFDetailsScreen = props => {
                                 ),
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {'('}
                               {fetchData?.financial_year}
@@ -542,6 +550,7 @@ const PEPFDetailsScreen = props => {
                           ),
                           dimensions.width
                         )}
+                        suppressHighlighting={true}
                       >
                         {'EBITDA:'}
                       </Text>
@@ -568,6 +577,7 @@ const PEPFDetailsScreen = props => {
                           ),
                           dimensions.width
                         )}
+                        suppressHighlighting={true}
                       >
                         {transformEuroM(fetchData?.ebitda_eur)}
                         {/* Text 2 */}
@@ -591,6 +601,7 @@ const PEPFDetailsScreen = props => {
                                 ),
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {'('}
                               {fetchData?.financial_year}
@@ -629,6 +640,7 @@ const PEPFDetailsScreen = props => {
                           ),
                           dimensions.width
                         )}
+                        suppressHighlighting={true}
                       >
                         {'Acquired:'}
                       </Text>
@@ -655,6 +667,7 @@ const PEPFDetailsScreen = props => {
                           ),
                           dimensions.width
                         )}
+                        suppressHighlighting={true}
                       >
                         {fetchData?.acquired_date}
                       </Text>
@@ -688,6 +701,7 @@ const PEPFDetailsScreen = props => {
                           ),
                           dimensions.width
                         )}
+                        suppressHighlighting={true}
                       >
                         {'Curr. Hold:'}
                       </Text>
@@ -714,6 +728,7 @@ const PEPFDetailsScreen = props => {
                           ),
                           dimensions.width
                         )}
+                        suppressHighlighting={true}
                       >
                         {fetchData?.current_holding_years}
                         {' Years'}
@@ -748,6 +763,7 @@ const PEPFDetailsScreen = props => {
                           ),
                           dimensions.width
                         )}
+                        suppressHighlighting={true}
                       >
                         {'PE firm:'}
                       </Text>
@@ -774,6 +790,7 @@ const PEPFDetailsScreen = props => {
                           ),
                           dimensions.width
                         )}
+                        suppressHighlighting={true}
                       >
                         {fetchData?._investor?.name}
                       </Text>
@@ -807,6 +824,7 @@ const PEPFDetailsScreen = props => {
                           ),
                           dimensions.width
                         )}
+                        suppressHighlighting={true}
                       >
                         {'Fund Entity:'}
                       </Text>
@@ -833,6 +851,7 @@ const PEPFDetailsScreen = props => {
                           ),
                           dimensions.width
                         )}
+                        suppressHighlighting={true}
                       >
                         {fetchData?._fund?.name ? fetchData?._fund?.name : '-'}
                       </Text>
@@ -854,6 +873,7 @@ const PEPFDetailsScreen = props => {
                               ),
                               dimensions.width
                             )}
+                            suppressHighlighting={true}
                           >
                             {'('}
                             {DateUtils.format(
@@ -911,6 +931,7 @@ const PEPFDetailsScreen = props => {
                         ),
                         dimensions.width
                       )}
+                      suppressHighlighting={true}
                     >
                       {fetchData?.company_description}
                     </Text>
@@ -1099,6 +1120,7 @@ const PEPFDetailsScreen = props => {
                                             ),
                                             dimensions.width
                                           )}
+                                          suppressHighlighting={true}
                                         >
                                           {listData?.published}
                                           {' | Source: '}

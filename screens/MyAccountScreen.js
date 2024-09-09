@@ -241,6 +241,7 @@ const MyAccountScreen = props => {
                             ),
                             dimensions.width
                           )}
+                          suppressHighlighting={true}
                         >
                           {'User name:'}
                         </Text>
@@ -258,6 +259,7 @@ const MyAccountScreen = props => {
                           ),
                           dimensions.width
                         )}
+                        suppressHighlighting={true}
                       >
                         {fetchData?.name}
                       </Text>
@@ -287,6 +289,7 @@ const MyAccountScreen = props => {
                             ),
                             dimensions.width
                           )}
+                          suppressHighlighting={true}
                         >
                           {'Email:'}
                         </Text>
@@ -306,6 +309,7 @@ const MyAccountScreen = props => {
                           ),
                           dimensions.width
                         )}
+                        suppressHighlighting={true}
                       >
                         {fetchData?.email}
                       </Text>
@@ -335,6 +339,7 @@ const MyAccountScreen = props => {
                             ),
                             dimensions.width
                           )}
+                          suppressHighlighting={true}
                         >
                           {'Password:'}
                         </Text>
@@ -362,6 +367,7 @@ const MyAccountScreen = props => {
                             ),
                             dimensions.width
                           )}
+                          suppressHighlighting={true}
                         >
                           {'****************'}
                         </Text>
@@ -405,6 +411,7 @@ const MyAccountScreen = props => {
                             ),
                             dimensions.width
                           )}
+                          suppressHighlighting={true}
                         >
                           {'Country:'}
                         </Text>
@@ -422,6 +429,7 @@ const MyAccountScreen = props => {
                           ),
                           dimensions.width
                         )}
+                        suppressHighlighting={true}
                       >
                         {fetchData?.country}
                       </Text>
@@ -451,6 +459,7 @@ const MyAccountScreen = props => {
                             ),
                             dimensions.width
                           )}
+                          suppressHighlighting={true}
                         >
                           {'Company:'}
                         </Text>
@@ -468,6 +477,7 @@ const MyAccountScreen = props => {
                           ),
                           dimensions.width
                         )}
+                        suppressHighlighting={true}
                       >
                         {fetchData?.company}
                       </Text>
@@ -497,6 +507,7 @@ const MyAccountScreen = props => {
                             ),
                             dimensions.width
                           )}
+                          suppressHighlighting={true}
                         >
                           {'Job title:'}
                         </Text>
@@ -514,6 +525,7 @@ const MyAccountScreen = props => {
                           ),
                           dimensions.width
                         )}
+                        suppressHighlighting={true}
                       >
                         {fetchData?.job_title}
                       </Text>
@@ -543,6 +555,7 @@ const MyAccountScreen = props => {
                             ),
                             dimensions.width
                           )}
+                          suppressHighlighting={true}
                         >
                           {'Sub.type:'}
                         </Text>
@@ -560,6 +573,7 @@ const MyAccountScreen = props => {
                           ),
                           dimensions.width
                         )}
+                        suppressHighlighting={true}
                       >
                         {joinStringArray(fetchData?.accessible_regions)}
                       </Text>
@@ -583,6 +597,7 @@ const MyAccountScreen = props => {
                       ),
                       dimensions.width
                     )}
+                    suppressHighlighting={true}
                   >
                     {
                       'To update basic profile information, other than your password, please email Sahana at '
@@ -659,6 +674,7 @@ const MyAccountScreen = props => {
                             ),
                             dimensions.width
                           )}
+                          suppressHighlighting={true}
                         >
                           {'Event'}
                         </Text>
@@ -692,6 +708,7 @@ const MyAccountScreen = props => {
                               ),
                               dimensions.width
                             )}
+                            suppressHighlighting={true}
                           >
                             {'Email'}
                           </Text>
@@ -727,6 +744,7 @@ const MyAccountScreen = props => {
                             ),
                             dimensions.width
                           )}
+                          suppressHighlighting={true}
                         >
                           {'New Nordic NL'}
                         </Text>
@@ -811,6 +829,7 @@ const MyAccountScreen = props => {
                             ),
                             dimensions.width
                           )}
+                          suppressHighlighting={true}
                         >
                           {'New DACH NL'}
                         </Text>
@@ -1442,6 +1461,7 @@ const MyAccountScreen = props => {
                                 ),
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {errorMessage}
                             </Text>

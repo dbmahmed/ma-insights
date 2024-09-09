@@ -291,6 +291,7 @@ const AdvisorDetailsScreen = props => {
                       ),
                       dimensions.width
                     )}
+                    suppressHighlighting={true}
                   >
                     {fetchData?.type}
                   </Text>
@@ -523,12 +524,30 @@ const AdvisorDetailsScreen = props => {
                         />
                         <Pressable
                           onPress={() => {
+                            console.log('Pressable ON_PRESS Start');
+                            let error = null;
                             try {
-                              /* hidden 'Navigate' action */
-                              setViewingId(fetchData?.id);
+                              console.log('Start ON_PRESS:0 CONSOLE_LOG');
+                              console.log(listData);
+                              console.log('Complete ON_PRESS:0 CONSOLE_LOG');
+                              console.log('Start ON_PRESS:1 NAVIGATE');
+                              /* hidden 'Navigate' action */ console.log(
+                                'Complete ON_PRESS:1 NAVIGATE'
+                              );
+                              console.log('Start ON_PRESS:2 SET_VARIABLE');
+                              setViewingId(listData?.id);
+                              console.log('Complete ON_PRESS:2 SET_VARIABLE');
+                              console.log('Start ON_PRESS:3 CONSOLE_LOG');
+                              console.log(viewingId, 'is the viewing id');
+                              console.log('Complete ON_PRESS:3 CONSOLE_LOG');
                             } catch (err) {
                               console.error(err);
+                              error = err.message ?? err;
                             }
+                            console.log(
+                              'Pressable ON_PRESS Complete',
+                              error ? { error } : 'no error'
+                            );
                           }}
                         >
                           <View
@@ -586,6 +605,7 @@ const AdvisorDetailsScreen = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'Target: '}
                                 {listData?.target}
@@ -618,6 +638,7 @@ const AdvisorDetailsScreen = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {listData?.published}
                                 {' | '}
@@ -656,6 +677,7 @@ const AdvisorDetailsScreen = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                                 textBreakStrategy={'highQuality'}
                               >
                                 {'Headline: '}
@@ -699,6 +721,7 @@ const AdvisorDetailsScreen = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'Role: '}
                                 {listData?.type}
@@ -1011,6 +1034,7 @@ const AdvisorDetailsScreen = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'Austria'}
                               </Text>
@@ -1093,6 +1117,7 @@ const AdvisorDetailsScreen = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'Denmark'}
                               </Text>
@@ -1175,6 +1200,7 @@ const AdvisorDetailsScreen = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'Finland'}
                               </Text>
@@ -1257,6 +1283,7 @@ const AdvisorDetailsScreen = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'Germany'}
                               </Text>
@@ -1339,6 +1366,7 @@ const AdvisorDetailsScreen = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'Norway'}
                               </Text>
@@ -1421,6 +1449,7 @@ const AdvisorDetailsScreen = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'Sweden'}
                               </Text>
@@ -1503,6 +1532,7 @@ const AdvisorDetailsScreen = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'Switzerland'}
                               </Text>
@@ -1625,6 +1655,7 @@ const AdvisorDetailsScreen = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'Communication Services'}
                               </Text>
@@ -1697,6 +1728,7 @@ const AdvisorDetailsScreen = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'Industrials'}
                               </Text>
@@ -1771,6 +1803,7 @@ const AdvisorDetailsScreen = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'Consumer Discretionary'}
                               </Text>
@@ -1845,6 +1878,7 @@ const AdvisorDetailsScreen = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'IT & Software'}
                               </Text>
@@ -1919,6 +1953,7 @@ const AdvisorDetailsScreen = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'Consumer Staples'}
                               </Text>
@@ -1991,6 +2026,7 @@ const AdvisorDetailsScreen = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'Materials'}
                               </Text>
@@ -2063,6 +2099,7 @@ const AdvisorDetailsScreen = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'Energy'}
                               </Text>
@@ -2135,6 +2172,7 @@ const AdvisorDetailsScreen = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'Real Estate'}
                               </Text>
@@ -2207,6 +2245,7 @@ const AdvisorDetailsScreen = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'Financials'}
                               </Text>
@@ -2279,6 +2318,7 @@ const AdvisorDetailsScreen = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'Utilities'}
                               </Text>
@@ -2351,6 +2391,7 @@ const AdvisorDetailsScreen = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'Health Care'}
                               </Text>

@@ -488,6 +488,7 @@ const StockSearchScreen = props => {
                           ),
                           dimensions.width
                         )}
+                        suppressHighlighting={true}
                       >
                         {formatNumber(fetchData?.itemsTotal)}
                         {
@@ -720,6 +721,7 @@ const StockSearchScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {listData?.company_name}
                                   </Text>
@@ -741,6 +743,7 @@ const StockSearchScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {listData?.country}
                                   </Text>
@@ -762,6 +765,7 @@ const StockSearchScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'EV: '}
                                     {transformEuroM(listData?.ev_eur)}
@@ -784,6 +788,7 @@ const StockSearchScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {listData?._gics_sub_industry?.GICS_Sector}
                                   </Text>
@@ -855,6 +860,7 @@ const StockSearchScreen = props => {
                                           ),
                                           dimensions.width
                                         )}
+                                        suppressHighlighting={true}
                                       >
                                         {'EV/Sales:'}
                                       </Text>
@@ -879,6 +885,7 @@ const StockSearchScreen = props => {
                                         ),
                                         dimensions.width
                                       )}
+                                      suppressHighlighting={true}
                                     >
                                       {transformNumber(
                                         listData?.ev_sales_ttm,
@@ -922,6 +929,7 @@ const StockSearchScreen = props => {
                                           ),
                                           dimensions.width
                                         )}
+                                        suppressHighlighting={true}
                                       >
                                         {'EV/EBITDA:'}
                                       </Text>
@@ -946,6 +954,7 @@ const StockSearchScreen = props => {
                                         ),
                                         dimensions.width
                                       )}
+                                      suppressHighlighting={true}
                                     >
                                       {transformNumber(
                                         listData?.ev_ebitda_ttm,
@@ -989,6 +998,7 @@ const StockSearchScreen = props => {
                                           ),
                                           dimensions.width
                                         )}
+                                        suppressHighlighting={true}
                                       >
                                         {'EV/EBIT:'}
                                       </Text>
@@ -1013,6 +1023,7 @@ const StockSearchScreen = props => {
                                         ),
                                         dimensions.width
                                       )}
+                                      suppressHighlighting={true}
                                     >
                                       {transformNumber(
                                         listData?.ev_ebit_ttm,
@@ -1347,6 +1358,7 @@ const StockSearchScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'Communication Services'}
                                   </Text>
@@ -1424,6 +1436,7 @@ const StockSearchScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'Industrials'}
                                   </Text>
@@ -1503,6 +1516,7 @@ const StockSearchScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'Consumer Discretionary'}
                                   </Text>
@@ -1580,6 +1594,7 @@ const StockSearchScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'IT & Software'}
                                   </Text>
@@ -1657,6 +1672,7 @@ const StockSearchScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'Consumer Staples'}
                                   </Text>
@@ -1732,6 +1748,7 @@ const StockSearchScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'Materials'}
                                   </Text>
@@ -1807,6 +1824,7 @@ const StockSearchScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'Energy'}
                                   </Text>
@@ -1884,6 +1902,7 @@ const StockSearchScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'Real Estate'}
                                   </Text>
@@ -1959,6 +1978,7 @@ const StockSearchScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'Financials'}
                                   </Text>
@@ -2034,6 +2054,7 @@ const StockSearchScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'Utilities'}
                                   </Text>
@@ -2111,6 +2132,7 @@ const StockSearchScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'Health Care'}
                                   </Text>
@@ -2234,6 +2256,7 @@ const StockSearchScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'Nordic'}
                                   </Text>
@@ -2309,6 +2332,7 @@ const StockSearchScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'Rest of World (RoW)'}
                                   </Text>
@@ -2384,6 +2408,7 @@ const StockSearchScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'DACH'}
                                   </Text>
@@ -2505,6 +2530,7 @@ const StockSearchScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'EV ≤ €100m'}
                                   </Text>
@@ -2578,6 +2604,7 @@ const StockSearchScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'€100m < EV ≤ €500m'}
                                   </Text>
@@ -2651,6 +2678,7 @@ const StockSearchScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'€500m < EV ≤ €1,000m'}
                                   </Text>
@@ -2724,6 +2752,7 @@ const StockSearchScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'EV > €1,000m'}
                                   </Text>

@@ -109,6 +109,7 @@ const RequestDemoScreen = props => {
         <Text
           accessible={true}
           {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+          disabled={true}
           style={StyleSheet.applyWidth(
             StyleSheet.compose(
               GlobalStyles.TextStyles(theme)['screen_title'].style,
@@ -129,6 +130,7 @@ const RequestDemoScreen = props => {
             ),
             dimensions.width
           )}
+          suppressHighlighting={true}
         >
           {dimensions.width >= Breakpoints.Laptop
             ? 'M&A INSIGHTS'
@@ -138,6 +140,7 @@ const RequestDemoScreen = props => {
         <Text
           accessible={true}
           {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+          disabled={true}
           style={StyleSheet.applyWidth(
             StyleSheet.compose(
               GlobalStyles.TextStyles(theme)['screen_title'].style,
@@ -152,6 +155,7 @@ const RequestDemoScreen = props => {
             ),
             dimensions.width
           )}
+          suppressHighlighting={true}
         >
           {'Request Demo'}
         </Text>
@@ -189,6 +193,7 @@ const RequestDemoScreen = props => {
             <Text
               accessible={true}
               {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+              disabled={true}
               style={StyleSheet.applyWidth(
                 StyleSheet.compose(
                   GlobalStyles.TextStyles(theme)['screen_title'].style,
@@ -196,6 +201,7 @@ const RequestDemoScreen = props => {
                 ),
                 dimensions.width
               )}
+              suppressHighlighting={true}
             >
               {'Email'}
             </Text>
@@ -248,6 +254,7 @@ const RequestDemoScreen = props => {
             <Text
               accessible={true}
               {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+              disabled={true}
               style={StyleSheet.applyWidth(
                 StyleSheet.compose(
                   GlobalStyles.TextStyles(theme)['screen_title'].style,
@@ -255,6 +262,7 @@ const RequestDemoScreen = props => {
                 ),
                 dimensions.width
               )}
+              suppressHighlighting={true}
             >
               {'Full Name'}
             </Text>
@@ -309,6 +317,7 @@ const RequestDemoScreen = props => {
             <Text
               accessible={true}
               {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+              disabled={true}
               style={StyleSheet.applyWidth(
                 StyleSheet.compose(
                   GlobalStyles.TextStyles(theme)['screen_title'].style,
@@ -316,6 +325,7 @@ const RequestDemoScreen = props => {
                 ),
                 dimensions.width
               )}
+              suppressHighlighting={true}
             >
               {'Company Name'}
             </Text>
@@ -368,6 +378,7 @@ const RequestDemoScreen = props => {
             <Text
               accessible={true}
               {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+              disabled={true}
               style={StyleSheet.applyWidth(
                 StyleSheet.compose(
                   GlobalStyles.TextStyles(theme)['screen_title'].style,
@@ -375,6 +386,7 @@ const RequestDemoScreen = props => {
                 ),
                 dimensions.width
               )}
+              suppressHighlighting={true}
             >
               {'Mobile'}
             </Text>
@@ -429,6 +441,7 @@ const RequestDemoScreen = props => {
             <Text
               accessible={true}
               {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+              disabled={true}
               style={StyleSheet.applyWidth(
                 StyleSheet.compose(
                   GlobalStyles.TextStyles(theme)['screen_title'].style,
@@ -436,6 +449,7 @@ const RequestDemoScreen = props => {
                 ),
                 dimensions.width
               )}
+              suppressHighlighting={true}
             >
               {'Message'}
             </Text>
@@ -483,6 +497,7 @@ const RequestDemoScreen = props => {
                 <Text
                   accessible={true}
                   {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                  disabled={true}
                   style={StyleSheet.applyWidth(
                     StyleSheet.compose(
                       GlobalStyles.TextStyles(theme)['screen_title'].style,
@@ -494,6 +509,7 @@ const RequestDemoScreen = props => {
                     ),
                     dimensions.width
                   )}
+                  suppressHighlighting={true}
                 >
                   {errorMessage}
                 </Text>

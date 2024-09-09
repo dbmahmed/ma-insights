@@ -528,6 +528,7 @@ const PEPFScreen = props => {
                   <Text
                     accessible={true}
                     {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                    disabled={true}
                     style={StyleSheet.applyWidth(
                       StyleSheet.compose(
                         GlobalStyles.TextStyles(theme)['screen_title'].style,
@@ -548,6 +549,7 @@ const PEPFScreen = props => {
                       ),
                       dimensions.width
                     )}
+                    suppressHighlighting={true}
                   >
                     {formatNumber(fetchData?.itemsTotal)}
                     {
@@ -725,6 +727,7 @@ const PEPFScreen = props => {
                                 {...GlobalStyles.TextStyles(theme)[
                                   'screen_title'
                                 ].props}
+                                disabled={true}
                                 style={StyleSheet.applyWidth(
                                   StyleSheet.compose(
                                     GlobalStyles.TextStyles(theme)[
@@ -734,6 +737,7 @@ const PEPFScreen = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {listData?.country}
                               </Text>
@@ -743,6 +747,7 @@ const PEPFScreen = props => {
                                 {...GlobalStyles.TextStyles(theme)[
                                   'screen_title'
                                 ].props}
+                                disabled={true}
                                 style={StyleSheet.applyWidth(
                                   StyleSheet.compose(
                                     GlobalStyles.TextStyles(theme)[
@@ -752,6 +757,7 @@ const PEPFScreen = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {cutText(listData?.company_description, 60)}
                               </Text>
@@ -768,6 +774,7 @@ const PEPFScreen = props => {
                                 {...GlobalStyles.TextStyles(theme)[
                                   'screen_title'
                                 ].props}
+                                disabled={true}
                                 style={StyleSheet.applyWidth(
                                   StyleSheet.compose(
                                     GlobalStyles.TextStyles(theme)[
@@ -777,6 +784,7 @@ const PEPFScreen = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'PE firm: '}
                                 {listData?._investor?.name
@@ -791,6 +799,7 @@ const PEPFScreen = props => {
                                   {...GlobalStyles.TextStyles(theme)[
                                     'screen_title'
                                   ].props}
+                                  disabled={true}
                                   style={StyleSheet.applyWidth(
                                     StyleSheet.compose(
                                       GlobalStyles.TextStyles(theme)[
@@ -802,6 +811,7 @@ const PEPFScreen = props => {
                                     ),
                                     dimensions.width
                                   )}
+                                  suppressHighlighting={true}
                                 >
                                   {'Fund: '}
                                   {listData?._fund?.name
@@ -815,6 +825,7 @@ const PEPFScreen = props => {
                                         {...GlobalStyles.TextStyles(theme)[
                                           'screen_title'
                                         ].props}
+                                        disabled={true}
                                         style={StyleSheet.applyWidth(
                                           StyleSheet.compose(
                                             GlobalStyles.TextStyles(theme)[
@@ -830,6 +841,7 @@ const PEPFScreen = props => {
                                           ),
                                           dimensions.width
                                         )}
+                                        suppressHighlighting={true}
                                       >
                                         {'('}
                                         {DateUtils.format(
@@ -848,6 +860,7 @@ const PEPFScreen = props => {
                                 {...GlobalStyles.TextStyles(theme)[
                                   'screen_title'
                                 ].props}
+                                disabled={true}
                                 style={StyleSheet.applyWidth(
                                   StyleSheet.compose(
                                     GlobalStyles.TextStyles(theme)[
@@ -857,6 +870,7 @@ const PEPFScreen = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'Acq.: '}
                                 {listData?.acquired_date}
@@ -867,6 +881,7 @@ const PEPFScreen = props => {
                                 {...GlobalStyles.TextStyles(theme)[
                                   'screen_title'
                                 ].props}
+                                disabled={true}
                                 style={StyleSheet.applyWidth(
                                   StyleSheet.compose(
                                     GlobalStyles.TextStyles(theme)[
@@ -876,6 +891,7 @@ const PEPFScreen = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'EBITDA: '}
                                 {transformEuroM(listData?.ebitda_eur)}{' '}
@@ -1242,6 +1258,7 @@ const PEPFScreen = props => {
                                     {...GlobalStyles.TextStyles(theme)[
                                       'screen_title'
                                     ].props}
+                                    disabled={true}
                                     style={StyleSheet.applyWidth(
                                       StyleSheet.compose(
                                         GlobalStyles.TextStyles(theme)[
@@ -1256,6 +1273,7 @@ const PEPFScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'EBITDA ≤ €5m'}
                                   </Text>
@@ -1315,6 +1333,7 @@ const PEPFScreen = props => {
                                     {...GlobalStyles.TextStyles(theme)[
                                       'screen_title'
                                     ].props}
+                                    disabled={true}
                                     style={StyleSheet.applyWidth(
                                       StyleSheet.compose(
                                         GlobalStyles.TextStyles(theme)[
@@ -1329,6 +1348,7 @@ const PEPFScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'€5m < EBITDA ≤ €20m'}
                                   </Text>
@@ -1388,6 +1408,7 @@ const PEPFScreen = props => {
                                     {...GlobalStyles.TextStyles(theme)[
                                       'screen_title'
                                     ].props}
+                                    disabled={true}
                                     style={StyleSheet.applyWidth(
                                       StyleSheet.compose(
                                         GlobalStyles.TextStyles(theme)[
@@ -1402,6 +1423,7 @@ const PEPFScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'€20m < EBITDA ≤ €50m'}
                                   </Text>
@@ -1461,6 +1483,7 @@ const PEPFScreen = props => {
                                     {...GlobalStyles.TextStyles(theme)[
                                       'screen_title'
                                     ].props}
+                                    disabled={true}
                                     style={StyleSheet.applyWidth(
                                       StyleSheet.compose(
                                         GlobalStyles.TextStyles(theme)[
@@ -1475,6 +1498,7 @@ const PEPFScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'EBITDA >  €50m'}
                                   </Text>
@@ -1581,6 +1605,7 @@ const PEPFScreen = props => {
                                     {...GlobalStyles.TextStyles(theme)[
                                       'screen_title'
                                     ].props}
+                                    disabled={true}
                                     style={StyleSheet.applyWidth(
                                       StyleSheet.compose(
                                         GlobalStyles.TextStyles(theme)[
@@ -1609,6 +1634,7 @@ const PEPFScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'Holding ≤ 3 years'}
                                   </Text>
@@ -1666,6 +1692,7 @@ const PEPFScreen = props => {
                                     {...GlobalStyles.TextStyles(theme)[
                                       'screen_title'
                                     ].props}
+                                    disabled={true}
                                     style={StyleSheet.applyWidth(
                                       StyleSheet.compose(
                                         GlobalStyles.TextStyles(theme)[
@@ -1680,6 +1707,7 @@ const PEPFScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'3 ys < holding ≤ 5 ys'}
                                   </Text>
@@ -1737,6 +1765,7 @@ const PEPFScreen = props => {
                                     {...GlobalStyles.TextStyles(theme)[
                                       'screen_title'
                                     ].props}
+                                    disabled={true}
                                     style={StyleSheet.applyWidth(
                                       StyleSheet.compose(
                                         GlobalStyles.TextStyles(theme)[
@@ -1751,6 +1780,7 @@ const PEPFScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'5 ys < holding ≤ 7 ys'}
                                   </Text>
@@ -1808,6 +1838,7 @@ const PEPFScreen = props => {
                                     {...GlobalStyles.TextStyles(theme)[
                                       'screen_title'
                                     ].props}
+                                    disabled={true}
                                     style={StyleSheet.applyWidth(
                                       StyleSheet.compose(
                                         GlobalStyles.TextStyles(theme)[
@@ -1822,6 +1853,7 @@ const PEPFScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'Holding > 7 years'}
                                   </Text>
@@ -1928,6 +1960,7 @@ const PEPFScreen = props => {
                                     {...GlobalStyles.TextStyles(theme)[
                                       'screen_title'
                                     ].props}
+                                    disabled={true}
                                     style={StyleSheet.applyWidth(
                                       StyleSheet.compose(
                                         GlobalStyles.TextStyles(theme)[
@@ -1942,6 +1975,7 @@ const PEPFScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'Within the last 3 years'}
                                   </Text>
@@ -2001,6 +2035,7 @@ const PEPFScreen = props => {
                                     {...GlobalStyles.TextStyles(theme)[
                                       'screen_title'
                                     ].props}
+                                    disabled={true}
                                     style={StyleSheet.applyWidth(
                                       StyleSheet.compose(
                                         GlobalStyles.TextStyles(theme)[
@@ -2015,6 +2050,7 @@ const PEPFScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'3 to 5 years ago'}
                                   </Text>
@@ -2074,6 +2110,7 @@ const PEPFScreen = props => {
                                     {...GlobalStyles.TextStyles(theme)[
                                       'screen_title'
                                     ].props}
+                                    disabled={true}
                                     style={StyleSheet.applyWidth(
                                       StyleSheet.compose(
                                         GlobalStyles.TextStyles(theme)[
@@ -2088,6 +2125,7 @@ const PEPFScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'5 to 7 years ago'}
                                   </Text>
@@ -2145,6 +2183,7 @@ const PEPFScreen = props => {
                                     {...GlobalStyles.TextStyles(theme)[
                                       'screen_title'
                                     ].props}
+                                    disabled={true}
                                     style={StyleSheet.applyWidth(
                                       StyleSheet.compose(
                                         GlobalStyles.TextStyles(theme)[
@@ -2159,6 +2198,7 @@ const PEPFScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'More than 7 years ago'}
                                   </Text>
@@ -2282,6 +2322,7 @@ const PEPFScreen = props => {
                                         {...GlobalStyles.TextStyles(theme)[
                                           'screen_title'
                                         ].props}
+                                        disabled={true}
                                         style={StyleSheet.applyWidth(
                                           StyleSheet.compose(
                                             GlobalStyles.TextStyles(theme)[
@@ -2299,6 +2340,7 @@ const PEPFScreen = props => {
                                           ),
                                           dimensions.width
                                         )}
+                                        suppressHighlighting={true}
                                       >
                                         {'Nordic'}
                                       </Text>
@@ -2372,6 +2414,7 @@ const PEPFScreen = props => {
                                         {...GlobalStyles.TextStyles(theme)[
                                           'screen_title'
                                         ].props}
+                                        disabled={true}
                                         style={StyleSheet.applyWidth(
                                           StyleSheet.compose(
                                             GlobalStyles.TextStyles(theme)[
@@ -2389,6 +2432,7 @@ const PEPFScreen = props => {
                                           ),
                                           dimensions.width
                                         )}
+                                        suppressHighlighting={true}
                                       >
                                         {'DACH'}
                                       </Text>
@@ -2514,6 +2558,7 @@ const PEPFScreen = props => {
                                         {...GlobalStyles.TextStyles(theme)[
                                           'screen_title'
                                         ].props}
+                                        disabled={true}
                                         style={StyleSheet.applyWidth(
                                           StyleSheet.compose(
                                             GlobalStyles.TextStyles(theme)[
@@ -2531,6 +2576,7 @@ const PEPFScreen = props => {
                                           ),
                                           dimensions.width
                                         )}
+                                        suppressHighlighting={true}
                                       >
                                         {'Austria'}
                                       </Text>
@@ -2604,6 +2650,7 @@ const PEPFScreen = props => {
                                         {...GlobalStyles.TextStyles(theme)[
                                           'screen_title'
                                         ].props}
+                                        disabled={true}
                                         style={StyleSheet.applyWidth(
                                           StyleSheet.compose(
                                             GlobalStyles.TextStyles(theme)[
@@ -2621,6 +2668,7 @@ const PEPFScreen = props => {
                                           ),
                                           dimensions.width
                                         )}
+                                        suppressHighlighting={true}
                                       >
                                         {'Denmark'}
                                       </Text>
@@ -2694,6 +2742,7 @@ const PEPFScreen = props => {
                                         {...GlobalStyles.TextStyles(theme)[
                                           'screen_title'
                                         ].props}
+                                        disabled={true}
                                         style={StyleSheet.applyWidth(
                                           StyleSheet.compose(
                                             GlobalStyles.TextStyles(theme)[
@@ -2711,6 +2760,7 @@ const PEPFScreen = props => {
                                           ),
                                           dimensions.width
                                         )}
+                                        suppressHighlighting={true}
                                       >
                                         {'Finland'}
                                       </Text>
@@ -2784,6 +2834,7 @@ const PEPFScreen = props => {
                                         {...GlobalStyles.TextStyles(theme)[
                                           'screen_title'
                                         ].props}
+                                        disabled={true}
                                         style={StyleSheet.applyWidth(
                                           StyleSheet.compose(
                                             GlobalStyles.TextStyles(theme)[
@@ -2801,6 +2852,7 @@ const PEPFScreen = props => {
                                           ),
                                           dimensions.width
                                         )}
+                                        suppressHighlighting={true}
                                       >
                                         {'Germany'}
                                       </Text>
@@ -2891,6 +2943,7 @@ const PEPFScreen = props => {
                                           ),
                                           dimensions.width
                                         )}
+                                        suppressHighlighting={true}
                                       >
                                         {'Norway'}
                                       </Text>
@@ -2964,6 +3017,7 @@ const PEPFScreen = props => {
                                         {...GlobalStyles.TextStyles(theme)[
                                           'screen_title'
                                         ].props}
+                                        disabled={true}
                                         style={StyleSheet.applyWidth(
                                           StyleSheet.compose(
                                             GlobalStyles.TextStyles(theme)[
@@ -2981,6 +3035,7 @@ const PEPFScreen = props => {
                                           ),
                                           dimensions.width
                                         )}
+                                        suppressHighlighting={true}
                                       >
                                         {'Sweden'}
                                       </Text>
@@ -3056,6 +3111,7 @@ const PEPFScreen = props => {
                                         {...GlobalStyles.TextStyles(theme)[
                                           'screen_title'
                                         ].props}
+                                        disabled={true}
                                         style={StyleSheet.applyWidth(
                                           StyleSheet.compose(
                                             GlobalStyles.TextStyles(theme)[
@@ -3073,6 +3129,7 @@ const PEPFScreen = props => {
                                           ),
                                           dimensions.width
                                         )}
+                                        suppressHighlighting={true}
                                       >
                                         {'Switzerland'}
                                       </Text>
@@ -3194,6 +3251,7 @@ const PEPFScreen = props => {
                                       {...GlobalStyles.TextStyles(theme)[
                                         'screen_title'
                                       ].props}
+                                      disabled={true}
                                       style={StyleSheet.applyWidth(
                                         StyleSheet.compose(
                                           GlobalStyles.TextStyles(theme)[
@@ -3208,6 +3266,7 @@ const PEPFScreen = props => {
                                         ),
                                         dimensions.width
                                       )}
+                                      suppressHighlighting={true}
                                     >
                                       {'Communication Services'}
                                     </Text>
@@ -3285,6 +3344,7 @@ const PEPFScreen = props => {
                                         ),
                                         dimensions.width
                                       )}
+                                      suppressHighlighting={true}
                                     >
                                       {'Industrials'}
                                     </Text>
@@ -3364,6 +3424,7 @@ const PEPFScreen = props => {
                                         ),
                                         dimensions.width
                                       )}
+                                      suppressHighlighting={true}
                                     >
                                       {'Consumer Discretionary'}
                                     </Text>
@@ -3441,6 +3502,7 @@ const PEPFScreen = props => {
                                         ),
                                         dimensions.width
                                       )}
+                                      suppressHighlighting={true}
                                     >
                                       {'IT & Software'}
                                     </Text>
@@ -3504,6 +3566,7 @@ const PEPFScreen = props => {
                                       {...GlobalStyles.TextStyles(theme)[
                                         'screen_title'
                                       ].props}
+                                      disabled={true}
                                       style={StyleSheet.applyWidth(
                                         StyleSheet.compose(
                                           GlobalStyles.TextStyles(theme)[
@@ -3518,6 +3581,7 @@ const PEPFScreen = props => {
                                         ),
                                         dimensions.width
                                       )}
+                                      suppressHighlighting={true}
                                     >
                                       {'Consumer Staples'}
                                     </Text>
@@ -3579,6 +3643,7 @@ const PEPFScreen = props => {
                                       {...GlobalStyles.TextStyles(theme)[
                                         'screen_title'
                                       ].props}
+                                      disabled={true}
                                       style={StyleSheet.applyWidth(
                                         StyleSheet.compose(
                                           GlobalStyles.TextStyles(theme)[
@@ -3593,6 +3658,7 @@ const PEPFScreen = props => {
                                         ),
                                         dimensions.width
                                       )}
+                                      suppressHighlighting={true}
                                     >
                                       {'Materials'}
                                     </Text>
@@ -3654,6 +3720,7 @@ const PEPFScreen = props => {
                                       {...GlobalStyles.TextStyles(theme)[
                                         'screen_title'
                                       ].props}
+                                      disabled={true}
                                       style={StyleSheet.applyWidth(
                                         StyleSheet.compose(
                                           GlobalStyles.TextStyles(theme)[
@@ -3668,6 +3735,7 @@ const PEPFScreen = props => {
                                         ),
                                         dimensions.width
                                       )}
+                                      suppressHighlighting={true}
                                     >
                                       {'Energy'}
                                     </Text>
@@ -3731,6 +3799,7 @@ const PEPFScreen = props => {
                                       {...GlobalStyles.TextStyles(theme)[
                                         'screen_title'
                                       ].props}
+                                      disabled={true}
                                       style={StyleSheet.applyWidth(
                                         StyleSheet.compose(
                                           GlobalStyles.TextStyles(theme)[
@@ -3745,6 +3814,7 @@ const PEPFScreen = props => {
                                         ),
                                         dimensions.width
                                       )}
+                                      suppressHighlighting={true}
                                     >
                                       {'Real Estate'}
                                     </Text>
@@ -3808,6 +3878,7 @@ const PEPFScreen = props => {
                                       {...GlobalStyles.TextStyles(theme)[
                                         'screen_title'
                                       ].props}
+                                      disabled={true}
                                       style={StyleSheet.applyWidth(
                                         StyleSheet.compose(
                                           GlobalStyles.TextStyles(theme)[
@@ -3822,6 +3893,7 @@ const PEPFScreen = props => {
                                         ),
                                         dimensions.width
                                       )}
+                                      suppressHighlighting={true}
                                     >
                                       {'Financials'}
                                     </Text>
@@ -3883,6 +3955,7 @@ const PEPFScreen = props => {
                                       {...GlobalStyles.TextStyles(theme)[
                                         'screen_title'
                                       ].props}
+                                      disabled={true}
                                       style={StyleSheet.applyWidth(
                                         StyleSheet.compose(
                                           GlobalStyles.TextStyles(theme)[
@@ -3897,6 +3970,7 @@ const PEPFScreen = props => {
                                         ),
                                         dimensions.width
                                       )}
+                                      suppressHighlighting={true}
                                     >
                                       {'Utilities'}
                                     </Text>
@@ -3960,6 +4034,7 @@ const PEPFScreen = props => {
                                       {...GlobalStyles.TextStyles(theme)[
                                         'screen_title'
                                       ].props}
+                                      disabled={true}
                                       style={StyleSheet.applyWidth(
                                         StyleSheet.compose(
                                           GlobalStyles.TextStyles(theme)[
@@ -3974,6 +4049,7 @@ const PEPFScreen = props => {
                                         ),
                                         dimensions.width
                                       )}
+                                      suppressHighlighting={true}
                                     >
                                       {'Health Care'}
                                     </Text>

@@ -53,6 +53,8 @@ import imageSource from '../utils/imageSource';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import waitUtil from '../utils/wait';
 
+const defaultProps = { test: null };
+
 const CFSScreen = props => {
   const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
@@ -552,6 +554,7 @@ const CFSScreen = props => {
                   <Text
                     accessible={true}
                     {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                    disabled={true}
                     style={StyleSheet.applyWidth(
                       StyleSheet.compose(
                         GlobalStyles.TextStyles(theme)['screen_title'].style,
@@ -572,6 +575,7 @@ const CFSScreen = props => {
                       ),
                       dimensions.width
                     )}
+                    suppressHighlighting={true}
                   >
                     {formatNumber(fetchData?.itemsTotal)}{' '}
                     {fetchData?.itemsTotal > 1 ? 'companies' : 'company'}
@@ -748,6 +752,7 @@ const CFSScreen = props => {
                                     {...GlobalStyles.TextStyles(theme)[
                                       'screen_title'
                                     ].props}
+                                    disabled={true}
                                     style={StyleSheet.applyWidth(
                                       StyleSheet.compose(
                                         GlobalStyles.TextStyles(theme)[
@@ -757,6 +762,7 @@ const CFSScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {listData?.country}
                                   </Text>
@@ -773,6 +779,7 @@ const CFSScreen = props => {
                                     {...GlobalStyles.TextStyles(theme)[
                                       'screen_title'
                                     ].props}
+                                    disabled={true}
                                     style={StyleSheet.applyWidth(
                                       StyleSheet.compose(
                                         GlobalStyles.TextStyles(theme)[
@@ -785,6 +792,7 @@ const CFSScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'Sector: '}
                                     {listData?._gics_sub_industry?.GICS_Sector}
@@ -795,6 +803,7 @@ const CFSScreen = props => {
                                     {...GlobalStyles.TextStyles(theme)[
                                       'screen_title'
                                     ].props}
+                                    disabled={true}
                                     style={StyleSheet.applyWidth(
                                       StyleSheet.compose(
                                         GlobalStyles.TextStyles(theme)[
@@ -807,6 +816,7 @@ const CFSScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'EBITDA: '}
                                     {transformEuroM(listData?.ebitda_eur)}
@@ -817,6 +827,7 @@ const CFSScreen = props => {
                                     {...GlobalStyles.TextStyles(theme)[
                                       'screen_title'
                                     ].props}
+                                    disabled={true}
                                     style={StyleSheet.applyWidth(
                                       StyleSheet.compose(
                                         GlobalStyles.TextStyles(theme)[
@@ -829,6 +840,7 @@ const CFSScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'Owner: '}
                                     {showOwners(listData?.owners)}
@@ -839,6 +851,7 @@ const CFSScreen = props => {
                                     {...GlobalStyles.TextStyles(theme)[
                                       'screen_title'
                                     ].props}
+                                    disabled={true}
                                     style={StyleSheet.applyWidth(
                                       StyleSheet.compose(
                                         GlobalStyles.TextStyles(theme)[
@@ -851,6 +864,7 @@ const CFSScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'Advisor: '}
                                     {transformNumber(
@@ -865,6 +879,7 @@ const CFSScreen = props => {
                                     {...GlobalStyles.TextStyles(theme)[
                                       'screen_title'
                                     ].props}
+                                    disabled={true}
                                     style={StyleSheet.applyWidth(
                                       StyleSheet.compose(
                                         GlobalStyles.TextStyles(theme)[
@@ -877,6 +892,7 @@ const CFSScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'Stage: '}
                                     {listData?.stage}
@@ -887,6 +903,7 @@ const CFSScreen = props => {
                                     {...GlobalStyles.TextStyles(theme)[
                                       'screen_title'
                                     ].props}
+                                    disabled={true}
                                     style={StyleSheet.applyWidth(
                                       StyleSheet.compose(
                                         GlobalStyles.TextStyles(theme)[
@@ -899,6 +916,7 @@ const CFSScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'Update: '}
                                     {listData?.last_update}
@@ -1225,6 +1243,7 @@ const CFSScreen = props => {
                                     {...GlobalStyles.TextStyles(theme)[
                                       'screen_title'
                                     ].props}
+                                    disabled={true}
                                     style={StyleSheet.applyWidth(
                                       StyleSheet.compose(
                                         GlobalStyles.TextStyles(theme)[
@@ -1239,6 +1258,7 @@ const CFSScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'EBITDA ≤ €5m'}
                                   </Text>
@@ -1298,6 +1318,7 @@ const CFSScreen = props => {
                                     {...GlobalStyles.TextStyles(theme)[
                                       'screen_title'
                                     ].props}
+                                    disabled={true}
                                     style={StyleSheet.applyWidth(
                                       StyleSheet.compose(
                                         GlobalStyles.TextStyles(theme)[
@@ -1312,6 +1333,7 @@ const CFSScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'€5m < EBITDA ≤ €20m'}
                                   </Text>
@@ -1371,6 +1393,7 @@ const CFSScreen = props => {
                                     {...GlobalStyles.TextStyles(theme)[
                                       'screen_title'
                                     ].props}
+                                    disabled={true}
                                     style={StyleSheet.applyWidth(
                                       StyleSheet.compose(
                                         GlobalStyles.TextStyles(theme)[
@@ -1385,6 +1408,7 @@ const CFSScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'€20m < EBITDA ≤ €50m'}
                                   </Text>
@@ -1444,6 +1468,7 @@ const CFSScreen = props => {
                                     {...GlobalStyles.TextStyles(theme)[
                                       'screen_title'
                                     ].props}
+                                    disabled={true}
                                     style={StyleSheet.applyWidth(
                                       StyleSheet.compose(
                                         GlobalStyles.TextStyles(theme)[
@@ -1458,6 +1483,7 @@ const CFSScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'EBITDA >  €50m'}
                                   </Text>
@@ -1577,6 +1603,7 @@ const CFSScreen = props => {
                                     {...GlobalStyles.TextStyles(theme)[
                                       'screen_title'
                                     ].props}
+                                    disabled={true}
                                     style={StyleSheet.applyWidth(
                                       StyleSheet.compose(
                                         GlobalStyles.TextStyles(theme)[
@@ -1591,6 +1618,7 @@ const CFSScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'Austria'}
                                   </Text>
@@ -1662,6 +1690,7 @@ const CFSScreen = props => {
                                     {...GlobalStyles.TextStyles(theme)[
                                       'screen_title'
                                     ].props}
+                                    disabled={true}
                                     style={StyleSheet.applyWidth(
                                       StyleSheet.compose(
                                         GlobalStyles.TextStyles(theme)[
@@ -1676,6 +1705,7 @@ const CFSScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'Denmark'}
                                   </Text>
@@ -1747,6 +1777,7 @@ const CFSScreen = props => {
                                     {...GlobalStyles.TextStyles(theme)[
                                       'screen_title'
                                     ].props}
+                                    disabled={true}
                                     style={StyleSheet.applyWidth(
                                       StyleSheet.compose(
                                         GlobalStyles.TextStyles(theme)[
@@ -1761,6 +1792,7 @@ const CFSScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'Finland'}
                                   </Text>
@@ -1832,6 +1864,7 @@ const CFSScreen = props => {
                                     {...GlobalStyles.TextStyles(theme)[
                                       'screen_title'
                                     ].props}
+                                    disabled={true}
                                     style={StyleSheet.applyWidth(
                                       StyleSheet.compose(
                                         GlobalStyles.TextStyles(theme)[
@@ -1846,6 +1879,7 @@ const CFSScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'Germany'}
                                   </Text>
@@ -1917,6 +1951,7 @@ const CFSScreen = props => {
                                     {...GlobalStyles.TextStyles(theme)[
                                       'screen_title'
                                     ].props}
+                                    disabled={true}
                                     style={StyleSheet.applyWidth(
                                       StyleSheet.compose(
                                         GlobalStyles.TextStyles(theme)[
@@ -1931,6 +1966,7 @@ const CFSScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'Norway'}
                                   </Text>
@@ -2002,6 +2038,7 @@ const CFSScreen = props => {
                                     {...GlobalStyles.TextStyles(theme)[
                                       'screen_title'
                                     ].props}
+                                    disabled={true}
                                     style={StyleSheet.applyWidth(
                                       StyleSheet.compose(
                                         GlobalStyles.TextStyles(theme)[
@@ -2016,6 +2053,7 @@ const CFSScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'Sweden'}
                                   </Text>
@@ -2089,6 +2127,7 @@ const CFSScreen = props => {
                                     {...GlobalStyles.TextStyles(theme)[
                                       'screen_title'
                                     ].props}
+                                    disabled={true}
                                     style={StyleSheet.applyWidth(
                                       StyleSheet.compose(
                                         GlobalStyles.TextStyles(theme)[
@@ -2103,6 +2142,7 @@ const CFSScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'Switzerland'}
                                   </Text>
@@ -2216,6 +2256,7 @@ const CFSScreen = props => {
                                     {...GlobalStyles.TextStyles(theme)[
                                       'screen_title'
                                     ].props}
+                                    disabled={true}
                                     style={StyleSheet.applyWidth(
                                       StyleSheet.compose(
                                         GlobalStyles.TextStyles(theme)[
@@ -2230,6 +2271,7 @@ const CFSScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'Communication Services'}
                                   </Text>
@@ -2293,6 +2335,7 @@ const CFSScreen = props => {
                                     {...GlobalStyles.TextStyles(theme)[
                                       'screen_title'
                                     ].props}
+                                    disabled={true}
                                     style={StyleSheet.applyWidth(
                                       StyleSheet.compose(
                                         GlobalStyles.TextStyles(theme)[
@@ -2307,6 +2350,7 @@ const CFSScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'Industrials'}
                                   </Text>
@@ -2372,6 +2416,7 @@ const CFSScreen = props => {
                                     {...GlobalStyles.TextStyles(theme)[
                                       'screen_title'
                                     ].props}
+                                    disabled={true}
                                     style={StyleSheet.applyWidth(
                                       StyleSheet.compose(
                                         GlobalStyles.TextStyles(theme)[
@@ -2386,6 +2431,7 @@ const CFSScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'Consumer Discretionary'}
                                   </Text>
@@ -2449,6 +2495,7 @@ const CFSScreen = props => {
                                     {...GlobalStyles.TextStyles(theme)[
                                       'screen_title'
                                     ].props}
+                                    disabled={true}
                                     style={StyleSheet.applyWidth(
                                       StyleSheet.compose(
                                         GlobalStyles.TextStyles(theme)[
@@ -2463,6 +2510,7 @@ const CFSScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'IT & Software'}
                                   </Text>
@@ -2526,6 +2574,7 @@ const CFSScreen = props => {
                                     {...GlobalStyles.TextStyles(theme)[
                                       'screen_title'
                                     ].props}
+                                    disabled={true}
                                     style={StyleSheet.applyWidth(
                                       StyleSheet.compose(
                                         GlobalStyles.TextStyles(theme)[
@@ -2540,6 +2589,7 @@ const CFSScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'Consumer Staples'}
                                   </Text>
@@ -2601,6 +2651,7 @@ const CFSScreen = props => {
                                     {...GlobalStyles.TextStyles(theme)[
                                       'screen_title'
                                     ].props}
+                                    disabled={true}
                                     style={StyleSheet.applyWidth(
                                       StyleSheet.compose(
                                         GlobalStyles.TextStyles(theme)[
@@ -2615,6 +2666,7 @@ const CFSScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'Materials'}
                                   </Text>
@@ -2676,6 +2728,7 @@ const CFSScreen = props => {
                                     {...GlobalStyles.TextStyles(theme)[
                                       'screen_title'
                                     ].props}
+                                    disabled={true}
                                     style={StyleSheet.applyWidth(
                                       StyleSheet.compose(
                                         GlobalStyles.TextStyles(theme)[
@@ -2690,6 +2743,7 @@ const CFSScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'Energy'}
                                   </Text>
@@ -2753,6 +2807,7 @@ const CFSScreen = props => {
                                     {...GlobalStyles.TextStyles(theme)[
                                       'screen_title'
                                     ].props}
+                                    disabled={true}
                                     style={StyleSheet.applyWidth(
                                       StyleSheet.compose(
                                         GlobalStyles.TextStyles(theme)[
@@ -2767,6 +2822,7 @@ const CFSScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'Real Estate'}
                                   </Text>
@@ -2828,6 +2884,7 @@ const CFSScreen = props => {
                                     {...GlobalStyles.TextStyles(theme)[
                                       'screen_title'
                                     ].props}
+                                    disabled={true}
                                     style={StyleSheet.applyWidth(
                                       StyleSheet.compose(
                                         GlobalStyles.TextStyles(theme)[
@@ -2842,6 +2899,7 @@ const CFSScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'Financials'}
                                   </Text>
@@ -2903,6 +2961,7 @@ const CFSScreen = props => {
                                     {...GlobalStyles.TextStyles(theme)[
                                       'screen_title'
                                     ].props}
+                                    disabled={true}
                                     style={StyleSheet.applyWidth(
                                       StyleSheet.compose(
                                         GlobalStyles.TextStyles(theme)[
@@ -2917,6 +2976,7 @@ const CFSScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'Utilities'}
                                   </Text>
@@ -2980,6 +3040,7 @@ const CFSScreen = props => {
                                     {...GlobalStyles.TextStyles(theme)[
                                       'screen_title'
                                     ].props}
+                                    disabled={true}
                                     style={StyleSheet.applyWidth(
                                       StyleSheet.compose(
                                         GlobalStyles.TextStyles(theme)[
@@ -2994,6 +3055,7 @@ const CFSScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'Health Care'}
                                   </Text>
@@ -3318,6 +3380,7 @@ const CFSScreen = props => {
                         accessible={true}
                         {...GlobalStyles.TextStyles(theme)['screen_title']
                           .props}
+                        disabled={true}
                         style={StyleSheet.applyWidth(
                           StyleSheet.compose(
                             GlobalStyles.TextStyles(theme)['screen_title']
@@ -3355,6 +3418,7 @@ const CFSScreen = props => {
                           ),
                           dimensions.width
                         )}
+                        suppressHighlighting={true}
                       >
                         {'|'}
                       </Text>
@@ -3391,6 +3455,7 @@ const CFSScreen = props => {
                         accessible={true}
                         {...GlobalStyles.TextStyles(theme)['screen_title']
                           .props}
+                        disabled={true}
                         style={StyleSheet.applyWidth(
                           StyleSheet.compose(
                             GlobalStyles.TextStyles(theme)['screen_title']
@@ -3416,6 +3481,7 @@ const CFSScreen = props => {
                           ),
                           dimensions.width
                         )}
+                        suppressHighlighting={true}
                       >
                         {'|'}
                       </Text>
@@ -3452,6 +3518,7 @@ const CFSScreen = props => {
                         accessible={true}
                         {...GlobalStyles.TextStyles(theme)['screen_title']
                           .props}
+                        disabled={true}
                         style={StyleSheet.applyWidth(
                           StyleSheet.compose(
                             GlobalStyles.TextStyles(theme)['screen_title']
@@ -3477,6 +3544,7 @@ const CFSScreen = props => {
                           ),
                           dimensions.width
                         )}
+                        suppressHighlighting={true}
                       >
                         {'|'}
                       </Text>
@@ -3514,6 +3582,7 @@ const CFSScreen = props => {
                         accessible={true}
                         {...GlobalStyles.TextStyles(theme)['screen_title']
                           .props}
+                        disabled={true}
                         style={StyleSheet.applyWidth(
                           StyleSheet.compose(
                             GlobalStyles.TextStyles(theme)['screen_title']
@@ -3539,6 +3608,7 @@ const CFSScreen = props => {
                           ),
                           dimensions.width
                         )}
+                        suppressHighlighting={true}
                       >
                         {'|'}
                       </Text>
@@ -3702,6 +3772,7 @@ const CFSScreen = props => {
                             accessible={true}
                             {...GlobalStyles.TextStyles(theme)['screen_title']
                               .props}
+                            disabled={true}
                             style={StyleSheet.applyWidth(
                               StyleSheet.compose(
                                 GlobalStyles.TextStyles(theme)['screen_title']
@@ -3713,6 +3784,7 @@ const CFSScreen = props => {
                               ),
                               dimensions.width
                             )}
+                            suppressHighlighting={true}
                           >
                             {'Target:'}
                           </Text>
@@ -3728,6 +3800,7 @@ const CFSScreen = props => {
                             accessible={true}
                             {...GlobalStyles.TextStyles(theme)['screen_title']
                               .props}
+                            disabled={true}
                             style={StyleSheet.applyWidth(
                               StyleSheet.compose(
                                 GlobalStyles.TextStyles(theme)['screen_title']
@@ -3739,6 +3812,7 @@ const CFSScreen = props => {
                               ),
                               dimensions.width
                             )}
+                            suppressHighlighting={true}
                           >
                             {fetchData?.company}
                           </Text>
@@ -3761,6 +3835,7 @@ const CFSScreen = props => {
                             accessible={true}
                             {...GlobalStyles.TextStyles(theme)['screen_title']
                               .props}
+                            disabled={true}
                             style={StyleSheet.applyWidth(
                               StyleSheet.compose(
                                 GlobalStyles.TextStyles(theme)['screen_title']
@@ -3772,6 +3847,7 @@ const CFSScreen = props => {
                               ),
                               dimensions.width
                             )}
+                            suppressHighlighting={true}
                           >
                             {'Advisor:'}
                           </Text>
@@ -3787,6 +3863,7 @@ const CFSScreen = props => {
                             accessible={true}
                             {...GlobalStyles.TextStyles(theme)['screen_title']
                               .props}
+                            disabled={true}
                             style={StyleSheet.applyWidth(
                               StyleSheet.compose(
                                 GlobalStyles.TextStyles(theme)['screen_title']
@@ -3798,6 +3875,7 @@ const CFSScreen = props => {
                               ),
                               dimensions.width
                             )}
+                            suppressHighlighting={true}
                           >
                             {fetchData?._advisors}
                           </Text>
@@ -3820,6 +3898,7 @@ const CFSScreen = props => {
                             accessible={true}
                             {...GlobalStyles.TextStyles(theme)['screen_title']
                               .props}
+                            disabled={true}
                             style={StyleSheet.applyWidth(
                               StyleSheet.compose(
                                 GlobalStyles.TextStyles(theme)['screen_title']
@@ -3831,6 +3910,7 @@ const CFSScreen = props => {
                               ),
                               dimensions.width
                             )}
+                            suppressHighlighting={true}
                           >
                             {'Owners:'}
                           </Text>
@@ -3846,6 +3926,7 @@ const CFSScreen = props => {
                             accessible={true}
                             {...GlobalStyles.TextStyles(theme)['screen_title']
                               .props}
+                            disabled={true}
                             style={StyleSheet.applyWidth(
                               StyleSheet.compose(
                                 GlobalStyles.TextStyles(theme)['screen_title']
@@ -3857,6 +3938,7 @@ const CFSScreen = props => {
                               ),
                               dimensions.width
                             )}
+                            suppressHighlighting={true}
                           >
                             {fetchData?._ownersList}
                           </Text>
@@ -3879,6 +3961,7 @@ const CFSScreen = props => {
                             accessible={true}
                             {...GlobalStyles.TextStyles(theme)['screen_title']
                               .props}
+                            disabled={true}
                             style={StyleSheet.applyWidth(
                               StyleSheet.compose(
                                 GlobalStyles.TextStyles(theme)['screen_title']
@@ -3890,6 +3973,7 @@ const CFSScreen = props => {
                               ),
                               dimensions.width
                             )}
+                            suppressHighlighting={true}
                           >
                             {'Org. source:'}
                           </Text>
@@ -3905,6 +3989,7 @@ const CFSScreen = props => {
                             accessible={true}
                             {...GlobalStyles.TextStyles(theme)['screen_title']
                               .props}
+                            disabled={true}
                             style={StyleSheet.applyWidth(
                               StyleSheet.compose(
                                 GlobalStyles.TextStyles(theme)['screen_title']
@@ -3916,6 +4001,7 @@ const CFSScreen = props => {
                               ),
                               dimensions.width
                             )}
+                            suppressHighlighting={true}
                           >
                             {fetchData?.source}
                           </Text>
@@ -3938,6 +4024,7 @@ const CFSScreen = props => {
                             accessible={true}
                             {...GlobalStyles.TextStyles(theme)['screen_title']
                               .props}
+                            disabled={true}
                             style={StyleSheet.applyWidth(
                               StyleSheet.compose(
                                 GlobalStyles.TextStyles(theme)['screen_title']
@@ -3949,6 +4036,7 @@ const CFSScreen = props => {
                               ),
                               dimensions.width
                             )}
+                            suppressHighlighting={true}
                           >
                             {'Stage:'}
                           </Text>
@@ -3964,6 +4052,7 @@ const CFSScreen = props => {
                             accessible={true}
                             {...GlobalStyles.TextStyles(theme)['screen_title']
                               .props}
+                            disabled={true}
                             style={StyleSheet.applyWidth(
                               StyleSheet.compose(
                                 GlobalStyles.TextStyles(theme)['screen_title']
@@ -3975,6 +4064,7 @@ const CFSScreen = props => {
                               ),
                               dimensions.width
                             )}
+                            suppressHighlighting={true}
                           >
                             {fetchData?.stage}
                           </Text>
@@ -3997,6 +4087,7 @@ const CFSScreen = props => {
                             accessible={true}
                             {...GlobalStyles.TextStyles(theme)['screen_title']
                               .props}
+                            disabled={true}
                             style={StyleSheet.applyWidth(
                               StyleSheet.compose(
                                 GlobalStyles.TextStyles(theme)['screen_title']
@@ -4008,6 +4099,7 @@ const CFSScreen = props => {
                               ),
                               dimensions.width
                             )}
+                            suppressHighlighting={true}
                           >
                             {'Revenue:'}
                           </Text>
@@ -4023,6 +4115,7 @@ const CFSScreen = props => {
                             accessible={true}
                             {...GlobalStyles.TextStyles(theme)['screen_title']
                               .props}
+                            disabled={true}
                             style={StyleSheet.applyWidth(
                               StyleSheet.compose(
                                 GlobalStyles.TextStyles(theme)['screen_title']
@@ -4034,6 +4127,7 @@ const CFSScreen = props => {
                               ),
                               dimensions.width
                             )}
+                            suppressHighlighting={true}
                           >
                             {transformEuroM(fetchData?.revenue_eur)}
                           </Text>
@@ -4056,6 +4150,7 @@ const CFSScreen = props => {
                             accessible={true}
                             {...GlobalStyles.TextStyles(theme)['screen_title']
                               .props}
+                            disabled={true}
                             style={StyleSheet.applyWidth(
                               StyleSheet.compose(
                                 GlobalStyles.TextStyles(theme)['screen_title']
@@ -4067,6 +4162,7 @@ const CFSScreen = props => {
                               ),
                               dimensions.width
                             )}
+                            suppressHighlighting={true}
                           >
                             {'EBITDA:'}
                           </Text>
@@ -4082,6 +4178,7 @@ const CFSScreen = props => {
                             accessible={true}
                             {...GlobalStyles.TextStyles(theme)['screen_title']
                               .props}
+                            disabled={true}
                             style={StyleSheet.applyWidth(
                               StyleSheet.compose(
                                 GlobalStyles.TextStyles(theme)['screen_title']
@@ -4093,6 +4190,7 @@ const CFSScreen = props => {
                               ),
                               dimensions.width
                             )}
+                            suppressHighlighting={true}
                           >
                             {transformEuroM(fetchData?.ebitda_eur)}
                           </Text>
@@ -4115,6 +4213,7 @@ const CFSScreen = props => {
                             accessible={true}
                             {...GlobalStyles.TextStyles(theme)['screen_title']
                               .props}
+                            disabled={true}
                             style={StyleSheet.applyWidth(
                               StyleSheet.compose(
                                 GlobalStyles.TextStyles(theme)['screen_title']
@@ -4126,6 +4225,7 @@ const CFSScreen = props => {
                               ),
                               dimensions.width
                             )}
+                            suppressHighlighting={true}
                           >
                             {'Fiscal year:'}
                           </Text>
@@ -4141,6 +4241,7 @@ const CFSScreen = props => {
                             accessible={true}
                             {...GlobalStyles.TextStyles(theme)['screen_title']
                               .props}
+                            disabled={true}
                             style={StyleSheet.applyWidth(
                               StyleSheet.compose(
                                 GlobalStyles.TextStyles(theme)['screen_title']
@@ -4152,6 +4253,7 @@ const CFSScreen = props => {
                               ),
                               dimensions.width
                             )}
+                            suppressHighlighting={true}
                           >
                             {fetchData?.fy_end}
                           </Text>
@@ -4174,6 +4276,7 @@ const CFSScreen = props => {
                             accessible={true}
                             {...GlobalStyles.TextStyles(theme)['screen_title']
                               .props}
+                            disabled={true}
                             style={StyleSheet.applyWidth(
                               StyleSheet.compose(
                                 GlobalStyles.TextStyles(theme)['screen_title']
@@ -4185,6 +4288,7 @@ const CFSScreen = props => {
                               ),
                               dimensions.width
                             )}
+                            suppressHighlighting={true}
                           >
                             {'GICS:'}
                           </Text>
@@ -4200,6 +4304,7 @@ const CFSScreen = props => {
                             accessible={true}
                             {...GlobalStyles.TextStyles(theme)['screen_title']
                               .props}
+                            disabled={true}
                             style={StyleSheet.applyWidth(
                               StyleSheet.compose(
                                 GlobalStyles.TextStyles(theme)['screen_title']
@@ -4211,6 +4316,7 @@ const CFSScreen = props => {
                               ),
                               dimensions.width
                             )}
+                            suppressHighlighting={true}
                           >
                             {fetchData?._gics?.GICS_Industry}
                             {' - '}
@@ -4235,6 +4341,7 @@ const CFSScreen = props => {
                             accessible={true}
                             {...GlobalStyles.TextStyles(theme)['screen_title']
                               .props}
+                            disabled={true}
                             style={StyleSheet.applyWidth(
                               StyleSheet.compose(
                                 GlobalStyles.TextStyles(theme)['screen_title']
@@ -4246,6 +4353,7 @@ const CFSScreen = props => {
                               ),
                               dimensions.width
                             )}
+                            suppressHighlighting={true}
                           >
                             {'Country:'}
                           </Text>
@@ -4261,6 +4369,7 @@ const CFSScreen = props => {
                             accessible={true}
                             {...GlobalStyles.TextStyles(theme)['screen_title']
                               .props}
+                            disabled={true}
                             style={StyleSheet.applyWidth(
                               StyleSheet.compose(
                                 GlobalStyles.TextStyles(theme)['screen_title']
@@ -4272,6 +4381,7 @@ const CFSScreen = props => {
                               ),
                               dimensions.width
                             )}
+                            suppressHighlighting={true}
                           >
                             {fetchData?.country}
                           </Text>
@@ -4297,6 +4407,7 @@ const CFSScreen = props => {
                           accessible={true}
                           {...GlobalStyles.TextStyles(theme)['screen_title']
                             .props}
+                          disabled={true}
                           style={StyleSheet.applyWidth(
                             StyleSheet.compose(
                               GlobalStyles.TextStyles(theme)['screen_title']
@@ -4333,6 +4444,7 @@ const CFSScreen = props => {
                               accessible={true}
                               {...GlobalStyles.TextStyles(theme)['screen_title']
                                 .props}
+                              disabled={true}
                               style={StyleSheet.applyWidth(
                                 StyleSheet.compose(
                                   GlobalStyles.TextStyles(theme)['screen_title']
@@ -4346,6 +4458,7 @@ const CFSScreen = props => {
                                 ),
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {fetchData?._main_event?.published}
                               {' ('}
@@ -4360,11 +4473,13 @@ const CFSScreen = props => {
                             accessible={true}
                             {...GlobalStyles.TextStyles(theme)['screen_title']
                               .props}
+                            disabled={true}
                             style={StyleSheet.applyWidth(
                               GlobalStyles.TextStyles(theme)['screen_title']
                                 .style,
                               dimensions.width
                             )}
+                            suppressHighlighting={true}
                           >
                             {fetchData?._main_event?.description}
                           </Text>
@@ -4602,6 +4717,7 @@ const CFSScreen = props => {
                                           {...GlobalStyles.TextStyles(theme)[
                                             'screen_title'
                                           ].props}
+                                          disabled={true}
                                           style={StyleSheet.applyWidth(
                                             StyleSheet.compose(
                                               GlobalStyles.TextStyles(theme)[
@@ -4627,6 +4743,7 @@ const CFSScreen = props => {
                                             ),
                                             dimensions.width
                                           )}
+                                          suppressHighlighting={true}
                                         >
                                           {listData?.published}
                                           {' | Source: '}

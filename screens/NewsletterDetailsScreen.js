@@ -295,6 +295,7 @@ const NewsletterDetailsScreen = props => {
 
                           <Text
                             accessible={true}
+                            disabled={true}
                             style={StyleSheet.applyWidth(
                               {
                                 color: palettes.Brand['Strong Inverse'],
@@ -303,6 +304,7 @@ const NewsletterDetailsScreen = props => {
                               },
                               dimensions.width
                             )}
+                            suppressHighlighting={true}
                           >
                             {
                               'The newsletter you are trying to access is not included in your current subscription. If you would like to enquire about options for expanding your subscription ma@nordicknowledgepartners.com or if you believe this is a mistake please contact us at '
@@ -458,10 +460,12 @@ const NewsletterDetailsScreen = props => {
                         accessible={true}
                         {...GlobalStyles.TextStyles(theme)['screen_title']
                           .props}
+                        disabled={true}
                         style={StyleSheet.applyWidth(
                           GlobalStyles.TextStyles(theme)['screen_title'].style,
                           dimensions.width
                         )}
+                        suppressHighlighting={true}
                       >
                         {fetchData?.date}
                       </Text>
@@ -570,6 +574,7 @@ const NewsletterDetailsScreen = props => {
                                   {...GlobalStyles.TextStyles(theme)[
                                     'screen_title_stockH'
                                   ].props}
+                                  disabled={true}
                                   style={StyleSheet.applyWidth(
                                     StyleSheet.compose(
                                       GlobalStyles.TextStyles(theme)[
@@ -579,6 +584,7 @@ const NewsletterDetailsScreen = props => {
                                     ),
                                     dimensions.width
                                   )}
+                                  suppressHighlighting={true}
                                 >
                                   {'00:00 / '}
                                   {calculateMinsToSecs(
@@ -625,6 +631,7 @@ const NewsletterDetailsScreen = props => {
                               accessible={true}
                               {...GlobalStyles.TextStyles(theme)['screen_title']
                                 .props}
+                              disabled={true}
                               style={StyleSheet.applyWidth(
                                 StyleSheet.compose(
                                   GlobalStyles.TextStyles(theme)['screen_title']
@@ -638,6 +645,7 @@ const NewsletterDetailsScreen = props => {
                                 ),
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {'PITCH OF THE DAY'}
                             </Text>
@@ -741,6 +749,7 @@ const NewsletterDetailsScreen = props => {
                                 {...GlobalStyles.TextStyles(theme)[
                                   'screen_title'
                                 ].props}
+                                disabled={true}
                                 style={StyleSheet.applyWidth(
                                   StyleSheet.compose(
                                     GlobalStyles.TextStyles(theme)[
@@ -750,6 +759,7 @@ const NewsletterDetailsScreen = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'Target:'}
                               </Text>
@@ -767,6 +777,7 @@ const NewsletterDetailsScreen = props => {
                                 {...GlobalStyles.TextStyles(theme)[
                                   'screen_title'
                                 ].props}
+                                disabled={true}
                                 style={StyleSheet.applyWidth(
                                   StyleSheet.compose(
                                     GlobalStyles.TextStyles(theme)[
@@ -776,6 +787,7 @@ const NewsletterDetailsScreen = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {fetchData?._potd?.target}
                               </Text>
@@ -800,6 +812,7 @@ const NewsletterDetailsScreen = props => {
                                 {...GlobalStyles.TextStyles(theme)[
                                   'screen_title'
                                 ].props}
+                                disabled={true}
                                 style={StyleSheet.applyWidth(
                                   StyleSheet.compose(
                                     GlobalStyles.TextStyles(theme)[
@@ -809,6 +822,7 @@ const NewsletterDetailsScreen = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'Advisor:'}
                               </Text>
@@ -826,6 +840,7 @@ const NewsletterDetailsScreen = props => {
                                 {...GlobalStyles.TextStyles(theme)[
                                   'screen_title'
                                 ].props}
+                                disabled={true}
                                 style={StyleSheet.applyWidth(
                                   StyleSheet.compose(
                                     GlobalStyles.TextStyles(theme)[
@@ -835,6 +850,7 @@ const NewsletterDetailsScreen = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {fetchData?._potd?.advisor}
                               </Text>
@@ -859,6 +875,7 @@ const NewsletterDetailsScreen = props => {
                                 {...GlobalStyles.TextStyles(theme)[
                                   'screen_title'
                                 ].props}
+                                disabled={true}
                                 style={StyleSheet.applyWidth(
                                   StyleSheet.compose(
                                     GlobalStyles.TextStyles(theme)[
@@ -868,6 +885,7 @@ const NewsletterDetailsScreen = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'Stage:'}
                               </Text>
@@ -885,6 +903,7 @@ const NewsletterDetailsScreen = props => {
                                 {...GlobalStyles.TextStyles(theme)[
                                   'screen_title'
                                 ].props}
+                                disabled={true}
                                 style={StyleSheet.applyWidth(
                                   StyleSheet.compose(
                                     GlobalStyles.TextStyles(theme)[
@@ -894,6 +913,7 @@ const NewsletterDetailsScreen = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {fetchData?._potd?.stage}
                               </Text>
@@ -918,6 +938,7 @@ const NewsletterDetailsScreen = props => {
                                 {...GlobalStyles.TextStyles(theme)[
                                   'screen_title'
                                 ].props}
+                                disabled={true}
                                 style={StyleSheet.applyWidth(
                                   StyleSheet.compose(
                                     GlobalStyles.TextStyles(theme)[
@@ -927,6 +948,7 @@ const NewsletterDetailsScreen = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'Financials:'}
                               </Text>
@@ -944,6 +966,7 @@ const NewsletterDetailsScreen = props => {
                                 {...GlobalStyles.TextStyles(theme)[
                                   'screen_title'
                                 ].props}
+                                disabled={true}
                                 style={StyleSheet.applyWidth(
                                   StyleSheet.compose(
                                     GlobalStyles.TextStyles(theme)[
@@ -953,6 +976,7 @@ const NewsletterDetailsScreen = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {fetchData?._potd?.financials}
                               </Text>
@@ -977,6 +1001,7 @@ const NewsletterDetailsScreen = props => {
                                 {...GlobalStyles.TextStyles(theme)[
                                   'screen_title'
                                 ].props}
+                                disabled={true}
                                 style={StyleSheet.applyWidth(
                                   StyleSheet.compose(
                                     GlobalStyles.TextStyles(theme)[
@@ -986,6 +1011,7 @@ const NewsletterDetailsScreen = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'GICS:'}
                               </Text>
@@ -1003,6 +1029,7 @@ const NewsletterDetailsScreen = props => {
                                 {...GlobalStyles.TextStyles(theme)[
                                   'screen_title'
                                 ].props}
+                                disabled={true}
                                 style={StyleSheet.applyWidth(
                                   StyleSheet.compose(
                                     GlobalStyles.TextStyles(theme)[
@@ -1012,6 +1039,7 @@ const NewsletterDetailsScreen = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {fetchData?._potd?.gics}
                               </Text>
@@ -1036,6 +1064,7 @@ const NewsletterDetailsScreen = props => {
                                 {...GlobalStyles.TextStyles(theme)[
                                   'screen_title'
                                 ].props}
+                                disabled={true}
                                 style={StyleSheet.applyWidth(
                                   StyleSheet.compose(
                                     GlobalStyles.TextStyles(theme)[
@@ -1045,6 +1074,7 @@ const NewsletterDetailsScreen = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'HQ:'}
                               </Text>
@@ -1062,6 +1092,7 @@ const NewsletterDetailsScreen = props => {
                                 {...GlobalStyles.TextStyles(theme)[
                                   'screen_title'
                                 ].props}
+                                disabled={true}
                                 style={StyleSheet.applyWidth(
                                   StyleSheet.compose(
                                     GlobalStyles.TextStyles(theme)[
@@ -1071,6 +1102,7 @@ const NewsletterDetailsScreen = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {fetchData?._potd?.hq}
                               </Text>
@@ -1102,6 +1134,7 @@ const NewsletterDetailsScreen = props => {
                             {/* Lable */}
                             <Text
                               accessible={true}
+                              disabled={true}
                               style={StyleSheet.applyWidth(
                                 {
                                   color: theme.colors.text.light,
@@ -1110,6 +1143,7 @@ const NewsletterDetailsScreen = props => {
                                 },
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {'Company profile:'}
                             </Text>
@@ -1118,6 +1152,7 @@ const NewsletterDetailsScreen = props => {
                               accessible={true}
                               {...GlobalStyles.TextStyles(theme)['screen_title']
                                 .props}
+                              disabled={true}
                               style={StyleSheet.applyWidth(
                                 StyleSheet.compose(
                                   GlobalStyles.TextStyles(theme)['screen_title']
@@ -1129,6 +1164,7 @@ const NewsletterDetailsScreen = props => {
                                 ),
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {fetchData?._potd?.story_company_profile}
                             </Text>
@@ -1149,6 +1185,7 @@ const NewsletterDetailsScreen = props => {
                               accessible={true}
                               {...GlobalStyles.TextStyles(theme)['screen_title']
                                 .props}
+                              disabled={true}
                               style={StyleSheet.applyWidth(
                                 StyleSheet.compose(
                                   GlobalStyles.TextStyles(theme)['screen_title']
@@ -1161,6 +1198,7 @@ const NewsletterDetailsScreen = props => {
                                 ),
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {'The opportunity:'}
                             </Text>
@@ -1169,6 +1207,7 @@ const NewsletterDetailsScreen = props => {
                               accessible={true}
                               {...GlobalStyles.TextStyles(theme)['screen_title']
                                 .props}
+                              disabled={true}
                               style={StyleSheet.applyWidth(
                                 StyleSheet.compose(
                                   GlobalStyles.TextStyles(theme)['screen_title']
@@ -1180,6 +1219,7 @@ const NewsletterDetailsScreen = props => {
                                 ),
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {fetchData?._potd?.story_opportunity}
                             </Text>
@@ -1200,6 +1240,7 @@ const NewsletterDetailsScreen = props => {
                               accessible={true}
                               {...GlobalStyles.TextStyles(theme)['screen_title']
                                 .props}
+                              disabled={true}
                               style={StyleSheet.applyWidth(
                                 StyleSheet.compose(
                                   GlobalStyles.TextStyles(theme)['screen_title']
@@ -1212,6 +1253,7 @@ const NewsletterDetailsScreen = props => {
                                 ),
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {'Comps & precedents:'}
                             </Text>
@@ -1220,6 +1262,7 @@ const NewsletterDetailsScreen = props => {
                               accessible={true}
                               {...GlobalStyles.TextStyles(theme)['screen_title']
                                 .props}
+                              disabled={true}
                               style={StyleSheet.applyWidth(
                                 StyleSheet.compose(
                                   GlobalStyles.TextStyles(theme)['screen_title']
@@ -1231,6 +1274,7 @@ const NewsletterDetailsScreen = props => {
                                 ),
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {fetchData?._potd?.story_comps}
                             </Text>
@@ -1278,12 +1322,14 @@ const NewsletterDetailsScreen = props => {
                                 {...GlobalStyles.TextStyles(theme)[
                                   'listed_header_title'
                                 ].props}
+                                disabled={true}
                                 style={StyleSheet.applyWidth(
                                   GlobalStyles.TextStyles(theme)[
                                     'listed_header_title'
                                   ].style,
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'Listed comparable'}
                               </Text>
@@ -1327,6 +1373,7 @@ const NewsletterDetailsScreen = props => {
                                   {...GlobalStyles.TextStyles(theme)[
                                     'listed_header_title'
                                   ].props}
+                                  disabled={true}
                                   style={StyleSheet.applyWidth(
                                     StyleSheet.compose(
                                       GlobalStyles.TextStyles(theme)[
@@ -1342,6 +1389,7 @@ const NewsletterDetailsScreen = props => {
                                     ),
                                     dimensions.width
                                   )}
+                                  suppressHighlighting={true}
                                 >
                                   {'EV/Sales (FY0)'}
                                 </Text>
@@ -1363,6 +1411,7 @@ const NewsletterDetailsScreen = props => {
                                   {...GlobalStyles.TextStyles(theme)[
                                     'listed_header_title'
                                   ].props}
+                                  disabled={true}
                                   style={StyleSheet.applyWidth(
                                     StyleSheet.compose(
                                       GlobalStyles.TextStyles(theme)[
@@ -1372,6 +1421,7 @@ const NewsletterDetailsScreen = props => {
                                     ),
                                     dimensions.width
                                   )}
+                                  suppressHighlighting={true}
                                 >
                                   {'EV/EBITDA (FY0)'}
                                 </Text>
@@ -1419,6 +1469,7 @@ const NewsletterDetailsScreen = props => {
                                         {...GlobalStyles.TextStyles(theme)[
                                           'screen_title'
                                         ].props}
+                                        disabled={true}
                                         ellipsizeMode={'tail'}
                                         numberOfLines={1}
                                         style={StyleSheet.applyWidth(
@@ -1427,6 +1478,7 @@ const NewsletterDetailsScreen = props => {
                                           ].style,
                                           dimensions.width
                                         )}
+                                        suppressHighlighting={true}
                                       >
                                         {listData?.company_name}
                                       </Text>
@@ -1456,6 +1508,7 @@ const NewsletterDetailsScreen = props => {
                                           {...GlobalStyles.TextStyles(theme)[
                                             'screen_title'
                                           ].props}
+                                          disabled={true}
                                           style={StyleSheet.applyWidth(
                                             StyleSheet.compose(
                                               GlobalStyles.TextStyles(theme)[
@@ -1465,6 +1518,7 @@ const NewsletterDetailsScreen = props => {
                                             ),
                                             dimensions.width
                                           )}
+                                          suppressHighlighting={true}
                                         >
                                           {transformNumber(
                                             listData?.ev_sales_fy0,
@@ -1489,6 +1543,7 @@ const NewsletterDetailsScreen = props => {
                                           {...GlobalStyles.TextStyles(theme)[
                                             'screen_title'
                                           ].props}
+                                          disabled={true}
                                           style={StyleSheet.applyWidth(
                                             StyleSheet.compose(
                                               GlobalStyles.TextStyles(theme)[
@@ -1498,6 +1553,7 @@ const NewsletterDetailsScreen = props => {
                                             ),
                                             dimensions.width
                                           )}
+                                          suppressHighlighting={true}
                                         >
                                           {transformNumber(
                                             listData?.ev_ebitda_fy0,
@@ -1539,6 +1595,7 @@ const NewsletterDetailsScreen = props => {
                                 {...GlobalStyles.TextStyles(theme)[
                                   'screen_title'
                                 ].props}
+                                disabled={true}
                                 style={StyleSheet.applyWidth(
                                   StyleSheet.compose(
                                     GlobalStyles.TextStyles(theme)[
@@ -1548,6 +1605,7 @@ const NewsletterDetailsScreen = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'Median = '}
                               </Text>
@@ -1577,6 +1635,7 @@ const NewsletterDetailsScreen = props => {
                                   {...GlobalStyles.TextStyles(theme)[
                                     'screen_title'
                                   ].props}
+                                  disabled={true}
                                   style={StyleSheet.applyWidth(
                                     StyleSheet.compose(
                                       GlobalStyles.TextStyles(theme)[
@@ -1590,6 +1649,7 @@ const NewsletterDetailsScreen = props => {
                                     ),
                                     dimensions.width
                                   )}
+                                  suppressHighlighting={true}
                                 >
                                   {transformNumber(
                                     fetchData?._potd?._peer_group?.ev_sales_fy0,
@@ -1610,6 +1670,7 @@ const NewsletterDetailsScreen = props => {
                                   {...GlobalStyles.TextStyles(theme)[
                                     'screen_title'
                                   ].props}
+                                  disabled={true}
                                   style={StyleSheet.applyWidth(
                                     StyleSheet.compose(
                                       GlobalStyles.TextStyles(theme)[
@@ -1622,6 +1683,7 @@ const NewsletterDetailsScreen = props => {
                                     ),
                                     dimensions.width
                                   )}
+                                  suppressHighlighting={true}
                                 >
                                   {transformNumber(
                                     fetchData?._potd?._peer_group
@@ -1670,6 +1732,7 @@ const NewsletterDetailsScreen = props => {
                           accessible={true}
                           {...GlobalStyles.TextStyles(theme)['screen_title']
                             .props}
+                          disabled={true}
                           style={StyleSheet.applyWidth(
                             StyleSheet.compose(
                               GlobalStyles.TextStyles(theme)['screen_title']
@@ -1683,6 +1746,7 @@ const NewsletterDetailsScreen = props => {
                             ),
                             dimensions.width
                           )}
+                          suppressHighlighting={true}
                         >
                           {'NEWSFLOW'}
                         </Text>
@@ -1830,6 +1894,7 @@ const NewsletterDetailsScreen = props => {
                                             >
                                               <Text
                                                 accessible={true}
+                                                disabled={true}
                                                 style={StyleSheet.applyWidth(
                                                   {
                                                     color: palettes.App.Orange,
@@ -1839,6 +1904,7 @@ const NewsletterDetailsScreen = props => {
                                                   },
                                                   dimensions.width
                                                 )}
+                                                suppressHighlighting={true}
                                               >
                                                 {
                                                   listData?._gics_sub_industry
@@ -1846,6 +1912,7 @@ const NewsletterDetailsScreen = props => {
                                                 }{' '}
                                                 <Text
                                                   accessible={true}
+                                                  disabled={true}
                                                   style={StyleSheet.applyWidth(
                                                     {
                                                       color:
@@ -1857,6 +1924,7 @@ const NewsletterDetailsScreen = props => {
                                                     },
                                                     dimensions.width
                                                   )}
+                                                  suppressHighlighting={true}
                                                 >
                                                   {'| '}
                                                   {showNKPProp(
@@ -1870,6 +1938,7 @@ const NewsletterDetailsScreen = props => {
                                             <View>
                                               <Text
                                                 accessible={true}
+                                                disabled={true}
                                                 style={StyleSheet.applyWidth(
                                                   {
                                                     color:
@@ -1879,6 +1948,7 @@ const NewsletterDetailsScreen = props => {
                                                   },
                                                   dimensions.width
                                                 )}
+                                                suppressHighlighting={true}
                                               >
                                                 {listData?.description}
                                               </Text>
@@ -1888,6 +1958,7 @@ const NewsletterDetailsScreen = props => {
                                               {/* Text 2 */}
                                               <Text
                                                 accessible={true}
+                                                disabled={true}
                                                 style={StyleSheet.applyWidth(
                                                   {
                                                     color: palettes.App.Orange,
@@ -1897,6 +1968,7 @@ const NewsletterDetailsScreen = props => {
                                                   },
                                                   dimensions.width
                                                 )}
+                                                suppressHighlighting={true}
                                               >
                                                 {'Source: '}
                                                 {listData?.source}
@@ -2067,6 +2139,7 @@ const NewsletterDetailsScreen = props => {
                                             >
                                               <Text
                                                 accessible={true}
+                                                disabled={true}
                                                 style={StyleSheet.applyWidth(
                                                   {
                                                     color: palettes.App.Orange,
@@ -2076,6 +2149,7 @@ const NewsletterDetailsScreen = props => {
                                                   },
                                                   dimensions.width
                                                 )}
+                                                suppressHighlighting={true}
                                               >
                                                 {
                                                   listData?._gics_sub_industry
@@ -2083,6 +2157,7 @@ const NewsletterDetailsScreen = props => {
                                                 }{' '}
                                                 <Text
                                                   accessible={true}
+                                                  disabled={true}
                                                   style={StyleSheet.applyWidth(
                                                     {
                                                       color:
@@ -2094,6 +2169,7 @@ const NewsletterDetailsScreen = props => {
                                                     },
                                                     dimensions.width
                                                   )}
+                                                  suppressHighlighting={true}
                                                 >
                                                   {'| '}
                                                   {showNKPProp(
@@ -2107,6 +2183,7 @@ const NewsletterDetailsScreen = props => {
                                             <View>
                                               <Text
                                                 accessible={true}
+                                                disabled={true}
                                                 style={StyleSheet.applyWidth(
                                                   {
                                                     color:
@@ -2116,6 +2193,7 @@ const NewsletterDetailsScreen = props => {
                                                   },
                                                   dimensions.width
                                                 )}
+                                                suppressHighlighting={true}
                                               >
                                                 {listData?.description}
                                               </Text>
@@ -2125,6 +2203,7 @@ const NewsletterDetailsScreen = props => {
                                               {/* Text 2 */}
                                               <Text
                                                 accessible={true}
+                                                disabled={true}
                                                 style={StyleSheet.applyWidth(
                                                   {
                                                     color: palettes.App.Orange,
@@ -2134,6 +2213,7 @@ const NewsletterDetailsScreen = props => {
                                                   },
                                                   dimensions.width
                                                 )}
+                                                suppressHighlighting={true}
                                               >
                                                 {'Source: '}
                                                 {listData?.source}
@@ -2293,6 +2373,7 @@ const NewsletterDetailsScreen = props => {
                                               {/* Text 2 */}
                                               <Text
                                                 accessible={true}
+                                                disabled={true}
                                                 style={StyleSheet.applyWidth(
                                                   {
                                                     color: palettes.App.Orange,
@@ -2302,6 +2383,7 @@ const NewsletterDetailsScreen = props => {
                                                   },
                                                   dimensions.width
                                                 )}
+                                                suppressHighlighting={true}
                                               >
                                                 {
                                                   listData?._gics_sub_industry
@@ -2309,6 +2391,7 @@ const NewsletterDetailsScreen = props => {
                                                 }{' '}
                                                 <Text
                                                   accessible={true}
+                                                  disabled={true}
                                                   style={StyleSheet.applyWidth(
                                                     {
                                                       color:
@@ -2320,6 +2403,7 @@ const NewsletterDetailsScreen = props => {
                                                     },
                                                     dimensions.width
                                                   )}
+                                                  suppressHighlighting={true}
                                                 >
                                                   {'| '}
                                                   {showNKPProp(
@@ -2333,6 +2417,7 @@ const NewsletterDetailsScreen = props => {
                                             <View>
                                               <Text
                                                 accessible={true}
+                                                disabled={true}
                                                 style={StyleSheet.applyWidth(
                                                   {
                                                     color:
@@ -2342,6 +2427,7 @@ const NewsletterDetailsScreen = props => {
                                                   },
                                                   dimensions.width
                                                 )}
+                                                suppressHighlighting={true}
                                               >
                                                 {listData?.description}
                                               </Text>
@@ -2350,6 +2436,7 @@ const NewsletterDetailsScreen = props => {
                                             <View>
                                               <Text
                                                 accessible={true}
+                                                disabled={true}
                                                 style={StyleSheet.applyWidth(
                                                   {
                                                     color: palettes.App.Orange,
@@ -2358,6 +2445,7 @@ const NewsletterDetailsScreen = props => {
                                                   },
                                                   dimensions.width
                                                 )}
+                                                suppressHighlighting={true}
                                               >
                                                 {'Source: '}
                                                 {listData?.source}
@@ -2524,6 +2612,7 @@ const NewsletterDetailsScreen = props => {
                                               {/* Text 2 */}
                                               <Text
                                                 accessible={true}
+                                                disabled={true}
                                                 style={StyleSheet.applyWidth(
                                                   {
                                                     color: [
@@ -2546,6 +2635,7 @@ const NewsletterDetailsScreen = props => {
                                                   },
                                                   dimensions.width
                                                 )}
+                                                suppressHighlighting={true}
                                               >
                                                 {
                                                   listData?._gics_sub_industry
@@ -2553,6 +2643,7 @@ const NewsletterDetailsScreen = props => {
                                                 }{' '}
                                                 <Text
                                                   accessible={true}
+                                                  disabled={true}
                                                   style={StyleSheet.applyWidth(
                                                     {
                                                       color:
@@ -2564,6 +2655,7 @@ const NewsletterDetailsScreen = props => {
                                                     },
                                                     dimensions.width
                                                   )}
+                                                  suppressHighlighting={true}
                                                 >
                                                   {'| '}
                                                   {showNKPProp(
@@ -2577,6 +2669,7 @@ const NewsletterDetailsScreen = props => {
                                             <View>
                                               <Text
                                                 accessible={true}
+                                                disabled={true}
                                                 style={StyleSheet.applyWidth(
                                                   {
                                                     color:
@@ -2586,6 +2679,7 @@ const NewsletterDetailsScreen = props => {
                                                   },
                                                   dimensions.width
                                                 )}
+                                                suppressHighlighting={true}
                                               >
                                                 {listData?.description}
                                               </Text>
@@ -2594,6 +2688,7 @@ const NewsletterDetailsScreen = props => {
                                             <View>
                                               <Text
                                                 accessible={true}
+                                                disabled={true}
                                                 style={StyleSheet.applyWidth(
                                                   {
                                                     color: [
@@ -2615,6 +2710,7 @@ const NewsletterDetailsScreen = props => {
                                                   },
                                                   dimensions.width
                                                 )}
+                                                suppressHighlighting={true}
                                               >
                                                 {'Source: '}
                                                 {listData?.source}
@@ -2810,6 +2906,7 @@ const NewsletterDetailsScreen = props => {
                                                     >
                                                       <Text
                                                         accessible={true}
+                                                        disabled={true}
                                                         style={StyleSheet.applyWidth(
                                                           {
                                                             fontFamily:
@@ -2818,6 +2915,9 @@ const NewsletterDetailsScreen = props => {
                                                           },
                                                           dimensions.width
                                                         )}
+                                                        suppressHighlighting={
+                                                          true
+                                                        }
                                                       >
                                                         {showNKPProp(
                                                           listData?.headline,
@@ -2853,6 +2953,7 @@ const NewsletterDetailsScreen = props => {
                                                   <View>
                                                     <Text
                                                       accessible={true}
+                                                      disabled={true}
                                                       style={StyleSheet.applyWidth(
                                                         {
                                                           color:
@@ -2863,6 +2964,9 @@ const NewsletterDetailsScreen = props => {
                                                         },
                                                         dimensions.width
                                                       )}
+                                                      suppressHighlighting={
+                                                        true
+                                                      }
                                                     >
                                                       {listData?.description}
                                                     </Text>
@@ -2870,6 +2974,7 @@ const NewsletterDetailsScreen = props => {
                                                     <View>
                                                       <Text
                                                         accessible={true}
+                                                        disabled={true}
                                                         style={StyleSheet.applyWidth(
                                                           {
                                                             color:
@@ -2880,6 +2985,9 @@ const NewsletterDetailsScreen = props => {
                                                           },
                                                           dimensions.width
                                                         )}
+                                                        suppressHighlighting={
+                                                          true
+                                                        }
                                                       >
                                                         {'Source: '}
                                                         {listData?.source}
@@ -3075,6 +3183,7 @@ const NewsletterDetailsScreen = props => {
                                                   >
                                                     <Text
                                                       accessible={true}
+                                                      disabled={true}
                                                       style={StyleSheet.applyWidth(
                                                         {
                                                           alignSelf:
@@ -3085,6 +3194,9 @@ const NewsletterDetailsScreen = props => {
                                                         },
                                                         dimensions.width
                                                       )}
+                                                      suppressHighlighting={
+                                                        true
+                                                      }
                                                     >
                                                       {showNKPProp(
                                                         listData?.headline,
@@ -3097,6 +3209,7 @@ const NewsletterDetailsScreen = props => {
                                                 <View>
                                                   <Text
                                                     accessible={true}
+                                                    disabled={true}
                                                     style={StyleSheet.applyWidth(
                                                       {
                                                         color:
@@ -3106,6 +3219,7 @@ const NewsletterDetailsScreen = props => {
                                                       },
                                                       dimensions.width
                                                     )}
+                                                    suppressHighlighting={true}
                                                   >
                                                     {listData?.country}
                                                     {' - '}
@@ -3120,6 +3234,7 @@ const NewsletterDetailsScreen = props => {
                                                 <View>
                                                   <Text
                                                     accessible={true}
+                                                    disabled={true}
                                                     style={StyleSheet.applyWidth(
                                                       {
                                                         color:
@@ -3130,6 +3245,7 @@ const NewsletterDetailsScreen = props => {
                                                       },
                                                       dimensions.width
                                                     )}
+                                                    suppressHighlighting={true}
                                                   >
                                                     {listData?.description}
                                                   </Text>
@@ -3138,6 +3254,7 @@ const NewsletterDetailsScreen = props => {
                                                 <View>
                                                   <Text
                                                     accessible={true}
+                                                    disabled={true}
                                                     style={StyleSheet.applyWidth(
                                                       {
                                                         color:
@@ -3147,6 +3264,7 @@ const NewsletterDetailsScreen = props => {
                                                       },
                                                       dimensions.width
                                                     )}
+                                                    suppressHighlighting={true}
                                                   >
                                                     {'Source: '}
                                                     {listData?.source}
@@ -3333,6 +3451,7 @@ const NewsletterDetailsScreen = props => {
                                                   >
                                                     <Text
                                                       accessible={true}
+                                                      disabled={true}
                                                       style={StyleSheet.applyWidth(
                                                         {
                                                           fontFamily:
@@ -3341,6 +3460,9 @@ const NewsletterDetailsScreen = props => {
                                                         },
                                                         dimensions.width
                                                       )}
+                                                      suppressHighlighting={
+                                                        true
+                                                      }
                                                     >
                                                       {showNKPProp(
                                                         listData?.headline,
@@ -3354,6 +3476,7 @@ const NewsletterDetailsScreen = props => {
                                                 <View>
                                                   <Text
                                                     accessible={true}
+                                                    disabled={true}
                                                     style={StyleSheet.applyWidth(
                                                       {
                                                         color:
@@ -3363,6 +3486,7 @@ const NewsletterDetailsScreen = props => {
                                                       },
                                                       dimensions.width
                                                     )}
+                                                    suppressHighlighting={true}
                                                   >
                                                     {listData?.country}
                                                     {' - '}
@@ -3377,6 +3501,7 @@ const NewsletterDetailsScreen = props => {
                                                 <View>
                                                   <Text
                                                     accessible={true}
+                                                    disabled={true}
                                                     style={StyleSheet.applyWidth(
                                                       {
                                                         color:
@@ -3388,6 +3513,7 @@ const NewsletterDetailsScreen = props => {
                                                       },
                                                       dimensions.width
                                                     )}
+                                                    suppressHighlighting={true}
                                                   >
                                                     {listData?.description}
                                                   </Text>
@@ -3396,6 +3522,7 @@ const NewsletterDetailsScreen = props => {
                                                 <View>
                                                   <Text
                                                     accessible={true}
+                                                    disabled={true}
                                                     style={StyleSheet.applyWidth(
                                                       {
                                                         color:
@@ -3405,6 +3532,7 @@ const NewsletterDetailsScreen = props => {
                                                       },
                                                       dimensions.width
                                                     )}
+                                                    suppressHighlighting={true}
                                                   >
                                                     {'Source: '}
                                                     {listData?.source}

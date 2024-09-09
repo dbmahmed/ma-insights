@@ -26,6 +26,8 @@ import parseBoolean from '../utils/parseBoolean';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import waitUtil from '../utils/wait';
 
+const defaultProps = { page_state: null };
+
 const ForgotPasswordScreen = props => {
   const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
@@ -119,6 +121,7 @@ const ForgotPasswordScreen = props => {
           <Text
             accessible={true}
             {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+            disabled={true}
             style={StyleSheet.applyWidth(
               StyleSheet.compose(
                 GlobalStyles.TextStyles(theme)['screen_title'].style,
@@ -148,6 +151,7 @@ const ForgotPasswordScreen = props => {
               ),
               dimensions.width
             )}
+            suppressHighlighting={true}
           >
             {dimensions.width >= Breakpoints.Laptop
               ? 'M&A INSIGHTS'
@@ -157,6 +161,7 @@ const ForgotPasswordScreen = props => {
           <Text
             accessible={true}
             {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+            disabled={true}
             style={StyleSheet.applyWidth(
               StyleSheet.compose(
                 GlobalStyles.TextStyles(theme)['screen_title'].style,
@@ -171,6 +176,7 @@ const ForgotPasswordScreen = props => {
               ),
               dimensions.width
             )}
+            suppressHighlighting={true}
           >
             {'Creating visibility in unlisted markets'}
           </Text>
@@ -220,6 +226,7 @@ const ForgotPasswordScreen = props => {
                   <Text
                     accessible={true}
                     {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                    disabled={true}
                     style={StyleSheet.applyWidth(
                       StyleSheet.compose(
                         GlobalStyles.TextStyles(theme)['screen_title'].style,
@@ -231,6 +238,7 @@ const ForgotPasswordScreen = props => {
                       ),
                       dimensions.width
                     )}
+                    suppressHighlighting={true}
                   >
                     {'Enter email'}
                   </Text>
@@ -281,6 +289,7 @@ const ForgotPasswordScreen = props => {
                         accessible={true}
                         {...GlobalStyles.TextStyles(theme)['screen_title']
                           .props}
+                        disabled={true}
                         style={StyleSheet.applyWidth(
                           StyleSheet.compose(
                             GlobalStyles.TextStyles(theme)['screen_title']
@@ -293,6 +302,7 @@ const ForgotPasswordScreen = props => {
                           ),
                           dimensions.width
                         )}
+                        suppressHighlighting={true}
                       >
                         {errorMessage}
                       </Text>
@@ -497,6 +507,7 @@ const ForgotPasswordScreen = props => {
               <Text
                 accessible={true}
                 {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                disabled={true}
                 style={StyleSheet.applyWidth(
                   StyleSheet.compose(
                     GlobalStyles.TextStyles(theme)['screen_title'].style,
@@ -509,6 +520,7 @@ const ForgotPasswordScreen = props => {
                   ),
                   dimensions.width
                 )}
+                suppressHighlighting={true}
               >
                 {'Enter temporary password'}
               </Text>
@@ -558,6 +570,7 @@ const ForgotPasswordScreen = props => {
                   <Text
                     accessible={true}
                     {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                    disabled={true}
                     style={StyleSheet.applyWidth(
                       StyleSheet.compose(
                         GlobalStyles.TextStyles(theme)['screen_title'].style,
@@ -569,6 +582,7 @@ const ForgotPasswordScreen = props => {
                       ),
                       dimensions.width
                     )}
+                    suppressHighlighting={true}
                   >
                     {errorMessage}
                   </Text>
@@ -776,6 +790,7 @@ const ForgotPasswordScreen = props => {
               <Text
                 accessible={true}
                 {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                disabled={true}
                 style={StyleSheet.applyWidth(
                   StyleSheet.compose(
                     GlobalStyles.TextStyles(theme)['screen_title'].style,
@@ -788,6 +803,7 @@ const ForgotPasswordScreen = props => {
                   ),
                   dimensions.width
                 )}
+                suppressHighlighting={true}
               >
                 {'Enter new password'}
               </Text>
@@ -921,6 +937,7 @@ const ForgotPasswordScreen = props => {
                   <Text
                     accessible={true}
                     {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                    disabled={true}
                     style={StyleSheet.applyWidth(
                       StyleSheet.compose(
                         GlobalStyles.TextStyles(theme)['screen_title'].style,
@@ -932,6 +949,7 @@ const ForgotPasswordScreen = props => {
                       ),
                       dimensions.width
                     )}
+                    suppressHighlighting={true}
                   >
                     {errorMessage}
                   </Text>

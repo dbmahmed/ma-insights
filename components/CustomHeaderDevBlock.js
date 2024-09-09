@@ -151,6 +151,7 @@ const CustomHeaderDevBlock = props => {
                     ),
                     dimensions.width
                   )}
+                  suppressHighlighting={true}
                 >
                   {Constants['pageName']}
                 </Text>
@@ -257,6 +258,7 @@ const CustomHeaderDevBlock = props => {
                     ),
                     dimensions.width
                   )}
+                  suppressHighlighting={true}
                 >
                   {'|'}
                 </Text>
@@ -313,6 +315,7 @@ const CustomHeaderDevBlock = props => {
                     ),
                     dimensions.width
                   )}
+                  suppressHighlighting={true}
                 >
                   {'|'}
                 </Text>
@@ -369,6 +372,7 @@ const CustomHeaderDevBlock = props => {
                     ),
                     dimensions.width
                   )}
+                  suppressHighlighting={true}
                 >
                   {'|'}
                 </Text>
@@ -426,6 +430,7 @@ const CustomHeaderDevBlock = props => {
                     ),
                     dimensions.width
                   )}
+                  suppressHighlighting={true}
                 >
                   {'|'}
                 </Text>
@@ -606,6 +611,7 @@ const CustomHeaderDevBlock = props => {
                         ),
                         dimensions.width
                       )}
+                      suppressHighlighting={true}
                     >
                       {'Newsletters'}
                     </Text>
@@ -698,6 +704,7 @@ const CustomHeaderDevBlock = props => {
                         ),
                         dimensions.width
                       )}
+                      suppressHighlighting={true}
                     >
                       {'All events'}
                     </Text>
@@ -790,6 +797,7 @@ const CustomHeaderDevBlock = props => {
                         ),
                         dimensions.width
                       )}
+                      suppressHighlighting={true}
                     >
                       {'CFS'}
                     </Text>
@@ -864,6 +872,7 @@ const CustomHeaderDevBlock = props => {
                         ),
                         dimensions.width
                       )}
+                      suppressHighlighting={true}
                     >
                       {'PEPF'}
                     </Text>
@@ -1069,6 +1078,7 @@ const CustomHeaderDevBlock = props => {
                       ),
                       dimensions.width
                     )}
+                    suppressHighlighting={true}
                   >
                     {'NEWSLETTERS DEV'}
                   </Text>
@@ -1148,6 +1158,7 @@ const CustomHeaderDevBlock = props => {
                       ),
                       dimensions.width
                     )}
+                    suppressHighlighting={true}
                   >
                     {'ALL EVENTS'}
                   </Text>
@@ -1227,6 +1238,7 @@ const CustomHeaderDevBlock = props => {
                       ),
                       dimensions.width
                     )}
+                    suppressHighlighting={true}
                   >
                     {'MULTIPLES'}
                   </Text>
@@ -1306,6 +1318,7 @@ const CustomHeaderDevBlock = props => {
                       ),
                       dimensions.width
                     )}
+                    suppressHighlighting={true}
                   >
                     {'CFS'}
                   </Text>
@@ -1385,6 +1398,7 @@ const CustomHeaderDevBlock = props => {
                       ),
                       dimensions.width
                     )}
+                    suppressHighlighting={true}
                   >
                     {'PE PORTFOLIOS'}
                   </Text>
@@ -1465,6 +1479,7 @@ const CustomHeaderDevBlock = props => {
                       ),
                       dimensions.width
                     )}
+                    suppressHighlighting={true}
                   >
                     {'ADVISORS'}
                   </Text>
@@ -1533,6 +1548,7 @@ const CustomHeaderDevBlock = props => {
                       ),
                       dimensions.width
                     )}
+                    suppressHighlighting={true}
                   >
                     {'STOCK SEARCH'}
                   </Text>
@@ -1613,6 +1629,7 @@ const CustomHeaderDevBlock = props => {
                       ),
                       dimensions.width
                     )}
+                    suppressHighlighting={true}
                   >
                     {'PEER GROUPS'}
                   </Text>
@@ -1675,14 +1692,14 @@ const CustomHeaderDevBlock = props => {
                         {
                           color: [
                             {
-                              minWidth: Breakpoints.Mobile,
+                              minWidth: Breakpoints.Laptop,
                               value:
                                 Constants['pageName'] === 'Reports'
                                   ? palettes.App.Orange
                                   : palettes.Brand.Strong,
                             },
                             {
-                              minWidth: Breakpoints.Laptop,
+                              minWidth: Breakpoints.Mobile,
                               value:
                                 Constants['pageName'] === 'Reports'
                                   ? palettes.App.Orange
@@ -1693,6 +1710,7 @@ const CustomHeaderDevBlock = props => {
                       ),
                       dimensions.width
                     )}
+                    suppressHighlighting={true}
                   >
                     {'REPORTS'}
                   </Text>
@@ -1782,6 +1800,7 @@ const CustomHeaderDevBlock = props => {
                       ),
                       dimensions.width
                     )}
+                    suppressHighlighting={true}
                   >
                     {'MY ACCOUNT'}
                   </Text>
@@ -1844,6 +1863,7 @@ const CustomHeaderDevBlock = props => {
                       ),
                       dimensions.width
                     )}
+                    suppressHighlighting={true}
                   >
                     {'LOGOUT'}
                   </Text>

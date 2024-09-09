@@ -165,6 +165,7 @@ const CustomBottomNavBlock = props => {
                         ),
                         dimensions.width
                       )}
+                      suppressHighlighting={true}
                     >
                       {'Newsletters'}
                     </Text>
@@ -257,6 +258,7 @@ const CustomBottomNavBlock = props => {
                         ),
                         dimensions.width
                       )}
+                      suppressHighlighting={true}
                     >
                       {'All events'}
                     </Text>
@@ -349,6 +351,7 @@ const CustomBottomNavBlock = props => {
                         ),
                         dimensions.width
                       )}
+                      suppressHighlighting={true}
                     >
                       {'CFS'}
                     </Text>
@@ -423,6 +426,7 @@ const CustomBottomNavBlock = props => {
                         ),
                         dimensions.width
                       )}
+                      suppressHighlighting={true}
                     >
                       {'PEPF'}
                     </Text>

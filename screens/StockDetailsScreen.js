@@ -289,6 +289,7 @@ const StockDetailsScreen = props => {
                         ),
                         dimensions.width
                       )}
+                      suppressHighlighting={true}
                     >
                       {'Last updated: '}
                       {fetchData?.last_updated}
@@ -422,6 +423,7 @@ const StockDetailsScreen = props => {
                               ].style,
                               dimensions.width
                             )}
+                            suppressHighlighting={true}
                           >
                             {'Enterprise value:'}
                           </Text>
@@ -444,6 +446,7 @@ const StockDetailsScreen = props => {
                               ].style,
                               dimensions.width
                             )}
+                            suppressHighlighting={true}
                           >
                             {transformEuroM(fetchData?.ev_eur)}
                           </Text>
@@ -481,6 +484,7 @@ const StockDetailsScreen = props => {
                               ].style,
                               dimensions.width
                             )}
+                            suppressHighlighting={true}
                           >
                             {'Market capitalisation:'}
                           </Text>
@@ -503,6 +507,7 @@ const StockDetailsScreen = props => {
                               ].style,
                               dimensions.width
                             )}
+                            suppressHighlighting={true}
                           >
                             {transformEuroM(fetchData?.capitalisation_eur)}
                           </Text>
@@ -540,6 +545,7 @@ const StockDetailsScreen = props => {
                               ].style,
                               dimensions.width
                             )}
+                            suppressHighlighting={true}
                           >
                             {'Country (HQ):'}
                           </Text>
@@ -562,6 +568,7 @@ const StockDetailsScreen = props => {
                               ].style,
                               dimensions.width
                             )}
+                            suppressHighlighting={true}
                           >
                             {fetchData?.country}
                           </Text>
@@ -599,6 +606,7 @@ const StockDetailsScreen = props => {
                               ].style,
                               dimensions.width
                             )}
+                            suppressHighlighting={true}
                           >
                             {'GICS Sector:'}
                           </Text>
@@ -621,6 +629,7 @@ const StockDetailsScreen = props => {
                               ].style,
                               dimensions.width
                             )}
+                            suppressHighlighting={true}
                           >
                             {fetchData?._gics_sub_industry?.GICS_Sector}
                           </Text>
@@ -658,6 +667,7 @@ const StockDetailsScreen = props => {
                               ].style,
                               dimensions.width
                             )}
+                            suppressHighlighting={true}
                           >
                             {'GICS Industry Group:'}
                           </Text>
@@ -680,6 +690,7 @@ const StockDetailsScreen = props => {
                               ].style,
                               dimensions.width
                             )}
+                            suppressHighlighting={true}
                           >
                             {fetchData?._gics_sub_industry?.GICS_Industry_Group}
                           </Text>
@@ -717,6 +728,7 @@ const StockDetailsScreen = props => {
                               ].style,
                               dimensions.width
                             )}
+                            suppressHighlighting={true}
                           >
                             {'GISC Industry:'}
                           </Text>
@@ -739,6 +751,7 @@ const StockDetailsScreen = props => {
                               ].style,
                               dimensions.width
                             )}
+                            suppressHighlighting={true}
                           >
                             {fetchData?._gics_sub_industry?.GICS_Industry}
                           </Text>
@@ -776,6 +789,7 @@ const StockDetailsScreen = props => {
                               ].style,
                               dimensions.width
                             )}
+                            suppressHighlighting={true}
                           >
                             {'GISC Sub industry:'}
                           </Text>
@@ -798,6 +812,7 @@ const StockDetailsScreen = props => {
                               ].style,
                               dimensions.width
                             )}
+                            suppressHighlighting={true}
                           >
                             {fetchData?._gics_sub_industry?.GICS_Sub_Industry}
                           </Text>
@@ -826,6 +841,7 @@ const StockDetailsScreen = props => {
                               .style,
                             dimensions.width
                           )}
+                          suppressHighlighting={true}
                         >
                           {fetchData?.description}
                         </Text>
@@ -897,6 +913,7 @@ const StockDetailsScreen = props => {
                           ),
                           dimensions.width
                         )}
+                        suppressHighlighting={true}
                       >
                         {fetchData?.reporting_currency}
                         {' in millions'}
@@ -974,6 +991,7 @@ const StockDetailsScreen = props => {
                                 ].style,
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {' '}
                             </Text>
@@ -1011,6 +1029,7 @@ const StockDetailsScreen = props => {
                                 ),
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {transformNumber(
                                 fetchData?.fy0_end_date,
@@ -1056,6 +1075,7 @@ const StockDetailsScreen = props => {
                                 ),
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {transformNumber(
                                 fetchData?.tt_end_date,
@@ -1099,6 +1119,7 @@ const StockDetailsScreen = props => {
                                 ),
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {transformNumber(
                                 fetchData?.fy1_end_date,
@@ -1140,6 +1161,7 @@ const StockDetailsScreen = props => {
                                 ),
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {transformNumber(
                                 fetchData?.fy2_end_date,
@@ -1195,6 +1217,7 @@ const StockDetailsScreen = props => {
                                 ].style,
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {'Revenue'}
                             </Text>
@@ -1235,6 +1258,7 @@ const StockDetailsScreen = props => {
                                 ].style,
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {transformNumber(
                                 fetchData?.revenue_fy0,
@@ -1279,6 +1303,7 @@ const StockDetailsScreen = props => {
                                 ].style,
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {transformNumber(
                                 fetchData?.revenue_ttm,
@@ -1323,6 +1348,7 @@ const StockDetailsScreen = props => {
                                 ].style,
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {transformNumber(
                                 fetchData?.revenue_fy1,
@@ -1367,6 +1393,7 @@ const StockDetailsScreen = props => {
                                 ].style,
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {transformNumber(
                                 fetchData?.revenue_fy2,
@@ -1418,6 +1445,7 @@ const StockDetailsScreen = props => {
                                 ].style,
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {'Growth'}
                             </Text>
@@ -1458,6 +1486,7 @@ const StockDetailsScreen = props => {
                                 ].style,
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {transformNumber(
                                 fetchData?.growth_fy0,
@@ -1502,6 +1531,7 @@ const StockDetailsScreen = props => {
                                 ].style,
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {transformNumber(
                                 fetchData?.growth_ttm,
@@ -1546,6 +1576,7 @@ const StockDetailsScreen = props => {
                                 ].style,
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {transformNumber(
                                 fetchData?.growth_fy1,
@@ -1590,6 +1621,7 @@ const StockDetailsScreen = props => {
                                 ].style,
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {transformNumber(
                                 fetchData?.growth_fy2,
@@ -1636,6 +1668,7 @@ const StockDetailsScreen = props => {
                                 ].style,
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {'EBITDA'}
                             </Text>
@@ -1670,6 +1703,7 @@ const StockDetailsScreen = props => {
                                 ].style,
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {transformNumber(
                                 fetchData?.ebitda_fy0,
@@ -1708,6 +1742,7 @@ const StockDetailsScreen = props => {
                                 ].style,
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {transformNumber(
                                 fetchData?.ebitda_ttm,
@@ -1746,6 +1781,7 @@ const StockDetailsScreen = props => {
                                 ].style,
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {transformNumber(
                                 fetchData?.ebitda_fy1,
@@ -1784,6 +1820,7 @@ const StockDetailsScreen = props => {
                                 ].style,
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {transformNumber(
                                 fetchData?.ebitda_fy2,
@@ -1830,6 +1867,7 @@ const StockDetailsScreen = props => {
                                 ].style,
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {'Margin'}
                             </Text>
@@ -1864,6 +1902,7 @@ const StockDetailsScreen = props => {
                                 ].style,
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {transformNumber(
                                 fetchData?.ebitda_margin_fy0,
@@ -1902,6 +1941,7 @@ const StockDetailsScreen = props => {
                                 ].style,
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {transformNumber(
                                 fetchData?.ebitda_margin_ttm,
@@ -1940,6 +1980,7 @@ const StockDetailsScreen = props => {
                                 ].style,
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {transformNumber(
                                 fetchData?.ebitda_margin_fy1,
@@ -1978,6 +2019,7 @@ const StockDetailsScreen = props => {
                                 ].style,
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {transformNumber(
                                 fetchData?.ebitda_margin_fy2,
@@ -2024,6 +2066,7 @@ const StockDetailsScreen = props => {
                                 ].style,
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {'EBIT'}
                             </Text>
@@ -2058,6 +2101,7 @@ const StockDetailsScreen = props => {
                                 ].style,
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {transformNumber(
                                 fetchData?.ebit_fy0,
@@ -2096,6 +2140,7 @@ const StockDetailsScreen = props => {
                                 ].style,
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {transformNumber(
                                 fetchData?.ebit_ttm,
@@ -2134,6 +2179,7 @@ const StockDetailsScreen = props => {
                                 ].style,
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {transformNumber(
                                 fetchData?.ebit_fy1,
@@ -2172,6 +2218,7 @@ const StockDetailsScreen = props => {
                                 ].style,
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {transformNumber(
                                 fetchData?.ebit_fy2,
@@ -2218,6 +2265,7 @@ const StockDetailsScreen = props => {
                                 ].style,
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {'Margin'}
                             </Text>
@@ -2252,6 +2300,7 @@ const StockDetailsScreen = props => {
                                 ].style,
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {transformNumber(
                                 fetchData?.ebit_margin_fy0,
@@ -2290,6 +2339,7 @@ const StockDetailsScreen = props => {
                                 ].style,
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {transformNumber(
                                 fetchData?.ebit_margin_ttm,
@@ -2328,6 +2378,7 @@ const StockDetailsScreen = props => {
                                 ].style,
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {transformNumber(
                                 fetchData?.ebit_margin_fy1,
@@ -2366,6 +2417,7 @@ const StockDetailsScreen = props => {
                                 ].style,
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {transformNumber(
                                 fetchData?.ebit_margin_fy2,
@@ -2412,6 +2464,7 @@ const StockDetailsScreen = props => {
                                 ].style,
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {'Net Profit'}
                             </Text>
@@ -2446,6 +2499,7 @@ const StockDetailsScreen = props => {
                                 ].style,
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {transformNumber(
                                 fetchData?.np_fy0,
@@ -2484,6 +2538,7 @@ const StockDetailsScreen = props => {
                                 ].style,
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {transformNumber(
                                 fetchData?.np_ttm,
@@ -2522,6 +2577,7 @@ const StockDetailsScreen = props => {
                                 ].style,
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {transformNumber(
                                 fetchData?.np_fy1,
@@ -2560,6 +2616,7 @@ const StockDetailsScreen = props => {
                                 ].style,
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {transformNumber(
                                 fetchData?.np_fy2,
@@ -2606,6 +2663,7 @@ const StockDetailsScreen = props => {
                                 ].style,
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {'Margin'}
                             </Text>
@@ -2640,6 +2698,7 @@ const StockDetailsScreen = props => {
                                 ].style,
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {transformNumber(
                                 fetchData?.np_margin_fy0,
@@ -2678,6 +2737,7 @@ const StockDetailsScreen = props => {
                                 ].style,
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {transformNumber(
                                 fetchData?.np_margin_ttm,
@@ -2716,6 +2776,7 @@ const StockDetailsScreen = props => {
                                 ].style,
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {transformNumber(
                                 fetchData?.np_margin_fy1,
@@ -2754,6 +2815,7 @@ const StockDetailsScreen = props => {
                                 ].style,
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {transformNumber(
                                 fetchData?.np_margin_fy2,
@@ -2896,6 +2958,7 @@ const StockDetailsScreen = props => {
                                 ].style,
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {' '}
                             </Text>
@@ -2933,6 +2996,7 @@ const StockDetailsScreen = props => {
                                 ),
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {transformNumber(
                                 fetchData?.fy0_end_date,
@@ -2978,6 +3042,7 @@ const StockDetailsScreen = props => {
                                 ),
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {transformNumber(
                                 fetchData?.tt_end_date,
@@ -3021,6 +3086,7 @@ const StockDetailsScreen = props => {
                                 ),
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {transformNumber(
                                 fetchData?.fy1_end_date,
@@ -3062,6 +3128,7 @@ const StockDetailsScreen = props => {
                                 ),
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {transformNumber(
                                 fetchData?.fy2_end_date,
@@ -3104,6 +3171,7 @@ const StockDetailsScreen = props => {
                                 ].style,
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {'EV/Sales'}
                             </Text>
@@ -3138,6 +3206,7 @@ const StockDetailsScreen = props => {
                                 ].style,
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {transformNumber(
                                 fetchData?.ev_sales_fy0,
@@ -3176,6 +3245,7 @@ const StockDetailsScreen = props => {
                                 ].style,
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {transformNumber(
                                 fetchData?.ev_sales_ttm,
@@ -3214,6 +3284,7 @@ const StockDetailsScreen = props => {
                                 ].style,
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {transformNumber(
                                 fetchData?.ev_sales_fy1,
@@ -3252,6 +3323,7 @@ const StockDetailsScreen = props => {
                                 ].style,
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {transformNumber(
                                 fetchData?.ev_sales_fy2,
@@ -3294,6 +3366,7 @@ const StockDetailsScreen = props => {
                                 ].style,
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {'EV/EBITDA'}
                             </Text>
@@ -3328,6 +3401,7 @@ const StockDetailsScreen = props => {
                                 ].style,
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {transformNumber(
                                 fetchData?.ev_ebitda_fy0,
@@ -3366,6 +3440,7 @@ const StockDetailsScreen = props => {
                                 ].style,
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {transformNumber(
                                 fetchData?.ev_ebitda_ttm,
@@ -3404,6 +3479,7 @@ const StockDetailsScreen = props => {
                                 ].style,
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {transformNumber(
                                 fetchData?.ev_ebitda_fy1,
@@ -3442,6 +3518,7 @@ const StockDetailsScreen = props => {
                                 ].style,
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {transformNumber(
                                 fetchData?.ev_ebitda_fy2,
@@ -3484,6 +3561,7 @@ const StockDetailsScreen = props => {
                                 ].style,
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {'EV/EBIT'}
                             </Text>
@@ -3518,6 +3596,7 @@ const StockDetailsScreen = props => {
                                 ].style,
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {transformNumber(
                                 fetchData?.ev_ebit_fy0,
@@ -3556,6 +3635,7 @@ const StockDetailsScreen = props => {
                                 ].style,
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {transformNumber(
                                 fetchData?.ev_ebit_ttm,
@@ -3594,6 +3674,7 @@ const StockDetailsScreen = props => {
                                 ].style,
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {transformNumber(
                                 fetchData?.ev_ebit_fy1,
@@ -3632,6 +3713,7 @@ const StockDetailsScreen = props => {
                                 ].style,
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {transformNumber(
                                 fetchData?.ev_ebit_fy2,
@@ -3674,6 +3756,7 @@ const StockDetailsScreen = props => {
                                 ].style,
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {'P/E'}
                             </Text>
@@ -3708,6 +3791,7 @@ const StockDetailsScreen = props => {
                                 ].style,
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {transformNumber(fetchData?.pe_fy0, 'x', true)}
                             </Text>
@@ -3742,6 +3826,7 @@ const StockDetailsScreen = props => {
                                 ].style,
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {transformNumber(fetchData?.pe_ttm, 'x', true)}
                             </Text>
@@ -3776,6 +3861,7 @@ const StockDetailsScreen = props => {
                                 ].style,
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {transformNumber(fetchData?.pe_fy1, 'x', true)}
                             </Text>
@@ -3810,6 +3896,7 @@ const StockDetailsScreen = props => {
                                 ].style,
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {transformNumber(fetchData?.pe_fy2, 'x', true)}
                             </Text>
@@ -3988,6 +4075,7 @@ const StockDetailsScreen = props => {
                             ),
                             dimensions.width
                           )}
+                          suppressHighlighting={true}
                         >
                           {companyName}
                           {' ('}
@@ -4027,6 +4115,7 @@ const StockDetailsScreen = props => {
                                 ),
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {'add to the following peer group'}
                             </Text>
@@ -4207,6 +4296,7 @@ const StockDetailsScreen = props => {
                                                   ),
                                                   dimensions.width
                                                 )}
+                                                suppressHighlighting={true}
                                               >
                                                 {listData?.title}
                                               </Text>
@@ -4370,6 +4460,7 @@ const StockDetailsScreen = props => {
                                     ),
                                     dimensions.width
                                   )}
+                                  suppressHighlighting={true}
                                 >
                                   {'...or create and add to a new peer group'}
                                 </Text>
@@ -4501,6 +4592,7 @@ const StockDetailsScreen = props => {
                                 ),
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {companyName}
                               {' was added to the following peer group'}
@@ -4524,6 +4616,7 @@ const StockDetailsScreen = props => {
                                 ),
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {peer_name}
                             </Text>

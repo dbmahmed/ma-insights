@@ -359,6 +359,7 @@ const PeerGroupsScreen = props => {
                       ),
                       dimensions.width
                     )}
+                    suppressHighlighting={true}
                   >
                     {'My peer groups'}
                   </Text>
@@ -416,6 +417,7 @@ const PeerGroupsScreen = props => {
                       ),
                       dimensions.width
                     )}
+                    suppressHighlighting={true}
                   >
                     {'NKP comps'}
                   </Text>
@@ -513,6 +515,7 @@ const PeerGroupsScreen = props => {
                       ),
                       dimensions.width
                     )}
+                    suppressHighlighting={true}
                   >
                     {fetchData?.itemsTotal}
                     {
@@ -710,6 +713,7 @@ const PeerGroupsScreen = props => {
                                     ),
                                     dimensions.width
                                   )}
+                                  suppressHighlighting={true}
                                 >
                                   {listData?.title}
                                 </Text>
@@ -732,6 +736,7 @@ const PeerGroupsScreen = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {listData?.created_at}
                               </Text>
@@ -754,6 +759,7 @@ const PeerGroupsScreen = props => {
                                 ),
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {listData?.access_type}
                             </Text>
@@ -773,6 +779,7 @@ const PeerGroupsScreen = props => {
                                 ),
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {'Companies: '}
                               {listData?.number_of_stocks}

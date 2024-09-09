@@ -225,6 +225,7 @@ const CFSDetailsScreen = props => {
                           ),
                           dimensions.width
                         )}
+                        suppressHighlighting={true}
                       >
                         {'Target:'}
                       </Text>
@@ -251,6 +252,7 @@ const CFSDetailsScreen = props => {
                           ),
                           dimensions.width
                         )}
+                        suppressHighlighting={true}
                       >
                         {fetchData?.company}
                       </Text>
@@ -284,6 +286,7 @@ const CFSDetailsScreen = props => {
                           ),
                           dimensions.width
                         )}
+                        suppressHighlighting={true}
                       >
                         {'Advisor:'}
                       </Text>
@@ -310,6 +313,7 @@ const CFSDetailsScreen = props => {
                           ),
                           dimensions.width
                         )}
+                        suppressHighlighting={true}
                       >
                         {transformNumber(
                           fetchData?._advisors,
@@ -347,6 +351,7 @@ const CFSDetailsScreen = props => {
                           ),
                           dimensions.width
                         )}
+                        suppressHighlighting={true}
                       >
                         {'Owners:'}
                       </Text>
@@ -373,6 +378,7 @@ const CFSDetailsScreen = props => {
                           ),
                           dimensions.width
                         )}
+                        suppressHighlighting={true}
                       >
                         {transformNumber(
                           fetchData?._ownersList,
@@ -410,6 +416,7 @@ const CFSDetailsScreen = props => {
                           ),
                           dimensions.width
                         )}
+                        suppressHighlighting={true}
                       >
                         {'Org. source:'}
                       </Text>
@@ -436,6 +443,7 @@ const CFSDetailsScreen = props => {
                           ),
                           dimensions.width
                         )}
+                        suppressHighlighting={true}
                       >
                         {fetchData?.source}
                       </Text>
@@ -469,6 +477,7 @@ const CFSDetailsScreen = props => {
                           ),
                           dimensions.width
                         )}
+                        suppressHighlighting={true}
                       >
                         {'Stage:'}
                       </Text>
@@ -495,6 +504,7 @@ const CFSDetailsScreen = props => {
                           ),
                           dimensions.width
                         )}
+                        suppressHighlighting={true}
                       >
                         {fetchData?.stage}
                       </Text>
@@ -528,6 +538,7 @@ const CFSDetailsScreen = props => {
                           ),
                           dimensions.width
                         )}
+                        suppressHighlighting={true}
                       >
                         {'Revenue:'}
                       </Text>
@@ -554,6 +565,7 @@ const CFSDetailsScreen = props => {
                           ),
                           dimensions.width
                         )}
+                        suppressHighlighting={true}
                       >
                         {transformEuroM(fetchData?.revenue_eur)}
                       </Text>
@@ -587,6 +599,7 @@ const CFSDetailsScreen = props => {
                           ),
                           dimensions.width
                         )}
+                        suppressHighlighting={true}
                       >
                         {'EBITDA:'}
                       </Text>
@@ -613,6 +626,7 @@ const CFSDetailsScreen = props => {
                           ),
                           dimensions.width
                         )}
+                        suppressHighlighting={true}
                       >
                         {transformEuroM(fetchData?.ebitda_eur)}
                       </Text>
@@ -646,6 +660,7 @@ const CFSDetailsScreen = props => {
                           ),
                           dimensions.width
                         )}
+                        suppressHighlighting={true}
                       >
                         {'Fiscal year:'}
                       </Text>
@@ -672,6 +687,7 @@ const CFSDetailsScreen = props => {
                           ),
                           dimensions.width
                         )}
+                        suppressHighlighting={true}
                       >
                         {fetchData?.fy_end}
                       </Text>
@@ -705,6 +721,7 @@ const CFSDetailsScreen = props => {
                           ),
                           dimensions.width
                         )}
+                        suppressHighlighting={true}
                       >
                         {'GICS:'}
                       </Text>
@@ -731,6 +748,7 @@ const CFSDetailsScreen = props => {
                           ),
                           dimensions.width
                         )}
+                        suppressHighlighting={true}
                       >
                         {fetchData?._gics?.GICS_Industry}
                         {' - '}
@@ -766,6 +784,7 @@ const CFSDetailsScreen = props => {
                           ),
                           dimensions.width
                         )}
+                        suppressHighlighting={true}
                       >
                         {'Country:'}
                       </Text>
@@ -792,6 +811,7 @@ const CFSDetailsScreen = props => {
                           ),
                           dimensions.width
                         )}
+                        suppressHighlighting={true}
                       >
                         {fetchData?.country}
                       </Text>
@@ -823,6 +843,7 @@ const CFSDetailsScreen = props => {
                         ),
                         dimensions.width
                       )}
+                      suppressHighlighting={true}
                     >
                       {'Latest Update:'}
                     </Text>
@@ -864,6 +885,7 @@ const CFSDetailsScreen = props => {
                             ),
                             dimensions.width
                           )}
+                          suppressHighlighting={true}
                         >
                           {fetchData?._main_event?.published}
                           {' ('}
@@ -882,6 +904,7 @@ const CFSDetailsScreen = props => {
                           GlobalStyles.TextStyles(theme)['screen_title'].style,
                           dimensions.width
                         )}
+                        suppressHighlighting={true}
                       >
                         {fetchData?._main_event?.description}
                       </Text>
@@ -1120,6 +1143,7 @@ const CFSDetailsScreen = props => {
                                         ),
                                         dimensions.width
                                       )}
+                                      suppressHighlighting={true}
                                     >
                                       {listData?.published}
                                       {' | Source: '}

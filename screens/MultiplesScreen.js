@@ -537,6 +537,7 @@ const MultiplesScreen = props => {
                           ),
                           dimensions.width
                         )}
+                        suppressHighlighting={true}
                       >
                         {formatNumber(fetchData?.itemsTotal)}
                         {' transactions matching filter'}
@@ -787,6 +788,7 @@ const MultiplesScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {cutText(listData?.target, 24)}
                                   </Text>
@@ -808,6 +810,7 @@ const MultiplesScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {listData?.published}
                                   </Text>
@@ -829,6 +832,7 @@ const MultiplesScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'Acquiror: '}
                                     {listData?._buyers}
@@ -851,6 +855,7 @@ const MultiplesScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {listData?._gics.GICS_Sector}
                                   </Text>
@@ -926,6 +931,7 @@ const MultiplesScreen = props => {
                                           ),
                                           dimensions.width
                                         )}
+                                        suppressHighlighting={true}
                                       >
                                         {'EV/Sales:'}
                                       </Text>
@@ -959,6 +965,7 @@ const MultiplesScreen = props => {
                                           ),
                                           dimensions.width
                                         )}
+                                        suppressHighlighting={true}
                                       >
                                         {transformNumber(
                                           listData?.ev_sales,
@@ -1008,6 +1015,7 @@ const MultiplesScreen = props => {
                                           ),
                                           dimensions.width
                                         )}
+                                        suppressHighlighting={true}
                                       >
                                         {'EV/EBITDA:'}
                                       </Text>
@@ -1041,6 +1049,7 @@ const MultiplesScreen = props => {
                                           ),
                                           dimensions.width
                                         )}
+                                        suppressHighlighting={true}
                                       >
                                         {transformNumber(
                                           listData?.ev_ebitda,
@@ -1090,6 +1099,7 @@ const MultiplesScreen = props => {
                                           ),
                                           dimensions.width
                                         )}
+                                        suppressHighlighting={true}
                                       >
                                         {'EV/EBIT:'}
                                       </Text>
@@ -1123,6 +1133,7 @@ const MultiplesScreen = props => {
                                           ),
                                           dimensions.width
                                         )}
+                                        suppressHighlighting={true}
                                       >
                                         {transformNumber(
                                           listData?.ev_ebit,
@@ -1475,6 +1486,7 @@ const MultiplesScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'EBITDA ≤ €5m'}
                                   </Text>
@@ -1548,6 +1560,7 @@ const MultiplesScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'€5m < EBITDA ≤ €20m'}
                                   </Text>
@@ -1621,6 +1634,7 @@ const MultiplesScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'€20m < EBITDA ≤ €50m'}
                                   </Text>
@@ -1694,6 +1708,7 @@ const MultiplesScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'EBITDA >  €50m'}
                                   </Text>
@@ -1821,6 +1836,7 @@ const MultiplesScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'Communication Services'}
                                   </Text>
@@ -1898,6 +1914,7 @@ const MultiplesScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'Industrials'}
                                   </Text>
@@ -1977,6 +1994,7 @@ const MultiplesScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'Consumer Discretionary'}
                                   </Text>
@@ -2054,6 +2072,7 @@ const MultiplesScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'IT & Software'}
                                   </Text>
@@ -2131,6 +2150,7 @@ const MultiplesScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'Consumer Staples'}
                                   </Text>
@@ -2206,6 +2226,7 @@ const MultiplesScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'Materials'}
                                   </Text>
@@ -2281,6 +2302,7 @@ const MultiplesScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'Energy'}
                                   </Text>
@@ -2358,6 +2380,7 @@ const MultiplesScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'Real Estate'}
                                   </Text>
@@ -2433,6 +2456,7 @@ const MultiplesScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'Financials'}
                                   </Text>
@@ -2508,6 +2532,7 @@ const MultiplesScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'Utilities'}
                                   </Text>
@@ -2585,6 +2610,7 @@ const MultiplesScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'Health Care'}
                                   </Text>
@@ -2708,6 +2734,7 @@ const MultiplesScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'Nordic'}
                                   </Text>
@@ -2783,6 +2810,7 @@ const MultiplesScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'Rest of World (RoW)'}
                                   </Text>
@@ -2858,6 +2886,7 @@ const MultiplesScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'DACH'}
                                   </Text>

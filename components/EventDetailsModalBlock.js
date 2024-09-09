@@ -30,6 +30,7 @@ import LoadingBlock from '../components/LoadingBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import Images from '../config/Images';
 import cutTextByWidth from '../global-functions/cutTextByWidth';
+import deviceType from '../global-functions/deviceType';
 import getListNameFormArray from '../global-functions/getListNameFormArray';
 import isNKPProp from '../global-functions/isNKPProp';
 import transformEuroM from '../global-functions/transformEuroM';
@@ -39,6 +40,8 @@ import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import imageSource from '../utils/imageSource';
 import useWindowDimensions from '../utils/useWindowDimensions';
+
+const defaultProps = { scrollingIndex: 5 };
 
 const EventDetailsModalBlock = props => {
   const { theme } = props;
@@ -313,7 +316,11 @@ const EventDetailsModalBlock = props => {
         </View>
 
         <XanoCollectionApi.FetchGetOneEventGET
-          device={'ios'}
+          device={deviceType(
+            Platform.OS === 'web',
+            Platform.OS === 'ios',
+            Platform.OS === 'android'
+          )}
           event_id={viewingEventId}
         >
           {({ loading, error, data, refetchGetOneEvent }) => {
@@ -396,7 +403,7 @@ const EventDetailsModalBlock = props => {
                         GlobalStyles.TextStyles(theme)['screen_title'].style,
                         dimensions.width
                       )}
-                      suppressHighlighting={false}
+                      suppressHighlighting={true}
                     >
                       {fetchData?.description}
                     </Text>
@@ -491,6 +498,7 @@ const EventDetailsModalBlock = props => {
                               ),
                               dimensions.width
                             )}
+                            suppressHighlighting={true}
                           >
                             {'Event type:'}
                           </Text>
@@ -517,6 +525,7 @@ const EventDetailsModalBlock = props => {
                               ),
                               dimensions.width
                             )}
+                            suppressHighlighting={true}
                           >
                             {fetchData?.event_type}
                           </Text>
@@ -555,6 +564,7 @@ const EventDetailsModalBlock = props => {
                               ),
                               dimensions.width
                             )}
+                            suppressHighlighting={true}
                           >
                             {'Source:'}
                           </Text>
@@ -581,6 +591,7 @@ const EventDetailsModalBlock = props => {
                               ),
                               dimensions.width
                             )}
+                            suppressHighlighting={true}
                           >
                             {fetchData?.source}
                           </Text>
@@ -619,6 +630,7 @@ const EventDetailsModalBlock = props => {
                               ),
                               dimensions.width
                             )}
+                            suppressHighlighting={true}
                           >
                             {'Source link:'}
                           </Text>
@@ -685,6 +697,7 @@ const EventDetailsModalBlock = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'-'}
                               </Text>
@@ -725,6 +738,7 @@ const EventDetailsModalBlock = props => {
                               ),
                               dimensions.width
                             )}
+                            suppressHighlighting={true}
                           >
                             {'Target:'}
                           </Text>
@@ -751,6 +765,7 @@ const EventDetailsModalBlock = props => {
                               ),
                               dimensions.width
                             )}
+                            suppressHighlighting={true}
                           >
                             {fetchData?.target}
                           </Text>
@@ -789,6 +804,7 @@ const EventDetailsModalBlock = props => {
                               ),
                               dimensions.width
                             )}
+                            suppressHighlighting={true}
                           >
                             {'Target Country:'}
                           </Text>
@@ -815,6 +831,7 @@ const EventDetailsModalBlock = props => {
                               ),
                               dimensions.width
                             )}
+                            suppressHighlighting={true}
                           >
                             {fetchData?.country}
                           </Text>
@@ -853,6 +870,7 @@ const EventDetailsModalBlock = props => {
                               ),
                               dimensions.width
                             )}
+                            suppressHighlighting={true}
                           >
                             {'Target GICS:'}
                           </Text>
@@ -879,6 +897,7 @@ const EventDetailsModalBlock = props => {
                               ),
                               dimensions.width
                             )}
+                            suppressHighlighting={true}
                           >
                             {fetchData?._gics?.GICS_Sub_Industry}
                           </Text>
@@ -917,6 +936,7 @@ const EventDetailsModalBlock = props => {
                               ),
                               dimensions.width
                             )}
+                            suppressHighlighting={true}
                           >
                             {'Seller:'}
                           </Text>
@@ -943,6 +963,7 @@ const EventDetailsModalBlock = props => {
                               ),
                               dimensions.width
                             )}
+                            suppressHighlighting={true}
                           >
                             {transformNumber(
                               getListNameFormArray(fetchData?.seller),
@@ -985,6 +1006,7 @@ const EventDetailsModalBlock = props => {
                               ),
                               dimensions.width
                             )}
+                            suppressHighlighting={true}
                           >
                             {'Buyer:'}
                           </Text>
@@ -1011,6 +1033,7 @@ const EventDetailsModalBlock = props => {
                               ),
                               dimensions.width
                             )}
+                            suppressHighlighting={true}
                           >
                             {transformNumber(
                               getListNameFormArray(fetchData?.buyer),
@@ -1063,6 +1086,7 @@ const EventDetailsModalBlock = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'Revenue:'}
                               </Text>
@@ -1091,6 +1115,7 @@ const EventDetailsModalBlock = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {transformEuroM(fetchData?.revenue_eur)}
                               </Text>
@@ -1141,6 +1166,7 @@ const EventDetailsModalBlock = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'EBITDA:'}
                               </Text>
@@ -1169,6 +1195,7 @@ const EventDetailsModalBlock = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {transformEuroM(fetchData?.ebitda_eur)}
                               </Text>
@@ -1219,6 +1246,7 @@ const EventDetailsModalBlock = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'Gross Profit:'}
                               </Text>
@@ -1242,6 +1270,7 @@ const EventDetailsModalBlock = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {transformEuroM(fetchData?.gross_profit_eur)}
                               </Text>
@@ -1292,6 +1321,7 @@ const EventDetailsModalBlock = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'Enterprise value (EV):'}
                               </Text>
@@ -1320,6 +1350,7 @@ const EventDetailsModalBlock = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {transformEuroM(fetchData?.ev_eur)}
                               </Text>
@@ -1370,6 +1401,7 @@ const EventDetailsModalBlock = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'EV/Sales ('}
                                 {fetchData?.fy_end}
@@ -1400,6 +1432,7 @@ const EventDetailsModalBlock = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {fetchData?.ev_sales !== '0.0'
                                   ? fetchData?.ev_sales
@@ -1452,6 +1485,7 @@ const EventDetailsModalBlock = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'EV/EBITDA ('}
                                 {fetchData?.fy_end}
@@ -1482,6 +1516,7 @@ const EventDetailsModalBlock = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {fetchData?.ev_ebitda !== '0.0'
                                   ? fetchData?.ev_ebitda
@@ -1534,6 +1569,7 @@ const EventDetailsModalBlock = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'EV/EBIT ('}
                                 {fetchData?.fy_end}
@@ -1564,6 +1600,7 @@ const EventDetailsModalBlock = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {fetchData?.ev_ebit !== '0.0'
                                   ? fetchData?.ev_ebit
@@ -1606,6 +1643,7 @@ const EventDetailsModalBlock = props => {
                               ),
                               dimensions.width
                             )}
+                            suppressHighlighting={true}
                           >
                             {'Comment to financials:'}
                           </Text>
@@ -1634,6 +1672,7 @@ const EventDetailsModalBlock = props => {
                               ),
                               dimensions.width
                             )}
+                            suppressHighlighting={true}
                           >
                             {fetchData?.note_financials
                               ? fetchData?.note_financials
@@ -1684,6 +1723,7 @@ const EventDetailsModalBlock = props => {
                               ),
                               dimensions.width
                             )}
+                            suppressHighlighting={true}
                           >
                             {'Sell-side corp. finance:'}
                           </Text>
@@ -1704,6 +1744,7 @@ const EventDetailsModalBlock = props => {
                             ),
                             dimensions.width
                           )}
+                          suppressHighlighting={true}
                         >
                           {fetchData?.sellside_cf?.length !== 0
                             ? getListNameFormArray(fetchData?.sellside_cf)
@@ -1738,6 +1779,7 @@ const EventDetailsModalBlock = props => {
                               ),
                               dimensions.width
                             )}
+                            suppressHighlighting={true}
                           >
                             {'Sell-side legal:'}
                           </Text>
@@ -1758,6 +1800,7 @@ const EventDetailsModalBlock = props => {
                             ),
                             dimensions.width
                           )}
+                          suppressHighlighting={true}
                         >
                           {fetchData?.sellside_legal?.length !== 0
                             ? getListNameFormArray(fetchData?.sellside_legal)
@@ -1792,6 +1835,7 @@ const EventDetailsModalBlock = props => {
                               ),
                               dimensions.width
                             )}
+                            suppressHighlighting={true}
                           >
                             {'Buy-side corp. finance:'}
                           </Text>
@@ -1812,6 +1856,7 @@ const EventDetailsModalBlock = props => {
                             ),
                             dimensions.width
                           )}
+                          suppressHighlighting={true}
                         >
                           {fetchData?.buyside_cf?.length !== 0
                             ? getListNameFormArray(fetchData?.buyside_cf)
@@ -1846,6 +1891,7 @@ const EventDetailsModalBlock = props => {
                               ),
                               dimensions.width
                             )}
+                            suppressHighlighting={true}
                           >
                             {'Buy-side legal:'}
                           </Text>
@@ -1866,6 +1912,7 @@ const EventDetailsModalBlock = props => {
                             ),
                             dimensions.width
                           )}
+                          suppressHighlighting={true}
                         >
                           {fetchData?.buyside_legal?.length !== 0
                             ? getListNameFormArray(fetchData?.buyside_legal)

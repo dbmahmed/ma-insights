@@ -52,6 +52,8 @@ import imageSource from '../utils/imageSource';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import waitUtil from '../utils/wait';
 
+const defaultProps = { scrollingIndex: 5 };
+
 const AllEventsScreen = props => {
   const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
@@ -658,6 +660,7 @@ const AllEventsScreen = props => {
                   <Text
                     accessible={true}
                     {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                    disabled={true}
                     style={StyleSheet.applyWidth(
                       StyleSheet.compose(
                         GlobalStyles.TextStyles(theme)['screen_title'].style,
@@ -679,6 +682,7 @@ const AllEventsScreen = props => {
                       ),
                       dimensions.width
                     )}
+                    suppressHighlighting={true}
                   >
                     {formatNumber(fetchData?.itemsTotal)}{' '}
                     {fetchData?.itemsTotal === 1 ? 'event' : 'events'}
@@ -693,6 +697,44 @@ const AllEventsScreen = props => {
               <View
                 style={StyleSheet.applyWidth({ flex: 1 }, dimensions.width)}
               >
+                {/* Watermark */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    {
+                      bottom: 0,
+                      flex: 1,
+                      justifyContent: 'center',
+                      left: 0,
+                      position: 'absolute',
+                      right: 0,
+                      top: 0,
+                      zIndex: -20,
+                    },
+                    dimensions.width
+                  )}
+                >
+                  <View style={{ transform: [{ rotate: '-50deg' }] }}>
+                    <Text
+                      accessible={true}
+                      {...GlobalStyles.TextStyles(theme)['screen_title_stockH']
+                        .props}
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.TextStyles(theme)['screen_title_stockH']
+                            .style,
+                          {
+                            color: palettes.App.Studily_Dark_Primary,
+                            fontSize: 25,
+                            opacity: 0.5,
+                          }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      {'Lorem ipsum dolor sit amet'}
+                    </Text>
+                  </View>
+                </View>
                 <>
                   {dimensions.width >= Breakpoints.Laptop ? null : (
                     <SimpleStyleFlatList
@@ -911,6 +953,7 @@ const AllEventsScreen = props => {
                                     {...GlobalStyles.TextStyles(theme)[
                                       'screen_title'
                                     ].props}
+                                    disabled={true}
                                     style={StyleSheet.applyWidth(
                                       StyleSheet.compose(
                                         GlobalStyles.TextStyles(theme)[
@@ -937,6 +980,7 @@ const AllEventsScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {listData?.published}
                                     {' | Source: '}
@@ -971,6 +1015,7 @@ const AllEventsScreen = props => {
                                   {...GlobalStyles.TextStyles(theme)[
                                     'screen_title'
                                   ].props}
+                                  disabled={true}
                                   style={StyleSheet.applyWidth(
                                     StyleSheet.compose(
                                       GlobalStyles.TextStyles(theme)[
@@ -998,6 +1043,7 @@ const AllEventsScreen = props => {
                                     ),
                                     dimensions.width
                                   )}
+                                  suppressHighlighting={true}
                                 >
                                   {listData?.description}
                                 </Text>
@@ -1259,6 +1305,7 @@ const AllEventsScreen = props => {
                                     {...GlobalStyles.TextStyles(theme)[
                                       'screen_title'
                                     ].props}
+                                    disabled={true}
                                     style={StyleSheet.applyWidth(
                                       StyleSheet.compose(
                                         GlobalStyles.TextStyles(theme)[
@@ -1285,6 +1332,7 @@ const AllEventsScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {listLargerData?.published}
                                     {' | Source: '}
@@ -1321,6 +1369,7 @@ const AllEventsScreen = props => {
                                   {...GlobalStyles.TextStyles(theme)[
                                     'screen_title'
                                   ].props}
+                                  disabled={true}
                                   style={StyleSheet.applyWidth(
                                     StyleSheet.compose(
                                       GlobalStyles.TextStyles(theme)[
@@ -1348,6 +1397,7 @@ const AllEventsScreen = props => {
                                     ),
                                     dimensions.width
                                   )}
+                                  suppressHighlighting={true}
                                 >
                                   {listLargerData?.description}
                                 </Text>
@@ -1649,6 +1699,7 @@ const AllEventsScreen = props => {
                                 {...GlobalStyles.TextStyles(theme)[
                                   'screen_title'
                                 ].props}
+                                disabled={true}
                                 style={StyleSheet.applyWidth(
                                   StyleSheet.compose(
                                     GlobalStyles.TextStyles(theme)[
@@ -1662,6 +1713,7 @@ const AllEventsScreen = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'Future opportunity'}
                               </Text>
@@ -1725,6 +1777,7 @@ const AllEventsScreen = props => {
                                 {...GlobalStyles.TextStyles(theme)[
                                   'screen_title'
                                 ].props}
+                                disabled={true}
                                 style={StyleSheet.applyWidth(
                                   StyleSheet.compose(
                                     GlobalStyles.TextStyles(theme)[
@@ -1738,6 +1791,7 @@ const AllEventsScreen = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'Acq. agenda & other'}
                               </Text>
@@ -1801,6 +1855,7 @@ const AllEventsScreen = props => {
                                 {...GlobalStyles.TextStyles(theme)[
                                   'screen_title'
                                 ].props}
+                                disabled={true}
                                 style={StyleSheet.applyWidth(
                                   StyleSheet.compose(
                                     GlobalStyles.TextStyles(theme)[
@@ -1814,6 +1869,7 @@ const AllEventsScreen = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'Transaction'}
                               </Text>
@@ -1935,6 +1991,7 @@ const AllEventsScreen = props => {
                                     {...GlobalStyles.TextStyles(theme)[
                                       'screen_title'
                                     ].props}
+                                    disabled={true}
                                     style={StyleSheet.applyWidth(
                                       StyleSheet.compose(
                                         GlobalStyles.TextStyles(theme)[
@@ -1949,6 +2006,7 @@ const AllEventsScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'Austria'}
                                   </Text>
@@ -2020,6 +2078,7 @@ const AllEventsScreen = props => {
                                     {...GlobalStyles.TextStyles(theme)[
                                       'screen_title'
                                     ].props}
+                                    disabled={true}
                                     style={StyleSheet.applyWidth(
                                       StyleSheet.compose(
                                         GlobalStyles.TextStyles(theme)[
@@ -2034,6 +2093,7 @@ const AllEventsScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'Denmark'}
                                   </Text>
@@ -2105,6 +2165,7 @@ const AllEventsScreen = props => {
                                     {...GlobalStyles.TextStyles(theme)[
                                       'screen_title'
                                     ].props}
+                                    disabled={true}
                                     style={StyleSheet.applyWidth(
                                       StyleSheet.compose(
                                         GlobalStyles.TextStyles(theme)[
@@ -2119,6 +2180,7 @@ const AllEventsScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'Finland'}
                                   </Text>
@@ -2190,6 +2252,7 @@ const AllEventsScreen = props => {
                                     {...GlobalStyles.TextStyles(theme)[
                                       'screen_title'
                                     ].props}
+                                    disabled={true}
                                     style={StyleSheet.applyWidth(
                                       StyleSheet.compose(
                                         GlobalStyles.TextStyles(theme)[
@@ -2204,6 +2267,7 @@ const AllEventsScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'Germany'}
                                   </Text>
@@ -2275,6 +2339,7 @@ const AllEventsScreen = props => {
                                     {...GlobalStyles.TextStyles(theme)[
                                       'screen_title'
                                     ].props}
+                                    disabled={true}
                                     style={StyleSheet.applyWidth(
                                       StyleSheet.compose(
                                         GlobalStyles.TextStyles(theme)[
@@ -2289,6 +2354,7 @@ const AllEventsScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'Norway'}
                                   </Text>
@@ -2360,6 +2426,7 @@ const AllEventsScreen = props => {
                                     {...GlobalStyles.TextStyles(theme)[
                                       'screen_title'
                                     ].props}
+                                    disabled={true}
                                     style={StyleSheet.applyWidth(
                                       StyleSheet.compose(
                                         GlobalStyles.TextStyles(theme)[
@@ -2374,6 +2441,7 @@ const AllEventsScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'Sweden'}
                                   </Text>
@@ -2447,6 +2515,7 @@ const AllEventsScreen = props => {
                                     {...GlobalStyles.TextStyles(theme)[
                                       'screen_title'
                                     ].props}
+                                    disabled={true}
                                     style={StyleSheet.applyWidth(
                                       StyleSheet.compose(
                                         GlobalStyles.TextStyles(theme)[
@@ -2461,6 +2530,7 @@ const AllEventsScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'Switzerland'}
                                   </Text>
@@ -2584,6 +2654,7 @@ const AllEventsScreen = props => {
                                     {...GlobalStyles.TextStyles(theme)[
                                       'screen_title'
                                     ].props}
+                                    disabled={true}
                                     style={StyleSheet.applyWidth(
                                       StyleSheet.compose(
                                         GlobalStyles.TextStyles(theme)[
@@ -2598,6 +2669,7 @@ const AllEventsScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'Nordic'}
                                   </Text>
@@ -2669,6 +2741,7 @@ const AllEventsScreen = props => {
                                     {...GlobalStyles.TextStyles(theme)[
                                       'screen_title'
                                     ].props}
+                                    disabled={true}
                                     style={StyleSheet.applyWidth(
                                       StyleSheet.compose(
                                         GlobalStyles.TextStyles(theme)[
@@ -2683,6 +2756,7 @@ const AllEventsScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'DACH'}
                                   </Text>
@@ -2754,6 +2828,7 @@ const AllEventsScreen = props => {
                                     {...GlobalStyles.TextStyles(theme)[
                                       'screen_title'
                                     ].props}
+                                    disabled={true}
                                     style={StyleSheet.applyWidth(
                                       StyleSheet.compose(
                                         GlobalStyles.TextStyles(theme)[
@@ -2768,6 +2843,7 @@ const AllEventsScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'Rest of the world'}
                                   </Text>
@@ -2797,6 +2873,7 @@ const AllEventsScreen = props => {
                               accessible={true}
                               {...GlobalStyles.TextStyles(theme)['screen_title']
                                 .props}
+                              disabled={true}
                               selectionColor={palettes.Brand['Strong Inverse']}
                               style={StyleSheet.applyWidth(
                                 StyleSheet.compose(
@@ -2810,6 +2887,7 @@ const AllEventsScreen = props => {
                                 ),
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {
                                 'Your subscription only includes access to Nordic-related events'
@@ -2826,6 +2904,7 @@ const AllEventsScreen = props => {
                               accessible={true}
                               {...GlobalStyles.TextStyles(theme)['screen_title']
                                 .props}
+                              disabled={true}
                               selectionColor={palettes.Brand['Strong Inverse']}
                               style={StyleSheet.applyWidth(
                                 StyleSheet.compose(
@@ -2839,6 +2918,7 @@ const AllEventsScreen = props => {
                                 ),
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {
                                 'Your subscription only includes access to DACH-related events'
@@ -2949,6 +3029,7 @@ const AllEventsScreen = props => {
                                 {...GlobalStyles.TextStyles(theme)[
                                   'screen_title'
                                 ].props}
+                                disabled={true}
                                 style={StyleSheet.applyWidth(
                                   StyleSheet.compose(
                                     GlobalStyles.TextStyles(theme)[
@@ -2962,6 +3043,7 @@ const AllEventsScreen = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'Communication Services'}
                               </Text>
@@ -3021,6 +3103,7 @@ const AllEventsScreen = props => {
                                 {...GlobalStyles.TextStyles(theme)[
                                   'screen_title'
                                 ].props}
+                                disabled={true}
                                 style={StyleSheet.applyWidth(
                                   StyleSheet.compose(
                                     GlobalStyles.TextStyles(theme)[
@@ -3034,6 +3117,7 @@ const AllEventsScreen = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'Industrials'}
                               </Text>
@@ -3095,6 +3179,7 @@ const AllEventsScreen = props => {
                                 {...GlobalStyles.TextStyles(theme)[
                                   'screen_title'
                                 ].props}
+                                disabled={true}
                                 style={StyleSheet.applyWidth(
                                   StyleSheet.compose(
                                     GlobalStyles.TextStyles(theme)[
@@ -3108,6 +3193,7 @@ const AllEventsScreen = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'Consumer Discretionary'}
                               </Text>
@@ -3169,6 +3255,7 @@ const AllEventsScreen = props => {
                                 {...GlobalStyles.TextStyles(theme)[
                                   'screen_title'
                                 ].props}
+                                disabled={true}
                                 style={StyleSheet.applyWidth(
                                   StyleSheet.compose(
                                     GlobalStyles.TextStyles(theme)[
@@ -3182,6 +3269,7 @@ const AllEventsScreen = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'IT & Software'}
                               </Text>
@@ -3243,6 +3331,7 @@ const AllEventsScreen = props => {
                                 {...GlobalStyles.TextStyles(theme)[
                                   'screen_title'
                                 ].props}
+                                disabled={true}
                                 style={StyleSheet.applyWidth(
                                   StyleSheet.compose(
                                     GlobalStyles.TextStyles(theme)[
@@ -3256,6 +3345,7 @@ const AllEventsScreen = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'Consumer Staples'}
                               </Text>
@@ -3315,6 +3405,7 @@ const AllEventsScreen = props => {
                                 {...GlobalStyles.TextStyles(theme)[
                                   'screen_title'
                                 ].props}
+                                disabled={true}
                                 style={StyleSheet.applyWidth(
                                   StyleSheet.compose(
                                     GlobalStyles.TextStyles(theme)[
@@ -3328,6 +3419,7 @@ const AllEventsScreen = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'Materials'}
                               </Text>
@@ -3387,6 +3479,7 @@ const AllEventsScreen = props => {
                                 {...GlobalStyles.TextStyles(theme)[
                                   'screen_title'
                                 ].props}
+                                disabled={true}
                                 style={StyleSheet.applyWidth(
                                   StyleSheet.compose(
                                     GlobalStyles.TextStyles(theme)[
@@ -3400,6 +3493,7 @@ const AllEventsScreen = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'Energy'}
                               </Text>
@@ -3459,6 +3553,7 @@ const AllEventsScreen = props => {
                                 {...GlobalStyles.TextStyles(theme)[
                                   'screen_title'
                                 ].props}
+                                disabled={true}
                                 style={StyleSheet.applyWidth(
                                   StyleSheet.compose(
                                     GlobalStyles.TextStyles(theme)[
@@ -3472,6 +3567,7 @@ const AllEventsScreen = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'Real Estate'}
                               </Text>
@@ -3531,6 +3627,7 @@ const AllEventsScreen = props => {
                                 {...GlobalStyles.TextStyles(theme)[
                                   'screen_title'
                                 ].props}
+                                disabled={true}
                                 style={StyleSheet.applyWidth(
                                   StyleSheet.compose(
                                     GlobalStyles.TextStyles(theme)[
@@ -3544,6 +3641,7 @@ const AllEventsScreen = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'Financials'}
                               </Text>
@@ -3603,6 +3701,7 @@ const AllEventsScreen = props => {
                                 {...GlobalStyles.TextStyles(theme)[
                                   'screen_title'
                                 ].props}
+                                disabled={true}
                                 style={StyleSheet.applyWidth(
                                   StyleSheet.compose(
                                     GlobalStyles.TextStyles(theme)[
@@ -3616,6 +3715,7 @@ const AllEventsScreen = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'Utilities'}
                               </Text>
@@ -3675,6 +3775,7 @@ const AllEventsScreen = props => {
                                 {...GlobalStyles.TextStyles(theme)[
                                   'screen_title'
                                 ].props}
+                                disabled={true}
                                 style={StyleSheet.applyWidth(
                                   StyleSheet.compose(
                                     GlobalStyles.TextStyles(theme)[
@@ -3688,6 +3789,7 @@ const AllEventsScreen = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'Health Care'}
                               </Text>
@@ -3805,6 +3907,7 @@ const AllEventsScreen = props => {
                                 {...GlobalStyles.TextStyles(theme)[
                                   'screen_title'
                                 ].props}
+                                disabled={true}
                                 style={StyleSheet.applyWidth(
                                   StyleSheet.compose(
                                     GlobalStyles.TextStyles(theme)[
@@ -3818,6 +3921,7 @@ const AllEventsScreen = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'NKP Proprietary'}
                               </Text>
@@ -3879,6 +3983,7 @@ const AllEventsScreen = props => {
                                 {...GlobalStyles.TextStyles(theme)[
                                   'screen_title'
                                 ].props}
+                                disabled={true}
                                 style={StyleSheet.applyWidth(
                                   StyleSheet.compose(
                                     GlobalStyles.TextStyles(theme)[
@@ -3892,6 +3997,7 @@ const AllEventsScreen = props => {
                                   ),
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'Press Release'}
                               </Text>
@@ -3953,6 +4059,7 @@ const AllEventsScreen = props => {
                                 {...GlobalStyles.TextStyles(theme)[
                                   'screen_title'
                                 ].props}
+                                disabled={true}
                                 style={StyleSheet.applyWidth(
                                   StyleSheet.compose(
                                     GlobalStyles.TextStyles(theme)[

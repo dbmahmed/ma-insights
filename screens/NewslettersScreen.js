@@ -327,6 +327,7 @@ const NewslettersScreen = props => {
                         accessible={true}
                         {...GlobalStyles.TextStyles(theme)['screen_title']
                           .props}
+                        disabled={true}
                         style={StyleSheet.applyWidth(
                           StyleSheet.compose(
                             GlobalStyles.TextStyles(theme)['screen_title']
@@ -335,6 +336,7 @@ const NewslettersScreen = props => {
                           ),
                           dimensions.width
                         )}
+                        suppressHighlighting={true}
                       >
                         {'Nordic'}
                       </Text>
@@ -386,6 +388,7 @@ const NewslettersScreen = props => {
                         accessible={true}
                         {...GlobalStyles.TextStyles(theme)['screen_title']
                           .props}
+                        disabled={true}
                         style={StyleSheet.applyWidth(
                           StyleSheet.compose(
                             GlobalStyles.TextStyles(theme)['screen_title']
@@ -394,6 +397,7 @@ const NewslettersScreen = props => {
                           ),
                           dimensions.width
                         )}
+                        suppressHighlighting={true}
                       >
                         {'DACH'}
                       </Text>
@@ -445,6 +449,7 @@ const NewslettersScreen = props => {
                         accessible={true}
                         {...GlobalStyles.TextStyles(theme)['screen_title']
                           .props}
+                        disabled={true}
                         style={StyleSheet.applyWidth(
                           StyleSheet.compose(
                             GlobalStyles.TextStyles(theme)['screen_title']
@@ -453,6 +458,7 @@ const NewslettersScreen = props => {
                           ),
                           dimensions.width
                         )}
+                        suppressHighlighting={true}
                       >
                         {'Newsletter'}
                       </Text>
@@ -504,6 +510,7 @@ const NewslettersScreen = props => {
                         accessible={true}
                         {...GlobalStyles.TextStyles(theme)['screen_title']
                           .props}
+                        disabled={true}
                         style={StyleSheet.applyWidth(
                           StyleSheet.compose(
                             GlobalStyles.TextStyles(theme)['screen_title']
@@ -512,6 +519,7 @@ const NewslettersScreen = props => {
                           ),
                           dimensions.width
                         )}
+                        suppressHighlighting={true}
                       >
                         {'Weekly Report'}
                       </Text>
@@ -524,6 +532,7 @@ const NewslettersScreen = props => {
                   <Text
                     accessible={true}
                     {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                    disabled={true}
                     style={StyleSheet.applyWidth(
                       StyleSheet.compose(
                         GlobalStyles.TextStyles(theme)['screen_title'].style,
@@ -535,6 +544,7 @@ const NewslettersScreen = props => {
                       ),
                       dimensions.width
                     )}
+                    suppressHighlighting={true}
                   >
                     {
                       'It is necessary that at least one of the filters Nordic, DACH was included'
@@ -548,6 +558,7 @@ const NewslettersScreen = props => {
                   <Text
                     accessible={true}
                     {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                    disabled={true}
                     style={StyleSheet.applyWidth(
                       StyleSheet.compose(
                         GlobalStyles.TextStyles(theme)['screen_title'].style,
@@ -559,6 +570,7 @@ const NewslettersScreen = props => {
                       ),
                       dimensions.width
                     )}
+                    suppressHighlighting={true}
                   >
                     {
                       'It is necessary that at least one of the filters Newsletter, Weekly Report was included'
@@ -571,6 +583,7 @@ const NewslettersScreen = props => {
             <Text
               accessible={true}
               {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+              disabled={true}
               style={StyleSheet.applyWidth(
                 StyleSheet.compose(
                   GlobalStyles.TextStyles(theme)['screen_title'].style,
@@ -582,6 +595,7 @@ const NewslettersScreen = props => {
                 ),
                 dimensions.width
               )}
+              suppressHighlighting={true}
             >
               {
                 'Released weekdays at 8.30 AM - enable notifications to get notified on release.'
@@ -853,6 +867,7 @@ const NewslettersScreen = props => {
                                     {...GlobalStyles.TextStyles(theme)[
                                       'screen_title'
                                     ].props}
+                                    disabled={true}
                                     style={StyleSheet.applyWidth(
                                       StyleSheet.compose(
                                         GlobalStyles.TextStyles(theme)[
@@ -866,6 +881,7 @@ const NewslettersScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                     textBreakStrategy={'highQuality'}
                                   >
                                     {'Pitch of The Day: '}
@@ -879,6 +895,7 @@ const NewslettersScreen = props => {
                               accessible={true}
                               {...GlobalStyles.TextStyles(theme)['screen_title']
                                 .props}
+                              disabled={true}
                               style={StyleSheet.applyWidth(
                                 StyleSheet.compose(
                                   GlobalStyles.TextStyles(theme)['screen_title']
@@ -890,6 +907,7 @@ const NewslettersScreen = props => {
                                 ),
                                 dimensions.width
                               )}
+                              suppressHighlighting={true}
                             >
                               {'Stories: '}
                               {transformNumber(

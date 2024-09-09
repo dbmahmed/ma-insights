@@ -123,6 +123,7 @@ const ReportsScreen = props => {
                 ),
                 dimensions.width
               )}
+              suppressHighlighting={true}
             >
               {
                 'Repository of the Monthly Advisor Report, Quarterly Survey Report, and other special reports'
@@ -139,6 +140,7 @@ const ReportsScreen = props => {
                 ),
                 dimensions.width
               )}
+              suppressHighlighting={true}
             >
               {
                 'Note: the weekly reports with opportunity-related headlines from a given week are found in the “Newsletters” tab.'
@@ -286,6 +288,7 @@ const ReportsScreen = props => {
                                   ].style,
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {' Published'}
                               </Text>
@@ -324,6 +327,7 @@ const ReportsScreen = props => {
                                   ].style,
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'Title (PDF download)'}
                               </Text>
@@ -363,6 +367,7 @@ const ReportsScreen = props => {
                                   ].style,
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {DateUtils.format(
                                   tableData?.published,

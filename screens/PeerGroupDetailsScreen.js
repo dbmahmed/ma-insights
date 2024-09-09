@@ -226,6 +226,7 @@ const PeerGroupDetailsScreen = props => {
                               { fontFamily: 'Quicksand_400Regular' },
                               dimensions.width
                             )}
+                            suppressHighlighting={true}
                           >
                             {'Private (only visible to you)'}
                           </Text>
@@ -248,6 +249,7 @@ const PeerGroupDetailsScreen = props => {
                           },
                           dimensions.width
                         )}
+                        suppressHighlighting={true}
                       >
                         {'Created on '}
                         {fetchData?.created_at}
@@ -262,6 +264,7 @@ const PeerGroupDetailsScreen = props => {
                               { fontFamily: 'Quicksand_400Regular' },
                               dimensions.width
                             )}
+                            suppressHighlighting={true}
                           >
                             {fetchData?.description}
                             {'\n'}
@@ -384,6 +387,7 @@ const PeerGroupDetailsScreen = props => {
                                       ].style,
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'Company'}
                                   </Text>
@@ -415,6 +419,7 @@ const PeerGroupDetailsScreen = props => {
                                       ].style,
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'Country'}
                                   </Text>
@@ -460,6 +465,7 @@ const PeerGroupDetailsScreen = props => {
                                       ].style,
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {'EV'}
                                   </Text>
@@ -503,6 +509,7 @@ const PeerGroupDetailsScreen = props => {
                                           ].style,
                                           dimensions.width
                                         )}
+                                        suppressHighlighting={true}
                                       >
                                         {'FY0'}
                                       </Text>
@@ -548,6 +555,7 @@ const PeerGroupDetailsScreen = props => {
                                           ].style,
                                           dimensions.width
                                         )}
+                                        suppressHighlighting={true}
                                       >
                                         {'52w price change'}
                                       </Text>
@@ -597,6 +605,7 @@ const PeerGroupDetailsScreen = props => {
                                           ].style,
                                           dimensions.width
                                         )}
+                                        suppressHighlighting={true}
                                       >
                                         {'Remove'}
                                       </Text>
@@ -665,6 +674,7 @@ const PeerGroupDetailsScreen = props => {
                                           ].style,
                                           dimensions.width
                                         )}
+                                        suppressHighlighting={true}
                                       >
                                         {tableData?.company_name}
                                       </Text>
@@ -698,6 +708,7 @@ const PeerGroupDetailsScreen = props => {
                                       ].style,
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {tableData?.country}
                                   </Text>
@@ -755,6 +766,7 @@ const PeerGroupDetailsScreen = props => {
                                       ),
                                       dimensions.width
                                     )}
+                                    suppressHighlighting={true}
                                   >
                                     {transformEuroM(tableData?.ev_eur)}
                                   </Text>
@@ -798,6 +810,7 @@ const PeerGroupDetailsScreen = props => {
                                           ].style,
                                           dimensions.width
                                         )}
+                                        suppressHighlighting={true}
                                       >
                                         {tableData?.fy0_end_date}
                                       </Text>
@@ -843,6 +856,7 @@ const PeerGroupDetailsScreen = props => {
                                           ].style,
                                           dimensions.width
                                         )}
+                                        suppressHighlighting={true}
                                       >
                                         {transformNumber(
                                           tableData?.change_52_weeks,
@@ -1041,6 +1055,7 @@ const PeerGroupDetailsScreen = props => {
                                   ].style,
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {' '}
                               </Text>
@@ -1075,6 +1090,7 @@ const PeerGroupDetailsScreen = props => {
                                   ].style,
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'FY0'}
                               </Text>
@@ -1109,6 +1125,7 @@ const PeerGroupDetailsScreen = props => {
                                   ].style,
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'TTM'}
                               </Text>
@@ -1143,6 +1160,7 @@ const PeerGroupDetailsScreen = props => {
                                   ].style,
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'FY1E'}
                               </Text>
@@ -1177,6 +1195,7 @@ const PeerGroupDetailsScreen = props => {
                                   ].style,
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'FY2E'}
                               </Text>
@@ -1250,6 +1269,7 @@ const PeerGroupDetailsScreen = props => {
                                   ].style,
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {transformNumber(
                                   fetchData?.ev_sales_fy0,
@@ -1288,6 +1308,7 @@ const PeerGroupDetailsScreen = props => {
                                   ].style,
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {transformNumber(
                                   fetchData?.ev_sales_ttm,
@@ -1326,6 +1347,7 @@ const PeerGroupDetailsScreen = props => {
                                   ].style,
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {transformNumber(
                                   fetchData?.ev_sales_fy1,
@@ -1364,6 +1386,7 @@ const PeerGroupDetailsScreen = props => {
                                   ].style,
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {transformNumber(
                                   fetchData?.ev_sales_fy2,
@@ -1407,6 +1430,7 @@ const PeerGroupDetailsScreen = props => {
                                   ].style,
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'EV/EBITDA'}
                               </Text>
@@ -1441,6 +1465,7 @@ const PeerGroupDetailsScreen = props => {
                                   ].style,
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {transformNumber(
                                   fetchData?.ev_ebitda_fy0,
@@ -1479,6 +1504,7 @@ const PeerGroupDetailsScreen = props => {
                                   ].style,
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {transformNumber(
                                   fetchData?.ev_ebitda_ttm,
@@ -1517,6 +1543,7 @@ const PeerGroupDetailsScreen = props => {
                                   ].style,
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {transformNumber(
                                   fetchData?.ev_ebitda_fy1,
@@ -1555,6 +1582,7 @@ const PeerGroupDetailsScreen = props => {
                                   ].style,
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {transformNumber(
                                   fetchData?.ev_ebitda_fy2,
@@ -1598,6 +1626,7 @@ const PeerGroupDetailsScreen = props => {
                                   ].style,
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'EV/EBIT'}
                               </Text>
@@ -1632,6 +1661,7 @@ const PeerGroupDetailsScreen = props => {
                                   ].style,
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {transformNumber(
                                   fetchData?.ev_ebit_fy0_median,
@@ -1670,6 +1700,7 @@ const PeerGroupDetailsScreen = props => {
                                   ].style,
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {transformNumber(
                                   fetchData?.ev_ebit_ttm_median,
@@ -1708,6 +1739,7 @@ const PeerGroupDetailsScreen = props => {
                                   ].style,
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {transformNumber(
                                   fetchData?.ev_ebit_fy1_median,
@@ -1746,6 +1778,7 @@ const PeerGroupDetailsScreen = props => {
                                   ].style,
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {transformNumber(
                                   fetchData?.ev_ebitda_fy2,
@@ -1789,6 +1822,7 @@ const PeerGroupDetailsScreen = props => {
                                   ].style,
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'P/E'}
                               </Text>
@@ -1823,6 +1857,7 @@ const PeerGroupDetailsScreen = props => {
                                   ].style,
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {transformNumber(
                                   fetchData?.pe_fy0_median,
@@ -1861,6 +1896,7 @@ const PeerGroupDetailsScreen = props => {
                                   ].style,
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {transformNumber(
                                   fetchData?.pe_ttm_median,
@@ -1899,6 +1935,7 @@ const PeerGroupDetailsScreen = props => {
                                   ].style,
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {transformNumber(
                                   fetchData?.pe_fy1_median,
@@ -1937,6 +1974,7 @@ const PeerGroupDetailsScreen = props => {
                                   ].style,
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {transformNumber(
                                   fetchData?.pe_fy2_median,
@@ -2057,6 +2095,7 @@ const PeerGroupDetailsScreen = props => {
                                   ].style,
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {' '}
                               </Text>
@@ -2091,6 +2130,7 @@ const PeerGroupDetailsScreen = props => {
                                   ].style,
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'FY0'}
                               </Text>
@@ -2125,6 +2165,7 @@ const PeerGroupDetailsScreen = props => {
                                   ].style,
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'TTM'}
                               </Text>
@@ -2159,6 +2200,7 @@ const PeerGroupDetailsScreen = props => {
                                   ].style,
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'FY1E'}
                               </Text>
@@ -2193,6 +2235,7 @@ const PeerGroupDetailsScreen = props => {
                                   ].style,
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'FY2E'}
                               </Text>
@@ -2232,6 +2275,7 @@ const PeerGroupDetailsScreen = props => {
                                   ].style,
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'Growth YoY'}
                               </Text>
@@ -2266,6 +2310,7 @@ const PeerGroupDetailsScreen = props => {
                                   ].style,
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {transformNumber(
                                   fetchData?.growth_fy0_median,
@@ -2304,6 +2349,7 @@ const PeerGroupDetailsScreen = props => {
                                   ].style,
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {transformNumber(
                                   fetchData?.growth_ttm_median,
@@ -2342,6 +2388,7 @@ const PeerGroupDetailsScreen = props => {
                                   ].style,
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {transformNumber(
                                   fetchData?.growth_fy1_median,
@@ -2380,6 +2427,7 @@ const PeerGroupDetailsScreen = props => {
                                   ].style,
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {transformNumber(
                                   fetchData?.growth_fy2_median,
@@ -2423,6 +2471,7 @@ const PeerGroupDetailsScreen = props => {
                                   ].style,
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'3 year CAGR'}
                               </Text>
@@ -2457,6 +2506,7 @@ const PeerGroupDetailsScreen = props => {
                                   ].style,
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'-'}
                               </Text>
@@ -2491,6 +2541,7 @@ const PeerGroupDetailsScreen = props => {
                                   ].style,
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'-'}
                               </Text>
@@ -2525,6 +2576,7 @@ const PeerGroupDetailsScreen = props => {
                                   ].style,
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'-'}
                               </Text>
@@ -2559,6 +2611,7 @@ const PeerGroupDetailsScreen = props => {
                                   ].style,
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {transformNumber(
                                   fetchData?.cagr_fy2_3y_median,
@@ -2602,6 +2655,7 @@ const PeerGroupDetailsScreen = props => {
                                   ].style,
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'EBITDA%'}
                               </Text>
@@ -2636,6 +2690,7 @@ const PeerGroupDetailsScreen = props => {
                                   ].style,
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {transformNumber(
                                   fetchData?.ebitda_margin_fy0_median,
@@ -2674,6 +2729,7 @@ const PeerGroupDetailsScreen = props => {
                                   ].style,
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {transformNumber(
                                   fetchData?.ebitda_margin_ttm_median,
@@ -2712,6 +2768,7 @@ const PeerGroupDetailsScreen = props => {
                                   ].style,
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {transformNumber(
                                   fetchData?.ebitda_margin_fy1_median,
@@ -2750,6 +2807,7 @@ const PeerGroupDetailsScreen = props => {
                                   ].style,
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {transformNumber(
                                   fetchData?.ebitda_margin_fy2_median,
@@ -2793,6 +2851,7 @@ const PeerGroupDetailsScreen = props => {
                                   ].style,
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {'Net profit%'}
                               </Text>
@@ -2827,6 +2886,7 @@ const PeerGroupDetailsScreen = props => {
                                   ].style,
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {transformNumber(
                                   fetchData?.np_margin_fy0_median,
@@ -2865,6 +2925,7 @@ const PeerGroupDetailsScreen = props => {
                                   ].style,
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {transformNumber(
                                   fetchData?.np_margin_ttm_median,
@@ -2903,6 +2964,7 @@ const PeerGroupDetailsScreen = props => {
                                   ].style,
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {transformNumber(
                                   fetchData?.np_margin_fy1_median,
@@ -2941,6 +3003,7 @@ const PeerGroupDetailsScreen = props => {
                                   ].style,
                                   dimensions.width
                                 )}
+                                suppressHighlighting={true}
                               >
                                 {transformNumber(
                                   fetchData?.np_margin_fy2_median,
