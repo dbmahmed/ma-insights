@@ -2385,6 +2385,104 @@ export const useResetPasswordPUT = (
   );
 };
 
+export const sendScreenshotNotficationPOST = async (
+  Constants,
+  { details, email, name, ts },
+  handlers = {}
+) => {
+  const url = `https://xne3-pdiu-8ysm.f2.xano.io/api:abjrBkC8/screenshot_notification`;
+  const options = {
+    body: JSON.stringify({
+      user_name: name,
+      user_email: email,
+      taken_at: ts,
+      screenshot_details: details,
+    }),
+    headers: cleanHeaders({
+      Accept: 'application/json',
+      Authorization: Constants['AUTH_HEADER'],
+      'Content-Type': 'application/json',
+    }),
+    method: 'POST',
+  };
+  const res = await fetch(url, options);
+  return handleResponse(res, handlers);
+};
+
+export const useSendScreenshotNotficationPOST = (
+  initialArgs = {},
+  { handlers = {} } = {}
+) => {
+  const queryClient = useQueryClient();
+  const Constants = GlobalVariables.useValues();
+  return useMutation(
+    args =>
+      sendScreenshotNotficationPOST(
+        Constants,
+        { ...initialArgs, ...args },
+        handlers
+      ),
+    {
+      onError: (err, variables, { previousValue }) => {
+        if (previousValue) {
+          return queryClient.setQueryData(
+            'screeshot_notification',
+            previousValue
+          );
+        }
+      },
+      onSettled: () => {
+        queryClient.invalidateQueries('screeshot_notification');
+        queryClient.invalidateQueries('screeshot_notifications');
+      },
+    }
+  );
+};
+
+export const FetchSendScreenshotNotficationPOST = ({
+  children,
+  onData = () => {},
+  handlers = {},
+  refetchInterval,
+  details,
+  email,
+  name,
+  ts,
+}) => {
+  const Constants = GlobalVariables.useValues();
+  const isFocused = useIsFocused();
+  const prevIsFocused = usePrevious(isFocused);
+
+  const {
+    isLoading: loading,
+    data,
+    error,
+    mutate: refetch,
+  } = useSendScreenshotNotficationPOST(
+    { details, email, name, ts },
+    { refetchInterval, handlers: { onData, ...handlers } }
+  );
+
+  React.useEffect(() => {
+    if (!prevIsFocused && isFocused) {
+      refetch();
+    }
+  }, [isFocused, prevIsFocused]);
+
+  React.useEffect(() => {
+    if (error) {
+      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error(error);
+    }
+  }, [error]);
+  return children({
+    loading,
+    data,
+    error,
+    refetchSendScreenshotNotfication: refetch,
+  });
+};
+
 export const updateNotificationPUT = async (
   Constants,
   { email_dach, email_nordic, push_dach, push_nordic },
