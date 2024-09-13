@@ -1,4 +1,3 @@
-// import * as ScreenCapture from "expo-screen-capture";
+import * as ScreenCapture from 'expo-screen-capture';
 
-export // ScreenCapture
- {};
+export { ScreenCapture };

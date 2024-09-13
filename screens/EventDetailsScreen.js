@@ -925,6 +925,77 @@ const EventDetailsScreen = props => {
                         </View>
                       )}
                     </>
+                    {/* View 15 */}
+                    <>
+                      {!(
+                        transformNumber(
+                          fetchData?.gross_profit_eur,
+                          undefined,
+                          undefined
+                        ) !== '-'
+                      ) ? null : (
+                        <View
+                          style={StyleSheet.applyWidth(
+                            { flexDirection: 'row', gap: 8, width: 100 },
+                            dimensions.width
+                          )}
+                        >
+                          <View
+                            style={StyleSheet.applyWidth(
+                              {
+                                width: [
+                                  { minWidth: Breakpoints.Tablet, value: 160 },
+                                  { minWidth: Breakpoints.Mobile, value: 150 },
+                                ],
+                              },
+                              dimensions.width
+                            )}
+                          >
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)['screen_title']
+                                .props}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.TextStyles(theme)['screen_title']
+                                    .style,
+                                  {
+                                    color: palettes.Brand['Strong Inverse'],
+                                    fontFamily: 'Quicksand_500Medium',
+                                  }
+                                ),
+                                dimensions.width
+                              )}
+                              suppressHighlighting={true}
+                            >
+                              {'Gross Profit:'}
+                            </Text>
+                          </View>
+                          {/* View 2 */}
+                          <View>
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)['screen_title']
+                                .props}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.TextStyles(theme)['screen_title']
+                                    .style,
+                                  {
+                                    color: palettes.Brand['Strong Inverse'],
+                                    fontFamily: 'Quicksand_500Medium',
+                                  }
+                                ),
+                                dimensions.width
+                              )}
+                              suppressHighlighting={true}
+                            >
+                              {transformEuroM(fetchData?.gross_profit_eur)}
+                            </Text>
+                          </View>
+                        </View>
+                      )}
+                    </>
                     {/* View 10 */}
                     <>
                       {!(
@@ -996,18 +1067,18 @@ const EventDetailsScreen = props => {
                         </View>
                       )}
                     </>
-                    {/* View 15 */}
+                    {/* View 17 */}
                     <>
                       {!(
                         transformNumber(
-                          fetchData?.gross_profit_eur,
+                          fetchData?.ebit_eur,
                           undefined,
                           undefined
                         ) !== '-'
                       ) ? null : (
                         <View
                           style={StyleSheet.applyWidth(
-                            { flexDirection: 'row', gap: 8, width: 100 },
+                            { flexDirection: 'row', gap: 8, width: '100%' },
                             dimensions.width
                           )}
                         >
@@ -1039,7 +1110,7 @@ const EventDetailsScreen = props => {
                               )}
                               suppressHighlighting={true}
                             >
-                              {'Gross Profit:'}
+                              {'EBIT:'}
                             </Text>
                           </View>
                           {/* View 2 */}
@@ -1061,7 +1132,7 @@ const EventDetailsScreen = props => {
                               )}
                               suppressHighlighting={true}
                             >
-                              {transformEuroM(fetchData?.gross_profit_eur)}
+                              {transformEuroM(fetchData?.ebit_eur)}
                             </Text>
                           </View>
                         </View>

@@ -1162,6 +1162,81 @@ const EventDetailsModalBlock = props => {
                           </View>
                         )}
                       </>
+                      {/* View 15 */}
+                      <>
+                        {!(fetchData?.gross_profit_eur !== '-') ? null : (
+                          <View
+                            style={StyleSheet.applyWidth(
+                              { flexDirection: 'row', gap: 8, width: 100 },
+                              dimensions.width
+                            )}
+                          >
+                            <View
+                              style={StyleSheet.applyWidth(
+                                {
+                                  width: [
+                                    {
+                                      minWidth: Breakpoints.Tablet,
+                                      value: 160,
+                                    },
+                                    {
+                                      minWidth: Breakpoints.Mobile,
+                                      value: 150,
+                                    },
+                                  ],
+                                },
+                                dimensions.width
+                              )}
+                            >
+                              <Text
+                                accessible={true}
+                                {...GlobalStyles.TextStyles(theme)[
+                                  'screen_title'
+                                ].props}
+                                style={StyleSheet.applyWidth(
+                                  StyleSheet.compose(
+                                    GlobalStyles.TextStyles(theme)[
+                                      'screen_title'
+                                    ].style,
+                                    {
+                                      color: palettes.Brand['Strong Inverse'],
+                                      fontFamily: 'Quicksand_500Medium',
+                                    }
+                                  ),
+                                  dimensions.width
+                                )}
+                                suppressHighlighting={true}
+                              >
+                                {'Gross Profit:'}
+                              </Text>
+                            </View>
+                            {/* View 2 */}
+                            <View>
+                              <Text
+                                accessible={true}
+                                {...GlobalStyles.TextStyles(theme)[
+                                  'screen_title'
+                                ].props}
+                                style={StyleSheet.applyWidth(
+                                  StyleSheet.compose(
+                                    GlobalStyles.TextStyles(theme)[
+                                      'screen_title'
+                                    ].style,
+                                    {
+                                      color: palettes.Brand['Strong Inverse'],
+                                      fontFamily: 'Quicksand_500Medium',
+                                    }
+                                  ),
+                                  dimensions.width
+                                )}
+                                suppressHighlighting={true}
+                              >
+                                {transformEuroM(fetchData?.gross_profit_eur)}
+                              </Text>
+                            </View>
+                          </View>
+                        )}
+                      </>
                       {/* View 10 */}
                       <>
                         {!(fetchData?.ebitda_eur !== '-') ? null : (
@@ -1242,81 +1317,72 @@ const EventDetailsModalBlock = props => {
                           </View>
                         )}
                       </>
-                      {/* View 15 */}
-                      <>
-                        {!(fetchData?.gross_profit_eur !== '-') ? null : (
-                          <View
+                      {/* View 17 */}
+                      <View
+                        style={StyleSheet.applyWidth(
+                          { flexDirection: 'row', gap: 8, width: '100%' },
+                          dimensions.width
+                        )}
+                      >
+                        <View
+                          style={StyleSheet.applyWidth(
+                            {
+                              width: [
+                                { minWidth: Breakpoints.Tablet, value: 160 },
+                                { minWidth: Breakpoints.Mobile, value: 150 },
+                              ],
+                            },
+                            dimensions.width
+                          )}
+                        >
+                          <Text
+                            accessible={true}
+                            {...GlobalStyles.TextStyles(theme)['screen_title']
+                              .props}
                             style={StyleSheet.applyWidth(
-                              { flexDirection: 'row', gap: 8, width: 100 },
+                              StyleSheet.compose(
+                                GlobalStyles.TextStyles(theme)['screen_title']
+                                  .style,
+                                {
+                                  color: palettes.Brand['Strong Inverse'],
+                                  fontFamily: 'Quicksand_500Medium',
+                                }
+                              ),
                               dimensions.width
                             )}
+                            suppressHighlighting={true}
                           >
-                            <View
-                              style={StyleSheet.applyWidth(
+                            {'EBIT:'}
+                          </Text>
+                        </View>
+                        {/* View 2 */}
+                        <View
+                          style={StyleSheet.applyWidth(
+                            { flex: 1 },
+                            dimensions.width
+                          )}
+                        >
+                          <Text
+                            accessible={true}
+                            {...GlobalStyles.TextStyles(theme)['screen_title']
+                              .props}
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TextStyles(theme)['screen_title']
+                                  .style,
                                 {
-                                  width: [
-                                    {
-                                      minWidth: Breakpoints.Tablet,
-                                      value: 160,
-                                    },
-                                    {
-                                      minWidth: Breakpoints.Mobile,
-                                      value: 150,
-                                    },
-                                  ],
-                                },
-                                dimensions.width
-                              )}
-                            >
-                              <Text
-                                accessible={true}
-                                {...GlobalStyles.TextStyles(theme)[
-                                  'screen_title'
-                                ].props}
-                                style={StyleSheet.applyWidth(
-                                  StyleSheet.compose(
-                                    GlobalStyles.TextStyles(theme)[
-                                      'screen_title'
-                                    ].style,
-                                    {
-                                      color: palettes.Brand['Strong Inverse'],
-                                      fontFamily: 'Quicksand_500Medium',
-                                    }
-                                  ),
-                                  dimensions.width
-                                )}
-                                suppressHighlighting={true}
-                              >
-                                {'Gross Profit:'}
-                              </Text>
-                            </View>
-                            {/* View 2 */}
-                            <View>
-                              <Text
-                                accessible={true}
-                                {...GlobalStyles.TextStyles(theme)[
-                                  'screen_title'
-                                ].props}
-                                style={StyleSheet.applyWidth(
-                                  StyleSheet.compose(
-                                    GlobalStyles.TextStyles(theme)[
-                                      'screen_title'
-                                    ].style,
-                                    {
-                                      color: palettes.Brand['Strong Inverse'],
-                                      fontFamily: 'Quicksand_500Medium',
-                                    }
-                                  ),
-                                  dimensions.width
-                                )}
-                                suppressHighlighting={true}
-                              >
-                                {transformEuroM(fetchData?.gross_profit_eur)}
-                              </Text>
-                            </View>
-                          </View>
-                        )}
-                      </>
+                                  color: palettes.Brand['Strong Inverse'],
+                                  fontFamily: 'Quicksand_500Medium',
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                            suppressHighlighting={true}
+                          >
+                            {transformEuroM(fetchData?.ebit_eur)}
+                          </Text>
+                        </View>
+                      </View>
                       {/* View 11 */}
                       <>
                         {!(fetchData?.ev_eur !== '0.0') ? null : (
