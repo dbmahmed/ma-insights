@@ -44,13 +44,13 @@ export const TextStyles = theme =>
     'watermark text': {
       style: {
         color: palettes.App.Studily_Dark_Primary,
-        fontFamily: 'Quicksand_500Medium',
+        fontFamily: 'Quicksand_700Bold',
         fontSize: [
-          { minWidth: Breakpoints.Mobile, value: 25 },
-          { minWidth: Breakpoints.Laptop, value: 35 },
-          { minWidth: Breakpoints.Tablet, value: 30 },
+          { minWidth: Breakpoints.Mobile, value: 12 },
+          { minWidth: Breakpoints.Laptop, value: 20 },
+          { minWidth: Breakpoints.Tablet, value: 18 },
         ],
-        opacity: 0.39,
+        opacity: 0.14,
       },
       props: {},
     },

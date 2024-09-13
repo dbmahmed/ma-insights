@@ -32,6 +32,10 @@ const TermsAndConditionsScreen = props => {
       if (!isFocused) {
         return;
       }
+      setGlobalVariableValue({
+        key: 'SS_SCREEN_NAME',
+        value: null,
+      });
       setScreenCode(screenNameGen());
       setGlobalVariableValue({
         key: 'pageName',

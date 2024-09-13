@@ -193,6 +193,10 @@ const StockSearchScreen = props => {
       if (!isFocused) {
         return;
       }
+      setGlobalVariableValue({
+        key: 'SS_SCREEN_NAME',
+        value: null,
+      });
       setScreenCode(screenNameGen());
       removeGlobalScroll();
       setGlobalVariableValue({
@@ -2863,8 +2867,9 @@ const StockSearchScreen = props => {
                                     try {
                                       applyFilters();
                                       setFilterPressed(false);
+                                      setKeywordSearch(keywordSearchRaw);
                                       await waitUtil({ milliseconds: 500 });
-                                      await refetchGetAllEvents();
+                                      /* hidden 'Refetch Data' action */
                                     } catch (err) {
                                       console.error(err);
                                     }

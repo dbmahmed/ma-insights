@@ -187,6 +187,10 @@ const MultiplesScreen = props => {
       if (!isFocused) {
         return;
       }
+      setGlobalVariableValue({
+        key: 'SS_SCREEN_NAME',
+        value: null,
+      });
       setScreenCode(screenNameGen());
       removeGlobalScroll();
       setGlobalVariableValue({
@@ -564,24 +568,29 @@ const MultiplesScreen = props => {
                           console.log('List ON_END_REACHED Start');
                           let error = null;
                           try {
+                            console.log('Start ON_END_REACHED:0 CONSOLE_LOG');
+                            console.log('End Reached', nextPage);
                             console.log(
-                              'Start ON_END_REACHED:0 CONDITIONAL_STOP'
+                              'Complete ON_END_REACHED:0 CONSOLE_LOG'
+                            );
+                            console.log(
+                              'Start ON_END_REACHED:1 CONDITIONAL_STOP'
                             );
                             if (nextPage === null) {
                               return console.log(
-                                'Complete ON_END_REACHED:0 CONDITIONAL_STOP'
+                                'Complete ON_END_REACHED:1 CONDITIONAL_STOP'
                               );
                             } else {
                               console.log(
-                                'Skipped ON_END_REACHED:0 CONDITIONAL_STOP: condition not met'
+                                'Skipped ON_END_REACHED:1 CONDITIONAL_STOP: condition not met'
                               );
                             }
-                            console.log('Start ON_END_REACHED:1 SET_VARIABLE');
+                            console.log('Start ON_END_REACHED:2 SET_VARIABLE');
                             setLoadingMore(true);
                             console.log(
-                              'Complete ON_END_REACHED:1 SET_VARIABLE'
+                              'Complete ON_END_REACHED:2 SET_VARIABLE'
                             );
-                            console.log('Start ON_END_REACHED:2 FETCH_REQUEST');
+                            console.log('Start ON_END_REACHED:3 FETCH_REQUEST');
                             const newData = (
                               await XanoCollectionApi.eventTransactionsGET(
                                 Constants,
@@ -601,37 +610,37 @@ const MultiplesScreen = props => {
                               )
                             )?.json;
                             console.log(
-                              'Complete ON_END_REACHED:2 FETCH_REQUEST',
+                              'Complete ON_END_REACHED:3 FETCH_REQUEST',
                               { newData }
                             );
-                            console.log('Start ON_END_REACHED:3 SET_VARIABLE');
-                            setNextPage(fetchData?.nextPage);
-                            console.log(
-                              'Complete ON_END_REACHED:3 SET_VARIABLE'
-                            );
                             console.log('Start ON_END_REACHED:4 SET_VARIABLE');
-                            setLoadingMore(false);
+                            setNextPage(newData?.nextPage);
                             console.log(
                               'Complete ON_END_REACHED:4 SET_VARIABLE'
                             );
+                            console.log('Start ON_END_REACHED:5 SET_VARIABLE');
+                            setLoadingMore(false);
                             console.log(
-                              'Start ON_END_REACHED:5 CONDITIONAL_STOP'
+                              'Complete ON_END_REACHED:5 SET_VARIABLE'
                             );
-                            if (fetchData?.items === 0) {
+                            console.log(
+                              'Start ON_END_REACHED:6 CONDITIONAL_STOP'
+                            );
+                            if (newData?.items?.length === 0) {
                               return console.log(
-                                'Complete ON_END_REACHED:5 CONDITIONAL_STOP'
+                                'Complete ON_END_REACHED:6 CONDITIONAL_STOP'
                               );
                             } else {
                               console.log(
-                                'Skipped ON_END_REACHED:5 CONDITIONAL_STOP: condition not met'
+                                'Skipped ON_END_REACHED:6 CONDITIONAL_STOP: condition not met'
                               );
                             }
-                            console.log('Start ON_END_REACHED:6 SET_VARIABLE');
+                            console.log('Start ON_END_REACHED:7 SET_VARIABLE');
                             setMultiplesList(
                               multiplesList.concat(newData?.items)
                             );
                             console.log(
-                              'Complete ON_END_REACHED:6 SET_VARIABLE'
+                              'Complete ON_END_REACHED:7 SET_VARIABLE'
                             );
                           } catch (err) {
                             console.error(err);
@@ -2989,6 +2998,7 @@ const MultiplesScreen = props => {
                                     try {
                                       /* hidden 'API Request' action */
                                       applyFilters();
+                                      setKeywordSearch(keywordSearchRaw);
                                       setFilterPressed(false);
                                       await waitUtil({ milliseconds: 500 });
                                       await refetchEventTransactions();

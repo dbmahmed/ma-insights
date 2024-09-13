@@ -27,6 +27,7 @@ import { Fetch } from 'react-request';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
 import LoadingBlock from '../components/LoadingBlock';
+import WatermarkerBlock from '../components/WatermarkerBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import Images from '../config/Images';
 import cutTextByWidth from '../global-functions/cutTextByWidth';
@@ -267,6 +268,10 @@ const EventDetailsModalBlock = props => {
                     try {
                       /* hidden 'Navigate Back' action */
                       setViewingEventId(0);
+                      setGlobalVariableValue({
+                        key: 'SS_SCREEN_NAME',
+                        value: 'AllEvents',
+                      });
                     } catch (err) {
                       console.error(err);
                     }
@@ -365,6 +370,13 @@ const EventDetailsModalBlock = props => {
                 >
                   {/* View 3 */}
                   <View>
+                    <>
+                      {!fetchData?.source
+                        ?.toLowerCase()
+                        .includes('proprietary') ? null : (
+                        <WatermarkerBlock />
+                      )}
+                    </>
                     <HStack
                       {...GlobalStyles.HStackStyles(theme)['H Stack'].props}
                       style={StyleSheet.applyWidth(
@@ -381,7 +393,11 @@ const EventDetailsModalBlock = props => {
                         style={StyleSheet.applyWidth(
                           StyleSheet.compose(
                             GlobalStyles.H3Styles(theme)['H3'].style,
-                            { fontFamily: 'Quicksand_700Bold', fontSize: 20 }
+                            {
+                              fontFamily: 'Quicksand_700Bold',
+                              fontSize: 20,
+                              marginBottom: 10,
+                            }
                           ),
                           dimensions.width
                         )}
@@ -392,10 +408,31 @@ const EventDetailsModalBlock = props => {
 
                     <View
                       style={StyleSheet.applyWidth(
+                        { marginBottom: 10 },
+                        dimensions.width
+                      )}
+                    >
+                      <Text
+                        accessible={true}
+                        {...GlobalStyles.TextStyles(theme)['screen_title']
+                          .props}
+                        style={StyleSheet.applyWidth(
+                          GlobalStyles.TextStyles(theme)['screen_title'].style,
+                          dimensions.width
+                        )}
+                        suppressHighlighting={true}
+                      >
+                        {fetchData?.published}
+                      </Text>
+                    </View>
+                    {/* View 2 */}
+                    <View
+                      style={StyleSheet.applyWidth(
                         { marginBottom: 20 },
                         dimensions.width
                       )}
                     >
+                      {/* Text 2 */}
                       <Text
                         accessible={true}
                         {...GlobalStyles.TextStyles(theme)['screen_title']

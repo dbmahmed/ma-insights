@@ -29,13 +29,16 @@ import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
 import CustomBottomNavBlock from '../components/CustomBottomNavBlock';
 import CustomHeaderBlock from '../components/CustomHeaderBlock';
 import EventDetailsModalBlock from '../components/EventDetailsModalBlock';
+import WatermarkerBlock from '../components/WatermarkerBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import Images from '../config/Images';
 import * as BuiltIns from '../custom-files/BuiltIns';
+import * as ExpoScreenCapture from '../custom-files/ExpoScreenCapture';
 import assessAccess from '../global-functions/assessAccess';
 import deviceType from '../global-functions/deviceType';
 import isNKPProp from '../global-functions/isNKPProp';
 import removeGlobalScroll from '../global-functions/removeGlobalScroll';
+import removeSSListener from '../global-functions/removeSSListener';
 import resetAccess from '../global-functions/resetAccess';
 import screenNameGen from '../global-functions/screenNameGen';
 import showNKPProp from '../global-functions/showNKPProp';
@@ -84,6 +87,8 @@ const NewsletterDetailsScreen = props => {
   };
   // const { AdminGroupApi } = BuiltIns
 
+  // const { ScreenCapture } = ExpoScreenCapture
+
   // const adminGroupSendNotificationForScreenshotPOST =
   //     AdminGroupApi.useSendNotificationForScreenshotPOST();
 
@@ -93,20 +98,21 @@ const NewsletterDetailsScreen = props => {
   //     return status === "granted";
   // };
 
-  // React.useEffect(() => {
-  //     let subscription;
+  // let subscription;
 
+  // React.useEffect(() => {
   //     const addListenerAsync = async () => {
   //         if (await hasPermissions()) {
-  //             await ScreenCapture.preventScreenCaptureAsync();
   //             console.log("add listner");
   //             subscription = ScreenCapture.addScreenshotListener(async () => {
   //                 console.log("handling listener");
-  //                 onScreenShotCapture(scName, Variables);
-  //                 let details = "NewsletterDetails" +
+  //                 let details =
+  //                     "NewsletterDetails" +
   //                     (":" +
-  //                         (props.route?.params?.news_id ?? defaultProps.news_id).toString())
-  //                 console.log(details)
+  //                         (
+  //                             props.route?.params?.news_id ?? defaultProps.news_id
+  //                         ).toString());
+  //                 console.log(details);
   //                 const rest = (
   //                     await adminGroupSendNotificationForScreenshotPOST.mutateAsync({
   //                         details,
@@ -116,7 +122,6 @@ const NewsletterDetailsScreen = props => {
   //                     })
   //                 )?.json;
   //                 console.log("res ", rest);
-  //                 // alert("Thanks for screenshotting my beautiful app 😊");
   //             });
   //         } else {
   //             console.error(
@@ -124,24 +129,30 @@ const NewsletterDetailsScreen = props => {
   //             );
   //         }
   //     };
-  //     addListenerAsync();
 
+  //     if (isFocused) addListenerAsync();
   //     return () => {
-  //         subscription?.remove();
+  //         if (subscription) {
+  //             console.log("removing the subs");
+  //             ScreenCapture.removeScreenshotListener(subscription);
+  //         }
   //     };
-  // }, []);
+  // }, [isFocused]);
   const isFocused = useIsFocused();
   React.useEffect(() => {
     try {
       if (!isFocused) {
         return;
       }
+      setGlobalVariableValue({
+        key: 'SS_SCREEN_NAME',
+        value:
+          'NewsletterDetails:' +
+          (props.route?.params?.news_id ?? defaultProps.news_id).toString(),
+      });
       setScreenCode(screenNameGen());
       removeGlobalScroll();
-      setGlobalVariableValue({
-        key: 'pageName',
-        value: 'Newsletter Details',
-      });
+      /* hidden 'Set Variable' action */
       setGlobalVariableValue({
         key: 'subPage',
         value: true,
@@ -154,13 +165,17 @@ const NewsletterDetailsScreen = props => {
         navigation.popToTop();
       }
       navigation.replace('LogInScreen');
-      setGlobalVariableValue({
-        key: 'SS_SCREEN_NAME',
-        value:
-          'NewsletterDetails' +
-          ("':'" +
-            (props.route?.params?.news_id ?? defaultProps.news_id).toString()),
-      });
+    } catch (err) {
+      console.error(err);
+    }
+  }, [isFocused]);
+  React.useEffect(() => {
+    try {
+      if (isFocused) {
+        return;
+      }
+      /* hidden 'Run a Custom Function' action */
+      /* hidden 'Set Variable' action */
     } catch (err) {
       console.error(err);
     }
@@ -728,6 +743,7 @@ const NewsletterDetailsScreen = props => {
                     />
                     {/* For Water mark */}
                     <View>
+                      <WatermarkerBlock />
                       {/* View 7 */}
                       <View
                         style={StyleSheet.applyWidth(
@@ -1947,6 +1963,15 @@ const NewsletterDetailsScreen = props => {
                                               dimensions.width
                                             )}
                                           >
+                                            <>
+                                              {!listData?.source
+                                                ?.toLowerCase()
+                                                .includes(
+                                                  'proprietary'
+                                                ) ? null : (
+                                                <WatermarkerBlock />
+                                              )}
+                                            </>
                                             <HStack
                                               {...GlobalStyles.HStackStyles(
                                                 theme
@@ -2308,6 +2333,15 @@ const NewsletterDetailsScreen = props => {
                                                 {listData?.source}
                                               </Text>
                                             </View>
+                                            <>
+                                              {!listData?.source
+                                                ?.toLowerCase()
+                                                .includes(
+                                                  'proprietary'
+                                                ) ? null : (
+                                                <WatermarkerBlock />
+                                              )}
+                                            </>
                                           </View>
                                         </Pressable>
                                       </View>
@@ -2547,6 +2581,15 @@ const NewsletterDetailsScreen = props => {
                                                 {listData?.source}
                                               </Text>
                                             </View>
+                                            <>
+                                              {!listData?.source
+                                                ?.toLowerCase()
+                                                .includes(
+                                                  'proprietary'
+                                                ) ? null : (
+                                                <WatermarkerBlock />
+                                              )}
+                                            </>
                                           </View>
                                         </Pressable>
                                       </View>
@@ -2819,6 +2862,15 @@ const NewsletterDetailsScreen = props => {
                                                 {listData?.source}
                                               </Text>
                                             </View>
+                                            <>
+                                              {!listData?.source
+                                                ?.toLowerCase()
+                                                .includes(
+                                                  'proprietary'
+                                                ) ? null : (
+                                                <WatermarkerBlock />
+                                              )}
+                                            </>
                                           </View>
                                         </Pressable>
                                       </View>
@@ -3079,30 +3131,38 @@ const NewsletterDetailsScreen = props => {
                                                             listData?.description
                                                           }
                                                         </Text>
-                                                        {/* View 4 */}
-                                                        <View>
-                                                          <Text
-                                                            accessible={true}
-                                                            disabled={true}
-                                                            style={StyleSheet.applyWidth(
-                                                              {
-                                                                color:
-                                                                  palettes.App
-                                                                    .Orange,
-                                                                fontFamily:
-                                                                  'Quicksand_400Regular',
-                                                              },
-                                                              dimensions.width
-                                                            )}
-                                                            suppressHighlighting={
-                                                              true
-                                                            }
-                                                          >
-                                                            {'Source: '}
-                                                            {listData?.source}
-                                                          </Text>
-                                                        </View>
                                                       </View>
+                                                    )}
+                                                  </>
+                                                  {/* View 4 */}
+                                                  <View>
+                                                    <Text
+                                                      accessible={true}
+                                                      disabled={true}
+                                                      style={StyleSheet.applyWidth(
+                                                        {
+                                                          color:
+                                                            palettes.App.Orange,
+                                                          fontFamily:
+                                                            'Quicksand_400Regular',
+                                                        },
+                                                        dimensions.width
+                                                      )}
+                                                      suppressHighlighting={
+                                                        true
+                                                      }
+                                                    >
+                                                      {'Source: '}
+                                                      {listData?.source}
+                                                    </Text>
+                                                  </View>
+                                                  <>
+                                                    {!listData?.source
+                                                      ?.toLowerCase()
+                                                      .includes(
+                                                        'proprietary'
+                                                      ) ? null : (
+                                                      <WatermarkerBlock />
                                                     )}
                                                   </>
                                                 </View>
@@ -3389,6 +3449,15 @@ const NewsletterDetailsScreen = props => {
                                                     {listData?.source}
                                                   </Text>
                                                 </View>
+                                                <>
+                                                  {!listData?.source
+                                                    ?.toLowerCase()
+                                                    .includes(
+                                                      'proprietary'
+                                                    ) ? null : (
+                                                    <WatermarkerBlock />
+                                                  )}
+                                                </>
                                               </View>
                                             </Pressable>
                                           </View>
@@ -3665,6 +3734,15 @@ const NewsletterDetailsScreen = props => {
                                                     {listData?.source}
                                                   </Text>
                                                 </View>
+                                                <>
+                                                  {!listData?.source
+                                                    ?.toLowerCase()
+                                                    .includes(
+                                                      'proprietary'
+                                                    ) ? null : (
+                                                    <WatermarkerBlock />
+                                                  )}
+                                                </>
                                               </View>
                                             </Pressable>
                                           </View>

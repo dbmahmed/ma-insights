@@ -264,6 +264,10 @@ const CFSScreen = props => {
       if (!isFocused) {
         return;
       }
+      setGlobalVariableValue({
+        key: 'SS_SCREEN_NAME',
+        value: null,
+      });
       setScreenCode(screenNameGen());
       removeGlobalScroll();
       setGlobalVariableValue({
@@ -778,6 +782,31 @@ const CFSScreen = props => {
                                     dimensions.width
                                   )}
                                 >
+                                  <Text
+                                    accessible={true}
+                                    {...GlobalStyles.TextStyles(theme)[
+                                      'screen_title'
+                                    ].props}
+                                    disabled={true}
+                                    numberOfLines={2}
+                                    style={StyleSheet.applyWidth(
+                                      StyleSheet.compose(
+                                        GlobalStyles.TextStyles(theme)[
+                                          'screen_title'
+                                        ].style,
+                                        {
+                                          color:
+                                            palettes.Brand['Strong Inverse'],
+                                        }
+                                      ),
+                                      dimensions.width
+                                    )}
+                                    suppressHighlighting={true}
+                                  >
+                                    {'Latest: '}
+                                    {listData?._event?.headline}
+                                  </Text>
+                                  {/* Text 7 */}
                                   <Text
                                     accessible={true}
                                     {...GlobalStyles.TextStyles(theme)[
@@ -3174,9 +3203,10 @@ const CFSScreen = props => {
                                   const handler = async () => {
                                     try {
                                       applyFilter();
+                                      setKeywordSearch(keywordSearch_raw);
                                       setFilterPressed(false);
                                       await waitUtil({ milliseconds: 1000 });
-                                      await refetchGetCFS();
+                                      /* hidden 'Refetch Data' action */
                                       setTotalCFS(fetchData?.itemsTotal);
                                     } catch (err) {
                                       console.error(err);
@@ -4468,6 +4498,33 @@ const CFSScreen = props => {
                               {' ('}
                               {fetchData?._main_event?.source}
                               {')'}
+                            </Text>
+                          )}
+                        </>
+                        {/* Text 2 */}
+                        <>
+                          {!(fetchData?.stage === 'Completed') ? null : (
+                            <Text
+                              accessible={true}
+                              {...GlobalStyles.TextStyles(theme)['screen_title']
+                                .props}
+                              disabled={true}
+                              style={StyleSheet.applyWidth(
+                                StyleSheet.compose(
+                                  GlobalStyles.TextStyles(theme)['screen_title']
+                                    .style,
+                                  {
+                                    color: palettes.App.Orange,
+                                    fontFamily: 'Quicksand_500Medium',
+                                    fontSize: 13,
+                                    marginBottom: 20,
+                                  }
+                                ),
+                                dimensions.width
+                              )}
+                              suppressHighlighting={true}
+                            >
+                              {'*This company has since been sold*'}
                             </Text>
                           )}
                         </>

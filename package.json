@@ -18,7 +18,7 @@
     "preset": "jest-expo"
   },
   "dependencies": {
-    "@draftbit/ui": "50.3.1",
+    "@draftbit/ui": "50.3.3",
     "@expo/dev-server": "0.5.5",
     "@expo/html-elements": "^0.5.1",
     "@expo/vector-icons": "^14.0.0",
@@ -51,13 +51,13 @@
     "expo-linear-gradient": "~12.7.2",
     "expo-linking": "~6.2.2",
     "expo-notifications": "~0.27.7",
-    "expo-permissions": "~14.4.0",
     "expo-screen-capture": "~5.8.1",
     "expo-screen-orientation": "~6.4.1",
     "expo-sharing": "~11.10.0",
     "expo-splash-screen": "~0.26.4",
     "expo-system-ui": "~2.9.4",
     "expo-web-browser": "~12.8.2",
+    "lottie-react-native": "6.5.1",
     "patch-package": "^6.5.1",
     "postinstall-postinstall": "^2.1.0",
     "react": "18.2.0",

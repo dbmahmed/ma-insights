@@ -34,14 +34,18 @@ import CustomBottomNavBlock from '../components/CustomBottomNavBlock';
 import CustomHeaderBlock from '../components/CustomHeaderBlock';
 import EventDetailsModalBlock from '../components/EventDetailsModalBlock';
 import LoadingBlock from '../components/LoadingBlock';
+import WatermarkerBlock from '../components/WatermarkerBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import Images from '../config/Images';
+import * as BuiltIns from '../custom-files/BuiltIns';
 import * as ExpoScreenCapture from '../custom-files/ExpoScreenCapture';
+import addScreenShotListenerAsync from '../global-functions/addScreenShotListenerAsync';
 import assessAccess from '../global-functions/assessAccess';
 import deviceType from '../global-functions/deviceType';
 import isNKPProp from '../global-functions/isNKPProp';
 import modifyArrays from '../global-functions/modifyArrays';
 import removeGlobalScroll from '../global-functions/removeGlobalScroll';
+import removeSSListener from '../global-functions/removeSSListener';
 import resetAccess from '../global-functions/resetAccess';
 import screenNameGen from '../global-functions/screenNameGen';
 import setPadding from '../global-functions/setPadding';
@@ -236,13 +240,65 @@ const AllEventsScreen = props => {
     setRow((regions || []).includes('RoW'));
     setDach((regions || []).includes('DACH'));
   };
-  // ExpoScreenCapture.useScreenShoot(viewingEventId ? 'EventDetails:' + String(viewingEventId) : 'AllEvents')
+  // const { AdminGroupApi } = BuiltIns
+
+  // const { ScreenCapture } = ExpoScreenCapture
+
+  // const adminGroupSendNotificationForScreenshotPOST =
+  //     AdminGroupApi.useSendNotificationForScreenshotPOST();
+
+  // const hasPermissions = async () => {
+  //     const { status } = await ScreenCapture.requestPermissionsAsync();
+  //     console.log("has perpm", status);
+  //     return status === "granted";
+  // };
+
+  // let subscription;
+
+  // React.useEffect(() => {
+  //     const addListenerAsync = async () => {
+  //         if (await hasPermissions()) {
+  //             console.log("add listner");
+  //             subscription = ScreenCapture.addScreenshotListener(async () => {
+  //                 console.log("handling listener");
+  //                 let details =viewingEventId ? 'EventDetails:'+String(viewingEventId):"AllEvents";
+  //                 console.log(details);
+  //                 const rest = (
+  //                     await adminGroupSendNotificationForScreenshotPOST.mutateAsync({
+  //                         details,
+  //                         email: Variables.ME.email,
+  //                         name: Variables.ME.name,
+  //                         ts: new Date(),
+  //                     })
+  //                 )?.json;
+  //                 console.log("res ", rest);
+  //             });
+  //         } else {
+  //             console.error(
+  //                 "Permissions needed to subscribe to screenshot events are missing!"
+  //             );
+  //         }
+  //     };
+
+  //     if (isFocused) addListenerAsync();
+  //     return () => {
+  //         if (subscription) {
+  //             console.log("removing the subs");
+  //             ScreenCapture.removeScreenshotListener(subscription);
+  //         }
+  //     };
+  // }, [isFocused, viewingEventId]);
   const isFocused = useIsFocused();
   React.useEffect(() => {
     try {
       if (!isFocused) {
         return;
       }
+      setGlobalVariableValue({
+        key: 'SS_SCREEN_NAME',
+        value: 'AllEvents',
+      });
+      /* hidden 'Run a Custom Function' action */
       setScreenCode(screenNameGen());
       /* hidden 'Run a Custom Function' action */
       setGlobalVariableValue({
@@ -291,6 +347,8 @@ const AllEventsScreen = props => {
         key: 'originPage',
         value: 'AllEvents',
       });
+      /* hidden 'Run a Custom Function' action */
+      /* hidden 'Set Variable' action */
     } catch (err) {
       console.error(err);
     }
@@ -825,6 +883,13 @@ const AllEventsScreen = props => {
                               dimensions.width
                             )}
                           >
+                            <>
+                              {!listData?.source
+                                ?.toLowerCase()
+                                .includes('proprietary') ? null : (
+                                <WatermarkerBlock />
+                              )}
+                            </>
                             <Touchable
                               onPress={() => {
                                 try {
@@ -834,7 +899,10 @@ const AllEventsScreen = props => {
                                   const valueP1z8rKBd = listData?.id;
                                   setViewingEventId(valueP1z8rKBd);
                                   const thisId = valueP1z8rKBd;
-                                  /* hidden 'Set Variable' action */
+                                  setGlobalVariableValue({
+                                    key: 'SS_SCREEN_NAME',
+                                    value: 'EventsDetials:' + thisId.toString(),
+                                  });
                                 } catch (err) {
                                   console.error(err);
                                 }
@@ -975,6 +1043,32 @@ const AllEventsScreen = props => {
                                     )}
                                   </>
                                 </HStack>
+                                <>
+                                  {!listData?.cfs_sold ? null : (
+                                    <Text
+                                      accessible={true}
+                                      {...GlobalStyles.TextStyles(theme)[
+                                        'screen_title_stockH'
+                                      ].props}
+                                      style={StyleSheet.applyWidth(
+                                        StyleSheet.compose(
+                                          GlobalStyles.TextStyles(theme)[
+                                            'screen_title_stockH'
+                                          ].style,
+                                          {
+                                            color: palettes.App.Orange,
+                                            fontFamily: 'Quicksand_400Regular',
+                                            fontSize: 12,
+                                            marginTop: 4,
+                                          }
+                                        ),
+                                        dimensions.width
+                                      )}
+                                    >
+                                      {'*This company has since been sold*'}
+                                    </Text>
+                                  )}
+                                </>
                                 {/* Text 2 */}
                                 <Text
                                   accessible={true}
@@ -1181,6 +1275,13 @@ const AllEventsScreen = props => {
                               dimensions.width
                             )}
                           >
+                            <>
+                              {!listLargerData?.source
+                                ?.toLowerCase()
+                                .includes('proprietary') ? null : (
+                                <WatermarkerBlock />
+                              )}
+                            </>
                             <Touchable
                               onPress={() => {
                                 try {
@@ -4149,6 +4250,7 @@ const AllEventsScreen = props => {
                               const handler = async () => {
                                 try {
                                   applyFilter();
+                                  setKeywordSearch(keywordSearchRaw);
                                   setFilterPressed(false);
                                   await waitUtil({ milliseconds: 1000 });
                                   /* hidden 'Refetch Data' action */

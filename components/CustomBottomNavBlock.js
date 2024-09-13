@@ -106,7 +106,7 @@ const CustomBottomNavBlock = props => {
                     borderStyle: 'dashed',
                     height: '100%',
                     justifyContent: 'center',
-                    width: '25%',
+                    width: '27%',
                   },
                   dimensions.width
                 )}
@@ -367,7 +367,7 @@ const CustomBottomNavBlock = props => {
                     alignSelf: 'center',
                     height: '100%',
                     justifyContent: 'center',
-                    width: '25%',
+                    width: '23%',
                   },
                   dimensions.width
                 )}

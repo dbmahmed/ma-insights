@@ -33,7 +33,6 @@ import CustomHeaderBlock from '../components/CustomHeaderBlock';
 import LoadingBlock from '../components/LoadingBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import assessAccess from '../global-functions/assessAccess';
-import cutText from '../global-functions/cutText';
 import deviceType from '../global-functions/deviceType';
 import modifyArrays from '../global-functions/modifyArrays';
 import removeGlobalScroll from '../global-functions/removeGlobalScroll';
@@ -266,6 +265,10 @@ const PEPFScreen = props => {
       if (!isFocused) {
         return;
       }
+      setGlobalVariableValue({
+        key: 'SS_SCREEN_NAME',
+        value: null,
+      });
       setScreenCode(screenNameGen());
       removeGlobalScroll();
       setGlobalVariableValue({
@@ -752,6 +755,7 @@ const PEPFScreen = props => {
                                   'screen_title'
                                 ].props}
                                 disabled={true}
+                                numberOfLines={2}
                                 style={StyleSheet.applyWidth(
                                   StyleSheet.compose(
                                     GlobalStyles.TextStyles(theme)[
@@ -763,7 +767,7 @@ const PEPFScreen = props => {
                                 )}
                                 suppressHighlighting={true}
                               >
-                                {cutText(listData?.company_description, 60)}
+                                {listData?.company_description}
                               </Text>
                             </View>
                             {/* View 2 */}
@@ -3157,7 +3161,6 @@ const PEPFScreen = props => {
                           >
                             <AccordionGroup
                               caretSize={24}
-                              expanded={false}
                               iconSize={24}
                               {...GlobalStyles.AccordionGroupStyles(theme)[
                                 'Accordion'
@@ -4172,9 +4175,10 @@ const PEPFScreen = props => {
                                   const handler = async () => {
                                     try {
                                       applyFilters();
+                                      setKeywordSearch(keywordSearchRaw);
                                       setFilterPressed(false);
                                       await waitUtil({ milliseconds: 100 });
-                                      await refetchGetAllPEPF();
+                                      /* hidden 'Refetch Data' action */
                                     } catch (err) {
                                       console.error(err);
                                     }

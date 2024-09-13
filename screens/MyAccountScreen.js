@@ -82,6 +82,10 @@ const MyAccountScreen = props => {
       if (!isFocused) {
         return;
       }
+      setGlobalVariableValue({
+        key: 'SS_SCREEN_NAME',
+        value: null,
+      });
       console.log(Constants['ME']);
       removeGlobalScroll();
       setGlobalVariableValue({

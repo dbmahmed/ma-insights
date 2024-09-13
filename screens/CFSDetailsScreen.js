@@ -29,7 +29,7 @@ import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
 
-const defaultProps = { cfs_id: 2 };
+const defaultProps = { cfs_id: 1 };
 
 const CFSDetailsScreen = props => {
   const { theme, navigation } = props;
@@ -52,6 +52,10 @@ const CFSDetailsScreen = props => {
       if (!isFocused) {
         return;
       }
+      setGlobalVariableValue({
+        key: 'SS_SCREEN_NAME',
+        value: null,
+      });
       setScreenCode(screenNameGen());
       removeGlobalScroll();
       setGlobalVariableValue({
@@ -127,11 +131,11 @@ const CFSDetailsScreen = props => {
                 {
                   alignItems: 'center',
                   height: '100%',
+                  marginBottom: 65,
                   marginTop: [
                     { minWidth: Breakpoints.Desktop, value: 85 },
                     { minWidth: Breakpoints.Mobile, value: 65 },
                   ],
-                  paddingBottom: 65,
                   position: 'absolute',
                   width: '99.9%',
                 },
@@ -884,7 +888,7 @@ const CFSDetailsScreen = props => {
                                 color: palettes.App.Orange,
                                 fontFamily: 'Quicksand_500Medium',
                                 fontSize: 13,
-                                marginBottom: 20,
+                                marginBottom: 10,
                               }
                             ),
                             dimensions.width
@@ -895,6 +899,32 @@ const CFSDetailsScreen = props => {
                           {' ('}
                           {fetchData?._main_event?.source}
                           {')'}
+                        </Text>
+                      )}
+                    </>
+                    {/* Text 2 */}
+                    <>
+                      {!(fetchData?.stage === 'Completed') ? null : (
+                        <Text
+                          accessible={true}
+                          {...GlobalStyles.TextStyles(theme)['screen_title']
+                            .props}
+                          style={StyleSheet.applyWidth(
+                            StyleSheet.compose(
+                              GlobalStyles.TextStyles(theme)['screen_title']
+                                .style,
+                              {
+                                color: palettes.App.Orange,
+                                fontFamily: 'Quicksand_500Medium',
+                                fontSize: 13,
+                                marginBottom: 10,
+                              }
+                            ),
+                            dimensions.width
+                          )}
+                          suppressHighlighting={true}
+                        >
+                          {'*This company has since been sold*'}
                         </Text>
                       )}
                     </>

@@ -53,8 +53,13 @@ jobs:
           node-version: 20
 
       - name: Install Dependencies
-        run: yarn install --non-interactive
-
+        run: |
+          #!/usr/bin/env bash
+          set -euo pipefail
+          {
+            yarn install --non-interactive
+          } 2>&1 | tee -a build.log
+          
       - name: Commit yarn.lock
         if: ${{ hashFiles('yarn.lock') != '' }}
         uses: stefanzweifel/git-auto-commit-action@v5
@@ -71,10 +76,13 @@ jobs:
           REPO: ${{ github.repository }}
           FLAG_PWA: ${{ secrets.FLAG_PWA }}
         run: |
-          export WEB_PUBLIC_URL=https://$(basename $REPO).draftbit.app/
-          npx expo export:web
-          echo "BUILD_STATUS=$?" >> $GITHUB_ENV
-          
+          #!/usr/bin/env bash
+          set -euo pipefail
+          {
+            export WEB_PUBLIC_URL=https://$(basename $REPO).draftbit.app/
+            npx expo export:web
+            echo "BUILD_STATUS=$?" >> $GITHUB_ENV
+          } 2>&1 | tee -a build.log
       - name: Build Project (automatic retry)
         if: ${{ env.BUILD_STATUS == 1 }}
         shell: bash {0}
@@ -82,9 +90,13 @@ jobs:
           REPO: ${{ github.repository }}
           FLAG_PWA: ${{ secrets.FLAG_PWA }}
         run: |
-          export WEB_PUBLIC_URL=https://$(basename $REPO).draftbit.app/
-          npx expo export:web
-          echo "BUILD_STATUS=$?" >> $GITHUB_ENV
+          #!/usr/bin/env bash 
+          set -euo pipefail
+          {
+            export WEB_PUBLIC_URL=https://$(basename $REPO).draftbit.app/
+            npx expo export:web
+            echo "BUILD_STATUS=$?" >> $GITHUB_ENV
+          } 2>&1 | tee -a build.log
 
       # See bash file for details
       - name: Safari Service Worker Hack
@@ -94,9 +106,13 @@ jobs:
           REPO: ${{ github.repository }}
           FLAG_PWA: ${{ secrets.FLAG_PWA }}
         run: |
-          test "$FLAG_PWA" == "true" && echo "FLAG_PWA enabled"
-          bash ./safarifix.bash
-          echo "BUILD_STATUS=$?" >> $GITHUB_ENV
+          #!/usr/bin/env bash
+          set -euo pipefail
+          {
+            test "$FLAG_PWA" == "true" && echo "FLAG_PWA enabled"
+            bash ./safarifix.bash
+            echo "BUILD_STATUS=$?" >> $GITHUB_ENV
+          } 2>&1 | tee -a build.log
 
       - name: Deploy To Github Pages
         if: ${{ env.BUILD_STATUS == 0 }}

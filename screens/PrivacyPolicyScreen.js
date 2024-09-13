@@ -37,6 +37,7 @@ const PrivacyPolicyScreen = props => {
       if (!isFocused) {
         return;
       }
+      undefined;
       setScreenCode(screenNameGen());
       setGlobalVariableValue({
         key: 'pageName',

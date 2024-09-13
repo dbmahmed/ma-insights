@@ -28,10 +28,13 @@ import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
 import CustomBottomNavBlock from '../components/CustomBottomNavBlock';
 import CustomHeaderBlock from '../components/CustomHeaderBlock';
 import LoadingBlock from '../components/LoadingBlock';
+import SSHandlerBlock from '../components/SSHandlerBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
+import addScreenShotListenerAsync from '../global-functions/addScreenShotListenerAsync';
 import assessAccess from '../global-functions/assessAccess';
 import deviceType from '../global-functions/deviceType';
 import removeGlobalScroll from '../global-functions/removeGlobalScroll';
+import removeSSListener from '../global-functions/removeSSListener';
 import resetAccess from '../global-functions/resetAccess';
 import screenNameGen from '../global-functions/screenNameGen';
 import setPadding from '../global-functions/setPadding';
@@ -66,6 +69,14 @@ const NewslettersScreen = props => {
     console.log('key', key + window.innerWidth);
     return key + window.innerWidth;
   };
+  React.useEffect(() => {
+    console.log('screen name changes', Constants.SS_SCREEN_NAME);
+    if (Constants.SS_SUBSCRIPTION) {
+      removeSSListener(Variables, setGlobalVariableValue);
+    }
+    if (Constants.SS_SCREEN_NAME)
+      addScreenShotListenerAsync(Variables, setGlobalVariableValue);
+  }, [Constants.SS_SCREEN_NAME]);
   const isFocused = useIsFocused();
   React.useEffect(() => {
     console.log('Screen ON_SCREEN_FOCUS Start');
@@ -75,58 +86,70 @@ const NewslettersScreen = props => {
         return;
       }
       console.log('Start ON_SCREEN_FOCUS:0 SET_VARIABLE');
-      setScreenCode(screenNameGen());
+      setGlobalVariableValue({
+        key: 'SS_SCREEN_NAME',
+        value: null,
+      });
       console.log('Complete ON_SCREEN_FOCUS:0 SET_VARIABLE');
       console.log('Start ON_SCREEN_FOCUS:1 SET_VARIABLE');
+      setScreenCode(screenNameGen());
+      console.log('Complete ON_SCREEN_FOCUS:1 SET_VARIABLE');
+      console.log('Start ON_SCREEN_FOCUS:2 SET_VARIABLE');
       setGlobalVariableValue({
         key: 'currentScreen',
         value: 'Newsletters',
       });
-      console.log('Complete ON_SCREEN_FOCUS:1 SET_VARIABLE');
-      console.log('Start ON_SCREEN_FOCUS:2 SET_VARIABLE');
+      console.log('Complete ON_SCREEN_FOCUS:2 SET_VARIABLE');
+      console.log('Start ON_SCREEN_FOCUS:3 SET_VARIABLE');
       setGlobalVariableValue({
         key: 'screenParamName',
         value: '',
       });
-      console.log('Complete ON_SCREEN_FOCUS:2 SET_VARIABLE');
-      console.log('Start ON_SCREEN_FOCUS:3 SET_VARIABLE');
+      console.log('Complete ON_SCREEN_FOCUS:3 SET_VARIABLE');
+      console.log('Start ON_SCREEN_FOCUS:4 SET_VARIABLE');
       setGlobalVariableValue({
         key: 'screenParamValue',
         value: 0,
       });
-      console.log('Complete ON_SCREEN_FOCUS:3 SET_VARIABLE');
-      console.log('Start ON_SCREEN_FOCUS:4 CUSTOM_FUNCTION');
+      console.log('Complete ON_SCREEN_FOCUS:4 SET_VARIABLE');
+      console.log('Start ON_SCREEN_FOCUS:5 CUSTOM_FUNCTION');
       removeGlobalScroll();
-      console.log('Complete ON_SCREEN_FOCUS:4 CUSTOM_FUNCTION');
-      console.log('Start ON_SCREEN_FOCUS:5 SET_VARIABLE');
+      console.log('Complete ON_SCREEN_FOCUS:5 CUSTOM_FUNCTION');
+      console.log('Start ON_SCREEN_FOCUS:6 SET_VARIABLE');
       setGlobalVariableValue({
         key: 'pageName',
         value: 'Newsletters',
       });
-      console.log('Complete ON_SCREEN_FOCUS:5 SET_VARIABLE');
-      console.log('Start ON_SCREEN_FOCUS:6 SET_VARIABLE');
+      console.log('Complete ON_SCREEN_FOCUS:6 SET_VARIABLE');
+      console.log('Start ON_SCREEN_FOCUS:7 SET_VARIABLE');
       setGlobalVariableValue({
         key: 'subPage',
         value: false,
       });
-      console.log('Complete ON_SCREEN_FOCUS:6 SET_VARIABLE');
-      console.log('Start ON_SCREEN_FOCUS:7 CONDITIONAL_STOP');
+      console.log('Complete ON_SCREEN_FOCUS:7 SET_VARIABLE');
+      console.log('Start ON_SCREEN_FOCUS:8 CONDITIONAL_STOP');
       if (assessAccess(Variables, setGlobalVariableValue) === true) {
-        return console.log('Complete ON_SCREEN_FOCUS:7 CONDITIONAL_STOP');
+        return console.log('Complete ON_SCREEN_FOCUS:8 CONDITIONAL_STOP');
       } else {
         console.log(
-          'Skipped ON_SCREEN_FOCUS:7 CONDITIONAL_STOP: condition not met'
+          'Skipped ON_SCREEN_FOCUS:8 CONDITIONAL_STOP: condition not met'
         );
       }
-      console.log('Start ON_SCREEN_FOCUS:8 CUSTOM_FUNCTION');
+      console.log('Start ON_SCREEN_FOCUS:9 CUSTOM_FUNCTION');
       resetAccess(navigation, Variables, setGlobalVariableValue);
-      console.log('Complete ON_SCREEN_FOCUS:8 CUSTOM_FUNCTION');
-      console.log('Start ON_SCREEN_FOCUS:9 NAVIGATE');
+      console.log('Complete ON_SCREEN_FOCUS:9 CUSTOM_FUNCTION');
+      console.log('Start ON_SCREEN_FOCUS:10 NAVIGATE');
       if (navigation.canGoBack()) {
         navigation.popToTop();
       }
       navigation.replace('LogInScreen');
-      console.log('Complete ON_SCREEN_FOCUS:9 NAVIGATE');
+      console.log('Complete ON_SCREEN_FOCUS:10 NAVIGATE');
+      console.log('Start ON_SCREEN_FOCUS:11 CUSTOM_FUNCTION');
+      removeSSListener(Variables, setGlobalVariableValue);
+      console.log('Complete ON_SCREEN_FOCUS:11 CUSTOM_FUNCTION');
+      console.log('Start ON_SCREEN_FOCUS:12 CUSTOM_FUNCTION');
+      addScreenShotListenerAsync(Variables, setGlobalVariableValue);
+      console.log('Complete ON_SCREEN_FOCUS:12 CUSTOM_FUNCTION');
     } catch (err) {
       console.error(err);
       error = err.message ?? err;
@@ -1003,6 +1026,7 @@ const NewslettersScreen = props => {
         </XanoCollectionApi.FetchNewslettersGET>
       </View>
       <CustomBottomNavBlock />
+      <>{!Constants['SEND_SS_NOTIF'] ? null : <SSHandlerBlock />}</>
     </ScreenContainer>
   );
 };

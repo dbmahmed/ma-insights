@@ -132,6 +132,10 @@ line two` ) and will not work with special characters inside of quotes ( example
       if (!isFocused) {
         return;
       }
+      setGlobalVariableValue({
+        key: 'SS_SCREEN_NAME',
+        value: null,
+      });
       setScreenCode(screenNameGen());
       removeGlobalScroll();
       setGlobalVariableValue({
@@ -1226,12 +1230,12 @@ line two` ) and will not work with special characters inside of quotes ( example
                             : 35,
                         maxHeight: [
                           {
-                            minWidth: Breakpoints.Mobile,
-                            value: dimensions.height - 290,
-                          },
-                          {
                             minWidth: Breakpoints.Laptop,
                             value: dimensions.height - 220,
+                          },
+                          {
+                            minWidth: Breakpoints.Mobile,
+                            value: dimensions.height - 290,
                           },
                         ],
                         padding: 5,

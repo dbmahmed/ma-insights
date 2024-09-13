@@ -31,7 +31,7 @@ import useWindowDimensions from '../utils/useWindowDimensions';
 
 const defaultProps = { email: null, message: null };
 
-const LogInScreen = props => {
+const LogIn2Screen = props => {
   const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
   const Constants = GlobalVariables.useValues();
@@ -45,7 +45,6 @@ const LogInScreen = props => {
   const [firstLogin, setFirstLogin] = React.useState(false);
   const [passwordVarl, setPasswordVarl] = React.useState('');
   const [resetNeeded, setResetNeeded] = React.useState(false);
-  const [textInputValue, setTextInputValue] = React.useState('');
   const loginFormValidator = () => {
     var emailPattern = /\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b/;
     // var passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{6,}$/;
@@ -108,7 +107,7 @@ const LogInScreen = props => {
       error ? { error } : 'no error'
     );
   }, [isFocused]);
-  const passwordyUSI8C8SRef = React.useRef();
+  const passwordUfz3hwlzRef = React.useRef();
 
   return (
     <ScreenContainer
@@ -190,7 +189,6 @@ const LogInScreen = props => {
                   fontSize: 30,
                   lineHeight: 30,
                   paddingBottom: { minWidth: Breakpoints.Desktop, value: 0 },
-                  paddingTop: Platform.OS === 'ios' ? 2 : undefined,
                   textAlign: 'center',
                 }
               ),
@@ -227,19 +225,19 @@ const LogInScreen = props => {
           </Text>
         </VStack>
       </View>
-
+      {/* Keyboard Avoiding View Maruf */}
       <KeyboardAvoidingView
         keyboardVerticalOffset={0}
         behavior={'padding'}
         enabled={true}
       >
         <SimpleStyleScrollView
+          bounces={true}
           horizontal={false}
           nestedScrollEnabled={false}
-          bounces={false}
+          showsHorizontalScrollIndicator={true}
+          showsVerticalScrollIndicator={true}
           keyboardShouldPersistTaps={'always'}
-          showsHorizontalScrollIndicator={false}
-          showsVerticalScrollIndicator={false}
         >
           {/* Login Window */}
           <View
@@ -309,7 +307,7 @@ const LogInScreen = props => {
                       }}
                       onSubmitEditing={() => {
                         try {
-                          passwordyUSI8C8SRef.current.focus();
+                          /* 'Focus Text Input' action requires configuration: choose a target component */
                           /* hidden 'Dismiss Keyboard' action */
                           /* hidden 'Set Variable' action */
                           /* hidden 'API Request' action */
@@ -322,13 +320,15 @@ const LogInScreen = props => {
                       {...GlobalStyles.TextInputStyles(theme)[
                         'Login Text Style'
                       ].props}
-                      autoComplete={'username'}
+                      autoComplete={'email'}
                       autoCorrect={false}
                       autoFocus={false}
+                      clearButtonMode={'while-editing'}
                       keyboardType={'email-address'}
                       numberOfLines={1}
                       placeholder={'Enter email...'}
                       placeholderTextColor={theme.colors.text.medium}
+                      returnKeyType={'next'}
                       selectionColor={theme.colors.text.strong}
                       spellcheck={true}
                       style={StyleSheet.applyWidth(
@@ -414,7 +414,6 @@ const LogInScreen = props => {
                       enablesReturnKeyAutomatically={true}
                       placeholder={'Enter password...'}
                       placeholderTextColor={theme.colors.text.medium}
-                      ref={passwordyUSI8C8SRef}
                       returnKeyLabel={'Login'}
                       returnKeyType={'go'}
                       secureTextEntry={true}
@@ -607,4 +606,4 @@ const LogInScreen = props => {
   );
 };
 
-export default withTheme(LogInScreen);
+export default withTheme(LogIn2Screen);

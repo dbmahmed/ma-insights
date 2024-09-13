@@ -43,6 +43,7 @@ export const AppVariables = {
   SEND_SS_NOTIF: '',
   speciaities: ['All', 'Heart', 'Cardiology', 'Neurologist', 'dermatologist'],
   SS_SCREEN_NAME: '',
+  SS_SUBSCRIPTION: '',
   WATCHED_EVENT_IDX: -1,
 };
 const GlobalVariableContext = React.createContext();

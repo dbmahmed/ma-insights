@@ -164,7 +164,11 @@ const EventDetailsScreen = props => {
                     style={StyleSheet.applyWidth(
                       StyleSheet.compose(
                         GlobalStyles.H3Styles(theme)['H3'].style,
-                        { fontFamily: 'Quicksand_700Bold', fontSize: 20 }
+                        {
+                          fontFamily: 'Quicksand_700Bold',
+                          fontSize: 20,
+                          marginBottom: 10,
+                        }
                       ),
                       dimensions.width
                     )}
@@ -175,7 +179,26 @@ const EventDetailsScreen = props => {
 
                 <View
                   style={StyleSheet.applyWidth(
-                    { marginBottom: 20 },
+                    { marginBottom: 10 },
+                    dimensions.width
+                  )}
+                >
+                  <Text
+                    accessible={true}
+                    {...GlobalStyles.TextStyles(theme)['screen_title'].props}
+                    style={StyleSheet.applyWidth(
+                      GlobalStyles.TextStyles(theme)['screen_title'].style,
+                      dimensions.width
+                    )}
+                    suppressHighlighting={true}
+                  >
+                    {fetchData?.published}
+                  </Text>
+                </View>
+                {/* View 3 */}
+                <View
+                  style={StyleSheet.applyWidth(
+                    { marginBottom: 10 },
                     dimensions.width
                   )}
                 >

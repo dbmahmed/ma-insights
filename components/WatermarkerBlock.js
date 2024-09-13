@@ -1,7 +1,7 @@
 import React from 'react';
 import { withTheme } from '@draftbit/ui';
 import { useIsFocused } from '@react-navigation/native';
-import { ActivityIndicator, Text, View } from 'react-native';
+import { ActivityIndicator, Platform, Text, View } from 'react-native';
 import { Fetch } from 'react-request';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as XanoCollectionApi from '../apis/XanoCollectionApi.js';
@@ -204,488 +204,562 @@ const WatermarkerBlock = props => {
           }
 
           return (
-            <View
-              style={StyleSheet.applyWidth(
-                {
-                  alignItems: 'center',
-                  flex: 1,
-                  gap: 200,
-                  justifyContent: 'space-evenly',
-                  overflow: 'hidden',
-                },
-                dimensions.width
+            <>
+              {Platform.OS === 'ios' ? null : (
+                <View
+                  style={StyleSheet.applyWidth(
+                    {
+                      alignItems: 'center',
+                      flex: 1,
+                      gap: 200,
+                      justifyContent: 'space-evenly',
+                      overflow: 'hidden',
+                    },
+                    dimensions.width
+                  )}
+                >
+                  {/* Text 2 */}
+                  <>
+                    {!(parentHeight > 0) ? null : (
+                      <Text
+                        accessible={true}
+                        {...GlobalStyles.TextStyles(theme)['watermark text']
+                          .props}
+                        numberOfLines={2}
+                        style={[
+                          StyleSheet.applyWidth(
+                            GlobalStyles.TextStyles(theme)['watermark text']
+                              .style,
+                            dimensions.width
+                          ),
+                          { transform: [{ rotate: '-35deg' }] },
+                        ]}
+                        contentContainerStyle={StyleSheet.applyWidth(
+                          GlobalStyles.TextStyles(theme)['watermark text']
+                            .style,
+                          dimensions.width
+                        )}
+                        textBreakStrategy={'simple'}
+                      >
+                        {fetchData?.domain}
+                      </Text>
+                    )}
+                  </>
+                  <>
+                    {!(parentHeight >= 2) ? null : (
+                      <Text
+                        accessible={true}
+                        {...GlobalStyles.TextStyles(theme)['watermark text']
+                          .props}
+                        numberOfLines={2}
+                        style={[
+                          StyleSheet.applyWidth(
+                            GlobalStyles.TextStyles(theme)['watermark text']
+                              .style,
+                            dimensions.width
+                          ),
+                          { transform: [{ rotate: '-35deg' }] },
+                        ]}
+                        contentContainerStyle={StyleSheet.applyWidth(
+                          GlobalStyles.TextStyles(theme)['watermark text']
+                            .style,
+                          dimensions.width
+                        )}
+                        textBreakStrategy={'simple'}
+                      >
+                        {fetchData?.domain}
+                      </Text>
+                    )}
+                  </>
+                  {/* Text 3 */}
+                  <>
+                    {!(parentHeight >= 3) ? null : (
+                      <Text
+                        accessible={true}
+                        {...GlobalStyles.TextStyles(theme)['watermark text']
+                          .props}
+                        numberOfLines={2}
+                        style={[
+                          StyleSheet.applyWidth(
+                            GlobalStyles.TextStyles(theme)['watermark text']
+                              .style,
+                            dimensions.width
+                          ),
+                          { transform: [{ rotate: '-35deg' }] },
+                        ]}
+                        contentContainerStyle={StyleSheet.applyWidth(
+                          GlobalStyles.TextStyles(theme)['watermark text']
+                            .style,
+                          dimensions.width
+                        )}
+                        textBreakStrategy={'simple'}
+                      >
+                        {fetchData?.domain}
+                      </Text>
+                    )}
+                  </>
+                  {/* Text 4 */}
+                  <>
+                    {!(parentHeight >= 4) ? null : (
+                      <Text
+                        accessible={true}
+                        {...GlobalStyles.TextStyles(theme)['watermark text']
+                          .props}
+                        numberOfLines={2}
+                        style={[
+                          StyleSheet.applyWidth(
+                            GlobalStyles.TextStyles(theme)['watermark text']
+                              .style,
+                            dimensions.width
+                          ),
+                          { transform: [{ rotate: '-35deg' }] },
+                        ]}
+                        contentContainerStyle={StyleSheet.applyWidth(
+                          GlobalStyles.TextStyles(theme)['watermark text']
+                            .style,
+                          dimensions.width
+                        )}
+                        textBreakStrategy={'simple'}
+                      >
+                        {fetchData?.domain}
+                      </Text>
+                    )}
+                  </>
+                  {/* Text 5 */}
+                  <>
+                    {!(parentHeight >= 5) ? null : (
+                      <Text
+                        accessible={true}
+                        {...GlobalStyles.TextStyles(theme)['watermark text']
+                          .props}
+                        numberOfLines={2}
+                        style={[
+                          StyleSheet.applyWidth(
+                            GlobalStyles.TextStyles(theme)['watermark text']
+                              .style,
+                            dimensions.width
+                          ),
+                          { transform: [{ rotate: '-35deg' }] },
+                        ]}
+                        contentContainerStyle={StyleSheet.applyWidth(
+                          GlobalStyles.TextStyles(theme)['watermark text']
+                            .style,
+                          dimensions.width
+                        )}
+                        textBreakStrategy={'simple'}
+                      >
+                        {fetchData?.domain}
+                      </Text>
+                    )}
+                  </>
+                  {/* Text 6 */}
+                  <>
+                    {!(parentHeight >= 6) ? null : (
+                      <Text
+                        accessible={true}
+                        {...GlobalStyles.TextStyles(theme)['watermark text']
+                          .props}
+                        numberOfLines={2}
+                        style={[
+                          StyleSheet.applyWidth(
+                            GlobalStyles.TextStyles(theme)['watermark text']
+                              .style,
+                            dimensions.width
+                          ),
+                          { transform: [{ rotate: '-35deg' }] },
+                        ]}
+                        contentContainerStyle={StyleSheet.applyWidth(
+                          GlobalStyles.TextStyles(theme)['watermark text']
+                            .style,
+                          dimensions.width
+                        )}
+                        textBreakStrategy={'simple'}
+                      >
+                        {fetchData?.domain}
+                      </Text>
+                    )}
+                  </>
+                  {/* Text 7 */}
+                  <>
+                    {!(parentHeight >= 7) ? null : (
+                      <Text
+                        accessible={true}
+                        {...GlobalStyles.TextStyles(theme)['watermark text']
+                          .props}
+                        numberOfLines={2}
+                        style={[
+                          StyleSheet.applyWidth(
+                            GlobalStyles.TextStyles(theme)['watermark text']
+                              .style,
+                            dimensions.width
+                          ),
+                          { transform: [{ rotate: '-35deg' }] },
+                        ]}
+                        contentContainerStyle={StyleSheet.applyWidth(
+                          GlobalStyles.TextStyles(theme)['watermark text']
+                            .style,
+                          dimensions.width
+                        )}
+                        textBreakStrategy={'simple'}
+                      >
+                        {fetchData?.domain}
+                      </Text>
+                    )}
+                  </>
+                  {/* Text 8 */}
+                  <>
+                    {!(parentHeight >= 8) ? null : (
+                      <Text
+                        accessible={true}
+                        {...GlobalStyles.TextStyles(theme)['watermark text']
+                          .props}
+                        numberOfLines={2}
+                        style={[
+                          StyleSheet.applyWidth(
+                            GlobalStyles.TextStyles(theme)['watermark text']
+                              .style,
+                            dimensions.width
+                          ),
+                          { transform: [{ rotate: '-35deg' }] },
+                        ]}
+                        contentContainerStyle={StyleSheet.applyWidth(
+                          GlobalStyles.TextStyles(theme)['watermark text']
+                            .style,
+                          dimensions.width
+                        )}
+                        textBreakStrategy={'simple'}
+                      >
+                        {fetchData?.domain}
+                      </Text>
+                    )}
+                  </>
+                  {/* Text 9 */}
+                  <>
+                    {!(parentHeight >= 9) ? null : (
+                      <Text
+                        accessible={true}
+                        {...GlobalStyles.TextStyles(theme)['watermark text']
+                          .props}
+                        numberOfLines={2}
+                        style={[
+                          StyleSheet.applyWidth(
+                            GlobalStyles.TextStyles(theme)['watermark text']
+                              .style,
+                            dimensions.width
+                          ),
+                          { transform: [{ rotate: '-35deg' }] },
+                        ]}
+                        contentContainerStyle={StyleSheet.applyWidth(
+                          GlobalStyles.TextStyles(theme)['watermark text']
+                            .style,
+                          dimensions.width
+                        )}
+                        textBreakStrategy={'simple'}
+                      >
+                        {fetchData?.domain}
+                      </Text>
+                    )}
+                  </>
+                  {/* Text 10 */}
+                  <>
+                    {!(parentHeight >= 10) ? null : (
+                      <Text
+                        accessible={true}
+                        {...GlobalStyles.TextStyles(theme)['watermark text']
+                          .props}
+                        numberOfLines={2}
+                        style={[
+                          StyleSheet.applyWidth(
+                            GlobalStyles.TextStyles(theme)['watermark text']
+                              .style,
+                            dimensions.width
+                          ),
+                          { transform: [{ rotate: '-35deg' }] },
+                        ]}
+                        contentContainerStyle={StyleSheet.applyWidth(
+                          GlobalStyles.TextStyles(theme)['watermark text']
+                            .style,
+                          dimensions.width
+                        )}
+                        textBreakStrategy={'simple'}
+                      >
+                        {fetchData?.domain}
+                      </Text>
+                    )}
+                  </>
+                  {/* Text 11 */}
+                  <>
+                    {!(parentHeight >= 11) ? null : (
+                      <Text
+                        accessible={true}
+                        {...GlobalStyles.TextStyles(theme)['watermark text']
+                          .props}
+                        numberOfLines={2}
+                        style={[
+                          StyleSheet.applyWidth(
+                            GlobalStyles.TextStyles(theme)['watermark text']
+                              .style,
+                            dimensions.width
+                          ),
+                          { transform: [{ rotate: '-35deg' }] },
+                        ]}
+                        contentContainerStyle={StyleSheet.applyWidth(
+                          GlobalStyles.TextStyles(theme)['watermark text']
+                            .style,
+                          dimensions.width
+                        )}
+                        textBreakStrategy={'simple'}
+                      >
+                        {fetchData?.domain}
+                      </Text>
+                    )}
+                  </>
+                  {/* Text 12 */}
+                  <>
+                    {!(parentHeight >= 12) ? null : (
+                      <Text
+                        accessible={true}
+                        {...GlobalStyles.TextStyles(theme)['watermark text']
+                          .props}
+                        numberOfLines={2}
+                        style={[
+                          StyleSheet.applyWidth(
+                            GlobalStyles.TextStyles(theme)['watermark text']
+                              .style,
+                            dimensions.width
+                          ),
+                          { transform: [{ rotate: '-35deg' }] },
+                        ]}
+                        contentContainerStyle={StyleSheet.applyWidth(
+                          GlobalStyles.TextStyles(theme)['watermark text']
+                            .style,
+                          dimensions.width
+                        )}
+                        textBreakStrategy={'simple'}
+                      >
+                        {fetchData?.domain}
+                      </Text>
+                    )}
+                  </>
+                  {/* Text 13 */}
+                  <>
+                    {!(parentHeight >= 13) ? null : (
+                      <Text
+                        accessible={true}
+                        {...GlobalStyles.TextStyles(theme)['watermark text']
+                          .props}
+                        numberOfLines={2}
+                        style={[
+                          StyleSheet.applyWidth(
+                            GlobalStyles.TextStyles(theme)['watermark text']
+                              .style,
+                            dimensions.width
+                          ),
+                          { transform: [{ rotate: '-35deg' }] },
+                        ]}
+                        contentContainerStyle={StyleSheet.applyWidth(
+                          GlobalStyles.TextStyles(theme)['watermark text']
+                            .style,
+                          dimensions.width
+                        )}
+                        textBreakStrategy={'simple'}
+                      >
+                        {fetchData?.domain}
+                      </Text>
+                    )}
+                  </>
+                  {/* Text 14 */}
+                  <>
+                    {!(parentHeight >= 14) ? null : (
+                      <Text
+                        accessible={true}
+                        {...GlobalStyles.TextStyles(theme)['watermark text']
+                          .props}
+                        numberOfLines={2}
+                        style={[
+                          StyleSheet.applyWidth(
+                            GlobalStyles.TextStyles(theme)['watermark text']
+                              .style,
+                            dimensions.width
+                          ),
+                          { transform: [{ rotate: '-35deg' }] },
+                        ]}
+                        contentContainerStyle={StyleSheet.applyWidth(
+                          GlobalStyles.TextStyles(theme)['watermark text']
+                            .style,
+                          dimensions.width
+                        )}
+                        textBreakStrategy={'simple'}
+                      >
+                        {fetchData?.domain}
+                      </Text>
+                    )}
+                  </>
+                  {/* Text 15 */}
+                  <>
+                    {!(parentHeight >= 10) ? null : (
+                      <Text
+                        accessible={true}
+                        {...GlobalStyles.TextStyles(theme)['watermark text']
+                          .props}
+                        numberOfLines={2}
+                        style={[
+                          StyleSheet.applyWidth(
+                            GlobalStyles.TextStyles(theme)['watermark text']
+                              .style,
+                            dimensions.width
+                          ),
+                          { transform: [{ rotate: '-35deg' }] },
+                        ]}
+                        contentContainerStyle={StyleSheet.applyWidth(
+                          GlobalStyles.TextStyles(theme)['watermark text']
+                            .style,
+                          dimensions.width
+                        )}
+                        textBreakStrategy={'simple'}
+                      >
+                        {fetchData?.domain}
+                      </Text>
+                    )}
+                  </>
+                  {/* Text 16 */}
+                  <>
+                    {!(parentHeight >= 10) ? null : (
+                      <Text
+                        accessible={true}
+                        {...GlobalStyles.TextStyles(theme)['watermark text']
+                          .props}
+                        numberOfLines={2}
+                        style={[
+                          StyleSheet.applyWidth(
+                            GlobalStyles.TextStyles(theme)['watermark text']
+                              .style,
+                            dimensions.width
+                          ),
+                          { transform: [{ rotate: '-35deg' }] },
+                        ]}
+                        contentContainerStyle={StyleSheet.applyWidth(
+                          GlobalStyles.TextStyles(theme)['watermark text']
+                            .style,
+                          dimensions.width
+                        )}
+                        textBreakStrategy={'simple'}
+                      >
+                        {fetchData?.domain}
+                      </Text>
+                    )}
+                  </>
+                  {/* Text 17 */}
+                  <>
+                    {!(parentHeight >= 10) ? null : (
+                      <Text
+                        accessible={true}
+                        {...GlobalStyles.TextStyles(theme)['watermark text']
+                          .props}
+                        numberOfLines={2}
+                        style={[
+                          StyleSheet.applyWidth(
+                            GlobalStyles.TextStyles(theme)['watermark text']
+                              .style,
+                            dimensions.width
+                          ),
+                          { transform: [{ rotate: '-35deg' }] },
+                        ]}
+                        contentContainerStyle={StyleSheet.applyWidth(
+                          GlobalStyles.TextStyles(theme)['watermark text']
+                            .style,
+                          dimensions.width
+                        )}
+                        textBreakStrategy={'simple'}
+                      >
+                        {fetchData?.domain}
+                      </Text>
+                    )}
+                  </>
+                  {/* Text 18 */}
+                  <>
+                    {!(parentHeight >= 10) ? null : (
+                      <Text
+                        accessible={true}
+                        {...GlobalStyles.TextStyles(theme)['watermark text']
+                          .props}
+                        numberOfLines={2}
+                        style={[
+                          StyleSheet.applyWidth(
+                            GlobalStyles.TextStyles(theme)['watermark text']
+                              .style,
+                            dimensions.width
+                          ),
+                          { transform: [{ rotate: '-35deg' }] },
+                        ]}
+                        contentContainerStyle={StyleSheet.applyWidth(
+                          GlobalStyles.TextStyles(theme)['watermark text']
+                            .style,
+                          dimensions.width
+                        )}
+                        textBreakStrategy={'simple'}
+                      >
+                        {fetchData?.domain}
+                      </Text>
+                    )}
+                  </>
+                  {/* Text 19 */}
+                  <>
+                    {!(parentHeight >= 10) ? null : (
+                      <Text
+                        accessible={true}
+                        {...GlobalStyles.TextStyles(theme)['watermark text']
+                          .props}
+                        numberOfLines={2}
+                        style={[
+                          StyleSheet.applyWidth(
+                            GlobalStyles.TextStyles(theme)['watermark text']
+                              .style,
+                            dimensions.width
+                          ),
+                          { transform: [{ rotate: '-35deg' }] },
+                        ]}
+                        contentContainerStyle={StyleSheet.applyWidth(
+                          GlobalStyles.TextStyles(theme)['watermark text']
+                            .style,
+                          dimensions.width
+                        )}
+                        textBreakStrategy={'simple'}
+                      >
+                        {fetchData?.domain}
+                      </Text>
+                    )}
+                  </>
+                  {/* Text 20 */}
+                  <>
+                    {!(parentHeight >= 10) ? null : (
+                      <Text
+                        accessible={true}
+                        {...GlobalStyles.TextStyles(theme)['watermark text']
+                          .props}
+                        numberOfLines={2}
+                        style={[
+                          StyleSheet.applyWidth(
+                            GlobalStyles.TextStyles(theme)['watermark text']
+                              .style,
+                            dimensions.width
+                          ),
+                          { transform: [{ rotate: '-35deg' }] },
+                        ]}
+                        contentContainerStyle={StyleSheet.applyWidth(
+                          GlobalStyles.TextStyles(theme)['watermark text']
+                            .style,
+                          dimensions.width
+                        )}
+                        textBreakStrategy={'simple'}
+                      >
+                        {fetchData?.domain}
+                      </Text>
+                    )}
+                  </>
+                </View>
               )}
-            >
-              {/* Text 2 */}
-              <>
-                {!(parentHeight > 0) ? null : (
-                  <Text
-                    accessible={true}
-                    {...GlobalStyles.TextStyles(theme)['watermark text'].props}
-                    numberOfLines={3}
-                    style={[
-                      StyleSheet.applyWidth(
-                        GlobalStyles.TextStyles(theme)['watermark text'].style,
-                        dimensions.width
-                      ),
-                      {
-                        transform: [{ rotate: '-35deg' }],
-                        'pointer-events': 'none',
-                      },
-                    ]}
-                    contentContainerStyle={StyleSheet.applyWidth(
-                      GlobalStyles.TextStyles(theme)['watermark text'].style,
-                      dimensions.width
-                    )}
-                    textBreakStrategy={'simple'}
-                  >
-                    {fetchData?.email}
-                  </Text>
-                )}
-              </>
-              <>
-                {!(parentHeight >= 2) ? null : (
-                  <Text
-                    accessible={true}
-                    {...GlobalStyles.TextStyles(theme)['watermark text'].props}
-                    numberOfLines={3}
-                    style={[
-                      StyleSheet.applyWidth(
-                        GlobalStyles.TextStyles(theme)['watermark text'].style,
-                        dimensions.width
-                      ),
-                      {
-                        transform: [{ rotate: '-35deg' }],
-                        'pointer-events': 'none',
-                      },
-                    ]}
-                    contentContainerStyle={StyleSheet.applyWidth(
-                      GlobalStyles.TextStyles(theme)['watermark text'].style,
-                      dimensions.width
-                    )}
-                    textBreakStrategy={'simple'}
-                  >
-                    {fetchData?.email}
-                  </Text>
-                )}
-              </>
-              {/* Text 3 */}
-              <>
-                {!(parentHeight >= 3) ? null : (
-                  <Text
-                    accessible={true}
-                    {...GlobalStyles.TextStyles(theme)['watermark text'].props}
-                    numberOfLines={3}
-                    style={[
-                      StyleSheet.applyWidth(
-                        GlobalStyles.TextStyles(theme)['watermark text'].style,
-                        dimensions.width
-                      ),
-                      {
-                        transform: [{ rotate: '-35deg' }],
-                        'pointer-events': 'none',
-                      },
-                    ]}
-                    contentContainerStyle={StyleSheet.applyWidth(
-                      GlobalStyles.TextStyles(theme)['watermark text'].style,
-                      dimensions.width
-                    )}
-                    textBreakStrategy={'simple'}
-                  >
-                    {fetchData?.email}
-                  </Text>
-                )}
-              </>
-              {/* Text 4 */}
-              <>
-                {!(parentHeight >= 4) ? null : (
-                  <Text
-                    accessible={true}
-                    {...GlobalStyles.TextStyles(theme)['watermark text'].props}
-                    numberOfLines={3}
-                    style={[
-                      StyleSheet.applyWidth(
-                        GlobalStyles.TextStyles(theme)['watermark text'].style,
-                        dimensions.width
-                      ),
-                      {
-                        transform: [{ rotate: '-35deg' }],
-                        'pointer-events': 'none',
-                      },
-                    ]}
-                    contentContainerStyle={StyleSheet.applyWidth(
-                      GlobalStyles.TextStyles(theme)['watermark text'].style,
-                      dimensions.width
-                    )}
-                    textBreakStrategy={'simple'}
-                  >
-                    {fetchData?.email}
-                  </Text>
-                )}
-              </>
-              {/* Text 5 */}
-              <>
-                {!(parentHeight >= 5) ? null : (
-                  <Text
-                    accessible={true}
-                    {...GlobalStyles.TextStyles(theme)['watermark text'].props}
-                    numberOfLines={3}
-                    style={[
-                      StyleSheet.applyWidth(
-                        GlobalStyles.TextStyles(theme)['watermark text'].style,
-                        dimensions.width
-                      ),
-                      {
-                        transform: [{ rotate: '-35deg' }],
-                        'pointer-events': 'none',
-                      },
-                    ]}
-                    contentContainerStyle={StyleSheet.applyWidth(
-                      GlobalStyles.TextStyles(theme)['watermark text'].style,
-                      dimensions.width
-                    )}
-                    textBreakStrategy={'simple'}
-                  >
-                    {fetchData?.email}
-                  </Text>
-                )}
-              </>
-              {/* Text 6 */}
-              <>
-                {!(parentHeight >= 6) ? null : (
-                  <Text
-                    accessible={true}
-                    {...GlobalStyles.TextStyles(theme)['watermark text'].props}
-                    numberOfLines={3}
-                    style={[
-                      StyleSheet.applyWidth(
-                        GlobalStyles.TextStyles(theme)['watermark text'].style,
-                        dimensions.width
-                      ),
-                      {
-                        transform: [{ rotate: '-35deg' }],
-                        'pointer-events': 'none',
-                      },
-                    ]}
-                    contentContainerStyle={StyleSheet.applyWidth(
-                      GlobalStyles.TextStyles(theme)['watermark text'].style,
-                      dimensions.width
-                    )}
-                    textBreakStrategy={'simple'}
-                  >
-                    {fetchData?.email}
-                  </Text>
-                )}
-              </>
-              {/* Text 7 */}
-              <>
-                {!(parentHeight >= 7) ? null : (
-                  <Text
-                    accessible={true}
-                    {...GlobalStyles.TextStyles(theme)['watermark text'].props}
-                    numberOfLines={3}
-                    style={[
-                      StyleSheet.applyWidth(
-                        GlobalStyles.TextStyles(theme)['watermark text'].style,
-                        dimensions.width
-                      ),
-                      {
-                        transform: [{ rotate: '-35deg' }],
-                        'pointer-events': 'none',
-                      },
-                    ]}
-                    contentContainerStyle={StyleSheet.applyWidth(
-                      GlobalStyles.TextStyles(theme)['watermark text'].style,
-                      dimensions.width
-                    )}
-                    textBreakStrategy={'simple'}
-                  >
-                    {fetchData?.email}
-                  </Text>
-                )}
-              </>
-              {/* Text 8 */}
-              <>
-                {!(parentHeight >= 8) ? null : (
-                  <Text
-                    accessible={true}
-                    {...GlobalStyles.TextStyles(theme)['watermark text'].props}
-                    numberOfLines={3}
-                    style={[
-                      StyleSheet.applyWidth(
-                        GlobalStyles.TextStyles(theme)['watermark text'].style,
-                        dimensions.width
-                      ),
-                      {
-                        transform: [{ rotate: '-35deg' }],
-                        'pointer-events': 'none',
-                      },
-                    ]}
-                    contentContainerStyle={StyleSheet.applyWidth(
-                      GlobalStyles.TextStyles(theme)['watermark text'].style,
-                      dimensions.width
-                    )}
-                    textBreakStrategy={'simple'}
-                  >
-                    {fetchData?.email}
-                  </Text>
-                )}
-              </>
-              {/* Text 9 */}
-              <>
-                {!(parentHeight >= 9) ? null : (
-                  <Text
-                    accessible={true}
-                    {...GlobalStyles.TextStyles(theme)['watermark text'].props}
-                    numberOfLines={3}
-                    style={[
-                      StyleSheet.applyWidth(
-                        GlobalStyles.TextStyles(theme)['watermark text'].style,
-                        dimensions.width
-                      ),
-                      {
-                        transform: [{ rotate: '-35deg' }],
-                        'pointer-events': 'none',
-                      },
-                    ]}
-                    contentContainerStyle={StyleSheet.applyWidth(
-                      GlobalStyles.TextStyles(theme)['watermark text'].style,
-                      dimensions.width
-                    )}
-                    textBreakStrategy={'simple'}
-                  >
-                    {fetchData?.email}
-                  </Text>
-                )}
-              </>
-              {/* Text 10 */}
-              <>
-                {!(parentHeight >= 10) ? null : (
-                  <Text
-                    accessible={true}
-                    {...GlobalStyles.TextStyles(theme)['watermark text'].props}
-                    numberOfLines={3}
-                    style={[
-                      StyleSheet.applyWidth(
-                        GlobalStyles.TextStyles(theme)['watermark text'].style,
-                        dimensions.width
-                      ),
-                      {
-                        transform: [{ rotate: '-35deg' }],
-                        'pointer-events': 'none',
-                      },
-                    ]}
-                    contentContainerStyle={StyleSheet.applyWidth(
-                      GlobalStyles.TextStyles(theme)['watermark text'].style,
-                      dimensions.width
-                    )}
-                    textBreakStrategy={'simple'}
-                  >
-                    {fetchData?.email}
-                  </Text>
-                )}
-              </>
-              {/* Text 11 */}
-              <>
-                {!(parentHeight >= 11) ? null : (
-                  <Text
-                    accessible={true}
-                    {...GlobalStyles.TextStyles(theme)['watermark text'].props}
-                    numberOfLines={3}
-                    style={[
-                      StyleSheet.applyWidth(
-                        GlobalStyles.TextStyles(theme)['watermark text'].style,
-                        dimensions.width
-                      ),
-                      {
-                        transform: [{ rotate: '-35deg' }],
-                        'pointer-events': 'none',
-                      },
-                    ]}
-                    contentContainerStyle={StyleSheet.applyWidth(
-                      GlobalStyles.TextStyles(theme)['watermark text'].style,
-                      dimensions.width
-                    )}
-                    textBreakStrategy={'simple'}
-                  >
-                    {fetchData?.email}
-                  </Text>
-                )}
-              </>
-              {/* Text 12 */}
-              <>
-                {!(parentHeight >= 12) ? null : (
-                  <Text
-                    accessible={true}
-                    {...GlobalStyles.TextStyles(theme)['watermark text'].props}
-                    numberOfLines={3}
-                    style={[
-                      StyleSheet.applyWidth(
-                        GlobalStyles.TextStyles(theme)['watermark text'].style,
-                        dimensions.width
-                      ),
-                      {
-                        transform: [{ rotate: '-35deg' }],
-                        'pointer-events': 'none',
-                      },
-                    ]}
-                    contentContainerStyle={StyleSheet.applyWidth(
-                      GlobalStyles.TextStyles(theme)['watermark text'].style,
-                      dimensions.width
-                    )}
-                    textBreakStrategy={'simple'}
-                  >
-                    {fetchData?.email}
-                  </Text>
-                )}
-              </>
-              {/* Text 13 */}
-              <>
-                {!(parentHeight >= 13) ? null : (
-                  <Text
-                    accessible={true}
-                    {...GlobalStyles.TextStyles(theme)['watermark text'].props}
-                    numberOfLines={3}
-                    style={[
-                      StyleSheet.applyWidth(
-                        GlobalStyles.TextStyles(theme)['watermark text'].style,
-                        dimensions.width
-                      ),
-                      {
-                        transform: [{ rotate: '-35deg' }],
-                        'pointer-events': 'none',
-                      },
-                    ]}
-                    contentContainerStyle={StyleSheet.applyWidth(
-                      GlobalStyles.TextStyles(theme)['watermark text'].style,
-                      dimensions.width
-                    )}
-                    textBreakStrategy={'simple'}
-                  >
-                    {fetchData?.email}
-                  </Text>
-                )}
-              </>
-              {/* Text 14 */}
-              <>
-                {!(parentHeight >= 14) ? null : (
-                  <Text
-                    accessible={true}
-                    {...GlobalStyles.TextStyles(theme)['watermark text'].props}
-                    numberOfLines={3}
-                    style={StyleSheet.applyWidth(
-                      GlobalStyles.TextStyles(theme)['watermark text'].style,
-                      dimensions.width
-                    )}
-                    textBreakStrategy={'simple'}
-                  >
-                    {fetchData?.email}
-                  </Text>
-                )}
-              </>
-              {/* Text 15 */}
-              <>
-                {!(parentHeight >= 10) ? null : (
-                  <Text
-                    accessible={true}
-                    {...GlobalStyles.TextStyles(theme)['watermark text'].props}
-                    numberOfLines={3}
-                    style={StyleSheet.applyWidth(
-                      GlobalStyles.TextStyles(theme)['watermark text'].style,
-                      dimensions.width
-                    )}
-                    textBreakStrategy={'simple'}
-                  >
-                    {fetchData?.email}
-                  </Text>
-                )}
-              </>
-              {/* Text 16 */}
-              <>
-                {!(parentHeight >= 10) ? null : (
-                  <Text
-                    accessible={true}
-                    {...GlobalStyles.TextStyles(theme)['watermark text'].props}
-                    numberOfLines={3}
-                    style={StyleSheet.applyWidth(
-                      GlobalStyles.TextStyles(theme)['watermark text'].style,
-                      dimensions.width
-                    )}
-                    textBreakStrategy={'simple'}
-                  >
-                    {fetchData?.email}
-                  </Text>
-                )}
-              </>
-              {/* Text 17 */}
-              <>
-                {!(parentHeight >= 10) ? null : (
-                  <Text
-                    accessible={true}
-                    {...GlobalStyles.TextStyles(theme)['watermark text'].props}
-                    numberOfLines={3}
-                    style={StyleSheet.applyWidth(
-                      GlobalStyles.TextStyles(theme)['watermark text'].style,
-                      dimensions.width
-                    )}
-                    textBreakStrategy={'simple'}
-                  >
-                    {fetchData?.email}
-                  </Text>
-                )}
-              </>
-              {/* Text 18 */}
-              <>
-                {!(parentHeight >= 10) ? null : (
-                  <Text
-                    accessible={true}
-                    {...GlobalStyles.TextStyles(theme)['watermark text'].props}
-                    numberOfLines={3}
-                    style={StyleSheet.applyWidth(
-                      GlobalStyles.TextStyles(theme)['watermark text'].style,
-                      dimensions.width
-                    )}
-                    textBreakStrategy={'simple'}
-                  >
-                    {fetchData?.email}
-                  </Text>
-                )}
-              </>
-              {/* Text 19 */}
-              <>
-                {!(parentHeight >= 10) ? null : (
-                  <Text
-                    accessible={true}
-                    {...GlobalStyles.TextStyles(theme)['watermark text'].props}
-                    numberOfLines={3}
-                    style={StyleSheet.applyWidth(
-                      GlobalStyles.TextStyles(theme)['watermark text'].style,
-                      dimensions.width
-                    )}
-                    textBreakStrategy={'simple'}
-                  >
-                    {fetchData?.email}
-                  </Text>
-                )}
-              </>
-              {/* Text 20 */}
-              <>
-                {!(parentHeight >= 10) ? null : (
-                  <Text
-                    accessible={true}
-                    {...GlobalStyles.TextStyles(theme)['watermark text'].props}
-                    numberOfLines={3}
-                    style={StyleSheet.applyWidth(
-                      GlobalStyles.TextStyles(theme)['watermark text'].style,
-                      dimensions.width
-                    )}
-                    textBreakStrategy={'simple'}
-                  >
-                    {fetchData?.email}
-                  </Text>
-                )}
-              </>
-            </View>
+            </>
           );
         }}
       </XanoCollectionApi.FetchAuthMeGET>

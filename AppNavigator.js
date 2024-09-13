@@ -19,6 +19,7 @@ import CFSDetailsScreen from './screens/CFSDetailsScreen';
 import CFSScreen from './screens/CFSScreen';
 import EventDetailsScreen from './screens/EventDetailsScreen';
 import ForgotPasswordScreen from './screens/ForgotPasswordScreen';
+import LogIn2Screen from './screens/LogIn2Screen';
 import LogInScreen from './screens/LogInScreen';
 import MultiplesScreen from './screens/MultiplesScreen';
 import MyAccountScreen from './screens/MyAccountScreen';
@@ -442,6 +443,13 @@ export default function RootAppNavigator() {
           component={AdvisorDetailsScreen}
           options={({ navigation }) => ({
             title: 'Advisor Details',
+          })}
+        />
+        <Stack.Screen
+          name="LogIn2Screen"
+          component={LogIn2Screen}
+          options={({ navigation }) => ({
+            title: 'LogIn 2',
           })}
         />
       </Stack.Navigator>
