@@ -50,7 +50,7 @@ import imageSource from '../utils/imageSource';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import waitUtil from '../utils/wait';
 
-const defaultProps = { news_id: 139 };
+const defaultProps = { news_id: 155 };
 
 const NewsletterDetailsScreen = props => {
   const { theme, navigation } = props;
