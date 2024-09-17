@@ -1,0 +1,11 @@
+[[redirects]]
+from = "/.well-known/apple-app-site-association"
+to = "/.netlify/functions/asa"
+status = 200
+force = true
+
+[[redirects]]
+from = "pwa/*"
+to = "index.html"
+status = 200
+force = true

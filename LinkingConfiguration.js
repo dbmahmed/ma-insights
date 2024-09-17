@@ -9,7 +9,7 @@ import { Platform } from 'react-native';
 
 function renderLinkingPrefix() {
   try {
-    return Linking.createURL('/');
+    return Linking.createURL('/pwa/');
   } catch (e) {
     return 'draftbit://';
   }
@@ -18,169 +18,50 @@ function renderLinkingPrefix() {
 const prefix = renderLinkingPrefix();
 
 const linking = {
-  enabled: Platform.OS === 'web' ? false : true,
+  enabled:  true,
   prefixes: [prefix],
   config: {
     screens: {
-      AdvisorDetailsScreen: {
-        screens: {
-          AdvisorDetailsScreen: {
-            path: 'AdvisorDetailsScreen/:advisor_id?',
-          },
-        },
-      },
+      SplashScreen: '/pwa',
+      AdvisorDetailsScreen: '/pwa/advisor_details/:advisor_id?',
 
-      AdvisorsScreen: {
-        screens: {
-          AdvisorsScreen: {
-            path: 'AdvisorsScreen',
-          },
-        },
-      },
+      AdvisorsScreen: '/pwa/advisors',
 
-      AllEventsScreen: {
-        screens: {
-          AllEventsScreen: {
-            path: 'AllEventsScreen',
-          },
-        },
-      },
+      AllEventsScreen: '/pwa/all_events/:event_id?',
 
-      CFSDetailsScreen: {
-        screens: {
-          CFSDetailsScreen: {
-            path: 'CFSDetailsScreen/:cfs_id?',
-          },
-        },
-      },
+      CFSDetailsScreen: '/pwa/cfs_details/:cfs_id?',
 
-      CFSScreen: {
-        screens: {
-          CFSScreen: {
-            path: 'CFSScreen',
-          },
-        },
-      },
+      CFSScreen: '/pwa/cfs',
 
-      EventDetailsScreen: {
-        screens: {
-          EventDetailsScreen: {
-            path: 'EventDetailsScreen/:event_id?',
-          },
-        },
-      },
+      EventDetailsScreen: '/pwa/event_details/:event_id?',
 
-      ForgotPasswordScreen: {
-        screens: {
-          ForgotPasswordScreen: {
-            path: 'ForgotPasswordScreen/:page_state?',
-          },
-        },
-      },
+      ForgotPasswordScreen: '/pwa/forgot_password',
 
-      LogInScreen: {
-        screens: {
-          LogInScreen: {
-            path: 'LogInScreen',
-          },
-        },
-      },
+      LogInScreen: '/pwa/login',
 
-      MultiplesScreen: {
-        screens: {
-          MultiplesScreen: {
-            path: 'MultiplesScreen',
-          },
-        },
-      },
+      MultiplesScreen: '/pwa/multiple',
 
-      NewsletterDetailsScreen: {
-        screens: {
-          NewsletterDetailsScreen: {
-            path: 'NewsletterDetailsScreen/:news_id?',
-          },
-        },
-      },
+      NewsletterDetailsScreen:  '/pwa/newsletter_details/:news_id?',
 
-      NewslettersScreen: {
-        screens: {
-          NewslettersScreen: {
-            path: 'NewslettersScreen',
-          },
-        },
-      },
+      NewslettersScreen: '/pwa/newsletters',
 
-      PEPFDetailsScreen: {
-        screens: {
-          PEPFDetailsScreen: {
-            path: 'PEPFDetailsScreen/:pepf_id?',
-          },
-        },
-      },
+      PEPFDetailsScreen: 'pwa/pepf_details/:pepf_id?',
 
-      PEPFScreen: {
-        screens: {
-          PEPFScreen: {
-            path: 'PEPFScreen',
-          },
-        },
-      },
+      PEPFScreen: '/pwa/pepf',
 
-      PeerGroupDetailsScreen: {
-        screens: {
-          PeerGroupDetailsScreen: {
-            path: 'PeerGroupDetailsScreen/:peer_group_id?',
-          },
-        },
-      },
+      PeerGroupDetailsScreen:  'peer_group_details/:peer_group_id?',
 
-      PeerGroupsScreen: {
-        screens: {
-          PeerGroupsScreen: {
-            path: 'PeerGroupsScreen',
-          },
-        },
-      },
+      PeerGroupsScreen: '/pwa/peer_group',
 
-      PrivacyPolicyScreen: {
-        screens: {
-          PrivacyPolicyScreen: {
-            path: 'PrivacyPolicyScreen',
-          },
-        },
-      },
+      PrivacyPolicyScreen: '/pwa/privacy_policy',
 
-      ReportsScreen: {
-        screens: {
-          ReportsScreen: {
-            path: 'ReportsScreen',
-          },
-        },
-      },
+      ReportsScreen: '/pwa/report',
 
-      StockDetailsScreen: {
-        screens: {
-          StockDetailsScreen: {
-            path: 'StockDetailsScreen/:stock_id?',
-          },
-        },
-      },
+      StockDetailsScreen:  '/pwa/storck_details/:stock_id?',
 
-      StockSearchScreen: {
-        screens: {
-          StockSearchScreen: {
-            path: 'StockSearchScreen',
-          },
-        },
-      },
+      StockSearchScreen: '/pwa/stock_search',
 
-      TermsAndConditionsScreen: {
-        screens: {
-          TermsAndConditionsScreen: {
-            path: 'TermsAndConditionsScreen',
-          },
-        },
-      },
+      TermsAndConditionsScreen: '/pwa/terms_conditions',
     },
   },
 };
