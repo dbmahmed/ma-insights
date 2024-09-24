@@ -66,11 +66,11 @@ const NewslettersScreen = props => {
   const [weeklyReport, setWeeklyReport] = React.useState(true);
   const [refreshingsXtzWjLu, setRefreshingsXtzWjLu] = React.useState(false);
   const fixedKeyProp = key => {
-    console.log('key', key + window.innerWidth);
+    // console.log('key', key + window.innerWidth);
     return key + window.innerWidth;
   };
   React.useEffect(() => {
-    console.log('screen name changes', Constants.SS_SCREEN_NAME);
+    // console.log("screen name changes", Constants.SS_SCREEN_NAME);
     if (Constants.SS_SUBSCRIPTION) {
       removeSSListener(Variables, setGlobalVariableValue);
     }
@@ -79,85 +79,49 @@ const NewslettersScreen = props => {
   }, [Constants.SS_SCREEN_NAME]);
   const isFocused = useIsFocused();
   React.useEffect(() => {
-    console.log('Screen ON_SCREEN_FOCUS Start');
-    let error = null;
     try {
       if (!isFocused) {
         return;
       }
-      console.log('Start ON_SCREEN_FOCUS:0 SET_VARIABLE');
       setGlobalVariableValue({
         key: 'SS_SCREEN_NAME',
         value: null,
       });
-      console.log('Complete ON_SCREEN_FOCUS:0 SET_VARIABLE');
-      console.log('Start ON_SCREEN_FOCUS:1 SET_VARIABLE');
       setScreenCode(screenNameGen());
-      console.log('Complete ON_SCREEN_FOCUS:1 SET_VARIABLE');
-      console.log('Start ON_SCREEN_FOCUS:2 SET_VARIABLE');
       setGlobalVariableValue({
         key: 'currentScreen',
         value: 'Newsletters',
       });
-      console.log('Complete ON_SCREEN_FOCUS:2 SET_VARIABLE');
-      console.log('Start ON_SCREEN_FOCUS:3 SET_VARIABLE');
       setGlobalVariableValue({
         key: 'screenParamName',
         value: '',
       });
-      console.log('Complete ON_SCREEN_FOCUS:3 SET_VARIABLE');
-      console.log('Start ON_SCREEN_FOCUS:4 SET_VARIABLE');
       setGlobalVariableValue({
         key: 'screenParamValue',
         value: 0,
       });
-      console.log('Complete ON_SCREEN_FOCUS:4 SET_VARIABLE');
-      console.log('Start ON_SCREEN_FOCUS:5 CUSTOM_FUNCTION');
       removeGlobalScroll();
-      console.log('Complete ON_SCREEN_FOCUS:5 CUSTOM_FUNCTION');
-      console.log('Start ON_SCREEN_FOCUS:6 SET_VARIABLE');
       setGlobalVariableValue({
         key: 'pageName',
         value: 'Newsletters',
       });
-      console.log('Complete ON_SCREEN_FOCUS:6 SET_VARIABLE');
-      console.log('Start ON_SCREEN_FOCUS:7 SET_VARIABLE');
       setGlobalVariableValue({
         key: 'subPage',
         value: false,
       });
-      console.log('Complete ON_SCREEN_FOCUS:7 SET_VARIABLE');
-      console.log('Start ON_SCREEN_FOCUS:8 CONDITIONAL_STOP');
       if (assessAccess(Variables, setGlobalVariableValue) === true) {
-        return console.log('Complete ON_SCREEN_FOCUS:8 CONDITIONAL_STOP');
-      } else {
-        console.log(
-          'Skipped ON_SCREEN_FOCUS:8 CONDITIONAL_STOP: condition not met'
-        );
+        return;
       }
-      console.log('Start ON_SCREEN_FOCUS:9 CUSTOM_FUNCTION');
       resetAccess(navigation, Variables, setGlobalVariableValue);
-      console.log('Complete ON_SCREEN_FOCUS:9 CUSTOM_FUNCTION');
-      console.log('Start ON_SCREEN_FOCUS:10 NAVIGATE');
       if (navigation.canGoBack()) {
         navigation.popToTop();
       }
       navigation.replace('LogInScreen');
-      console.log('Complete ON_SCREEN_FOCUS:10 NAVIGATE');
-      console.log('Start ON_SCREEN_FOCUS:11 CUSTOM_FUNCTION');
       removeSSListener(Variables, setGlobalVariableValue);
-      console.log('Complete ON_SCREEN_FOCUS:11 CUSTOM_FUNCTION');
-      console.log('Start ON_SCREEN_FOCUS:12 CUSTOM_FUNCTION');
       addScreenShotListenerAsync(Variables, setGlobalVariableValue);
-      console.log('Complete ON_SCREEN_FOCUS:12 CUSTOM_FUNCTION');
     } catch (err) {
       console.error(err);
-      error = err.message ?? err;
     }
-    console.log(
-      'Screen ON_SCREEN_FOCUS Complete',
-      error ? { error } : 'no error'
-    );
   }, [isFocused]);
 
   return (
@@ -348,6 +312,7 @@ const NewslettersScreen = props => {
                     >
                       <Text
                         accessible={true}
+                        selectable={false}
                         {...GlobalStyles.TextStyles(theme)['screen_title']
                           .props}
                         disabled={true}
@@ -409,6 +374,7 @@ const NewslettersScreen = props => {
                     >
                       <Text
                         accessible={true}
+                        selectable={false}
                         {...GlobalStyles.TextStyles(theme)['screen_title']
                           .props}
                         disabled={true}
@@ -470,6 +436,7 @@ const NewslettersScreen = props => {
                     >
                       <Text
                         accessible={true}
+                        selectable={false}
                         {...GlobalStyles.TextStyles(theme)['screen_title']
                           .props}
                         disabled={true}
@@ -531,6 +498,7 @@ const NewslettersScreen = props => {
                     >
                       <Text
                         accessible={true}
+                        selectable={false}
                         {...GlobalStyles.TextStyles(theme)['screen_title']
                           .props}
                         disabled={true}
@@ -554,6 +522,7 @@ const NewslettersScreen = props => {
                 {!(!nordic && !dach) ? null : (
                   <Text
                     accessible={true}
+                    selectable={false}
                     {...GlobalStyles.TextStyles(theme)['screen_title'].props}
                     disabled={true}
                     style={StyleSheet.applyWidth(
@@ -580,6 +549,7 @@ const NewslettersScreen = props => {
                 {!(!weeklyReport && !newsletter) ? null : (
                   <Text
                     accessible={true}
+                    selectable={false}
                     {...GlobalStyles.TextStyles(theme)['screen_title'].props}
                     disabled={true}
                     style={StyleSheet.applyWidth(
@@ -605,6 +575,7 @@ const NewslettersScreen = props => {
 
             <Text
               accessible={true}
+              selectable={false}
               {...GlobalStyles.TextStyles(theme)['screen_title'].props}
               disabled={true}
               style={StyleSheet.applyWidth(
@@ -621,7 +592,7 @@ const NewslettersScreen = props => {
               suppressHighlighting={true}
             >
               {
-                'Released weekdays at 8.30 AM - enable notifications to get notified on release.'
+                'Released weekdays at 7.00 AM - enable notifications to get notified on release.'
               }
             </Text>
           </View>
@@ -642,7 +613,7 @@ const NewslettersScreen = props => {
                 } else {
                 }
 
-                console.log(newslettersList);
+                /* hidden 'Log to Console' action */
                 setNextPage(fetchData?.json?.nextPage);
                 /* hidden 'Set Variable' action */
                 /* hidden 'If/Else' action */
@@ -690,23 +661,11 @@ const NewslettersScreen = props => {
                 nestedScrollEnabled={false}
                 onEndReached={() => {
                   const handler = async () => {
-                    console.log('List ON_END_REACHED Start');
-                    let error = null;
                     try {
-                      console.log('Start ON_END_REACHED:0 CONSOLE_LOG');
                       console.log(nextPage);
-                      console.log('Complete ON_END_REACHED:0 CONSOLE_LOG');
-                      console.log('Start ON_END_REACHED:1 CONDITIONAL_STOP');
                       if (nextPage === null) {
-                        return console.log(
-                          'Complete ON_END_REACHED:1 CONDITIONAL_STOP'
-                        );
-                      } else {
-                        console.log(
-                          'Skipped ON_END_REACHED:1 CONDITIONAL_STOP: condition not met'
-                        );
+                        return;
                       }
-                      console.log('Start ON_END_REACHED:2 FETCH_REQUEST');
                       const newData = (
                         await XanoCollectionApi.newslettersGET(Constants, {
                           dach: dach,
@@ -723,41 +682,20 @@ const NewslettersScreen = props => {
                           screenCode: screenCode,
                         })
                       )?.json;
-                      console.log('Complete ON_END_REACHED:2 FETCH_REQUEST', {
-                        newData,
-                      });
-                      console.log('Start ON_END_REACHED:3 SET_VARIABLE');
                       setNextPage(newData?.nextPage);
-                      console.log('Complete ON_END_REACHED:3 SET_VARIABLE');
-                      console.log('Start ON_END_REACHED:4 SET_VARIABLE');
                       setLastPage(newData?.pageTotal);
-                      console.log('Complete ON_END_REACHED:4 SET_VARIABLE');
-                      console.log('Start ON_END_REACHED:5 CONDITIONAL_STOP');
                       if (
                         fetchData?.items ===
                         (0 || newslettersList !== fetchData?.items)
                       ) {
-                        return console.log(
-                          'Complete ON_END_REACHED:5 CONDITIONAL_STOP'
-                        );
-                      } else {
-                        console.log(
-                          'Skipped ON_END_REACHED:5 CONDITIONAL_STOP: condition not met'
-                        );
+                        return;
                       }
-                      console.log('Start ON_END_REACHED:6 SET_VARIABLE');
                       setNewslettersList(
                         newslettersList.concat(newData?.items)
                       );
-                      console.log('Complete ON_END_REACHED:6 SET_VARIABLE');
                     } catch (err) {
                       console.error(err);
-                      error = err.message ?? err;
                     }
-                    console.log(
-                      'List ON_END_REACHED Complete',
-                      error ? { error } : 'no error'
-                    );
                   };
                   handler();
                 }}
@@ -884,6 +822,7 @@ const NewslettersScreen = props => {
                                 {listData?.potd === 0 ? null : (
                                   <Text
                                     accessible={true}
+                                    selectable={false}
                                     {...GlobalStyles.TextStyles(theme)[
                                       'screen_title'
                                     ].props}
@@ -913,6 +852,7 @@ const NewslettersScreen = props => {
 
                             <Text
                               accessible={true}
+                              selectable={false}
                               {...GlobalStyles.TextStyles(theme)['screen_title']
                                 .props}
                               disabled={true}
@@ -969,13 +909,6 @@ const NewslettersScreen = props => {
                     marginBottom: [
                       { minWidth: Breakpoints.Mobile, value: 0 },
                       {
-                        minWidth: Breakpoints.Laptop,
-                        value:
-                          dimensions.width >= Breakpoints.Laptop
-                            ? 0
-                            : undefined,
-                      },
-                      {
                         minWidth: Breakpoints.Mobile,
                         value:
                           dimensions.width >= Breakpoints.Laptop === false
@@ -984,15 +917,22 @@ const NewslettersScreen = props => {
                               : 35
                             : 0,
                       },
+                      {
+                        minWidth: Breakpoints.Laptop,
+                        value:
+                          dimensions.width >= Breakpoints.Laptop
+                            ? 0
+                            : undefined,
+                      },
                     ],
                     maxHeight: [
                       {
-                        minWidth: Breakpoints.Laptop,
-                        value: dimensions.height - 280,
-                      },
-                      {
                         minWidth: Breakpoints.Tablet,
                         value: dimensions.height - 250,
+                      },
+                      {
+                        minWidth: Breakpoints.Laptop,
+                        value: dimensions.height - 280,
                       },
                     ],
                     padding: 5,
