@@ -153,10 +153,12 @@ const NewsletterDetailsScreen = props => {
       setScreenCode(screenNameGen());
       removeGlobalScroll();
       /* hidden 'Set Variable' action */
+      if (props.route?.params?.news_id ?? defaultProps.news_id) {
       setGlobalVariableValue({
         key: 'subPage',
         value: true,
       });
+      }
       if (assessAccess(Variables, setGlobalVariableValue) === true) {
         return;
       }
