@@ -16,6 +16,7 @@ import { Image, Modal, Platform, Text, View } from 'react-native';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import Images from '../config/Images';
+import * as navHooks from '../custom-files/navHooks';
 import resetAccess from '../global-functions/resetAccess';
 import palettes from '../themes/palettes';
 import Breakpoints from '../utils/Breakpoints';
@@ -30,6 +31,14 @@ const CustomHeaderBlock = props => {
   const Constants = GlobalVariables.useValues();
   const Variables = Constants;
   const setGlobalVariableValue = GlobalVariables.useSetValue();
+  const [prevRoute, setPrevRoute] = React.useState('');
+  const { usePreviousRouteName } = navHooks;
+
+  let prevR = usePreviousRouteName();
+  React.useEffect(() => {
+    setPrevRoute(prevR);
+  }, [prevR]);
+  console.log('prevRoute ', prevR);
 
   return (
     <View
@@ -93,11 +102,20 @@ const CustomHeaderBlock = props => {
           >
             {/* Back */}
             <>
-              {!Constants['subPage'] ? null : (
+              {!(prevRoute !== 'None') ? null : (
                 <IconButton
                   onPress={() => {
                     try {
-                      navigation.goBack();
+                      /* hidden 'Log to Console' action */
+                      if (prevRoute === 'None') {
+                        if (Constants['pageName'] === 'Newsletter Details') {
+                          navigation.navigate('NewslettersScreen');
+                        } else {
+                        }
+                      } else {
+                        navigation.goBack();
+                      }
+
                       setGlobalVariableValue({
                         key: 'top_nav_pressed',
                         value: false,
@@ -132,6 +150,7 @@ const CustomHeaderBlock = props => {
               {dimensions.width >= Breakpoints.Laptop ? null : (
                 <Text
                   accessible={true}
+                  selectable={false}
                   {...GlobalStyles.TextStyles(theme)['screen_title'].props}
                   style={StyleSheet.applyWidth(
                     StyleSheet.compose(
@@ -192,6 +211,7 @@ const CustomHeaderBlock = props => {
                       console.error(err);
                     }
                   }}
+                  selectable={false}
                   {...GlobalStyles.LinkStyles(theme)['Link'].props}
                   style={StyleSheet.applyWidth(
                     StyleSheet.compose(
@@ -220,6 +240,7 @@ const CustomHeaderBlock = props => {
                 />
                 <Text
                   accessible={true}
+                  selectable={false}
                   {...GlobalStyles.TextStyles(theme)['screen_title'].props}
                   style={StyleSheet.applyWidth(
                     StyleSheet.compose(
@@ -265,6 +286,7 @@ const CustomHeaderBlock = props => {
                       console.error(err);
                     }
                   }}
+                  selectable={false}
                   {...GlobalStyles.LinkStyles(theme)['Link'].props}
                   style={StyleSheet.applyWidth(
                     StyleSheet.compose(
@@ -286,6 +308,7 @@ const CustomHeaderBlock = props => {
                 {/* Text 2 */}
                 <Text
                   accessible={true}
+                  selectable={false}
                   {...GlobalStyles.TextStyles(theme)['screen_title'].props}
                   style={StyleSheet.applyWidth(
                     StyleSheet.compose(
@@ -322,6 +345,7 @@ const CustomHeaderBlock = props => {
                       console.error(err);
                     }
                   }}
+                  selectable={false}
                   {...GlobalStyles.LinkStyles(theme)['Link'].props}
                   style={StyleSheet.applyWidth(
                     StyleSheet.compose(
@@ -343,6 +367,7 @@ const CustomHeaderBlock = props => {
                 {/* Text 3 */}
                 <Text
                   accessible={true}
+                  selectable={false}
                   {...GlobalStyles.TextStyles(theme)['screen_title'].props}
                   style={StyleSheet.applyWidth(
                     StyleSheet.compose(
@@ -379,6 +404,7 @@ const CustomHeaderBlock = props => {
                       console.error(err);
                     }
                   }}
+                  selectable={false}
                   {...GlobalStyles.LinkStyles(theme)['Link'].props}
                   style={StyleSheet.applyWidth(
                     StyleSheet.compose(
@@ -387,8 +413,7 @@ const CustomHeaderBlock = props => {
                         color: {
                           minWidth: Breakpoints.Laptop,
                           value:
-                            Constants['pageName'] ===
-                            'Private Equity Firms (PEPF)'
+                            Constants['pageName'] === 'PEPF'
                               ? palettes.App.Orange
                               : palettes.Brand.Primary,
                         },
@@ -401,6 +426,7 @@ const CustomHeaderBlock = props => {
                 {/* Text 4 */}
                 <Text
                   accessible={true}
+                  selectable={false}
                   {...GlobalStyles.TextStyles(theme)['screen_title'].props}
                   style={StyleSheet.applyWidth(
                     StyleSheet.compose(
@@ -653,6 +679,7 @@ const CustomHeaderBlock = props => {
                       />
                       <Text
                         accessible={true}
+                        selectable={false}
                         {...GlobalStyles.TextStyles(theme)['screen_title']
                           .props}
                         style={StyleSheet.applyWidth(
@@ -735,6 +762,7 @@ const CustomHeaderBlock = props => {
                       />
                       <Text
                         accessible={true}
+                        selectable={false}
                         {...GlobalStyles.TextStyles(theme)['screen_title']
                           .props}
                         style={StyleSheet.applyWidth(
@@ -817,6 +845,7 @@ const CustomHeaderBlock = props => {
                       />
                       <Text
                         accessible={true}
+                        selectable={false}
                         {...GlobalStyles.TextStyles(theme)['screen_title']
                           .props}
                         style={StyleSheet.applyWidth(
@@ -901,6 +930,7 @@ const CustomHeaderBlock = props => {
                       />
                       <Text
                         accessible={true}
+                        selectable={false}
                         {...GlobalStyles.TextStyles(theme)['screen_title']
                           .props}
                         style={StyleSheet.applyWidth(
@@ -985,6 +1015,7 @@ const CustomHeaderBlock = props => {
                       />
                       <Text
                         accessible={true}
+                        selectable={false}
                         {...GlobalStyles.TextStyles(theme)['screen_title']
                           .props}
                         style={StyleSheet.applyWidth(
@@ -1068,6 +1099,7 @@ const CustomHeaderBlock = props => {
                       />
                       <Text
                         accessible={true}
+                        selectable={false}
                         {...GlobalStyles.TextStyles(theme)['screen_title']
                           .props}
                         style={StyleSheet.applyWidth(
@@ -1151,6 +1183,7 @@ const CustomHeaderBlock = props => {
                       />
                       <Text
                         accessible={true}
+                        selectable={false}
                         {...GlobalStyles.TextStyles(theme)['screen_title']
                           .props}
                         style={StyleSheet.applyWidth(
@@ -1222,6 +1255,7 @@ const CustomHeaderBlock = props => {
                       />
                       <Text
                         accessible={true}
+                        selectable={false}
                         {...GlobalStyles.TextStyles(theme)['screen_title']
                           .props}
                         style={StyleSheet.applyWidth(
@@ -1305,6 +1339,7 @@ const CustomHeaderBlock = props => {
                       />
                       <Text
                         accessible={true}
+                        selectable={false}
                         {...GlobalStyles.TextStyles(theme)['screen_title']
                           .props}
                         style={StyleSheet.applyWidth(
@@ -1411,6 +1446,7 @@ const CustomHeaderBlock = props => {
                       />
                       <Text
                         accessible={true}
+                        selectable={false}
                         {...GlobalStyles.TextStyles(theme)['screen_title']
                           .props}
                         style={StyleSheet.applyWidth(
@@ -1479,6 +1515,7 @@ const CustomHeaderBlock = props => {
                       <Icon size={24} name={'SimpleLineIcons/logout'} />
                       <Text
                         accessible={true}
+                        selectable={false}
                         {...GlobalStyles.TextStyles(theme)['screen_title']
                           .props}
                         style={StyleSheet.applyWidth(
